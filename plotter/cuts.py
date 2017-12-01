@@ -1,18 +1,18 @@
 from CrombieTools import Nminus1Cut
 
-metcut  = 'pfmet > 170 && metFilter == 1'
-lepveto = 'nLooseLep == 0'
-btag    = 'jetCSV[hbbjtidx[0]] > 0.8484'
-unbtag  = 'jetCSV[hbbjtidx[0]] < 0.8484'
-lbtag   = 'jetCSV[hbbjtidx[1]] > 0.5426'
-tbtag   = 'jetCSV[hbbjtidx[0]] > 0.9535'
-hbbpt   = 'hbbpt > 120'
-jetpt   = 'jet1Pt > 60 && jet2Pt > 35'
-mjjveto = '(60 > hbbm || 160 < hbbm)'
-antiQCD = 'dphipfmet > 0.5'
-antierQCD = 'dphipfmet > 1.5'
-deltaVH = 'deltaPhi(pfmetphi, hbbphi) > 2.0'
-undeltaVH  = 'deltaPhi(pfmetphi, hbbphi) < 2.0'
+metcut     = 'pfmet > 170 && metFilter == 1'
+lepveto    = 'nLooseLep == 0'
+btag       = 'jetCSV[hbbjtidx[0]] > 0.8484'
+unbtag     = 'jetCSV[hbbjtidx[0]] < 0.8484'
+lbtag      = 'jetCSV[hbbjtidx[1]] > 0.5426'
+tbtag      = 'jetCSV[hbbjtidx[0]] > 0.9535'
+hbbpt      = 'hbbpt > 120'
+jetpt      = 'jet1Pt > 60 && jet2Pt > 35'
+mjjveto    = '(60 > hbbm || 160 < hbbm)'
+antiQCD    = 'dphipfmet > 0.5'
+antierQCD  = 'dphipfmet > 1.5'
+deltaVH    = 'deltaPhi(pfmetphi,hbbphi) > 2.0'
+undeltaVH  = 'deltaPhi(pfmetphi,hbbphi) < 2.0'
 deltaVHlep = 'deltaPhi(hbbphi,vectorSumPhi(pfmet,pfmetphi,Alt$((nTightMuon==1)*muonPt[0],0)+Alt$((nTightElectron==1)*electronPt[0],0),Alt$((nTightMuon==1)*muonPhi[0],0)+Alt$((nTightElectron==1)*electronPhi[0],0))) > 2' 
 
 common = ' && '.join([
@@ -48,6 +48,7 @@ regionCuts = {
             lepveto,
             unbtag,
             antiQCD,
+            deltaVH,
             'nJet < 4'
             ]),
     'heavyz' : ' && '.join([
@@ -55,6 +56,7 @@ regionCuts = {
             lepveto,
             tbtag,
             mjjveto,
+            deltaVH,
             antiQCD,
             'nJet < 3'
             ]),
@@ -65,6 +67,7 @@ for key in qcd_keys:
     if antiQCD in regionCuts[key]:
         regionCuts['purer' + key] = regionCuts[key].replace(antiQCD, antierQCD)
 
+regionCuts['common'] = common
 regionCuts['scaledtt'] = regionCuts['tt'] 
 
 # Making selection of multiple entries

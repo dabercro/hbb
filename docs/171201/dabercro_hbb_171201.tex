@@ -63,7 +63,27 @@
   \end{columns}
 }
 
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=0.6\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=0.6\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=0.6\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=0.6\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
 \newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\MET}{\ensuremath{E_{T}^{\mathrm{miss}}}}
 
 \begin{document}
 
@@ -79,6 +99,191 @@
   \item Multijet (QCD)
   \item \ttbar
   \end{itemize}
+  I haven't made a signal plot yet,
+  but it's just $Z + b$ without the mass window cut out
+\end{frame}
+
+\begin{frame}
+  \frametitle{Physics Definitions}
+  I don't know these, but they're the same as everyone else.
+
+  \vspace{12pt}
+
+  To respect everyone's time, I will not pretend to be an expert at the moment.
+
+  \vspace{12pt}
+
+  Note, if we show these slides to anyone else, I'll sit down and learn them.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Baseline Selection}
+  All events have the following cuts:
+
+  \begin{itemize}
+  \item $\MET > \SI{170}{GeV}$
+  \item $p_{T, jj} > \SI{120}{GeV}$
+  \item $p_{T, j1} > \SI{60}{GeV}$ and $p_{T, j2} > \SI{35}{GeV}$
+  \item Both jets to reconstruct Hiigs pass loose working point
+    ($\mathrm{CSV} > 0.5426$ to be changed to CMVA working point)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Baseline Plots (Higgs Kinematics)}
+  \twofigs{Higgs mass}
+          {171201/ZvvHbb_common_hbbm.pdf}
+          {Higgs $p_T$}
+          {171201/ZvvHbb_common_hbbpt.pdf}
+
+  We will be operating under the assumption that this plot includes some Higgs
+\end{frame}
+
+\begin{frame}
+  \frametitle{Baseline Plots (Jets and \MET)}
+  \twofigs{$\Delta\phi(\MET, \mathrm{Higgs})$}
+          {171201/ZvvHbb_common_deltaPhi__pfmetphi__hbbphi__.pdf}
+          {$\Delta\phi_{\mathrm{min}}(\MET, \mathrm{jet})$}
+          {171201/ZvvHbb_common_dphipfmet.pdf}
+
+  QCD jets generate \MET and top events are just messy
+\end{frame}
+
+\begin{frame}
+  \frametitle{Farther Selections}
+
+  \centering
+  \begin{tabular}{| l | c | c | c | c |}
+    \hline
+    Variable & \ttbar & Multijet & $Z + \mathrm{light}$ & $Z + b$ \\
+    \hline
+    \Delta\phi(V, H) & $> 2.0$ & $< 2.0$ & $> 2.0$ & $> 2.0$ \\
+    $N_{\mathrm{lep}}$ & $\ge 1$ & 0 & 0 & 0 \\
+    $N_{\mathrm{jets}}^{\mathrm{central}}$ & $\ge 4$ & -- & $\ge 3$ & $\ge 2$ \\
+    Max $b$ tag & Medium & Loose & Not Med. & Tight \\
+    $\Delta\phi_{\mathrm{min}}(\MET, j)$ & $< \pi/2$ & $< 0.4$ & $> 0.5$ & $>0.5$ \\
+    \hline
+  \end{tabular}
+
+  \begin{itemize}
+  \item $Z + b$ also has mass veto around the Higgs
+  \item Track \MET $\phi$ cuts missing
+  \item Adapted from Table 16 of AN, which does stupid things like split rows.
+    Maybe I should find out why... \\
+    In backup slides.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Scaling \ttbar}
+  AN has a scale factor of 0.78 for \ttbar selection in $Z(\nu\nu)$
+
+  \twofigs{Before}
+          {171201/ZvvHbb_tt_hbbm.pdf}
+          {After}
+          {171201/ZvvHbb_scaledtt_hbbm.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump}
+  \centering
+  I have nothing interesting left to say, \\
+  so now I will just show plots
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Higgs Mass}
+  \fourfigs{Multijet}
+           {171201/ZvvHbb_multijet_hbbm.pdf}
+           {\ttbar}
+           {171201/ZvvHbb_scaledtt_hbbm.pdf}
+           {$Z + \mathrm{light}$}
+           {171201/ZvvHbb_lightz_hbbm.pdf}
+           {$Z + b$}
+           {171201/ZvvHbb_heavyz_hbbm.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Higgs $p_T$}
+  \fourfigs{Multijet}
+           {171201/ZvvHbb_multijet_hbbpt.pdf}
+           {\ttbar}
+           {171201/ZvvHbb_scaledtt_hbbpt.pdf}
+           {$Z + \mathrm{light}$}
+           {171201/ZvvHbb_lightz_hbbpt.pdf}
+           {$Z + b$}
+           {171201/ZvvHbb_heavyz_hbbpt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Higgs $p_T$}
+  \fourfigs{Multijet}
+           {171201/ZvvHbb_multijet_hbbpt.pdf}
+           {\ttbar}
+           {171201/ZvvHbb_scaledtt_hbbpt.pdf}
+           {$Z + \mathrm{light}$}
+           {171201/ZvvHbb_lightz_hbbpt.pdf}
+           {$Z + b$}
+           {171201/ZvvHbb_heavyz_hbbpt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: \MET}
+  \fourfigs{Multijet}
+           {171201/ZvvHbb_multijet_pfmet.pdf}
+           {\ttbar}
+           {171201/ZvvHbb_scaledtt_pfmet.pdf}
+           {$Z + \mathrm{light}$}
+           {171201/ZvvHbb_lightz_pfmet.pdf}
+           {$Z + b$}
+           {171201/ZvvHbb_heavyz_pfmet.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Leading Jet $p_T$}
+  \fourfigs{Multijet}
+           {171201/ZvvHbb_multijet_jet1Pt.pdf}
+           {\ttbar}
+           {171201/ZvvHbb_scaledtt_jet1Pt.pdf}
+           {$Z + \mathrm{light}$}
+           {171201/ZvvHbb_lightz_jet1Pt.pdf}
+           {$Z + b$}
+           {171201/ZvvHbb_heavyz_jet1Pt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Sub-Leading Jet $p_T$}
+  \fourfigs{Multijet}
+           {171201/ZvvHbb_multijet_jet2Pt.pdf}
+           {\ttbar}
+           {171201/ZvvHbb_scaledtt_jet2Pt.pdf}
+           {$Z + \mathrm{light}$}
+           {171201/ZvvHbb_lightz_jet2Pt.pdf}
+           {$Z + b$}
+           {171201/ZvvHbb_heavyz_jet2Pt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Number (Central?) Jets}
+  \fourfigs{Multijet}
+           {171201/ZvvHbb_multijet_nJet.pdf}
+           {\ttbar}
+           {171201/ZvvHbb_scaledtt_nJet.pdf}
+           {$Z + \mathrm{light}$}
+           {171201/ZvvHbb_lightz_nJet.pdf}
+           {$Z + b$}
+           {171201/ZvvHbb_heavyz_nJet.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{In Summary}
+  \begin{itemize}
+  \item I made some plots
+  \item $Z + b$ jets seems to be the worst control reason
+  \item Slightly alarming because it's basically the signal region
+  \item Going to use different taggers and scale factors anyway
+  \end{itemize}
 \end{frame}
 
 \beginbackup
@@ -87,7 +292,12 @@
   \frametitle{Backup Slides}
 \end{frame}
 
-%\input{backup_slides.tex}
+\begin{frame}
+  \frametitle{AN Table}
+  \includegraphics[width=\linewidth]{table.png}
+\end{frame}
+
+\input{backup_slides.tex}
 
 \backupend
 

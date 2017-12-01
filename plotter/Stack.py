@@ -39,15 +39,18 @@ def parse_plots(check=None):
     plots = [
             ['hbbm', 24, 0, 600, 'm_{bb} [GeV]'],
             ['hbbpt', 24, 0, 600, 'p_{T,bb} [GeV]'],
-            ['pfmet', 40, 100, 500, 'MET [GeV]'],
+            ['pfmet', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
-            ['dphipfmet', 40, 0, 4, '#Delta#phi(MET, j)'],
+            ['dphipfmet', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
             ['nJet', 10, 0, 10, 'Num Jets'],
             ['jet1Pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['jet2Pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
             ['jetPt[2]', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
             ['jetCSV[hbbjtidx[0]]', 40, 0, 1.0, 'CSV jet 1'],
             ['jetCSV[hbbjtidx[1]]', 40, 0, 1.0, 'CSV jet 2'],
+            ['nLooseLep', 5, -1, 4, 'Num Loose Leptons'],
+            ['nTightLep', 5, -1, 4, 'Num Tight Leptons'],
+            ['deltaPhi(pfmetphi,hbbphi)', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -79,6 +82,7 @@ def RunPlots(all_left, some_left):
 
 if __name__ == '__main__':
     RunPlots(all_left=['jetCSV[hbbjtidx[0]]',
+                       'deltaPhi(pfmetphi,hbbphi)'
                        ],
              some_left={'tt': ['jetCSV[hbbjtidx[1]]',
                                ],
