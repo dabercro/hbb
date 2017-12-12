@@ -62,13 +62,10 @@ regionCuts = {
             ]),
     }
 
-qcd_keys = regionCuts.keys()
-for key in qcd_keys:
-    if antiQCD in regionCuts[key]:
-        regionCuts['purer' + key] = regionCuts[key].replace(antiQCD, antierQCD)
-
 regionCuts['common'] = common
 regionCuts['scaledtt'] = regionCuts['tt'] 
+regionCuts['shit'] = ' && '.join([regionCuts['multijet'], '(jet2Pt < 100)'])
+regionCuts['unshit'] = regionCuts['multijet'].replace(jetpt, 'jet2Pt > 100')
 
 # Making selection of multiple entries
 

@@ -1,0 +1,321 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie
+}
+
+\title{\bf \sffamily Some Plots of $ZH \rightarrow \nu\bar{\nu} b\bar{b}$ Control Regions with First Pass of b-Jet $p_T$ Regression}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=0.6\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=0.6\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=0.6\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=0.6\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\MET}{\ensuremath{E_{T}^{\mathrm{miss}}}}
+
+\begin{document}
+
+\begin{frame}[nonumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Control Regions}
+  \begin{itemize}
+  \item $Z + \mathrm{light}$ jets
+  \item $Z + b$ jets
+  \item Multijet (QCD)
+  \item \ttbar
+  \end{itemize}
+  I haven't made a signal plot yet,
+  but it's just $Z + b$ without the mass window cut out
+\end{frame}
+
+\begin{frame}
+  \frametitle{Physics Definitions}
+  I don't know these, but they're the same as everyone else.
+
+  \vspace{12pt}
+
+  To respect everyone's time, I will not pretend to be an expert at the moment.
+
+  \vspace{12pt}
+
+  Note, if we show these slides to anyone else, I'll sit down and learn them.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Samples and Scale Factors}
+  \begin{itemize}
+  \item $\{W,Z\} + \mathrm{jets}$: Madgraph, \textcolor{red}{HT-binned samples}
+  \item QCD: Madgraph, \textcolor{red}{HT-binned samples}
+  \item \ttbar: amc@NLO for single lep, POWHEG for double lep
+  \item Single Top: inclusive decays (POWHEG)
+  \item Tiny bit diboson: (just say Pythia)
+  \item Various others that don't show up
+  \end{itemize}
+
+  Scale factors: \\ \centering \tt{`sf\_pu * sf\_ewkV * sf\_qcdV * sf\_metTrig * sf\_tt'}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pre-Selection}
+  All events have the following cuts:
+
+  \begin{itemize}
+  \item $\MET > \SI{170}{GeV}$
+  \item $p_{T, jj} > \SI{120}{GeV}$
+  \item $p_{T, j1} > \SI{60}{GeV}$ and $p_{T, j2} > \SI{35}{GeV}$
+  \item Both jets to reconstruct Higgs pass loose working point
+    ($\mathrm{CSV} > 0.5426$ to be changed to CMVA working point)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pre-Selection Plots (Higgs Kinematics)}
+  \twofigs{Higgs mass}
+          {171201/ZvvHbb_common_hbbm.pdf}
+          {Higgs $p_T$}
+          {171201/ZvvHbb_common_hbbpt.pdf}
+
+  We will be operating under the assumption that this plot includes some Higgs
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pre-Selection Plots (Jets and \MET)}
+  \twofigs{$\Delta\phi(\MET, \mathrm{Higgs})$}
+          {171201/ZvvHbb_common_deltaPhi__pfmetphi__hbbphi__.pdf}
+          {$\Delta\phi_{\mathrm{min}}(\MET, \mathrm{jet})$}
+          {171201/ZvvHbb_common_dphipfmet.pdf}
+
+  QCD jets generate \MET and top events are just messy
+\end{frame}
+
+\begin{frame}
+  \frametitle{Farther Selections}
+
+  \centering
+  \begin{tabular}{| l | c | c | c | c |}
+    \hline
+    Variable & \ttbar & Multijet & $Z + \mathrm{light}$ & $Z + b$ \\
+    \hline
+    \Delta\phi(V, H) & $> 2.0$ & $< 2.0$ & $> 2.0$ & $> 2.0$ \\
+    $N_{\mathrm{lep}}$ & $\ge 1$ & 0 & 0 & 0 \\
+    $N_{\mathrm{jets}}^{\mathrm{central}}$ & $\ge 4$ & -- & $\le 3$ & $\le 2$ \\
+    Max $b$ tag & Medium & Loose & Not Med. & Tight \\
+    $\Delta\phi_{\mathrm{min}}(\MET, j)$ & $< \pi/2$ & $< 0.4$ & $> 0.5$ & $>0.5$ \\
+    \hline
+  \end{tabular}
+
+  \begin{itemize}
+  \item $Z + b$ also has mass veto around the Higgs
+  \item Track \MET $\phi$ cuts missing
+  \item Adapted from Table 16 of AN, which does stupid things like split rows.
+    Maybe I should find out why... \\
+    In backup slides.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Scaling \ttbar}
+  AN has a scale factor of 0.78 for \ttbar selection in $Z(\nu\nu)$
+
+  \twofigs{Before}
+          {171212/ZvvHbb_tt_hbbm.pdf}
+          {After}
+          {171212/ZvvHbb_scaledtt_hbbm.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump}
+  \centering
+  I have nothing interesting left to say, \\
+  so now I will just show plots
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Higgs Mass}
+  \fourfigs{Multijet}
+           {171212/ZvvHbb_multijet_hbbm.pdf}
+           {\ttbar}
+           {171212/ZvvHbb_scaledtt_hbbm.pdf}
+           {$Z + \mathrm{light}$}
+           {171212/ZvvHbb_lightz_hbbm.pdf}
+           {$Z + b$}
+           {171212/ZvvHbb_heavyz_hbbm.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Higgs $p_T$}
+  \fourfigs{Multijet}
+           {171212/ZvvHbb_multijet_hbbpt.pdf}
+           {\ttbar}
+           {171212/ZvvHbb_scaledtt_hbbpt.pdf}
+           {$Z + \mathrm{light}$}
+           {171212/ZvvHbb_lightz_hbbpt.pdf}
+           {$Z + b$}
+           {171212/ZvvHbb_heavyz_hbbpt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Higgs $p_T$}
+  \fourfigs{Multijet}
+           {171212/ZvvHbb_multijet_hbbpt.pdf}
+           {\ttbar}
+           {171212/ZvvHbb_scaledtt_hbbpt.pdf}
+           {$Z + \mathrm{light}$}
+           {171212/ZvvHbb_lightz_hbbpt.pdf}
+           {$Z + b$}
+           {171212/ZvvHbb_heavyz_hbbpt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: \MET}
+  \fourfigs{Multijet}
+           {171212/ZvvHbb_multijet_pfmet.pdf}
+           {\ttbar}
+           {171212/ZvvHbb_scaledtt_pfmet.pdf}
+           {$Z + \mathrm{light}$}
+           {171212/ZvvHbb_lightz_pfmet.pdf}
+           {$Z + b$}
+           {171212/ZvvHbb_heavyz_pfmet.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Leading Jet $p_T$}
+  \fourfigs{Multijet}
+           {171212/ZvvHbb_multijet_jet1Pt.pdf}
+           {\ttbar}
+           {171212/ZvvHbb_scaledtt_jet1Pt.pdf}
+           {$Z + \mathrm{light}$}
+           {171212/ZvvHbb_lightz_jet1Pt.pdf}
+           {$Z + b$}
+           {171212/ZvvHbb_heavyz_jet1Pt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Sub-Leading Jet $p_T$}
+  \fourfigs{Multijet}
+           {171212/ZvvHbb_multijet_jet2Pt.pdf}
+           {\ttbar}
+           {171212/ZvvHbb_scaledtt_jet2Pt.pdf}
+           {$Z + \mathrm{light}$}
+           {171212/ZvvHbb_lightz_jet2Pt.pdf}
+           {$Z + b$}
+           {171212/ZvvHbb_heavyz_jet2Pt.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plot Dump: Number (Central?) Jets}
+  \fourfigs{Multijet}
+           {171212/ZvvHbb_multijet_nJet.pdf}
+           {\ttbar}
+           {171212/ZvvHbb_scaledtt_nJet.pdf}
+           {$Z + \mathrm{light}$}
+           {171212/ZvvHbb_lightz_nJet.pdf}
+           {$Z + b$}
+           {171212/ZvvHbb_heavyz_nJet.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{In Summary}
+  \begin{itemize}
+  \item I made some plots
+  \item $Z + b$ jets seems to be the worst control reason
+    \begin{itemize}
+    \item Slightly alarming because it's basically the signal region
+    \item Going to use different taggers and scale factors anyway
+    \end{itemize}
+  \item Should start separating backgrounds based on flavor
+  \end{itemize}
+\end{frame}
+
+\beginbackup
+
+\begin{frame}
+  \frametitle{Backup Slides}
+\end{frame}
+
+\begin{frame}
+  \frametitle{AN Table}
+  \includegraphics[width=\linewidth]{table.png}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+
+\end{document}

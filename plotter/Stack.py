@@ -51,6 +51,7 @@ def parse_plots(check=None):
             ['nLooseLep', 5, -1, 4, 'Num Loose Leptons'],
             ['nTightLep', 5, -1, 4, 'Num Tight Leptons'],
             ['deltaPhi(pfmetphi,hbbphi)', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['jet1IsTight', 5, -1, 4, 'Some Jet ID'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
