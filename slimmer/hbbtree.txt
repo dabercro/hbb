@@ -1,0 +1,80 @@
+"PlotTools/interface/KinematicFunctions.h"
+"PandaTree/Objects/interface/Event.h"
+
+! Default type
+{/F}
+
+! Define the arguments of reset
+{reset(panda::Event& event)}
+
+run_num/I = event.runNumber
+lumi_num/I = event.lumiNumber
+event_num/l = event.eventNumber
+
+npv/I = event.npv
+npv_true/I = event.npvTrue
+
+met = event.pfMet.pt()
+metphi = event.pfMet.phi()
+calomet = event.caloMet.pt()
+calometphi = event.caloMet.phi()
+trkmet = event.trkMet.pt()
+trkmetphi = event.trkMet.phi()
+
+met_trigger/O = False
+metfilter/O = False
+
+! Default default value is inside {}
+{-5}
+recoil
+recoilphi
+
+{0}
+n_loosetau/I
+n_loosepho/I
+n_looselep/I
+n_mediumlep/I
+n_tightlep/I
+
+mc_weight
+
+! Input jets are used to set the following variables
+jet,csv_jet,cmva_jet -->
+1,2 --> set_jet(panda::Jet& jet)
+
+! "Member"/type = default -> Function
+{-5}
+pt -> jet.pt()
+eta -> jet.eta()
+phi -> jet.phi()
+m -> jet.m()
+
+emfrac -> jet.cef + jet.nef
+chf -> jet.chf
+nhf -> jet.nhf
+csv -> jet.csv
+cmva -> jet.cmva
+
+! This ends both of the previous -->
+<--
+
+cmva_jet1_vtx,cmva_jet2_vtx --> set_b_jet(panda::Ref<panda::SecondaryVertex>& vert)
+
+pt -> vert->pt()
+m -> vert->m()
+3Dval -> vert->vtx3DVal
+3Derr -> vert->vtx3DeVal
+ntrk -> vert->ntrk
+
+<--
+
+! Hbb set by sums of jets as 4-vectors
+"TLorentzVector.h"
+csv_hbb,cmva_hbb --> set_hbb(TLorentzVector& vec)
+
+pt -> vec.Pt()
+eta -> vec.Eta()
+phi -> vec.Phi()
+m -> vec.M()
+
+<--

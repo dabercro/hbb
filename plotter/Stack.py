@@ -52,6 +52,10 @@ def parse_plots(check=None):
             ['nTightLep', 5, -1, 4, 'Num Tight Leptons'],
             ['deltaPhi(pfmetphi,hbbphi)', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['jet1IsTight', 5, -1, 4, 'Some Jet ID'],
+            ['jetEMFrac[hbbjtidx[0]]', 40, 0, 1.0, 'EM Frac jet 1'],
+            ['jetEMFrac[hbbjtidx[1]]', 40, 0, 1.0, 'EM Frac jet 1'],
+            ['jetHadFrac[hbbjtidx[0]]', 40, 0, 1.0, 'Hadron Frac jet 1'],
+            ['jetHadFrac[hbbjtidx[1]]', 40, 0, 1.0, 'Hadron Frac jet 1'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
