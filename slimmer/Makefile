@@ -3,9 +3,8 @@ CFLAGS = `root-config --cflags`
 exename = makehbbtree
 flatclass = hbbfile
 testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
-cmssw = ${CMSSW_BASE}
 
-ifeq ($(cmssw), '')
+ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
 	pandalib = ../../PandaTree/lib
 	pandalibs = -lpanda
