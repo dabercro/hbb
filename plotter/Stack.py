@@ -4,7 +4,7 @@ import sys
 
 from CrombieTools.PlotTools.PlotStack import plotter, SetupFromEnv, MakePlots
 from array import array
-import cuts
+from CrombieTools.LoadConfig import cuts
 
 plotter.SetAllHistName('')
 

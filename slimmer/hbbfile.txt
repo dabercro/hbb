@@ -14,26 +14,26 @@ event_num/l = event.eventNumber
 npv/I = event.npv
 npv_true/I = event.npvTrue
 
-met = event.pfMet.pt()
-metphi = event.pfMet.phi()
-calomet = event.caloMet.pt()
-calometphi = event.caloMet.phi()
-trkmet = event.trkMet.pt()
-trkmetphi = event.trkMet.phi()
+mc_weight = event.weight
+
+met = event.pfMet.pt
+metphi = event.pfMet.phi
+calomet = event.caloMet.pt
+calometphi = event.caloMet.phi
+trkmet = event.trkMet.pt
+trkmetphi = event.trkMet.phi
 
 met_trigger/O = false
-metfilter/O = false
+met_filter/O = event.metFilters.pass()
 
 ! Default default value is inside {}
 {-5}
 recoil
 recoilphi
 
-{0}
-mc_weight
-
 ! Count some objects
 {/I}
+{0}
 n_loosetau
 n_loosepho
 n_looselep
@@ -46,27 +46,42 @@ n_hardjet
 
 {/F}
 {-5}
+! Save two leptons of each kind
+muon,ele -->
+1,2 --> lep(panda::Lepton& lep)
+
+pt -> lep.pt()
+eta -> lep.eta()
+phi -> lep.phi()
+
+<--
+
 ! Input jets are used to set the following variables
 csv_jet,cmva_jet -->
-1,2 --> set_b_jet(panda::Ref<panda::SecondaryVertex>& vert)
+1,2 --> bjet(panda::SecondaryVertex& vert)
 
 /O = false -> true
-vtx_pt -> vert->pt()
-vtx_m -> vert->m()
-vtx_3Dval -> vert->vtx3DVal
-vtx_3Derr -> vert->vtx3DeVal
-vtx_ntrk -> vert->ntrk
+vtx_pt -> vert.pt()
+vtx_m -> vert.m()
+vtx_3Dval -> vert.vtx3DVal
+vtx_3Derr -> vert.vtx3DeVal
+vtx_ntrk/I -> vert.ntrk
 
---> set_b_leps(panda::Jet& jet, int nlep, panda::Ref<panda::PFCand>& pf)
+! Set the defaults for training stuff to 0
+{0}
+--> bleps(panda::Jet& jet, int nlep, panda::PFCand& lep)
 
-nlep/I = 0 -> nlep
+nlep/I -> nlep
+leadlep_pt -> lep.pt()
+leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
+leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
 
-<algorithm>
---> set_b_max_trk(float maxpt)
+--> bmaxtrk(float maxpt)
 
 maxtrk -> maxpt
 
-+jet1,jet2 --> set_jet(panda::Jet& jet)
+{-5}
++jet1,jet2 --> jet(panda::Jet& jet)
 
 ! "Member"/type = default -> Function
 pt -> jet.pt()
@@ -80,13 +95,32 @@ nhf -> jet.nhf
 csv -> jet.csv
 cmva -> jet.cmva
 
-! This ends both of the previous -->
+--> genjet(panda::GenJet& gen)
+
+gen/O = false -> true
+gen_pt -> gen.pt()
+gen_eta -> gen.eta()
+gen_phi -> gen.phi()
+gen_m -> gen.m()
+
+{/I}
+{0}
+
+gen_pdgid -> gen.pdgid
+gen_parton_flav -> gen.partonFlavor
+gen_num_b -> gen.numB
+
+! This ends both the previous -->
 <--
+
+{/F}
+{-5}
 
 ! Hbb set by sums of jets as 4-vectors
 "TLorentzVector.h"
-csv_hbb,cmva_hbb --> set_hbb(TLorentzVector& vec)
+csv_hbb,cmva_hbb --> hbb(TLorentzVector& vec)
 
+/O = false -> true
 pt -> vec.Pt()
 eta -> vec.Eta()
 phi -> vec.Phi()
