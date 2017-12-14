@@ -1,0 +1,20 @@
+BEGIN links
+
+heavyz  signal   -
+
+BEGIN uncertainties
+
+# Use existing uncertainties in yields to add to table
+
+LINK stat_unc
+
+# Otherwise
+# bin process region value shape source
+
+0 zvv signal 1    free  float
+
+# Global nuisance parameters (fully linked)
+
+GLOBAL 0 * * 1.10 gamma lumi
+GLOBAL 0 * * 1.05 lnN   pileup
+GLOBAL 0 zj * 1.5 lnN   zjets
