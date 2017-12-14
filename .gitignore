@@ -9,3 +9,9 @@
 *.snm
 *.toc
 *.png
+
+*.1
+*.mp
+*.t1
+
+*.root
