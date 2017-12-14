@@ -40,8 +40,9 @@ n_looselep
 n_mediumlep
 n_tightlep
 
-n_jet
 n_alljet
+n_jet
+n_hardjet
 
 {/F}
 {-5}
@@ -55,6 +56,15 @@ vtx_m -> vert->m()
 vtx_3Dval -> vert->vtx3DVal
 vtx_3Derr -> vert->vtx3DeVal
 vtx_ntrk -> vert->ntrk
+
+--> set_b_leps(panda::Jet& jet, int nlep, panda::Ref<panda::PFCand>& pf)
+
+nlep/I = 0 -> nlep
+
+<algorithm>
+--> set_b_max_trk(float maxpt)
+
+maxtrk -> maxpt
 
 +jet1,jet2 --> set_jet(panda::Jet& jet)
 
@@ -75,7 +85,7 @@ cmva -> jet.cmva
 
 ! Hbb set by sums of jets as 4-vectors
 "TLorentzVector.h"
-csv_hbb,cmva_hbb --> set_hbb(const TLorentzVector& vec)
+csv_hbb,cmva_hbb --> set_hbb(TLorentzVector& vec)
 
 pt -> vec.Pt()
 eta -> vec.Eta()
