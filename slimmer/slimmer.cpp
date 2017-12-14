@@ -55,10 +55,12 @@ int parsed_main(int argc, char** argv) {
 
     // Loop over tree
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
-      if (entry % 100 == 0)
+      if (entry % 1000 == 0)
         std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
       event.getEntry(*events_tree, entry);
       output.reset(event);
+
+      all_hist.Fill(0.0, (event.weight < 0) ? -1.0 : 1.0);
 
       // Check triggers
       for (auto token : met_trigger_tokens) {
