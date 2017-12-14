@@ -4,7 +4,7 @@
   Daniel Abercrombie
 }
 
-\title{\bf \sffamily Some Plots of $ZH \rightarrow \nu\bar{\nu} b\bar{b}$ Control Regions with First Pass of b-Jet $p_T$ Regression}
+\title{\bf \sffamily Some Plots of $ZH \rightarrow \nu\bar{\nu} b\bar{b}$ Control Regions (also first pass of b-jet $p_T$ regression)}
 \date{\today}
 
 \usecolortheme{dove}
@@ -66,21 +66,20 @@
 
 \newcommand{\fourfigs}[8]{
   \begin{columns}
-    \begin{column}{0.5\linewidth}
+    \begin{column}{0.3\linewidth}
       \centering
       \textcolor{blue}{#1} \\
-      \includegraphics[width=0.6\linewidth]{#2} \\
+      \includegraphics[width=\linewidth]{#2} \\
       \textcolor{blue}{#3} \\
-      \includegraphics[width=0.6\linewidth]{#4}
+      \includegraphics[width=\linewidth]{#4}
     \end{column}
-    \begin{column}{0.5\linewidth}
+    \begin{column}{0.3\linewidth}
       \centering
       \textcolor{blue}{#5} \\
-      \includegraphics[width=0.6\linewidth]{#6} \\
+      \includegraphics[width=\linewidth]{#6} \\
       \textcolor{blue}{#7} \\
-      \includegraphics[width=0.6\linewidth]{#8}
+      \includegraphics[width=\linewidth]{#8}
     \end{column}
-  \end{columns}
 }
 
 \newcommand{\ttbar}{\ensuremath{t\bar{t}} \hspace{2pt}}
@@ -95,7 +94,13 @@
 \begin{frame}
   \frametitle{Introduction}
 
-  \centering
+  \begin{itemize}
+  \item The CMS $H \rightarrow bb$ search has been published using channels:
+    $Z(\ell\ell)H$, $W(\ell\nu)H$, and \textcolor{green}{$Z(\nu\nu)H$}
+  \item \textcolor{gray}{We will also add $ggH$}
+  \end{itemize}
+
+  \begin{center}
   \begin{fmffile}{ZHvvbb}
     \begin{fmfgraph*}(120,80)
       \fmfleft{i1,i0}
@@ -112,22 +117,33 @@
       \fmflabel{$\nu$}{o0}
     \end{fmfgraph*}
   \end{fmffile}
+  \end{center}
+
+  \textcolor{orange}{New samples didn't complete over the weekend.} \\
+  Rough b-jet $p_T$ regression will also be shown at the end.
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Control Regions}
+
+  Start with copying analysis from CMS AN-2015-168,
+  which uses the following four control regions for $Z\nu\nu Hbb$
+
+  \vspace{12pt}
+
   \begin{itemize}
-  \item $Z + \mathrm{light}$ jets
+  \item $Z + \mathrm{light}$ jets \\
+    (like mono-jet, contains lots of $W$ + jets)
   \item $Z + b$ jets
   \item Multijet (QCD)
   \item \ttbar
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Physics Definitions}
-\end{frame}
+%\begin{frame}
+%  \frametitle{Physics Definitions}
+%\end{frame}
 
 \begin{frame}
   \frametitle{Samples}
@@ -140,6 +156,7 @@
   \item Various others that don't show up
   \end{itemize}
 
+  Note, I'm not looking at any signal at the moment
 \end{frame}
 
 \begin{frame}
@@ -151,6 +168,7 @@
   \item Additional higher order corrections from EWK vertices
   \item MET trigger efficiencies
   \item $p_T$ reweighting for \ttbar samples
+  \item \textcolor{orange}{b-tag scale factors are missing}
   \end{itemize}
 
 \end{frame}
@@ -161,10 +179,10 @@
 
   \begin{itemize}
   \item $\MET > \SI{170}{GeV}$
-  \item $p_{T, jj} > \SI{120}{GeV}$
+  \item $p_{T, jj(H)} > \SI{120}{GeV}$
   \item $p_{T, j1} > \SI{60}{GeV}$ and $p_{T, j2} > \SI{35}{GeV}$
   \item Both jets to reconstruct Higgs pass loose working point
-    ($\mathrm{CSV} > 0.5426$ to be changed to CMVA working point)
+    \textcolor{orange}{($\mathrm{CSV} > 0.5426$ to be changed to CMVA working point)}
   \end{itemize}
 \end{frame}
 
@@ -175,17 +193,23 @@
           {Higgs $p_T$}
           {171201/ZvvHbb_common_hbbpt.pdf}
 
-  We will be operating under the assumption that this plot includes some Higgs
+  \begin{itemize}
+  \item Dotted red lines show cuts
+  \item Disagreement possibly from missing b-tag scale factors
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Pre-Selection Plots (Jets and \MET)}
-  \twofigs{$\Delta\phi(\MET, \mathrm{Higgs})$}
-          {171201/ZvvHbb_common_deltaPhi__pfmetphi__hbbphi__.pdf}
-          {$\Delta\phi_{\mathrm{min}}(\MET, \mathrm{jet})$}
-          {171201/ZvvHbb_common_dphipfmet.pdf}
+  \twofigs
+      {$\Delta\phi(\MET, \mathrm{Higgs})$}
+      {171201/ZvvHbb_common_deltaPhi__pfmetphi__hbbphi__.pdf}
+      {$\Delta\phi_{\mathrm{min}}(\MET, \mathrm{jet})$}
+      {171201/ZvvHbb_common_dphipfmet.pdf}
 
-  QCD jets generate \MET and top events are just messy
+      QCD and top events have jets closer to the \MET,
+      which will explain the cuts for the control regions
+
 \end{frame}
 
 \begin{frame}
@@ -198,7 +222,7 @@
     \hline
     \Delta\phi(V, H) & $> 2.0$ & $< 2.0$ & $> 2.0$ & $> 2.0$ \\
     $N_{\mathrm{lep}}$ & $\ge 1$ & 0 & 0 & 0 \\
-    $N_{\mathrm{jets}}^{\mathrm{central}}$ & $\ge 4$ & -- & $\le 3$ & $\le 2$ \\
+    $N_{\mathrm{jets}}^{\mathrm{central}}$ & $\ge 4$ & -- & $\le 3$ & $2$ \\
     Max $b$ tag & Medium & Loose & Not Med. & Tight \\
     $\Delta\phi_{\mathrm{min}}(\MET, j)$ & $< \pi/2$ & $< 0.4$ & $> 0.5$ & $>0.5$ \\
     \hline
@@ -206,10 +230,7 @@
 
   \begin{itemize}
   \item $Z + b$ also has mass veto around the Higgs
-  \item Track \MET $\phi$ cuts missing
-  \item Adapted from Table 16 of AN, which does stupid things like split rows.
-    Maybe I should find out why... \\
-    In backup slides.
+  \item \textcolor{orange}{$\Delta \phi$(Track \MET, PF \MET) cuts missing}
   \end{itemize}
 \end{frame}
 
@@ -218,113 +239,193 @@
   AN has a scale factor of 0.78 for \ttbar selection in $Z(\nu\nu)$
 
   \twofigs{Before}
-          {171212/ZvvHbb_tt_hbbm.pdf}
+          {171201/ZvvHbb_tt_hbbm.pdf}
           {After}
-          {171212/ZvvHbb_scaledtt_hbbm.pdf}
+          {171201/ZvvHbb_scaledtt_hbbm.pdf}
 
-\end{frame}
+  This scaling is only done for \ttbar samples in the \ttbar control region.
 
-\begin{frame}
-  \frametitle{Plot Dump}
-  \centering
-  I have nothing interesting left to say, \\
-  so now I will just show plots
 \end{frame}
 
 \begin{frame}
   \frametitle{Plot Dump: Higgs Mass}
   \fourfigs{Multijet}
-           {171212/ZvvHbb_multijet_hbbm.pdf}
+           {171201/ZvvHbb_multijet_hbbm.pdf}
            {\ttbar}
-           {171212/ZvvHbb_scaledtt_hbbm.pdf}
+           {171201/ZvvHbb_scaledtt_hbbm.pdf}
            {$Z + \mathrm{light}$}
-           {171212/ZvvHbb_lightz_hbbm.pdf}
+           {171201/ZvvHbb_lightz_hbbm.pdf}
            {$Z + b$}
-           {171212/ZvvHbb_heavyz_hbbm.pdf}
+           {171201/ZvvHbb_heavyz_hbbm.pdf}
+    \begin{column}{0.3\linewidth}
+      \begin{itemize}
+      \item Signal region will just be the missing part
+        of $Z+b$ plot.
+      \item \textcolor{orange}{Will also split the $Z+$ jets sample by jet flavor}
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Plot Dump: Higgs $p_T$}
   \fourfigs{Multijet}
-           {171212/ZvvHbb_multijet_hbbpt.pdf}
+           {171201/ZvvHbb_multijet_hbbpt.pdf}
            {\ttbar}
-           {171212/ZvvHbb_scaledtt_hbbpt.pdf}
+           {171201/ZvvHbb_scaledtt_hbbpt.pdf}
            {$Z + \mathrm{light}$}
-           {171212/ZvvHbb_lightz_hbbpt.pdf}
+           {171201/ZvvHbb_lightz_hbbpt.pdf}
            {$Z + b$}
-           {171212/ZvvHbb_heavyz_hbbpt.pdf}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Plot Dump: Higgs $p_T$}
-  \fourfigs{Multijet}
-           {171212/ZvvHbb_multijet_hbbpt.pdf}
-           {\ttbar}
-           {171212/ZvvHbb_scaledtt_hbbpt.pdf}
-           {$Z + \mathrm{light}$}
-           {171212/ZvvHbb_lightz_hbbpt.pdf}
-           {$Z + b$}
-           {171212/ZvvHbb_heavyz_hbbpt.pdf}
+           {171201/ZvvHbb_heavyz_hbbpt.pdf}
+    \begin{column}{0.3\linewidth}
+      \begin{itemize}
+      \item \textcolor{orange}{\ttbar in $Z+$ jets regions should be reduced by $\Delta \phi (\MET)$ cut}
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Plot Dump: \MET}
   \fourfigs{Multijet}
-           {171212/ZvvHbb_multijet_pfmet.pdf}
+           {171201/ZvvHbb_multijet_pfmet.pdf}
            {\ttbar}
-           {171212/ZvvHbb_scaledtt_pfmet.pdf}
+           {171201/ZvvHbb_scaledtt_pfmet.pdf}
            {$Z + \mathrm{light}$}
-           {171212/ZvvHbb_lightz_pfmet.pdf}
+           {171201/ZvvHbb_lightz_pfmet.pdf}
            {$Z + b$}
-           {171212/ZvvHbb_heavyz_pfmet.pdf}
+           {171201/ZvvHbb_heavyz_pfmet.pdf}
+    \begin{column}{0.3\linewidth}
+      \begin{itemize}
+      \item Using PFMET NoMu triggers, and \MET trigger scale factor
+      \item \textcolor{orange}{Scale factor for mono-jet, which has a higher \MET cut}
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Plot Dump: Leading Jet $p_T$}
   \fourfigs{Multijet}
-           {171212/ZvvHbb_multijet_jet1Pt.pdf}
+           {171201/ZvvHbb_multijet_jet1Pt.pdf}
            {\ttbar}
-           {171212/ZvvHbb_scaledtt_jet1Pt.pdf}
+           {171201/ZvvHbb_scaledtt_jet1Pt.pdf}
            {$Z + \mathrm{light}$}
-           {171212/ZvvHbb_lightz_jet1Pt.pdf}
+           {171201/ZvvHbb_lightz_jet1Pt.pdf}
            {$Z + b$}
-           {171212/ZvvHbb_heavyz_jet1Pt.pdf}
+           {171201/ZvvHbb_heavyz_jet1Pt.pdf}
+    \begin{column}{0.3\linewidth}
+      \begin{itemize}
+      \item Multi-jet looks suspicious at low $p_T$
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Plot Dump: Sub-Leading Jet $p_T$}
   \fourfigs{Multijet}
-           {171212/ZvvHbb_multijet_jet2Pt.pdf}
+           {171201/ZvvHbb_multijet_jet2Pt.pdf}
            {\ttbar}
-           {171212/ZvvHbb_scaledtt_jet2Pt.pdf}
+           {171201/ZvvHbb_scaledtt_jet2Pt.pdf}
            {$Z + \mathrm{light}$}
-           {171212/ZvvHbb_lightz_jet2Pt.pdf}
+           {171201/ZvvHbb_lightz_jet2Pt.pdf}
            {$Z + b$}
-           {171212/ZvvHbb_heavyz_jet2Pt.pdf}
+           {171201/ZvvHbb_heavyz_jet2Pt.pdf}
+    \begin{column}{0.3\linewidth}
+      \begin{itemize}
+      \item Shape of sub-leading jet $p_T$ particularly suspicious
+      \item \textcolor{orange}{Incoming samples have additional jet variables saved to investigate}
+      \end{itemize}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Plot Dump: Number (Central?) Jets}
+  \frametitle{Plot Dump: Number Central Jets}
   \fourfigs{Multijet}
-           {171212/ZvvHbb_multijet_nJet.pdf}
+           {171201/ZvvHbb_multijet_nJet.pdf}
            {\ttbar}
-           {171212/ZvvHbb_scaledtt_nJet.pdf}
+           {171201/ZvvHbb_scaledtt_nJet.pdf}
            {$Z + \mathrm{light}$}
-           {171212/ZvvHbb_lightz_nJet.pdf}
+           {171201/ZvvHbb_lightz_nJet.pdf}
            {$Z + b$}
-           {171212/ZvvHbb_heavyz_nJet.pdf}
+           {171201/ZvvHbb_heavyz_nJet.pdf}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{\textcolor{orange}{Quick Regression: Intro}}
+
+  \begin{itemize}
+  \item Using the default example settings for BDT regression
+    \begin{itemize}
+    \item A bit of a black box
+    \item Lots of room for improvement
+    \end{itemize}
+  \item Variables
+    \begin{itemize}
+    \item jet four vector $(p_T, \eta, \phi, E)$
+    \item jet tagging variables (CSV, CMVA, QGL)
+    \item Electromagnetic and Hadronic energy fractions
+    \item Number of leptons and leading lepton kinematics \\
+      ($p_T, p_{T,trk}, \Delta R_j, p_{\perp,j}$)
+    \item Secondary vertex kinematics \\
+      ($p_T, m, N_{trk}$, distance, and significance)
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{\textcolor{orange}{Quick Regression: Sample}}
+
+  \begin{itemize}
+  \item Submitted fully leptonic \ttbar early, so was able to use: \\
+    TTTo2L2Nu\_TuneCUETP8M2\_ttHtranche3\_13TeV-powheg-pythia8
+  \item Simple selection of exactly two loose leptons, with at least one tight
+  \item Matched gen jet
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{\textcolor{orange}{Quick Regression: Plot}}
+
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{171212_old/tmva.pdf}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      {\small
+      \begin{itemize}
+      \item No regression: \\ $E = -0.05311$ \\ $S = 0.1895$
+      \item Old regression: \\ $E = 0.005189$ \\ $S = 0.1928$
+      \item New Train: \\ $E = -0.0258$ \\ $S = 0.18$
+      \item New Test: \\ $E = -0.0261$ \\ $S = 0.1807$
+      \end{itemize}
+      }
+      Quick re-training has smaller variance, but still heavier lower tail
+    \end{column}
+  \end{columns}
+
 \end{frame}
 
 \begin{frame}
   \frametitle{In Summary}
   \begin{itemize}
-  \item I made some plots
   \item $Z + b$ jets seems to be the worst control reason
     \begin{itemize}
     \item Slightly alarming because it's basically the signal region
-    \item Going to use different taggers and scale factors anyway
+    \item \textcolor{orange}{Going to use different taggers and scale factors anyway}
+    \item \textcolor{orange}{Need to add $\Delta\phi$ cut between track and PF MET}
     \end{itemize}
-  \item Should start separating backgrounds based on flavor
+  \item \emph{Very} rough setup b-jet regression already produces reasonable results
+    \begin{itemize}
+    \item \textcolor{orange}{Once I have new signal samples, mass plots can be revealed}
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -339,7 +440,7 @@
   \includegraphics[width=\linewidth]{table.png}
 \end{frame}
 
-%\input{backup_slides.tex}
+\input{backup_slides.tex}
 
 \backupend
 

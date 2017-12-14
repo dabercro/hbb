@@ -21,8 +21,8 @@ calometphi = event.caloMet.phi()
 trkmet = event.trkMet.pt()
 trkmetphi = event.trkMet.phi()
 
-met_trigger/O = False
-metfilter/O = False
+met_trigger/O = false
+metfilter/O = false
 
 ! Default default value is inside {}
 {-5}
@@ -30,20 +30,35 @@ recoil
 recoilphi
 
 {0}
-n_loosetau/I
-n_loosepho/I
-n_looselep/I
-n_mediumlep/I
-n_tightlep/I
-
 mc_weight
 
+! Count some objects
+{/I}
+n_loosetau
+n_loosepho
+n_looselep
+n_mediumlep
+n_tightlep
+
+n_jet
+n_alljet
+
+{/F}
+{-5}
 ! Input jets are used to set the following variables
-jet,csv_jet,cmva_jet -->
-1,2 --> set_jet(panda::Jet& jet)
+csv_jet,cmva_jet -->
+1,2 --> set_b_jet(panda::Ref<panda::SecondaryVertex>& vert)
+
+/O = false -> true
+vtx_pt -> vert->pt()
+vtx_m -> vert->m()
+vtx_3Dval -> vert->vtx3DVal
+vtx_3Derr -> vert->vtx3DeVal
+vtx_ntrk -> vert->ntrk
+
++jet1,jet2 --> set_jet(panda::Jet& jet)
 
 ! "Member"/type = default -> Function
-{-5}
 pt -> jet.pt()
 eta -> jet.eta()
 phi -> jet.phi()
@@ -58,19 +73,9 @@ cmva -> jet.cmva
 ! This ends both of the previous -->
 <--
 
-cmva_jet1_vtx,cmva_jet2_vtx --> set_b_jet(panda::Ref<panda::SecondaryVertex>& vert)
-
-pt -> vert->pt()
-m -> vert->m()
-3Dval -> vert->vtx3DVal
-3Derr -> vert->vtx3DeVal
-ntrk -> vert->ntrk
-
-<--
-
 ! Hbb set by sums of jets as 4-vectors
 "TLorentzVector.h"
-csv_hbb,cmva_hbb --> set_hbb(TLorentzVector& vec)
+csv_hbb,cmva_hbb --> set_hbb(const TLorentzVector& vec)
 
 pt -> vec.Pt()
 eta -> vec.Eta()
