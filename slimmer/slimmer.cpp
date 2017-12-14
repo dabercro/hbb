@@ -208,6 +208,11 @@ int parsed_main(int argc, char** argv) {
       output.recoil = recoilvec.Mod();
       output.recoilphi = recoilvec.Phi();
 
+      //// FILTER ////
+
+      if (not (output.csv_hbb or output.cmva_hbb))
+        continue;
+
       output.fill();
     }
     input.Close();
