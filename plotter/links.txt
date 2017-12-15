@@ -15,6 +15,6 @@ LINK stat_unc
 
 # Global nuisance parameters (fully linked)
 
-GLOBAL 0 * * 1.10 gamma lumi
+GLOBAL 0 * * 1.10 lnN   lumi
 GLOBAL 0 * * 1.05 lnN   pileup
-GLOBAL 0 zj * 1.5 lnN   zjets
+GLOBAL 0 zj * 1.5 lnU   zjets

@@ -76,5 +76,5 @@ vv  WW_TuneCUETP8M1_13TeV-pythia8.root                                          
 .   WZ_TuneCUETP8M1_13TeV-pythia8.root                                                        47.2            .                   .
 .   ZZ_TuneCUETP8M1_13TeV-pythia8.root                                                        16.6            .                   .
 
-tzq tZq_ll_4f_13TeV-amcatnlo-pythia8.root                                                     0.0758          TZq                 796
-.   tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root                                      0.1379          .                   .
+#tzq tZq_ll_4f_13TeV-amcatnlo-pythia8.root                                                     0.0758          TZq                 796
+#.   tZq_nunu_4f_13TeV-amcatnlo-pythia8_TuneCUETP8M1.root                                      0.1379          .                   .

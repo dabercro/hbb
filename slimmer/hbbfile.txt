@@ -94,6 +94,8 @@ chf -> jet.chf
 nhf -> jet.nhf
 csv -> jet.csv
 cmva -> jet.cmva
+deepcsvb -> jet.deepCSVb
+deepcmvab -> jet.deepCMVAb
 
 --> genjet(panda::GenJet& gen)
 
