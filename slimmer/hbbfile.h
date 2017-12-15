@@ -147,6 +147,7 @@ class hbbfile {
   float ele2_phi;
   float ele2_pt;
   long event_num;
+  bool jet1;
   float jet1_chf;
   float jet1_cmva;
   float jet1_csv;
@@ -164,6 +165,7 @@ class hbbfile {
   float jet1_nhf;
   float jet1_phi;
   float jet1_pt;
+  bool jet2;
   float jet2_chf;
   float jet2_cmva;
   float jet2_csv;
@@ -416,6 +418,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("ele2_phi", &ele2_phi, "ele2_phi/F");
   t->Branch("ele2_pt", &ele2_pt, "ele2_pt/F");
   t->Branch("event_num", &event_num, "event_num/l");
+  t->Branch("jet1", &jet1, "jet1/O");
   t->Branch("jet1_chf", &jet1_chf, "jet1_chf/F");
   t->Branch("jet1_cmva", &jet1_cmva, "jet1_cmva/F");
   t->Branch("jet1_csv", &jet1_csv, "jet1_csv/F");
@@ -433,6 +436,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("jet1_nhf", &jet1_nhf, "jet1_nhf/F");
   t->Branch("jet1_phi", &jet1_phi, "jet1_phi/F");
   t->Branch("jet1_pt", &jet1_pt, "jet1_pt/F");
+  t->Branch("jet2", &jet2, "jet2/O");
   t->Branch("jet2_chf", &jet2_chf, "jet2_chf/F");
   t->Branch("jet2_cmva", &jet2_cmva, "jet2_cmva/F");
   t->Branch("jet2_csv", &jet2_csv, "jet2_csv/F");
@@ -612,6 +616,7 @@ void hbbfile::reset(panda::Event& event) {
   ele2_phi = -5;
   ele2_pt = -5;
   event_num = event.eventNumber;
+  jet1 = false;
   jet1_chf = -5;
   jet1_cmva = -5;
   jet1_csv = -5;
@@ -629,6 +634,7 @@ void hbbfile::reset(panda::Event& event) {
   jet1_nhf = -5;
   jet1_phi = -5;
   jet1_pt = -5;
+  jet2 = false;
   jet2_chf = -5;
   jet2_cmva = -5;
   jet2_csv = -5;
@@ -682,7 +688,6 @@ void hbbfile::set_lep(const lep_enum base, const panda::Lepton& lep) {
 }
 
 void hbbfile::set_bjet(const bjet_enum base, const panda::SecondaryVertex& vert) {
-  set(bjet_names[static_cast<int>(base)] + "", static_cast<bool>(true));
   set(bjet_names[static_cast<int>(base)] + "_vtx_pt", static_cast<float>(vert.pt()));
   set(bjet_names[static_cast<int>(base)] + "_vtx_m", static_cast<float>(vert.m()));
   set(bjet_names[static_cast<int>(base)] + "_vtx_3Dval", static_cast<float>(vert.vtx3DVal));
@@ -702,6 +707,7 @@ void hbbfile::set_bmaxtrk(const bjet_enum base, const float maxpt) {
 }
 
 void hbbfile::set_jet(const jet_enum base, const panda::Jet& jet) {
+  set(jet_names[static_cast<int>(base)] + "", static_cast<bool>(true));
   set(jet_names[static_cast<int>(base)] + "_pt", static_cast<float>(jet.pt()));
   set(jet_names[static_cast<int>(base)] + "_eta", static_cast<float>(jet.eta()));
   set(jet_names[static_cast<int>(base)] + "_phi", static_cast<float>(jet.phi()));

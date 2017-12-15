@@ -60,7 +60,6 @@ phi -> lep.phi()
 csv_jet,cmva_jet -->
 1,2 --> bjet(panda::SecondaryVertex& vert)
 
-/O = false -> true
 vtx_pt -> vert.pt()
 vtx_m -> vert.m()
 vtx_3Dval -> vert.vtx3DVal
@@ -84,6 +83,7 @@ maxtrk -> maxpt
 +jet1,jet2 --> jet(panda::Jet& jet)
 
 ! "Member"/type = default -> Function
+/O = false -> true
 pt -> jet.pt()
 eta -> jet.eta()
 phi -> jet.phi()
