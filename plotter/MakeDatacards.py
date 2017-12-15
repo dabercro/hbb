@@ -4,6 +4,8 @@ import os
 import sys
 import sqlite3
 
+from collections import defaultdict
+
 output = 'datacards/yields'
 
 if __name__ == '__main__':
@@ -34,8 +36,6 @@ if __name__ == '__main__':
                              cuts.dataMCCuts(region, False))
 
         dumper.DumpYieldFiles(sql_output, 5, 0, 200)
-        os.system('crombie setupdatacard links.txt ' + sql_output)
-
 
     txt_output = output + '.txt'
 
@@ -45,29 +45,32 @@ if __name__ == '__main__':
     with open(txt_output, 'w') as datacard:
         write = lambda x: datacard.write(x.strip() + '\n')
 
-        curs.execute('SELECT COUNT(DISTINCT(process)) FROM yields WHERE type = "background";')
+        # Define number of channels and stuff
+        write("""imax   *   number of channels
+jmax   *   number of backgrounds
+kmax   *   number of systematics (automatic)""")
 
-        # Defin number of channels and stuff
-        write("""imax   1   number of channels
-jmax   %i   number of backgrounds
-kmax   *   number of systematics (automatic)""" % curs.fetchone())
+        # Write down shape locations
+        write('-' * 30)
+        write('shape * * datacards/$CHANNEL_hbbm.root hbbm-$PROCESS')
+        write('shape * * datacards/$CHANNEL_$SYSTEMATIC_hbbm.root hbbm-$PROCESS')
 
+        # Write down data observations
+        write('-' * 30)
         start_fmt = '{:<25}'
         name_unc = '{:<15}'
         shape_unc = '{:<10}'
         info_fmt = '{:<12}   '
         content_fmt = '{:<12.4}   '
 
-        # Write down data observations
-        write('-' * 30)
         bin_line = start_fmt.format('bin')
         obs_line = start_fmt.format('observation')
 
-        curs.execute('SELECT bin, region, SUM(contents) FROM yields WHERE type = "data" GROUP BY bin, region ORDER BY region, bin;')
+        curs.execute('SELECT region, SUM(contents) FROM yields WHERE type = "data" GROUP BY region ORDER BY region;')
 
-        for bin, region, content in curs.fetchall():
-            bin_line += info_fmt.format('%s_%i' % (region, bin))
-            obs_line += content_fmt.format(content)
+        for region, content in curs.fetchall():
+            bin_line += info_fmt.format(region)
+            obs_line += info_fmt.format(content)
 
         write(bin_line)
         write(obs_line)
@@ -75,32 +78,28 @@ kmax   *   number of systematics (automatic)""" % curs.fetchone())
         # Write down MC expectations
         write('-' * 30)
         bin_line = start_fmt.format('bin')
-        proc_line = start_fmt.format('proc')
-        proc_enum = start_fmt.format('proc')
+        proc_line = start_fmt.format('process')
+        proc_enum = start_fmt.format('process')
         obs_line = start_fmt.format('rate')
 
         # Start with signal
-        prev_proc = ''
         proc_count = 0
-        curs.execute('SELECT process, bin, region, SUM(contents) FROM yields WHERE type = "signal" GROUP BY bin, region, process ORDER BY process, region, bin;')
-        for process, bin, region, content in curs.fetchall():
-            prev_proc = process
-            bin_line += info_fmt.format('%s_%i' % (region, bin))
-            proc_line += info_fmt.format(process)
-            proc_enum += info_fmt.format(proc_count)
-            obs_line += content_fmt.format(content)
+        curs.execute('SELECT process, region, SUM(contents) FROM yields WHERE type = "signal" GROUP BY region, process ORDER BY process, region;')
+        backgrounds = list(curs.fetchall())
 
         # Then background
-        curs.execute('SELECT process, bin, region, SUM(contents) FROM yields WHERE type = "background" GROUP BY bin, region, process ORDER BY process, region, bin;')
-        backgrounds = list(curs.fetchall())
-        for process, bin, region, content in backgrounds:
+        curs.execute('SELECT process, region, SUM(contents) FROM yields WHERE type = "background" GROUP BY region, process ORDER BY process, region;')
+        backgrounds.extend(list(curs.fetchall()))
+
+        prev_proc = backgrounds[0][0]
+        for process, region, content in backgrounds:
             if process != prev_proc:
                 prev_proc = process
                 proc_count += 1
-            bin_line += info_fmt.format('%s_%i' % (region, bin))
+            bin_line += info_fmt.format(region)
             proc_line += info_fmt.format(process)
             proc_enum += info_fmt.format(proc_count)
-            obs_line += content_fmt.format(content)
+            obs_line += content_fmt.format(max(content, 0.01))
 
         write(bin_line)
         write(proc_line)
@@ -113,12 +112,18 @@ kmax   *   number of systematics (automatic)""" % curs.fetchone())
         # Placeholder uncertainties
         curs.execute('SELECT COUNT(*) FROM yields WHERE type != "data";')
         tot_bins = curs.fetchone()[0]
-        curs.execute('SELECT uncbin, uncprocess, uncregion, source, shape, value FROM uncertainties;')
-        for uncbin, uncproc, uncregion, source, shape, value in curs.fetchall():
+        curs.execute('SELECT process, region, source, shape, value FROM uncertainties;')
+
+        for uncproc, uncregion, source, shape, value in curs.fetchall():
             unc_line = name_unc.format(source) + shape_unc.format(shape)
-            for proc, bin, region, content in backgrounds:
-                unc_val = value if (proc == uncproc or proc == '*') and (region == uncregion or region == '*') and (bin == uncbin or bin == '0') else '-'
-                punc_line += content_fmt.format()
+            for proc, region, content in backgrounds:
+                unc_val = value if (proc == uncproc or uncproc == '*') and (region == uncregion or uncregion == '*') else '-'
+                unc_line += content_fmt.format(unc_val)
             write(unc_line)
+
+        # Systematics
+        write('-' * 30)
+        for systematic in ['qcdV']:
+            write(systematic + ' param 0.0 1')
 
     conn.close()

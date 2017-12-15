@@ -151,5 +151,3 @@ sf_sjbtagGT0BDown
 sf_sjbtagGT0BUp
 sf_sjbtagGT0MDown
 sf_sjbtagGT0MUp
-sf_zhDown
-sf_zhUp

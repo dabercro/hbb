@@ -63,7 +63,6 @@ regionCuts = {
 
 regionCuts['common'] = common
 regionCuts['scaledtt'] = regionCuts['tt'] 
-
 regionCuts['signal'] = regionCuts['heavyz'].replace(mjjveto, '60 < hbbm && 160 > hbbm')
 
 # Making selection of multiple entries
@@ -96,6 +95,14 @@ region_weights = { # key : [Data,MC]
     'scaledcommon' : [mettrigger, '*'.join([defaultMCWeight, '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
     'default'  : [mettrigger, defaultMCWeight],
     }
+
+for key in regionCuts:
+    regionCuts[key + '_qcdVUp'] = regionCuts[key]
+    region_weights[key + '_qcdVUp'] = region_weights.get(key, region_weights['default'])
+    region_weights[key + '_qcdVUp'][1] += '* 1.1'
+    regionCuts[key + '_qcdVDown'] = regionCuts[key]
+    region_weights[key + '_qcdVDown'] = region_weights.get(key, region_weights['default'])
+    region_weights[key + '_qcdVDown'][1] += '* 0.9'
 
 # Do not change the names of these functions or required parameters
 # Otherwise you cannot use some convenience functions

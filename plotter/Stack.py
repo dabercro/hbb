@@ -65,9 +65,11 @@ def parse_plots(check=None):
 
 
 def submit_plots(regions, plots):
+    limithistsdir = 'datacards' if sys.argv[1:] == ['hbbm'] else ''
+
     cats = ['ZvvHbb']
     # Parse everything one last time so that left plots don't slip through
-    MakePlots(cats, parse_regions(regions), parse_plots(plots))
+    MakePlots(cats, parse_regions(regions), parse_plots(plots), limitHistsDir=limithistsdir)
 
 
 def RunPlots(all_left, some_left):
