@@ -30,7 +30,7 @@ if __name__ == '__main__':
         if 'dump' in sys.argv and os.path.exists(sql_output):
             os.remove(sql_output)
 
-        for region in ['signal', 'scaledtt', 'lightz', 'heavyz', 'multijet']:
+        for region in ['signal']: #, 'scaledtt', 'lightz', 'heavyz', 'multijet']:
             dumper.AddRegion(region, cuts.cut('ZvvHbb', region),
                              cuts.dataMCCuts(region, True),
                              cuts.dataMCCuts(region, False))
@@ -52,8 +52,7 @@ kmax   *   number of systematics (automatic)""")
 
         # Write down shape locations
         write('-' * 30)
-        write('shape * * datacards/$CHANNEL_hbbm.root hbbm-$PROCESS')
-        write('shape * * datacards/$CHANNEL_$SYSTEMATIC_hbbm.root hbbm-$PROCESS')
+        write('shape * * datacards/hbbm_dat.root hbbm__$PROCESS____$CHANNEL hbbm__$PROCESS____$CHANNEL__$SYSTEMATIC')
 
         # Write down data observations
         write('-' * 30)
@@ -121,9 +120,9 @@ kmax   *   number of systematics (automatic)""")
                 unc_line += content_fmt.format(unc_val)
             write(unc_line)
 
-        # Systematics
-        write('-' * 30)
-        for systematic in ['qcdV']:
-            write(systematic + ' param 0.0 1')
+        # Systematics ??
+#        write('-' * 30)
+#        for systematic in ['qcdV']:
+#            write(systematic + ' param 0.0 1')
 
     conn.close()

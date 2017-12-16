@@ -1,10 +1,12 @@
 #include <algorithm>
 #include <iostream>
 #include <utility>
+#include <functional>
 
 #include "hbbfile.h"
 
 #include "SkimmingTools/interface/CmsswParse.h"
+#include "SkimmingTools/interface/StoreParticles.h"
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "TH1F.h"
@@ -126,6 +128,16 @@ int parsed_main(int argc, char** argv) {
       //// JETS ////
 
       // We want the two jets with the highest CSV and CMVA
+      using jetstore = ObjectStore<hbbfile::jet_enum, panda::Jet, double>;
+      using bjetstore = ObjectStore<hbbfile::bjet_enum, panda::Jet, double>;
+
+      jetstore stored_jets({hbbfile::jet_enum::jet1, hbbfile::jet_enum::jet2},
+                           [](panda::Jet* j) {return j->pt();});
+      bjetstore stored_csvs({hbbfile::bjet_enum::csv_jet1, hbbfile::bjet_enum::csv_jet2},
+                            [](panda::Jet* j) {return j->csv;});
+      bjetstore stored_cmvas({hbbfile::bjet_enum::cmva_jet1, hbbfile::bjet_enum::cmva_jet2},
+                             [](panda::Jet* j) {return j->cmva;});
+
       using jetpair = std::pair<panda::Jet*, panda::Jet*>;
       jetpair top_jets;
       jetpair top_csvs;
@@ -145,6 +157,9 @@ int parsed_main(int argc, char** argv) {
         if (jet.pt() > 30.0)
           output.n_hardjet++;
 
+        stored_jets.check(jet);
+        stored_csvs.check(jet);
+        stored_cmvas.check(jet);
         check_top_two(jet, top_jets, [](panda::Jet* j) {return j->pt();});
         check_top_two(jet, top_csvs, [](panda::Jet* j) {return j->csv;});
         check_top_two(jet, top_cmvas, [](panda::Jet* j) {return j->cmva;});

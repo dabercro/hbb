@@ -17,7 +17,7 @@ else
 	testfile = /mnt/hadoop/scratch/jenkins/panda/dabercro/PandaProd/jenkins-clean/F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 endif
 
-$(target): $(flatclass).h slimmer.cpp
+$(target): $(flatclass).h slimmer.cpp ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h
 	g++ -I$(pandainc) -I${CROMBIEPATH} $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(target) slimmer.cpp
 
 $(flatclass).h: hbbfile.txt ${CROMBIEPATH}/scripts/maketree.py

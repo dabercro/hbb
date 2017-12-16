@@ -776,4 +776,8 @@ void hbbfile::set_hbb(const hbb_enum base, const TLorentzVector& vec) {
   set(hbb_names[static_cast<int>(base)] + "_m", static_cast<Float_t>(vec.M()));
 }
 
+template <class T, hbbfile::bjet_enum V>
+struct convert;
+
+template <> struct convert <%s, %s> { %s res = %s; }
 #endif
