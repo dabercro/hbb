@@ -147,22 +147,22 @@ int parsed_main(int argc, char** argv) {
         if (jet.pt() < 20.0)
           continue;
 
-        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
-
         // Count all jets (including forward)
         output.n_alljet++;
         if (fabs(jet.eta()) > 2.5)
           continue;
 
         output.n_jet++;
+        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
+
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
           output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
+          stored_csvs.check(jet);
+          stored_cmvas.check(jet);
         }
 
         stored_jets.check(jet);
-        stored_csvs.check(jet);
-        stored_cmvas.check(jet);
       }
 
       auto set_jet = [&output] (std::initializer_list<jetstore> stores) {
