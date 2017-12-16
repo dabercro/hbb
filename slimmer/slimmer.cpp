@@ -88,17 +88,16 @@ int parsed_main(int argc, char** argv) {
 
       TLorentzVector lepvec {};
 
-      int lep_pdgid = 0;
-      using leppair = std::pair<panda::Lepton*, panda::Lepton*>;
-      leppair top_muons;
-      leppair top_eles;
+      using lepstore = ObjectStore<hbbfile::lep_enum, panda::Lepton, float>;
+      lepstore stored_muons({hbbfile::lep_enum::muon1, hbbfile::lep_enum::muon2}, [](panda::Lepton* l) {return l->pt();});
+      lepstore stored_eles({hbbfile::lep_enum::ele1, hbbfile::lep_enum::ele2}, [](panda::Lepton* l) {return l->pt();});
 
       // Define default checks here
-      auto check_lep = [&output, &lepvec] (leppair& top, panda::Lepton& lep) {
+      auto check_lep = [&output, &lepvec] (lepstore& store, panda::Lepton& lep) {
         if (lep.loose) {
           lepvec += lep.p4();
           output.n_looselep++;
-          check_top_two(lep, top, [](panda::Lepton* l) {return l->pt();});
+          store.check(lep);
           if (lep.medium) {
             output.n_mediumlep++;
             if (lep.tight)
@@ -109,39 +108,34 @@ int parsed_main(int argc, char** argv) {
 
       // Loop over muons
       for (auto& lep : event.muons)
-        check_lep(top_muons, lep);
+        check_lep(stored_muons, lep);
 
       // Loop over electrons
       for (auto& lep : event.electrons)
-        check_lep(top_eles, lep);
+        check_lep(stored_eles, lep);
 
-      auto set_lep = [&output] (panda::Lepton* top_lep, hbbfile::lep_enum lep) {
-        if (top_lep)
-          output.set_lep(lep, *top_lep);
+      auto set_lep = [&output] (lepstore& leps) {
+        for (auto& lep : leps.store) {
+          if (not lep.second)
+            break;
+          output.set_lep(lep.first, *lep.second);
+        }
       };
 
-      set_lep(top_muons.first, hbbfile::lep_enum::muon1);
-      set_lep(top_muons.first, hbbfile::lep_enum::muon2);
-      set_lep(top_eles.first, hbbfile::lep_enum::ele1);
-      set_lep(top_eles.first, hbbfile::lep_enum::ele2);
+      set_lep(stored_muons);
+      set_lep(stored_eles);
 
       //// JETS ////
 
       // We want the two jets with the highest CSV and CMVA
-      using jetstore = ObjectStore<hbbfile::jet_enum, panda::Jet, double>;
-      using bjetstore = ObjectStore<hbbfile::bjet_enum, panda::Jet, double>;
+      using jetstore = ObjectStore<hbbfile::jet_enum, panda::Jet, float>;
 
       jetstore stored_jets({hbbfile::jet_enum::jet1, hbbfile::jet_enum::jet2},
                            [](panda::Jet* j) {return j->pt();});
-      bjetstore stored_csvs({hbbfile::bjet_enum::csv_jet1, hbbfile::bjet_enum::csv_jet2},
-                            [](panda::Jet* j) {return j->csv;});
-      bjetstore stored_cmvas({hbbfile::bjet_enum::cmva_jet1, hbbfile::bjet_enum::cmva_jet2},
-                             [](panda::Jet* j) {return j->cmva;});
-
-      using jetpair = std::pair<panda::Jet*, panda::Jet*>;
-      jetpair top_jets;
-      jetpair top_csvs;
-      jetpair top_cmvas;
+      jetstore stored_csvs({hbbfile::jet_enum::csv_jet1, hbbfile::jet_enum::csv_jet2},
+                           [](panda::Jet* j) {return j->csv;});
+      jetstore stored_cmvas({hbbfile::jet_enum::cmva_jet1, hbbfile::jet_enum::cmva_jet2},
+                            [](panda::Jet* j) {return j->cmva;});
 
       for (auto& jet : event.chsAK4Jets) {
 
@@ -160,28 +154,30 @@ int parsed_main(int argc, char** argv) {
         stored_jets.check(jet);
         stored_csvs.check(jet);
         stored_cmvas.check(jet);
-        check_top_two(jet, top_jets, [](panda::Jet* j) {return j->pt();});
-        check_top_two(jet, top_csvs, [](panda::Jet* j) {return j->csv;});
-        check_top_two(jet, top_cmvas, [](panda::Jet* j) {return j->cmva;});
       }
 
-      auto set_jet = [&output] (panda::Jet* top_jet, hbbfile::jet_enum jet) {
-        if (top_jet) {
-          output.set_jet(jet, *top_jet);
-          auto& gen = top_jet->matchedGenJet;
+      auto set_jet = [&output] (jetstore& jets) {
+        for (auto& jet : jets.store) {
+          if (not jet.second)
+            break;
+          output.set_jet(jet.first, *jet.second);
+          auto& gen = jet.second->matchedGenJet;
           if (gen.isValid())
-            output.set_genjet(jet, *gen);
+            output.set_genjet(jet.first, *gen);
         }
       };
 
-      set_jet(top_jets.first, hbbfile::jet_enum::jet1);
-      set_jet(top_jets.second, hbbfile::jet_enum::jet2);
+      set_jet(stored_jets);
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &set_jet] (panda::Jet* top_jet, hbbfile::jet_enum jet, hbbfile::bjet_enum bjet) {
-        set_jet(top_jet, jet);
-        if (top_jet) {
-          auto& vert = top_jet->secondaryVertex;
+      auto set_bjet = [&output, &set_jet] (jetstore jets) {
+        set_jet(jets);
+        for (auto& jet : jets.store) {
+          if (not jet.second)
+            break;
+
+          auto bjet = to_bjet(jet.first);
+          auto& vert = jet.second->secondaryVertex;
           if (vert.isValid())
             output.set_bjet(bjet, *vert);
 
@@ -190,7 +186,7 @@ int parsed_main(int argc, char** argv) {
 
           decltype(maxlep->pt()) maxtrkpt = 0;
 
-          for (auto pf : top_jet->constituents) {
+          for (auto pf : jet.second->constituents) {
             if (pf->q()) {
               auto pt = pf->pt();
               maxtrkpt = std::max(maxtrkpt, pt);
@@ -205,19 +201,17 @@ int parsed_main(int argc, char** argv) {
 
           output.set_bmaxtrk(bjet, maxtrkpt);
           if (maxlep)
-            output.set_bleps(bjet, *top_jet, nlep, *maxlep);
+            output.set_bleps(bjet, *jet.second, nlep, *maxlep);
         }
       };
 
-      set_bjet(top_csvs.first, hbbfile::jet_enum::csv_jet1, hbbfile::bjet_enum::csv_jet1);
-      set_bjet(top_csvs.second, hbbfile::jet_enum::csv_jet2, hbbfile::bjet_enum::csv_jet2);
-      set_bjet(top_cmvas.first, hbbfile::jet_enum::cmva_jet1, hbbfile::bjet_enum::cmva_jet1);
-      set_bjet(top_cmvas.second, hbbfile::jet_enum::cmva_jet2, hbbfile::bjet_enum::cmva_jet2);
+      set_bjet(stored_csvs);
+      set_bjet(stored_cmvas);
 
-      if (top_csvs.second)
-        output.set_hbb(hbbfile::hbb_enum::csv_hbb, top_csvs.first->p4() + top_csvs.second->p4());
-      if (top_cmvas.second)
-        output.set_hbb(hbbfile::hbb_enum::cmva_hbb, top_cmvas.first->p4() + top_cmvas.second->p4());
+      if (stored_csvs.store[1].second)
+        output.set_hbb(hbbfile::hbb_enum::csv_hbb, stored_csvs.store[0].second->p4() + stored_csvs.store[1].second->p4());
+      if (stored_cmvas.store[1].second)
+        output.set_hbb(hbbfile::hbb_enum::cmva_hbb, stored_cmvas.store[0].second->p4() + stored_cmvas.store[1].second->p4());
 
       auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
       output.recoil = recoilvec.Mod();

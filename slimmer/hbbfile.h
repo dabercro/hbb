@@ -776,8 +776,34 @@ void hbbfile::set_hbb(const hbb_enum base, const TLorentzVector& vec) {
   set(hbb_names[static_cast<int>(base)] + "_m", static_cast<Float_t>(vec.M()));
 }
 
-template <class T, hbbfile::bjet_enum V>
-struct convert;
+hbbfile::bjet_enum to_bjet(hbbfile::jet_enum e_cls) {
+  switch (e_cls) {
+  case hbbfile::jet_enum::csv_jet1:
+    return hbbfile::bjet_enum::csv_jet1;
+  case hbbfile::jet_enum::csv_jet2:
+    return hbbfile::bjet_enum::csv_jet2;
+  case hbbfile::jet_enum::cmva_jet1:
+    return hbbfile::bjet_enum::cmva_jet1;
+  case hbbfile::jet_enum::cmva_jet2:
+    return hbbfile::bjet_enum::cmva_jet2;
+  default:
+    throw;
+  }
+}
 
-template <> struct convert <%s, %s> { %s res = %s; }
+hbbfile::jet_enum to_jet(hbbfile::bjet_enum e_cls) {
+  switch (e_cls) {
+  case hbbfile::bjet_enum::csv_jet1:
+    return hbbfile::jet_enum::csv_jet1;
+  case hbbfile::bjet_enum::csv_jet2:
+    return hbbfile::jet_enum::csv_jet2;
+  case hbbfile::bjet_enum::cmva_jet1:
+    return hbbfile::jet_enum::cmva_jet1;
+  case hbbfile::bjet_enum::cmva_jet2:
+    return hbbfile::jet_enum::cmva_jet2;
+  default:
+    throw;
+  }
+}
+
 #endif
