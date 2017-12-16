@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "hbbfile.h"
+#include "feedpanda.h"
 
 #include "SkimmingTools/interface/CmsswParse.h"
 #include "SkimmingTools/interface/StoreParticles.h"
@@ -37,7 +38,7 @@ int parsed_main(int argc, char** argv) {
     TFile input {argv[i_file]};
     auto* events_tree = static_cast<TTree*>(input.Get("events"));
     panda::Event event;
-    event.setAddress(*events_tree);
+    feedpanda(event, events_tree);
     auto nentries = events_tree->GetEntries();
 
     //// TRIGGERS ////
