@@ -58,7 +58,14 @@ phi -> lep.phi()
 
 ! Input jets are used to set the following variables
 csv_jet,cmva_jet -->
-1,2 --> bjet(panda::SecondaryVertex& vert)
+1,2 --> bjet(panda::Jet& jet)
+
+csv -> jet.csv
+cmva -> jet.cmva
+deepcsvb -> jet.deepCSVb
+deepcmvab -> jet.deepCMVAb
+
+--> bvert(panda::SecondaryVertex& vert)
 
 vtx_pt -> vert.pt()
 vtx_m -> vert.m()
@@ -80,7 +87,7 @@ leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
 maxtrk -> maxpt
 
 {-5}
-+jet1,jet2 --> jet(panda::Jet& jet)
++jet1,jet2,jet3,jet4 --> jet(panda::Jet& jet)
 
 ! "Member"/type = default -> Function
 /O = false -> true
@@ -92,10 +99,6 @@ m -> jet.m()
 emfrac -> jet.cef + jet.nef
 chf -> jet.chf
 nhf -> jet.nhf
-csv -> jet.csv
-cmva -> jet.cmva
-deepcsvb -> jet.deepCSVb
-deepcmvab -> jet.deepCMVAb
 
 --> genjet(panda::GenJet& gen)
 
@@ -127,5 +130,17 @@ pt -> vec.Pt()
 eta -> vec.Eta()
 phi -> vec.Phi()
 m -> vec.M()
+
+<--
+
+genboson,gen_t,gen_tbar --> gen(panda::GenParticle& gen)
+
+/O = false -> true
+pt -> gen.pt()
+eta -> gen.eta()
+phi -> gen.phi()
+m -> gen.m()
+
+pdgid/I = 0 -> gen.pdgid
 
 <--

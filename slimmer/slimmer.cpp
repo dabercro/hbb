@@ -2,6 +2,7 @@
 #include <iostream>
 #include <utility>
 #include <functional>
+#include <initializer_list>
 
 #include "hbbfile.h"
 #include "feedpanda.h"
@@ -89,9 +90,9 @@ int parsed_main(int argc, char** argv) {
 
       TLorentzVector lepvec {};
 
-      using lepstore = ObjectStore<hbbfile::lep_enum, panda::Lepton, float>;
-      lepstore stored_muons({hbbfile::lep_enum::muon1, hbbfile::lep_enum::muon2}, [](panda::Lepton* l) {return l->pt();});
-      lepstore stored_eles({hbbfile::lep_enum::ele1, hbbfile::lep_enum::ele2}, [](panda::Lepton* l) {return l->pt();});
+      using lepstore = ObjectStore<hbbfile::lep, panda::Lepton, float>;
+      lepstore stored_muons({hbbfile::lep::muon1, hbbfile::lep::muon2}, [](panda::Lepton* l) {return l->pt();});
+      lepstore stored_eles({hbbfile::lep::ele1, hbbfile::lep::ele2}, [](panda::Lepton* l) {return l->pt();});
 
       // Define default checks here
       auto check_lep = [&output, &lepvec] (lepstore& store, panda::Lepton& lep) {
@@ -115,27 +116,28 @@ int parsed_main(int argc, char** argv) {
       for (auto& lep : event.electrons)
         check_lep(stored_eles, lep);
 
-      auto set_lep = [&output] (lepstore& leps) {
-        for (auto& lep : leps.store) {
-          if (not lep.second)
-            break;
-          output.set_lep(lep.first, *lep.second);
+      auto set_lep = [&output] (std::initializer_list<lepstore> stores) {
+        for (auto& leps : stores) {
+          for (auto& lep : leps.store) {
+            if (not lep.second)
+              break;
+            output.set_lep(lep.first, *lep.second);
+          }
         }
       };
 
-      set_lep(stored_muons);
-      set_lep(stored_eles);
+      set_lep({stored_muons, stored_eles});
 
       //// JETS ////
 
       // We want the two jets with the highest CSV and CMVA
-      using jetstore = ObjectStore<hbbfile::jet_enum, panda::Jet, float>;
+      using jetstore = ObjectStore<hbbfile::jet, panda::Jet, float>;
 
-      jetstore stored_jets({hbbfile::jet_enum::jet1, hbbfile::jet_enum::jet2},
+      jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3, hbbfile::jet::jet4},
                            [](panda::Jet* j) {return j->pt();});
-      jetstore stored_csvs({hbbfile::jet_enum::csv_jet1, hbbfile::jet_enum::csv_jet2},
+      jetstore stored_csvs({hbbfile::jet::csv_jet1, hbbfile::jet::csv_jet2},
                            [](panda::Jet* j) {return j->csv;});
-      jetstore stored_cmvas({hbbfile::jet_enum::cmva_jet1, hbbfile::jet_enum::cmva_jet2},
+      jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2},
                             [](panda::Jet* j) {return j->cmva;});
 
       for (auto& jet : event.chsAK4Jets) {
@@ -157,62 +159,67 @@ int parsed_main(int argc, char** argv) {
         stored_cmvas.check(jet);
       }
 
-      auto set_jet = [&output] (jetstore& jets) {
-        for (auto& jet : jets.store) {
-          if (not jet.second)
-            break;
-          output.set_jet(jet.first, *jet.second);
-          auto& gen = jet.second->matchedGenJet;
-          if (gen.isValid())
-            output.set_genjet(jet.first, *gen);
+      auto set_jet = [&output] (std::initializer_list<jetstore> stores) {
+        for (auto& jets : stores) {
+          for (auto& jet : jets.store) {
+            if (not jet.second)
+              break;
+            output.set_jet(jet.first, *jet.second);
+            auto& gen = jet.second->matchedGenJet;
+            if (gen.isValid())
+              output.set_genjet(jet.first, *gen);
+          }
         }
       };
 
-      set_jet(stored_jets);
+      set_jet({stored_jets});
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &set_jet] (jetstore jets) {
-        set_jet(jets);
-        for (auto& jet : jets.store) {
-          if (not jet.second)
-            break;
+      auto set_bjet = [&output, &set_jet] (std::initializer_list<jetstore> stores) {
+        set_jet(stores);
+        for (auto& jets : stores) {
+          for (auto& jet : jets.store) {
+            if (not jet.second)
+              break;
 
-          auto bjet = to_bjet(jet.first);
-          auto& vert = jet.second->secondaryVertex;
-          if (vert.isValid())
-            output.set_bjet(bjet, *vert);
+            auto bjet = to_bjet(jet.first);
+            output.set_bjet(bjet, *jet.second);
 
-          int nlep = 0;
-          const panda::PFCand* maxlep = nullptr;
+            auto& vert = jet.second->secondaryVertex;
+            if (vert.isValid())
+              output.set_bvert(bjet, *vert);
 
-          decltype(maxlep->pt()) maxtrkpt = 0;
+            int nlep = 0;
+            const panda::PFCand* maxlep = nullptr;
 
-          for (auto pf : jet.second->constituents) {
-            if (pf->q()) {
-              auto pt = pf->pt();
-              maxtrkpt = std::max(maxtrkpt, pt);
-              auto pdgid = abs(pf->pdgId());
-              if (pdgid == 11 || pdgid == 13) {
-                nlep++;
-                if (not maxlep or pt > maxlep->pt())
-                  maxlep = &*pf;    // Dereference the panda::Ref, and then get the address
+            decltype(maxlep->pt()) maxtrkpt = 0;
+
+            for (auto pf : jet.second->constituents) {
+              if (pf->q()) {
+                auto pt = pf->pt();
+                maxtrkpt = std::max(maxtrkpt, pt);
+                auto pdgid = abs(pf->pdgId());
+                if (pdgid == 11 || pdgid == 13) {
+                  nlep++;
+                  if (not maxlep or pt > maxlep->pt())
+                    maxlep = &*pf;    // Dereference the panda::Ref, and then get the address
+                }
               }
             }
-          }
 
-          output.set_bmaxtrk(bjet, maxtrkpt);
-          if (maxlep)
-            output.set_bleps(bjet, *jet.second, nlep, *maxlep);
+            output.set_bmaxtrk(bjet, maxtrkpt);
+            if (maxlep)
+              output.set_bleps(bjet, *jet.second, nlep, *maxlep);
+          }
         }
       };
 
-      set_bjet(stored_csvs);
-      set_bjet(stored_cmvas);
+      set_bjet({stored_csvs, stored_cmvas});
 
       if (stored_csvs.store[1].second)
-        output.set_hbb(hbbfile::hbb_enum::csv_hbb, stored_csvs.store[0].second->p4() + stored_csvs.store[1].second->p4());
+        output.set_hbb(hbbfile::hbb::csv_hbb, stored_csvs.store[0].second->p4() + stored_csvs.store[1].second->p4());
       if (stored_cmvas.store[1].second)
-        output.set_hbb(hbbfile::hbb_enum::cmva_hbb, stored_cmvas.store[0].second->p4() + stored_cmvas.store[1].second->p4());
+        output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].second->p4() + stored_cmvas.store[1].second->p4());
 
       auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
       output.recoil = recoilvec.Mod();
@@ -222,6 +229,19 @@ int parsed_main(int argc, char** argv) {
 
       if (not (output.csv_hbb or output.cmva_hbb))
         continue;
+
+      //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
+      for (auto& gen : event.genParticles) {
+        auto abspdgid = abs(gen.pdgid);
+        if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
+          output.set_gen(hbbfile::gen::genboson, gen);
+
+        else if (not output.gen_t and gen.pdgid == 6)
+          output.set_gen(hbbfile::gen::gen_t, gen);
+
+        else if (not output.gen_tbar and gen.pdgid == -6)
+          output.set_gen(hbbfile::gen::gen_tbar, gen);
+      }
 
       output.fill();
     }
