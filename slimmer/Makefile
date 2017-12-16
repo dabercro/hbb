@@ -30,7 +30,7 @@ $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 
 test: $(target)
 	test ! -f test.root || rm test.root
-	DYLD_LIBRARY_PATH=$(pandalib) PATH=.:${PATH} $(target) $(testfile) test.root
+	DYLD_LIBRARY_PATH=$(pandalib) PATH=.:${PATH} $(exename) $(testfile) test.root
 
 clean:
 	rm $(target) $(flatclass).h feedpanda.h
