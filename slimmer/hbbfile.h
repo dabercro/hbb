@@ -148,6 +148,8 @@ class hbbfile {
   Float_t csv_jet2_vtx_m;
   Int_t csv_jet2_vtx_ntrk;
   Float_t csv_jet2_vtx_pt;
+  Float_t dphi_uh_cmva;
+  Float_t dphi_uh_csv;
   Float_t ele1_eta;
   Float_t ele1_phi;
   Float_t ele1_pt;
@@ -243,6 +245,8 @@ class hbbfile {
   Bool_t met_filter;
   Bool_t met_trigger;
   Float_t metphi;
+  Float_t min_dphi_metj_hard;
+  Float_t min_dphi_metj_soft;
   Float_t muon1_eta;
   Float_t muon1_phi;
   Float_t muon1_pt;
@@ -488,6 +492,8 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("csv_jet2_vtx_m", &csv_jet2_vtx_m, "csv_jet2_vtx_m/F");
   t->Branch("csv_jet2_vtx_ntrk", &csv_jet2_vtx_ntrk, "csv_jet2_vtx_ntrk/I");
   t->Branch("csv_jet2_vtx_pt", &csv_jet2_vtx_pt, "csv_jet2_vtx_pt/F");
+  t->Branch("dphi_uh_cmva", &dphi_uh_cmva, "dphi_uh_cmva/F");
+  t->Branch("dphi_uh_csv", &dphi_uh_csv, "dphi_uh_csv/F");
   t->Branch("ele1_eta", &ele1_eta, "ele1_eta/F");
   t->Branch("ele1_phi", &ele1_phi, "ele1_phi/F");
   t->Branch("ele1_pt", &ele1_pt, "ele1_pt/F");
@@ -583,6 +589,8 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("met_filter", &met_filter, "met_filter/O");
   t->Branch("met_trigger", &met_trigger, "met_trigger/O");
   t->Branch("metphi", &metphi, "metphi/F");
+  t->Branch("min_dphi_metj_hard", &min_dphi_metj_hard, "min_dphi_metj_hard/F");
+  t->Branch("min_dphi_metj_soft", &min_dphi_metj_soft, "min_dphi_metj_soft/F");
   t->Branch("muon1_eta", &muon1_eta, "muon1_eta/F");
   t->Branch("muon1_phi", &muon1_phi, "muon1_phi/F");
   t->Branch("muon1_pt", &muon1_pt, "muon1_pt/F");
@@ -740,6 +748,8 @@ void hbbfile::reset(panda::Event& event) {
   csv_jet2_vtx_m = -5;
   csv_jet2_vtx_ntrk = -5;
   csv_jet2_vtx_pt = -5;
+  dphi_uh_cmva = -5;
+  dphi_uh_csv = -5;
   ele1_eta = -5;
   ele1_phi = -5;
   ele1_pt = -5;
@@ -835,6 +845,8 @@ void hbbfile::reset(panda::Event& event) {
   met_filter = event.metFilters.pass();
   met_trigger = false;
   metphi = event.pfMet.phi;
+  min_dphi_metj_hard = 4;
+  min_dphi_metj_soft = 4;
   muon1_eta = -5;
   muon1_phi = -5;
   muon1_pt = -5;

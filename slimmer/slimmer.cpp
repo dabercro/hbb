@@ -145,14 +145,18 @@ int parsed_main(int argc, char** argv) {
         if (jet.pt() < 20.0)
           continue;
 
+        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
+
         // Count all jets (including forward)
         output.n_alljet++;
         if (fabs(jet.eta()) > 2.5)
           continue;
 
         output.n_jet++;
-        if (jet.pt() > 30.0)
+        if (jet.pt() > 30.0) {
           output.n_hardjet++;
+          output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
+        }
 
         stored_jets.check(jet);
         stored_csvs.check(jet);
@@ -221,10 +225,6 @@ int parsed_main(int argc, char** argv) {
       if (stored_cmvas.store[1].second)
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].second->p4() + stored_cmvas.store[1].second->p4());
 
-      auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
-      output.recoil = recoilvec.Mod();
-      output.recoilphi = recoilvec.Phi();
-
       //// FILTER ////
 
       if (not (output.csv_hbb or output.cmva_hbb))
@@ -242,6 +242,15 @@ int parsed_main(int argc, char** argv) {
         else if (not output.gen_tbar and gen.pdgid == -6)
           output.set_gen(hbbfile::gen::gen_tbar, gen);
       }
+
+      //// RECOIL ////
+
+      auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
+      output.recoil = recoilvec.Mod();
+      output.recoilphi = recoilvec.Phi();
+
+      output.dphi_uh_csv = deltaPhi(output.csv_hbb_phi, output.recoilphi);
+      output.dphi_uh_cmva = deltaPhi(output.cmva_hbb_phi, output.recoilphi);
 
       output.fill();
     }

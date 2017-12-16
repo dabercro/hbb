@@ -27,10 +27,6 @@ met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 
 ! Default default value is inside {}
-{-5}
-recoil
-recoilphi
-
 ! Count some objects
 {/I}
 {0}
@@ -144,3 +140,13 @@ m -> gen.m()
 pdgid/I = 0 -> gen.pdgid
 
 <--
+
+! Some calculated things
+
+recoil
+recoilphi
+
+dphi_uh_csv
+dphi_uh_cmva
+min_dphi_metj_soft = 4
+min_dphi_metj_hard = 4
