@@ -45,6 +45,8 @@ int parsed_main(int argc, char** argv) {
     //// TRIGGERS ////
 
     const std::vector<const char*> met_trigger_paths = {
+      "HLT_PFMET110_PFMHT110_IDTight",
+      "HLT_PFMET120_PFMHT120_IDTight",
       "HLT_PFMET170_NoiseCleaned",
       "HLT_PFMET170_HBHECleaned",
       "HLT_PFMET170_JetIdCleaned",
