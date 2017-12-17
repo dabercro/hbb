@@ -8,7 +8,7 @@ ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
 	pandalib = ../../PandaTree/lib
 	pandalibs = -lpanda
-	target = $(exename)
+	target = ${HOME}/bin/$(exename)
 else
 	pandainc = ${CMSSW_BASE}/src
 	pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
@@ -44,7 +44,7 @@ $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 
 test: $(tarball)
 	test ! -f test.root || rm test.root
-	DYLD_LIBRARY_PATH=$(pandalib) PATH=.:${PATH} $(exename) $(testfile) test.root
+	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root
 	test -z ${CMSSW_BASE} || test ! -d ${HOME}/public_html/plots/test || rm -r ${HOME}/public_html/plots/test
 	test -z ${CMSSW_BASE} || crombie plotdump test.root ${HOME}/public_html/plots/test
 
