@@ -31,21 +31,20 @@ $(thejq): /home/dabercro/bin/jq
 
 endif
 
-
-$(target): $(flatclass).h slimmer.cpp ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h feedpanda.h
+$(target): $(flatclass).h slimmer.cpp ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h feedpanda.h
 	g++ -I$(pandainc) -I${CROMBIEPATH} $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(target) slimmer.cpp
 
-feedpanda.h: $(flatclass).h slimmer.cpp
+feedpanda.h: $(flatclass).h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp feedpanda.h
 
-$(flatclass).h: hbbfile.txt ${CROMBIEPATH}/scripts/maketree.py
+$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 	crombie maketree $(flatclass).txt
 
 .PHONY: clean test
 
 test: $(target)
 	test ! -f test.root || rm test.root
-	DYLD_LIBRARY_PATH=$(pandalib) PATH=.:${PATH} $(target) $(testfile) test.root
+	DYLD_LIBRARY_PATH=$(pandalib) PATH=.:${PATH} $(exename) $(testfile) test.root
 
 clean:
 	rm $(target) $(flatclass).h feedpanda.h
