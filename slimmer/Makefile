@@ -42,7 +42,7 @@ $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 
 .PHONY: clean test
 
-test: $(tarball)
+test: $(tarball) $(target)
 	test ! -f test.root || rm test.root
 	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root
 	test -z ${CMSSW_BASE} || test ! -d ${HOME}/public_html/plots/test || rm -r ${HOME}/public_html/plots/test

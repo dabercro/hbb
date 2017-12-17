@@ -68,6 +68,11 @@ int parsed_main(int argc, char** argv) {
 
       all_hist.Fill(0.0, (event.weight < 0) ? -1.0 : 1.0);
 
+      //// FILTER OUT LOW MET ////
+
+      if (output.met < 70)
+        continue;
+
       // Check triggers
       for (auto token : met_trigger_tokens) {
         if (event.triggerFired(token)) {
@@ -222,9 +227,9 @@ int parsed_main(int argc, char** argv) {
 
       set_bjet({stored_csvs, stored_cmvas});
 
-      if (stored_csvs.store[1].second)
+      if (output.csv_jet2_csv > 0.3)
         output.set_hbb(hbbfile::hbb::csv_hbb, stored_csvs.store[0].second->p4() + stored_csvs.store[1].second->p4());
-      if (stored_cmvas.store[1].second)
+      if (output.cmva_jet2_cmva > -0.7)
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].second->p4() + stored_cmvas.store[1].second->p4());
 
       //// FILTER ////
