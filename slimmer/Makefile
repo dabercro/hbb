@@ -31,8 +31,11 @@ $(thejq): /home/dabercro/bin/jq
 
 endif
 
-$(target): $(flatclass).h slimmer.cpp ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h feedpanda.h
+$(target): $(flatclass).h slimmer.cpp ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h feedpanda.h checkrun.h
 	g++ -I$(pandainc) -I${CROMBIEPATH} $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(target) slimmer.cpp
+
+checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
+	crombie goodruns certs/* checkrun
 
 feedpanda.h: $(flatclass).h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp feedpanda.h
@@ -49,4 +52,4 @@ test: $(tarball) $(target)
 	test -z ${CMSSW_BASE} || crombie plotdump test.root ${HOME}/public_html/plots/test
 
 clean:
-	rm $(target) $(flatclass).h feedpanda.h
+	rm $(target) $(flatclass).h feedpanda.h checkrun.h

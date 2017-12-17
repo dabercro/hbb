@@ -4,6 +4,7 @@
 #include <functional>
 #include <initializer_list>
 
+#include "checkrun.h"
 #include "hbbfile.h"
 #include "feedpanda.h"
 
@@ -68,9 +69,9 @@ int parsed_main(int argc, char** argv) {
 
       all_hist.Fill(0.0, (event.weight < 0) ? -1.0 : 1.0);
 
-      //// FILTER OUT LOW MET ////
+      //// FILTER OUT LOW MET AND GOODRUNS ////
 
-      if (output.met < 70)
+      if (output.met < 70 || not checkrun(event.runNumber, event.lumiNumber))
         continue;
 
       // Check triggers
