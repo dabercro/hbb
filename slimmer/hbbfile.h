@@ -279,12 +279,14 @@ class hbbfile {
     ele1 = 2,
     ele2 = 3
   };
+ private:
   const std::vector<std::string> lep_names = {
     "muon1",
     "muon2",
     "ele1",
     "ele2"
   };
+ public:
   void set_lep(const lep base, const panda::Lepton& lep);
   
   enum class bjet : int {
@@ -293,12 +295,14 @@ class hbbfile {
     cmva_jet1 = 2,
     cmva_jet2 = 3
   };
+ private:
   const std::vector<std::string> bjet_names = {
     "csv_jet1",
     "csv_jet2",
     "cmva_jet1",
     "cmva_jet2"
   };
+ public:
   void set_bjet(const bjet base, const panda::Jet& jet);
   void set_bvert(const bjet base, const panda::SecondaryVertex& vert);
   void set_bleps(const bjet base, const panda::Jet& jet, const int nlep, const panda::PFCand& lep);
@@ -314,6 +318,7 @@ class hbbfile {
     jet3 = 6,
     jet4 = 7
   };
+ private:
   const std::vector<std::string> jet_names = {
     "csv_jet1",
     "csv_jet2",
@@ -324,6 +329,7 @@ class hbbfile {
     "jet3",
     "jet4"
   };
+ public:
   void set_jet(const jet base, const panda::Jet& jet);
   void set_genjet(const jet base, const panda::GenJet& gen);
   
@@ -331,10 +337,12 @@ class hbbfile {
     csv_hbb = 0,
     cmva_hbb = 1
   };
+ private:
   const std::vector<std::string> hbb_names = {
     "csv_hbb",
     "cmva_hbb"
   };
+ public:
   void set_hbb(const hbb base, const TLorentzVector& vec);
   
   enum class gen : int {
@@ -342,11 +350,13 @@ class hbbfile {
     gen_t = 1,
     gen_tbar = 2
   };
+ private:
   const std::vector<std::string> gen_names = {
     "genboson",
     "gen_t",
     "gen_tbar"
   };
+ public:
   void set_gen(const gen base, const panda::GenParticle& gen);
 
  private:

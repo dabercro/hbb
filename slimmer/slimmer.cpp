@@ -59,7 +59,7 @@ int parsed_main(int argc, char** argv) {
 
     // Loop over tree
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
-      if (entry % 1000 == 0)
+      if (entry % 10000 == 0)
         std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
       event.getEntry(*events_tree, entry);
       output.reset(event);
