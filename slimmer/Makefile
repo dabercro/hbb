@@ -45,11 +45,13 @@ $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 
 .PHONY: clean test
 
+testdir = ${HOME}/public_html/plots/testhbb
+
 test: $(tarball) $(target)
 	test ! -f test.root || rm test.root
 	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root
-	test -z ${CMSSW_BASE} || test ! -d ${HOME}/public_html/plots/test || rm -r ${HOME}/public_html/plots/test
-	test -z ${CMSSW_BASE} || crombie plotdump test.root ${HOME}/public_html/plots/test
+	test -z ${CMSSW_BASE} || test ! -d $(testdir) || rm -r $(testdir)
+	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
 
 clean:
 	rm $(target) $(flatclass).h feedpanda.h checkrun.h
