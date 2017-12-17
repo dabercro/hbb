@@ -150,9 +150,11 @@ class hbbfile {
   Float_t csv_jet2_vtx_pt;
   Float_t dphi_uh_cmva;
   Float_t dphi_uh_csv;
+  Bool_t ele1;
   Float_t ele1_eta;
   Float_t ele1_phi;
   Float_t ele1_pt;
+  Bool_t ele2;
   Float_t ele2_eta;
   Float_t ele2_phi;
   Float_t ele2_pt;
@@ -247,9 +249,11 @@ class hbbfile {
   Float_t metphi;
   Float_t min_dphi_metj_hard;
   Float_t min_dphi_metj_soft;
+  Bool_t muon1;
   Float_t muon1_eta;
   Float_t muon1_phi;
   Float_t muon1_pt;
+  Bool_t muon2;
   Float_t muon2_eta;
   Float_t muon2_phi;
   Float_t muon2_pt;
@@ -504,9 +508,11 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("csv_jet2_vtx_pt", &csv_jet2_vtx_pt, "csv_jet2_vtx_pt/F");
   t->Branch("dphi_uh_cmva", &dphi_uh_cmva, "dphi_uh_cmva/F");
   t->Branch("dphi_uh_csv", &dphi_uh_csv, "dphi_uh_csv/F");
+  t->Branch("ele1", &ele1, "ele1/O");
   t->Branch("ele1_eta", &ele1_eta, "ele1_eta/F");
   t->Branch("ele1_phi", &ele1_phi, "ele1_phi/F");
   t->Branch("ele1_pt", &ele1_pt, "ele1_pt/F");
+  t->Branch("ele2", &ele2, "ele2/O");
   t->Branch("ele2_eta", &ele2_eta, "ele2_eta/F");
   t->Branch("ele2_phi", &ele2_phi, "ele2_phi/F");
   t->Branch("ele2_pt", &ele2_pt, "ele2_pt/F");
@@ -601,9 +607,11 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("metphi", &metphi, "metphi/F");
   t->Branch("min_dphi_metj_hard", &min_dphi_metj_hard, "min_dphi_metj_hard/F");
   t->Branch("min_dphi_metj_soft", &min_dphi_metj_soft, "min_dphi_metj_soft/F");
+  t->Branch("muon1", &muon1, "muon1/O");
   t->Branch("muon1_eta", &muon1_eta, "muon1_eta/F");
   t->Branch("muon1_phi", &muon1_phi, "muon1_phi/F");
   t->Branch("muon1_pt", &muon1_pt, "muon1_pt/F");
+  t->Branch("muon2", &muon2, "muon2/O");
   t->Branch("muon2_eta", &muon2_eta, "muon2_eta/F");
   t->Branch("muon2_phi", &muon2_phi, "muon2_phi/F");
   t->Branch("muon2_pt", &muon2_pt, "muon2_pt/F");
@@ -760,9 +768,11 @@ void hbbfile::reset(panda::Event& event) {
   csv_jet2_vtx_pt = -5;
   dphi_uh_cmva = -5;
   dphi_uh_csv = -5;
+  ele1 = false;
   ele1_eta = -5;
   ele1_phi = -5;
   ele1_pt = -5;
+  ele2 = false;
   ele2_eta = -5;
   ele2_phi = -5;
   ele2_pt = -5;
@@ -857,9 +867,11 @@ void hbbfile::reset(panda::Event& event) {
   metphi = event.pfMet.phi;
   min_dphi_metj_hard = 4;
   min_dphi_metj_soft = 4;
+  muon1 = false;
   muon1_eta = -5;
   muon1_phi = -5;
   muon1_pt = -5;
+  muon2 = false;
   muon2_eta = -5;
   muon2_phi = -5;
   muon2_pt = -5;
@@ -881,6 +893,7 @@ void hbbfile::reset(panda::Event& event) {
 }
 
 void hbbfile::set_lep(const lep base, const panda::Lepton& lep) {
+  set(lep_names[static_cast<int>(base)] + "", static_cast<Bool_t>(true));
   set(lep_names[static_cast<int>(base)] + "_pt", static_cast<Float_t>(lep.pt()));
   set(lep_names[static_cast<int>(base)] + "_eta", static_cast<Float_t>(lep.eta()));
   set(lep_names[static_cast<int>(base)] + "_phi", static_cast<Float_t>(lep.phi()));

@@ -46,6 +46,7 @@ n_hardjet
 muon,ele -->
 1,2 --> lep(panda::Lepton& lep)
 
+/O = false -> true
 pt -> lep.pt()
 eta -> lep.eta()
 phi -> lep.phi()
@@ -86,6 +87,7 @@ maxtrk -> maxpt
 +jet1,jet2,jet3,jet4 --> jet(panda::Jet& jet)
 
 ! "Member"/type = default -> Function
+
 /O = false -> true
 pt -> jet.pt()
 eta -> jet.eta()
