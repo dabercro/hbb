@@ -44,9 +44,10 @@ n_hardjet
 {-5}
 ! Save two leptons of each kind
 muon,ele -->
-1,2 --> lep(panda::Lepton& lep)
+1,2 --> lep(panda::Lepton& lep, int flag)
 
 /O = false -> true
+1l_2m_3t/b = 0 -> flag
 pt -> lep.pt()
 eta -> lep.eta()
 phi -> lep.phi()

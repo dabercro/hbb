@@ -1,6 +1,5 @@
 #include <algorithm>
 #include <iostream>
-#include <utility>
 #include <functional>
 #include <initializer_list>
 
@@ -13,17 +12,6 @@
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "TH1F.h"
-
-template<typename T, typename F>
-void check_top_two(T& check, std::pair<T*, T*>& top, F get_tag) {
-  auto tag = get_tag(&check);
-  if (not top.first or tag > get_tag(top.first)) {
-    top.second = top.first;
-    top.first = &check;
-  }
-  else if (not top.second or tag > get_tag(top.second))
-    top.second = &check;
-}
 
 int parsed_main(int argc, char** argv) {
 
@@ -98,21 +86,25 @@ int parsed_main(int argc, char** argv) {
 
       TLorentzVector lepvec {};
 
-      using lepstore = ObjectStore<hbbfile::lep, panda::Lepton, float>;
+      using lepstore = ObjectStore<hbbfile::lep, panda::Lepton, int>;
       lepstore stored_muons({hbbfile::lep::muon1, hbbfile::lep::muon2}, [](panda::Lepton* l) {return l->pt();});
       lepstore stored_eles({hbbfile::lep::ele1, hbbfile::lep::ele2}, [](panda::Lepton* l) {return l->pt();});
 
       // Define default checks here
       auto check_lep = [&output, &lepvec] (lepstore& store, panda::Lepton& lep) {
         if (lep.loose) {
+          int stat_flag = 1;
           lepvec += lep.p4();
           output.n_looselep++;
-          store.check(lep);
           if (lep.medium) {
             output.n_mediumlep++;
-            if (lep.tight)
+            stat_flag++;
+            if (lep.tight) {
               output.n_tightlep++;
+              stat_flag++;
+            }
           }
+          store.check(lep, stat_flag);
         }
       };
 
@@ -127,9 +119,9 @@ int parsed_main(int argc, char** argv) {
       auto set_lep = [&output] (std::initializer_list<lepstore> stores) {
         for (auto& leps : stores) {
           for (auto& lep : leps.store) {
-            if (not lep.second)
+            if (not lep.particle)
               break;
-            output.set_lep(lep.first, *lep.second);
+            output.set_lep(lep.branch, *lep.particle, lep.extra);
           }
         }
       };
@@ -139,7 +131,7 @@ int parsed_main(int argc, char** argv) {
       //// JETS ////
 
       // We want the two jets with the highest CSV and CMVA
-      using jetstore = ObjectStore<hbbfile::jet, panda::Jet, float>;
+      using jetstore = ObjectStore<hbbfile::jet, panda::Jet>;
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3, hbbfile::jet::jet4},
                            [](panda::Jet* j) {return j->pt();});
@@ -174,12 +166,12 @@ int parsed_main(int argc, char** argv) {
       auto set_jet = [&output] (std::initializer_list<jetstore> stores) {
         for (auto& jets : stores) {
           for (auto& jet : jets.store) {
-            if (not jet.second)
+            if (not jet.particle)
               break;
-            output.set_jet(jet.first, *jet.second);
-            auto& gen = jet.second->matchedGenJet;
+            output.set_jet(jet.branch, *jet.particle);
+            auto& gen = jet.particle->matchedGenJet;
             if (gen.isValid())
-              output.set_genjet(jet.first, *gen);
+              output.set_genjet(jet.branch, *gen);
           }
         }
       };
@@ -191,13 +183,13 @@ int parsed_main(int argc, char** argv) {
         set_jet(stores);
         for (auto& jets : stores) {
           for (auto& jet : jets.store) {
-            if (not jet.second)
+            if (not jet.particle)
               break;
 
-            auto bjet = to_bjet(jet.first);
-            output.set_bjet(bjet, *jet.second);
+            auto bjet = to_bjet(jet.branch);
+            output.set_bjet(bjet, *jet.particle);
 
-            auto& vert = jet.second->secondaryVertex;
+            auto& vert = jet.particle->secondaryVertex;
             if (vert.isValid())
               output.set_bvert(bjet, *vert);
 
@@ -206,7 +198,7 @@ int parsed_main(int argc, char** argv) {
 
             decltype(maxlep->pt()) maxtrkpt = 0;
 
-            for (auto pf : jet.second->constituents) {
+            for (auto pf : jet.particle->constituents) {
               if (pf->q()) {
                 auto pt = pf->pt();
                 maxtrkpt = std::max(maxtrkpt, pt);
@@ -221,7 +213,7 @@ int parsed_main(int argc, char** argv) {
 
             output.set_bmaxtrk(bjet, maxtrkpt);
             if (maxlep)
-              output.set_bleps(bjet, *jet.second, nlep, *maxlep);
+              output.set_bleps(bjet, *jet.particle, nlep, *maxlep);
           }
         }
       };
@@ -229,9 +221,9 @@ int parsed_main(int argc, char** argv) {
       set_bjet({stored_csvs, stored_cmvas});
 
       if (output.csv_jet2_csv > 0.3)
-        output.set_hbb(hbbfile::hbb::csv_hbb, stored_csvs.store[0].second->p4() + stored_csvs.store[1].second->p4());
+        output.set_hbb(hbbfile::hbb::csv_hbb, stored_csvs.store[0].particle->p4() + stored_csvs.store[1].particle->p4());
       if (output.cmva_jet2_cmva > -0.7)
-        output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].second->p4() + stored_cmvas.store[1].second->p4());
+        output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
 
       //// FILTER ////
 
