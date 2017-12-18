@@ -3,12 +3,16 @@ CFLAGS = `root-config --cflags`
 exename = makehbbtree
 flatclass = hbbfile
 testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
+corrections = data/corrections.d
 
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
 	pandalib = ../../PandaTree/lib
 	pandalibs = -lpanda
 	target = ${HOME}/bin/$(exename)
+
+all: $(target) $(corrections)
+
 else
 	pandainc = ${CMSSW_BASE}/src
 	pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
@@ -19,6 +23,8 @@ else
 	checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
 	tarball = ${CMSSW_BASE}/condor.tgz
+
+all: $(tarball) $(corrections)
 
 $(tarball): $(target) $(checker) $(thejq)
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external
@@ -42,6 +48,10 @@ feedpanda.h: $(flatclass).h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 
 $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 	crombie maketree $(flatclass).txt
+
+$(corrections): data/downloads.url
+	cd data; rm *.root; wget -i downloads.url
+	touch $(corrections)
 
 .PHONY: clean test
 

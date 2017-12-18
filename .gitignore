@@ -15,3 +15,5 @@
 *.t1
 
 *.root
+*.d
+condor.cfg
