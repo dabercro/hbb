@@ -91,15 +91,19 @@ int parsed_main(int argc, char** argv) {
       lepstore stored_eles({hbbfile::lep::ele1, hbbfile::lep::ele2}, [](panda::Lepton* l) {return l->pt();});
 
       // Define default checks here
-      auto check_lep = [&output, &lepvec] (lepstore& store, panda::Lepton& lep) {
-        if (lep.loose) {
+      // We'll do a lambda with no arguments for lazy evaluation of lepton IDs
+      using lazy_id = std::function<bool()>;
+
+      auto check_lep = [&output, &lepvec] (lepstore& store, panda::Lepton& lep,
+                                           lazy_id is_loose, lazy_id is_med, lazy_id is_tight) {
+        if (is_loose()) {
           int stat_flag = 1;
           lepvec += lep.p4();
           output.n_looselep++;
-          if (lep.medium) {
+          if (is_med()) {
             output.n_mediumlep++;
             stat_flag++;
-            if (lep.tight) {
+            if (is_tight()) {
               output.n_tightlep++;
               stat_flag++;
             }
@@ -109,12 +113,35 @@ int parsed_main(int argc, char** argv) {
       };
 
       // Loop over muons
-      for (auto& lep : event.muons)
-        check_lep(stored_muons, lep);
+      for (auto& lep : event.muons) {
+        check_lep(stored_muons, lep,
+                  [&] {   // Loose muons
+                    return lep.loose and lep.pt() >= 10 and fabs(lep.eta()) <= 2.4;
+                  },
+                  [&] {   // Medium muons
+                    return lep.medium and (lep.combIso()/lep.pt()) < 0.15;
+                  },
+                  [&] {   // Tight muons
+                    return lep.tight;
+                  });
+      }
 
       // Loop over electrons
-      for (auto& lep : event.electrons)
-        check_lep(stored_eles, lep);
+      for (auto& lep : event.electrons) {
+        auto abseta = fabs(lep.eta());
+        auto isoscale = abseta < 1.4442 ? 2 : 1;
+        check_lep(stored_eles, lep,
+                  [&] {   // Loose electrons
+                    return lep.veto and lep.pt() >= 10 and fabs(lep.eta()) <= 2.5 and
+                      lep.dxy < (0.10/isoscale) and lep.dz < (0.20/isoscale);
+                  },
+                  [&] {   // Medium electrons
+                    return lep.medium;
+                  },
+                  [&] {   // Tight electrons
+                    return lep.tight;
+                  });
+      }
 
       auto set_lep = [&output] (std::initializer_list<lepstore> stores) {
         for (auto& leps : stores) {
@@ -133,7 +160,7 @@ int parsed_main(int argc, char** argv) {
       // We want the two jets with the highest CSV and CMVA
       using jetstore = ObjectStore<hbbfile::jet, panda::Jet>;
 
-      jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3, hbbfile::jet::jet4},
+      jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
       jetstore stored_csvs({hbbfile::jet::csv_jet1, hbbfile::jet::csv_jet2},
                            [](panda::Jet* j) {return j->csv;});

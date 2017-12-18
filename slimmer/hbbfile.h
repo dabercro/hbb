@@ -227,22 +227,6 @@ class hbbfile {
   Float_t jet3_nhf;
   Float_t jet3_phi;
   Float_t jet3_pt;
-  Bool_t jet4;
-  Float_t jet4_chf;
-  Float_t jet4_emfrac;
-  Float_t jet4_eta;
-  Bool_t jet4_gen;
-  Float_t jet4_gen_eta;
-  Float_t jet4_gen_m;
-  Int_t jet4_gen_num_b;
-  Int_t jet4_gen_parton_flav;
-  Int_t jet4_gen_pdgid;
-  Float_t jet4_gen_phi;
-  Float_t jet4_gen_pt;
-  Float_t jet4_m;
-  Float_t jet4_nhf;
-  Float_t jet4_phi;
-  Float_t jet4_pt;
   Int_t lumi_num;
   Float_t mc_weight;
   Float_t met;
@@ -295,7 +279,7 @@ class hbbfile {
     "ele2"
   };
  public:
-  void set_lep(const lep base, const panda::Lepton& lep, const int flag);
+  void set_lep(const lep base, const panda::Lepton& lep, const unsigned char flag);
   
   enum class bjet : int {
     csv_jet1 = 0,
@@ -323,8 +307,7 @@ class hbbfile {
     cmva_jet2 = 3,
     jet1 = 4,
     jet2 = 5,
-    jet3 = 6,
-    jet4 = 7
+    jet3 = 6
   };
  private:
   const std::vector<std::string> jet_names = {
@@ -334,8 +317,7 @@ class hbbfile {
     "cmva_jet2",
     "jet1",
     "jet2",
-    "jet3",
-    "jet4"
+    "jet3"
   };
  public:
   void set_jet(const jet base, const panda::Jet& jet);
@@ -589,22 +571,6 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("jet3_nhf", &jet3_nhf, "jet3_nhf/F");
   t->Branch("jet3_phi", &jet3_phi, "jet3_phi/F");
   t->Branch("jet3_pt", &jet3_pt, "jet3_pt/F");
-  t->Branch("jet4", &jet4, "jet4/O");
-  t->Branch("jet4_chf", &jet4_chf, "jet4_chf/F");
-  t->Branch("jet4_emfrac", &jet4_emfrac, "jet4_emfrac/F");
-  t->Branch("jet4_eta", &jet4_eta, "jet4_eta/F");
-  t->Branch("jet4_gen", &jet4_gen, "jet4_gen/O");
-  t->Branch("jet4_gen_eta", &jet4_gen_eta, "jet4_gen_eta/F");
-  t->Branch("jet4_gen_m", &jet4_gen_m, "jet4_gen_m/F");
-  t->Branch("jet4_gen_num_b", &jet4_gen_num_b, "jet4_gen_num_b/I");
-  t->Branch("jet4_gen_parton_flav", &jet4_gen_parton_flav, "jet4_gen_parton_flav/I");
-  t->Branch("jet4_gen_pdgid", &jet4_gen_pdgid, "jet4_gen_pdgid/I");
-  t->Branch("jet4_gen_phi", &jet4_gen_phi, "jet4_gen_phi/F");
-  t->Branch("jet4_gen_pt", &jet4_gen_pt, "jet4_gen_pt/F");
-  t->Branch("jet4_m", &jet4_m, "jet4_m/F");
-  t->Branch("jet4_nhf", &jet4_nhf, "jet4_nhf/F");
-  t->Branch("jet4_phi", &jet4_phi, "jet4_phi/F");
-  t->Branch("jet4_pt", &jet4_pt, "jet4_pt/F");
   t->Branch("lumi_num", &lumi_num, "lumi_num/I");
   t->Branch("mc_weight", &mc_weight, "mc_weight/F");
   t->Branch("met", &met, "met/F");
@@ -853,22 +819,6 @@ void hbbfile::reset(panda::Event& event) {
   jet3_nhf = -5;
   jet3_phi = -5;
   jet3_pt = -5;
-  jet4 = false;
-  jet4_chf = -5;
-  jet4_emfrac = -5;
-  jet4_eta = -5;
-  jet4_gen = false;
-  jet4_gen_eta = -5;
-  jet4_gen_m = -5;
-  jet4_gen_num_b = 0;
-  jet4_gen_parton_flav = 0;
-  jet4_gen_pdgid = 0;
-  jet4_gen_phi = -5;
-  jet4_gen_pt = -5;
-  jet4_m = -5;
-  jet4_nhf = -5;
-  jet4_phi = -5;
-  jet4_pt = -5;
   lumi_num = event.lumiNumber;
   mc_weight = event.weight;
   met = event.pfMet.pt;
@@ -904,7 +854,7 @@ void hbbfile::reset(panda::Event& event) {
   trkmetphi = event.trkMet.phi;
 }
 
-void hbbfile::set_lep(const lep base, const panda::Lepton& lep, const int flag) {
+void hbbfile::set_lep(const lep base, const panda::Lepton& lep, const unsigned char flag) {
   set(lep_names[static_cast<int>(base)] + "", static_cast<Bool_t>(true));
   set(lep_names[static_cast<int>(base)] + "_1l_2m_3t", static_cast<UChar_t>(flag));
   set(lep_names[static_cast<int>(base)] + "_pt", static_cast<Float_t>(lep.pt()));

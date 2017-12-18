@@ -44,7 +44,7 @@ n_hardjet
 {-5}
 ! Save two leptons of each kind
 muon,ele -->
-1,2 --> lep(panda::Lepton& lep, int flag)
+1,2 --> lep(panda::Lepton& lep, unsigned char flag)
 
 /O = false -> true
 1l_2m_3t/b = 0 -> flag
@@ -85,7 +85,7 @@ leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
 maxtrk -> maxpt
 
 {-5}
-+jet1,jet2,jet3,jet4 --> jet(panda::Jet& jet)
++jet1,jet2,jet3 --> jet(panda::Jet& jet)
 
 ! "Member"/type = default -> Function
 
