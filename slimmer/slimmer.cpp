@@ -214,7 +214,6 @@ int parsed_main(int argc, char** argv) {
               break;
 
             auto bjet = to_bjet(jet.branch);
-            output.set_bjet(bjet, *jet.particle);
 
             auto& vert = jet.particle->secondaryVertex;
             if (vert.isValid())
@@ -238,7 +237,7 @@ int parsed_main(int argc, char** argv) {
               }
             }
 
-            output.set_bmaxtrk(bjet, maxtrkpt);
+            output.set_bjet(bjet, *jet.particle, maxtrkpt);
             if (maxlep)
               output.set_bleps(bjet, *jet.particle, nlep, *maxlep);
           }

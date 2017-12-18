@@ -56,8 +56,9 @@ phi -> lep.phi()
 
 ! Input jets are used to set the following variables
 csv_jet,cmva_jet -->
-1,2 --> bjet(panda::Jet& jet)
+1,2 --> bjet(panda::Jet& jet, float maxpt)
 
+maxtrk -> maxpt
 csv -> jet.csv
 cmva -> jet.cmva
 deepcsvb -> jet.deepCSVb
@@ -79,10 +80,6 @@ nlep/I -> nlep
 leadlep_pt -> lep.pt()
 leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
 leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
-
---> bmaxtrk(float maxpt)
-
-maxtrk -> maxpt
 
 {-5}
 +jet1,jet2,jet3 --> jet(panda::Jet& jet)
