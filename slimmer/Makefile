@@ -50,7 +50,7 @@ $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 	crombie maketree $(flatclass).txt
 
 $(corrections): data/downloads.url
-	cd data; rm *.root; wget -i downloads.url
+	cd data; rm *.root; rm *.csv; wget -i downloads.url
 	touch $(corrections)
 
 .PHONY: clean test

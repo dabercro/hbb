@@ -6,8 +6,6 @@ from CrombieTools.PlotTools.PlotStack import plotter, SetupFromEnv, MakePlots
 from array import array
 from CrombieTools.LoadConfig import cuts
 
-plotter.SetAllHistName('')
-
 SetupFromEnv()
 
 plotter.SetAddSignal(True)
@@ -37,25 +35,27 @@ def parse_regions(check=None):
 
 def parse_plots(check=None):
     plots = [
-            ['hbbm', 24, 0, 600, 'm_{bb} [GeV]'],
-            ['hbbpt', 24, 0, 600, 'p_{T,bb} [GeV]'],
-            ['pfmet', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
+            ['csv_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
+            ['csv_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
+            ['met', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
-            ['dphipfmet', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
-            ['nJet', 10, 0, 10, 'Num Jets'],
-            ['jet1Pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
-            ['jet2Pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
-            ['jetPt[2]', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
-            ['jetCSV[hbbjtidx[0]]', 40, 0, 1.0, 'CSV jet 1'],
-            ['jetCSV[hbbjtidx[1]]', 40, 0, 1.0, 'CSV jet 2'],
-            ['nLooseLep', 5, -1, 4, 'Num Loose Leptons'],
-            ['nTightLep', 5, -1, 4, 'Num Tight Leptons'],
-            ['deltaPhi(pfmetphi,hbbphi)', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
-            ['jet1IsTight', 5, -1, 4, 'Some Jet ID'],
-            ['jetEMFrac[hbbjtidx[0]]', 40, 0, 1.0, 'EM Frac jet 1'],
-            ['jetEMFrac[hbbjtidx[1]]', 40, 0, 1.0, 'EM Frac jet 1'],
-            ['jetHadFrac[hbbjtidx[0]]', 40, 0, 1.0, 'Hadron Frac jet 1'],
-            ['jetHadFrac[hbbjtidx[1]]', 40, 0, 1.0, 'Hadron Frac jet 1'],
+            ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
+            ['n_jet', 10, 0, 10, 'Num Jets'],
+            ['jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
+            ['jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
+            ['jet3_pt', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
+            ['csv_jet1_csv', 40, 0, 1.0, 'CSV jet 1'],
+            ['csv_jet2_csv', 40, 0, 1.0, 'CSV jet 2'],
+            ['n_looselep', 5, -1, 4, 'Num Loose Leptons'],
+            ['n_tightlep', 5, -1, 4, 'Num Tight Leptons'],
+            ['dphi_uh_csv', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['deltaPhi(metphi,trkmetphi)', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
+            ['jet1_emfrac', 40, 0, 1.0, 'EM Frac jet 1'],
+            ['jet2_emfrac', 40, 0, 1.0, 'EM Frac jet 2'],
+            ['jet1_chf', 40, 0, 1.0, 'CHF Frac jet 1'],
+            ['jet2_chf', 40, 0, 1.0, 'CHF Frac jet 2'],
+            ['jet1_nhf', 40, 0, 1.0, 'NHF Frac jet 1'],
+            ['jet2_nhf', 40, 0, 1.0, 'NHF Frac jet 2'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -88,11 +88,14 @@ def RunPlots(all_left, some_left):
 
 
 if __name__ == '__main__':
-    RunPlots(all_left=['jetCSV[hbbjtidx[0]]',
-                       'deltaPhi(pfmetphi,hbbphi)'
+    RunPlots(all_left=['jet1_chf',
+                       'jet2_chf',
+                       'jet1_csv',
+                       'jet2_csv',
+                       'dphi_uh_csv',
                        ],
-             some_left={'tt': ['jetCSV[hbbjtidx[1]]',
-                               ],
-                        'multijet': ['jet1Pt',
-                                     ],
+             some_left={'signal': ['jet1_chf',
+                                   ],
+                        'tt': ['n_jet',
+                               ]
                         })

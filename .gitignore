@@ -15,5 +15,6 @@
 *.t1
 
 *.root
+*.csv
 *.d
 condor.cfg

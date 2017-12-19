@@ -4,15 +4,44 @@ fresh=$1
 
 source CrombieSlimmingConfig.sh
 
+if [ ! -d $CrombieSkimDir ]
+then
+    mkdir -p $CrombieSkimDir
+fi
+
+SCRATCH=/data/t3home000/dabercro/scratch
+
 if [ "$fresh" = "fresh" ]
 then
+    rm $SCRATCH/*.root 2> /dev/null
     rm $CrombieSkimDir/*.root 2> /dev/null
     rm $CrombieSkimDir/*/*.root 2> /dev/null
 fi
 
-crombie skim --cut 'pfmet > 150 && metFilter == 1 && hbbpt > 0' --tree 'events' --copy 'hDTotalMCWeight' --run 'runNumber' --lumi 'lumiNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir --outdir $CrombieSkimDir -x $CrombieDropBranches --map MapFiles.txt
+# Make softlinks if we need to:
+if [ ! -d $CrombieFullDir/links ]
+then
+    mkdir -p $CrombieFullDir/links
+    pushd $CrombieFullDir
+    for f in */*.root
+    do 
+        link=$(printf $f | perl -ne '$_ =~ s/\//_/g; print $_')
+        ln -s ../$f links/$link
+    done
+    popd
+fi
 
-hadd $CrombieSkimDir/MET.root $CrombieSkimDir/MET_*.root
+SAMPLES=$(ls $CrombieFullDir/links | perl -ne '/(.*)_\d+.root/ && print "$1\n"' | sort | uniq)
+
+crombie skim --cut 'met > 150 && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+
+for SAMPLE in $SAMPLES
+do
+    hadd $CrombieSkimDir/${SAMPLE}.root $SCRATCH/${SAMPLE}_[0-9]*.root
+done
+
+./apply_corrections.py $CrombieSkimDir
+
 exit 0
 
 VJDir=$CrombieSkimDir/VJets

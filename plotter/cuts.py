@@ -1,21 +1,24 @@
 from CrombieTools import Nminus1Cut
 
-metcut     = 'pfmet > 170 && metFilter == 1'
-lepveto    = 'nLooseLep == 0'
-btag       = 'jetCMVA[hbbjtidx[0]] > 0.4432'
-unbtag     = 'jetCMVA[hbbjtidx[0]] < 0.4432'
-lbtag      = 'jetCMVA[hbbjtidx[1]] > -0.5884'
-tbtag      = 'jetCMVA[hbbjtidx[0]] > 0.9432'
-hbbpt      = 'hbbpt_reg > 120'
-jetpt      = 'jet1Pt > 60 && jet2Pt > 35'
-mjjveto    = '(60 > hbbm || 160 < hbbm)'
-antiQCD    = 'dphipfmet > 0.5'
-antierQCD  = 'dphipfmet > 1.5'
-deltaVH    = 'deltaPhi(pfmetphi,hbbphi) > 2.0'
-undeltaVH  = 'deltaPhi(pfmetphi,hbbphi) < 2.0'
-deltaVHlep = 'deltaPhi(hbbphi,vectorSumPhi(pfmet,pfmetphi,Alt$((nTightMuon==1)*muonPt[0],0)+Alt$((nTightElectron==1)*electronPt[0],0),Alt$((nTightMuon==1)*muonPhi[0],0)+Alt$((nTightElectron==1)*electronPhi[0],0))) > 2' 
+jetgood    = 'jet1_chf > 0.15 && jet1_emfrac < 0.8'
+metcut     = 'met > 170 && met_filter == 1'
+lepveto    = 'n_looselep == 0'
+btag       = 'csv_jet1_csv > 0.8484'
+unbtag     = 'csv_jet1_csv < 0.8484'
+lbtag      = 'csv_jet2_csv > 0.5426'
+tbtag      = 'csv_jet1_csv > 0.9535'
+hbbpt      = 'csv_hbb_pt > 120'
+jetpt      = 'jet1_pt > 60 && jet2_pt > 35'
+mjjveto    = '(60 > csv_hbb_m || 160 < csv_hbb_m)'
+antiQCD    = 'min_dphi_metj_hard > 0.5'
+antierQCD  = 'min_dphi_metj_hard > 1.5'
+deltaVH    = 'dphi_uh_csv > 2.0'
+undeltaVH  = 'dphi_uh_csv < 2.0'
+deltaVHlep = deltaVH
+trkmetphi  = 'deltaPhi(metphi,trkmetphi) < 0.5'
 
 common = ' && '.join([
+        jetgood,
         jetpt,
         hbbpt,
         metcut,
@@ -31,16 +34,18 @@ regionCuts = {
     'tt' : ' && '.join([
             common,
             deltaVHlep,
-            'nTightLep == 1',
-            'nJet >= 4',
+            'n_looselep < 3',
+            'n_tightlep == 1',
+            'n_jet >= 4',
+            'csv_hbb_pt > 120',
             btag,
-            'dphipfmet < 1.57'
+            'min_dphi_metj_hard < 1.57'
             ]),
     'multijet' : ' && '.join([
             common,
             undeltaVH,
             lepveto,
-            'dphipfmet < 0.4'
+            'min_dphi_metj_hard < 0.4'
             ]),
     'lightz' : ' && '.join([
             common,
@@ -48,7 +53,8 @@ regionCuts = {
             unbtag,
             antiQCD,
             deltaVH,
-            'nJet < 4'
+            trkmetphi,
+            'n_jet < 4'
             ]),
     'heavyz' : ' && '.join([
             common,
@@ -57,13 +63,14 @@ regionCuts = {
             mjjveto,
             deltaVH,
             antiQCD,
-            'nJet < 3'
+            trkmetphi,
+            'n_jet < 3'
             ]),
     }
 
 regionCuts['common'] = common
-regionCuts['scaledtt'] = regionCuts['tt'] 
-regionCuts['signal'] = regionCuts['heavyz'].replace(mjjveto, '60 < hbbm && 160 > hbbm')
+#regionCuts['scaledtt'] = regionCuts['tt'] 
+regionCuts['signal'] = regionCuts['heavyz'].replace(mjjveto, '60 < csv_hbb_m && 160 > csv_hbb_m')
 
 # Making selection of multiple entries
 
@@ -72,37 +79,17 @@ def joinCuts(toJoin=regionCuts.keys(), cuts=regionCuts):
 
 # A weight applied to all MC
 
-defaultMCWeight = '*'.join([
-        'normalizedWeight',
-        'sf_pu',
-        'sf_ewkV',
-        'sf_qcdV',
-        'sf_metTrig',
-#        'sf_lepID',
-#        'sf_lepIso',
-#        'sf_lepTrack',
-#        'sf_tt',
-        'sf_cmvaWeight_Cent'
-        ])
+defaultMCWeight = 'scale_factors/abs(mc_weight)'
 
 # Additional weights applied to certain control regions
 
-mettrigger = '(trigger & 1) != 0'
+mettrigger = 'met_trigger'
 
 region_weights = { # key : [Data,MC]
     'signal'   : ['0', defaultMCWeight],
     'scaledtt' : [mettrigger, '*'.join([defaultMCWeight, '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
-    'scaledcommon' : [mettrigger, '*'.join([defaultMCWeight, '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
     'default'  : [mettrigger, defaultMCWeight],
     }
-
-for key in regionCuts:
-    regionCuts[key + '_qcdVUp'] = regionCuts[key]
-    region_weights[key + '_qcdVUp'] = region_weights.get(key, region_weights['default'])
-    region_weights[key + '_qcdVUp'][1] += '* 1.1'
-    regionCuts[key + '_qcdVDown'] = regionCuts[key]
-    region_weights[key + '_qcdVDown'] = region_weights.get(key, region_weights['default'])
-    region_weights[key + '_qcdVDown'][1] += '* 0.9'
 
 # Do not change the names of these functions or required parameters
 # Otherwise you cannot use some convenience functions
@@ -110,7 +97,7 @@ for key in regionCuts:
 # Generally you can probably leave these alone
 
 def cut(category, region):
-    return ('(' + joinCuts(toJoin=region.split('+')) + ')')
+    return '(' + joinCuts(toJoin=region.split('+')) + ')'
 
 def dataMCCuts(region, isData):
     key = 'default'
@@ -120,3 +107,7 @@ def dataMCCuts(region, isData):
     index = 0 if isData else 1
 
     return '(' + region_weights[key][index] + ')'
+
+if __name__ == '__main__':
+    print regionCuts
+    print region_weights

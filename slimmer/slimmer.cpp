@@ -55,11 +55,11 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       output.reset(event);
 
-      all_hist.Fill(0.0, (event.weight < 0) ? -1.0 : 1.0);
+      all_hist.Fill(0.0, output.mc_weight);
 
       //// FILTER OUT LOW MET AND GOODRUNS ////
 
-      if (output.met < 70 || not checkrun(event.runNumber, event.lumiNumber))
+      if (output.met < 120 || not checkrun(event.runNumber, event.lumiNumber))
         continue;
 
       // Check triggers
@@ -274,6 +274,8 @@ int parsed_main(int argc, char** argv) {
       auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
       output.recoil = recoilvec.Mod();
       output.recoilphi = recoilvec.Phi();
+
+      output.dphi_met_trkmet = deltaPhi(output.metphi, output.trkmetphi);
 
       output.dphi_uh_csv = deltaPhi(output.csv_hbb_phi, output.recoilphi);
       output.dphi_uh_cmva = deltaPhi(output.cmva_hbb_phi, output.recoilphi);
