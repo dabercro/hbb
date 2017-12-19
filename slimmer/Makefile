@@ -18,7 +18,7 @@ else
 	pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
 	target =  ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
 	pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-	testfile = /mnt/hadoop/scratch/jenkins/panda/dabercro/PandaProd/jenkins-clean/F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
+	testfile = /mnt/hadoop/scratch/dabercro/panda/F6AA5BDD-AA0F-E711-847F-F832E4CC4E51.root
 
 	checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
@@ -37,7 +37,8 @@ $(thejq): /home/dabercro/bin/jq
 
 endif
 
-$(target): $(flatclass).h slimmer.cpp ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h feedpanda.h checkrun.h
+$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h \
+	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h
 	g++ -I$(pandainc) -I${CROMBIEPATH} $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(target) slimmer.cpp
 
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py

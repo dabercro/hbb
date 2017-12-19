@@ -10,6 +10,7 @@
 #include "SkimmingTools/interface/CmsswParse.h"
 #include "SkimmingTools/interface/StoreParticles.h"
 #include "PandaTree/Objects/interface/Event.h"
+#include "PlotTools/interface/KinematicFunctions.h"
 
 #include "TH1F.h"
 
