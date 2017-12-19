@@ -148,6 +148,7 @@ class hbbfile {
   Float_t csv_jet2_vtx_m;
   Int_t csv_jet2_vtx_ntrk;
   Float_t csv_jet2_vtx_pt;
+  Float_t dphi_met_trkmet;
   Float_t dphi_uh_cmva;
   Float_t dphi_uh_csv;
   Bool_t ele1;
@@ -491,6 +492,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("csv_jet2_vtx_m", &csv_jet2_vtx_m, "csv_jet2_vtx_m/F");
   t->Branch("csv_jet2_vtx_ntrk", &csv_jet2_vtx_ntrk, "csv_jet2_vtx_ntrk/I");
   t->Branch("csv_jet2_vtx_pt", &csv_jet2_vtx_pt, "csv_jet2_vtx_pt/F");
+  t->Branch("dphi_met_trkmet", &dphi_met_trkmet, "dphi_met_trkmet/F");
   t->Branch("dphi_uh_cmva", &dphi_uh_cmva, "dphi_uh_cmva/F");
   t->Branch("dphi_uh_csv", &dphi_uh_csv, "dphi_uh_csv/F");
   t->Branch("ele1", &ele1, "ele1/O");
@@ -739,6 +741,7 @@ void hbbfile::reset(panda::Event& event) {
   csv_jet2_vtx_m = -5;
   csv_jet2_vtx_ntrk = -5;
   csv_jet2_vtx_pt = -5;
+  dphi_met_trkmet = -5;
   dphi_uh_cmva = -5;
   dphi_uh_csv = -5;
   ele1 = false;
