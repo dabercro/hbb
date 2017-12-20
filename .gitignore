@@ -18,3 +18,4 @@
 *.csv
 *.d
 condor.cfg
+checkrun.h
