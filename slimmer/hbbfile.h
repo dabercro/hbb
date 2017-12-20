@@ -266,7 +266,7 @@ class hbbfile {
   void fill() { t->Fill(); }
   void write(TObject* obj) { f->WriteTObject(obj, obj->GetName()); }
   
-  enum class lep : int {
+  enum class lep : unsigned {
     muon1 = 0,
     muon2 = 1,
     ele1 = 2,
@@ -282,7 +282,7 @@ class hbbfile {
  public:
   void set_lep(const lep base, const panda::Lepton& lep, const unsigned char flag);
   
-  enum class bjet : int {
+  enum class bjet : unsigned {
     csv_jet1 = 0,
     csv_jet2 = 1,
     cmva_jet1 = 2,
@@ -300,7 +300,7 @@ class hbbfile {
   void set_bvert(const bjet base, const panda::SecondaryVertex& vert);
   void set_bleps(const bjet base, const panda::Jet& jet, const int nlep, const panda::PFCand& lep);
   
-  enum class jet : int {
+  enum class jet : unsigned {
     csv_jet1 = 0,
     csv_jet2 = 1,
     cmva_jet1 = 2,
@@ -323,7 +323,7 @@ class hbbfile {
   void set_jet(const jet base, const panda::Jet& jet);
   void set_genjet(const jet base, const panda::GenJet& gen);
   
-  enum class hbb : int {
+  enum class hbb : unsigned {
     csv_hbb = 0,
     cmva_hbb = 1
   };
@@ -335,7 +335,7 @@ class hbbfile {
  public:
   void set_hbb(const hbb base, const TLorentzVector& vec);
   
-  enum class gen : int {
+  enum class gen : unsigned {
     genboson = 0,
     gen_t = 1,
     gen_tbar = 2
@@ -857,7 +857,7 @@ void hbbfile::reset(panda::Event& event) {
 }
 
 void hbbfile::set_lep(const lep base, const panda::Lepton& lep, const unsigned char flag) {
-  auto& base_name = lep_names[static_cast<int>(base)];
+  auto& base_name = lep_names[static_cast<unsigned>(base)];
   set(base_name + "", static_cast<Bool_t>(true));
   set(base_name + "_1l_2m_3t", static_cast<UChar_t>(flag));
   set(base_name + "_pt", static_cast<Float_t>(lep.pt()));
@@ -866,7 +866,7 @@ void hbbfile::set_lep(const lep base, const panda::Lepton& lep, const unsigned c
 }
 
 void hbbfile::set_bjet(const bjet base, const panda::Jet& jet, const float maxpt) {
-  auto& base_name = bjet_names[static_cast<int>(base)];
+  auto& base_name = bjet_names[static_cast<unsigned>(base)];
   set(base_name + "_maxtrk", static_cast<Float_t>(maxpt));
   set(base_name + "_csv", static_cast<Float_t>(jet.csv));
   set(base_name + "_cmva", static_cast<Float_t>(jet.cmva));
@@ -875,7 +875,7 @@ void hbbfile::set_bjet(const bjet base, const panda::Jet& jet, const float maxpt
 }
 
 void hbbfile::set_bvert(const bjet base, const panda::SecondaryVertex& vert) {
-  auto& base_name = bjet_names[static_cast<int>(base)];
+  auto& base_name = bjet_names[static_cast<unsigned>(base)];
   set(base_name + "_vtx_pt", static_cast<Float_t>(vert.pt()));
   set(base_name + "_vtx_m", static_cast<Float_t>(vert.m()));
   set(base_name + "_vtx_3Dval", static_cast<Float_t>(vert.vtx3DVal));
@@ -884,7 +884,7 @@ void hbbfile::set_bvert(const bjet base, const panda::SecondaryVertex& vert) {
 }
 
 void hbbfile::set_bleps(const bjet base, const panda::Jet& jet, const int nlep, const panda::PFCand& lep) {
-  auto& base_name = bjet_names[static_cast<int>(base)];
+  auto& base_name = bjet_names[static_cast<unsigned>(base)];
   set(base_name + "_nlep", static_cast<Int_t>(nlep));
   set(base_name + "_leadlep_pt", static_cast<Float_t>(lep.pt()));
   set(base_name + "_leadlep_ptrel", static_cast<Float_t>(lep.p4().Perp(jet.p4().Vect())));
@@ -892,7 +892,7 @@ void hbbfile::set_bleps(const bjet base, const panda::Jet& jet, const int nlep, 
 }
 
 void hbbfile::set_jet(const jet base, const panda::Jet& jet) {
-  auto& base_name = jet_names[static_cast<int>(base)];
+  auto& base_name = jet_names[static_cast<unsigned>(base)];
   set(base_name + "", static_cast<Bool_t>(true));
   set(base_name + "_pt", static_cast<Float_t>(jet.pt()));
   set(base_name + "_eta", static_cast<Float_t>(jet.eta()));
@@ -904,7 +904,7 @@ void hbbfile::set_jet(const jet base, const panda::Jet& jet) {
 }
 
 void hbbfile::set_genjet(const jet base, const panda::GenJet& gen) {
-  auto& base_name = jet_names[static_cast<int>(base)];
+  auto& base_name = jet_names[static_cast<unsigned>(base)];
   set(base_name + "_gen", static_cast<Bool_t>(true));
   set(base_name + "_gen_pt", static_cast<Float_t>(gen.pt()));
   set(base_name + "_gen_eta", static_cast<Float_t>(gen.eta()));
@@ -916,7 +916,7 @@ void hbbfile::set_genjet(const jet base, const panda::GenJet& gen) {
 }
 
 void hbbfile::set_hbb(const hbb base, const TLorentzVector& vec) {
-  auto& base_name = hbb_names[static_cast<int>(base)];
+  auto& base_name = hbb_names[static_cast<unsigned>(base)];
   set(base_name + "", static_cast<Bool_t>(true));
   set(base_name + "_pt", static_cast<Float_t>(vec.Pt()));
   set(base_name + "_eta", static_cast<Float_t>(vec.Eta()));
@@ -925,7 +925,7 @@ void hbbfile::set_hbb(const hbb base, const TLorentzVector& vec) {
 }
 
 void hbbfile::set_gen(const gen base, const panda::GenParticle& gen) {
-  auto& base_name = gen_names[static_cast<int>(base)];
+  auto& base_name = gen_names[static_cast<unsigned>(base)];
   set(base_name + "", static_cast<Bool_t>(true));
   set(base_name + "_pt", static_cast<Float_t>(gen.pt()));
   set(base_name + "_eta", static_cast<Float_t>(gen.eta()));
