@@ -35,8 +35,8 @@ def parse_regions(check=None):
 
 def parse_plots(check=None):
     plots = [
-            ['csv_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
-            ['csv_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
+            ['cmva_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
+            ['cmva_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
             ['met', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
@@ -44,11 +44,11 @@ def parse_plots(check=None):
             ['jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
             ['jet3_pt', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
-            ['csv_jet1_csv', 40, 0, 1.0, 'CSV jet 1'],
-            ['csv_jet2_csv', 40, 0, 1.0, 'CSV jet 2'],
+            ['cmva_jet1_cmva', 40, 0, 1.0, 'CSV jet 1'],
+            ['cmva_jet2_cmva', 40, 0, 1.0, 'CSV jet 2'],
             ['n_looselep', 5, -1, 4, 'Num Loose Leptons'],
             ['n_tightlep', 5, -1, 4, 'Num Tight Leptons'],
-            ['dphi_uh_csv', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['dphi_uh_cmva', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['deltaPhi(metphi,trkmetphi)', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
             ['jet1_emfrac', 40, 0, 1.0, 'EM Frac jet 1'],
             ['jet2_emfrac', 40, 0, 1.0, 'EM Frac jet 2'],
@@ -90,9 +90,9 @@ def RunPlots(all_left, some_left):
 if __name__ == '__main__':
     RunPlots(all_left=['jet1_chf',
                        'jet2_chf',
-                       'jet1_csv',
-                       'jet2_csv',
-                       'dphi_uh_csv',
+                       'jet1_cmva',
+                       'jet2_cmva',
+                       'dphi_uh_cmva',
                        ],
              some_left={'signal': ['jet1_chf',
                                    ],

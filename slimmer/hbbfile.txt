@@ -111,7 +111,6 @@ gen_pdgid -> gen.pdgid
 gen_parton_flav -> gen.partonFlavor
 gen_num_b -> gen.numB
 
-! This ends both the previous -->
 <--
 
 {/F}

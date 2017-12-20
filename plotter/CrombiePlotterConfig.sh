@@ -2,7 +2,7 @@ export CrombieNLocalProcs=12
 
 export CrombieMCConfig=MCConfig.txt
 export CrombieInFilesDir=/data/t3home000/dabercro/hbb/171219
-export CrombieOutPlotDir=$HOME/public_html/plots/$(date +%y%m%d)_v0
+export CrombieOutPlotDir=$HOME/public_html/plots/$(date +%y%m%d)_v1
 
 export CrombieSignalConfig=SignalConfig.txt
 export CrombieLuminosity=35900.0

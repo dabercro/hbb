@@ -3,17 +3,17 @@ from CrombieTools import Nminus1Cut
 jetgood    = 'jet1_chf > 0.15 && jet1_emfrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
 lepveto    = 'n_looselep == 0'
-btag       = 'csv_jet1_csv > 0.8484'
-unbtag     = 'csv_jet1_csv < 0.8484'
-lbtag      = 'csv_jet2_csv > 0.5426'
-tbtag      = 'csv_jet1_csv > 0.9535'
-hbbpt      = 'csv_hbb_pt > 120'
+btag       = 'cmva_jet1_cmva > 0.4432'
+unbtag     = 'cmva_jet1_cmva < 0.4432'
+lbtag      = 'cmva_jet2_cmva > -0.5884'
+tbtag      = 'cmva_jet1_cmva > 0.9432'
+hbbpt      = 'cmva_hbb_pt > 120'
 jetpt      = 'jet1_pt > 60 && jet2_pt > 35'
-mjjveto    = '(60 > csv_hbb_m || 160 < csv_hbb_m)'
+mjjveto    = '(60 > cmva_hbb_m || 160 < cmva_hbb_m)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
-deltaVH    = 'dphi_uh_csv > 2.0'
-undeltaVH  = 'dphi_uh_csv < 2.0'
+deltaVH    = 'dphi_uh_cmva > 2.0'
+undeltaVH  = 'dphi_uh_cmva < 2.0'
 deltaVHlep = deltaVH
 trkmetphi  = 'deltaPhi(metphi,trkmetphi) < 0.5'
 
@@ -37,7 +37,7 @@ regionCuts = {
             'n_looselep < 3',
             'n_tightlep == 1',
             'n_jet >= 4',
-            'csv_hbb_pt > 120',
+            'cmva_hbb_pt > 120',
             btag,
             'min_dphi_metj_hard < 1.57'
             ]),
@@ -70,7 +70,7 @@ regionCuts = {
 
 regionCuts['common'] = common
 #regionCuts['scaledtt'] = regionCuts['tt'] 
-regionCuts['signal'] = regionCuts['heavyz'].replace(mjjveto, '60 < csv_hbb_m && 160 > csv_hbb_m')
+regionCuts['signal'] = regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m && 160 > cmva_hbb_m')
 
 # Making selection of multiple entries
 
