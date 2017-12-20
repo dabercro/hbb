@@ -55,8 +55,10 @@ phi -> lep.phi()
 <--
 
 ! Input jets are used to set the following variables
+"btagreaders.h"
+"bcal/BTagCalibrationStandalone.h"
 csv_jet,cmva_jet -->
-1,2 --> bjet(panda::Jet& jet, float maxpt)
+1,2 --> bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
 
 maxtrk -> maxpt
 csv -> jet.csv
@@ -64,6 +66,20 @@ cmva -> jet.cmva
 deepcsvb -> jet.deepCSVb
 deepcmvab -> jet.deepCMVAb
 
+{1}
+loose_sf -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
+loose_sf_up -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
+loose_sf_down -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
+
+medium_sf -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
+medium_sf_up -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
+medium_sf_down -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
+
+tight_sf -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
+tight_sf_up -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
+tight_sf_down -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
+
+{-5}
 --> bvert(panda::SecondaryVertex& vert)
 
 vtx_pt -> vert.pt()

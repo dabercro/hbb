@@ -6,6 +6,7 @@
 #include "checkrun.h"
 #include "hbbfile.h"
 #include "feedpanda.h"
+#include "btagreaders.h"
 
 #include "SkimmingTools/interface/CmsswParse.h"
 #include "SkimmingTools/interface/StoreParticles.h"
@@ -18,6 +19,7 @@ int parsed_main(int argc, char** argv) {
 
   hbbfile output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
+
 
   // Loop over all input files
   for (int i_file = 1; i_file < argc - 1; i_file++) {
@@ -158,8 +160,8 @@ int parsed_main(int argc, char** argv) {
 
       //// JETS ////
 
-      // We want the two jets with the highest CSV and CMVA
-      using jetstore = ObjectStore<hbbfile::jet, panda::Jet>;
+      // We want the two jets with the highest CSV and CMVA, and a pointer to the correct calibrator
+      using jetstore = ObjectStore<hbbfile::jet, panda::Jet, const BCalReaders*>;
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
@@ -184,8 +186,8 @@ int parsed_main(int argc, char** argv) {
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
           output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
-          stored_csvs.check(jet);
-          stored_cmvas.check(jet);
+          stored_csvs.check(jet, &csv_readers);    // These readers are defined in btagreaders.h
+          stored_cmvas.check(jet, &cmva_readers);
         }
 
         stored_jets.check(jet);
@@ -238,7 +240,7 @@ int parsed_main(int argc, char** argv) {
               }
             }
 
-            output.set_bjet(bjet, *jet.particle, maxtrkpt);
+            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, BTagEntry::FLAV_B);
             if (maxlep)
               output.set_bleps(bjet, *jet.particle, nlep, *maxlep);
           }

@@ -19,3 +19,4 @@
 *.d
 condor.cfg
 checkrun.h
+BCalStrings.h
