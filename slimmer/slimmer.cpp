@@ -183,14 +183,17 @@ int parsed_main(int argc, char** argv) {
         output.n_jet++;
         output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
 
+        stored_jets.check(jet);
+
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
           output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
-          stored_csvs.check(jet, &csv_readers);    // These readers are defined in btagreaders.h
-          stored_cmvas.check(jet, &cmva_readers);
+          if (fabs(jet.eta()) < 2.4) {
+            stored_csvs.check(jet, &csv_readers);    // These readers are defined in btagreaders.h
+            stored_cmvas.check(jet, &cmva_readers);
+          }
         }
 
-        stored_jets.check(jet);
       }
 
       auto set_jet = [&output] (std::initializer_list<jetstore> stores) {
@@ -240,7 +243,18 @@ int parsed_main(int argc, char** argv) {
               }
             }
 
-            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, BTagEntry::FLAV_B);
+            // Determine the flavor of the jet
+            auto flavor = BTagEntry::FLAV_UDSG;
+            auto& gen = jet.particle->matchedGenJet;
+            if (gen.isValid()) {
+              auto abspdgid = abs(gen->pdgid);
+              if (abspdgid == 5)
+                flavor = BTagEntry::FLAV_B;
+              else if (abspdgid == 4)
+                flavor = BTagEntry::FLAV_C;
+            }
+
+            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor);
             if (maxlep)
               output.set_bleps(bjet, *jet.particle, nlep, *maxlep);
           }

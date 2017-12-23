@@ -48,6 +48,7 @@ muon,ele -->
 
 /O = false -> true
 1l_2m_3t/b = 0 -> flag
+q/B = 0 -> lep.charge
 pt -> lep.pt()
 eta -> lep.eta()
 phi -> lep.phi()
@@ -99,8 +100,6 @@ leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
 
 {-5}
 +jet1,jet2,jet3 --> jet(panda::Jet& jet)
-
-! "Member"/type = default -> Function
 
 /O = false -> true
 pt -> jet.pt()
