@@ -15,11 +15,38 @@
 
 #include "TH1F.h"
 
+// A quick class for counting B-tags. Can be used for any other object that just compares one value
+
+class BTagCounter {
+public:
+  BTagCounter (float loose, float medium, float tight)
+    : loose(loose), medium(medium), tight(tight) {}
+  ~BTagCounter () {}
+
+  void count (float value, int& loose_count, int& medium_count, int& tight_count) const {
+    if (value > loose) {
+      loose_count++;
+      if (value > medium) {
+        medium_count++;
+        if (value > tight)
+          tight_count++;
+      }
+    }
+  }
+
+private:  
+  const float loose;
+  const float medium;
+  const float tight;
+};
+
 int parsed_main(int argc, char** argv) {
+
+  const BTagCounter csv_counter {0.5426, 0.8484, 0.9535};
+  const BTagCounter cmva_counter {-0.5884, 0.4432, 0.9432};
 
   hbbfile output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
-
 
   // Loop over all input files
   for (int i_file = 1; i_file < argc - 1; i_file++) {
@@ -76,13 +103,13 @@ int parsed_main(int argc, char** argv) {
       //// PHOTONS ////
       for (auto& pho : event.photons) {
         if (pho.loose)
-          output.n_loosepho++;
+          output.n_pho_loose++;
       }
 
       //// TAUS ////
       for (auto& tau : event.taus) {
         if (tau.pt() > 18 && fabs(tau.eta()) < 2.3 && tau.decayMode && tau.isoDeltaBetaCorr)
-          output.n_loosetau++;
+          output.n_tau_loose++;
       }
 
       //// OTHER LEPTONS ////
@@ -102,12 +129,12 @@ int parsed_main(int argc, char** argv) {
         if (is_loose()) {
           int stat_flag = 1;
           lepvec += lep.p4();
-          output.n_looselep++;
+          output.n_lep_loose++;
           if (is_med()) {
-            output.n_mediumlep++;
+            output.n_lep_medium++;
             stat_flag++;
             if (is_tight()) {
-              output.n_tightlep++;
+              output.n_lep_tight++;
               stat_flag++;
             }
           }
@@ -191,6 +218,8 @@ int parsed_main(int argc, char** argv) {
           if (fabs(jet.eta()) < 2.4) {
             stored_csvs.check(jet, &csv_readers);    // These readers are defined in btagreaders.h
             stored_cmvas.check(jet, &cmva_readers);
+            csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
+            cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
           }
         }
 

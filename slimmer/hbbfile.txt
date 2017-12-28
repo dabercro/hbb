@@ -30,15 +30,21 @@ met_filter/O = event.metFilters.pass()
 ! Count some objects
 {/I}
 {0}
-n_loosetau
-n_loosepho
-n_looselep
-n_mediumlep
-n_tightlep
 
 n_alljet
 n_jet
 n_hardjet
+
+n_bcsv,n_bcmva,n_lep -->
+
+medium
+tight
+
++n_tau,n_pho -->
+
+loose
+
+<--
 
 {/F}
 {-5}
