@@ -40,7 +40,7 @@ do
     hadd $CrombieSkimDir/${SAMPLE}.root $SCRATCH/${SAMPLE}_[0-9]*.root
 done
 
-./apply_corrections.py $CrombieSkimDir
+./applycorrections.py $CrombieSkimDir
 
 exit 0
 

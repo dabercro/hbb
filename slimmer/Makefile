@@ -4,6 +4,7 @@ exename = makehbbtree
 flatclass = hbbfile
 testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 corrections = data/corrections.d
+effs = data/btag_effs.root
 bcalheader = bcal/BCalStrings.h
 
 ifeq ($(origin CMSSW_BASE), undefined)
@@ -12,7 +13,7 @@ ifeq ($(origin CMSSW_BASE), undefined)
 	pandalibs = -lpanda
 	target = ${HOME}/bin/$(exename)
 
-all: $(target) $(corrections)
+all: $(target) $(corrections) $(effs)
 
 else
 	pandainc = ${CMSSW_BASE}/src
@@ -25,7 +26,7 @@ else
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
 	tarball = ${CMSSW_BASE}/condor.tgz
 
-all: $(tarball) $(corrections)
+all: $(tarball) $(corrections) $(effs)
 
 $(tarball): $(target) $(checker) $(thejq)
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external
@@ -55,6 +56,9 @@ $(bcalheader): data/*.csv ${CROMBIEPATH}/scripts/bcalstrings.pl
 $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 	crombie maketree $(flatclass).txt
 
+$(effs): data/make_effs.py data/*eff.txt
+	data/make_effs.py
+
 $(corrections): data/downloads.url
 	cd data; rm *.root; rm *.csv; wget -i downloads.url
 	touch $(corrections)
@@ -70,4 +74,4 @@ test: $(tarball) $(target)
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(bcalheader)
+	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(bcalheader) $(effs)
