@@ -86,7 +86,8 @@ tight_sf -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, je
 tight_sf_up -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
 tight_sf_down -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
 
-{-5}
+! Set the defaults for training stuff to 0
+{0}
 --> bvert(panda::SecondaryVertex& vert)
 
 vtx_pt -> vert.pt()
@@ -95,8 +96,6 @@ vtx_3Dval -> vert.vtx3DVal
 vtx_3Derr -> vert.vtx3DeVal
 vtx_ntrk/I -> vert.ntrk
 
-! Set the defaults for training stuff to 0
-{0}
 --> bleps(panda::Jet& jet, int nlep, panda::PFCand& lep)
 
 nlep/I -> nlep
@@ -116,6 +115,8 @@ m -> jet.m()
 emfrac -> jet.cef + jet.nef
 chf -> jet.chf
 nhf -> jet.nhf
+
+qgl -> jet.qgl
 
 --> genjet(panda::GenJet& gen)
 

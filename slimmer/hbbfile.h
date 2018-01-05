@@ -56,6 +56,7 @@ class hbbfile {
   Int_t cmva_jet1_nlep;
   Float_t cmva_jet1_phi;
   Float_t cmva_jet1_pt;
+  Float_t cmva_jet1_qgl;
   Float_t cmva_jet1_tight_sf;
   Float_t cmva_jet1_tight_sf_down;
   Float_t cmva_jet1_tight_sf_up;
@@ -95,6 +96,7 @@ class hbbfile {
   Int_t cmva_jet2_nlep;
   Float_t cmva_jet2_phi;
   Float_t cmva_jet2_pt;
+  Float_t cmva_jet2_qgl;
   Float_t cmva_jet2_tight_sf;
   Float_t cmva_jet2_tight_sf_down;
   Float_t cmva_jet2_tight_sf_up;
@@ -139,6 +141,7 @@ class hbbfile {
   Int_t csv_jet1_nlep;
   Float_t csv_jet1_phi;
   Float_t csv_jet1_pt;
+  Float_t csv_jet1_qgl;
   Float_t csv_jet1_tight_sf;
   Float_t csv_jet1_tight_sf_down;
   Float_t csv_jet1_tight_sf_up;
@@ -178,6 +181,7 @@ class hbbfile {
   Int_t csv_jet2_nlep;
   Float_t csv_jet2_phi;
   Float_t csv_jet2_pt;
+  Float_t csv_jet2_qgl;
   Float_t csv_jet2_tight_sf;
   Float_t csv_jet2_tight_sf_down;
   Float_t csv_jet2_tight_sf_up;
@@ -236,6 +240,7 @@ class hbbfile {
   Float_t jet1_nhf;
   Float_t jet1_phi;
   Float_t jet1_pt;
+  Float_t jet1_qgl;
   Bool_t jet2;
   Float_t jet2_chf;
   Float_t jet2_emfrac;
@@ -252,6 +257,7 @@ class hbbfile {
   Float_t jet2_nhf;
   Float_t jet2_phi;
   Float_t jet2_pt;
+  Float_t jet2_qgl;
   Bool_t jet3;
   Float_t jet3_chf;
   Float_t jet3_emfrac;
@@ -268,6 +274,7 @@ class hbbfile {
   Float_t jet3_nhf;
   Float_t jet3_phi;
   Float_t jet3_pt;
+  Float_t jet3_qgl;
   Int_t lumi_num;
   Float_t mc_weight;
   Float_t met;
@@ -446,6 +453,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("cmva_jet1_nlep", &cmva_jet1_nlep, "cmva_jet1_nlep/I");
   t->Branch("cmva_jet1_phi", &cmva_jet1_phi, "cmva_jet1_phi/F");
   t->Branch("cmva_jet1_pt", &cmva_jet1_pt, "cmva_jet1_pt/F");
+  t->Branch("cmva_jet1_qgl", &cmva_jet1_qgl, "cmva_jet1_qgl/F");
   t->Branch("cmva_jet1_tight_sf", &cmva_jet1_tight_sf, "cmva_jet1_tight_sf/F");
   t->Branch("cmva_jet1_tight_sf_down", &cmva_jet1_tight_sf_down, "cmva_jet1_tight_sf_down/F");
   t->Branch("cmva_jet1_tight_sf_up", &cmva_jet1_tight_sf_up, "cmva_jet1_tight_sf_up/F");
@@ -485,6 +493,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("cmva_jet2_nlep", &cmva_jet2_nlep, "cmva_jet2_nlep/I");
   t->Branch("cmva_jet2_phi", &cmva_jet2_phi, "cmva_jet2_phi/F");
   t->Branch("cmva_jet2_pt", &cmva_jet2_pt, "cmva_jet2_pt/F");
+  t->Branch("cmva_jet2_qgl", &cmva_jet2_qgl, "cmva_jet2_qgl/F");
   t->Branch("cmva_jet2_tight_sf", &cmva_jet2_tight_sf, "cmva_jet2_tight_sf/F");
   t->Branch("cmva_jet2_tight_sf_down", &cmva_jet2_tight_sf_down, "cmva_jet2_tight_sf_down/F");
   t->Branch("cmva_jet2_tight_sf_up", &cmva_jet2_tight_sf_up, "cmva_jet2_tight_sf_up/F");
@@ -529,6 +538,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("csv_jet1_nlep", &csv_jet1_nlep, "csv_jet1_nlep/I");
   t->Branch("csv_jet1_phi", &csv_jet1_phi, "csv_jet1_phi/F");
   t->Branch("csv_jet1_pt", &csv_jet1_pt, "csv_jet1_pt/F");
+  t->Branch("csv_jet1_qgl", &csv_jet1_qgl, "csv_jet1_qgl/F");
   t->Branch("csv_jet1_tight_sf", &csv_jet1_tight_sf, "csv_jet1_tight_sf/F");
   t->Branch("csv_jet1_tight_sf_down", &csv_jet1_tight_sf_down, "csv_jet1_tight_sf_down/F");
   t->Branch("csv_jet1_tight_sf_up", &csv_jet1_tight_sf_up, "csv_jet1_tight_sf_up/F");
@@ -568,6 +578,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("csv_jet2_nlep", &csv_jet2_nlep, "csv_jet2_nlep/I");
   t->Branch("csv_jet2_phi", &csv_jet2_phi, "csv_jet2_phi/F");
   t->Branch("csv_jet2_pt", &csv_jet2_pt, "csv_jet2_pt/F");
+  t->Branch("csv_jet2_qgl", &csv_jet2_qgl, "csv_jet2_qgl/F");
   t->Branch("csv_jet2_tight_sf", &csv_jet2_tight_sf, "csv_jet2_tight_sf/F");
   t->Branch("csv_jet2_tight_sf_down", &csv_jet2_tight_sf_down, "csv_jet2_tight_sf_down/F");
   t->Branch("csv_jet2_tight_sf_up", &csv_jet2_tight_sf_up, "csv_jet2_tight_sf_up/F");
@@ -626,6 +637,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("jet1_nhf", &jet1_nhf, "jet1_nhf/F");
   t->Branch("jet1_phi", &jet1_phi, "jet1_phi/F");
   t->Branch("jet1_pt", &jet1_pt, "jet1_pt/F");
+  t->Branch("jet1_qgl", &jet1_qgl, "jet1_qgl/F");
   t->Branch("jet2", &jet2, "jet2/O");
   t->Branch("jet2_chf", &jet2_chf, "jet2_chf/F");
   t->Branch("jet2_emfrac", &jet2_emfrac, "jet2_emfrac/F");
@@ -642,6 +654,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("jet2_nhf", &jet2_nhf, "jet2_nhf/F");
   t->Branch("jet2_phi", &jet2_phi, "jet2_phi/F");
   t->Branch("jet2_pt", &jet2_pt, "jet2_pt/F");
+  t->Branch("jet2_qgl", &jet2_qgl, "jet2_qgl/F");
   t->Branch("jet3", &jet3, "jet3/O");
   t->Branch("jet3_chf", &jet3_chf, "jet3_chf/F");
   t->Branch("jet3_emfrac", &jet3_emfrac, "jet3_emfrac/F");
@@ -658,6 +671,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("jet3_nhf", &jet3_nhf, "jet3_nhf/F");
   t->Branch("jet3_phi", &jet3_phi, "jet3_phi/F");
   t->Branch("jet3_pt", &jet3_pt, "jet3_pt/F");
+  t->Branch("jet3_qgl", &jet3_qgl, "jet3_qgl/F");
   t->Branch("lumi_num", &lumi_num, "lumi_num/I");
   t->Branch("mc_weight", &mc_weight, "mc_weight/F");
   t->Branch("met", &met, "met/F");
@@ -741,14 +755,15 @@ void hbbfile::reset(panda::Event& event) {
   cmva_jet1_nlep = 0;
   cmva_jet1_phi = -5;
   cmva_jet1_pt = -5;
+  cmva_jet1_qgl = -5;
   cmva_jet1_tight_sf = 1;
   cmva_jet1_tight_sf_down = 1;
   cmva_jet1_tight_sf_up = 1;
-  cmva_jet1_vtx_3Derr = -5;
-  cmva_jet1_vtx_3Dval = -5;
-  cmva_jet1_vtx_m = -5;
-  cmva_jet1_vtx_ntrk = -5;
-  cmva_jet1_vtx_pt = -5;
+  cmva_jet1_vtx_3Derr = 0;
+  cmva_jet1_vtx_3Dval = 0;
+  cmva_jet1_vtx_m = 0;
+  cmva_jet1_vtx_ntrk = 0;
+  cmva_jet1_vtx_pt = 0;
   cmva_jet2 = false;
   cmva_jet2_chf = -5;
   cmva_jet2_cmva = -5;
@@ -780,14 +795,15 @@ void hbbfile::reset(panda::Event& event) {
   cmva_jet2_nlep = 0;
   cmva_jet2_phi = -5;
   cmva_jet2_pt = -5;
+  cmva_jet2_qgl = -5;
   cmva_jet2_tight_sf = 1;
   cmva_jet2_tight_sf_down = 1;
   cmva_jet2_tight_sf_up = 1;
-  cmva_jet2_vtx_3Derr = -5;
-  cmva_jet2_vtx_3Dval = -5;
-  cmva_jet2_vtx_m = -5;
-  cmva_jet2_vtx_ntrk = -5;
-  cmva_jet2_vtx_pt = -5;
+  cmva_jet2_vtx_3Derr = 0;
+  cmva_jet2_vtx_3Dval = 0;
+  cmva_jet2_vtx_m = 0;
+  cmva_jet2_vtx_ntrk = 0;
+  cmva_jet2_vtx_pt = 0;
   csv_hbb = false;
   csv_hbb_eta = -5;
   csv_hbb_m = -5;
@@ -824,14 +840,15 @@ void hbbfile::reset(panda::Event& event) {
   csv_jet1_nlep = 0;
   csv_jet1_phi = -5;
   csv_jet1_pt = -5;
+  csv_jet1_qgl = -5;
   csv_jet1_tight_sf = 1;
   csv_jet1_tight_sf_down = 1;
   csv_jet1_tight_sf_up = 1;
-  csv_jet1_vtx_3Derr = -5;
-  csv_jet1_vtx_3Dval = -5;
-  csv_jet1_vtx_m = -5;
-  csv_jet1_vtx_ntrk = -5;
-  csv_jet1_vtx_pt = -5;
+  csv_jet1_vtx_3Derr = 0;
+  csv_jet1_vtx_3Dval = 0;
+  csv_jet1_vtx_m = 0;
+  csv_jet1_vtx_ntrk = 0;
+  csv_jet1_vtx_pt = 0;
   csv_jet2 = false;
   csv_jet2_chf = -5;
   csv_jet2_cmva = -5;
@@ -863,14 +880,15 @@ void hbbfile::reset(panda::Event& event) {
   csv_jet2_nlep = 0;
   csv_jet2_phi = -5;
   csv_jet2_pt = -5;
+  csv_jet2_qgl = -5;
   csv_jet2_tight_sf = 1;
   csv_jet2_tight_sf_down = 1;
   csv_jet2_tight_sf_up = 1;
-  csv_jet2_vtx_3Derr = -5;
-  csv_jet2_vtx_3Dval = -5;
-  csv_jet2_vtx_m = -5;
-  csv_jet2_vtx_ntrk = -5;
-  csv_jet2_vtx_pt = -5;
+  csv_jet2_vtx_3Derr = 0;
+  csv_jet2_vtx_3Dval = 0;
+  csv_jet2_vtx_m = 0;
+  csv_jet2_vtx_ntrk = 0;
+  csv_jet2_vtx_pt = 0;
   dphi_met_trkmet = -5;
   dphi_uh_cmva = -5;
   dphi_uh_csv = -5;
@@ -921,6 +939,7 @@ void hbbfile::reset(panda::Event& event) {
   jet1_nhf = -5;
   jet1_phi = -5;
   jet1_pt = -5;
+  jet1_qgl = -5;
   jet2 = false;
   jet2_chf = -5;
   jet2_emfrac = -5;
@@ -937,6 +956,7 @@ void hbbfile::reset(panda::Event& event) {
   jet2_nhf = -5;
   jet2_phi = -5;
   jet2_pt = -5;
+  jet2_qgl = -5;
   jet3 = false;
   jet3_chf = -5;
   jet3_emfrac = -5;
@@ -953,6 +973,7 @@ void hbbfile::reset(panda::Event& event) {
   jet3_nhf = -5;
   jet3_phi = -5;
   jet3_pt = -5;
+  jet3_qgl = -5;
   lumi_num = event.lumiNumber;
   mc_weight = event.weight;
   met = event.pfMet.pt;
@@ -1051,6 +1072,7 @@ void hbbfile::set_jet(const jet base, const panda::Jet& jet) {
   set(base_name + "_emfrac", static_cast<Float_t>(jet.cef + jet.nef));
   set(base_name + "_chf", static_cast<Float_t>(jet.chf));
   set(base_name + "_nhf", static_cast<Float_t>(jet.nhf));
+  set(base_name + "_qgl", static_cast<Float_t>(jet.qgl));
 }
 
 void hbbfile::set_genjet(const jet base, const panda::GenJet& gen) {

@@ -2,7 +2,9 @@
 
 import sys
 
-from CrombieTools.PlotTools.PlotStack import plotter, SetupFromEnv, MakePlots
+from CrombieTools.PlotTools.PlotStack import plotter, SetupFromEnv, MakePlots, PreparePlots
+from CrombieTools.PlotTools import AddOutDir
+
 from array import array
 from CrombieTools.LoadConfig import cuts
 
@@ -24,6 +26,7 @@ plotter.SetAxisTitleOffset(1.55)
 
 plotter.AddDataFile('MET.root')
 
+cats = ['ZvvHbb']
 
 def parse_regions(check=None):
     regions = cuts.regionCuts.keys()
@@ -46,8 +49,8 @@ def parse_plots(check=None):
             ['jet3_pt', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
             ['cmva_jet1_cmva', 40, 0, 1.0, 'CSV jet 1'],
             ['cmva_jet2_cmva', 40, 0, 1.0, 'CSV jet 2'],
-            ['n_looselep', 5, -1, 4, 'Num Loose Leptons'],
-            ['n_tightlep', 5, -1, 4, 'Num Tight Leptons'],
+            ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
+            ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
             ['dphi_uh_cmva', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['deltaPhi(metphi,trkmetphi)', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
             ['jet1_emfrac', 40, 0, 1.0, 'EM Frac jet 1'],
@@ -63,13 +66,11 @@ def parse_plots(check=None):
 
     return [plot for plot in plots if check is None or plot[0] in check]
 
-
 def submit_plots(regions, plots):
     limithistsdir = 'datacards' if sys.argv[1:] == ['hbbm'] else ''
 
-    cats = ['ZvvHbb']
     # Parse everything one last time so that left plots don't slip through
-    MakePlots(cats, parse_regions(regions), parse_plots(plots), limitHistsDir=limithistsdir)
+    MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], parallel=False)
 
 
 def RunPlots(all_left, some_left):
@@ -88,6 +89,8 @@ def RunPlots(all_left, some_left):
 
 
 if __name__ == '__main__':
+    PreparePlots(cats, parse_regions(), [plot[:4] for plot in parse_plots()])
+
     RunPlots(all_left=['jet1_chf',
                        'jet2_chf',
                        'jet1_cmva',

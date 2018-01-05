@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <iostream>
 #include <functional>
-#include <initializer_list>
 
 #include "checkrun.h"
 #include "hbbfile.h"
@@ -19,9 +18,8 @@
 
 class BTagCounter {
 public:
-  BTagCounter (float loose, float medium, float tight)
+  constexpr BTagCounter (float loose, float medium, float tight)
     : loose(loose), medium(medium), tight(tight) {}
-  ~BTagCounter () {}
 
   void count (float value, int& loose_count, int& medium_count, int& tight_count) const {
     if (value > loose) {
@@ -42,8 +40,8 @@ private:
 
 int parsed_main(int argc, char** argv) {
 
-  const BTagCounter csv_counter {0.5426, 0.8484, 0.9535};
-  const BTagCounter cmva_counter {-0.5884, 0.4432, 0.9432};
+  constexpr BTagCounter csv_counter {0.5426, 0.8484, 0.9535};
+  constexpr BTagCounter cmva_counter {-0.5884, 0.4432, 0.9432};
 
   hbbfile output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
@@ -173,7 +171,7 @@ int parsed_main(int argc, char** argv) {
                   });
       }
 
-      auto set_lep = [&output] (std::initializer_list<lepstore> stores) {
+      auto set_lep = [&output] (std::vector<lepstore> stores) {
         for (auto& leps : stores) {
           for (auto& lep : leps.store) {
             if (not lep.particle)
@@ -225,7 +223,7 @@ int parsed_main(int argc, char** argv) {
 
       }
 
-      auto set_jet = [&output] (std::initializer_list<jetstore> stores) {
+      auto set_jet = [&output] (std::vector<jetstore> stores) {
         for (auto& jets : stores) {
           for (auto& jet : jets.store) {
             if (not jet.particle)
@@ -241,7 +239,7 @@ int parsed_main(int argc, char** argv) {
       set_jet({stored_jets});
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &set_jet] (std::initializer_list<jetstore> stores) {
+      auto set_bjet = [&output, &set_jet] (std::vector<jetstore> stores) {
         set_jet(stores);
         for (auto& jets : stores) {
           for (auto& jet : jets.store) {

@@ -2,7 +2,7 @@ from CrombieTools import Nminus1Cut
 
 jetgood    = 'jet1_chf > 0.15 && jet1_emfrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
-lepveto    = 'n_looselep == 0'
+lepveto    = 'n_lep_loose == 0'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
 unbtag_csv = 'csv_jet1_csv < 0.8484'
@@ -40,8 +40,8 @@ regionCuts = {
     'tt' : ' && '.join([
             common,
             deltaVH,
-            'n_looselep < 3',
-            'n_tightlep == 1',
+            'n_lep_loose < 3',
+            'n_lep_tight == 1',
             'n_jet >= 4',
             btag,
             'min_dphi_metj_hard < 1.57'
@@ -84,7 +84,7 @@ def joinCuts(toJoin=regionCuts.keys(), cuts=regionCuts):
 
 # A weight applied to all MC
 
-defaultMCWeight = 'scale_factors/abs(mc_weight)'
+defaultMCWeight = 'scale_factors'
 
 # Additional weights applied to certain control regions
 
