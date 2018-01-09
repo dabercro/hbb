@@ -9,6 +9,7 @@
 *.snm
 *.toc
 *.png
+*.xml
 
 *.1
 *.mp
