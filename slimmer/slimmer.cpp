@@ -85,9 +85,8 @@ int parsed_main(int argc, char** argv) {
 
       all_hist.Fill(0.0, output.mc_weight);
 
-      //// FILTER OUT LOW MET AND GOODRUNS ////
-
-      if (output.met < 120 || not checkrun(event.runNumber, event.lumiNumber))
+      //// FILTER ////
+      if (not checkrun(event.runNumber, event.lumiNumber))
         continue;
 
       // Check triggers
@@ -170,6 +169,19 @@ int parsed_main(int argc, char** argv) {
                     return lep.tight;
                   });
       }
+
+      //// RECOIL ////
+      // I inserted in here to use the lepvec for filtering
+
+      auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
+      output.recoil = recoilvec.Mod();
+      output.recoilphi = recoilvec.Phi();
+
+      //// FILTER ////
+      if (output.recoil < 120)
+        continue;
+
+      //// BACK TO LEP ////
 
       auto set_lep = [&output] (std::vector<lepstore> stores) {
         for (auto& leps : stores) {
@@ -296,7 +308,6 @@ int parsed_main(int argc, char** argv) {
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
 
       //// FILTER ////
-
       if (not (output.csv_hbb or output.cmva_hbb))
         continue;
 
@@ -313,11 +324,7 @@ int parsed_main(int argc, char** argv) {
           output.set_gen(hbbfile::gen::gen_tbar, gen);
       }
 
-      //// RECOIL ////
-
-      auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
-      output.recoil = recoilvec.Mod();
-      output.recoilphi = recoilvec.Phi();
+      //// SOME FINAL CALCULATIONS ////
 
       output.dphi_met_trkmet = deltaPhi(output.metphi, output.trkmetphi);
 

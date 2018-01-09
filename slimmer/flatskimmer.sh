@@ -42,8 +42,6 @@ done
 
 ./applycorrections.py $CrombieSkimDir
 
-exit 0
-
 VJDir=$CrombieSkimDir/VJets
 
 test -d $VJDir || mkdir $VJDir
@@ -53,8 +51,8 @@ test -d $CrombieSkimDir/bDir || mkdir $CrombieSkimDir/bDir
 test -d $CrombieSkimDir/bbDir || mkdir $CrombieSkimDir/bbDir
 test -d $CrombieSkimDir/norm || mkdir $CrombieSkimDir/norm
 
-crombie skim --cut 'jetGenFlavor[hbbjtidx[0]] == 5 && jetGenFlavor[hbbjtidx[1]] == 5' --tree 'events' --copy 'hDTotalMCWeight' --run 'runNumber' --lumi 'lumiNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bDir
+crombie skim --cut 'cmva_jet1_gen_pdgid == 5 && cmva_jet2_gen_pdgid == 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bDir
 
-crombie skim --cut '(jetGenFlavor[hbbjtidx[0]] == 5) != (jetGenFlavor[hbbjtidx[1]] == 5)' --tree 'events' --copy 'hDTotalMCWeight' --run 'runNumber' --lumi 'lumiNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bbDir
+crombie skim --cut '(cmva_jet1_gen_pdgid == 5) != (cmva_jet2_gen_pdgid == 5)' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bbDir
 
-crombie skim --cut 'jetGenFlavor[hbbjtidx[0]] != 5 && jetGenFlavor[hbbjtidx[1]] != 5' --tree 'events' --copy 'hDTotalMCWeight' --run 'runNumber' --lumi 'lumiNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/norm
+crombie skim --cut 'cmva_jet1_gen_pdgid != 5 && cmva_jet2_gen_pdgid != 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/norm

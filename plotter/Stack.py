@@ -29,7 +29,7 @@ plotter.AddDataFile('MET.root')
 cats = ['ZvvHbb']
 
 def parse_regions(check=None):
-    regions = cuts.regionCuts.keys()
+    regions = [reg for orig in cuts.regionCuts.keys() for reg in [orig, orig + '+csv']]
 
     if True in [arg in regions for arg in sys.argv]:
         regions = [r for r in regions if r in sys.argv]
@@ -40,6 +40,18 @@ def parse_plots(check=None):
     plots = [
             ['cmva_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
             ['cmva_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
+            ['cmva_jet1_cmva', 40, -1.0, 1.0, 'CMVA jet 1'],
+            ['cmva_jet2_cmva', 40, -1.0, 1.0, 'CMVA jet 2'],
+            ['cmva_jet1_qgl', 40, 0, 1.0, 'QGL jet 1'],
+            ['cmva_jet2_qgl', 40, 0, 1.0, 'QGL jet 2'],
+            ['dphi_uh_cmva', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['csv_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
+            ['csv_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
+            ['csv_jet1_csv', 40, 0, 1.0, 'CSV jet 1'],
+            ['csv_jet2_csv', 40, 0, 1.0, 'CSV jet 2'],
+            ['csv_jet1_qgl', 40, 0, 1.0, 'QGL jet 1'],
+            ['csv_jet2_qgl', 40, 0, 1.0, 'QGL jet 2'],
+            ['dphi_uh_csv', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['met', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
@@ -47,11 +59,8 @@ def parse_plots(check=None):
             ['jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
             ['jet3_pt', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
-            ['cmva_jet1_cmva', 40, 0, 1.0, 'CSV jet 1'],
-            ['cmva_jet2_cmva', 40, 0, 1.0, 'CSV jet 2'],
             ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
             ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
-            ['dphi_uh_cmva', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['deltaPhi(metphi,trkmetphi)', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
             ['jet1_emfrac', 40, 0, 1.0, 'EM Frac jet 1'],
             ['jet2_emfrac', 40, 0, 1.0, 'EM Frac jet 2'],
@@ -91,11 +100,15 @@ def RunPlots(all_left, some_left):
 if __name__ == '__main__':
     PreparePlots(cats, parse_regions(), [plot[:4] for plot in parse_plots()])
 
+    if 'debug' in sys.argv:
+        exit(0)
+
     RunPlots(all_left=['jet1_chf',
                        'jet2_chf',
                        'jet1_cmva',
                        'jet2_cmva',
                        'dphi_uh_cmva',
+                       'cmva_jet1_cmva'
                        ],
              some_left={'signal': ['jet1_chf',
                                    ],

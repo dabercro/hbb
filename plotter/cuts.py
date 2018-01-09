@@ -1,4 +1,4 @@
-from CrombieTools import Nminus1Cut
+import sys
 
 jetgood    = 'jet1_chf > 0.15 && jet1_emfrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
@@ -102,7 +102,14 @@ region_weights = { # key : [Data,MC]
 # Generally you can probably leave these alone
 
 def cut(category, region):
-    return '(' + joinCuts(toJoin=region.split('+')) + ')'
+    regions = region.split('+')
+    cut = regionCuts[regions[0]]
+    if regions[-1] == 'csv':
+        for orig, new in [(btag, btag_csv), (unbtag, unbtag_csv),
+                          (lbtag, lbtag_csv), (tbtag, tbtag_csv)]:
+            cut = cut.replace(orig, new)
+
+    return cut
 
 def dataMCCuts(region, isData):
     key = 'default'
@@ -114,5 +121,8 @@ def dataMCCuts(region, isData):
     return '(' + region_weights[key][index] + ')'
 
 if __name__ == '__main__':
-    print regionCuts
-    print region_weights
+    if len(sys.argv) == 1:
+        print regionCuts
+        print region_weights
+    else:
+        print cut('ZvvHbb', sys.argv[1])
