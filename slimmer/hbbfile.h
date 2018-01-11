@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include "TObject.h"
 #include "TFile.h"
 #include "TTree.h"
@@ -326,7 +327,7 @@ class hbbfile {
   Float_t trkmetphi;
 
   void reset(panda::Event& event);
-  void fill() { t->Fill(); }
+  void fill();
   void write(TObject* obj) { f->WriteTObject(obj, obj->GetName()); }
   
   enum class lep : unsigned {
@@ -419,6 +420,315 @@ class hbbfile {
 
   template <typename T>
   void set(std::string name, T val) { *(T*)(t->GetBranch(name.data())->GetAddress()) = val; }
+
+  const std::unordered_map<std::string, void*> addresses {
+    {"calomet", &calomet},
+    {"calometphi", &calometphi},
+    {"cmva_hbb", &cmva_hbb},
+    {"cmva_hbb_eta", &cmva_hbb_eta},
+    {"cmva_hbb_m", &cmva_hbb_m},
+    {"cmva_hbb_phi", &cmva_hbb_phi},
+    {"cmva_hbb_pt", &cmva_hbb_pt},
+    {"cmva_jet1", &cmva_jet1},
+    {"cmva_jet1_chf", &cmva_jet1_chf},
+    {"cmva_jet1_cmva", &cmva_jet1_cmva},
+    {"cmva_jet1_csv", &cmva_jet1_csv},
+    {"cmva_jet1_deepcmvab", &cmva_jet1_deepcmvab},
+    {"cmva_jet1_deepcsvb", &cmva_jet1_deepcsvb},
+    {"cmva_jet1_emfrac", &cmva_jet1_emfrac},
+    {"cmva_jet1_eta", &cmva_jet1_eta},
+    {"cmva_jet1_gen", &cmva_jet1_gen},
+    {"cmva_jet1_gen_eta", &cmva_jet1_gen_eta},
+    {"cmva_jet1_gen_m", &cmva_jet1_gen_m},
+    {"cmva_jet1_gen_num_b", &cmva_jet1_gen_num_b},
+    {"cmva_jet1_gen_parton_flav", &cmva_jet1_gen_parton_flav},
+    {"cmva_jet1_gen_pdgid", &cmva_jet1_gen_pdgid},
+    {"cmva_jet1_gen_phi", &cmva_jet1_gen_phi},
+    {"cmva_jet1_gen_pt", &cmva_jet1_gen_pt},
+    {"cmva_jet1_leadlep_dr", &cmva_jet1_leadlep_dr},
+    {"cmva_jet1_leadlep_pt", &cmva_jet1_leadlep_pt},
+    {"cmva_jet1_leadlep_ptrel", &cmva_jet1_leadlep_ptrel},
+    {"cmva_jet1_loose_sf", &cmva_jet1_loose_sf},
+    {"cmva_jet1_loose_sf_down", &cmva_jet1_loose_sf_down},
+    {"cmva_jet1_loose_sf_up", &cmva_jet1_loose_sf_up},
+    {"cmva_jet1_m", &cmva_jet1_m},
+    {"cmva_jet1_maxtrk", &cmva_jet1_maxtrk},
+    {"cmva_jet1_medium_sf", &cmva_jet1_medium_sf},
+    {"cmva_jet1_medium_sf_down", &cmva_jet1_medium_sf_down},
+    {"cmva_jet1_medium_sf_up", &cmva_jet1_medium_sf_up},
+    {"cmva_jet1_nhf", &cmva_jet1_nhf},
+    {"cmva_jet1_nlep", &cmva_jet1_nlep},
+    {"cmva_jet1_phi", &cmva_jet1_phi},
+    {"cmva_jet1_pt", &cmva_jet1_pt},
+    {"cmva_jet1_pt_ratio", &cmva_jet1_pt_ratio},
+    {"cmva_jet1_pt_reg", &cmva_jet1_pt_reg},
+    {"cmva_jet1_qgl", &cmva_jet1_qgl},
+    {"cmva_jet1_tight_sf", &cmva_jet1_tight_sf},
+    {"cmva_jet1_tight_sf_down", &cmva_jet1_tight_sf_down},
+    {"cmva_jet1_tight_sf_up", &cmva_jet1_tight_sf_up},
+    {"cmva_jet1_vtx_3Derr", &cmva_jet1_vtx_3Derr},
+    {"cmva_jet1_vtx_3Dval", &cmva_jet1_vtx_3Dval},
+    {"cmva_jet1_vtx_m", &cmva_jet1_vtx_m},
+    {"cmva_jet1_vtx_ntrk", &cmva_jet1_vtx_ntrk},
+    {"cmva_jet1_vtx_pt", &cmva_jet1_vtx_pt},
+    {"cmva_jet2", &cmva_jet2},
+    {"cmva_jet2_chf", &cmva_jet2_chf},
+    {"cmva_jet2_cmva", &cmva_jet2_cmva},
+    {"cmva_jet2_csv", &cmva_jet2_csv},
+    {"cmva_jet2_deepcmvab", &cmva_jet2_deepcmvab},
+    {"cmva_jet2_deepcsvb", &cmva_jet2_deepcsvb},
+    {"cmva_jet2_emfrac", &cmva_jet2_emfrac},
+    {"cmva_jet2_eta", &cmva_jet2_eta},
+    {"cmva_jet2_gen", &cmva_jet2_gen},
+    {"cmva_jet2_gen_eta", &cmva_jet2_gen_eta},
+    {"cmva_jet2_gen_m", &cmva_jet2_gen_m},
+    {"cmva_jet2_gen_num_b", &cmva_jet2_gen_num_b},
+    {"cmva_jet2_gen_parton_flav", &cmva_jet2_gen_parton_flav},
+    {"cmva_jet2_gen_pdgid", &cmva_jet2_gen_pdgid},
+    {"cmva_jet2_gen_phi", &cmva_jet2_gen_phi},
+    {"cmva_jet2_gen_pt", &cmva_jet2_gen_pt},
+    {"cmva_jet2_leadlep_dr", &cmva_jet2_leadlep_dr},
+    {"cmva_jet2_leadlep_pt", &cmva_jet2_leadlep_pt},
+    {"cmva_jet2_leadlep_ptrel", &cmva_jet2_leadlep_ptrel},
+    {"cmva_jet2_loose_sf", &cmva_jet2_loose_sf},
+    {"cmva_jet2_loose_sf_down", &cmva_jet2_loose_sf_down},
+    {"cmva_jet2_loose_sf_up", &cmva_jet2_loose_sf_up},
+    {"cmva_jet2_m", &cmva_jet2_m},
+    {"cmva_jet2_maxtrk", &cmva_jet2_maxtrk},
+    {"cmva_jet2_medium_sf", &cmva_jet2_medium_sf},
+    {"cmva_jet2_medium_sf_down", &cmva_jet2_medium_sf_down},
+    {"cmva_jet2_medium_sf_up", &cmva_jet2_medium_sf_up},
+    {"cmva_jet2_nhf", &cmva_jet2_nhf},
+    {"cmva_jet2_nlep", &cmva_jet2_nlep},
+    {"cmva_jet2_phi", &cmva_jet2_phi},
+    {"cmva_jet2_pt", &cmva_jet2_pt},
+    {"cmva_jet2_pt_ratio", &cmva_jet2_pt_ratio},
+    {"cmva_jet2_pt_reg", &cmva_jet2_pt_reg},
+    {"cmva_jet2_qgl", &cmva_jet2_qgl},
+    {"cmva_jet2_tight_sf", &cmva_jet2_tight_sf},
+    {"cmva_jet2_tight_sf_down", &cmva_jet2_tight_sf_down},
+    {"cmva_jet2_tight_sf_up", &cmva_jet2_tight_sf_up},
+    {"cmva_jet2_vtx_3Derr", &cmva_jet2_vtx_3Derr},
+    {"cmva_jet2_vtx_3Dval", &cmva_jet2_vtx_3Dval},
+    {"cmva_jet2_vtx_m", &cmva_jet2_vtx_m},
+    {"cmva_jet2_vtx_ntrk", &cmva_jet2_vtx_ntrk},
+    {"cmva_jet2_vtx_pt", &cmva_jet2_vtx_pt},
+    {"csv_hbb", &csv_hbb},
+    {"csv_hbb_eta", &csv_hbb_eta},
+    {"csv_hbb_m", &csv_hbb_m},
+    {"csv_hbb_phi", &csv_hbb_phi},
+    {"csv_hbb_pt", &csv_hbb_pt},
+    {"csv_jet1", &csv_jet1},
+    {"csv_jet1_chf", &csv_jet1_chf},
+    {"csv_jet1_cmva", &csv_jet1_cmva},
+    {"csv_jet1_csv", &csv_jet1_csv},
+    {"csv_jet1_deepcmvab", &csv_jet1_deepcmvab},
+    {"csv_jet1_deepcsvb", &csv_jet1_deepcsvb},
+    {"csv_jet1_emfrac", &csv_jet1_emfrac},
+    {"csv_jet1_eta", &csv_jet1_eta},
+    {"csv_jet1_gen", &csv_jet1_gen},
+    {"csv_jet1_gen_eta", &csv_jet1_gen_eta},
+    {"csv_jet1_gen_m", &csv_jet1_gen_m},
+    {"csv_jet1_gen_num_b", &csv_jet1_gen_num_b},
+    {"csv_jet1_gen_parton_flav", &csv_jet1_gen_parton_flav},
+    {"csv_jet1_gen_pdgid", &csv_jet1_gen_pdgid},
+    {"csv_jet1_gen_phi", &csv_jet1_gen_phi},
+    {"csv_jet1_gen_pt", &csv_jet1_gen_pt},
+    {"csv_jet1_leadlep_dr", &csv_jet1_leadlep_dr},
+    {"csv_jet1_leadlep_pt", &csv_jet1_leadlep_pt},
+    {"csv_jet1_leadlep_ptrel", &csv_jet1_leadlep_ptrel},
+    {"csv_jet1_loose_sf", &csv_jet1_loose_sf},
+    {"csv_jet1_loose_sf_down", &csv_jet1_loose_sf_down},
+    {"csv_jet1_loose_sf_up", &csv_jet1_loose_sf_up},
+    {"csv_jet1_m", &csv_jet1_m},
+    {"csv_jet1_maxtrk", &csv_jet1_maxtrk},
+    {"csv_jet1_medium_sf", &csv_jet1_medium_sf},
+    {"csv_jet1_medium_sf_down", &csv_jet1_medium_sf_down},
+    {"csv_jet1_medium_sf_up", &csv_jet1_medium_sf_up},
+    {"csv_jet1_nhf", &csv_jet1_nhf},
+    {"csv_jet1_nlep", &csv_jet1_nlep},
+    {"csv_jet1_phi", &csv_jet1_phi},
+    {"csv_jet1_pt", &csv_jet1_pt},
+    {"csv_jet1_pt_ratio", &csv_jet1_pt_ratio},
+    {"csv_jet1_pt_reg", &csv_jet1_pt_reg},
+    {"csv_jet1_qgl", &csv_jet1_qgl},
+    {"csv_jet1_tight_sf", &csv_jet1_tight_sf},
+    {"csv_jet1_tight_sf_down", &csv_jet1_tight_sf_down},
+    {"csv_jet1_tight_sf_up", &csv_jet1_tight_sf_up},
+    {"csv_jet1_vtx_3Derr", &csv_jet1_vtx_3Derr},
+    {"csv_jet1_vtx_3Dval", &csv_jet1_vtx_3Dval},
+    {"csv_jet1_vtx_m", &csv_jet1_vtx_m},
+    {"csv_jet1_vtx_ntrk", &csv_jet1_vtx_ntrk},
+    {"csv_jet1_vtx_pt", &csv_jet1_vtx_pt},
+    {"csv_jet2", &csv_jet2},
+    {"csv_jet2_chf", &csv_jet2_chf},
+    {"csv_jet2_cmva", &csv_jet2_cmva},
+    {"csv_jet2_csv", &csv_jet2_csv},
+    {"csv_jet2_deepcmvab", &csv_jet2_deepcmvab},
+    {"csv_jet2_deepcsvb", &csv_jet2_deepcsvb},
+    {"csv_jet2_emfrac", &csv_jet2_emfrac},
+    {"csv_jet2_eta", &csv_jet2_eta},
+    {"csv_jet2_gen", &csv_jet2_gen},
+    {"csv_jet2_gen_eta", &csv_jet2_gen_eta},
+    {"csv_jet2_gen_m", &csv_jet2_gen_m},
+    {"csv_jet2_gen_num_b", &csv_jet2_gen_num_b},
+    {"csv_jet2_gen_parton_flav", &csv_jet2_gen_parton_flav},
+    {"csv_jet2_gen_pdgid", &csv_jet2_gen_pdgid},
+    {"csv_jet2_gen_phi", &csv_jet2_gen_phi},
+    {"csv_jet2_gen_pt", &csv_jet2_gen_pt},
+    {"csv_jet2_leadlep_dr", &csv_jet2_leadlep_dr},
+    {"csv_jet2_leadlep_pt", &csv_jet2_leadlep_pt},
+    {"csv_jet2_leadlep_ptrel", &csv_jet2_leadlep_ptrel},
+    {"csv_jet2_loose_sf", &csv_jet2_loose_sf},
+    {"csv_jet2_loose_sf_down", &csv_jet2_loose_sf_down},
+    {"csv_jet2_loose_sf_up", &csv_jet2_loose_sf_up},
+    {"csv_jet2_m", &csv_jet2_m},
+    {"csv_jet2_maxtrk", &csv_jet2_maxtrk},
+    {"csv_jet2_medium_sf", &csv_jet2_medium_sf},
+    {"csv_jet2_medium_sf_down", &csv_jet2_medium_sf_down},
+    {"csv_jet2_medium_sf_up", &csv_jet2_medium_sf_up},
+    {"csv_jet2_nhf", &csv_jet2_nhf},
+    {"csv_jet2_nlep", &csv_jet2_nlep},
+    {"csv_jet2_phi", &csv_jet2_phi},
+    {"csv_jet2_pt", &csv_jet2_pt},
+    {"csv_jet2_pt_ratio", &csv_jet2_pt_ratio},
+    {"csv_jet2_pt_reg", &csv_jet2_pt_reg},
+    {"csv_jet2_qgl", &csv_jet2_qgl},
+    {"csv_jet2_tight_sf", &csv_jet2_tight_sf},
+    {"csv_jet2_tight_sf_down", &csv_jet2_tight_sf_down},
+    {"csv_jet2_tight_sf_up", &csv_jet2_tight_sf_up},
+    {"csv_jet2_vtx_3Derr", &csv_jet2_vtx_3Derr},
+    {"csv_jet2_vtx_3Dval", &csv_jet2_vtx_3Dval},
+    {"csv_jet2_vtx_m", &csv_jet2_vtx_m},
+    {"csv_jet2_vtx_ntrk", &csv_jet2_vtx_ntrk},
+    {"csv_jet2_vtx_pt", &csv_jet2_vtx_pt},
+    {"dphi_met_trkmet", &dphi_met_trkmet},
+    {"dphi_uh_cmva", &dphi_uh_cmva},
+    {"dphi_uh_csv", &dphi_uh_csv},
+    {"ele1", &ele1},
+    {"ele1_1l_2m_3t", &ele1_1l_2m_3t},
+    {"ele1_eta", &ele1_eta},
+    {"ele1_phi", &ele1_phi},
+    {"ele1_pt", &ele1_pt},
+    {"ele1_q", &ele1_q},
+    {"ele2", &ele2},
+    {"ele2_1l_2m_3t", &ele2_1l_2m_3t},
+    {"ele2_eta", &ele2_eta},
+    {"ele2_phi", &ele2_phi},
+    {"ele2_pt", &ele2_pt},
+    {"ele2_q", &ele2_q},
+    {"event_num", &event_num},
+    {"gen_t", &gen_t},
+    {"gen_t_eta", &gen_t_eta},
+    {"gen_t_m", &gen_t_m},
+    {"gen_t_pdgid", &gen_t_pdgid},
+    {"gen_t_phi", &gen_t_phi},
+    {"gen_t_pt", &gen_t_pt},
+    {"gen_tbar", &gen_tbar},
+    {"gen_tbar_eta", &gen_tbar_eta},
+    {"gen_tbar_m", &gen_tbar_m},
+    {"gen_tbar_pdgid", &gen_tbar_pdgid},
+    {"gen_tbar_phi", &gen_tbar_phi},
+    {"gen_tbar_pt", &gen_tbar_pt},
+    {"genboson", &genboson},
+    {"genboson_eta", &genboson_eta},
+    {"genboson_m", &genboson_m},
+    {"genboson_pdgid", &genboson_pdgid},
+    {"genboson_phi", &genboson_phi},
+    {"genboson_pt", &genboson_pt},
+    {"jet1", &jet1},
+    {"jet1_chf", &jet1_chf},
+    {"jet1_emfrac", &jet1_emfrac},
+    {"jet1_eta", &jet1_eta},
+    {"jet1_gen", &jet1_gen},
+    {"jet1_gen_eta", &jet1_gen_eta},
+    {"jet1_gen_m", &jet1_gen_m},
+    {"jet1_gen_num_b", &jet1_gen_num_b},
+    {"jet1_gen_parton_flav", &jet1_gen_parton_flav},
+    {"jet1_gen_pdgid", &jet1_gen_pdgid},
+    {"jet1_gen_phi", &jet1_gen_phi},
+    {"jet1_gen_pt", &jet1_gen_pt},
+    {"jet1_m", &jet1_m},
+    {"jet1_nhf", &jet1_nhf},
+    {"jet1_phi", &jet1_phi},
+    {"jet1_pt", &jet1_pt},
+    {"jet1_qgl", &jet1_qgl},
+    {"jet2", &jet2},
+    {"jet2_chf", &jet2_chf},
+    {"jet2_emfrac", &jet2_emfrac},
+    {"jet2_eta", &jet2_eta},
+    {"jet2_gen", &jet2_gen},
+    {"jet2_gen_eta", &jet2_gen_eta},
+    {"jet2_gen_m", &jet2_gen_m},
+    {"jet2_gen_num_b", &jet2_gen_num_b},
+    {"jet2_gen_parton_flav", &jet2_gen_parton_flav},
+    {"jet2_gen_pdgid", &jet2_gen_pdgid},
+    {"jet2_gen_phi", &jet2_gen_phi},
+    {"jet2_gen_pt", &jet2_gen_pt},
+    {"jet2_m", &jet2_m},
+    {"jet2_nhf", &jet2_nhf},
+    {"jet2_phi", &jet2_phi},
+    {"jet2_pt", &jet2_pt},
+    {"jet2_qgl", &jet2_qgl},
+    {"jet3", &jet3},
+    {"jet3_chf", &jet3_chf},
+    {"jet3_emfrac", &jet3_emfrac},
+    {"jet3_eta", &jet3_eta},
+    {"jet3_gen", &jet3_gen},
+    {"jet3_gen_eta", &jet3_gen_eta},
+    {"jet3_gen_m", &jet3_gen_m},
+    {"jet3_gen_num_b", &jet3_gen_num_b},
+    {"jet3_gen_parton_flav", &jet3_gen_parton_flav},
+    {"jet3_gen_pdgid", &jet3_gen_pdgid},
+    {"jet3_gen_phi", &jet3_gen_phi},
+    {"jet3_gen_pt", &jet3_gen_pt},
+    {"jet3_m", &jet3_m},
+    {"jet3_nhf", &jet3_nhf},
+    {"jet3_phi", &jet3_phi},
+    {"jet3_pt", &jet3_pt},
+    {"jet3_qgl", &jet3_qgl},
+    {"lumi_num", &lumi_num},
+    {"mc_weight", &mc_weight},
+    {"met", &met},
+    {"met_filter", &met_filter},
+    {"met_trigger", &met_trigger},
+    {"metphi", &metphi},
+    {"min_dphi_metj_hard", &min_dphi_metj_hard},
+    {"min_dphi_metj_soft", &min_dphi_metj_soft},
+    {"muon1", &muon1},
+    {"muon1_1l_2m_3t", &muon1_1l_2m_3t},
+    {"muon1_eta", &muon1_eta},
+    {"muon1_phi", &muon1_phi},
+    {"muon1_pt", &muon1_pt},
+    {"muon1_q", &muon1_q},
+    {"muon2", &muon2},
+    {"muon2_1l_2m_3t", &muon2_1l_2m_3t},
+    {"muon2_eta", &muon2_eta},
+    {"muon2_phi", &muon2_phi},
+    {"muon2_pt", &muon2_pt},
+    {"muon2_q", &muon2_q},
+    {"n_alljet", &n_alljet},
+    {"n_bcmva_loose", &n_bcmva_loose},
+    {"n_bcmva_medium", &n_bcmva_medium},
+    {"n_bcmva_tight", &n_bcmva_tight},
+    {"n_bcsv_loose", &n_bcsv_loose},
+    {"n_bcsv_medium", &n_bcsv_medium},
+    {"n_bcsv_tight", &n_bcsv_tight},
+    {"n_hardjet", &n_hardjet},
+    {"n_jet", &n_jet},
+    {"n_lep_loose", &n_lep_loose},
+    {"n_lep_medium", &n_lep_medium},
+    {"n_lep_tight", &n_lep_tight},
+    {"n_pho_loose", &n_pho_loose},
+    {"n_tau_loose", &n_tau_loose},
+    {"npv", &npv},
+    {"npv_true", &npv_true},
+    {"recoil", &recoil},
+    {"recoilphi", &recoilphi},
+    {"run_num", &run_num},
+    {"trkmet", &trkmet},
+    {"trkmetphi", &trkmetphi}
+  };
 };
 
 hbbfile::hbbfile(const char* outfile_name, const char* name) {
@@ -732,7 +1042,6 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("trkmetphi", &trkmetphi, "trkmetphi/F");
 }
 
-
 void hbbfile::reset(panda::Event& event) {
   calomet = event.caloMet.pt;
   calometphi = event.caloMet.phi;
@@ -1042,6 +1351,11 @@ void hbbfile::reset(panda::Event& event) {
   trkmetphi = event.trkMet.phi;
 }
 
+
+void hbbfile::fill() {
+  t->Fill();
+}
+
 void hbbfile::set_lep(const lep base, const panda::Lepton& lep, const unsigned char flag) {
   auto& base_name = lep_names[static_cast<unsigned>(base)];
   set(base_name + "", static_cast<Bool_t>(true));
@@ -1059,15 +1373,15 @@ void hbbfile::set_bjet(const bjet base, const panda::Jet& jet, const float maxpt
   set(base_name + "_cmva", static_cast<Float_t>(jet.cmva));
   set(base_name + "_deepcsvb", static_cast<Float_t>(jet.deepCSVb));
   set(base_name + "_deepcmvab", static_cast<Float_t>(jet.deepCMVAb));
-  set(base_name + "_loose_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())));
-  set(base_name + "_loose_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up", flav, jet.eta(), jet.pt())));
-  set(base_name + "_loose_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down", flav, jet.eta(), jet.pt())));
-  set(base_name + "_medium_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central", flav, jet.eta(), jet.pt())));
-  set(base_name + "_medium_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up", flav, jet.eta(), jet.pt())));
-  set(base_name + "_medium_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down", flav, jet.eta(), jet.pt())));
-  set(base_name + "_tight_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, jet.eta(), jet.pt())));
-  set(base_name + "_tight_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())));
-  set(base_name + "_tight_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())));
+  set(base_name + "_loose_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central",));
+  set(base_name + "_loose_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up",));
+  set(base_name + "_loose_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down",));
+  set(base_name + "_medium_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central",));
+  set(base_name + "_medium_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up",));
+  set(base_name + "_medium_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down",));
+  set(base_name + "_tight_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central",));
+  set(base_name + "_tight_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up",));
+  set(base_name + "_tight_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down",));
 }
 
 void hbbfile::set_bvert(const bjet base, const panda::SecondaryVertex& vert) {
@@ -1084,12 +1398,12 @@ void hbbfile::set_bleps(const bjet base, const panda::Jet& jet, const int nlep, 
   set(base_name + "_nlep", static_cast<Int_t>(nlep));
   set(base_name + "_leadlep_pt", static_cast<Float_t>(lep.pt()));
   set(base_name + "_leadlep_ptrel", static_cast<Float_t>(lep.p4().Perp(jet.p4().Vect())));
-  set(base_name + "_leadlep_dr", static_cast<Float_t>(deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())));
+  set(base_name + "_leadlep_dr", static_cast<Float_t>(deltaR(lep.eta(),));
 }
 
 void hbbfile::set_pt_reg(const bjet base) {
   auto& base_name = bjet_names[static_cast<unsigned>(base)];
-  set(base_name + "_pt_reg", static_cast<Float_t>((*(Float_t*)(t->GetBranch((base_name + "_pt_ratio").data())->GetAddress())) * (*(Float_t*)(t->GetBranch((base_name + "_pt").data())->GetAddress()))));
+  set(base_name + "_pt_reg", static_cast<Float_t>((*(Float_t*)(addresses.at(base_name + "_pt_ratio")))));
 }
 
 void hbbfile::set_jet(const jet base, const panda::Jet& jet) {
@@ -1099,7 +1413,7 @@ void hbbfile::set_jet(const jet base, const panda::Jet& jet) {
   set(base_name + "_eta", static_cast<Float_t>(jet.eta()));
   set(base_name + "_phi", static_cast<Float_t>(jet.phi()));
   set(base_name + "_m", static_cast<Float_t>(jet.m()));
-  set(base_name + "_emfrac", static_cast<Float_t>(jet.cef + jet.nef));
+  set(base_name + "_emfrac", static_cast<Float_t>(jet.cef));
   set(base_name + "_chf", static_cast<Float_t>(jet.chf));
   set(base_name + "_nhf", static_cast<Float_t>(jet.nhf));
   set(base_name + "_qgl", static_cast<Float_t>(jet.qgl));

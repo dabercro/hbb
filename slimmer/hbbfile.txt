@@ -172,6 +172,8 @@ pdgid/I = 0 -> gen.pdgid
 
 ! Some calculated things
 
+! {fill(TLorentzVector lepvec)}
+
 recoil
 recoilphi
 
