@@ -11,6 +11,8 @@
 #include "PandaTree/Objects/interface/Event.h"
 #include "btagreaders.h"
 #include "bcal/BTagCalibrationStandalone.h"
+#include "TMVA/Reader.h"
+#include "TMVA/IMethod.h"
 #include "TLorentzVector.h"
 #include "TVector2.h"
 
@@ -364,7 +366,6 @@ class hbbfile {
   void set_bjet(const bjet base, const panda::Jet& jet, const float maxpt, const BCalReaders& readers, const BTagEntry::JetFlavor flav);
   void set_bvert(const bjet base, const panda::SecondaryVertex& vert);
   void set_bleps(const bjet base, const panda::Jet& jet, const int nlep, const panda::PFCand& lep);
-  void set_pt_reg(const bjet base);
   
   enum class jet : unsigned {
     csv_jet1 = 0,
@@ -730,11 +731,29 @@ class hbbfile {
     {"trkmet", &trkmet},
     {"trkmetphi", &trkmetphi}
   };
+
+  Float_t _tmva_float_csv_jet1_vtx_ntrk;
+  Float_t _tmva_float_csv_jet1_nlep;
+  Float_t _tmva_float_csv_jet2_vtx_ntrk;
+  Float_t _tmva_float_csv_jet2_nlep;
+  Float_t _tmva_float_cmva_jet1_vtx_ntrk;
+  Float_t _tmva_float_cmva_jet1_nlep;
+  Float_t _tmva_float_cmva_jet2_vtx_ntrk;
+  Float_t _tmva_float_cmva_jet2_nlep;
+  TMVA::Reader reader_csv_jet1_pt_ratio {"Silent"};
+  TMVA::IMethod* method_csv_jet1_pt_ratio {};
+  TMVA::Reader reader_csv_jet2_pt_ratio {"Silent"};
+  TMVA::IMethod* method_csv_jet2_pt_ratio {};
+  TMVA::Reader reader_cmva_jet1_pt_ratio {"Silent"};
+  TMVA::IMethod* method_cmva_jet1_pt_ratio {};
+  TMVA::Reader reader_cmva_jet2_pt_ratio {"Silent"};
+  TMVA::IMethod* method_cmva_jet2_pt_ratio {};
 };
 
-hbbfile::hbbfile(const char* outfile_name, const char* name) {
-  f = new TFile(outfile_name, "CREATE");
-  t = new TTree(name, name);
+hbbfile::hbbfile(const char* outfile_name, const char* name)
+: f {new TFile(outfile_name, "CREATE")},
+  t {new TTree(name, name)}
+{
   t->Branch("calomet", &calomet, "calomet/F");
   t->Branch("calometphi", &calometphi, "calometphi/F");
   t->Branch("cmva_hbb", &cmva_hbb, "cmva_hbb/O");
@@ -1041,6 +1060,90 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("run_num", &run_num, "run_num/I");
   t->Branch("trkmet", &trkmet, "trkmet/F");
   t->Branch("trkmetphi", &trkmetphi, "trkmetphi/F");
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_pt", &csv_jet1_pt);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_eta", &csv_jet1_eta);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_phi", &csv_jet1_phi);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_m", &csv_jet1_m);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_csv", &csv_jet1_csv);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_cmva", &csv_jet1_cmva);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_qgl", &csv_jet1_qgl);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_leadlep_pt", &csv_jet1_leadlep_pt);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_leadlep_ptrel", &csv_jet1_leadlep_ptrel);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_leadlep_dr", &csv_jet1_leadlep_dr);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_maxtrk", &csv_jet1_maxtrk);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_pt", &csv_jet1_vtx_pt);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_m", &csv_jet1_vtx_m);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_3Dval", &csv_jet1_vtx_3Dval);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_3Derr", &csv_jet1_vtx_3Derr);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_ntrk", &_tmva_float_csv_jet1_vtx_ntrk);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_emfrac", &csv_jet1_emfrac);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_chf", &csv_jet1_chf);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_chf", &csv_jet1_chf);
+  reader_csv_jet1_pt_ratio.AddVariable("cmva_jet1_nlep", &_tmva_float_csv_jet1_nlep);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_pt", &csv_jet2_pt);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_eta", &csv_jet2_eta);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_phi", &csv_jet2_phi);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_m", &csv_jet2_m);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_csv", &csv_jet2_csv);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_cmva", &csv_jet2_cmva);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_qgl", &csv_jet2_qgl);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_leadlep_pt", &csv_jet2_leadlep_pt);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_leadlep_ptrel", &csv_jet2_leadlep_ptrel);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_leadlep_dr", &csv_jet2_leadlep_dr);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_maxtrk", &csv_jet2_maxtrk);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_pt", &csv_jet2_vtx_pt);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_m", &csv_jet2_vtx_m);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_3Dval", &csv_jet2_vtx_3Dval);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_3Derr", &csv_jet2_vtx_3Derr);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_ntrk", &_tmva_float_csv_jet2_vtx_ntrk);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_emfrac", &csv_jet2_emfrac);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_chf", &csv_jet2_chf);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_chf", &csv_jet2_chf);
+  reader_csv_jet2_pt_ratio.AddVariable("cmva_jet1_nlep", &_tmva_float_csv_jet2_nlep);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_pt", &cmva_jet1_pt);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_eta", &cmva_jet1_eta);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_phi", &cmva_jet1_phi);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_m", &cmva_jet1_m);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_csv", &cmva_jet1_csv);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_cmva", &cmva_jet1_cmva);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_qgl", &cmva_jet1_qgl);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_leadlep_pt", &cmva_jet1_leadlep_pt);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_leadlep_ptrel", &cmva_jet1_leadlep_ptrel);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_leadlep_dr", &cmva_jet1_leadlep_dr);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_maxtrk", &cmva_jet1_maxtrk);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_pt", &cmva_jet1_vtx_pt);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_m", &cmva_jet1_vtx_m);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_3Dval", &cmva_jet1_vtx_3Dval);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_3Derr", &cmva_jet1_vtx_3Derr);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_vtx_ntrk", &_tmva_float_cmva_jet1_vtx_ntrk);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_emfrac", &cmva_jet1_emfrac);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_chf", &cmva_jet1_chf);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_chf", &cmva_jet1_chf);
+  reader_cmva_jet1_pt_ratio.AddVariable("cmva_jet1_nlep", &_tmva_float_cmva_jet1_nlep);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_pt", &cmva_jet2_pt);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_eta", &cmva_jet2_eta);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_phi", &cmva_jet2_phi);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_m", &cmva_jet2_m);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_csv", &cmva_jet2_csv);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_cmva", &cmva_jet2_cmva);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_qgl", &cmva_jet2_qgl);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_leadlep_pt", &cmva_jet2_leadlep_pt);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_leadlep_ptrel", &cmva_jet2_leadlep_ptrel);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_leadlep_dr", &cmva_jet2_leadlep_dr);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_maxtrk", &cmva_jet2_maxtrk);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_pt", &cmva_jet2_vtx_pt);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_m", &cmva_jet2_vtx_m);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_3Dval", &cmva_jet2_vtx_3Dval);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_3Derr", &cmva_jet2_vtx_3Derr);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_vtx_ntrk", &_tmva_float_cmva_jet2_vtx_ntrk);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_emfrac", &cmva_jet2_emfrac);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_chf", &cmva_jet2_chf);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_chf", &cmva_jet2_chf);
+  reader_cmva_jet2_pt_ratio.AddVariable("cmva_jet1_nlep", &_tmva_float_cmva_jet2_nlep);
+  method_csv_jet1_pt_ratio = reader_csv_jet1_pt_ratio.BookMVA("csv_jet1_pt_ratio", "data/TMVA_BDTG.weights.xml");
+  method_csv_jet2_pt_ratio = reader_csv_jet2_pt_ratio.BookMVA("csv_jet2_pt_ratio", "data/TMVA_BDTG.weights.xml");
+  method_cmva_jet1_pt_ratio = reader_cmva_jet1_pt_ratio.BookMVA("cmva_jet1_pt_ratio", "data/TMVA_BDTG.weights.xml");
+  method_cmva_jet2_pt_ratio = reader_cmva_jet2_pt_ratio.BookMVA("cmva_jet2_pt_ratio", "data/TMVA_BDTG.weights.xml");
 }
 
 void hbbfile::reset(const panda::Event& event) {
@@ -1353,6 +1456,22 @@ void hbbfile::reset(const panda::Event& event) {
 }
 
 void hbbfile::fill(const TVector2 recoilvec) {
+  _tmva_float_cmva_jet2_nlep = cmva_jet2_nlep;
+  _tmva_float_cmva_jet2_vtx_ntrk = cmva_jet2_vtx_ntrk;
+  _tmva_float_cmva_jet1_nlep = cmva_jet1_nlep;
+  _tmva_float_cmva_jet1_vtx_ntrk = cmva_jet1_vtx_ntrk;
+  _tmva_float_csv_jet2_nlep = csv_jet2_nlep;
+  _tmva_float_csv_jet2_vtx_ntrk = csv_jet2_vtx_ntrk;
+  _tmva_float_csv_jet1_nlep = csv_jet1_nlep;
+  _tmva_float_csv_jet1_vtx_ntrk = csv_jet1_vtx_ntrk;
+  csv_jet1_pt_ratio = method_csv_jet1_pt_ratio->GetMvaValue();
+  csv_jet2_pt_ratio = method_csv_jet2_pt_ratio->GetMvaValue();
+  cmva_jet1_pt_ratio = method_cmva_jet1_pt_ratio->GetMvaValue();
+  cmva_jet2_pt_ratio = method_cmva_jet2_pt_ratio->GetMvaValue();
+  csv_jet1_pt_reg = csv_jet1_pt_ratio * csv_jet1_pt;
+  csv_jet2_pt_reg = csv_jet2_pt_ratio * csv_jet2_pt;
+  cmva_jet1_pt_reg = cmva_jet1_pt_ratio * cmva_jet1_pt;
+  cmva_jet2_pt_reg = cmva_jet2_pt_ratio * cmva_jet2_pt;
   recoil = recoilvec.Mod();
   recoilphi = recoilvec.Phi();
   dphi_met_trkmet = deltaPhi(metphi, trkmetphi);
@@ -1403,11 +1522,6 @@ void hbbfile::set_bleps(const bjet base, const panda::Jet& jet, const int nlep, 
   set(base_name + "_leadlep_pt", static_cast<Float_t>(lep.pt()));
   set(base_name + "_leadlep_ptrel", static_cast<Float_t>(lep.p4().Perp(jet.p4().Vect())));
   set(base_name + "_leadlep_dr", static_cast<Float_t>(deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())));
-}
-
-void hbbfile::set_pt_reg(const bjet base) {
-  auto& base_name = bjet_names[static_cast<unsigned>(base)];
-  set(base_name + "_pt_reg", static_cast<Float_t>((*(Float_t*)(addresses.at(base_name + "_pt_ratio"))) * (*(Float_t*)(addresses.at(base_name + "_pt")))));
 }
 
 void hbbfile::set_jet(const jet base, const panda::Jet& jet) {

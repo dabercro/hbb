@@ -103,14 +103,13 @@ leadlep_pt -> lep.pt()
 leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
 leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
 
-! [TMVA_output; weight_file; branch_config; replace]
+! [TMVA_output; weight_file; branch_config]
 
-[pt_ratio; data/TMVA_BDTG.weights.xml; data/branches.txt; JET]
+[pt_ratio; data/TMVA_BDTG.weights.xml; data/branches.txt]
 
 {-5}
---> pt_reg()
 
-pt_reg -> <>_pt_ratio * <>_pt
+pt_reg <- <>_pt_ratio * <>_pt
 
 +jet1,jet2,jet3 --> jet(panda::Jet& jet)
 

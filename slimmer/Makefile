@@ -43,7 +43,7 @@ endif
 $(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h $(bcalheader) btagreaders.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
 	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp
-	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(target) slimmer.cpp bcal/BTagCalibrationStandalone.cpp
+	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp bcal/BTagCalibrationStandalone.cpp
 
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* checkrun
@@ -62,7 +62,7 @@ $(effs): data/make_effs.py data/*eff.txt
 
 JETS = $(shell perl -ne '/Bool_t (.*_jet\d);/ && print "$$1 "' $(flatclass).h)
 $(breg): data/branches.txt $(flatclass).h
-	$(foreach jet, $(JETS), sed 's/JET/$(jet)/g' data/branches.txt > data/$(jet)_branches.cfg;)
+	$(foreach jet, $(JETS), sed 's/<>/$(jet)/g' data/branches.txt > data/$(jet)_branches.cfg;)
 	touch $(breg)
 
 $(corrections): data/downloads.url
