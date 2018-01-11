@@ -172,14 +172,16 @@ pdgid/I = 0 -> gen.pdgid
 
 ! Some calculated things
 
-! {fill(TLorentzVector lepvec)}
+"TVector2.h"
 
-recoil
-recoilphi
+{fill(TVector2 recoilvec)}
 
-dphi_met_trkmet
+recoil <- recoilvec.Mod()
+recoilphi <- recoilvec.Phi()
 
-dphi_uh_csv
-dphi_uh_cmva
+dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
+
+dphi_uh_csv <- deltaPhi(csv_hbb_phi, recoilphi)
+dphi_uh_cmva <- deltaPhi(cmva_hbb_phi, recoilphi)
 min_dphi_metj_soft = 4
 min_dphi_metj_hard = 4

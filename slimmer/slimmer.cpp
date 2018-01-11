@@ -174,11 +174,9 @@ int parsed_main(int argc, char** argv) {
       // I inserted in here to use the lepvec for filtering
 
       auto recoilvec = event.pfMet.v() + lepvec.Vect().XYvector();
-      output.recoil = recoilvec.Mod();
-      output.recoilphi = recoilvec.Phi();
 
       //// FILTER ////
-      if (output.recoil < 120)
+      if (recoilvec.Mod() < 120)
         continue;
 
       //// BACK TO LEP ////
@@ -324,14 +322,7 @@ int parsed_main(int argc, char** argv) {
           output.set_gen(hbbfile::gen::gen_tbar, gen);
       }
 
-      //// SOME FINAL CALCULATIONS ////
-
-      output.dphi_met_trkmet = deltaPhi(output.metphi, output.trkmetphi);
-
-      output.dphi_uh_csv = deltaPhi(output.csv_hbb_phi, output.recoilphi);
-      output.dphi_uh_cmva = deltaPhi(output.cmva_hbb_phi, output.recoilphi);
-
-      output.fill();
+      output.fill(recoilvec);
     }
     input.Close();
   }

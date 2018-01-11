@@ -12,6 +12,7 @@
 #include "btagreaders.h"
 #include "bcal/BTagCalibrationStandalone.h"
 #include "TLorentzVector.h"
+#include "TVector2.h"
 
 class hbbfile {
 
@@ -326,8 +327,8 @@ class hbbfile {
   Float_t trkmet;
   Float_t trkmetphi;
 
-  void reset(panda::Event& event);
-  void fill();
+  void reset(const panda::Event& event);
+  void fill(const TVector2 recoilvec);
   void write(TObject* obj) { f->WriteTObject(obj, obj->GetName()); }
   
   enum class lep : unsigned {
@@ -1042,7 +1043,7 @@ hbbfile::hbbfile(const char* outfile_name, const char* name) {
   t->Branch("trkmetphi", &trkmetphi, "trkmetphi/F");
 }
 
-void hbbfile::reset(panda::Event& event) {
+void hbbfile::reset(const panda::Event& event) {
   calomet = event.caloMet.pt;
   calometphi = event.caloMet.phi;
   cmva_hbb = false;
@@ -1351,11 +1352,14 @@ void hbbfile::reset(panda::Event& event) {
   trkmetphi = event.trkMet.phi;
 }
 
-
-void hbbfile::fill() {
+void hbbfile::fill(const TVector2 recoilvec) {
+  recoil = recoilvec.Mod();
+  recoilphi = recoilvec.Phi();
+  dphi_met_trkmet = deltaPhi(metphi, trkmetphi);
+  dphi_uh_csv = deltaPhi(csv_hbb_phi, recoilphi);
+  dphi_uh_cmva = deltaPhi(cmva_hbb_phi, recoilphi);
   t->Fill();
 }
-
 void hbbfile::set_lep(const lep base, const panda::Lepton& lep, const unsigned char flag) {
   auto& base_name = lep_names[static_cast<unsigned>(base)];
   set(base_name + "", static_cast<Bool_t>(true));
@@ -1373,15 +1377,15 @@ void hbbfile::set_bjet(const bjet base, const panda::Jet& jet, const float maxpt
   set(base_name + "_cmva", static_cast<Float_t>(jet.cmva));
   set(base_name + "_deepcsvb", static_cast<Float_t>(jet.deepCSVb));
   set(base_name + "_deepcmvab", static_cast<Float_t>(jet.deepCMVAb));
-  set(base_name + "_loose_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central",));
-  set(base_name + "_loose_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up",));
-  set(base_name + "_loose_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down",));
-  set(base_name + "_medium_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central",));
-  set(base_name + "_medium_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up",));
-  set(base_name + "_medium_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down",));
-  set(base_name + "_tight_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central",));
-  set(base_name + "_tight_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up",));
-  set(base_name + "_tight_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down",));
+  set(base_name + "_loose_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())));
+  set(base_name + "_loose_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up", flav, jet.eta(), jet.pt())));
+  set(base_name + "_loose_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down", flav, jet.eta(), jet.pt())));
+  set(base_name + "_medium_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central", flav, jet.eta(), jet.pt())));
+  set(base_name + "_medium_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up", flav, jet.eta(), jet.pt())));
+  set(base_name + "_medium_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down", flav, jet.eta(), jet.pt())));
+  set(base_name + "_tight_sf", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, jet.eta(), jet.pt())));
+  set(base_name + "_tight_sf_up", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())));
+  set(base_name + "_tight_sf_down", static_cast<Float_t>(readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())));
 }
 
 void hbbfile::set_bvert(const bjet base, const panda::SecondaryVertex& vert) {
@@ -1398,12 +1402,12 @@ void hbbfile::set_bleps(const bjet base, const panda::Jet& jet, const int nlep, 
   set(base_name + "_nlep", static_cast<Int_t>(nlep));
   set(base_name + "_leadlep_pt", static_cast<Float_t>(lep.pt()));
   set(base_name + "_leadlep_ptrel", static_cast<Float_t>(lep.p4().Perp(jet.p4().Vect())));
-  set(base_name + "_leadlep_dr", static_cast<Float_t>(deltaR(lep.eta(),));
+  set(base_name + "_leadlep_dr", static_cast<Float_t>(deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())));
 }
 
 void hbbfile::set_pt_reg(const bjet base) {
   auto& base_name = bjet_names[static_cast<unsigned>(base)];
-  set(base_name + "_pt_reg", static_cast<Float_t>((*(Float_t*)(addresses.at(base_name + "_pt_ratio")))));
+  set(base_name + "_pt_reg", static_cast<Float_t>((*(Float_t*)(addresses.at(base_name + "_pt_ratio"))) * (*(Float_t*)(addresses.at(base_name + "_pt")))));
 }
 
 void hbbfile::set_jet(const jet base, const panda::Jet& jet) {
@@ -1413,7 +1417,7 @@ void hbbfile::set_jet(const jet base, const panda::Jet& jet) {
   set(base_name + "_eta", static_cast<Float_t>(jet.eta()));
   set(base_name + "_phi", static_cast<Float_t>(jet.phi()));
   set(base_name + "_m", static_cast<Float_t>(jet.m()));
-  set(base_name + "_emfrac", static_cast<Float_t>(jet.cef));
+  set(base_name + "_emfrac", static_cast<Float_t>(jet.cef + jet.nef));
   set(base_name + "_chf", static_cast<Float_t>(jet.chf));
   set(base_name + "_nhf", static_cast<Float_t>(jet.nhf));
   set(base_name + "_qgl", static_cast<Float_t>(jet.qgl));
@@ -1449,6 +1453,7 @@ void hbbfile::set_gen(const gen base, const panda::GenParticle& gen) {
   set(base_name + "_m", static_cast<Float_t>(gen.m()));
   set(base_name + "_pdgid", static_cast<Int_t>(gen.pdgid));
 }
+
 
 hbbfile::bjet to_bjet(hbbfile::jet e_cls) {
   switch (e_cls) {
