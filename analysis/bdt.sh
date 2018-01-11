@@ -1,6 +1,6 @@
 #! /bin/bash
 
-nevents=1000000
+nevents=500000
 
 crombie tmva \
     --config     training_branches.txt \

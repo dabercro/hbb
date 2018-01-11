@@ -15,6 +15,7 @@
 *.mp
 *.t1
 
+*.cfg
 *.root
 *.csv
 *.d

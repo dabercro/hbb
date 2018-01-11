@@ -113,6 +113,7 @@ def cut(category, region):
 
 def dataMCCuts(region, isData):
     key = 'default'
+    region = region.split('+')[0]
     if region in region_weights.keys():
         key = region
 

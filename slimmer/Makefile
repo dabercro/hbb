@@ -4,6 +4,7 @@ exename = makehbbtree
 flatclass = hbbfile
 testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 corrections = data/corrections.d
+breg = data/breg.d
 effs = data/btag_effs.root
 bcalheader = bcal/BCalStrings.h
 
@@ -13,7 +14,7 @@ ifeq ($(origin CMSSW_BASE), undefined)
 	pandalibs = -lpanda
 	target = ${HOME}/bin/$(exename)
 
-all: $(target) $(corrections) $(effs)
+all: $(target) $(corrections) $(effs) $(breg)
 
 else
 	pandainc = ${CMSSW_BASE}/src
@@ -26,7 +27,7 @@ else
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
 	tarball = ${CMSSW_BASE}/condor.tgz
 
-all: $(tarball) $(corrections) $(effs)
+all: $(tarball) $(corrections) $(effs) $(breg)
 
 $(tarball): $(target) $(checker) $(thejq)
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external
@@ -59,8 +60,13 @@ $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 $(effs): data/make_effs.py data/*eff.txt
 	data/make_effs.py
 
+JETS = $(shell perl -ne '/Bool_t (.*_jet\d);/ && print "$$1 "' $(flatclass).h)
+$(breg): data/branches.txt $(flatclass).h
+	$(foreach jet, $(JETS), sed 's/JET/$(jet)/g' data/branches.txt > data/$(jet)_branches.cfg;)
+	touch $(breg)
+
 $(corrections): data/downloads.url
-	cd data; rm *.root; rm *.csv; wget -i downloads.url
+	cd data; rm *.root; rm *.csv; rm *.xml; wget -i downloads.url
 	touch $(corrections)
 
 .PHONY: clean test
@@ -74,4 +80,4 @@ test: $(tarball) $(target)
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(bcalheader) $(effs)
+	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(bcalheader) $(effs) $(breg)

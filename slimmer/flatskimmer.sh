@@ -33,11 +33,14 @@ fi
 
 SAMPLES=$(ls $CrombieFullDir/links | perl -ne '/(.*)_\d+.root/ && print "$1\n"' | sort | uniq)
 
-crombie skim --cut 'met > 150 && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
 
 for SAMPLE in $SAMPLES
 do
-    hadd $CrombieSkimDir/${SAMPLE}.root $SCRATCH/${SAMPLE}_[0-9]*.root
+    if [ ! -f $CrombieSkimDir/${SAMPLE}.root ]
+    then
+        hadd $CrombieSkimDir/${SAMPLE}.root $SCRATCH/${SAMPLE}_[0-9]*.root
+    fi
 done
 
 ./applycorrections.py $CrombieSkimDir
