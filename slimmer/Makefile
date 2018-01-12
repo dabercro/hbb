@@ -73,7 +73,7 @@ test: $(tarball) $(target)
 	test ! -f test.root || rm test.root
 	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root
 	test -z ${CMSSW_BASE} || test ! -d $(testdir) || rm -r $(testdir)
-	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir) 'cmva_hbb_m_reg|cmva_hbb_m, cmva_hbb && cmva_hbb_m_reg < 200' 'csv_hbb_m_reg|csv_hbb_m, csv_hbb && csv_hbb_m_reg < 200'
+	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir) 'cmva_hbb_m_reg|cmva_hbb_m; cmva_hbb && cmva_hbb_m_reg < 200' 'csv_hbb_m_reg|csv_hbb_m; csv_hbb && csv_hbb_m_reg < 200'
 
 clean:
 	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(data) $(corrections)
