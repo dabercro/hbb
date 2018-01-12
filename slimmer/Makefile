@@ -47,7 +47,7 @@ endif
 
 $(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp $(corrections)
+	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp
 	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp bcal/BTagCalibrationStandalone.cpp
 
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
@@ -56,7 +56,7 @@ checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 feedpanda.h: $(flatclass).h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp feedpanda.h
 
-$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
+$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
 	crombie maketree $(flatclass).txt
 
 $(effs): data/make_effs.py data/*eff.txt
