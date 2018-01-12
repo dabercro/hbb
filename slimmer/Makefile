@@ -47,7 +47,7 @@ endif
 
 $(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp
+	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp $(corrections)
 	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp bcal/BTagCalibrationStandalone.cpp
 
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
@@ -82,4 +82,4 @@ test: $(tarball) $(target)
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(breg)
+	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(breg) $(data)

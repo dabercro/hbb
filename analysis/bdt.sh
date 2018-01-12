@@ -1,6 +1,6 @@
 #! /bin/bash
 
-nevents=500000
+nevents=10000
 
 crombie tmva \
     --config     training_branches.txt \
@@ -9,9 +9,8 @@ crombie tmva \
     --cut        'cmva_jet1_gen && n_lep_loose == 2 && n_lep_tight > 0' \
     --target     cmva_jet1_gen_pt/cmva_jet1_pt \
     --method     BDT \
-    --methodname BDTG \
     --prepare    "nTrain_Regression=${nevents}:nTest_Regression=${nevents}:SplitMode=Random:NormMode=NumEvents:!V" \
-    --methodopt  '!H:!V:NTrees=2000::BoostType=Grad:Shrinkage=0.1:UseBaggedBoost:BaggedSampleFraction=0.5:nCuts=20:MaxDepth=4' \
+    --methodopt  '!H:!V:NTrees=100:MinNodeSize=1.0%:BoostType=AdaBoostR2:SeparationType=RegressionVariance:nCuts=20:PruneMethod=CostComplexity:PruneStrength=30' \
 
 
-# !H:!V:NTrees=100:MinNodeSize=1.0%:BoostType=AdaBoostR2:SeparationType=RegressionVariance:nCuts=20:PruneMethod=CostComplexity:PruneStrength=30
+# !H:V:NTrees=2000::BoostType=Grad:Shrinkage=0.1:UseBaggedBoost:BaggedSampleFraction=0.5:nCuts=20:MaxDepth=4
