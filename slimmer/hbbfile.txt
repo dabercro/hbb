@@ -103,9 +103,9 @@ leadlep_pt -> lep.pt()
 leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
 leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
 
-! [TMVA_output; weight_file; branch_config]
+! [Type; TMVA_output; weight_file; branch_config]
 
-[pt_ratio; data/TMVA_BDTG.weights.xml; data/branches.txt] = 1
+[BDT; pt_ratio; data/TMVA_BDTG.weights.xml; data/branches.txt] = 1
 
 {-5}
 
