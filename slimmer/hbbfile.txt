@@ -105,7 +105,7 @@ leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
 
 ! [TMVA_output; weight_file; branch_config]
 
-[pt_ratio; data/TMVA_BDTG.weights.xml; data/branches.txt]
+[pt_ratio; data/TMVA_BDTG.weights.xml; data/branches.txt] = 1
 
 {-5}
 

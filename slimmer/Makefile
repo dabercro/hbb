@@ -6,7 +6,7 @@ testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 corrections = data/corrections.d
 breg = data/breg.d
 effs = data/btag_effs.root
-bcalheader = bcal/BCalStrings.h
+data = data/data.d
 
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
@@ -29,8 +29,8 @@ else
 
 all: $(tarball) $(corrections) $(effs) $(breg)
 
-$(tarball): $(target) $(checker) $(thejq)
-	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external
+$(tarball): $(target) $(checker) $(thejq) $(data)
+	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external data
 
 $(checker): ${CROMBIEPATH}/scripts/findtree.py
 	cp ${CROMBIEPATH}/scripts/findtree.py $(checker)
@@ -38,9 +38,14 @@ $(checker): ${CROMBIEPATH}/scripts/findtree.py
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
+$(data): data/*.csv data/*.xml
+	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/* || mkdir ${CMSSW_BASE}/data
+	cp data/*.csv data/*.xml ${CMSSW_BASE}/data
+	touch $(data)
+
 endif
 
-$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h $(bcalheader) btagreaders.h \
+$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/StoreParticles.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
 	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp
 	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp bcal/BTagCalibrationStandalone.cpp
@@ -50,9 +55,6 @@ checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 
 feedpanda.h: $(flatclass).h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp feedpanda.h
-
-$(bcalheader): data/*.csv ${CROMBIEPATH}/scripts/bcalstrings.pl
-	crombie bcalstrings csv=data/CSVv2_Moriond17_B_H.csv cmva=data/cMVAv2_Moriond17_B_H.csv deepcsv=data/DeepCSV_Moriond17_B_H.csv $(bcalheader)
 
 $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py
 	crombie maketree $(flatclass).txt
@@ -80,4 +82,4 @@ test: $(tarball) $(target)
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(bcalheader) $(effs) $(breg)
+	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(breg)

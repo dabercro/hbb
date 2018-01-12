@@ -4,7 +4,6 @@
 #include <map>
 #include <string>
 
-#include "bcal/BCalStrings.h"
 #include "bcal/BTagCalibrationStandalone.h"
 
 // Get the calibrations from hard-coded strings
@@ -13,14 +12,8 @@
 
 namespace {
 
-  BTagCalibration get_calib(const std::string tagger, const std::string& csv_string) {
-    BTagCalibration calib(tagger);
-    calib.readCSV(csv_string);
-    return calib;
-  }
-
-  static const auto csv_calib = get_calib("csv", bcalstrings::csv);
-  static const auto cmva_calib = get_calib("cmva", bcalstrings::cmva);
+  static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"};
+  static const BTagCalibration cmva_calib {"cmva", "data/cMVAv2_Moriond17_B_H.csv"};
 
   // Here we define functions that returns the reader for each working point
 

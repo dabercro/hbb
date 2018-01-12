@@ -1185,7 +1185,7 @@ void hbbfile::reset(const panda::Event& event) {
   cmva_jet1_nlep = 0;
   cmva_jet1_phi = -5;
   cmva_jet1_pt = -5;
-  cmva_jet1_pt_ratio = 0;
+  cmva_jet1_pt_ratio = 1;
   cmva_jet1_pt_reg = -5;
   cmva_jet1_qgl = -5;
   cmva_jet1_tight_sf = 1;
@@ -1227,7 +1227,7 @@ void hbbfile::reset(const panda::Event& event) {
   cmva_jet2_nlep = 0;
   cmva_jet2_phi = -5;
   cmva_jet2_pt = -5;
-  cmva_jet2_pt_ratio = 0;
+  cmva_jet2_pt_ratio = 1;
   cmva_jet2_pt_reg = -5;
   cmva_jet2_qgl = -5;
   cmva_jet2_tight_sf = 1;
@@ -1274,7 +1274,7 @@ void hbbfile::reset(const panda::Event& event) {
   csv_jet1_nlep = 0;
   csv_jet1_phi = -5;
   csv_jet1_pt = -5;
-  csv_jet1_pt_ratio = 0;
+  csv_jet1_pt_ratio = 1;
   csv_jet1_pt_reg = -5;
   csv_jet1_qgl = -5;
   csv_jet1_tight_sf = 1;
@@ -1316,7 +1316,7 @@ void hbbfile::reset(const panda::Event& event) {
   csv_jet2_nlep = 0;
   csv_jet2_phi = -5;
   csv_jet2_pt = -5;
-  csv_jet2_pt_ratio = 0;
+  csv_jet2_pt_ratio = 1;
   csv_jet2_pt_reg = -5;
   csv_jet2_qgl = -5;
   csv_jet2_tight_sf = 1;
