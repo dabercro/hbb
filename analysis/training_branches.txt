@@ -16,5 +16,5 @@ cmva_jet1_vtx_3Derr
 cmva_jet1_vtx_ntrk
 cmva_jet1_emfrac
 cmva_jet1_chf
-cmva_jet1_chf
+cmva_jet1_nhf
 cmva_jet1_nlep
