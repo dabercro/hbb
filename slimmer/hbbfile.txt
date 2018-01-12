@@ -149,8 +149,8 @@ gen_dr = 10 -> dr
 
 <--
 
-cmva_hbb_m_reg <- vectorSumMass(<cmva_jet1_|pt_reg, eta, phi, m|>, <cmva_jet2_|pt_reg, eta, phi, m|>)
-csv_hbb_m_reg <- vectorSumMass(<csv_jet1_|pt_reg, eta, phi, m|>, <csv_jet2_|pt_reg, eta, phi, m|>)
+$_hbb_m_reg <- vectorSumMass(<$_jet1_|pt_reg, eta, phi, m|>, <$_jet2_|pt_reg, eta, phi, m|>) | cmva, csv
+$_gen_dijet_m <- vectorSumMass(<$_jet1_gen_|pt, eta, phi, m|>, <$_jet2_gen_|pt, eta, phi, m|>) | cmva, csv
 
 genboson,gen_t,gen_tbar --> gen(panda::GenParticle& gen)
 
