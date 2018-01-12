@@ -55,9 +55,8 @@ muon,ele -->
 /O = false -> true
 1l_2m_3t/b = 0 -> flag
 q/B = 0 -> lep.charge
-pt -> lep.pt()
-eta -> lep.eta()
-phi -> lep.phi()
+
+$ -> lep.$() | pt, eta, phi
 
 <--
 
@@ -68,10 +67,7 @@ csv_jet,cmva_jet -->
 1,2 --> bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
 
 maxtrk -> maxpt
-csv -> jet.csv
-cmva -> jet.cmva
-deepcsvb -> jet.deepCSVb
-deepcmvab -> jet.deepCMVAb
+$ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
 {1}
 loose_sf -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
@@ -90,8 +86,8 @@ tight_sf_down -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, 
 {0}
 --> bvert(panda::SecondaryVertex& vert)
 
-vtx_pt -> vert.pt()
-vtx_m -> vert.m()
+vtx_$ -> vert.$() | pt, m
+
 vtx_3Dval -> vert.vtx3DVal
 vtx_3Derr -> vert.vtx3DeVal
 vtx_ntrk/I -> vert.ntrk
@@ -114,24 +110,16 @@ pt_reg <- <>_pt_ratio * <>_pt
 +jet1,jet2,jet3 --> jet(panda::Jet& jet)
 
 /O = false -> true
-pt -> jet.pt()
-eta -> jet.eta()
-phi -> jet.phi()
-m -> jet.m()
-
+$ -> jet.$() | pt, eta, phi, m
+$ -> jet.$ | chf, nhf
 emfrac -> jet.cef + jet.nef
-chf -> jet.chf
-nhf -> jet.nhf
 
 qgl -> jet.qgl
 
 --> genjet(panda::GenJet& gen)
 
 gen/O = false -> true
-gen_pt -> gen.pt()
-gen_eta -> gen.eta()
-gen_phi -> gen.phi()
-gen_m -> gen.m()
+gen_$ -> gen.$() | pt, eta, phi, m
 
 {/I}
 {0}
@@ -150,20 +138,24 @@ gen_num_b -> gen.numB
 csv_hbb,cmva_hbb --> hbb(TLorentzVector& vec)
 
 /O = false -> true
-pt -> vec.Pt()
-eta -> vec.Eta()
-phi -> vec.Phi()
-m -> vec.M()
+$ -> vec.$$() | pt, eta, phi, m
+
+--> hbbgen(panda::GenParticle& gen, float dr)
+
+gen/O = false -> true
+gen_$ -> gen.$() | pt, eta, phi, m
+
+gen_dr = 10 -> dr
 
 <--
+
+cmva_hbb_m_reg <- vectorSumMass(<cmva_jet1_|pt_reg, eta, phi, m|>, <cmva_jet2_|pt_reg, eta, phi, m|>)
+csv_hbb_m_reg <- vectorSumMass(<csv_jet1_|pt_reg, eta, phi, m|>, <csv_jet2_|pt_reg, eta, phi, m|>)
 
 genboson,gen_t,gen_tbar --> gen(panda::GenParticle& gen)
 
 /O = false -> true
-pt -> gen.pt()
-eta -> gen.eta()
-phi -> gen.phi()
-m -> gen.m()
+$ -> gen.$() | pt, eta, phi, m
 
 pdgid/I = 0 -> gen.pdgid
 
