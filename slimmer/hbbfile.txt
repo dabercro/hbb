@@ -97,11 +97,11 @@ vtx_ntrk/I -> vert.ntrk
 nlep/I -> nlep
 leadlep_pt -> lep.pt()
 leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
-leadlep_dr -> deltaR(lep.eta(), lep.phi(), jet.eta(), jet.phi())
+leadlep_dr -> deltaR(<lep.|eta, phi|()>, <jet.|eta, phi|()>)
 
-! [Type; TMVA_output; weight_file; branch_config]
+! [Type; TMVA_output; weight_file; trained_with]
 
-[pt_ratio; data/TMVA_BDT.weights.xml; data/branches.txt] = 1
+[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1
 
 {-5}
 

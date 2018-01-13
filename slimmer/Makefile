@@ -20,7 +20,7 @@ else
 	pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
 	target =  ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
 	pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-	testfile = /mnt/hadoop/scratch/dabercro/panda/EA5A4FC7-6ABF-E611-86C9-00259029E66E.root
+	testfile = /mnt/hadoop/scratch/dabercro/panda/*.root
 
 	checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
@@ -55,7 +55,7 @@ checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 feedpanda.h: $(flatclass).h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp feedpanda.h
 
-$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py data/branches.txt
+$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
 	crombie maketree $(flatclass).txt
 
 $(effs): data/make_effs.py data/*eff.txt $(corrections)
@@ -73,7 +73,12 @@ test: $(tarball) $(target)
 	test ! -f test.root || rm test.root
 	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root
 	test -z ${CMSSW_BASE} || test ! -d $(testdir) || rm -r $(testdir)
-	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir) 'cmva_hbb_m_reg|cmva_hbb_m; cmva_hbb && cmva_hbb_m_reg < 200' 'csv_hbb_m_reg|csv_hbb_m; csv_hbb && csv_hbb_m_reg < 200'
+	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir) \
+	'cmva_hbb_m_reg|cmva_hbb_m; cmva_hbb && cmva_hbb_m_reg < 200' \
+	'csv_hbb_m_reg|csv_hbb_m; csv_hbb && csv_hbb_m_reg < 200' \
+	'cmva_gen_dijet_m|cmva_hbb_m_reg|cmva_hbb_m; cmva_hbb && cmva_gen_dijet_m < 250' \
+	'csv_gen_dijet_m|csv_hbb_m_reg|csv_hbb_m; csv_hbb && csv_gen_dijet_m < 250' \
+	'1 - cmva_hbb_m_reg/cmva_gen_dijet_m|1 - cmva_hbb_m/cmva_gen_dijet_m; cmva_hbb && cmva_jet1_gen && cmva_jet2_gen'
 
 clean:
 	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(data) $(corrections)
