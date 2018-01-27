@@ -101,7 +101,7 @@ leadlep_dr -> deltaR(<lep.|eta, phi|()>, <jet.|eta, phi|()>)
 
 ! [Type; TMVA_output; weight_file; trained_with]
 
-#[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1
+[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1
 
 {-5}
 

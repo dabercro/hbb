@@ -31,9 +31,19 @@ then
     popd
 fi
 
+NUMDIRS=$(ls $CrombieFullDir | wc -l)  # This will include the "links" directory too, so the number of samples is one less than this
 SAMPLES=$(ls $CrombieFullDir/links | perl -ne '/(.*)_\d+.root/ && print "$1\n"' | sort | uniq)
 
-crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+if [ $NUMDIRS -ne 2 ]
+then
+
+    crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+
+else
+
+    crombie skim --cut 'recoil > 150 && met_filter == 1 && cmva_jet1_gen && n_lep_loose == 2 && n_lep_tight > 0 && cmva_jet1_pt > 30 && abs(cmva_jet1_gen_pdgid) == 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+
+fi
 
 for SAMPLE in $SAMPLES
 do
@@ -45,17 +55,22 @@ done
 
 ./applycorrections.py $CrombieSkimDir
 
-VJDir=$CrombieSkimDir/VJets
+if [ $NUMDIRS -ne 2 ]
+then
 
-test -d $VJDir || mkdir $VJDir
-cp $CrombieSkimDir/{W,Z}Jets* $VJDir
+    VJDir=$CrombieSkimDir/VJets
 
-test -d $CrombieSkimDir/bDir || mkdir $CrombieSkimDir/bDir
-test -d $CrombieSkimDir/bbDir || mkdir $CrombieSkimDir/bbDir
-test -d $CrombieSkimDir/norm || mkdir $CrombieSkimDir/norm
+    test -d $VJDir || mkdir $VJDir
+    cp $CrombieSkimDir/{W,Z}Jets* $VJDir
 
-crombie skim --cut 'cmva_jet1_gen_pdgid == 5 && cmva_jet2_gen_pdgid == 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bDir
+    test -d $CrombieSkimDir/bDir || mkdir $CrombieSkimDir/bDir
+    test -d $CrombieSkimDir/bbDir || mkdir $CrombieSkimDir/bbDir
+    test -d $CrombieSkimDir/norm || mkdir $CrombieSkimDir/norm
 
-crombie skim --cut '(cmva_jet1_gen_pdgid == 5) != (cmva_jet2_gen_pdgid == 5)' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bbDir
+    crombie skim --cut 'cmva_jet1_gen_pdgid == 5 && cmva_jet2_gen_pdgid == 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bDir
 
-crombie skim --cut 'cmva_jet1_gen_pdgid != 5 && cmva_jet2_gen_pdgid != 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/norm
+    crombie skim --cut '(cmva_jet1_gen_pdgid == 5) != (cmva_jet2_gen_pdgid == 5)' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bbDir
+
+    crombie skim --cut 'cmva_jet1_gen_pdgid != 5 && cmva_jet2_gen_pdgid != 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/norm
+
+fi
