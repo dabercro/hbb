@@ -172,7 +172,6 @@ recoilphi <- recoilvec.Phi()
 
 dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
 
-dphi_uh_csv <- deltaPhi(csv_hbb_phi, recoilphi)
-dphi_uh_cmva <- deltaPhi(cmva_hbb_phi, recoilphi)
+dphi_uh_$ <- deltaPhi($_hbb_phi, recoilphi) | cmva, csv
 min_dphi_metj_soft = 4
 min_dphi_metj_hard = 4
