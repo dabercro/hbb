@@ -101,7 +101,7 @@ leadlep_dr -> deltaR(<lep.|eta, phi|()>, <jet.|eta, phi|()>)
 
 ! [Type; TMVA_output; weight_file; trained_with]
 
-[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1
+#[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1
 
 {-5}
 
@@ -116,10 +116,11 @@ emfrac -> jet.cef + jet.nef
 
 qgl -> jet.qgl
 
---> genjet(panda::GenJet& gen)
+--> genjet(panda::GenJet& gen, TLorentzVector& withnu)
 
 gen/O = false -> true
 gen_$ -> gen.$() | pt, eta, phi, m
+gen_withnu_$ -> withnu.$$() | pt, eta, phi, m
 
 {/I}
 {0}
@@ -151,6 +152,7 @@ gen_dr = 10 -> dr
 
 $_hbb_m_reg <- vectorSumMass(<$_jet1_|pt_reg, eta, phi, m|>, <$_jet2_|pt_reg, eta, phi, m|>) | cmva, csv
 $_gen_dijet_m <- vectorSumMass(<$_jet1_gen_|pt, eta, phi, m|>, <$_jet2_gen_|pt, eta, phi, m|>) | cmva, csv
+$_gen_withnu_dijet_m <- vectorSumMass(<$_jet1_gen_withnu_|pt, eta, phi, m|>, <$_jet2_gen_withnu_|pt, eta, phi, m|>) | cmva, csv
 
 genboson,gen_t,gen_tbar --> gen(panda::GenParticle& gen)
 

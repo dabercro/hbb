@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 
+#include "TLorentzVector.h"
 #include "bcal/BTagCalibrationStandalone.h"
 
 // Get the calibrations from hard-coded strings
@@ -49,6 +50,11 @@ const BCalReaders cmva_readers = {
   {BTagEntry::OP_LOOSE, get_cmva_reader(BTagEntry::OP_LOOSE)},
   {BTagEntry::OP_MEDIUM, get_cmva_reader(BTagEntry::OP_MEDIUM)},
   {BTagEntry::OP_TIGHT, get_cmva_reader(BTagEntry::OP_TIGHT)}
+};
+
+struct BJetExtra {
+  const BCalReaders* reader;
+  TLorentzVector genvec;
 };
 
 #endif

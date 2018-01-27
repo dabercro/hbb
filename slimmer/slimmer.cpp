@@ -1,3 +1,4 @@
+#include <cmath>
 #include <algorithm>
 #include <iostream>
 #include <functional>
@@ -195,8 +196,9 @@ int parsed_main(int argc, char** argv) {
 
       //// JETS ////
 
-      // We want the two jets with the highest CSV and CMVA, and a pointer to the correct calibrator
-      using jetstore = ObjectStore<hbbfile::jet, panda::Jet, const BCalReaders*>;
+      // We want the two jets with the highest CSV and CMVA, and extra info
+      // BJetExtra is defined in btagreaders.h
+      using jetstore = ObjectStore<hbbfile::jet, panda::Jet, BJetExtra>;
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
@@ -204,6 +206,8 @@ int parsed_main(int argc, char** argv) {
                            [](panda::Jet* j) {return j->csv;});
       jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2},
                             [](panda::Jet* j) {return j->cmva;});
+
+      const std::vector<jetstore*> jet_stores {&stored_jets, &stored_csvs, &stored_cmvas};
 
       for (auto& jet : event.chsAK4Jets) {
 
@@ -218,14 +222,17 @@ int parsed_main(int argc, char** argv) {
         output.n_jet++;
         output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
 
-        stored_jets.check(jet);
+        auto& genjet = jet.matchedGenJet;
+        auto genvec = genjet.isValid() ? genjet->p4() : TLorentzVector();
+
+        stored_jets.check(jet, {nullptr, genvec});             // Don't care about BTagCalibration, but nu contribution may be useful
 
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
           output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
           if (fabs(jet.eta()) < 2.4) {
-            stored_csvs.check(jet, &csv_readers);    // These readers are defined in btagreaders.h
-            stored_cmvas.check(jet, &cmva_readers);
+            stored_csvs.check(jet, {&csv_readers, genvec});    // These readers are defined in btagreaders.h
+            stored_cmvas.check(jet, {&cmva_readers, genvec});
             csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
             cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
           }
@@ -233,26 +240,85 @@ int parsed_main(int argc, char** argv) {
 
       }
 
-      auto set_jet = [&output] (std::vector<jetstore> stores) {
-        for (auto& jets : stores) {
-          for (auto& jet : jets.store) {
+      // Before setting jets, we want to loop through gen particles and add overlapping neutrinos to b gen jets
+
+      //// GEN PARTICLES ////
+
+      using genhstore = ObjectStore<hbbfile::hbb, panda::GenParticle>;
+
+      // Get the generator particles that are closest to the reconstructed Higgs
+
+      std::vector<genhstore> gen_higgs {
+        {{hbbfile::hbb::csv_hbb}, [&output] (panda::GenParticle* gen) { return deltaR(output.csv_hbb_eta, output.csv_hbb_phi, gen->eta(), gen->phi()); }, genhstore::order::eAsc},
+        {{hbbfile::hbb::cmva_hbb}, [&output] (panda::GenParticle* gen) { return deltaR(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi()); }, genhstore::order::eAsc}
+      };
+
+      //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
+      for (auto& gen : event.genParticles) {
+        auto abspdgid = abs(gen.pdgid);
+        if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
+          output.set_gen(hbbfile::gen::genboson, gen);
+
+        else if (not output.gen_t and gen.pdgid == 6)
+          output.set_gen(hbbfile::gen::gen_t, gen);
+
+        else if (not output.gen_tbar and gen.pdgid == -6)
+          output.set_gen(hbbfile::gen::gen_tbar, gen);
+
+        else if (abspdgid == 25) {
+          for (auto& store : gen_higgs)
+            store.check(gen);
+        }
+
+        else if (abspdgid == 12 or abspdgid == 14) {
+          // Check jets of each collection for closest jet to neutrinos and add to the genvec stored in jetstore's extra
+          for (auto jet_store : jet_stores) {
+            float cone_size = std::pow(0.4, 2);   // Neutrinos must be within deltaR2 = (0.4)^2
+            TLorentzVector* closestvec = nullptr;
+            for (auto& store : jet_store->store) {
+              if (auto* particle = store.particle) {
+                auto check = deltaR2(particle->eta(), particle->phi(), gen.eta(), gen.phi());
+                if (check < cone_size) {
+                  cone_size = check;
+                  closestvec = &store.extra.genvec;
+                }
+              }
+            }
+            if (closestvec)
+              *closestvec += gen.p4();
+          }
+        }
+      }
+
+      for (auto& gen_higg : gen_higgs) {
+        for (auto& entry : gen_higg.store) {
+          if (entry.particle)
+            output.set_hbbgen(entry.branch, *entry.particle, entry.result);
+        }
+      }
+
+      //// BACK TO JETS ////
+
+      auto set_jet = [&output] (std::vector<jetstore*> stores) {
+        for (auto jets : stores) {
+          for (auto& jet : jets->store) {
             if (not jet.particle)
               break;
             output.set_jet(jet.branch, *jet.particle);
             auto& gen = jet.particle->matchedGenJet;
             if (gen.isValid())
-              output.set_genjet(jet.branch, *gen);
+              output.set_genjet(jet.branch, *gen, jet.extra.genvec);
           }
         }
       };
 
-      set_jet({stored_jets});
+      set_jet({&stored_jets});
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &set_jet] (std::vector<jetstore> stores) {
+      auto set_bjet = [&output, &set_jet] (std::vector<jetstore*> stores) {
         set_jet(stores);
-        for (auto& jets : stores) {
-          for (auto& jet : jets.store) {
+        for (auto jets : stores) {
+          for (auto& jet : jets->store) {
             if (not jet.particle)
               break;
 
@@ -291,14 +357,14 @@ int parsed_main(int argc, char** argv) {
                 flavor = BTagEntry::FLAV_C;
             }
 
-            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor);
+            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra.reader, flavor);
             if (maxlep)
               output.set_bleps(bjet, *jet.particle, nlep, *maxlep);
           }
         }
       };
 
-      set_bjet({stored_csvs, stored_cmvas});
+      set_bjet({&stored_csvs, &stored_cmvas});
 
       if (output.csv_jet2_csv > 0.3)
         output.set_hbb(hbbfile::hbb::csv_hbb, stored_csvs.store[0].particle->p4() + stored_csvs.store[1].particle->p4());
@@ -308,40 +374,6 @@ int parsed_main(int argc, char** argv) {
       //// FILTER ////
       if (not (output.csv_hbb or output.cmva_hbb))
         continue;
-
-      using genhstore = ObjectStore<hbbfile::hbb, panda::GenParticle>;
-
-      // Get the generator particles that are closest to the reconstructed Higgs
-
-      std::vector<genhstore> gen_higgs {
-        {{hbbfile::hbb::csv_hbb}, [&output] (panda::GenParticle* gen) { return deltaR(output.csv_hbb_eta, output.csv_hbb_phi, gen->eta(), gen->phi()); }, genhstore::order::eAsc},
-        {{hbbfile::hbb::cmva_hbb}, [&output] (panda::GenParticle* gen) { return deltaR(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi()); }, genhstore::order::eAsc}
-      };
-
-      //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
-      for (auto& gen : event.genParticles) {
-        auto abspdgid = abs(gen.pdgid);
-        if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
-          output.set_gen(hbbfile::gen::genboson, gen);
-
-        else if (not output.gen_t and gen.pdgid == 6)
-          output.set_gen(hbbfile::gen::gen_t, gen);
-
-        else if (not output.gen_tbar and gen.pdgid == -6)
-          output.set_gen(hbbfile::gen::gen_tbar, gen);
-
-        else if (abspdgid == 25) {
-          for (auto& store : gen_higgs)
-            store.check(gen);
-        }
-      }
-
-      for (auto& gen_higg : gen_higgs) {
-        for (auto& entry : gen_higg.store) {
-          if (entry.particle)
-            output.set_hbbgen(entry.branch, *entry.particle, entry.result);
-        }
-      }
 
       output.fill(recoilvec);
     }
