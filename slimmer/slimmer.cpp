@@ -278,6 +278,9 @@ int parsed_main(int argc, char** argv) {
             for (auto& store : jet_store->store) {
               if (auto* particle = store.particle) {
                 auto check = deltaR2(particle->eta(), particle->phi(), gen.eta(), gen.phi());
+                // If the neutrino momentum is super high, probably not from this jet, so scale by anti-kt metric
+                if (gen.pt() > particle->pt())
+                  check *= pow(gen.pt()/particle->pt(), 2);
                 if (check < cone_size) {
                   cone_size = check;
                   closestvec = &store.extra.genvec;
