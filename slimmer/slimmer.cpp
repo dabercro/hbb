@@ -249,8 +249,8 @@ int parsed_main(int argc, char** argv) {
       // Get the generator particles that are closest to the reconstructed Higgs
 
       std::vector<genhstore> gen_higgs {
-        {{hbbfile::hbb::csv_hbb}, [&output] (panda::GenParticle* gen) { return deltaR(output.csv_hbb_eta, output.csv_hbb_phi, gen->eta(), gen->phi()); }, genhstore::order::eAsc},
-        {{hbbfile::hbb::cmva_hbb}, [&output] (panda::GenParticle* gen) { return deltaR(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi()); }, genhstore::order::eAsc}
+        {{hbbfile::hbb::csv_hbb}, [&output] (panda::GenParticle* gen) {return deltaR2(output.csv_hbb_eta, output.csv_hbb_phi, gen->eta(), gen->phi());}, genhstore::order::eAsc},
+        {{hbbfile::hbb::cmva_hbb}, [&output] (panda::GenParticle* gen) {return deltaR2(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi());}, genhstore::order::eAsc}
       };
 
       //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
@@ -293,7 +293,7 @@ int parsed_main(int argc, char** argv) {
       for (auto& gen_higg : gen_higgs) {
         for (auto& entry : gen_higg.store) {
           if (entry.particle)
-            output.set_hbbgen(entry.branch, *entry.particle, entry.result);
+            output.set_hbbgen(entry.branch, *entry.particle, sqrt(entry.result));
         }
       }
 
