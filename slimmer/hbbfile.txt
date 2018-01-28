@@ -1,11 +1,8 @@
 "PlotTools/interface/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 
-! Default type
-{/F}
-
-! Define the arguments of reset
-{reset(panda::Event& event)}
+{/F}                           ! Default type
+{reset(panda::Event& event)}   ! Define the arguments of reset
 
 run_num/I = event.runNumber
 lumi_num/I = event.lumiNumber
@@ -26,10 +23,10 @@ trkmetphi = event.trkMet.phi
 met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 
-! Default default value is inside {}
-! Count some objects
 {/I}
 {0}
+
+! Count some objects
 
 n_alljet
 n_jet
@@ -82,8 +79,8 @@ tight_sf -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, je
 tight_sf_up -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
 tight_sf_down -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
 
-! Set the defaults for training stuff to 0
-{0}
+{0}    ! Set the defaults for training stuff to 0
+
 --> bvert(panda::SecondaryVertex& vert)
 
 vtx_$ -> vert.$() | pt, m
@@ -99,9 +96,7 @@ leadlep_pt -> lep.pt()
 leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
 leadlep_dr -> deltaR(<lep.|eta, phi|()>, <jet.|eta, phi|()>)
 
-! [Type; TMVA_output; weight_file; trained_with]
-
-[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1
+[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1   ! Need explicit prefix since cmva_jet1_pt not defined yet
 
 {-5}
 
@@ -134,9 +129,8 @@ gen_num_b -> gen.numB
 {/F}
 {-5}
 
-! Hbb set by sums of jets as 4-vectors
 "TLorentzVector.h"
-csv_hbb,cmva_hbb --> hbb(TLorentzVector& vec)
+csv_hbb,cmva_hbb --> hbb(TLorentzVector& vec)   ! Hbb set by sums of jets as 4-vectors
 
 /O = false -> true
 $ -> vec.$$() | pt, eta, phi, m
