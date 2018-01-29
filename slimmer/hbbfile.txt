@@ -32,130 +32,27 @@ n_alljet
 n_jet
 n_hardjet
 
-n_bcsv,n_bcmva,n_lep -->
-
-medium
-tight
-
-+n_tau,n_pho -->
-
-loose
-
-<--
+n_bcsv,n_bcmva,n_lep {
+  medium
+  tight
+  +n_tau,n_pho {
+    loose
+  }
+}
 
 {/F}
 {-5}
 ! Save two leptons of each kind
-muon,ele -->
-1,2 --> lep(panda::Lepton& lep, unsigned char flag)
+muon,ele {
+  1,2 {
+    lep(panda::Lepton& lep, unsigned char flag)
+      /O = false -> true
+      1l_2m_3t/b = 0 -> flag
+      q/B = 0 -> lep.charge
 
-/O = false -> true
-1l_2m_3t/b = 0 -> flag
-q/B = 0 -> lep.charge
-
-$ -> lep.$() | pt, eta, phi
-
-<--
-
-! Input jets are used to set the following variables
-"btagreaders.h"
-"bcal/BTagCalibrationStandalone.h"
-csv_jet,cmva_jet -->
-1,2 --> bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
-
-maxtrk -> maxpt
-$ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
-
-{1}
-loose_sf -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
-loose_sf_up -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
-loose_sf_down -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
-
-medium_sf -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
-medium_sf_up -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
-medium_sf_down -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
-
-tight_sf -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
-tight_sf_up -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
-tight_sf_down -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
-
-{0}    ! Set the defaults for training stuff to 0
-
---> bvert(panda::SecondaryVertex& vert)
-
-vtx_$ -> vert.$() | pt, m
-
-vtx_3Dval -> vert.vtx3DVal
-vtx_3Derr -> vert.vtx3DeVal
-vtx_ntrk/I -> vert.ntrk
-
---> bleps(panda::Jet& jet, int nlep, panda::PFCand& lep)
-
-nlep/I -> nlep
-leadlep_pt -> lep.pt()
-leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
-leadlep_dr -> deltaR(<lep.|eta, phi|()>, <jet.|eta, phi|()>)
-
-[pt_ratio; data/TMVA_BDT.weights.xml; cmva_jet1] = 1   ! Need explicit prefix since cmva_jet1_pt not defined yet
-
-{-5}
-
-pt_reg <- <>_pt_ratio * <>_pt
-
-+jet1,jet2,jet3 --> jet(panda::Jet& jet)
-
-/O = false -> true
-$ -> jet.$() | pt, eta, phi, m
-$ -> jet.$ | chf, nhf
-emfrac -> jet.cef + jet.nef
-
-qgl -> jet.qgl
-
---> genjet(panda::GenJet& gen, TLorentzVector& withnu)
-
-gen/O = false -> true
-gen_$ -> gen.$() | pt, eta, phi, m
-gen_withnu_$ -> withnu.$$() | pt, eta, phi, m
-
-{/I}
-{0}
-
-gen_pdgid -> gen.pdgid
-gen_parton_flav -> gen.partonFlavor
-gen_num_b -> gen.numB
-
-<--
-
-{/F}
-{-5}
-
-"TLorentzVector.h"
-csv_hbb,cmva_hbb --> hbb(TLorentzVector& vec)   ! Hbb set by sums of jets as 4-vectors
-
-/O = false -> true
-$ -> vec.$$() | pt, eta, phi, m
-
---> hbbgen(panda::GenParticle& gen, float dr)
-
-gen/O = false -> true
-gen_$ -> gen.$() | pt, eta, phi, m
-
-gen_dr = 10 -> dr
-
-<--
-
-$_hbb_m_reg <- vectorSumMass(<$_jet1_|pt_reg, eta, phi, m|>, <$_jet2_|pt_reg, eta, phi, m|>) | cmva, csv
-$_gen_dijet_m <- vectorSumMass(<$_jet1_gen_|pt, eta, phi, m|>, <$_jet2_gen_|pt, eta, phi, m|>) | cmva, csv
-$_gen_withnu_dijet_m <- vectorSumMass(<$_jet1_gen_withnu_|pt, eta, phi, m|>, <$_jet2_gen_withnu_|pt, eta, phi, m|>) | cmva, csv
-
-genboson,gen_t,gen_tbar --> gen(panda::GenParticle& gen)
-
-/O = false -> true
-$ -> gen.$() | pt, eta, phi, m
-
-pdgid/I = 0 -> gen.pdgid
-
-<--
+      $ -> lep.$() | pt, eta, phi
+  }
+}
 
 ! Some calculated things
 
@@ -168,6 +65,99 @@ recoilphi <- recoilvec.Phi()
 
 dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
 
-dphi_uh_$ <- deltaPhi($_hbb_phi, recoilphi) | cmva, csv
 min_dphi_metj_soft = 4
 min_dphi_metj_hard = 4
+
+! Input jets are used to set the following variables
+"btagreaders.h"
+"bcal/BTagCalibrationStandalone.h"
+csv,cmva {
+  _jet1,_jet2 {
+    bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
+      maxtrk -> maxpt
+      $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
+
+{1}
+      loose_sf -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
+      loose_sf_up -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
+      loose_sf_down -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
+
+      medium_sf -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
+      medium_sf_up -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
+      medium_sf_down -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
+
+      tight_sf -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
+      tight_sf_up -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
+      tight_sf_down -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
+
+{0}    ! Set the defaults for training stuff to 0
+
+    bvert(panda::SecondaryVertex& vert)
+      vtx_$ -> vert.$() | pt, m
+
+      vtx_3Dval -> vert.vtx3DVal
+      vtx_3Derr -> vert.vtx3DeVal
+      vtx_ntrk/I -> vert.ntrk
+
+    bleps(panda::Jet& jet, int nlep, panda::PFCand& lep)
+      nlep/I -> nlep
+      leadlep_pt -> lep.pt()
+      leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
+      leadlep_dr -> deltaR(<lep.|eta, phi|()>, <jet.|eta, phi|()>)
+
+{-5}
+
+    pt_reg <- []_pt_ratio * []_pt
+
+    +jet1,jet2,jet3 {
+      jet(panda::Jet& jet)
+        /O = false -> true
+        $ -> jet.$() | pt, eta, phi, m
+        $ -> jet.$ | chf, nhf
+        emfrac -> jet.cef + jet.nef
+
+        qgl -> jet.qgl
+
+      genjet(panda::GenJet& gen, TLorentzVector& withnu)
+        gen/O = false -> true
+        gen_$ -> gen.$() | pt, eta, phi, m
+        gen_withnu_$ -> withnu.$$() | pt, eta, phi, m
+
+{/I}
+{0}
+
+        gen_pdgid -> gen.pdgid
+        gen_parton_flav -> gen.partonFlavor
+        gen_num_b -> gen.numB
+
+    }
+
+    [pt_ratio; data/TMVA_BDT.weights.xml] = 1
+  }
+"TLorentzVector.h"
+  _hbb {
+    hbb(TLorentzVector& vec)   ! Hbb set by sums of jets as 4-vectors
+      /O = false -> true
+      $ -> vec.$$() | pt, eta, phi, m
+
+    hbbgen(panda::GenParticle& gen, float dr)
+      gen/O = false -> true
+      gen_$ -> gen.$() | pt, eta, phi, m
+
+      gen_dr = 10 -> dr
+  }
+  hbb_m_reg <- vectorSumMass(<[]_jet1_|pt_reg, eta, phi, m|>, <[]_jet2_|pt_reg, eta, phi, m|>)
+  $_dijet_m <- vectorSumMass(<[]_jet1_$|pt, eta, phi, m|>, <[]_jet2_$|pt, eta, phi, m|>) | gen, gen_withnu
+  dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
+}
+
+{/F}
+{-5}
+
+genboson,gen_t,gen_tbar {
+  gen(panda::GenParticle& gen)
+    /O = false -> true
+    $ -> gen.$() | pt, eta, phi, m
+
+    pdgid/I = 0 -> gen.pdgid
+}
