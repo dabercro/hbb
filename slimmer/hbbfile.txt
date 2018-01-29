@@ -147,7 +147,7 @@ csv,cmva {
       gen_dr = 10 -> dr
   }
   hbb_m_reg <- vectorSumMass(<[]_jet1_|pt_reg, eta, phi, m|>, <[]_jet2_|pt_reg, eta, phi, m|>)
-  $_dijet_m <- vectorSumMass(<[]_jet1_$|pt, eta, phi, m|>, <[]_jet2_$|pt, eta, phi, m|>) | gen, gen_withnu
+  $_dijet_m <- vectorSumMass(<[]_jet1_$_|pt, eta, phi, m|>, <[]_jet2_$_|pt, eta, phi, m|>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 }
 
