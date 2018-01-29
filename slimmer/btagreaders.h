@@ -52,12 +52,4 @@ const BCalReaders cmva_readers = {
   {BTagEntry::OP_TIGHT, get_cmva_reader(BTagEntry::OP_TIGHT)}
 };
 
-// This is a pile of extra information we want to calculate for our jets
-struct BJetExtra {
-  BJetExtra (TLorentzVector gen = TLorentzVector(), const BCalReaders* read = nullptr) : genvec{gen}, reader{read} {}
-  TLorentzVector genvec;      // Original genjet vector, with neutinos added in
-  const BCalReaders* reader;  // Reader for calibration
-  bool overlap {false};       // Does this genjet overlap with a neutrino from a super massive (not from b-jet) W?
-};
-
 #endif
