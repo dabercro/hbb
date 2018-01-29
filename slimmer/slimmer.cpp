@@ -225,14 +225,14 @@ int parsed_main(int argc, char** argv) {
         auto& genjet = jet.matchedGenJet;
         auto genvec = genjet.isValid() ? genjet->p4() : TLorentzVector();
 
-        stored_jets.check(jet, {nullptr, genvec});             // Don't care about BTagCalibration, but nu contribution may be useful
+        stored_jets.check(jet, {genvec});                      // Don't care about BTagCalibration, but nu contribution may be useful
 
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
           output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
           if (fabs(jet.eta()) < 2.4) {
-            stored_csvs.check(jet, {&csv_readers, genvec});    // These readers are defined in btagreaders.h
-            stored_cmvas.check(jet, {&cmva_readers, genvec});
+            stored_csvs.check(jet, {genvec, &csv_readers});    // These readers are defined in btagreaders.h
+            stored_cmvas.check(jet, {genvec, &cmva_readers});
             csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
             cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
           }
@@ -274,7 +274,7 @@ int parsed_main(int argc, char** argv) {
           // Check jets of each collection for closest jet to neutrinos and add to the genvec stored in jetstore's extra
           for (auto jet_store : jet_stores) {
             float cone_size = std::pow(0.4, 2);   // Neutrinos must be within deltaR2 = (0.4)^2
-            TLorentzVector* closestvec = nullptr;
+            struct BJetExtra* closestvec = nullptr;
             for (auto& store : jet_store->store) {
               if (auto* particle = store.particle) {
                 auto check = deltaR2(particle->eta(), particle->phi(), gen.eta(), gen.phi());
@@ -283,12 +283,17 @@ int parsed_main(int argc, char** argv) {
                   check *= pow(gen.pt()/particle->pt(), 2);
                 if (check < cone_size) {
                   cone_size = check;
-                  closestvec = &store.extra.genvec;
+                  closestvec = &store.extra;
                 }
               }
             }
-            if (closestvec)
-              *closestvec += gen.p4();
+            if (closestvec) {
+              auto& parent = gen.parent;
+              if (parent.isValid() and abs(parent->pdgid) == 24 and parent->m() > 50)
+                closestvec->overlap = true;
+              else
+                closestvec->genvec += gen.p4();
+            }
           }
         }
       }
@@ -310,7 +315,7 @@ int parsed_main(int argc, char** argv) {
             output.set_jet(jet.branch, *jet.particle);
             auto& gen = jet.particle->matchedGenJet;
             if (gen.isValid())
-              output.set_genjet(jet.branch, *gen, jet.extra.genvec);
+              output.set_genjet(jet.branch, *gen, jet.extra.genvec, jet.extra.overlap);
           }
         }
       };

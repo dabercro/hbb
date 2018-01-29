@@ -80,17 +80,9 @@ csv,cmva {
 
 {1}
 
-      loose_sf -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
-      loose_sf_up -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
-      loose_sf_down -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
-
-      medium_sf -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
-      medium_sf_up -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
-      medium_sf_down -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
-
-      tight_sf -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
-      tight_sf_up -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
-      tight_sf_down -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
+      loose_sf_$ -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("$", flav, <jet.|eta, pt|()>) | central, up, down
+      medium_sf_$ -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("$", flav, <jet.|eta, pt|()>) | central, up, down
+      tight_sf_$ -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("$", flav, <jet.|eta, pt|()>) | central, up, down
 
 {0}    ! Set the defaults for training stuff to 0
 
@@ -109,8 +101,6 @@ csv,cmva {
 
 {-5}
 
-    pt_reg <- []_pt_ratio * []_pt
-
     +jet1,jet2,jet3 {
       jet(panda::Jet& jet)
         /O = false -> true
@@ -120,24 +110,19 @@ csv,cmva {
 
         qgl -> jet.qgl
 
-      genjet(panda::GenJet& gen, TLorentzVector& withnu)
+      genjet(panda::GenJet& gen, TLorentzVector& withnu, bool overlap)
         gen/O = false -> true
         gen_$ -> gen.$() | pt, eta, phi, m
         gen_withnu_$ -> withnu.$$() | pt, eta, phi, m
+        gen_tWnu_overlap/O = false -> overlap
 
-{/I}
-{0}
-
-        gen_pdgid -> gen.pdgid
-        gen_parton_flav -> gen.partonFlavor
-        gen_num_b -> gen.numB
-
-{/F}
-{-5}
+        gen_$/I = 0 -> gen.$ | pdgid, partonFlavor, numB
 
     }
 
     [pt_ratio; data/TMVA_BDT.weights.xml] = 1
+    pt_reg <- []_pt_ratio * []_pt
+
   }
 "TLorentzVector.h"
   _hbb {
