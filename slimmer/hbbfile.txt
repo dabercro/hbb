@@ -136,10 +136,16 @@ csv, cmva {
       gen_$ -> gen.$() | pt, eta, phi, m
 
       gen_dr = 10 -> dr
+
+    pt_over_vpt <- []_pt/recoil
   }
   hbb_m_reg <- vectorSumMass(<[]_jet1_|pt_reg, eta, phi, m|>, <[]_jet2_|pt_reg, eta, phi, m|>)
   $_dijet_m <- vectorSumMass(<[]_jet1_$_|pt, eta, phi, m|>, <[]_jet2_$_|pt, eta, phi, m|>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
+
+  daughter_deta <- fabs([]_jet1_eta - []_jet2_eta)
+  daughter_dphi <- deltaPhi(<[]_jet|1, 2|_phi>)
+  daughter_dR <- deltaR(<[]_jet1_|eta, phi|>, <[]_jet2_|eta, phi|>)
 }
 
 genboson, gen_t, gen_tbar {
