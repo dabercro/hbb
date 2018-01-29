@@ -22,14 +22,17 @@ public:
   GenNuVec(TLorentzVector vec = TLorentzVector{}) : genvec{vec} {}
 
   TLorentzVector genvec;
+  int numnu {0};
   bool overlap {false};
 
   void add_nu(panda::GenParticle& nu) {
     auto& parent = nu.parent;
     if (parent.isValid() and abs(parent->pdgid) == 24 and parent->m() > 50)  // Don't add neutrinos from massive W to jet
       overlap = true;
-    else
+    else {
+      ++numnu;
       genvec += nu.p4();
+    }
   }
 };
 
@@ -278,12 +281,10 @@ int parsed_main(int argc, char** argv) {
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
-      jetstore stored_csvs({hbbfile::jet::csv_jet1, hbbfile::jet::csv_jet2},
+      jetstore stored_csvs({hbbfile::jet::csv_jet1, hbbfile::jet::csv_jet2, hbbfile::jet::csv_jet3},
                            [](panda::Jet* j) {return j->csv;});
-      jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2},
+      jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2, hbbfile::jet::cmva_jet3},
                             [](panda::Jet* j) {return j->cmva;});
-
-      const std::vector<jetstore*> jet_stores {&stored_jets, &stored_csvs, &stored_cmvas};
 
       for (auto& jet : event.chsAK4Jets) {
 
@@ -324,14 +325,21 @@ int parsed_main(int argc, char** argv) {
             output.set_jet(jet.branch, *jet.particle);
             auto& gen = jet.particle->matchedGenJet;
             if (gen.isValid()) {
-              TLorentzVector genvec {gen->p4()};
-              bool overlap {false};
+              TLorentzVector genvec;
+              int numnu;
+              bool overlap;
               if (gen_nu_map.find(&*gen) != gen_nu_map.end()) {
                 auto& info = gen_nu_map[&*gen];
                 genvec = info.genvec;
+                numnu = info.numnu;
                 overlap = info.overlap;
               }
-              output.set_genjet(jet.branch, *gen, genvec, overlap);
+              else {
+                genvec = gen->p4();
+                numnu = 0;
+                overlap = false;
+              }
+              output.set_genjet(jet.branch, *gen, genvec, numnu, overlap);
             }
           }
         }

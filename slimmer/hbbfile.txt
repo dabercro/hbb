@@ -32,10 +32,10 @@ n_alljet
 n_jet
 n_hardjet
 
-n_bcsv,n_bcmva,n_lep {
+n_bcsv, n_bcmva, n_lep {
   medium
   tight
-  +n_tau,n_pho {
+  +n_tau, n_pho {
     loose
   }
 }
@@ -44,8 +44,8 @@ n_bcsv,n_bcmva,n_lep {
 {-5}
 
 ! Save two leptons of each kind
-muon,ele {
-  1,2 {
+muon, ele {
+  1, 2 {
     lep(panda::Lepton& lep, unsigned char flag)
       /O = false -> true
       1l_2m_3t/b = 0 -> flag
@@ -72,8 +72,8 @@ min_dphi_metj_hard = 4
 ! Input jets are used to set the following variables
 "btagreaders.h"
 "bcal/BTagCalibrationStandalone.h"
-csv,cmva {
-  _jet1,_jet2 {
+csv, cmva {
+  _jet1, _jet2, _jet3 {
     bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
@@ -101,7 +101,7 @@ csv,cmva {
 
 {-5}
 
-    +jet1,jet2,jet3 {
+    +jet1, jet2, jet3 {
       jet(panda::Jet& jet)
         /O = false -> true
         $ -> jet.$() | pt, eta, phi, m
@@ -110,10 +110,11 @@ csv,cmva {
 
         qgl -> jet.qgl
 
-      genjet(panda::GenJet& gen, TLorentzVector& withnu, bool overlap)
+      genjet(panda::GenJet& gen, TLorentzVector& withnu, unsigned num_nu, bool overlap)
         gen/O = false -> true
         gen_$ -> gen.$() | pt, eta, phi, m
         gen_withnu_$ -> withnu.$$() | pt, eta, phi, m
+        gen_numnu/I = 0 -> num_nu
         gen_tWnu_overlap/O = false -> overlap
 
         gen_$/I = 0 -> gen.$ | pdgid, partonFlavor, numB
@@ -141,7 +142,7 @@ csv,cmva {
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 }
 
-genboson,gen_t,gen_tbar {
+genboson, gen_t, gen_tbar {
   gen(panda::GenParticle& gen)
     /O = false -> true
     $ -> gen.$() | pt, eta, phi, m
