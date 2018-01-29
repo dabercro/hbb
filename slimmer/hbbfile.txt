@@ -42,6 +42,7 @@ n_bcsv,n_bcmva,n_lep {
 
 {/F}
 {-5}
+
 ! Save two leptons of each kind
 muon,ele {
   1,2 {
@@ -78,6 +79,7 @@ csv,cmva {
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
 {1}
+
       loose_sf -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("central", flav, jet.eta(), jet.pt())
       loose_sf_up -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("up", flav, jet.eta(), jet.pt())
       loose_sf_down -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("down", flav, jet.eta(), jet.pt())
@@ -130,6 +132,9 @@ csv,cmva {
         gen_parton_flav -> gen.partonFlavor
         gen_num_b -> gen.numB
 
+{/F}
+{-5}
+
     }
 
     [pt_ratio; data/TMVA_BDT.weights.xml] = 1
@@ -150,9 +155,6 @@ csv,cmva {
   $_dijet_m <- vectorSumMass(<[]_jet1_$_|pt, eta, phi, m|>, <[]_jet2_$_|pt, eta, phi, m|>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 }
-
-{/F}
-{-5}
 
 genboson,gen_t,gen_tbar {
   gen(panda::GenParticle& gen)
