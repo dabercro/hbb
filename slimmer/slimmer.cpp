@@ -299,9 +299,6 @@ int parsed_main(int argc, char** argv) {
         output.n_jet++;
         output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
 
-        auto& genjet = jet.matchedGenJet;
-        auto genvec = genjet.isValid() ? genjet->p4() : TLorentzVector();
-
         stored_jets.check(jet);
 
         if (jet.pt() > 30.0) {
@@ -325,21 +322,8 @@ int parsed_main(int argc, char** argv) {
             output.set_jet(jet.branch, *jet.particle);
             auto& gen = jet.particle->matchedGenJet;
             if (gen.isValid()) {
-              TLorentzVector genvec;
-              int numnu;
-              bool overlap;
-              if (gen_nu_map.find(&*gen) != gen_nu_map.end()) {
-                auto& info = gen_nu_map[&*gen];
-                genvec = info.genvec;
-                numnu = info.numnu;
-                overlap = info.overlap;
-              }
-              else {
-                genvec = gen->p4();
-                numnu = 0;
-                overlap = false;
-              }
-              output.set_genjet(jet.branch, *gen, genvec, numnu, overlap);
+              const auto& gennu = gen_nu_map.find(&*gen) != gen_nu_map.end() ? gen_nu_map[&*gen] : GenNuVec(gen->p4());
+              output.set_genjet(jet.branch, *gen, gennu.genvec, gennu.numnu, gennu.overlap);
             }
           }
         }
