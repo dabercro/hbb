@@ -80,9 +80,7 @@ csv, cmva {
 
 {1}
 
-      loose_sf_$ -> readers.at(BTagEntry::OP_LOOSE).eval_auto_bounds("$", flav, <jet.|eta, pt|()>) | central, up, down
-      medium_sf_$ -> readers.at(BTagEntry::OP_MEDIUM).eval_auto_bounds("$", flav, <jet.|eta, pt|()>) | central, up, down
-      tight_sf_$ -> readers.at(BTagEntry::OP_TIGHT).eval_auto_bounds("$", flav, <jet.|eta, pt|()>) | central, up, down
+      @_sf_$ -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) | central, up, down |@ loose, medium, tight
 
 {0}    ! Set the defaults for training stuff to 0
 
@@ -97,7 +95,7 @@ csv, cmva {
       nlep/I -> nlep
       leadlep_pt -> lep.pt()
       leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
-      leadlep_dr -> deltaR(<lep.|eta, phi|()>, <jet.|eta, phi|()>)
+      leadlep_dr -> deltaR(<{lep, jet}.{eta, phi}()>)
 
 {-5}
 
@@ -137,8 +135,8 @@ csv, cmva {
 
       gen_dr = 10 -> dr
   }
-  hbb_m_reg <- vectorSumMass(<[]_jet1_|pt_reg, eta, phi, m|>, <[]_jet2_|pt_reg, eta, phi, m|>)
-  $_dijet_m <- vectorSumMass(<[]_jet1_$_|pt, eta, phi, m|>, <[]_jet2_$_|pt, eta, phi, m|>) | gen, gen_withnu
+  hbb_m_reg <- vectorSumMass(<[]_jet{1, 2}_{pt_reg, eta, phi, m}>)
+  $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 }
 
