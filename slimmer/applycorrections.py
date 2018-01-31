@@ -15,19 +15,27 @@ applicator = Corrector.MakeApplicator('scale_factors', True, 'events', 'events',
 
 applicator.AddFactorToMerge('mc_weight')
 
-def add_corr(name, expr, cut, fileName, histName, matchName=''):
+def add_corr(name, expr, cut, fileName, histName, matchName='', merge=True):
     corr = Corrector.MakeCorrector(name, expr, cut, fileName, histName)
     if matchName:
         corr.SetMatchFileName(matchName)
+    corr.Merge = merge
     applicator.AddCorrector(corr)
 
 add_corr('sf_pu', 'npv_true', '1', 'data/puWeights_80x_37ifb.root', 'puWeights')
 add_corr('sf_met_trigger','met','1','data/metTriggerEfficiency_recoil_monojet_TH1F.root','hden_monojet_recoil_clone_passed')
 
-add_corr('ewk_z', 'genboson_pt', 'abs(genboson_pdgid) == 23', 'data/kfactors.root', ['EWKcorr/Z', 'ZJets_012j_NLO/nominal'], '.*_HT-.*')
-add_corr('ewk_w', 'genboson_pt', 'abs(genboson_pdgid) == 24', 'data/kfactors.root', ['EWKcorr/W', 'WJets_012j_NLO/nominal'], '.*_HT-.*')
-add_corr('zkfactor', 'genboson_pt', 'abs(genboson_pdgid) == 23', 'data/kfactors.root', ['ZJets_012j_NLO/nominal', 'ZJets_LO/inv_pt'], '.*_HT-.*')
-add_corr('wkfactor', 'genboson_pt', 'abs(genboson_pdgid) == 24', 'data/kfactors.root', ['WJets_012j_NLO/nominal', 'WJets_LO/inv_pt'], '.*_HT-.*')
+for pdgid, bos in [(23, 'z'), (24, 'w')]:
+    add_corr('ewk_%s' % bos, 'genboson_pt', 'abs(genboson_pdgid) == %i' % pdgid, 'data/kfactors.root',
+             ['EWKcorr/%s' % bos.upper(), '%sJets_012j_NLO/nominal' % bos.upper()], '.*_HT-.*')
+    add_corr('%skfactor' % bos, 'genboson_pt', 'abs(genboson_pdgid) == %i' % pdgid, 'data/kfactors.root',
+             ['%sJets_012j_NLO/nominal' % bos.upper(), '%sJets_LO/inv_pt' % bos.upper()], '.*_HT-.*')
+
+    for pref in ['fact', 'ren']:
+        for direction in ['up', 'down']:
+            add_corr('%skfactor_%s_%s' % (bos, pref, direction), 'genboson_pt', 'abs(genboson_pdgid) == %i' % pdgid, 'data/kfactors.root',
+                     ['%sJets_012j_NLO/%s_%s' % (bos.upper(), pref, direction), '%sJets_LO/inv_pt' % bos.upper()], '.*_HT-.*', False)
+
 
 tt_corr = MakeFormulaCorrector('sf_tt', 'sqrt(exp(0.0615-0.0005*min(400.0, gen_t_pt)) * exp(0.0615-0.0005 * min(400.00, gen_tbar_pt)))', 'gen_t && gen_tbar', 'TT.*')
 applicator.AddCorrector(tt_corr)
