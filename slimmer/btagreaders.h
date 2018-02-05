@@ -40,11 +40,11 @@ using BCalReaders = std::map<const BTagEntry::OperatingPoint, const BTagCalibrat
 
 // Map operating points to the readers
 
-const BCalReaders csv_readers = {
-  {BTagEntry::OP_LOOSE, get_csv_reader(BTagEntry::OP_LOOSE)},
-  {BTagEntry::OP_MEDIUM, get_csv_reader(BTagEntry::OP_MEDIUM)},
-  {BTagEntry::OP_TIGHT, get_csv_reader(BTagEntry::OP_TIGHT)}
-};
+/* const BCalReaders csv_readers = { */
+/*   {BTagEntry::OP_LOOSE, get_csv_reader(BTagEntry::OP_LOOSE)}, */
+/*   {BTagEntry::OP_MEDIUM, get_csv_reader(BTagEntry::OP_MEDIUM)}, */
+/*   {BTagEntry::OP_TIGHT, get_csv_reader(BTagEntry::OP_TIGHT)} */
+/* }; */
 
 const BCalReaders cmva_readers = {
   {BTagEntry::OP_LOOSE, get_cmva_reader(BTagEntry::OP_LOOSE)},

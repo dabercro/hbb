@@ -14,13 +14,15 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
+
+
 hbbpt      = 'cmva_hbb_pt > 120'
 jetpt      = 'jet1_pt > 60 && jet2_pt > 35'
 mjjveto    = '(60 > cmva_hbb_m || 160 < cmva_hbb_m)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
-deltaVH    = 'dphi_uh_cmva > 2.0'
-undeltaVH  = 'dphi_uh_cmva < 2.0'
+deltaVH    = 'cmva_dphi_uh > 2.0'
+undeltaVH  = 'cmva_dphi_uh < 2.0'
 trkmetphi  = 'deltaPhi(metphi,trkmetphi) < 0.5'
 
 common = ' && '.join([
@@ -84,15 +86,19 @@ def joinCuts(toJoin=regionCuts.keys(), cuts=regionCuts):
 
 # A weight applied to all MC
 
-defaultMCWeight = 'scale_factors'
+defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central'
 
 # Additional weights applied to certain control regions
 
 mettrigger = 'met_trigger'
 
 region_weights = { # key : [Data,MC]
-    'signal'   : ['0', defaultMCWeight],
-    'scaledtt' : [mettrigger, '*'.join([defaultMCWeight, '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
+    'signal'   : ['0', '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
+    'heavyz'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
+    'lightz'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
+    'multijet' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
+    'tt' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_medium_sf_central'])],
+    'scaledtt' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_medium_sf_central', '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
     'default'  : [mettrigger, defaultMCWeight],
     }
 
@@ -108,18 +114,24 @@ def cut(category, region):
         for orig, new in [(btag, btag_csv), (unbtag, unbtag_csv),
                           (lbtag, lbtag_csv), (tbtag, tbtag_csv)]:
             cut = cut.replace(orig, new)
+        cut = cut.replace('cmva', 'csv')
 
     return cut
 
 def dataMCCuts(region, isData):
     key = 'default'
-    region = region.split('+')[0]
+    info = region.split('+')
+    region = info[0]
     if region in region_weights.keys():
         key = region
 
     index = 0 if isData else 1
 
-    return '(' + region_weights[key][index] + ')'
+    output = region_weights[key][index]
+    if info[-1] == 'csv':
+        output = output.replace('cmva', 'csv')
+
+    return '(' + output + ')'
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:

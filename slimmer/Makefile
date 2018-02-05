@@ -75,9 +75,7 @@ test: $(tarball) $(target)
 	test -z ${CMSSW_BASE} || test ! -d $(testdir) || rm -r $(testdir)
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir) \
 	'cmva_hbb_m_reg|cmva_hbb_m; cmva_hbb && cmva_hbb_m_reg < 200' \
-	'csv_hbb_m_reg|csv_hbb_m; csv_hbb && csv_hbb_m_reg < 200' \
 	'cmva_gen_withnu_dijet_m|cmva_hbb_m_reg|cmva_hbb_m; cmva_hbb && cmva_gen_withnu_dijet_m < 250' \
-	'csv_gen_withnu_dijet_m|csv_hbb_m_reg|csv_hbb_m; csv_hbb && csv_gen_withnu_dijet_m < 250' \
 	'1 - cmva_hbb_m/cmva_gen_dijet_m|1 - cmva_hbb_m_reg/cmva_gen_withnu_dijet_m; cmva_hbb && cmva_jet1_gen && cmva_jet2_gen'
 
 clean:

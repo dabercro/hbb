@@ -72,7 +72,8 @@ min_dphi_metj_hard = 4
 ! Input jets are used to set the following variables
 "btagreaders.h"
 "bcal/BTagCalibrationStandalone.h"
-csv, cmva {
+! csv, cmva {
+cmva {
   _jet1, _jet2, _jet3 {
     bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
       maxtrk -> maxpt
@@ -103,7 +104,7 @@ csv, cmva {
       jet(panda::Jet& jet)
         /O = false -> true
         $ -> jet.$() | pt, eta, phi, m
-        $ -> jet.$ | chf, nhf
+        $ -> jet.$ | chf, nhf, cef, nef
         emfrac -> jet.cef + jet.nef
 
         qgl -> jet.qgl
@@ -123,6 +124,9 @@ csv, cmva {
     pt_reg <- []_pt_ratio * []_pt
 
   }
+
+  jet1pt_over_jet$pt <- []_jet1_pt/[]_jet$_pt | 2, 3
+
 "TLorentzVector.h"
   _hbb {
     hbb(TLorentzVector& vec)   ! Hbb set by sums of jets as 4-vectors
@@ -138,12 +142,15 @@ csv, cmva {
     pt_over_vpt <- []_pt/recoil
   }
   hbb_m_reg <- vectorSumMass(<[]_jet{1, 2}_{pt_reg, eta, phi, m}>)
+
+  hbb_reg_over_m <- []_hbb_m_reg/[]_hbb_m
+
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 
   daughter_deta <- fabs([]_jet1_eta - []_jet2_eta)
-  daughter_dphi <- deltaPhi(<[]_jet|1, 2|_phi>)
-  daughter_dR <- deltaR(<[]_jet1_|eta, phi|>, <[]_jet2_|eta, phi|>)
+  daughter_dphi <- deltaPhi(<[]_jet{1, 2}_phi>)
+  daughter_dR <- deltaR(<[]_jet{1, 2}_{eta, phi}>)
 }
 
 genboson, gen_t, gen_tbar {
@@ -153,3 +160,8 @@ genboson, gen_t, gen_tbar {
 
     pdgid/I = 0 -> gen.pdgid
 }
+
+[event_class; data/Classifier_BDT.weights.xml] = 0
+
+! Filter
+-- met_filter == 1 and (met > 150 or recoil > 150) and jet1_pt > 30 --

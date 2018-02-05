@@ -29,7 +29,7 @@ plotter.AddDataFile('MET.root')
 cats = ['ZvvHbb']
 
 def parse_regions(check=None):
-    regions = [reg for orig in cuts.regionCuts.keys() for reg in [orig, orig + '+csv']]
+    regions = [reg for orig in cuts.regionCuts.keys() for reg in [orig]] # (orig + '+csv') also a valid reg value
 
     if True in [arg in regions for arg in sys.argv]:
         regions = [r for r in regions if r in sys.argv]
@@ -44,14 +44,14 @@ def parse_plots(check=None):
             ['cmva_jet2_cmva', 40, -1.0, 1.0, 'CMVA jet 2'],
             ['cmva_jet1_qgl', 40, 0, 1.0, 'QGL jet 1'],
             ['cmva_jet2_qgl', 40, 0, 1.0, 'QGL jet 2'],
-            ['dphi_uh_cmva', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['cmva_dphi_uh', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['csv_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
             ['csv_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
             ['csv_jet1_csv', 40, 0, 1.0, 'CSV jet 1'],
             ['csv_jet2_csv', 40, 0, 1.0, 'CSV jet 2'],
             ['csv_jet1_qgl', 40, 0, 1.0, 'QGL jet 1'],
             ['csv_jet2_qgl', 40, 0, 1.0, 'QGL jet 2'],
-            ['dphi_uh_csv', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['csv_dphi_uh', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['met', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
@@ -68,6 +68,9 @@ def parse_plots(check=None):
             ['jet2_chf', 40, 0, 1.0, 'CHF Frac jet 2'],
             ['jet1_nhf', 40, 0, 1.0, 'NHF Frac jet 1'],
             ['jet2_nhf', 40, 0, 1.0, 'NHF Frac jet 2'],
+            ['cmva_daughter_deta', 40, 0, 6.0, '#Delta #eta_{jj}'],
+            ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
+            ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -83,6 +86,7 @@ def submit_plots(regions, plots):
 
 
 def RunPlots(all_left, some_left):
+    pass
     regions = parse_regions()
     all_right = [plot[0] for plot in parse_plots() if plot[0] not in sum([all_left] + some_left.values(), [])]
 
@@ -107,7 +111,7 @@ if __name__ == '__main__':
                        'jet2_chf',
                        'jet1_cmva',
                        'jet2_cmva',
-                       'dphi_uh_cmva',
+                       'cmva_dphi_uh',
                        'cmva_jet1_cmva'
                        ],
              some_left={'signal': ['jet1_chf',
