@@ -45,13 +45,6 @@ def parse_plots(check=None):
             ['cmva_jet1_qgl', 40, 0, 1.0, 'QGL jet 1'],
             ['cmva_jet2_qgl', 40, 0, 1.0, 'QGL jet 2'],
             ['cmva_dphi_uh', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
-            ['csv_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
-            ['csv_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
-            ['csv_jet1_csv', 40, 0, 1.0, 'CSV jet 1'],
-            ['csv_jet2_csv', 40, 0, 1.0, 'CSV jet 2'],
-            ['csv_jet1_qgl', 40, 0, 1.0, 'QGL jet 1'],
-            ['csv_jet2_qgl', 40, 0, 1.0, 'QGL jet 2'],
-            ['csv_dphi_uh', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['met', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
@@ -61,7 +54,7 @@ def parse_plots(check=None):
             ['jet3_pt', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
             ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
             ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
-            ['deltaPhi(metphi,trkmetphi)', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
+            ['dphi_met_trkmet', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
             ['jet1_emfrac', 40, 0, 1.0, 'EM Frac jet 1'],
             ['jet2_emfrac', 40, 0, 1.0, 'EM Frac jet 2'],
             ['jet1_chf', 40, 0, 1.0, 'CHF Frac jet 1'],
@@ -71,6 +64,7 @@ def parse_plots(check=None):
             ['cmva_daughter_deta', 40, 0, 6.0, '#Delta #eta_{jj}'],
             ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
+            ['event_class', 41, -1, 1.05, 'Event Classifier'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -115,6 +109,7 @@ if __name__ == '__main__':
                        'cmva_jet1_cmva'
                        ],
              some_left={'signal': ['jet1_chf',
+                                   'min_dphi_metj_hard'
                                    ],
                         'tt': ['n_jet',
                                ]

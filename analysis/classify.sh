@@ -1,16 +1,14 @@
 #! /bin/bash
 
-nevents=250000
-
 crombie tmva \
     --config      classify_branches.txt \
     --signal      /data/t3home000/dabercro/training/Signal.root \
     --background  /data/t3home000/dabercro/training/MC.root \
-    --weight      'abs(scale_factors * XSecWeight)' \
-    --cut         'event_num % 2 == 1' \
+    --weight      'scale_factors * XSecWeight' \
+    --cut         "event_num % 2 == 1 && $(python ../plotter/cuts.py classify)" \
     --method      BDT \
-    --prepare     "nTrain_Signal=${nevents}:nTrain_Background=${nevents}:SplitMode=Random:NormMode=NumEvents:!V" \
-    --methodopt   'BoostType=Bagging:nCuts=20:PruneMethod=CostComplexity:PruneStrength=20' \
+    --prepare     "nTrain_Signal=150000:nTrain_Background=500000:SplitMode=Random:NormMode=NumEvents:!V" \
+    --methodopt   'BoostType=AdaBoost:nCuts=50:PruneMethod=NoPruning:NTrees=800:NegWeightTreatment=InverseBoostNegWeights:CreateMVAPdfs=True' \
     --output      classify.root \
     --traineropt  '!V:!Silent:Color:DrawProgressBar:AnalysisType=Classification' \
     --trainername 'Classifier' \

@@ -1,18 +1,18 @@
 cmva_hbb_m
-cmva_hbb_m_reg
+cmva_hbb_reg_over_m
 cmva_hbb_pt
 cmva_hbb_pt_over_vpt
 cmva_jet1_cmva
 cmva_jet2_cmva
 cmva_jet3_cmva
 cmva_daughter_dR
-cmva_daughter_deta
+SPEC cmva_daughter_deta
 cmva_daughter_dphi
 cmva_dphi_uh
 cmva_jet1_pt
-cmva_jet2_pt
-cmva_jet3_pt
-n_jet
+cmva_jet1pt_over_jet2pt
+cmva_jet1pt_over_jet3pt
 met
-min_dphi_metj_hard
-min_dphi_metj_soft
+SPEC n_jet
+SPEC min_dphi_metj_hard
+SPEC min_dphi_metj_soft

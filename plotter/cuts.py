@@ -14,8 +14,6 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
-
-
 hbbpt      = 'cmva_hbb_pt > 120'
 jetpt      = 'jet1_pt > 60 && jet2_pt > 35'
 mjjveto    = '(60 > cmva_hbb_m || 160 < cmva_hbb_m)'
@@ -23,7 +21,7 @@ antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
 undeltaVH  = 'cmva_dphi_uh < 2.0'
-trkmetphi  = 'deltaPhi(metphi,trkmetphi) < 0.5'
+trkmetphi  = 'dphi_met_trkmet < 0.5'
 
 common = ' && '.join([
         jetgood,
@@ -73,6 +71,18 @@ regionCuts = {
             trkmetphi,
             'n_jet < 3'
             ]),
+    'classify' : ' && '.join([
+            'met_filter == 1',
+            'met > 150',
+            'jet1_chf > 0.15',
+            'jet1_emfrac < 0.8',
+            'jet1_pt > 40',
+            'jet2_pt > 30',
+            'cmva_hbb_pt > 100',
+            'cmva_jet2_cmva > -0.6',
+            'n_jet < 5',
+            'min_dphi_metj_hard > 0.5',
+            ])
     }
 
 regionCuts['common'] = common
@@ -86,7 +96,7 @@ def joinCuts(toJoin=regionCuts.keys(), cuts=regionCuts):
 
 # A weight applied to all MC
 
-defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central'
+defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (event_num % 2 == 0) * 2'
 
 # Additional weights applied to certain control regions
 

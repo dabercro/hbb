@@ -36,6 +36,11 @@ for pdgid, bos in [(23, 'z'), (24, 'w')]:
             add_corr('%skfactor_%s_%s' % (bos, pref, direction), 'genboson_pt', 'abs(genboson_pdgid) == %i' % pdgid, 'data/kfactors.root',
                      ['%sJets_012j_NLO/%s_%s' % (bos.upper(), pref, direction), '%sJets_LO/inv_pt' % bos.upper()], '.*_HT-.*', False)
 
+for begin, pdgid in [('Wm', 24), ('Wp', 24), ('Zll', 23), ('Znn', 23)]:
+    match = '%s.*_HToBB_W.*' % begin if begin[0] == 'W' else '.*ZH_HToBB_ZTo%s.*' % begin[1].upper()
+    for direction in ['', '_up', '_down']:
+        add_corr('vh_ewk%s' % direction, 'genboson_pt', 'abs(genboson_pdgid) == %i' % pdgid, 'data/%s_nloEWK_weight_unnormalized.root' % begin,
+                 'SignalWeight_nloEWK%s_rebin' % direction, match, not bool(direction))
 
 tt_corr = MakeFormulaCorrector('sf_tt', 'sqrt(exp(0.0615-0.0005*min(400.0, gen_t_pt)) * exp(0.0615-0.0005 * min(400.00, gen_tbar_pt)))', 'gen_t && gen_tbar', 'TT.*')
 applicator.AddCorrector(tt_corr)
