@@ -2,7 +2,7 @@
 export CrombieExe=makehbbtree
 export CrombieInSample=pandaf/008
 export CrombieOutDir=/data/t3home000/dabercro/fullhbb/$(date +%y%m%d)
-export CrombieFilesPerJob=20
+export CrombieFilesPerJob=15
 
 # Skimming
 export CrombieNLocalProcs=12
