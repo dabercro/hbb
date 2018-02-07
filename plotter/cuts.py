@@ -24,7 +24,7 @@ undeltaVH  = 'cmva_dphi_uh < 2.0'
 trkmetphi  = 'dphi_met_trkmet < 0.5'
 
 common = ' && '.join([
-        jetgood,
+        # jetgood,
         jetpt,
         hbbpt,
         metcut,
@@ -111,6 +111,12 @@ region_weights = { # key : [Data,MC]
     'scaledtt' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_medium_sf_central', '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
     'default'  : [mettrigger, defaultMCWeight],
     }
+
+# Up and down
+
+keys = list(regionCuts.keys())
+for key in keys:
+    pass
 
 # Do not change the names of these functions or required parameters
 # Otherwise you cannot use some convenience functions

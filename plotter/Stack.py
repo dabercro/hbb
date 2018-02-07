@@ -51,7 +51,12 @@ def parse_plots(check=None):
             ['n_jet', 10, 0, 10, 'Num Jets'],
             ['jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
-            ['jet3_pt', 40, 0, 400, 'Jet 3 p_{T} [GeV]'],
+            ['jet1_eta', 50, 0, 500, 'Jet 1 #eta [GeV]'],
+            ['jet2_eta', 50, 0, 500, 'Jet 2 #eta [GeV]'],
+            ['cmva_jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
+            ['cmva_jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
+            ['cmva_jet1_eta', 50, 0, 500, 'Jet 1 #eta [GeV]'],
+            ['cmva_jet2_eta', 50, 0, 500, 'Jet 2 #eta [GeV]'],
             ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
             ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
             ['dphi_met_trkmet', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
@@ -64,7 +69,7 @@ def parse_plots(check=None):
             ['cmva_daughter_deta', 40, 0, 6.0, '#Delta #eta_{jj}'],
             ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
-            ['event_class', 41, -1, 1.05, 'Event Classifier'],
+            ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -109,7 +114,8 @@ if __name__ == '__main__':
                        'cmva_jet1_cmva'
                        ],
              some_left={'signal': ['jet1_chf',
-                                   'min_dphi_metj_hard'
+                                   'min_dphi_metj_hard',
+                                   'event_class'
                                    ],
                         'tt': ['n_jet',
                                ]

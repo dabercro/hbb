@@ -103,9 +103,11 @@ cmva {
     +jet1, jet2, jet3 {
       jet(panda::Jet& jet)
         /O = false -> true
-        $ -> jet.$() | pt, eta, phi, m
+        $ -> jet.$() | pt, eta, phi, m, e
         $ -> jet.$ | chf, nhf, cef, nef
-        emfrac -> jet.cef + jet.nef
+        $/O = false -> jet.$ | loose, tight, monojet
+        $frac -> jet.c$f + jet.n$f | e, h  ! EM and Had Fractions
+        emfrac <- []_efrac                 ! Just until I get a retrained BDT
 
         qgl -> jet.qgl
 
@@ -120,8 +122,9 @@ cmva {
 
     }
 
-    [pt_ratio; data/TMVA_BDT.weights.xml] = 1
-    pt_reg <- []_pt_ratio * []_pt
+    [pt_ratio; data/Regression_BDT.weights.xml] = 1
+    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
+    pt_reg$ <- []_pt_ratio$ * []_pt | , _old
 
   }
 
@@ -141,9 +144,10 @@ cmva {
 
     pt_over_vpt <- []_pt/recoil
   }
-  hbb_m_reg <- vectorSumMass(<[]_jet{1, 2}_{pt_reg, eta, phi, m}>)
+  hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | , _old
+  hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | , _old
 
-  hbb_reg_over_m <- []_hbb_m_reg/[]_hbb_m
+  hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | , _old
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)

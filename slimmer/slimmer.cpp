@@ -120,9 +120,15 @@ int parsed_main(int argc, char** argv) {
       }
 
       //// PHOTONS ////
+
+      std::vector<std::pair<float, float>> em_directions; // Pairs of eta, phi for all leptons and photons for cleaning
+
       for (auto& pho : event.photons) {
-        if (pho.loose)
+        if (pho.loose) {
           output.n_pho_loose++;
+          if (pho.medium && pho.pt() > 175)
+            em_directions.emplace_back(pho.eta(), pho.phi());
+        }
       }
 
       //// TAUS ////
@@ -143,12 +149,13 @@ int parsed_main(int argc, char** argv) {
       // We'll do a lambda with no arguments for lazy evaluation of lepton IDs
       using lazy_id = std::function<bool()>;
 
-      auto check_lep = [&output, &lepvec] (lepstore& store, panda::Lepton& lep,
-                                           lazy_id is_loose, lazy_id is_med, lazy_id is_tight) {
+      auto check_lep = [&output, &lepvec, &em_directions] (lepstore& store, panda::Lepton& lep,
+                                                           lazy_id is_loose, lazy_id is_med, lazy_id is_tight) {
         if (is_loose()) {
           int stat_flag = 1;
           lepvec += lep.p4();
           output.n_lep_loose++;
+          em_directions.emplace_back(lep.eta(), lep.phi());
           if (is_med()) {
             output.n_lep_medium++;
             stat_flag++;
@@ -282,9 +289,17 @@ int parsed_main(int argc, char** argv) {
       jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2, hbbfile::jet::cmva_jet3},
                             [](panda::Jet* j) {return j->cmva;});
 
-      for (auto& jet : event.chsAK4Jets) {
+      // Check if overlaps with EM object
+      auto overlap_em = [&em_directions] (panda::Jet& jet) {
+        for (auto& dir : em_directions) {
+          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < pow(0.4, 2))  // Within dR = 0.4
+            return true;
+        }
+        return false;
+      };
 
-        if (jet.pt() < 20.0)
+      for (auto& jet : event.chsAK4Jets) {
+        if (overlap_em(jet) || jet.pt() < 20.0 || not jet.loose)
           continue;
 
         // Count all jets (including forward)
