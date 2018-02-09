@@ -29,7 +29,11 @@ plotter.AddDataFile('MET.root')
 cats = ['ZvvHbb']
 
 def parse_regions(check=None):
-    regions = [reg for orig in cuts.regionCuts.keys() for reg in [orig]] # (orig + '+csv') also a valid reg value
+    regions = ['signal', 'heavyz', 'lightz', 'tt']
+
+    if sys.argv[1:] == ['event_class'] or get_sys:
+        new_regions = [key for key in cuts.regionCuts.keys() if True in [key.startswith(reg) for reg in regions]]
+        return new_regions
 
     if True in [arg in regions for arg in sys.argv]:
         regions = [r for r in regions if r in sys.argv]
@@ -51,17 +55,17 @@ def parse_plots(check=None):
             ['n_jet', 10, 0, 10, 'Num Jets'],
             ['jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
-            ['jet1_eta', 50, 0, 500, 'Jet 1 #eta [GeV]'],
-            ['jet2_eta', 50, 0, 500, 'Jet 2 #eta [GeV]'],
+            ['jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
+            ['jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['cmva_jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['cmva_jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
-            ['cmva_jet1_eta', 50, 0, 500, 'Jet 1 #eta [GeV]'],
-            ['cmva_jet2_eta', 50, 0, 500, 'Jet 2 #eta [GeV]'],
+            ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
+            ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
             ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
             ['dphi_met_trkmet', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
-            ['jet1_emfrac', 40, 0, 1.0, 'EM Frac jet 1'],
-            ['jet2_emfrac', 40, 0, 1.0, 'EM Frac jet 2'],
+            ['jet1_efrac', 40, 0, 1.0, 'EM Frac jet 1'],
+            ['jet2_efrac', 40, 0, 1.0, 'EM Frac jet 2'],
             ['jet1_chf', 40, 0, 1.0, 'CHF Frac jet 1'],
             ['jet2_chf', 40, 0, 1.0, 'CHF Frac jet 2'],
             ['jet1_nhf', 40, 0, 1.0, 'NHF Frac jet 1'],
@@ -78,14 +82,13 @@ def parse_plots(check=None):
     return [plot for plot in plots if check is None or plot[0] in check]
 
 def submit_plots(regions, plots):
-    limithistsdir = 'datacards' if sys.argv[1:] == ['hbbm'] else ''
+    limithistsdir = 'datacards' if sys.argv[1:] == ['event_class'] else ''
 
     # Parse everything one last time so that left plots don't slip through
-    MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], parallel=False)
+    MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], limitHistsDir=limithistsdir, parallel=False)
 
 
 def RunPlots(all_left, some_left):
-    pass
     regions = parse_regions()
     all_right = [plot[0] for plot in parse_plots() if plot[0] not in sum([all_left] + some_left.values(), [])]
 

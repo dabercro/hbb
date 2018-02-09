@@ -4,9 +4,11 @@ import os
 import sys
 import sqlite3
 
-from collections import defaultdict
+from CrombieTools.LoadConfig import cuts
 
 output = 'datacards/yields'
+
+expr = 'event_class'
 
 if __name__ == '__main__':
     sql_output = output + '.db'
@@ -14,14 +16,11 @@ if __name__ == '__main__':
     if not os.path.exists(sql_output) or 'dump' in sys.argv:
 
         from CrombieTools.AnalysisTools.YieldDump import dumper, SetupFromEnv
-        from CrombieTools.LoadConfig import cuts
-
-        dumper.SetAllHistName('')
 
         SetupFromEnv()
 
         dumper.AddDataFile('MET.root')
-        dumper.SetDefaultExpr('hbbm')
+        dumper.SetDefaultExpr(expr)
 
         out_dir = os.path.dirname(output)
         if out_dir and not os.path.exists(out_dir):
@@ -30,12 +29,12 @@ if __name__ == '__main__':
         if 'dump' in sys.argv and os.path.exists(sql_output):
             os.remove(sql_output)
 
-        for region in ['signal']: #, 'scaledtt', 'lightz', 'heavyz', 'multijet']:
+        for region in ['signal', 'tt', 'lightz', 'heavyz']:
             dumper.AddRegion(region, cuts.cut('ZvvHbb', region),
                              cuts.dataMCCuts(region, True),
                              cuts.dataMCCuts(region, False))
 
-        dumper.DumpYieldFiles(sql_output, 5, 0, 200)
+        dumper.DumpYieldFiles(sql_output, 10, -1.0, 1.0)
 
     txt_output = output + '.txt'
 
@@ -52,7 +51,7 @@ kmax   *   number of systematics (automatic)""")
 
         # Write down shape locations
         write('-' * 30)
-        write('shape * * datacards/hbbm_dat.root hbbm__$PROCESS____$CHANNEL hbbm__$PROCESS____$CHANNEL__$SYSTEMATIC')
+        write('shape * * datacards/{0}_dat.root {0}__$PROCESS____$CHANNEL {0}__$PROCESS____$CHANNEL__$SYSTEMATIC'.format(expr))
 
         # Write down data observations
         write('-' * 30)
@@ -120,9 +119,10 @@ kmax   *   number of systematics (automatic)""")
                 unc_line += content_fmt.format(unc_val)
             write(unc_line)
 
-        # Systematics ??
-#        write('-' * 30)
-#        for systematic in ['qcdV']:
-#            write(systematic + ' param 0.0 1')
+        # Systematics
+        write('-' * 30)
+        for sys, suffs in cuts.sys:
+            for suff in suffs:
+                write('%s%s param 0.0 1' % (sys, suff))
 
     conn.close()

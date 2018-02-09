@@ -17,5 +17,3 @@ LINK stat_unc
 
 GLOBAL 0 * * 1.10 lnN   lumi
 GLOBAL 0 * * 1.05 lnN   pileup
-GLOBAL 0 zj * 1.5 lnU   zjets
-GLOBAL 0 * * 1    shape qcdV

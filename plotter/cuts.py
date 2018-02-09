@@ -2,7 +2,7 @@ import sys
 
 jetgood    = 'jet1_chf > 0.15 && jet1_emfrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
-lepveto    = 'n_lep_loose == 0'
+lepveto    = 'n_lep_loose < 1'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
 unbtag_csv = 'csv_jet1_csv < 0.8484'
@@ -25,10 +25,10 @@ trkmetphi  = 'dphi_met_trkmet < 0.5'
 
 common = ' && '.join([
         # jetgood,
-        jetpt,
-        hbbpt,
         metcut,
-        lbtag
+        jetpt,
+        lbtag,
+        hbbpt
         ])
 
 categoryCuts = {
@@ -40,36 +40,35 @@ regionCuts = {
     'tt' : ' && '.join([
             common,
             deltaVH,
-            'n_lep_loose < 3',
-            'n_lep_tight == 1',
+            'n_lep_loose >= 1',
             'n_jet >= 4',
             btag,
-            'min_dphi_metj_hard < 1.57'
+            'min_dphi_metj_hard < 1.57',
+            ]),
+    'lightz' : ' && '.join([
+            common,
+            deltaVH,
+            lepveto,
+            'n_jet < 4',
+            unbtag,
+            antiQCD,
+            trkmetphi,
+            ]),
+    'heavyz' : ' && '.join([
+            common,
+            deltaVH,
+            lepveto,
+            'n_jet < 4',
+            tbtag,
+            antiQCD,
+            trkmetphi,
+            mjjveto
             ]),
     'multijet' : ' && '.join([
             common,
             undeltaVH,
             lepveto,
             'min_dphi_metj_hard < 0.4'
-            ]),
-    'lightz' : ' && '.join([
-            common,
-            lepveto,
-            unbtag,
-            antiQCD,
-            deltaVH,
-            trkmetphi,
-            'n_jet < 4'
-            ]),
-    'heavyz' : ' && '.join([
-            common,
-            lepveto,
-            tbtag,
-            mjjveto,
-            deltaVH,
-            antiQCD,
-            trkmetphi,
-            'n_jet < 3'
             ]),
     'classify' : ' && '.join([
             'met_filter == 1',
@@ -81,13 +80,15 @@ regionCuts = {
             'cmva_hbb_pt > 100',
             'cmva_jet2_cmva > -0.6',
             'n_jet < 5',
-            'min_dphi_metj_hard > 0.5',
+            'min_dphi_metj_hard > 0.5'
             ])
     }
 
 regionCuts['common'] = common
 regionCuts['scaledtt'] = regionCuts['tt'] 
-regionCuts['signal'] = regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m && 160 > cmva_hbb_m')
+regionCuts['signal'] = ' && '.join([
+        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m && 160 > cmva_hbb_m'),
+        ])
 
 # Making selection of multiple entries
 
@@ -103,7 +104,7 @@ defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (event_num % 2 =
 mettrigger = 'met_trigger'
 
 region_weights = { # key : [Data,MC]
-    'signal'   : ['0', '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
+    'signal'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
     'heavyz'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
     'lightz'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
     'multijet' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
@@ -114,9 +115,23 @@ region_weights = { # key : [Data,MC]
 
 # Up and down
 
+sys = [('wkfactor', ['_fact', '_ren']),
+       ('zkfactor', ['_fact', '_ren']),
+       ('vh_ewk', ['']),
+       ('bjetcalib', [''])]
+
 keys = list(regionCuts.keys())
 for key in keys:
-    pass
+    for old, new_list in sys:
+        for new_stuff in new_list:
+            for direction in ['up', 'down']:
+                new = '%s%s_%s' % (old, new_stuff, direction)
+                new_key = '%s__%s%s' % (key, old + new_stuff, direction.title())
+                regionCuts[new_key] = regionCuts[key]
+                if old == 'bjetcalib':
+                    region_weights[new_key] = [mettrigger, (region_weights.get(key, [None, None])[1] or defaultMCWeight).replace('_central', '_%s' % direction)]
+                else:
+                    region_weights[new_key] = [mettrigger, '%s / %s * %s' % (region_weights.get(key, [None, None])[1] or defaultMCWeight, old, new)]
 
 # Do not change the names of these functions or required parameters
 # Otherwise you cannot use some convenience functions
