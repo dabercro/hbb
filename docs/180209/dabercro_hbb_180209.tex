@@ -9,6 +9,8 @@
 
 \usecolortheme{dove}
 
+\usepackage{listings}
+
 \usepackage[absolute,overlay]{textpos}
 \usefonttheme{serif}
 \usepackage{appendixnumberbeamer}
@@ -79,6 +81,7 @@
       \textcolor{blue}{#7} \\
       \includegraphics[width=\linewidth]{#8}
     \end{column}
+  \end{columns}
 }
 
 \newcommand{\ttbar}{\ensuremath{t\bar{t}}}
@@ -293,18 +296,125 @@
 
 \begin{frame}
   \frametitle{Selection Results}
-  We have some \ttbar and QCD, but not an overwhelming amount.
+  We have some \ttbar~and QCD, but not an overwhelming amount.
 
   My selection is not validated by any optimization study\footnote{
-    I am not worried about discrimination, just limits and data-MC agreement}.
+    I am not worried about discrimination, mostly data-MC agreement}.
 
   \centering
   \includegraphics[width=0.6\linewidth]{180209_v1/ZvvHbb_classify_cmva_hbb_m.pdf}
 
 \end{frame}
 
+\begin{frame}
+  \frametitle{Classifier Output for Different Control Regions}
+
+  \fourfigs{signal}
+           {180209_v1/quick_signal_event_class.pdf}
+           {\ttbar}
+           {180209_v1/quick_tt_event_class.pdf}
+           {Z + heavy jets}
+           {180209_v1/quick_heavyz_event_class.pdf}
+           {Z + light jets}
+           {180209_v1/quick_lightz_event_class.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Signal Region Shapes}
+
+  The classifier definitely makes a nicer peak than the mass
+
+  \twofigs{Regressed Mass}
+          {180209_v1/ZvvHbb_signal_cmva_hbb_m_reg.pdf}
+          {BDT Output}
+          {180209_v1/ZvvHbb_signal_event_class.pdf}
+
+  Hopefully the data matches.
+
+\end{frame}
+
 \subsection{Disconcerting Plots}
+
+\begin{frame}
+  \frametitle{CMVA in Data and MC}
+
+  These are in the $Z$ + heavy flavor region
+
+  \twofigs{Highest CMVA jet}
+          {180209_v1/ZvvHbb_heavyz_cmva_jet1_cmva.pdf}
+          {Second CMVA jet}
+          {180209_v1/ZvvHbb_heavyz_cmva_jet2_cmva.pdf}
+
+  Tight working point is especially bad for me
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Trying to Match}
+
+  Changed some of the cuts in heavy flavor and signal,
+  and \ttbar crept in.
+
+  \twofigs{Dijet mass}
+          {180209_v1/ZvvHbb_heavyz_cmva_hbb_m.pdf}
+          {Event Classifier}
+          {180209_v1/ZvvHbb_heavyz_event_class.pdf}
+
+  They are also cutting on classification BDT,
+  so I'll have to scan to match efficiency.
+  May also have to adjust classification philosophy.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Light jet $\eta$}
+  For some reason, jet $\eta$ looks strange in the $Z$ + light jets region.
+
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{180209_v1/ZvvHbb_lightz_cmva_jet1_eta.pdf}
+  \end{center}
+
+  I hope it's a cleaning problem.
+  Same problem does not exist in other control regions. (See backup slides)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classifier Trends}
+  Classifier region with signal veto
+
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{180209_v1/ZvvHbb_classifyHveto_event_class.pdf}
+  \end{center}
+
+  There seems to be a definite trend in Data vs MC, which I don't like
+\end{frame}
+
 \subsection{Expected Limits}
+
+\begin{frame}
+  \frametitle{Uncertainties}
+  Let's make limits anyway.
+
+  \vspace{24pt}
+
+  I include the following uncertainties.
+
+  \begin{itemize}
+  \item Luminosity 10\%
+  \item Pileup 5\% (Might be garbage I have sitting around)
+  \item $W$ + $Z$ $k$-factor \tttext{ren} + \tttext{fact} uncertainties \\
+    (Four independent shape uncertainties)
+  \item $VH$ EWK uncertainties
+  \item b-tag calibration
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Expected Limits}
+  \lstinputlisting{lim.txt}
+\end{frame}
 
 \section{$Z \nu\nu Hbb$}
 
@@ -315,6 +425,13 @@
     \begin{itemize}
     \item I hope to create many different regressions to compare
     \end{itemize}
+  \item Classifiers may be needed for cross purposes
+    \begin{itemize}
+    \item One for cleaning signal and heavy region
+    \item One for good Data--MC agreement
+    \end{itemize}
+  \item Need to check cleaning and calibration until jet $\eta$ is fixed
+  \item Limits exist, but not synced with anything yet
   \end{itemize}
 \end{frame}
 
