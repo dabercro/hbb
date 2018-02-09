@@ -121,8 +121,8 @@ kmax   *   number of systematics (automatic)""")
 
         # Systematics
         write('-' * 30)
-        for sys, suffs in cuts.sys:
+        for syst, suffs in cuts.syst:
             for suff in suffs:
-                write('%s%s param 0.0 1' % (sys, suff))
+                write('%s%s param 0.0 1' % (syst, suff))
 
     conn.close()

@@ -97,10 +97,225 @@
   \begin{itemize}
   \item Regression for b-jets
   \item Event Classifier
-  \item Concerning Plots
+  \item Disconcerting Plots
   \item Expected Limits
   \end{itemize}
 
+\end{frame}
+
+\subsection{Regression for b-jets}
+
+\begin{frame}
+  \frametitle{Event Selection}
+  In order to train on events that do not overlap with
+  my\footnote{May need to revisit cuts to select events orthogonal to all analyses}
+  portion of the analysis,
+  I select for fully leptonic \ttbar.
+  
+  \begin{itemize}
+  \item $U > \SI{150}{GeV}$
+  \item Exactly two loose leptons, at least one tight
+  \item Jet with $p_T > \SI{30}{GeV}$
+  \item This jet is matched with a b-flavored gen jet
+    \begin{itemize}
+    \item I don't care if the regression is wrong for other flavor jets
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adding $\nu$ back in}
+
+  I do not recluster with all gen particles again.
+
+  \begin{enumerate}
+  \item Waste of time
+  \item Will change direction and matching of jets
+  \end{enumerate}
+
+  Method of adding back in is simple
+
+  \begin{itemize}
+  \item Loop through gen particles and find neutrinos
+  \item Find closest jet with anti-$k_T$ metric\footnote{
+    Basically $\Delta R$ when $p_{T,jet} > p_{T,\nu}$; beam distance with $R = 0.4$}
+  \item If a neutrino coming from a massive $W$\footnote{$m_W > \SI{50}{GeV}$},
+    skip neutrino\footnote{Remeber, we're looking at fully leptonic \ttbar},
+    and save flag for fun
+  \item Add neutrino to closest jet
+  \end{itemize}
+
+  Note, that $\nu$ from massive $W$s overlap with selected b-jet $\approx 1\%$ of the time.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Training variables}
+
+  Train on the jet with the highest CMVA value, with the following variables
+
+  \begin{columns}
+    \begin{column}{0.33\linewidth}
+      \begin{itemize}
+      \item NPV
+      \item \# central jets
+      \item \# total jets
+      \item $p_T$
+      \item $\eta$
+      \item $\phi$
+      \item mass
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{itemize}
+      \item CSV
+      \item CMVA
+      \item QGL
+      \item SV \# tracks
+      \item SV $p_T$
+      \item SV mass
+      \item SV distance
+      \item SV uncertainty
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{itemize}
+      \item Max track $p_T$
+      \item \# leptons
+      \item lead lepton $p_T$
+      \item LL $p_{T, \perp}$
+      \item LL $\Delta R$
+      \item EM fraction
+      \item NH fraction
+      \item CH fraction
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Regression Performance (continues)}
+
+  These plots are of the $Z\nu\nu Hbb$ signal sample with the signal selection.
+
+  \begin{center}
+    \includegraphics[width=0.6\linewidth]{180209_v1/regression_perform.pdf}
+  \end{center}
+
+  The new regression seems to recover a little bit more of the $p_T$ than the old regression.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Regression Performance (continued)}
+
+  More importantly, the Higg's mass peak is improved
+
+  \twofigs{Masses with Gen Mass}
+          {180209_v1/regression_withgen.pdf}
+          {Without Gen (Zoomed)}
+          {180209_v1/regression.pdf}
+
+  Even not accounting for potentially different gen jet definitions, the peak is higher
+
+\end{frame}
+
+\subsection{Event Classifier}
+
+\begin{frame}
+  \frametitle{Event Classification}
+
+  Next, we want to train a BDT to classify events for the ``limits.''
+
+  I do a single signal v.~background classification
+  \begin{itemize}
+  \item At a glance at the note I only saw a single classifier
+  \item I wanted to get limits done fast after vaction
+  \item I have no experience with multiclass yet
+  \end{itemize}
+
+  Selection I made is kind of weird
+
+  \begin{itemize}
+  \item I did not want to train in signal.
+    otherwise we're fitting in phase spaces that the BDT knew nothing about
+  \item I made the selection back when I thought I still needed QCD control region
+  \item Wanted to cut out a lot, but not all, of QCD and \ttbar
+  \item Some cuts are looser than preselection\footnote{\emph{e.g.} jet $p_T$ and CMVA}
+    to avoid shoulders
+  \item Also before I saved PUID bools
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classifier Cuts}
+  \begin{itemize}
+  \item $\mathrm{MET} > \SI{150}{GeV}$
+  \item leading jet $\mathrm{CHF} > 0.15; \mathrm{EMF} < 0.8$
+  \item leading jet $p_T > \SI{40}{GeV}$
+  \item dijet $p_T > \SI{100}{GeV}$
+  \item loose  $\mathrm{CMVA} > -0.6$\footnote{Loose working point is $-0.5884$}
+  \item $n_{jets} < 5$
+  \item $\Delta\phi_{min}(j, \mathrm{MET}) > 0.5$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classifier Variables}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item Dijet raw mass
+      \item Dijet regressed mass
+      \item Dijet $p_T$
+      \item Dijet $p_T$ over recoil
+      \item Daughter $\Delta R$
+      \item Daughter $\Delta \phi$
+      \item MET (I realize recoil would be better)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item Highest CMVA
+      \item Second CMVA
+      \item Third CMVA (I don't like this either)
+      \item Highest CMVA jet's $p_T$
+      \item Second CMVA jet's $p_T$
+      \item Third CMVA jet's $p_T$
+      \item $\Delta \phi (jj, U)$
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Selection Results}
+  We have some \ttbar and QCD, but not an overwhelming amount.
+
+  My selection is not validated by any optimization study\footnote{
+    I am not worried about discrimination, just limits and data-MC agreement}.
+
+  \centering
+  \includegraphics[width=0.6\linewidth]{180209_v1/ZvvHbb_classify_cmva_hbb_m.pdf}
+
+\end{frame}
+
+\subsection{Disconcerting Plots}
+\subsection{Expected Limits}
+
+\section{$Z \nu\nu Hbb$}
+
+\begin{frame}
+  \frametitle{Conclusions}
+  \begin{itemize}
+  \item b-jet regression looks promising with little effort
+    \begin{itemize}
+    \item I hope to create many different regressions to compare
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \beginbackup
@@ -109,7 +324,7 @@
   \frametitle{Backup Slides}
 \end{frame}
 
-%\input{backup_slides.tex}
+\input{backup_slides.tex}
 
 \backupend
 

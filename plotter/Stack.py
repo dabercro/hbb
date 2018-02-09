@@ -29,9 +29,9 @@ plotter.AddDataFile('MET.root')
 cats = ['ZvvHbb']
 
 def parse_regions(check=None):
-    regions = ['signal', 'heavyz', 'lightz', 'tt']
+    regions = ['signal', 'heavyz', 'lightz', 'tt', 'classify', 'classifyHveto']
 
-    if sys.argv[1:] == ['event_class'] or get_sys:
+    if sys.argv[1:] == ['event_class']:
         new_regions = [key for key in cuts.regionCuts.keys() if True in [key.startswith(reg) for reg in regions]]
         return new_regions
 
@@ -43,6 +43,7 @@ def parse_regions(check=None):
 def parse_plots(check=None):
     plots = [
             ['cmva_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
+            ['cmva_hbb_m_reg', 20, 50, 250, 'm_{bb} [GeV]'],
             ['cmva_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
             ['cmva_jet1_cmva', 40, -1.0, 1.0, 'CMVA jet 1'],
             ['cmva_jet2_cmva', 40, -1.0, 1.0, 'CMVA jet 2'],
@@ -59,6 +60,8 @@ def parse_plots(check=None):
             ['jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['cmva_jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['cmva_jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
+            ['cmva_jet1_pt_ratio', 40, 0.8, 1.6, 'Regression Factor'],
+            ['cmva_jet2_pt_ratio', 40, 0.8, 1.6, 'Regression Factor'],
             ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
             ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
@@ -70,6 +73,10 @@ def parse_plots(check=None):
             ['jet2_chf', 40, 0, 1.0, 'CHF Frac jet 2'],
             ['jet1_nhf', 40, 0, 1.0, 'NHF Frac jet 1'],
             ['jet2_nhf', 40, 0, 1.0, 'NHF Frac jet 2'],
+            ['jet1_cef', 40, 0, 1.0, 'CEF Frac jet 1'],
+            ['jet2_cef', 40, 0, 1.0, 'CEF Frac jet 2'],
+            ['jet1_nef', 40, 0, 1.0, 'NEF Frac jet 1'],
+            ['jet2_nef', 40, 0, 1.0, 'NEF Frac jet 2'],
             ['cmva_daughter_deta', 40, 0, 6.0, '#Delta #eta_{jj}'],
             ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],

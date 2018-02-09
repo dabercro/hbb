@@ -1,3 +1,4 @@
+import os
 import sys
 
 jetgood    = 'jet1_chf > 0.15 && jet1_emfrac < 0.8'
@@ -41,6 +42,7 @@ regionCuts = {
             common,
             deltaVH,
             'n_lep_loose >= 1',
+            'n_lep_tight >= 1',
             'n_jet >= 4',
             btag,
             'min_dphi_metj_hard < 1.57',
@@ -89,6 +91,7 @@ regionCuts['scaledtt'] = regionCuts['tt']
 regionCuts['signal'] = ' && '.join([
         regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m && 160 > cmva_hbb_m'),
         ])
+regionCuts['classifyHveto'] = '%s && !(%s)' % (regionCuts['classify'], regionCuts['signal'])
 
 # Making selection of multiple entries
 
@@ -103,26 +106,29 @@ defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (event_num % 2 =
 
 mettrigger = 'met_trigger'
 
+signal = os.environ.get('signal', '0')
+
 region_weights = { # key : [Data,MC]
-    'signal'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
+    'signal'   : [signal, '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
     'heavyz'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_tight_sf_central'])],
     'lightz'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
     'multijet' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
     'tt' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_medium_sf_central'])],
     'scaledtt' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_medium_sf_central', '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
+    'classify'  : [signal, defaultMCWeight],
     'default'  : [mettrigger, defaultMCWeight],
     }
 
 # Up and down
 
-sys = [('wkfactor', ['_fact', '_ren']),
-       ('zkfactor', ['_fact', '_ren']),
-       ('vh_ewk', ['']),
-       ('bjetcalib', [''])]
+syst = [('wkfactor', ['_fact', '_ren']),
+        ('zkfactor', ['_fact', '_ren']),
+        ('vh_ewk', ['']),
+        ('bjetcalib', [''])]
 
 keys = list(regionCuts.keys())
 for key in keys:
-    for old, new_list in sys:
+    for old, new_list in syst:
         for new_stuff in new_list:
             for direction in ['up', 'down']:
                 new = '%s%s_%s' % (old, new_stuff, direction)
