@@ -100,7 +100,7 @@ cmva {
 
 {-5}
 
-    +jet1, jet2, jet3 {
+    +<jet{1, 2, 3}>, <alljet{1, 2}> {
       jet(panda::Jet& jet)
         /O = false -> true
         $ -> jet.$() | pt, eta, phi, m, e

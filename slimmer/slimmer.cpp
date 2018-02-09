@@ -284,6 +284,8 @@ int parsed_main(int argc, char** argv) {
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
+      jetstore stored_alljets({hbbfile::jet::alljet1, hbbfile::jet::alljet2},
+                              [](panda::Jet* j) {return j->pt();});
       // jetstore stored_csvs({hbbfile::jet::csv_jet1, hbbfile::jet::csv_jet2, hbbfile::jet::csv_jet3},
       //                      [](panda::Jet* j) {return j->csv;});
       jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2, hbbfile::jet::cmva_jet3},
@@ -304,6 +306,7 @@ int parsed_main(int argc, char** argv) {
 
         // Count all jets (including forward)
         output.n_alljet++;
+        stored_alljets.check(jet);
         if (fabs(jet.eta()) > 2.5)
           continue;
 
@@ -340,7 +343,7 @@ int parsed_main(int argc, char** argv) {
         }
       };
 
-      set_jet({&stored_jets});
+      set_jet({&stored_jets, &stored_alljets});
 
       // Includes getting secondary vertex and leading leptons
       auto set_bjet = [&output, &set_jet] (std::vector<jetstore*> stores) {
