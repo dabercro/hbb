@@ -89,7 +89,7 @@ def parse_plots(check=None):
     return [plot for plot in plots if check is None or plot[0] in check]
 
 def submit_plots(regions, plots):
-    limithistsdir = 'datacards' if sys.argv[1:] == ['event_class'] else ''
+    limithistsdir = 'datacards/plots'
 
     # Parse everything one last time so that left plots don't slip through
     MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], limitHistsDir=limithistsdir, parallel=False)

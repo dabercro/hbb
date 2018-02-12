@@ -6,7 +6,7 @@ import sqlite3
 
 from CrombieTools.LoadConfig import cuts
 
-output = 'datacards/yields'
+output = 'datacards/yields_reg'
 
 expr = 'event_class'
 
@@ -51,7 +51,7 @@ kmax   *   number of systematics (automatic)""")
 
         # Write down shape locations
         write('-' * 30)
-        write('shape * * datacards/{0}_dat.root {0}__$PROCESS____$CHANNEL {0}__$PROCESS____$CHANNEL__$SYSTEMATIC'.format(expr))
+        write('shapes * * datacards/plots/{0}_dat.root {0}__$PROCESS____$CHANNEL {0}__$PROCESS____$CHANNEL__$SYSTEMATIC'.format(expr))
 
         # Write down data observations
         write('-' * 30)

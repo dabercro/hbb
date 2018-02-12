@@ -225,13 +225,17 @@ int parsed_main(int argc, char** argv) {
       // Get the generator particles that are closest to the reconstructed Higgs
 
       std::vector<genhstore> gen_higgs {
-        // {{hbbfile::hbb::csv_hbb}, [&output] (panda::GenParticle* gen) {return deltaR2(output.csv_hbb_eta, output.csv_hbb_phi, gen->eta(), gen->phi());}, genhstore::order::eAsc},
         {{hbbfile::hbb::cmva_hbb}, [&output] (panda::GenParticle* gen) {return deltaR2(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi());}, genhstore::order::eAsc}
       };
 
       std::map<const panda::GenJet*, GenNuVec> gen_nu_map;
 
       //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
+      for (auto& gen_jet : event.ak4GenJets) {
+        if (gen_jet.pt() > 20 && fabs(gen_jet.eta()) < 2.4 && gen_jet.numB != 0)
+          ++output.n_genB;
+      }
+
       for (auto& gen : event.genParticles) {
         auto abspdgid = abs(gen.pdgid);
         if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
@@ -284,10 +288,6 @@ int parsed_main(int argc, char** argv) {
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
-      jetstore stored_alljets({hbbfile::jet::alljet1, hbbfile::jet::alljet2},
-                              [](panda::Jet* j) {return j->pt();});
-      // jetstore stored_csvs({hbbfile::jet::csv_jet1, hbbfile::jet::csv_jet2, hbbfile::jet::csv_jet3},
-      //                      [](panda::Jet* j) {return j->csv;});
       jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2, hbbfile::jet::cmva_jet3},
                             [](panda::Jet* j) {return j->cmva;});
 
@@ -306,24 +306,23 @@ int parsed_main(int argc, char** argv) {
 
         // Count all jets (including forward)
         output.n_alljet++;
-        stored_alljets.check(jet);
+        stored_jets.check(jet);
+
         if (fabs(jet.eta()) > 2.5)
           continue;
 
         output.n_jet++;
         output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
 
-        stored_jets.check(jet);
+        if (fabs(jet.eta()) < 2.4) {
+          csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
+          cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
+          stored_cmvas.check(jet, &cmva_readers);
+        }
 
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
           output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
-          if (fabs(jet.eta()) < 2.4) {
-            // stored_csvs.check(jet, &csv_readers);    // These readers are defined in btagreaders.h
-            stored_cmvas.check(jet, &cmva_readers);
-            csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
-            cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
-          }
         }
 
       }
@@ -343,7 +342,7 @@ int parsed_main(int argc, char** argv) {
         }
       };
 
-      set_jet({&stored_jets, &stored_alljets});
+      set_jet({&stored_jets});
 
       // Includes getting secondary vertex and leading leptons
       auto set_bjet = [&output, &set_jet] (std::vector<jetstore*> stores) {
@@ -398,16 +397,8 @@ int parsed_main(int argc, char** argv) {
       // set_bjet({&stored_csvs, &stored_cmvas});
       set_bjet({&stored_cmvas});
 
-      // if (output.csv_jet2_csv > 0.3)
-      //   output.set_hbb(hbbfile::hbb::csv_hbb, stored_csvs.store[0].particle->p4() + stored_csvs.store[1].particle->p4());
-      if (output.cmva_jet2_cmva > -0.7)
+      if (output.cmva_jet2_cmva > -2.0)
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
-
-      //// FILTER ////
-      // if (not (output.csv_hbb or output.cmva_hbb))
-      //   continue;
-      if (not output.cmva_hbb)
-        continue;
 
       output.fill(recoilvec);
     }

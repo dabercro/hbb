@@ -29,6 +29,7 @@ else
 all: $(tarball) $(effs)
 
 $(tarball): $(target) $(checker) $(thejq) $(data)
+	test -d ${CMSSW_BASE}/data || mkdir ${CMSSW_BASE}/data
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external data
 
 $(checker): ${CROMBIEPATH}/scripts/findtree.py

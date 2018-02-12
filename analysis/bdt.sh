@@ -1,6 +1,6 @@
 #! /bin/bash
 
-nevents=50000
+nevents=2000000
 
 crombie tmva \
     --config      training_branches.txt \
@@ -10,7 +10,7 @@ crombie tmva \
     --target      cmva_jet1_gen_withnu_pt/cmva_jet1_pt \
     --method      BDT \
     --prepare     "nTrain_Regression=${nevents}:nTest_Regression=${nevents}:SplitMode=Random:NormMode=NumEvents:!V" \
-    --methodopt   'BoostType=Bagging:SeparationType=RegressionVariance:nCuts=20:PruneMethod=CostComplexity:PruneStrength=20' \
+    --methodopt   'BoostType=Grad:SeparationType=RegressionVariance:nCuts=10000:PruneMethod=CostComplexity:PruneStrength=20:MaxDepth=15:NTrees=100' \
     --output      regression.root \
     --trainername Regression \
 

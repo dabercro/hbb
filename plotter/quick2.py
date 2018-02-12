@@ -21,7 +21,11 @@ plotter.AddLegendEntry('No Regression', 1, 2, 1)
 plotter.AddLegendEntry('Old Regression', 2, 2, 1)
 plotter.AddLegendEntry('New Regression', 3, 2, 1)
 
+plotter.SetDebugLevel(2)
+
 plotter.MakeCanvas(AddOutDir('regression'), 50, 50, 200, 'Dijet Mass', 'A.U.')
+
+plotter.SetDebugLevel(1)
 
 plotter.AddExpr('cmva_gen_withnu_dijet_m')
 plotter.AddLegendEntry('Dijet Gen Mass', 1, 1, 2)

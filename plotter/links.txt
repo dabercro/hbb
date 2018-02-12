@@ -15,5 +15,6 @@ LINK stat_unc
 
 # Global nuisance parameters (fully linked)
 
-GLOBAL 0 * * 1.10 lnN   lumi
-GLOBAL 0 * * 1.05 lnN   pileup
+GLOBAL 0 * * 1.025 lnN   lumi
+GLOBAL 0 * * 1.05  lnN   pileup
+GLOBAL 0 * * 1.3   lnN   PDF

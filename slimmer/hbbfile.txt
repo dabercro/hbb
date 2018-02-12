@@ -32,6 +32,8 @@ n_alljet
 n_jet
 n_hardjet
 
+n_genB
+
 n_bcsv, n_bcmva, n_lep {
   medium
   tight
@@ -74,7 +76,7 @@ min_dphi_metj_hard = 4
 "bcal/BTagCalibrationStandalone.h"
 ! csv, cmva {
 cmva {
-  _jet1, _jet2, _jet3 {
+  <_jet{1, 2, 3}> {
     bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
@@ -100,14 +102,13 @@ cmva {
 
 {-5}
 
-    +<jet{1, 2, 3}>, <alljet{1, 2}> {
+    +<jet{1, 2, 3}> {
       jet(panda::Jet& jet)
         /O = false -> true
         $ -> jet.$() | pt, eta, phi, m, e
         $ -> jet.$ | chf, nhf, cef, nef
         $/O = false -> jet.$ | loose, tight, monojet
         $frac -> jet.c$f + jet.n$f | e, h  ! EM and Had Fractions
-        emfrac <- []_efrac                 ! Just until I get a retrained BDT
 
         qgl -> jet.qgl
 
@@ -122,13 +123,11 @@ cmva {
 
     }
 
-    [pt_ratio; data/Regression_BDT.weights.xml] = 1
-    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
+    #[pt_ratio; data/Regression_BDT.weights.xml] = 1
+    #[pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
     pt_reg$ <- []_pt_ratio$ * []_pt | , _old
 
   }
-
-  jet1pt_over_jet$pt <- []_jet1_pt/[]_jet$_pt | 2, 3
 
 "TLorentzVector.h"
   _hbb {
@@ -165,7 +164,7 @@ genboson, gen_t, gen_tbar {
     pdgid/I = 0 -> gen.pdgid
 }
 
-[event_class; data/Classifier_BDT.weights.xml] = 0
+#[event_class; data/Classifier_BDT.weights.xml] = 0
 
 ! Filter
--- met_filter == 1 and (met > 150 or recoil > 150) and jet1_pt > 30 --
+! -- met_filter == 1 and (met > 150 or recoil > 150) and jet1_pt > 30 and cmva_hbb --

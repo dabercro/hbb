@@ -24,7 +24,7 @@ st  ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneC
 .   ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root                   35.85           .                   .
 .   ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root                       35.85           .                   .
 
-wj  norm/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_jets            628
+wj  norm/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_light            628
 .   norm/WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                      1.329           .                   .
 .   norm/WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        359.6           .                   .
 .   norm/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       0.03216         .                   .
@@ -48,7 +48,7 @@ wjbb  bbDir/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root  
 .     bbDir/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        12.05           .                   .
 .     bbDir/WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       5.501           .                   .
 
-zj  norm/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_jets            867
+zj  norm/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_light            867
 .   norm/ZJetsToNuNu_HT-1200To2500_13TeV-madgraph.root                                             0.286           .                   .
 .   norm/ZJetsToNuNu_HT-200To400_13TeV-madgraph.root                                               77.7            .                   .
 .   norm/ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph.root                                              0.006945        .                   .

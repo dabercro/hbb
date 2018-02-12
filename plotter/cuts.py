@@ -17,7 +17,7 @@ tbtag      = 'cmva_jet1_cmva > 0.9432'
 
 hbbpt      = 'cmva_hbb_pt > 120'
 jetpt      = 'jet1_pt > 60 && jet2_pt > 35'
-mjjveto    = '(60 > cmva_hbb_m || 160 < cmva_hbb_m)'
+mjjveto    = '(60 > cmva_hbb_m_reg || 160 < cmva_hbb_m_reg)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
@@ -89,7 +89,7 @@ regionCuts = {
 regionCuts['common'] = common
 regionCuts['scaledtt'] = regionCuts['tt'] 
 regionCuts['signal'] = ' && '.join([
-        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m && 160 > cmva_hbb_m'),
+        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg && 160 > cmva_hbb_m_reg'),
         ])
 regionCuts['classifyHveto'] = '%s && !(%s)' % (regionCuts['classify'], regionCuts['signal'])
 
