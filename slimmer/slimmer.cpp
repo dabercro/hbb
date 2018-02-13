@@ -9,7 +9,7 @@
 #include "btagreaders.h"
 
 #include "SkimmingTools/interface/CmsswParse.h"
-#include "SkimmingTools/interface/StoreParticles.h"
+#include "SkimmingTools/interface/ObjectStore.h"
 #include "PandaTree/Objects/interface/Event.h"
 #include "PlotTools/interface/KinematicFunctions.h"
 
@@ -312,7 +312,7 @@ int parsed_main(int argc, char** argv) {
           continue;
 
         output.n_jet++;
-        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
+        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(output.metphi, jet.phi())));
 
         if (fabs(jet.eta()) < 2.4) {
           csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
@@ -322,7 +322,7 @@ int parsed_main(int argc, char** argv) {
 
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
-          output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
+          output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(output.metphi, jet.phi())));
         }
 
       }

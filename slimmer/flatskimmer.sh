@@ -37,7 +37,13 @@ SAMPLES=$(ls $CrombieFullDir/links | perl -ne '/(.*)_\d+.root/ && print "$1\n"' 
 if [ $NUMDIRS -ne 2 ]
 then
 
-    crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+# Don't need to skim these anymore since we do the filtering in the slimmer
+#    crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+
+    for f in $CrombieFullDir/links/*
+    do
+        ln -s $f $SCRATCH/$(basename $f)
+    done
 
 else
 
