@@ -126,4 +126,3 @@ Ellipse::Ellipse(panda::Particle& particle1, panda::Particle& particle2) {
 }
 
 #endif
-
