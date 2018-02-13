@@ -9,7 +9,7 @@
 // Hold information about genjet vectors with neutrinos added
 
 class GenNuVec {
-public:
+ public:
   GenNuVec(TLorentzVector vec = TLorentzVector{}) : genvec{vec} {}
 
   TLorentzVector genvec;
@@ -30,7 +30,7 @@ public:
 // A quick class for counting B-tags. Can be used for any other object that just compares one value
 
 class BTagCounter {
-public:
+ public:
   constexpr BTagCounter (float loose, float medium, float tight)
     : loose(loose), medium(medium), tight(tight) {}
 
@@ -45,7 +45,7 @@ public:
     }
   }
 
-private:  
+ private:  
   const float loose;
   const float medium;
   const float tight;
