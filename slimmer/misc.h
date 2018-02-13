@@ -83,9 +83,9 @@ Ellipse::Ellipse(panda::Particle& particle1, panda::Particle& particle2) {
 
   auto dR = std::sqrt(deta * deta + dphi * dphi);
 
-  auto shift = foci_shift(dR);
+  foci_dist = dR + 1;
 
-  foci_dist = dR + 1 + shift;
+  auto shift = foci_shift(dR);
 
   auto shift_eta = shift * deta / dR;
   auto shift_phi = shift * dphi / dR;
