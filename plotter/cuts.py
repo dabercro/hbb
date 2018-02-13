@@ -38,6 +38,7 @@ categoryCuts = {
 
 
 regionCuts = {
+    'nocut' : ' && '.join([metcut, jetpt]),
     'tt' : ' && '.join([
             common,
             deltaVH,

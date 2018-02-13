@@ -19,11 +19,8 @@ loosecuts = [
     'jet1_pt > 50',
     'jet2_pt > 25',
     'cmva_hbb_pt > 50',
-    'met > 170',
-    'n_lep_loose == 0',
-    'cmva_hbb_m_reg_old > 160 || cmva_hbb_m_reg_old < 60',
-    'cmva_hbb_pt_reg_old > 120',
-    'dphi_met_trkmet < 0.5',
+    'cmva_jet2_cmva > -0.7',
+    'min_dphi_metj_hard > 0.5'
     ]
 
 if len(sys.argv) == 1:

@@ -1,0 +1,10 @@
+cmva_jet1_pt
+n_alljet
+cmva_jet1_eta
+cmva_jet1_e
+npv
+cmva_jet1_maxtrk
+cmva_jet1_leadlep_pt
+cmva_jet1_nlep
+cmva_jet1_efrac
+cmva_jet1_hfrac

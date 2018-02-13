@@ -40,13 +40,18 @@ int parsed_main(int argc, char** argv) {
     //// TRIGGERS ////
 
     const std::vector<const char*> met_trigger_paths = {
-      "HLT_PFMET110_PFMHT110_IDTight",
-      "HLT_PFMET120_PFMHT120_IDTight",
       "HLT_PFMET170_NoiseCleaned",
       "HLT_PFMET170_HBHECleaned",
       "HLT_PFMET170_JetIdCleaned",
       "HLT_PFMET170_NotCleaned",
-      "HLT_PFMET170_HBHE_BeamHaloCleaned"
+      "HLT_PFMET170_HBHE_BeamHaloCleaned",
+      "HLT_PFMETNoMu120_NoiseCleaned_PFMHTNoMu120_IDTight",
+      "HLT_PFMETNoMu110_NoiseCleaned_PFMHTNoMu110_IDTight",
+      "HLT_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight",
+      "HLT_PFMETNoMu90_PFMHTNoMu90_IDTight",
+      "HLT_PFMETNoMu100_PFMHTNoMu100_IDTight",
+      "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
+      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight"
     };
 
     std::vector<unsigned> met_trigger_tokens;
@@ -60,6 +65,17 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
       event.getEntry(*events_tree, entry);
       output.reset(event);
+
+      // if (event.runNumber == 273555 && event.lumiNumber == 1 && event.eventNumber == 95092) {
+      //   event.pfMet.dump();
+      //   event.photons.dump();
+      //   event.muons.dump();
+      //   event.electrons.dump();
+      //   event.chsAK4Jets.dump();
+      //   break;
+      // }
+
+      // continue;
 
       all_hist.Fill(0.0, output.mc_weight);
 
@@ -89,7 +105,7 @@ int parsed_main(int argc, char** argv) {
 
       //// TAUS ////
       for (auto& tau : event.taus) {
-        if (tau.pt() > 18 && fabs(tau.eta()) < 2.3 && tau.decayMode && tau.isoDeltaBetaCorr)
+        if (tau.pt() > 18 && std::abs(tau.eta()) < 2.3 && tau.decayMode && tau.isoDeltaBetaCorr)
           output.n_tau_loose++;
       }
 
@@ -128,7 +144,7 @@ int parsed_main(int argc, char** argv) {
       for (auto& lep : event.muons) {
         check_lep(stored_muons, lep,
                   [&] {   // Loose muons
-                    return lep.loose and lep.pt() >= 10 and fabs(lep.eta()) <= 2.4;
+                    return lep.loose and lep.pt() >= 10 and std::abs(lep.eta()) <= 2.4;
                   },
                   [&] {   // Medium muons
                     return lep.medium and (lep.combIso()/lep.pt()) < 0.15;
@@ -140,11 +156,11 @@ int parsed_main(int argc, char** argv) {
 
       // Loop over electrons
       for (auto& lep : event.electrons) {
-        auto abseta = fabs(lep.eta());
+        auto abseta = std::abs(lep.eta());
         auto isoscale = abseta < 1.4442 ? 2 : 1;
         check_lep(stored_eles, lep,
                   [&] {   // Loose electrons
-                    return lep.veto and lep.pt() >= 10 and fabs(lep.eta()) <= 2.5 and
+                    return lep.veto and lep.pt() >= 10 and std::abs(lep.eta()) <= 2.5 and
                       lep.dxy < (0.10/isoscale) and lep.dz < (0.20/isoscale);
                   },
                   [&] {   // Medium electrons
@@ -188,7 +204,7 @@ int parsed_main(int argc, char** argv) {
 
       //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
       for (auto& gen_jet : event.ak4GenJets) {
-        if (gen_jet.pt() > 20 && fabs(gen_jet.eta()) < 2.4 && gen_jet.numB != 0)
+        if (gen_jet.pt() > 20 && std::abs(gen_jet.eta()) < 2.4 && gen_jet.numB != 0)
           ++output.n_genB;
       }
 
@@ -264,13 +280,13 @@ int parsed_main(int argc, char** argv) {
         output.n_alljet++;
         stored_jets.check(jet);
 
-        if (fabs(jet.eta()) > 2.5)
+        if (std::abs(jet.eta()) > 2.5)
           continue;
 
         output.n_jet++;
         output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(output.metphi, jet.phi())));
 
-        if (fabs(jet.eta()) < 2.4) {
+        if (std::abs(jet.eta()) < 2.4) {
           csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
           cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
           stored_cmvas.check(jet, &cmva_readers);
@@ -373,7 +389,7 @@ int parsed_main(int argc, char** argv) {
           };
 
           if (cand.vertex.idx() == 0 and cand.track.isValid() and cand.pt() > 0.3 and
-              not (ellipse.inside(cand) || fabs(cand.track->dz()) > 0.2 ||
+              not (ellipse.inside(cand) || std::abs(cand.track->dz()) > 0.2 ||
                    match_lep(stored_muons) || match_lep(stored_eles))
               )
             pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
@@ -383,7 +399,7 @@ int parsed_main(int argc, char** argv) {
         auto softjets = sequence.inclusive_jets(2.0); // Only want pT > 2.0
 
         for (auto& soft : softjets) {
-          int go = floor(soft.pt()/5);  // 2, 5, and 10 are different cases, value will be 0, 1, or 2 respectively
+          int go = floor(soft.pt())/5;  // 2, 5, and 10 are different cases, value will be 0, 1, or 2 respectively
           switch(go) {
           case (2):
             ++output.n_soft_10;
