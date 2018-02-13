@@ -51,6 +51,8 @@ class BTagCounter {
   const float tight;
 };
 
+// A class for forming an ellipse in eta-phi plane
+// Determines quickly if panda::Particles are inside it
 
 class Ellipse {
  public:
