@@ -1,3 +1,6 @@
+#ifndef SLIMMER_MISC_H
+#define SLIMMER_MISC_H
+
 #include <cmath>
 #include <utility>
 
@@ -121,3 +124,6 @@ Ellipse::Ellipse(panda::Particle& particle1, panda::Particle& particle2) {
   spin(phi1);
   spin(phi2);
 }
+
+#endif
+

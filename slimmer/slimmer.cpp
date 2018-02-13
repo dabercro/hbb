@@ -292,7 +292,7 @@ int parsed_main(int argc, char** argv) {
             auto& gen = jet.particle->matchedGenJet;
             if (gen.isValid()) {
               const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
-              output.set_genjet(jet.branch, *gen, gennu.genvec, gennu.numnu, gennu.overlap);
+              output.set_genjet(jet.branch, *gen, gennu);
             }
           }
         }

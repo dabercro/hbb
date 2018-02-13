@@ -1,5 +1,6 @@
 "PlotTools/interface/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
+"misc.h"
 
 {/F}                           ! Default type
 {reset(panda::Event& event)}   ! Define the arguments of reset
@@ -118,12 +119,12 @@ cmva {
 
         qgl -> jet.qgl
 
-      genjet(panda::GenJet& gen, TLorentzVector& withnu, unsigned num_nu, bool overlap)
+      genjet(panda::GenJet& gen, GenNuVec& withnu)
         gen/O = false -> true
         gen_$ -> gen.$() | pt, eta, phi, m
-        gen_withnu_$ -> withnu.$$() | pt, eta, phi, m
-        gen_numnu/I = 0 -> num_nu
-        gen_tWnu_overlap/O = false -> overlap
+        gen_withnu_$ -> withnu.genvec.$$() | pt, eta, phi, m
+        gen_numnu/I = 0 -> withnu.numnu
+        gen_tWnu_overlap/O = false -> withnu.overlap
 
         gen_$/I = 0 -> gen.$ | pdgid, partonFlavor, numB
 
