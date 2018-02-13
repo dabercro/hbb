@@ -34,6 +34,12 @@ n_hardjet
 
 n_genB
 
+n_soft {
+  2
+  5
+  10
+}
+
 n_bcsv, n_bcmva, n_lep {
   medium
   tight
@@ -123,8 +129,8 @@ cmva {
 
     }
 
-    #[pt_ratio; data/Regression_BDT.weights.xml] = 1
-    #[pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
+#    [pt_ratio; data/Regression_BDT.weights.xml] = 1
+    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
     pt_reg$ <- []_pt_ratio$ * []_pt | , _old
 
   }
@@ -167,4 +173,4 @@ genboson, gen_t, gen_tbar {
 #[event_class; data/Classifier_BDT.weights.xml] = 0
 
 ! Filter
-! -- met_filter == 1 and (met > 150 or recoil > 150) and jet1_pt > 30 and cmva_hbb --
+-- met_filter == 1 and (met > 150 or recoil > 150) and jet1_pt > 30 and cmva_hbb --

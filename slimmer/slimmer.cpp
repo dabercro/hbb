@@ -4,15 +4,15 @@
 #include <functional>
 
 #include "checkrun.h"
-#include "hbbfile.h"
 #include "feedpanda.h"
 #include "btagreaders.h"
+#include "hbbfile.h"
 #include "misc.h"
 
+#include "fastjet/ClusterSequence.hh"
+
 #include "SkimmingTools/interface/CmsswParse.h"
-#include "SkimmingTools/interface/StoreParticles.h"
-#include "PandaTree/Objects/interface/Event.h"
-#include "PlotTools/interface/KinematicFunctions.h"
+#include "SkimmingTools/interface/ObjectStore.h"
 
 #include "TH1F.h"
 
@@ -268,7 +268,7 @@ int parsed_main(int argc, char** argv) {
           continue;
 
         output.n_jet++;
-        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, deltaPhi(output.metphi, jet.phi()));
+        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(output.metphi, jet.phi())));
 
         if (fabs(jet.eta()) < 2.4) {
           csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
@@ -278,7 +278,7 @@ int parsed_main(int argc, char** argv) {
 
         if (jet.pt() > 30.0) {
           output.n_hardjet++;
-          output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, deltaPhi(output.metphi, jet.phi()));
+          output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(output.metphi, jet.phi())));
         }
 
       }
@@ -291,7 +291,7 @@ int parsed_main(int argc, char** argv) {
             output.set_jet(jet.branch, *jet.particle);
             auto& gen = jet.particle->matchedGenJet;
             if (gen.isValid()) {
-              const auto& gennu = gen_nu_map.find(&*gen) != gen_nu_map.end() ? gen_nu_map[&*gen] : GenNuVec(gen->p4());
+              const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
               output.set_genjet(jet.branch, *gen, gennu.genvec, gennu.numnu, gennu.overlap);
             }
           }
@@ -327,7 +327,7 @@ int parsed_main(int argc, char** argv) {
                 if (pdgid == 11 || pdgid == 13) {
                   nlep++;
                   if (not maxlep or pt > maxlep->pt())
-                    maxlep = &*pf;    // Dereference the panda::Ref, and then get the address
+                    maxlep = pf.get();    // Dereference the panda::Ref, and then get the address
                 }
               }
             }
@@ -353,8 +353,47 @@ int parsed_main(int argc, char** argv) {
       // set_bjet({&stored_csvs, &stored_cmvas});
       set_bjet({&stored_cmvas});
 
-      if (output.cmva_jet2_cmva > -2.0)
+      if (output.cmva_jet2_cmva > -2.0) {
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
+
+        // Soft activity
+        auto ellipse = Ellipse(*stored_cmvas.store[0].particle,
+                               *stored_cmvas.store[1].particle);
+
+        std::vector<fastjet::PseudoJet> pseudojets;
+        pseudojets.reserve(event.pfCandidates.size());
+
+        for (auto& cand : event.pfCandidates) {
+          auto match_lep = [&cand] (lepstore& leps) {
+            for (auto& lep : leps.store) {
+              if (lep.particle and lep.particle->matchedPF.get() == &cand)
+                return true;
+            }
+            return false;
+          };
+
+          if (cand.vertex.idx() == 0 and cand.track.isValid() and cand.pt() > 0.3 and
+              not (ellipse.inside(cand) || fabs(cand.track->dz()) > 0.2 ||
+                   match_lep(stored_muons) || match_lep(stored_eles))
+              )
+            pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
+        }
+
+        auto sequence = fastjet::ClusterSequence(pseudojets, {fastjet::JetAlgorithm::antikt_algorithm, 0.4});
+        auto softjets = sequence.inclusive_jets(2.0); // Only want pT > 2.0
+
+        for (auto& soft : softjets) {
+          int go = floor(soft.pt()/5);  // 2, 5, and 10 are different cases, value will be 0, 1, or 2 respectively
+          switch(go) {
+          case (2):
+            ++output.n_soft_10;
+          case (1):
+            ++output.n_soft_5;
+          default:
+            ++output.n_soft_2;
+          }
+        }
+      }
 
       output.fill(recoilvec);
     }

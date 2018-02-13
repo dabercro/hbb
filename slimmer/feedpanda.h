@@ -25,8 +25,10 @@ void feedpanda(panda::Event& event, TTree* input) {
      "runNumber",
      "secondaryVertices",
      "taus",
+     "tracks",
      "triggers",
      "trkMet",
+     "vertices",
      "weight"});
 }
 
