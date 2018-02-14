@@ -1,3 +1,5 @@
+<cmath>
+<algorithm>
 "PlotTools/interface/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 "misc.h"
@@ -29,16 +31,29 @@ met_filter/O = event.metFilters.pass()
 
 ! Count some objects
 
-n_alljet
-n_jet
-n_hardjet
+countjets(panda::Jet& jet)
+  n_alljet -> ++
+
+  ~~ std::abs(jet.eta()) < 2.5 ~~
+  n_jet -> ++
+  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+
+  ~~ jet.pt() > 30.0 ~~
+  n_hardjet -> ++
+  min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
 n_genB
 
 n_soft {
-  2
-  5
-  10
+  , _all {
+    softcount(float pt)
+      ~~ pt > 2 ~~
+      2 -> ++
+      ~~ pt > 5 ~~   ! Cuts required to continue
+      5 -> ++
+      ~~ pt > 10 ~~
+      10 -> ++
+  }
 }
 
 n_bcsv, n_bcmva, n_lep {
@@ -75,37 +90,35 @@ recoilphi <- recoilvec.Phi()
 
 dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
 
-min_dphi_metj_soft = 4
-min_dphi_metj_hard = 4
-
 ! Input jets are used to set the following variables
 "btagreaders.h"
 "bcal/BTagCalibrationStandalone.h"
 ! csv, cmva {
 cmva {
   <_jet{1, 2, 3}> {
-    bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav)
+    bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav, int nlep, panda::PFCand* lep)
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
-{1}
-
-      @_sf_$ -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) | central, up, down |@ loose, medium, tight
-
 {0}    ! Set the defaults for training stuff to 0
 
-    bvert(panda::SecondaryVertex& vert)
-      vtx_$ -> vert.$() | pt, m
+      @_sf_$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) | central, up, down |@ loose, medium, tight
 
-      vtx_3Dval -> vert.vtx3DVal
-      vtx_3Derr -> vert.vtx3DeVal
-      vtx_ntrk/I -> vert.ntrk
+      ~~ lep ~~
 
-    bleps(panda::Jet& jet, int nlep, panda::PFCand& lep)
       nlep/I -> nlep
-      leadlep_pt -> lep.pt()
-      leadlep_ptrel -> lep.p4().Perp(jet.p4().Vect())
-      leadlep_dr -> deltaR(<{lep, jet}.{eta, phi}()>)
+      leadlep_pt -> lep->pt()
+      leadlep_ptrel -> lep->p4().Perp(jet.p4().Vect())
+      leadlep_dr -> deltaR(<{lep->, jet.}{eta, phi}()>)
+
+    bvert(panda::Ref<panda::SecondaryVertex>& vert)
+      ~~ vert.isValid() ~~
+
+      vtx_$ -> vert->$() | pt, m
+
+      vtx_3Dval -> vert->vtx3DVal
+      vtx_3Derr -> vert->vtx3DeVal
+      vtx_ntrk/I -> vert->ntrk
 
 {-5}
 
@@ -131,7 +144,7 @@ cmva {
     }
 
 #    [pt_ratio; data/Regression_BDT.weights.xml] = 1
-    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
+#    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
     pt_reg$ <- []_pt_ratio$ * []_pt | , _old
 
   }

@@ -1,5 +1,4 @@
 #include <cmath>
-#include <algorithm>
 #include <iostream>
 #include <functional>
 
@@ -66,7 +65,7 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       output.reset(event);
 
-      // if (event.runNumber == 273555 && event.lumiNumber == 1 && event.eventNumber == 95092) {
+      // if (event.runNumber == 273555 && event.lumiNumber == 63 && event.eventNumber == 94039659) {
       //   event.pfMet.dump();
       //   event.photons.dump();
       //   event.muons.dump();
@@ -74,7 +73,6 @@ int parsed_main(int argc, char** argv) {
       //   event.chsAK4Jets.dump();
       //   break;
       // }
-
       // continue;
 
       all_hist.Fill(0.0, output.mc_weight);
@@ -276,27 +274,16 @@ int parsed_main(int argc, char** argv) {
         if (overlap_em(jet) || jet.pt() < 20.0 || not jet.loose)
           continue;
 
-        // Count all jets (including forward)
-        output.n_alljet++;
+        // Count jets (including forward)
+        output.set_countjets(jet);
+
         stored_jets.check(jet);
-
-        if (std::abs(jet.eta()) > 2.5)
-          continue;
-
-        output.n_jet++;
-        output.min_dphi_metj_soft = std::min(output.min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(output.metphi, jet.phi())));
 
         if (std::abs(jet.eta()) < 2.4) {
           csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
           cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
           stored_cmvas.check(jet, &cmva_readers);
         }
-
-        if (jet.pt() > 30.0) {
-          output.n_hardjet++;
-          output.min_dphi_metj_hard = std::min(output.min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(output.metphi, jet.phi())));
-        }
-
       }
 
       auto set_jet = [&output, &gen_nu_map] (std::vector<jetstore*> stores) {
@@ -325,10 +312,7 @@ int parsed_main(int argc, char** argv) {
               break;
 
             auto bjet = to_bjet(jet.branch);
-
-            auto& vert = jet.particle->secondaryVertex;
-            if (vert.isValid())
-              output.set_bvert(bjet, *vert);
+            output.set_bvert(bjet, jet.particle->secondaryVertex);
 
             int nlep = 0;
             const panda::PFCand* maxlep = nullptr;
@@ -359,9 +343,8 @@ int parsed_main(int argc, char** argv) {
                 flavor = BTagEntry::FLAV_C;
             }
 
-            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor);
-            if (maxlep)
-              output.set_bleps(bjet, *jet.particle, nlep, *maxlep);
+            // jet.extra is the BTagCalibrationReader
+            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor, nlep, maxlep);
           }
         }
       };
@@ -378,6 +361,7 @@ int parsed_main(int argc, char** argv) {
 
         std::vector<fastjet::PseudoJet> pseudojets;
         pseudojets.reserve(event.pfCandidates.size());
+        auto allpseudojets = pseudojets;
 
         for (auto& cand : event.pfCandidates) {
           auto match_lep = [&cand] (lepstore& leps) {
@@ -389,25 +373,26 @@ int parsed_main(int argc, char** argv) {
           };
 
           if (cand.vertex.idx() == 0 and cand.track.isValid() and cand.pt() > 0.3 and
-              not (ellipse.inside(cand) || std::abs(cand.track->dz()) > 0.2 ||
+              not (std::abs(cand.track->dz()) > 0.2 ||
                    match_lep(stored_muons) || match_lep(stored_eles))
-              )
-            pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
+              ) {
+            allpseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
+            if (not ellipse.inside(cand))
+              pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
+          }
         }
 
-        auto sequence = fastjet::ClusterSequence(pseudojets, {fastjet::JetAlgorithm::antikt_algorithm, 0.4});
-        auto softjets = sequence.inclusive_jets(2.0); // Only want pT > 2.0
+        std::vector<std::pair<hbbfile::softcount, std::vector<fastjet::PseudoJet>*>> soft_inputs = {
+          {hbbfile::softcount::n_soft, &pseudojets}, {hbbfile::softcount::n_soft_all, &allpseudojets}
+        };
 
-        for (auto& soft : softjets) {
-          int go = floor(soft.pt())/5;  // 2, 5, and 10 are different cases, value will be 0, 1, or 2 respectively
-          switch(go) {
-          case (2):
-            ++output.n_soft_10;
-          case (1):
-            ++output.n_soft_5;
-          default:
-            ++output.n_soft_2;
-          }
+        for (auto& jets : soft_inputs) {
+
+          auto sequence = fastjet::ClusterSequence(*(jets.second), {fastjet::JetAlgorithm::antikt_algorithm, 0.4});
+          auto softjets = sequence.inclusive_jets(2.0); // Only want pT > 2.0
+
+          for (auto& soft : softjets)
+            output.set_softcount(jets.first, soft.pt());
         }
       }
 

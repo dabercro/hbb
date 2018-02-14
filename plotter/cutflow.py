@@ -9,18 +9,18 @@ from CrombieTools.AnalysisTools.CutflowMaker import cutflowMaker
 from ROOT import TFile
 
 
-testFile = TFile(os.path.join(os.environ['CrombieInFilesDir'], 'MET.root'))
+testFile = TFile(os.path.join(os.environ['CrombieInFilesDir'], '../180213_trigger/MET.root'))
 
 cutflowMaker.AddTree(testFile.Get('events'))
 
 loosecuts = [
+    'met_trigger == 1',
     'met_filter == 1',
     'met > 150',
     'jet1_pt > 50',
     'jet2_pt > 25',
     'cmva_hbb_pt > 50',
-    'cmva_jet2_cmva > -0.7',
-    'min_dphi_metj_hard > 0.5'
+    'cmva_jet2_cmva > -0.7'
     ]
 
 if len(sys.argv) == 1:
