@@ -4,7 +4,7 @@ inp_dir=/data/t3home000/dabercro/fullhbb
 export CrombieExe=makehbbtree
 export CrombieInSample=pandaf/008
 export CrombieOutDir=$inp_dir/$(date +%y%m%d)
-export CrombieFilesPerJob=5
+export CrombieFilesPerJob=15
 
 # Skimming
 export CrombieNLocalProcs=12

@@ -66,11 +66,17 @@ int parsed_main(int argc, char** argv) {
       output.reset(event);
 
       // if (event.runNumber == 273555 && event.lumiNumber == 63 && event.eventNumber == 94039659) {
-      //   event.pfMet.dump();
-      //   event.photons.dump();
-      //   event.muons.dump();
-      //   event.electrons.dump();
-      //   event.chsAK4Jets.dump();
+      //   for (auto token : met_trigger_tokens) {
+      //     if (event.triggerFired(token)) {
+      //       std::cout << token << std::endl
+      //                 << met_trigger_paths[token] << std::endl;
+      //     }
+      //   }
+      //   // event.pfMet.dump();
+      //   // event.photons.dump();
+      //   // event.muons.dump();
+      //   // event.electrons.dump();
+      //   // event.chsAK4Jets.dump();
       //   break;
       // }
       // continue;
@@ -258,6 +264,8 @@ int parsed_main(int argc, char** argv) {
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
+      jetstore stored_centraljets({hbbfile::jet::central_jet1, hbbfile::jet::central_jet2, hbbfile::jet::central_jet3},
+                                  [](panda::Jet* j) {return j->pt();});
       jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2, hbbfile::jet::cmva_jet3},
                             [](panda::Jet* j) {return j->cmva;});
 
@@ -280,6 +288,7 @@ int parsed_main(int argc, char** argv) {
         stored_jets.check(jet);
 
         if (std::abs(jet.eta()) < 2.4) {
+          stored_centraljets.check(jet);
           csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
           cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
           stored_cmvas.check(jet, &cmva_readers);
@@ -301,7 +310,7 @@ int parsed_main(int argc, char** argv) {
         }
       };
 
-      set_jet({&stored_jets});
+      set_jet({&stored_jets, &stored_centraljets});
 
       // Includes getting secondary vertex and leading leptons
       auto set_bjet = [&output, &set_jet] (std::vector<jetstore*> stores) {

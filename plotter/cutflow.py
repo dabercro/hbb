@@ -14,13 +14,21 @@ testFile = TFile(os.path.join(os.environ['CrombieInFilesDir'], '../180213_trigge
 cutflowMaker.AddTree(testFile.Get('events'))
 
 loosecuts = [
-    'met_trigger == 1',
     'met_filter == 1',
-    'met > 150',
-    'jet1_pt > 50',
-    'jet2_pt > 25',
-    'cmva_hbb_pt > 50',
-    'cmva_jet2_cmva > -0.7'
+    'met > 170',
+    'n_hardjet < 4',
+    'max(cmva_jet1_pt, cmva_jet2_pt) > 60',
+    'min(cmva_jet1_pt, cmva_jet2_pt) > 35',
+    'cmva_jet1_pt > 60',
+    'cmva_jet2_pt > 35',
+    'cmva_hbb_m_reg_old < 160 && cmva_hbb_m_reg_old > 60',
+    'cmva_hbb_pt_reg > 120',
+    'n_lep_loose == 0',
+    'cmva_jet1_cmva > 0.9432',
+    'cmva_jet2_cmva > -0.5884',
+    'dphi_met_trkmet < 0.5',
+    'cmva_dphi_uh > 2.0',
+    'min_dphi_metj_hard > 0.5'
     ]
 
 if len(sys.argv) == 1:
@@ -35,7 +43,7 @@ else:
 
     if region in regions:
         cutflowMaker.Reset()
-        for cut in loosecuts[:5] + ['met_trigger == 1'] + cuts.cut('ZvvHbb', region).split('&&'):
+        for cut in ['met_trigger == 1'] + cuts.cut('ZvvHbb', region).split('&&'):
             cutflowMaker.AddCut(cut.strip(), cut)
 
         print '-' * 10

@@ -42,6 +42,9 @@ countjets(panda::Jet& jet)
   n_hardjet -> ++
   min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
+  ~~ std::abs(jet.eta()) < 2.4 ~~
+  n_centerjet -> ++
+
 n_genB
 
 n_soft {
@@ -122,7 +125,7 @@ cmva {
 
 {-5}
 
-    +<jet{1, 2, 3}> {
+    +<{, central_}jet{1, 2, 3}> {
       jet(panda::Jet& jet)
         /O = false -> true
         $ -> jet.$() | pt, eta, phi, m, e
@@ -143,11 +146,21 @@ cmva {
 
     }
 
-#    [pt_ratio; data/Regression_BDT.weights.xml] = 1
-#    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
-    pt_reg$ <- []_pt_ratio$ * []_pt | , _old
+    ! Many different regressions to compare!
+
+    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ 3, 15, 40
+    [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
+    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
+
+    ! Need a more systematic name system
+
+    pt_reg$ <- []_pt_ratio$ * []_pt | _old, _old_method
+    pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ 3, 15, 40
 
   }
+
+  hard_daughter_pt <- std::max(<[]_jet{1, 2}_pt>)
+  soft_daughter_pt <- std::min(<[]_jet{1, 2}_pt>)
 
 "TLorentzVector.h"
   _hbb {
@@ -163,15 +176,21 @@ cmva {
 
     pt_over_vpt <- []_pt/recoil
   }
-  hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | , _old
-  hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | , _old
 
-  hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | , _old
+  ! Need a more systematic name system
+
+  hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
+  hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
+  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ 3, 15, 40
+  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ 3, 15, 40
+
+  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ 3, 15, 40
+  hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | _old, _old_method
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 
-  daughter_deta <- fabs([]_jet1_eta - []_jet2_eta)
+  daughter_deta <- std::abs([]_jet1_eta - []_jet2_eta)
   daughter_dphi <- deltaPhi(<[]_jet{1, 2}_phi>)
   daughter_dR <- deltaR(<[]_jet{1, 2}_{eta, phi}>)
 }
@@ -187,4 +206,4 @@ genboson, gen_t, gen_tbar {
 #[event_class; data/Classifier_BDT.weights.xml] = 0
 
 ! Filter
--- met_filter == 1 and (met > 150 or recoil > 150) and jet1_pt > 40 and cmva_hbb --
+-- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 40 and central_jet2_pt > 20 and cmva_hbb --
