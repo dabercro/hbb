@@ -30,19 +30,24 @@ met_filter/O = event.metFilters.pass()
 
 ! Count some objects
 
-countjets(panda::Jet& jet, float abseta)
-  n_alljet -> ++
+n, fake {
+  countjets(panda::Jet& jet, float abseta)
 
-  ~~ abseta < 2.5 ~~
-  n_jet -> ++
-  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+    alljet -> ++
 
-  ~~ jet.pt() > 30.0 ~~
-  n_hardjet -> ++
-  min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+    ~~ abseta < 2.5 ~~
+    jet -> ++
+    min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
-  ~~ abseta < 2.4 ~~
-  n_centerjet -> ++
+    ~~ jet.pt() > 30.0 ~~
+    hardjet -> ++
+    min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+
+    ~~ abseta < 2.4 ~~
+    centerjet -> ++
+}
+
+min_dphi_metj_$/F <- n_min_dphi_metj_$ | soft, hard    ! Add this back in just to keep sensible names
 
 n_genB
 
