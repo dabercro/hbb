@@ -65,21 +65,20 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       output.reset(event);
 
-      // if (event.runNumber == 273555 && event.lumiNumber == 63 && event.eventNumber == 94039659) {
-      //   for (auto token : met_trigger_tokens) {
-      //     if (event.triggerFired(token)) {
-      //       std::cout << token << std::endl
-      //                 << met_trigger_paths[token] << std::endl;
-      //     }
-      //   }
-      //   // event.pfMet.dump();
-      //   // event.photons.dump();
-      //   // event.muons.dump();
-      //   // event.electrons.dump();
-      //   // event.chsAK4Jets.dump();
-      //   break;
-      // }
-      // continue;
+      if (event.runNumber == 273158 && event.lumiNumber == 279 && event.eventNumber == 436876971) {
+        for (auto token : met_trigger_tokens) {
+          if (event.triggerFired(token)) {
+            std::cout << met_trigger_paths[token] << std::endl;
+          }
+        }
+        event.pfMet.dump();
+        event.photons.dump();
+        event.muons.dump();
+        event.electrons.dump();
+        event.chsAK4Jets.dump();
+      }
+      else 
+        continue;
 
       all_hist.Fill(0.0, output.mc_weight);
 
@@ -164,7 +163,7 @@ int parsed_main(int argc, char** argv) {
         auto isoscale = abseta < 1.4442 ? 2 : 1;
         check_lep(stored_eles, lep,
                   [&] {   // Loose electrons
-                    return lep.veto and lep.pt() >= 10 and std::abs(lep.eta()) <= 2.5 and
+                    return lep.veto and lep.pt() >= 10 and abseta <= 2.5 and
                       lep.dxy < (0.10/isoscale) and lep.dz < (0.20/isoscale);
                   },
                   [&] {   // Medium electrons
@@ -236,7 +235,7 @@ int parsed_main(int argc, char** argv) {
             auto check = deltaR2(gen_jet.eta(), gen_jet.phi(), gen.eta(), gen.phi());
             // If the neutrino momentum is super high, probably not from this jet, so scale by anti-kt metric
             if (gen.pt() > gen_jet.pt())
-              check *= pow(gen.pt()/gen_jet.pt(), 2);
+              check *= std::pow(gen.pt()/gen_jet.pt(), 2);
             if (check < cone_size) {
               cone_size = check;
               closest = &gen_jet;
@@ -272,7 +271,7 @@ int parsed_main(int argc, char** argv) {
       // Check if overlaps with EM object
       auto overlap_em = [&em_directions] (panda::Jet& jet) {
         for (auto& dir : em_directions) {
-          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < pow(0.4, 2))  // Within dR = 0.4
+          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < std::pow(0.4, 2))  // Within dR = 0.4
             return true;
         }
         return false;
@@ -283,11 +282,12 @@ int parsed_main(int argc, char** argv) {
           continue;
 
         // Count jets (including forward)
-        output.set_countjets(jet);
+        auto abseta = std::abs(jet.eta());
+        output.set_countjets(jet, abseta);
 
         stored_jets.check(jet);
 
-        if (std::abs(jet.eta()) < 2.4) {
+        if (abseta < 2.4) {
           stored_centraljets.check(jet);
           csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
           cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
@@ -361,48 +361,49 @@ int parsed_main(int argc, char** argv) {
       // set_bjet({&stored_csvs, &stored_cmvas});
       set_bjet({&stored_cmvas});
 
-      if (output.cmva_jet2_cmva > -2.0) {
+      if (output.cmva_jet2_cmva > -2.0)
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
+      else
+        continue;  // Short circuit soft activity this way, because that shit is slow.
 
-        // Soft activity
-        auto ellipse = Ellipse(*stored_cmvas.store[0].particle,
-                               *stored_cmvas.store[1].particle);
+      // Soft activity
+      auto ellipse = Ellipse(*stored_cmvas.store[0].particle,
+                             *stored_cmvas.store[1].particle);
 
-        std::vector<fastjet::PseudoJet> pseudojets;
-        pseudojets.reserve(event.pfCandidates.size());
-        auto allpseudojets = pseudojets;
+      std::vector<fastjet::PseudoJet> pseudojets;
+      pseudojets.reserve(event.pfCandidates.size());
+      auto allpseudojets = pseudojets;
 
-        for (auto& cand : event.pfCandidates) {
-          auto match_lep = [&cand] (lepstore& leps) {
-            for (auto& lep : leps.store) {
-              if (lep.particle and lep.particle->matchedPF.get() == &cand)
-                return true;
-            }
-            return false;
-          };
-
-          if (cand.vertex.idx() == 0 and cand.track.isValid() and cand.pt() > 0.3 and
-              not (std::abs(cand.track->dz()) > 0.2 ||
-                   match_lep(stored_muons) || match_lep(stored_eles))
-              ) {
-            allpseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
-            if (not ellipse.inside(cand))
-              pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
+      for (auto& cand : event.pfCandidates) {
+        auto match_lep = [&cand] (lepstore& leps) {
+          for (auto& lep : leps.store) {
+            if (lep.particle and lep.particle->matchedPF.get() == &cand)
+              return true;
           }
-        }
-
-        std::vector<std::pair<hbbfile::softcount, std::vector<fastjet::PseudoJet>*>> soft_inputs = {
-          {hbbfile::softcount::n_soft, &pseudojets}, {hbbfile::softcount::n_soft_all, &allpseudojets}
+          return false;
         };
 
-        for (auto& jets : soft_inputs) {
-
-          auto sequence = fastjet::ClusterSequence(*(jets.second), {fastjet::JetAlgorithm::antikt_algorithm, 0.4});
-          auto softjets = sequence.inclusive_jets(2.0); // Only want pT > 2.0
-
-          for (auto& soft : softjets)
-            output.set_softcount(jets.first, soft.pt());
+        if (cand.vertex.idx() == 0 and cand.track.isValid() and cand.pt() > 0.3 and
+            not (std::abs(cand.track->dz()) > 0.2 ||
+                 match_lep(stored_muons) || match_lep(stored_eles))
+            ) {
+          allpseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
+          if (not ellipse.inside(cand))
+            pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
         }
+      }
+
+      std::vector<std::pair<hbbfile::softcount, std::vector<fastjet::PseudoJet>*>> soft_inputs = {
+        {hbbfile::softcount::n_soft, &pseudojets}, {hbbfile::softcount::n_soft_all, &allpseudojets}
+      };
+
+      for (auto& jets : soft_inputs) {
+
+        auto sequence = fastjet::ClusterSequence(*(jets.second), {fastjet::JetAlgorithm::antikt_algorithm, 0.4});
+        auto softjets = sequence.inclusive_jets(2.0); // Only want pT > 2.0
+
+        for (auto& soft : softjets)
+          output.set_softcount(jets.first, soft.pt());
       }
 
       output.fill(recoilvec);
