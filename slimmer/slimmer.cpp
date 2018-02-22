@@ -65,20 +65,20 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       output.reset(event);
 
-      if (event.runNumber == 273158 && event.lumiNumber == 279 && event.eventNumber == 436876971) {
-        for (auto token : met_trigger_tokens) {
-          if (event.triggerFired(token)) {
-            std::cout << met_trigger_paths[token] << std::endl;
-          }
-        }
-        event.pfMet.dump();
-        event.photons.dump();
-        event.muons.dump();
-        event.electrons.dump();
-        event.chsAK4Jets.dump();
-      }
-      else 
-        continue;
+      // if (event.runNumber == 273158 && event.lumiNumber == 1036 && event.eventNumber == 1470813658) {
+      //   std::cout << std::endl << "Found Event in row " << entry << std::endl << std::endl;
+      //   for (auto token : met_trigger_tokens) {
+      //     if (event.triggerFired(token))
+      //       std::cout << met_trigger_paths[token] << std::endl;
+      //   }
+      //   event.pfMet.dump();
+      //   event.photons.dump();
+      //   event.muons.dump();
+      //   event.electrons.dump();
+      //   event.chsAK4Jets.dump();
+      // }
+      // else 
+      //   continue;
 
       all_hist.Fill(0.0, output.mc_weight);
 
@@ -101,7 +101,7 @@ int parsed_main(int argc, char** argv) {
       for (auto& pho : event.photons) {
         if (pho.loose) {
           output.n_pho_loose++;
-          if (pho.medium && pho.pt() > 175)
+          if (pho.medium && pho.pt() > 20)
             em_directions.emplace_back(pho.eta(), pho.phi());
         }
       }
@@ -388,7 +388,8 @@ int parsed_main(int argc, char** argv) {
           return false;
         };
 
-        if (cand.vertex.idx() == 0 and cand.track.isValid() and cand.pt() > 0.3 and
+        if (cand.vertex.idx() == 0 and cand.track.isValid() and cand.track->highPurity
+            and cand.pt() > 0.3 and
             not (std::abs(cand.track->dz()) > 0.2 ||
                  match_lep(stored_muons) || match_lep(stored_eles))
             ) {

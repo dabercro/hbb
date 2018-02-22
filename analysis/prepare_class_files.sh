@@ -2,7 +2,7 @@
 
 source ../plotter/CrombiePlotterConfig.sh
 
-cut=$(python ../plotter/cuts.py common)
+cut=$(python ../plotter/cuts.py signal)
 
 for conf in "MC" "Signal"
 do

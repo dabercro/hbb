@@ -9,7 +9,7 @@ from CrombieTools.AnalysisTools.CutflowMaker import cutflowMaker
 from ROOT import TFile
 
 
-testFile = TFile(os.path.join(os.environ['CrombieInFilesDir'], 'MET.root'))
+testFile = TFile(os.path.join(os.environ['CrombieInFilesDir'], 'MET.root')) if len(sys.argv) < 3 else TFile(sys.argv[2])
 
 cutflowMaker.AddTree(testFile.Get('events'))
 

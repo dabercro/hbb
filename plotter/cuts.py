@@ -1,7 +1,7 @@
 import os
 import sys
 
-jetgood    = 'jet1_chf > 0.15 && jet1_emfrac < 0.8'
+jetgood    = 'jet1_chf > 0.15 && jet1_efrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
 lepveto    = 'n_lep_loose < 1'
 
@@ -77,7 +77,7 @@ regionCuts = {
             'met_filter == 1',
             'met > 150',
             'jet1_chf > 0.15',
-            'jet1_emfrac < 0.8',
+            'jet1_efrac < 0.8',
             'jet1_pt > 40',
             'jet2_pt > 30',
             'cmva_hbb_pt > 100',
@@ -101,7 +101,7 @@ def joinCuts(toJoin=regionCuts.keys(), cuts=regionCuts):
 
 # A weight applied to all MC
 
-defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (event_num % 2 == 0) * 2'
+defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (eventNumber % 2 == 0) * 2'
 
 # Additional weights applied to certain control regions
 

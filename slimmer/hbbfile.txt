@@ -37,11 +37,11 @@ n, fake {
 
     ~~ abseta < 2.5 ~~
     jet -> ++
-    min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+    min_dphi_metj_soft/F = 4 -> std::min([]_min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
     ~~ jet.pt() > 30.0 ~~
     hardjet -> ++
-    min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+    min_dphi_metj_hard/F = 4 -> std::min([]_min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
     ~~ abseta < 2.4 ~~
     centerjet -> ++
@@ -72,7 +72,7 @@ n_bcsv, n_bcmva, n_lep {
 }
 
 {/F}
-{-5}
+{-1}
 
 ! Save two leptons of each kind
 muon, ele {
@@ -127,7 +127,7 @@ cmva {
       vtx_3Derr -> vert->vtx3DeVal
       vtx_ntrk/I -> vert->ntrk
 
-{-5}
+{-1}
 
     +<{, central_}jet{1, 2, 3}> {
       jet(panda::Jet& jet)
@@ -135,7 +135,8 @@ cmva {
         $ -> jet.$() | pt, eta, phi, m, e
         $ -> jet.$ | chf, nhf, cef, nef
         $/O = false -> jet.$ | loose, tight, monojet
-        $frac -> jet.c$f + jet.n$f | e, h  ! EM and Had Fractions
+
+        $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
 
         qgl -> jet.qgl
 
@@ -206,7 +207,7 @@ genboson, gen_t, gen_tbar {
     pdgid/I = 0 -> gen.pdgid
 }
 
-#[event_class; data/Classifier_BDT.weights.xml] = 0
+[event_class_$; data/Classifier_$_BDT.weights.xml] = 0 | m, m_reg_15
 
 ! Filter
--- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 40 and central_jet2_pt > 20 and cmva_hbb --
+-- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_jet2_cmva > -0.8 --

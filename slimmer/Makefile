@@ -20,7 +20,7 @@ else
 	pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
 	target =  ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
 	pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-	testfile = /mnt/hadoop/scratch/dabercro/panda/*.root
+	testfile = /mnt/hadoop/scratch/dabercro/panda/009/*.root
 
 	checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
@@ -71,10 +71,15 @@ $(corrections): data/downloads.url
 testdir = ${HOME}/public_html/plots/testhbb
 
 test: $(tarball) $(target)
-	test ! -f test.root || rm test.root
+	test -d old || mkdir old
+	test -d new || mkdir new
+	test ! -f test.root || mv test.root old
 	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root
-	test -z ${CMSSW_BASE} || test ! -d $(testdir) || rm -r $(testdir)
+	test -z ${CMSSW_BASE} || test ! -d $(testdir)_old || rm -r $(testdir)_old
+	test -z ${CMSSW_BASE} || test ! -d $(testdir) || mv $(testdir) $(testdir)_old
 	test -z ${CMSSW_BASE} || cut='|!cmva_hbb_gen|cmva_hbb_gen' crombie plotdump test.root $(testdir)
+	cp test.root new
+	crombie diff -b old new
 
 clean:
 	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(data) $(corrections)

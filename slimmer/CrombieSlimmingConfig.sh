@@ -1,9 +1,10 @@
 inp_dir=/data/t3home000/dabercro/fullhbb
-suff='_data'
+#suff='_data'
+suff=''
 
 # Condor
 export CrombieExe=makehbbtree
-export CrombieInSample=pandaf/008
+export CrombieInSample=pandaf/009
 export CrombieOutDir=$inp_dir/$(date +%y%m%d)$suff
 export CrombieFilesPerJob=15
 
