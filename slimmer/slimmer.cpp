@@ -366,7 +366,7 @@ int parsed_main(int argc, char** argv) {
       // set_bjet({&stored_csvs, &stored_cmvas});
       set_bjet({&stored_cmvas});
 
-      if (output.cmva_jet2_cmva > -2.0)
+      if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
       else
         continue;  // Short circuit soft activity this way, because that shit is slow.

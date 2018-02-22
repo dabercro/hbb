@@ -73,8 +73,13 @@ testdir = ${HOME}/public_html/plots/testhbb
 test: $(tarball) $(target)
 	test -d old || mkdir old
 	test -d new || mkdir new
+	# Move old test.root to a place for comparison
 	test ! -f test.root || mv test.root old
-	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root
+	# Don't keep around new test file that's garbage
+	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root || rm test.root
+	# Kill if test file generation didn't work
+	test -f test.root
+	# Move plots, only if last test was valid
 	test -z ${CMSSW_BASE} || test ! -d $(testdir)_old || rm -r $(testdir)_old
 	test -z ${CMSSW_BASE} || test ! -d $(testdir) || mv $(testdir) $(testdir)_old
 	test -z ${CMSSW_BASE} || cut='|!cmva_hbb_gen|cmva_hbb_gen' crombie plotdump test.root $(testdir)

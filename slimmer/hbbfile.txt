@@ -5,6 +5,7 @@
 "misc.h"
 
 {/F}                           ! Default type
+{0}                            ! Default value
 {reset(panda::Event& event)}   ! Define the arguments of reset
 
 $/I = event.$ | runNumber, lumiNumber
@@ -26,7 +27,6 @@ met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 
 {/I}
-{0}
 
 ! Count some objects
 
@@ -72,7 +72,6 @@ n_bcsv, n_bcmva, n_lep {
 }
 
 {/F}
-{-1}
 
 ! Save two leptons of each kind
 muon, ele {
@@ -107,8 +106,6 @@ cmva {
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
-{0}    ! Set the defaults for training stuff to 0
-
       @_sf_$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) | central, up, down |@ loose, medium, tight
 
       ~~ lep ~~
@@ -126,8 +123,6 @@ cmva {
       vtx_3Dval -> vert->vtx3DVal
       vtx_3Derr -> vert->vtx3DeVal
       vtx_ntrk/I -> vert->ntrk
-
-{-1}
 
     +<{, central_}jet{1, 2, 3}> {
       jet(panda::Jet& jet)
