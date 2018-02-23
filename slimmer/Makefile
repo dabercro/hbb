@@ -8,19 +8,23 @@ corrections = data/corrections.d
 effs = data/btag_effs.root
 data = data/data.d
 
-all: $(target) $(effs)
-
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
 	pandalib = ../../PandaTree/lib
 	pandalibs = -lpanda
 	target = ${HOME}/bin/$(exename)
-	installname = ${HOME}/bin/$(installname)
+	install = ${HOME}/bin/$(installname)
+
+all: $(target) $(effs)
+
+$(install): $(target)
+	cp $(target) $(install)
 
 else
 	pandainc = ${CMSSW_BASE}/src
 	pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
-	target =  ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
+	target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
+	install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
 	pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
 	testfile = /mnt/hadoop/scratch/dabercro/panda/009/*.root
 
@@ -28,12 +32,14 @@ else
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
 	tarball = ${CMSSW_BASE}/condor.tgz
 
-$(tarball): $(installname) $(checker) $(thejq) $(data)
+all: $(target) $(effs)
+
+$(install): $(target)
+	cp $(target) $(install)
+
+$(tarball): $(install) $(checker) $(thejq) $(data)
 	test -d ${CMSSW_BASE}/data || mkdir ${CMSSW_BASE}/data
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external data
-
-$(installname): $(target)
-	cp $(target) $(installname)
 
 $(checker): ${CROMBIEPATH}/scripts/findtree.py
 	cp ${CROMBIEPATH}/scripts/findtree.py $(checker)
@@ -71,7 +77,7 @@ $(corrections): data/downloads.url
 
 .PHONY: clean test install
 
-install: $(tarball) $(effs)
+install: $(tarball) $(install) $(effs)
 
 testdir = ${HOME}/public_html/plots/testhbb
 
