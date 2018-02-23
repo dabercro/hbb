@@ -99,4 +99,21 @@ Ellipse::Ellipse(panda::Particle& particle1, panda::Particle& particle2, double 
   /* outside_phi = make_pm(center_phi + crombie::pi); */
 }
 
+// Define a structure to hold all additional variables about leptons we want to save
+
+class LepInfo {
+ public:
+  enum SelectionFlag {
+    presel = 0,
+    loose = 1,
+    medium = 2,
+    tight = 3
+  };
+
+  LepInfo (SelectionFlag flag = presel, float reliso = 0) : flag{flag}, reliso{reliso} {}
+
+  SelectionFlag flag;
+  float reliso;
+};
+
 #endif

@@ -116,7 +116,7 @@ int parsed_main(int argc, char** argv) {
 
       TLorentzVector lepvec {};
 
-      using lepstore = ObjectStore<hbbfile::lep, panda::Lepton, int>;
+      using lepstore = ObjectStore<hbbfile::lep, panda::Lepton, LepInfo>;
       lepstore stored_muons({hbbfile::lep::muon1, hbbfile::lep::muon2}, [](panda::Lepton* l) {return l->pt();});
       lepstore stored_eles({hbbfile::lep::ele1, hbbfile::lep::ele2}, [](panda::Lepton* l) {return l->pt();});
 
@@ -124,51 +124,71 @@ int parsed_main(int argc, char** argv) {
       // We'll do a lambda with no arguments for lazy evaluation of lepton IDs
       using lazy_id = std::function<bool()>;
 
-      auto check_lep = [&output, &lepvec, &em_directions] (lepstore& store, panda::Lepton& lep,
-                                                           lazy_id is_loose, lazy_id is_med, lazy_id is_tight) {
-        if (is_loose()) {
-          int stat_flag = 1;
-          lepvec += lep.p4();
-          output.n_lep_loose++;
-          em_directions.emplace_back(lep.eta(), lep.phi());
-          if (is_med()) {
-            output.n_lep_medium++;
-            stat_flag++;
-            if (is_tight()) {
-              output.n_lep_tight++;
-              stat_flag++;
+      auto check_lep = [&output, &lepvec, &em_directions] (lepstore& store, panda::Lepton& lep, float reliso,
+                                                           lazy_id preselection, lazy_id is_loose, lazy_id is_med, lazy_id is_tight) {
+        if (preselection()) {
+          LepInfo::SelectionFlag stat_flag = LepInfo::SelectionFlag::presel;
+          if (is_loose()) {
+            lepvec += lep.p4();
+            output.n_lep_loose++;
+            stat_flag = LepInfo::SelectionFlag::loose;
+            em_directions.emplace_back(lep.eta(), lep.phi());
+            if (is_med()) {
+              output.n_lep_medium++;
+              stat_flag = LepInfo::SelectionFlag::medium;
+              if (is_tight()) {
+                output.n_lep_tight++;
+                stat_flag = LepInfo::SelectionFlag::tight;
+              }
             }
           }
-          store.check(lep, stat_flag);
+          store.check(lep, {stat_flag, reliso});
         }
       };
 
       // Loop over muons
       for (auto& lep : event.muons) {
-        check_lep(stored_muons, lep,
+
+        auto abseta = std::abs(lep.eta());
+        auto reliso = (lep.chIso + lep.nhIso + lep.phIso - 0.5 * lep.puIso)/lep.pt();
+
+        check_lep(stored_muons, lep, reliso,
+                  [&] {   // Muon preselection
+                    return lep.pt() > 5.0 and abseta < 2.4 and
+                      lep.dxy < 0.5 and lep.dz < 1.0 and reliso < 0.4;
+                  },
                   [&] {   // Loose muons
-                    return lep.loose and lep.pt() >= 10 and std::abs(lep.eta()) <= 2.4;
+                    return lep.pf and (lep.global or lep.tracker);
                   },
-                  [&] {   // Medium muons
-                    return lep.medium and (lep.combIso()/lep.pt()) < 0.15;
+                  [&] {   // Medium muons; they don't seem to do anything with those
+                    return true;
                   },
-                  [&] {   // Tight muons
-                    return lep.tight;
+                  [&] {   // Tight muons; there's probably also a pT cut, but they don't give it directly
+                    return lep.global and lep.normChi2 < 10.0 and
+                      lep.nValidMuon > 0 and lep.nMatched > 1 and
+                      lep.nValidPixel > 0 and lep.trkLayersWithMmt > 5 and
+                      lep.dxy < 0.2 and lep.dz < 0.5;
                   });
       }
 
       // Loop over electrons
       for (auto& lep : event.electrons) {
+
         auto abseta = std::abs(lep.eta());
-        check_lep(stored_eles, lep,
-                  [&] {   // Loose electrons for conservative event classification
-                    return lep.mvaWP90 and
-                      lep.pt() > 7 and abseta < 2.4 and
+        auto reliso = (lep.chIso + lep.nhIso + lep.phIso - lep.isoPUOffset)/lep.pt();
+
+        check_lep(stored_eles, lep, reliso,
+                  [&] {   // Electron preselection
+                    return lep.pt() > 7.0 and abseta < 2.4 and
                       lep.dxy < 0.05 and lep.dz < 0.20 and
-                      lep.trackIso/lep.pt() < 0.4;
+                      reliso < 0.4;
+
                   },
-                  [&] {   // Medium electrons, which I define as the cut applied to match MVA training
-                    return lep.pt() > 15 and lep.hOverE < 0.09 and lep.trackIso/lep.pt() < 0.18 and
+                  [&] {   // Loose electrons for conservative event classification
+                    return lep.mvaWP90;
+                  },
+                  [&] {   // "Medium" electrons, which I define as the cut applied to match MVA training
+                    return lep.pt() > 15.0 and lep.hOverE < 0.09 and reliso < 0.18 and
                       ((abseta < 1.4442 and lep.sieie < 0.012 and
                         lep.ecalIso/lep.pt() < 0.4 and lep.hcalIso/lep.pt() < 0.25 and
                         std::abs(lep.dEtaInSeed) < 0.0095 and std::abs(lep.dPhiIn) < 0.065) or

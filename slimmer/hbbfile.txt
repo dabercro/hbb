@@ -78,11 +78,13 @@ n_bcsv, n_bcmva, n_lep {
 ! Save two leptons of each kind
 muon, ele {
   1, 2 {
-    lep(panda::Lepton& lep, unsigned char flag)
+    lep(panda::Lepton& lep, LepInfo info)
       /O = false -> true
-      1l_2m_3t/b = 0 -> flag
+      1l_2m_3t/b = 0 -> info.flag
+      reliso -> info.reliso
       q/B = 0 -> lep.charge
 
+      $/O = false -> lep.$ | loose, medium, tight
       $ -> lep.$() | pt, eta, phi
   }
 }

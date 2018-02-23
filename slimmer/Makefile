@@ -53,8 +53,8 @@ $(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h misc.
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* checkrun
 
-feedpanda.h: $(flatclass).h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp feedpanda.h
+feedpanda.h: $(flatclass).h slimmer.cpp misc.h ${CROMBIEPATH}/scripts/feedpanda.pl
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp misc.h feedpanda.h
 
 $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
 	crombie maketree $(flatclass).txt
