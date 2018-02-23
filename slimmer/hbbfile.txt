@@ -210,4 +210,4 @@ genboson, gen_t, gen_tbar {
 [event_class_$; data/Classifier_$_BDT.weights.xml] | m, m_reg_15
 
 ! Filter
--- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_jet2_cmva > -0.8 --
+-- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_hbb_pt > 50 and cmva_jet2_cmva > -0.8 --
