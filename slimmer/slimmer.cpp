@@ -96,14 +96,10 @@ int parsed_main(int argc, char** argv) {
 
       //// PHOTONS ////
 
-      std::vector<std::pair<float, float>> em_directions; // Pairs of eta, phi for all leptons and photons for cleaning
-
       for (auto& pho : event.photons) {
-        if (pho.loose) {
-          output.n_pho_loose++;
-          if (pho.medium && pho.pt() > 20)
-            em_directions.emplace_back(pho.eta(), pho.phi());
-        }
+        output.n_pho_loose += pho.loose;
+        output.n_pho_medium += pho.medium;
+        output.n_pho_tight += pho.tight;
       }
 
       //// TAUS ////
@@ -113,6 +109,8 @@ int parsed_main(int argc, char** argv) {
       }
 
       //// OTHER LEPTONS ////
+
+      std::vector<std::pair<float, float>> em_directions; // Pairs of eta, phi for preselected leptons for cleaning
 
       TLorentzVector lepvec {};
 
@@ -126,13 +124,14 @@ int parsed_main(int argc, char** argv) {
 
       auto check_lep = [&output, &lepvec, &em_directions] (lepstore& store, panda::Lepton& lep, float reliso,
                                                            lazy_id preselection, lazy_id is_loose, lazy_id is_med, lazy_id is_tight) {
+        // Definitions straight from AN
         if (preselection()) {
           LepInfo::SelectionFlag stat_flag = LepInfo::SelectionFlag::presel;
+          em_directions.emplace_back(lep.eta(), lep.phi());
           if (is_loose()) {
             lepvec += lep.p4();
             output.n_lep_loose++;
             stat_flag = LepInfo::SelectionFlag::loose;
-            em_directions.emplace_back(lep.eta(), lep.phi());
             if (is_med()) {
               output.n_lep_medium++;
               stat_flag = LepInfo::SelectionFlag::medium;
@@ -144,6 +143,11 @@ int parsed_main(int argc, char** argv) {
           }
           store.check(lep, {stat_flag, reliso});
         }
+
+        // POG definitions
+        output.n_lep_pog_loose += lep.loose;
+        output.n_lep_pog_medium += lep.medium;
+        output.n_lep_pog_tight += lep.tight;
       };
 
       // Loop over muons
@@ -182,7 +186,6 @@ int parsed_main(int argc, char** argv) {
                     return lep.pt() > 7.0 and abseta < 2.4 and
                       lep.dxy < 0.05 and lep.dz < 0.20 and
                       reliso < 0.4;
-
                   },
                   [&] {   // Loose electrons for conservative event classification
                     return lep.mvaWP90;

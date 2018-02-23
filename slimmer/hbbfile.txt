@@ -65,10 +65,10 @@ n_soft {
   }
 }
 
-n_bcsv, n_bcmva, n_lep {
+n_bcsv, n_bcmva, n_lep, n_lep_pog, n_pho {
   medium
   tight
-  +n_tau, n_pho {
+  +n_tau {
     loose
   }
 }
@@ -80,9 +80,9 @@ muon, ele {
   1, 2 {
     lep(panda::Lepton& lep, LepInfo info)
       /O = false -> true
-      1l_2m_3t/b = 0 -> info.flag
+      1l_2m_3t/b -> info.flag
       reliso -> info.reliso
-      q/B = 0 -> lep.charge
+      q/B -> lep.charge
 
       $/O = false -> lep.$ | loose, medium, tight
       $ -> lep.$() | pt, eta, phi
@@ -143,11 +143,11 @@ cmva {
         gen/O = false -> true
         gen_$ -> gen.$() | pt, eta, phi, m
         gen_withnu_$ -> withnu.genvec.$$() | pt, eta, phi, m
-        gen_numnu/b = 0 -> withnu.numnu
+        gen_numnu/b -> withnu.numnu
         gen_tWnu_overlap/O = false -> withnu.overlap
 
-        gen_$/S = 0 -> gen.$ | pdgid, partonFlavor
-        gen_$/b = 0 -> gen.$ | numB
+        gen_$/S -> gen.$ | pdgid, partonFlavor
+        gen_$/b -> gen.$ | numB
 
     }
 
@@ -204,10 +204,10 @@ genboson, gen_t, gen_tbar {
     /O = false -> true
     $ -> gen.$() | pt, eta, phi, m
 
-    pdgid/I = 0 -> gen.pdgid
+    pdgid/I -> gen.pdgid
 }
 
-[event_class_$; data/Classifier_$_BDT.weights.xml] = 0 | m, m_reg_15
+[event_class_$; data/Classifier_$_BDT.weights.xml] | m, m_reg_15
 
 ! Filter
 -- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_jet2_cmva > -0.8 --
