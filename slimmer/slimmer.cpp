@@ -160,17 +160,24 @@ int parsed_main(int argc, char** argv) {
       // Loop over electrons
       for (auto& lep : event.electrons) {
         auto abseta = std::abs(lep.eta());
-        auto isoscale = abseta < 1.4442 ? 2 : 1;
         check_lep(stored_eles, lep,
-                  [&] {   // Loose electrons
-                    return lep.veto and lep.pt() >= 10 and abseta <= 2.5 and
-                      lep.dxy < (0.10/isoscale) and lep.dz < (0.20/isoscale);
+                  [&] {   // Loose electrons for conservative event classification
+                    return lep.mvaWP90 and
+                      lep.pt() > 7 and abseta < 2.4 and
+                      lep.dxy < 0.05 and lep.dz < 0.20 and
+                      lep.trackIso/lep.pt() < 0.4;
                   },
-                  [&] {   // Medium electrons
-                    return lep.medium;
+                  [&] {   // Medium electrons, which I define as the cut applied to match MVA training
+                    return lep.pt() > 15 and lep.hOverE < 0.09 and lep.trackIso/lep.pt() < 0.18 and
+                      ((abseta < 1.4442 and lep.sieie < 0.012 and
+                        lep.ecalIso/lep.pt() < 0.4 and lep.hcalIso/lep.pt() < 0.25 and
+                        std::abs(lep.dEtaInSeed) < 0.0095 and std::abs(lep.dPhiIn) < 0.065) or
+                       (abseta > 1.5660 and lep.sieie < 0.033 and
+                        lep.ecalIso/lep.pt() < 0.45 and lep.hcalIso/lep.pt() < 0.28)
+                       );
                   },
                   [&] {   // Tight electrons
-                    return lep.tight;
+                    return lep.mvaWP80;
                   });
       }
 

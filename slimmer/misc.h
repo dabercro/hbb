@@ -37,7 +37,8 @@ class BTagCounter {
   constexpr BTagCounter (float loose, float medium, float tight)
     : loose(loose), medium(medium), tight(tight) {}
 
-  void count (float value, int& loose_count, int& medium_count, int& tight_count) const {
+  template <typename T>
+    void count (float value, T& loose_count, T& medium_count, T& tight_count) const {
     if (value > loose) {
       loose_count++;
       if (value > medium) {
