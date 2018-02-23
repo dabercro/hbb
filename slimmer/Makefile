@@ -81,7 +81,7 @@ install: $(tarball) $(install) $(effs)
 
 testdir = ${HOME}/public_html/plots/testhbb
 
-test: $(tarball) $(target)
+test: $(target)
 	test -d old || mkdir old
 	test -d new || mkdir new
 	# Move old test.root to a place for comparison
