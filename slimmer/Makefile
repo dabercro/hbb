@@ -1,19 +1,21 @@
 LDFLAGS = `root-config --glibs` `fastjet-config --libs`
 CFLAGS = `root-config --cflags` `fastjet-config --cxxflags`
-exename = makehbbtree
+installname = makehbbtree
+exename = testhbbtree
 flatclass = hbbfile
 testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 corrections = data/corrections.d
 effs = data/btag_effs.root
 data = data/data.d
 
+all: $(target) $(effs)
+
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
 	pandalib = ../../PandaTree/lib
 	pandalibs = -lpanda
 	target = ${HOME}/bin/$(exename)
-
-all: $(target) $(effs)
+	installname = ${HOME}/bin/$(installname)
 
 else
 	pandainc = ${CMSSW_BASE}/src
@@ -26,11 +28,12 @@ else
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
 	tarball = ${CMSSW_BASE}/condor.tgz
 
-all: $(tarball) $(effs)
-
-$(tarball): $(target) $(checker) $(thejq) $(data)
+$(tarball): $(installname) $(checker) $(thejq) $(data)
 	test -d ${CMSSW_BASE}/data || mkdir ${CMSSW_BASE}/data
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external data
+
+$(installname): $(target)
+	cp $(target) $(installname)
 
 $(checker): ${CROMBIEPATH}/scripts/findtree.py
 	cp ${CROMBIEPATH}/scripts/findtree.py $(checker)
@@ -66,7 +69,9 @@ $(corrections): data/downloads.url
 	cd data; rm *.root; rm *.csv; rm *.xml; wget -i downloads.url
 	touch $(corrections)
 
-.PHONY: clean test
+.PHONY: clean test install
+
+install: $(tarball) $(effs)
 
 testdir = ${HOME}/public_html/plots/testhbb
 

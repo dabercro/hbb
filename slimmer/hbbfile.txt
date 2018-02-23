@@ -1,5 +1,7 @@
 COMPRESSION 7
 
+DEFINE REGS 3, 40
+
 <cmath>
 <algorithm>
 "PlotTools/interface/KinematicFunctions.h"
@@ -153,14 +155,14 @@ cmva {
 
     ! Many different regressions to compare!
 
-    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ 3, 15, 40
+    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
     [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
     [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
 
     ! Need a more systematic name system
 
     pt_reg$ <- []_pt_ratio$ * []_pt | _old, _old_method
-    pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ 3, 15, 40
+    pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ REGS
 
   }
 
@@ -185,10 +187,10 @@ cmva {
 
   hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
   hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
-  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ 3, 15, 40
-  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ 3, 15, 40
+  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
+  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
 
-  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ 3, 15, 40
+  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
   hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | _old, _old_method
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
@@ -207,7 +209,7 @@ genboson, gen_t, gen_tbar {
     pdgid/I -> gen.pdgid
 }
 
-[event_class_$; data/Classifier_$_BDT.weights.xml] | m, m_reg_15
+[event_class_$; data/Classifier_$_BDT.weights.xml] | m
 
 ! Filter
 -- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_hbb_pt > 50 and cmva_jet2_cmva > -0.8 --
