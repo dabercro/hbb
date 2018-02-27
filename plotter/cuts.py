@@ -3,7 +3,7 @@ import sys
 
 jetgood    = 'jet1_chf > 0.15 && jet1_efrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
-lepveto    = 'n_lep_loose < 1'
+lepveto    = 'n_lep_medium < 1'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
 unbtag_csv = 'csv_jet1_csv < 0.8484'
@@ -16,7 +16,7 @@ lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
 hbbpt      = 'cmva_hbb_pt > 120'
-jetpt      = 'jet1_pt > 60 && jet2_pt > 35'
+jetpt      = 'cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35'
 mjjveto    = '(60 > cmva_hbb_m || 160 < cmva_hbb_m)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
@@ -36,7 +36,6 @@ categoryCuts = {
     'ZvvHbb' : '1'
     }
 
-
 regionCuts = {
     'nocut' : ' && '.join([metcut, jetpt]),
     'tt' : ' && '.join([
@@ -44,7 +43,7 @@ regionCuts = {
             deltaVH,
             'n_lep_loose >= 1',
             'n_lep_tight >= 1',
-            'n_jet >= 4',
+            'n_hardjet >= 4',
             btag,
             'min_dphi_metj_hard < 1.57',
             ]),
@@ -52,7 +51,7 @@ regionCuts = {
             common,
             deltaVH,
             lepveto,
-            'n_jet < 4',
+            'n_hardjet < 4',
             unbtag,
             antiQCD,
             trkmetphi,
@@ -61,7 +60,7 @@ regionCuts = {
             common,
             deltaVH,
             lepveto,
-            'n_jet < 4',
+            'n_hardjet < 4',
             tbtag,
             antiQCD,
             trkmetphi,
@@ -82,13 +81,12 @@ regionCuts = {
             'jet2_pt > 30',
             'cmva_hbb_pt > 100',
             'cmva_jet2_cmva > -0.6',
-            'n_jet < 5',
+            'n_hardjet < 5',
             'min_dphi_metj_hard > 0.5'
             ])
     }
 
 regionCuts['common'] = common
-regionCuts['scaledtt'] = regionCuts['tt'] 
 regionCuts['signal'] = ' && '.join([
         regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m && 160 > cmva_hbb_m'),
         ])
@@ -101,7 +99,8 @@ def joinCuts(toJoin=regionCuts.keys(), cuts=regionCuts):
 
 # A weight applied to all MC
 
-defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (eventNumber % 2 == 0) * 2'
+#defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (eventNumber % 2 == 0) * 2'
+defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central'
 
 # Additional weights applied to certain control regions
 
@@ -115,7 +114,6 @@ region_weights = { # key : [Data,MC]
     'lightz'   : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
     'multijet' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_loose_sf_central'])],
     'tt' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_medium_sf_central'])],
-    'scaledtt' : [mettrigger, '*'.join([defaultMCWeight, 'cmva_jet1_medium_sf_central', '((sf_tt == 1.0) + (sf_tt != 1.0) * 0.78)'])],
     'classify'  : [signal, defaultMCWeight],
     'default'  : [mettrigger, defaultMCWeight],
     }

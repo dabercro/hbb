@@ -6,9 +6,9 @@
 #.   GluGluToContinToZZTo4mu_13TeV_MCFM701_pythia8.root                                        0.0036478       .                   .
 #.   GluGluToContinToZZTo4tau_13TeV_MCFM701_pythia8.root                                       0.0036478       .                   .
 
-#qcd QCD_HT100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                27990000.0      QCD                 826
-#.   QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                1735000.0       .                   .
-#.   QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                366800.0        .                   .
+qcd QCD_HT100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                27990000.0      QCD                 826
+.   QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                1735000.0       .                   .
+.   QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                366800.0        .                   .
 .   QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                29370.0         .                   .
 .   QCD_HT700to1000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                               6524.0          .                   .
 .   QCD_HT1000to1500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                              1064.0          .                   .

@@ -44,14 +44,13 @@ n, fake {
     min_dphi_metj_soft/F = 4 -> std::min([]_min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
     ~~ jet.pt() > 30.0 ~~
-    hardjet -> ++
     min_dphi_metj_hard/F = 4 -> std::min([]_min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
     ~~ abseta < 2.4 ~~
     centerjet -> ++
 }
 
-min_dphi_metj_$/F <- n_min_dphi_metj_$ | soft, hard    ! Add this back in just to keep sensible names
+min_dphi_metj_$/F <- n_min_dphi_metj_$ | hard, soft
 
 n_genB
 
@@ -212,4 +211,4 @@ genboson, gen_t, gen_tbar {
 [event_class_$; data/Classifier_$_BDT.weights.xml] | m
 
 ! Filter
--- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_hbb_pt > 50 and cmva_jet2_cmva > -0.8 --
+-- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_hbb_pt > 100 and cmva_daughter_min_pt > 30 and cmva_jet2_cmva > -0.8 --

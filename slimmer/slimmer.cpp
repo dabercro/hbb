@@ -140,11 +140,12 @@ int parsed_main(int argc, char** argv) {
                 stat_flag = LepInfo::SelectionFlag::tight;
               }
             }
+            store.check(lep, {stat_flag, reliso});  // Only want to store leptons that are at least loose
           }
-          store.check(lep, {stat_flag, reliso});
         }
 
         // POG definitions
+        // Need kinematics cuts
         output.n_lep_pog_loose += lep.loose;
         output.n_lep_pog_medium += lep.medium;
         output.n_lep_pog_tight += lep.tight;
@@ -309,7 +310,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet) || jet.pt() < 20.0)
+        if (overlap_em(jet) || jet.pt() < 25.0)
           continue;
 
         // Count jets (including forward)
