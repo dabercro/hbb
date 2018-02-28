@@ -107,11 +107,13 @@ dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
 ! csv, cmva {
 cmva {
   <_jet{1, 2, 3}> {
-    bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, BTagEntry::JetFlavor flav, <T> nlep, panda::PFCand* lep)
+    bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, \
+         BTagEntry::JetFlavor flav, <T> nlep, panda::PFCand* lep)
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
-      @_sf_$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) | central, up, down |@ loose, medium, tight
+      @_sf_$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) \
+                    | central, up, down |@ loose, medium, tight
 
       ~~ lep ~~
 
@@ -208,7 +210,10 @@ genboson, gen_t, gen_tbar {
     pdgid/I -> gen.pdgid
 }
 
-[event_class_$; data/Classifier_$_BDT.weights.xml] | m
+[event_class$; data/Classifier_m$_BDT.weights.xml] | , _old, _reg_3, _reg_40
 
 ! Filter
--- met_filter == 1 and (met > 150 or recoil > 150) and central_jet1_pt > 50 and central_jet2_pt > 25 and cmva_hbb and cmva_hbb_pt > 100 and cmva_daughter_min_pt > 30 and cmva_jet2_cmva > -0.8 --
+! These are filled before the fill function
+-- met_filter == 1 and (met > 150 or recoil > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 --
+! These are filled in the fill function
+++ cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25 ++

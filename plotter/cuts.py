@@ -3,7 +3,7 @@ import sys
 
 jetgood    = 'jet1_chf > 0.15 && jet1_efrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
-lepveto    = 'n_lep_medium < 1'
+lepveto    = '(muon1 || ele1) == 0'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
 unbtag_csv = 'csv_jet1_csv < 0.8484'
@@ -16,8 +16,11 @@ lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
 hbbpt      = 'cmva_hbb_pt > 120'
-jetpt      = 'cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35'
-mjjveto    = '(60 > cmva_hbb_m || 160 < cmva_hbb_m)'
+jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
+                          'cmva_daughter_min_pt > 35',
+                          'cmva_jet1_pt > 60'
+                          ])
+mjjveto    = '(60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
@@ -41,8 +44,8 @@ regionCuts = {
     'tt' : ' && '.join([
             common,
             deltaVH,
-            'n_lep_loose >= 1',
             'n_lep_tight >= 1',
+            '(muon1_pt > 25&&muon1_tight) || (ele1_pt > 30&&ele1_tight)',
             'n_hardjet >= 4',
             btag,
             'min_dphi_metj_hard < 1.57',
@@ -51,7 +54,7 @@ regionCuts = {
             common,
             deltaVH,
             lepveto,
-            'n_hardjet < 4',
+            'n_hardjet < 3',
             unbtag,
             antiQCD,
             trkmetphi,
@@ -60,7 +63,7 @@ regionCuts = {
             common,
             deltaVH,
             lepveto,
-            'n_hardjet < 4',
+            'n_hardjet < 3',
             tbtag,
             antiQCD,
             trkmetphi,
@@ -88,7 +91,7 @@ regionCuts = {
 
 regionCuts['common'] = common
 regionCuts['signal'] = ' && '.join([
-        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m && 160 > cmva_hbb_m'),
+        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old'),
         ])
 regionCuts['classifyHveto'] = '%s && !(%s)' % (regionCuts['classify'], regionCuts['signal'])
 
@@ -99,8 +102,7 @@ def joinCuts(toJoin=regionCuts.keys(), cuts=regionCuts):
 
 # A weight applied to all MC
 
-#defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (eventNumber % 2 == 0) * 2'
-defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central'
+defaultMCWeight = 'scale_factors * cmva_jet2_loose_sf_central * (eventNumber % 2 == 0) * 2'
 
 # Additional weights applied to certain control regions
 

@@ -9,19 +9,19 @@
 
 namespace {
 
-  static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"};
+  /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
   static const BTagCalibration cmva_calib {"cmva", "data/cMVAv2_Moriond17_B_H.csv"};
 
   // Here we define functions that returns the reader for each working point
 
-  BTagCalibrationReader get_csv_reader(const BTagEntry::OperatingPoint op) {
-    BTagCalibrationReader csv_reader(op, "central", {"up", "down"});
-    csv_reader.load(csv_calib, BTagEntry::FLAV_B, "comb");
-    csv_reader.load(csv_calib, BTagEntry::FLAV_C, "comb");
-    csv_reader.load(csv_calib, BTagEntry::FLAV_UDSG, "incl");
+  /* BTagCalibrationReader get_csv_reader(const BTagEntry::OperatingPoint op) { */
+  /*   BTagCalibrationReader csv_reader(op, "central", {"up", "down"}); */
+  /*   csv_reader.load(csv_calib, BTagEntry::FLAV_B, "comb"); */
+  /*   csv_reader.load(csv_calib, BTagEntry::FLAV_C, "comb"); */
+  /*   csv_reader.load(csv_calib, BTagEntry::FLAV_UDSG, "incl"); */
 
-    return csv_reader;
-  }
+  /*   return csv_reader; */
+  /* } */
 
   BTagCalibrationReader get_cmva_reader(const BTagEntry::OperatingPoint op) {
     BTagCalibrationReader cmva_reader(op, "central", {"up", "down"});

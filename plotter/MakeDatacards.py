@@ -4,42 +4,64 @@ import os
 import sys
 import sqlite3
 
-from CrombieTools.LoadConfig import cuts
+import ROOT
 
-output = 'datacards/yields_reg'
+from CrombieTools.LoadConfig import cuts
+from CrombieTools.ConfigTools import TreeList
+
+output = 'datacards/yields_test'
 
 expr = 'event_class'
 
 if __name__ == '__main__':
     sql_output = output + '.db'
 
-    if not os.path.exists(sql_output) or 'dump' in sys.argv:
+    fresh = 'dump' in sys.argv or not os.path.exists(sql_output)
 
-        from CrombieTools.AnalysisTools.YieldDump import dumper, SetupFromEnv
+    if 'dump' in sys.argv and os.path.exists(sql_output):
+        os.remove(sql_output)
 
-        SetupFromEnv()
+    conn = sqlite3.connect(sql_output)
+    curs = conn.cursor()
 
-        dumper.AddDataFile('MET.root')
-        dumper.SetDefaultExpr(expr)
+    if fresh:
+
+        curs.execute("""
+                     CREATE TABLE IF NOT EXISTS yields (
+                     region VARCHAR(64),
+                     process VARCHAR(64),
+                     bin INT,
+                     contents DOUBLE,
+                     stat_unc DOUBLE,
+                     type VARCHAR(32),
+                     PRIMARY KEY (region, process, bin)
+                     )""")
+
+
+        alltrees = {'data': ['data_obs'],
+                    'background': TreeList('MCConfig.txt'),
+                    'signal': TreeList('SignalConfig.txt')
+                    }
 
         out_dir = os.path.dirname(output)
         if out_dir and not os.path.exists(out_dir):
             os.makedirs(out_dir)
 
-        if 'dump' in sys.argv and os.path.exists(sql_output):
-            os.remove(sql_output)
-
         for region in ['signal', 'tt', 'lightz', 'heavyz']:
-            dumper.AddRegion(region, cuts.cut('ZvvHbb', region),
-                             cuts.dataMCCuts(region, True),
-                             cuts.dataMCCuts(region, False))
+            hist_file = ROOT.TFile('datacards/plots/%s_dat.root' % expr)
+            for sample_type in alltrees:
+                for proc in alltrees[sample_type]:
+                    hist = getattr(hist_file, '{expr}__{proc}____{reg}'.format(expr=expr, proc=proc, reg=region))
+                    for i in xrange(hist.GetNbinsX()):
+                        bin = i + 1
+                        curs.execute('INSERT INTO yields VALUES (?, ?, ?, ?, ?, ?)',
+                                     (region, proc, bin,
+                                      hist.GetBinContent(bin), hist.GetBinError(bin),
+                                      sample_type))
+        conn.commit()
 
-        dumper.DumpYieldFiles(sql_output, 10, -1.0, 1.0)
 
     txt_output = output + '.txt'
-
-    conn = sqlite3.connect(sql_output)
-    curs = conn.cursor()
 
     with open(txt_output, 'w') as datacard:
         write = lambda x: datacard.write(x.strip() + '\n')
@@ -103,6 +125,8 @@ kmax   *   number of systematics (automatic)""")
         write(proc_line)
         write(proc_enum)
         write(obs_line)
+
+        exit(0)
 
         # Uncertainties
         write('-' * 30)

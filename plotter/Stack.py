@@ -29,7 +29,7 @@ plotter.AddDataFile('MET.root')
 cats = ['ZvvHbb']
 
 def parse_regions(check=None):
-    regions = ['signal', 'heavyz', 'lightz', 'tt', 'classify', 'classifyHveto']
+    regions = ['signal', 'heavyz', 'lightz', 'tt']
 
     if sys.argv[1:] == ['event_class']:
         new_regions = [key for key in cuts.regionCuts.keys() if True in [key.startswith(reg) for reg in regions]]
@@ -69,7 +69,7 @@ def parse_plots(check=None):
             ['jet1_nhf', 40, 0, 1.0, 'NHF Frac jet 1'],
             ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
-#            ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
+            ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -78,7 +78,7 @@ def parse_plots(check=None):
     return [plot for plot in plots if check is None or plot[0] in check]
 
 def submit_plots(regions, plots):
-    limithistsdir = 'datacards/plots'
+    limithistsdir = 'datacards/plots' if sys.argv[1:] == ['event_class'] else ''
 
     # Parse everything one last time so that left plots don't slip through
     MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], limitHistsDir=limithistsdir, parallel=False)
