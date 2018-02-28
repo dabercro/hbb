@@ -126,20 +126,38 @@ kmax   *   number of systematics (automatic)""")
         write(proc_enum)
         write(obs_line)
 
-        exit(0)
-
         # Uncertainties
         write('-' * 30)
 
-        # Placeholder uncertainties
-        curs.execute('SELECT COUNT(*) FROM yields WHERE type != "data";')
-        tot_bins = curs.fetchone()[0]
-        curs.execute('SELECT process, region, source, shape, value FROM uncertainties;')
+        # Flat uncertainties
 
-        for uncproc, uncregion, source, shape, value in curs.fetchall():
-            unc_line = name_unc.format(source) + shape_unc.format(shape)
-            for proc, region, content in backgrounds:
-                unc_val = value if (proc == uncproc or uncproc == '*') and (region == uncregion or uncregion == '*') else '-'
+        uncertainties = {
+            'lumi': {
+                'val': 1.025
+                },
+            'pileup': {
+                'val': 1.05
+                },
+            'PDF': {
+                'val': 1.3
+                },
+            'diboson': {
+                'val': 1.3,
+                'procs': ['vv']
+                },
+            'singletop': {
+                'val': 1.3,
+                'procs': ['st']
+                }
+            }
+        
+        for source, val in uncertainties.iteritems():
+            unc_line = name_unc.format(source) + shape_unc.format(val.get('shape', 'lnN'))
+            for proc, region, _ in backgrounds:
+                unc_val = val['val'] if \
+                    (not val.get('procs') or proc in val.get('procs', [])) and \
+                    (not val.get('regions') or region in val.get('regions', [])) \
+                    else '-'
                 unc_line += content_fmt.format(unc_val)
             write(unc_line)
 
