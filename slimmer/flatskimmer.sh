@@ -38,7 +38,7 @@ if [ $NUMDIRS -ne 2 ]
 then
 
 # Don't need to skim these anymore since we do the filtering in the slimmer
-#    crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+#    crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'htotal' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
 
     for f in $CrombieFullDir/links/*
     do
@@ -47,7 +47,7 @@ then
 
 else
 
-    crombie skim --cut 'met_filter == 1 && cmva_hbb && abs(cmva_jet1_gen_pdgid) == 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+    crombie skim --cut 'met_filter == 1 && cmva_hbb && abs(cmva_jet1_gen_pdgid) == 5' --tree 'events' --copy 'htotal' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
 
 fi
 
@@ -73,10 +73,10 @@ then
     test -d $CrombieSkimDir/bbDir || mkdir $CrombieSkimDir/bbDir
     test -d $CrombieSkimDir/norm || mkdir $CrombieSkimDir/norm
 
-    crombie skim --cut 'cmva_jet1_gen_pdgid == 5 && cmva_jet2_gen_pdgid == 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bDir
+    crombie skim --cut 'n_genB == 1' --tree 'events' --copy 'htotal' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bDir
 
-    crombie skim --cut '(cmva_jet1_gen_pdgid == 5) != (cmva_jet2_gen_pdgid == 5)' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bbDir
+    crombie skim --cut 'n_genB > 1' --tree 'events' --copy 'htotal' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/bbDir
 
-    crombie skim --cut 'cmva_jet1_gen_pdgid != 5 && cmva_jet2_gen_pdgid != 5' --tree 'events' --copy 'htotal' --run 'run_num' --lumi 'lumi_num' --event 'event_num' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/norm
+    crombie skim --cut 'n_genB == 0' --tree 'events' --copy 'htotal' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/norm
 
 fi

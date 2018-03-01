@@ -26,12 +26,13 @@ plotter.SetAxisTitleOffset(1.55)
 
 plotter.AddDataFile('MET.root')
 
+do_limit_dump = sys.argv[1:] and False not in ['event_class' in arg for arg in sys.argv[1:]]
 cats = ['ZvvHbb']
 
 def parse_regions(check=None):
     regions = ['signal', 'heavyz', 'lightz', 'tt']
 
-    if sys.argv[1:] == ['event_class']:
+    if do_limit_dump:
         new_regions = [key for key in cuts.regionCuts.keys() if True in [key.startswith(reg) for reg in regions]]
         return new_regions
 
@@ -50,7 +51,7 @@ def parse_plots(check=None):
             ['met', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
-            ['n_hardjet', 10, 0, 10, 'Num Jets'],
+            ['n_centerjet', 10, 0, 10, 'Num Jets'],
             ['n_jet', 10, 0, 10, 'Num Jets'],
             ['jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
@@ -70,6 +71,8 @@ def parse_plots(check=None):
             ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
             ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
+            ['event_class_reg_3', 20, -0.5, 0.5, 'Event Classifier'],
+            ['event_class_reg_40', 20, -0.5, 0.5, 'Event Classifier'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -78,7 +81,7 @@ def parse_plots(check=None):
     return [plot for plot in plots if check is None or plot[0] in check]
 
 def submit_plots(regions, plots):
-    limithistsdir = 'datacards/plots' if sys.argv[1:] == ['event_class'] else ''
+    limithistsdir = 'datacards/plots' if do_limit_dump else ''
 
     # Parse everything one last time so that left plots don't slip through
     MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], limitHistsDir=limithistsdir, parallel=False)

@@ -1,7 +1,7 @@
 export CrombieNLocalProcs=8
 
 export CrombieMCConfig=MCConfig.txt
-export CrombieInFilesDir=/data/t3home000/dabercro/hbb/180223
+export CrombieInFilesDir=/data/t3home000/dabercro/hbb/180301
 if [ -z $SUFF ]
 then
     SUFF=v1

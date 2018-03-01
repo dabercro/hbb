@@ -3,13 +3,14 @@
 import os
 import sys
 import sqlite3
+import datetime
 
 import ROOT
 
 from CrombieTools.LoadConfig import cuts
 from CrombieTools.ConfigTools import TreeList
 
-output = 'datacards/yields_test'
+output = 'datacards/yields_%s' % datetime.date.today().strftime('%y%m%d')
 
 expr = 'event_class'
 
@@ -48,7 +49,7 @@ if __name__ == '__main__':
             os.makedirs(out_dir)
 
         for region in ['signal', 'tt', 'lightz', 'heavyz']:
-            hist_file = ROOT.TFile('datacards/plots/%s_dat.root' % expr)
+            hist_file = ROOT.TFile('datacards/plots/plots_dat.root')
             for sample_type in alltrees:
                 for proc in alltrees[sample_type]:
                     hist = getattr(hist_file, '{expr}__{proc}____{reg}'.format(expr=expr, proc=proc, reg=region))
@@ -73,7 +74,7 @@ kmax   *   number of systematics (automatic)""")
 
         # Write down shape locations
         write('-' * 30)
-        write('shapes * * datacards/plots/{0}_dat.root {0}__$PROCESS____$CHANNEL {0}__$PROCESS____$CHANNEL__$SYSTEMATIC'.format(expr))
+        write('shapes * * datacards/plots/plots_dat.root {0}__$PROCESS____$CHANNEL {0}__$PROCESS____$CHANNEL__$SYSTEMATIC'.format(expr))
 
         # Write down data observations
         write('-' * 30)

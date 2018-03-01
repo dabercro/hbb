@@ -46,7 +46,7 @@ regionCuts = {
             deltaVH,
             'n_lep_tight >= 1',
             '(muon1_pt > 25&&muon1_tight) || (ele1_pt > 30&&ele1_tight)',
-            'n_hardjet >= 4',
+            'n_centerjet >= 4',
             btag,
             'min_dphi_metj_hard < 1.57',
             ]),
@@ -54,7 +54,7 @@ regionCuts = {
             common,
             deltaVH,
             lepveto,
-            'n_hardjet < 3',
+            'n_centerjet < 3',
             unbtag,
             antiQCD,
             trkmetphi,
@@ -63,7 +63,7 @@ regionCuts = {
             common,
             deltaVH,
             lepveto,
-            'n_hardjet < 3',
+            'n_centerjet < 3',
             tbtag,
             antiQCD,
             trkmetphi,
@@ -84,7 +84,7 @@ regionCuts = {
             'jet2_pt > 30',
             'cmva_hbb_pt > 100',
             'cmva_jet2_cmva > -0.6',
-            'n_hardjet < 5',
+            'n_centerjet < 5',
             'min_dphi_metj_hard > 0.5'
             ])
     }
