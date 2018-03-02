@@ -10,9 +10,42 @@ import ROOT
 from CrombieTools.LoadConfig import cuts
 from CrombieTools.ConfigTools import TreeList
 
+# Flat uncertainties
+uncertainties = {
+    'lumi': {
+        'val': 1.025
+        },
+    'pileup': {
+        'val': 1.05
+        },
+    'PDF': {
+        'val': 1.3
+        },
+    'diboson': {
+        'val': 1.3,
+        'procs': ['vv']
+        },
+    'singletop': {
+        'val': 1.3,
+        'procs': ['st']
+        }
+    }
+        
+# These are rateParams
+keys = ['tt']
+
+for bos in 'zw':
+    for num_b in range(3):
+        keys.append(bos + 'j' + 'b'*num_b)
+
 output = 'datacards/yields_%s' % datetime.date.today().strftime('%y%m%d')
 
-expr = 'event_class'
+expr = 'event_class_reg_40'
+
+alltrees = {'data': ['data_obs'],
+            'background': TreeList('MCConfig.txt'),
+            'signal': TreeList('SignalConfig.txt')
+            }
 
 if __name__ == '__main__':
     sql_output = output + '.db'
@@ -37,12 +70,6 @@ if __name__ == '__main__':
                      type VARCHAR(32),
                      PRIMARY KEY (region, process, bin)
                      )""")
-
-
-        alltrees = {'data': ['data_obs'],
-                    'background': TreeList('MCConfig.txt'),
-                    'signal': TreeList('SignalConfig.txt')
-                    }
 
         out_dir = os.path.dirname(output)
         if out_dir and not os.path.exists(out_dir):
@@ -130,28 +157,6 @@ kmax   *   number of systematics (automatic)""")
         # Uncertainties
         write('-' * 30)
 
-        # Flat uncertainties
-
-        uncertainties = {
-            'lumi': {
-                'val': 1.025
-                },
-            'pileup': {
-                'val': 1.05
-                },
-            'PDF': {
-                'val': 1.3
-                },
-            'diboson': {
-                'val': 1.3,
-                'procs': ['vv']
-                },
-            'singletop': {
-                'val': 1.3,
-                'procs': ['st']
-                }
-            }
-        
         for source, val in uncertainties.iteritems():
             unc_line = name_unc.format(source) + shape_unc.format(val.get('shape', 'lnN'))
             for proc, region, _ in backgrounds:
@@ -167,5 +172,11 @@ kmax   *   number of systematics (automatic)""")
         for syst, suffs in cuts.syst:
             for suff in suffs:
                 write('%s%s param 0.0 1' % (syst, suff))
+
+        curs.execute('SELECT DISTINCT(region) FROM yields WHERE type = "background";')
+        regions = list(curs.fetchall())
+        for key in keys:
+            for region in regions:
+                write('SF_{proc}  rateParam  {region}  {proc}  1  [0.3,3]'.format(proc=key, region=region[0]))
 
     conn.close()

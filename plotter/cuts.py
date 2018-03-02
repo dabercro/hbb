@@ -154,7 +154,7 @@ def cut(category, region):
             cut = cut.replace(orig, new)
         cut = cut.replace('cmva', 'csv')
 
-    return cut
+    return cut.replace('_reg_old', '')
 
 def dataMCCuts(region, isData):
     key = 'default'

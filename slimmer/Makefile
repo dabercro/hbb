@@ -54,7 +54,7 @@ $(data): data/*.csv data/*.xml $(corrections)
 
 endif
 
-$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h misc.h \
+$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h misc.h debugevent.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
 	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp
 	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp bcal/BTagCalibrationStandalone.cpp

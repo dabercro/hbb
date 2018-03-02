@@ -5,6 +5,7 @@ DEFINE REGS 3, 15, 40
 "PlotTools/interface/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 "misc.h"
+"debugevent.h"
 
 {/F}                           ! Default type
 {0}                            ! Default value
@@ -212,6 +213,6 @@ genboson, gen_t, gen_tbar {
 
 ! Filter
 ! These are filled before the fill function
--- met_filter == 1 and (met > 150 or recoil > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 --
+-- debug::debug or (met_filter == 1 and (met > 150 or recoil > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8) --
 ! These are filled in the fill function
-++ cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25 ++
+++ debug::debug or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25) ++

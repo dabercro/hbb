@@ -2,11 +2,11 @@
 
 . CrombiePlotterConfig.sh
 
-me_cut='met_trigger == 1 && met_filter == 1 && central_jet1_pt > 55 && central_jet2_pt > 30 && cmva_hbb_pt > 50 && met > 170 && cmva_jet1_efrac > 0.1 && cmva_jet1_hfrac > 0.1 && cmva_jet2_efrac > 0.1 && cmva_jet2_hfrac > 0.1'
-them_cut='trigger&1 && metFilter==1 && jet1Pt > 55 && jet2Pt > 30 && pfmet > 160 && hbbpt > 50 && pfmet>170 && jetEMFrac[hbbjtidx[0]] > 0.1 && jetEMFrac[hbbjtidx[1]] > 0.1 && jetHadFrac[hbbjtidx[0]] > 0.1 && jetHadFrac[hbbjtidx[1]] > 0.1'
+me_cut=$(python cuts.py heavyz)
+them_cut='metFilter==1 && pfmet>170 && hbbm<500 && Sum$(jetPt>30 && abs(jetEta)<2.4)<3 && (hbbm>160 || hbbm<60) && hbbpt>120 && (nLooseMuon+nLooseElectron)==0 && jetCMVA[hbbjtidx[0]]>0.9432 && jetCMVA[hbbjtidx[1]]>-0.5884 && max(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>60 && min(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>35 && jetPt[hbbjtidx[0]]>60 && jetPt[hbbjtidx[1]]>35 && Sum$(deltaPhi(jetPhi,pfmetphi)<0.5 && jetPt>30 && abs(jetEta)<2.5)==0 && deltaPhi(hbbphi,pfmetphi)>2. && deltaPhi(trkmetphi,pfmetphi)<.5'
 
-crombie eventdump $CrombieInFilesDir/MET.root me.txt "$me_cut" run_num lumi_num event_num
-crombie eventdump /data/t3home000/dhsu/dylansVHSkims/old/MET.root them.txt "$them_cut"
+crombie eventdump $CrombieInFilesDir/MET.root me.txt "$me_cut"
+crombie eventdump /mnt/hadoop/scratch/dhsu/dylansVHSkims/MET.root them.txt "$them_cut"
 
 # Get the event numbers and sort them
 for b in "me" "them"

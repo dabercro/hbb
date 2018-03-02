@@ -7,6 +7,7 @@
 #include "btagreaders.h"
 #include "hbbfile.h"
 #include "misc.h"
+#include "debugevent.h"
 
 #include "fastjet/ClusterSequence.hh"
 
@@ -65,20 +66,22 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       output.reset(event);
 
-      // if (event.runNumber == 273158 && event.lumiNumber == 1036 && event.eventNumber == 1470813658) {
-      //   std::cout << std::endl << "Found Event in row " << entry << std::endl << std::endl;
-      //   for (auto token : met_trigger_tokens) {
-      //     if (event.triggerFired(token))
-      //       std::cout << met_trigger_paths[token] << std::endl;
-      //   }
-      //   event.pfMet.dump();
-      //   event.photons.dump();
-      //   event.muons.dump();
-      //   event.electrons.dump();
-      //   event.chsAK4Jets.dump();
-      // }
-      // else 
-      //   continue;
+      if (debug::debug) {
+        if (debug::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
+          std::cout << std::endl << "Found Event in row " << entry << std::endl << std::endl;
+          for (auto token : met_trigger_tokens) {
+            if (event.triggerFired(token))
+              std::cout << met_trigger_paths[token] << std::endl;
+          }
+          event.pfMet.dump();
+          event.photons.dump();
+          event.muons.dump();
+          event.electrons.dump();
+          event.chsAK4Jets.dump();
+        }
+        else 
+          continue;
+      }
 
       all_hist.Fill(0.0, output.mc_weight);
 
@@ -453,5 +456,6 @@ int parsed_main(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
+  debug::init();
   return parse_then_send(argc, argv, parsed_main);
 }
