@@ -1,20 +1,22 @@
 #ifndef CROMBIE_DEBUG_EVENT
 #define CROMBIE_DEBUG_EVENT
 
+#include <cstdlib>
 #include <tuple>
 #include <string>
 #include <sstream>
 
 namespace {
-  const std::string rle_string = "273502 884 1073474132";
+  char* rle = getenv("debugevent");
   std::tuple<unsigned, unsigned, unsigned long> rle_tuple;
 }
 
 namespace debug {
-  const bool debug = rle_string.size();
+  const bool debug = rle;
   void init() {
-    if (debug){
-      std::stringstream iss (rle_string);
+    if (debug) {
+      std::stringstream iss;
+      iss << rle;
       iss >> std::get<0>(rle_tuple)
           >> std::get<1>(rle_tuple)
           >> std::get<2>(rle_tuple);

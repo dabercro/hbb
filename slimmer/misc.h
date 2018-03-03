@@ -110,10 +110,11 @@ class LepInfo {
     tight = 3
   };
 
-  LepInfo (SelectionFlag flag = presel, float reliso = 0) : flag{flag}, reliso{reliso} {}
+  LepInfo (SelectionFlag flag = presel, float reliso = 0, float corrpt = 0) : flag{flag}, reliso{reliso}, corrpt{corrpt} {}
 
   SelectionFlag flag;
   float reliso;
+  float corrpt; // Rochester corrected pT (muons only)
 };
 
 #endif

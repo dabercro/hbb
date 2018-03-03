@@ -5,7 +5,7 @@
 #include <string>
 
 #include "TLorentzVector.h"
-#include "bcal/BTagCalibrationStandalone.h"
+#include "bcal/BTagCalibrationStandalone.cpp"
 
 namespace {
 

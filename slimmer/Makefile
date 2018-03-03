@@ -54,10 +54,14 @@ $(data): data/*.csv data/*.xml $(corrections)
 
 endif
 
-$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h misc.h debugevent.h \
+$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h misc.h debugevent.h roccor.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	bcal/BTagCalibrationStandalone.h bcal/BTagCalibrationStandalone.cpp
-	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp bcal/BTagCalibrationStandalone.cpp
+	roccor/RoccoR.h
+	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
+
+roccor/RoccoR.h:
+	test -d roccor || mkdir roccor
+	cd roccor; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/180302/roccor.2016.v3.tgz; tar -xf roccor.2016.v3.tgz
 
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* checkrun

@@ -2,12 +2,14 @@
 #include <iostream>
 #include <functional>
 
+#include "hbbfile.h"
+
 #include "checkrun.h"
 #include "feedpanda.h"
 #include "btagreaders.h"
-#include "hbbfile.h"
 #include "misc.h"
 #include "debugevent.h"
+#include "roccor.h"
 
 #include "fastjet/ClusterSequence.hh"
 
@@ -66,6 +68,7 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       output.reset(event);
 
+      // Defined in debugevent.h
       if (debug::debug) {
         if (debug::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
           std::cout << std::endl << "Found Event in row " << entry << std::endl << std::endl;
@@ -86,8 +89,11 @@ int parsed_main(int argc, char** argv) {
       all_hist.Fill(0.0, output.mc_weight);
 
       //// FILTER ////
-      if (not checkrun(event.runNumber, event.lumiNumber))
+      if (not checkrun(event.runNumber, event.lumiNumber)) {
+        if (debug::debug)
+          std::cout << "Good run filter: " << event.runNumber << " " << event.lumiNumber << std::endl;
         continue;
+      }
 
       // Check triggers
       for (auto token : met_trigger_tokens) {
@@ -130,6 +136,11 @@ int parsed_main(int argc, char** argv) {
         // Definitions straight from AN
         if (preselection()) {
           LepInfo::SelectionFlag stat_flag = LepInfo::SelectionFlag::presel;
+          if (debug::debug) {
+            std::cout << "Placing lepton for cleaning [pt, eta, phi, m, reliso] = ["
+                      << lep.pt() << ", " << lep.eta() << ", " << lep.phi() << ", " << lep.m() << ", "
+                      << reliso << "]" << std::endl;
+          }
           em_directions.emplace_back(lep.eta(), lep.phi());
           if (is_loose()) {
             lepvec += lep.p4();
@@ -158,11 +169,15 @@ int parsed_main(int argc, char** argv) {
       for (auto& lep : event.muons) {
 
         auto abseta = std::abs(lep.eta());
-        auto reliso = (lep.chIso + lep.nhIso + lep.phIso - 0.5 * lep.puIso)/lep.pt();
+        auto pt = lep.pt() * roccor::scale(event, lep);
+        auto reliso = lep.combIso()/pt;
+
+        if(debug::debug)
+          std::cout << "Muon with pt " << lep.pt() << "Corrected to " << pt << " has reliso " << reliso << std::endl;
 
         check_lep(stored_muons, lep, reliso,
                   [&] {   // Muon preselection
-                    return lep.pt() > 5.0 and abseta < 2.4 and
+                    return pt > 5.0 and abseta < 2.5 and
                       lep.dxy < 0.5 and lep.dz < 1.0 and reliso < 0.4;
                   },
                   [&] {   // Loose muons
@@ -183,11 +198,11 @@ int parsed_main(int argc, char** argv) {
       for (auto& lep : event.electrons) {
 
         auto abseta = std::abs(lep.eta());
-        auto reliso = (lep.chIso + lep.nhIso + lep.phIso - lep.isoPUOffset)/lep.pt();
+        auto reliso = lep.combIso()/lep.pt();
 
         check_lep(stored_eles, lep, reliso,
                   [&] {   // Electron preselection
-                    return lep.pt() > 7.0 and abseta < 2.4 and
+                    return lep.pt() > 7.0 and abseta < 2.5 and
                       lep.dxy < 0.05 and lep.dz < 0.20 and
                       reliso < 0.4;
                   },
@@ -305,8 +320,11 @@ int parsed_main(int argc, char** argv) {
       // Check if overlaps with EM object
       auto overlap_em = [&em_directions] (panda::Jet& jet) {
         for (auto& dir : em_directions) {
-          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < std::pow(0.4, 2))  // Within dR = 0.4
+          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < std::pow(0.4, 2)) {  // Within dR = 0.4
+            if (debug::debug)
+              std::cout << "Jet with pt " << jet.pt() << " cleaned" << std::endl;
             return true;
+          }
         }
         return false;
       };
@@ -402,8 +420,11 @@ int parsed_main(int argc, char** argv) {
 
       if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
-      else
+      else {
+        if (debug::debug)
+          std::cout << "No second jet. Jet 1 pT: " << output.cmva_jet1_pt << std::endl;
         continue;  // Short circuit soft activity this way, because that shit is slow.
+      }
 
       // Soft activity
       auto ellipse = Ellipse(*stored_cmvas.store[0].particle,
