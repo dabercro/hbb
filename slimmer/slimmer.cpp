@@ -18,6 +18,23 @@
 
 #include "TH1F.h"
 
+// Terminating case first is an object store, then a list of set functions to call on it
+template<typename S, typename F> void set_particles(S& store, F& function) {
+  for (auto& particle : store.store) {
+    // Just check that each particle exists
+    if (not particle.particle)
+      break;
+    // If it does, call the inner function
+    function(particle);
+  }
+}
+
+// More than two arguments is handled this way...
+template<typename S, typename F, typename... Funcs> void set_particles(S& store, F& function, Funcs... funcs) {
+  set_particles(store, function);
+  set_particles(store, funcs...);
+}
+
 int parsed_main(int argc, char** argv) {
 
   constexpr BTagCounter csv_counter {0.5426, 0.8484, 0.9535};
@@ -132,7 +149,8 @@ int parsed_main(int argc, char** argv) {
       using lazy_id = std::function<bool()>;
 
       auto check_lep = [&output, &lepvec, &em_directions] (lepstore& store, panda::Lepton& lep, float reliso,
-                                                           lazy_id preselection, lazy_id is_loose, lazy_id is_med, lazy_id is_tight) {
+                                                           lazy_id preselection, lazy_id is_loose, lazy_id is_med, lazy_id is_tight,
+                                                           float corrpt = 0) {
         // Definitions straight from AN
         if (preselection()) {
           LepInfo::SelectionFlag stat_flag = LepInfo::SelectionFlag::presel;
@@ -154,7 +172,7 @@ int parsed_main(int argc, char** argv) {
                 stat_flag = LepInfo::SelectionFlag::tight;
               }
             }
-            store.check(lep, {stat_flag, reliso});  // Only want to store leptons that are at least loose
+            store.check(lep, {stat_flag, reliso, corrpt});  // Only want to store leptons that are at least loose
           }
         }
 
@@ -169,7 +187,7 @@ int parsed_main(int argc, char** argv) {
       for (auto& lep : event.muons) {
 
         auto abseta = std::abs(lep.eta());
-        auto pt = lep.pt() * roccor::scale(event, lep);
+        auto pt = lep.pt() * roccor::scale(event, lep); // This scale() function must be called for every muon in the event for repeatable random numbers
         auto reliso = lep.combIso()/pt;
 
         if(debug::debug)
@@ -191,7 +209,8 @@ int parsed_main(int argc, char** argv) {
                       lep.nValidMuon > 0 and lep.nMatched > 1 and
                       lep.nValidPixel > 0 and lep.trkLayersWithMmt > 5 and
                       lep.dxy < 0.2 and lep.dz < 0.5;
-                  });
+                  },
+                  pt);
       }
 
       // Loop over electrons
@@ -230,17 +249,17 @@ int parsed_main(int argc, char** argv) {
 
       //// BACK TO LEP ////
 
-      auto set_lep = [&output] (std::vector<lepstore> stores) {
-        for (auto& leps : stores) {
-          for (auto& lep : leps.store) {
-            if (not lep.particle)
-              break;
-            output.set_lep(lep.branch, *lep.particle, lep.extra);
-          }
-        }
+      auto set_lep = [&output](lepstore::Particle& lep) {
+        output.set_lep(lep.branch, *lep.particle, lep.extra);
       };
+      set_particles(stored_eles, set_lep);
 
-      set_lep({stored_muons, stored_eles});
+      // Set muon also sets the corrected pt
+      auto set_muon = [&output, &set_lep] (lepstore::Particle& lep) {
+        auto muon = to_muon(lep.branch);
+        output.set_muon(muon, lep.extra.corrpt);
+      };
+      set_particles(stored_muons, set_lep, set_muon);
 
       //// GEN PARTICLES ////
 
@@ -352,71 +371,56 @@ int parsed_main(int argc, char** argv) {
         }
       }
 
-      auto set_jet = [&output, &gen_nu_map] (std::vector<jetstore*> stores) {
-        for (auto jets : stores) {
-          for (auto& jet : jets->store) {
-            if (not jet.particle)
-              break;
-            output.set_jet(jet.branch, *jet.particle);
-            auto& gen = jet.particle->matchedGenJet;
-            if (gen.isValid()) {
-              const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
-              output.set_genjet(jet.branch, *gen, gennu);
-            }
-          }
+      auto set_jet = [&output, &gen_nu_map] (jetstore::Particle& jet) {
+        output.set_jet(jet.branch, *jet.particle);
+        auto& gen = jet.particle->matchedGenJet;
+        if (gen.isValid()) {
+          const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
+          output.set_genjet(jet.branch, *gen, gennu);
         }
       };
-
-      set_jet({&stored_jets, &stored_centraljets});
+      for (auto* jet : {&stored_jets, &stored_centraljets})
+        set_particles(*jet, set_jet);
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &set_jet] (std::vector<jetstore*> stores) {
-        set_jet(stores);
-        for (auto jets : stores) {
-          for (auto& jet : jets->store) {
-            if (not jet.particle)
-              break;
+      auto set_bjet = [&output, &set_jet] (jetstore::Particle& jet) {
+        auto bjet = to_bjet(jet.branch);
+        output.set_bvert(bjet, jet.particle->secondaryVertex);
 
-            auto bjet = to_bjet(jet.branch);
-            output.set_bvert(bjet, jet.particle->secondaryVertex);
+        int nlep = 0;
+        const panda::PFCand* maxlep = nullptr;
 
-            int nlep = 0;
-            const panda::PFCand* maxlep = nullptr;
+        decltype(maxlep->pt()) maxtrkpt = 0;
 
-            decltype(maxlep->pt()) maxtrkpt = 0;
-
-            for (auto pf : jet.particle->constituents) {
-              if (pf->q()) {
-                auto pt = pf->pt();
-                maxtrkpt = std::max(maxtrkpt, pt);
-                auto pdgid = abs(pf->pdgId());
-                if (pdgid == 11 || pdgid == 13) {
-                  nlep++;
-                  if (not maxlep or pt > maxlep->pt())
-                    maxlep = pf.get();    // Dereference the panda::Ref, and then get the address
-                }
-              }
+        for (auto pf : jet.particle->constituents) {
+          if (pf->q()) {
+            auto pt = pf->pt();
+            maxtrkpt = std::max(maxtrkpt, pt);
+            auto pdgid = abs(pf->pdgId());
+            if (pdgid == 11 || pdgid == 13) {
+              nlep++;
+              if (not maxlep or pt > maxlep->pt())
+                maxlep = pf.get();    // Dereference the panda::Ref, and then get the address
             }
-
-            // Determine the flavor of the jet
-            auto flavor = BTagEntry::FLAV_UDSG;
-            auto& gen = jet.particle->matchedGenJet;
-            if (gen.isValid()) {
-              auto abspdgid = abs(gen->pdgid);
-              if (abspdgid == 5)
-                flavor = BTagEntry::FLAV_B;
-              else if (abspdgid == 4)
-                flavor = BTagEntry::FLAV_C;
-            }
-
-            // jet.extra is the BTagCalibrationReader
-            output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor, nlep, maxlep);
           }
         }
+
+        // Determine the flavor of the jet
+        auto flavor = BTagEntry::FLAV_UDSG;
+        auto& gen = jet.particle->matchedGenJet;
+        if (gen.isValid()) {
+          auto abspdgid = abs(gen->pdgid);
+          if (abspdgid == 5)
+            flavor = BTagEntry::FLAV_B;
+          else if (abspdgid == 4)
+            flavor = BTagEntry::FLAV_C;
+        }
+
+        // jet.extra is the BTagCalibrationReader
+        output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor, nlep, maxlep);
       };
 
-      // set_bjet({&stored_csvs, &stored_cmvas});
-      set_bjet({&stored_cmvas});
+      set_particles(stored_cmvas, set_jet, set_bjet);
 
       if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());

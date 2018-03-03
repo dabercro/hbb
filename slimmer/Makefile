@@ -47,21 +47,23 @@ $(checker): ${CROMBIEPATH}/scripts/findtree.py
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
-$(data): data/*.csv data/*.xml $(corrections)
+$(data): data/*.csv data/*.xml $(corrections) data/roccor.2016.v3
 	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/* || mkdir ${CMSSW_BASE}/data
 	cp data/*.csv data/*.xml ${CMSSW_BASE}/data
+	cp -r data/roccor.2016.v3 ${CMSSW_BASE}/data
 	touch $(data)
 
 endif
 
 $(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h misc.h debugevent.h roccor.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	roccor/RoccoR.h
+	roccor/RoccoR.cc
 	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
 
-roccor/RoccoR.h:
+roccor/RoccoR.cc:
 	test -d roccor || mkdir roccor
-	cd roccor; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/180302/roccor.2016.v3.tgz; tar -xf roccor.2016.v3.tgz
+	cd roccor; test ! -f roccor.2016.v3.tgz || rm roccor.2016.v3.tgz; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/180302/roccor.2016.v3.tgz; tar -xf roccor.2016.v3.tgz
+	cd data; test -f rcdata.2016.v3 || ln -s ../roccor/rcdata.2016.v3 rcdata.2016.v3
 
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* checkrun
@@ -102,4 +104,4 @@ test: $(target)
 	test -z ${CMSSW_BASE} || cut='|!cmva_hbb_gen|cmva_hbb_gen' crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(data) $(corrections)
+	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(data) $(corrections) roccor/RoccoR.cc
