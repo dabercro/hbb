@@ -47,10 +47,11 @@ $(checker): ${CROMBIEPATH}/scripts/findtree.py
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
-$(data): data/*.csv data/*.xml $(corrections) data/roccor.2016.v3
-	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/* || mkdir ${CMSSW_BASE}/data
+$(data): data/*.csv data/*.xml $(corrections) data/rcdata.2016.v3
+	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
 	cp data/*.csv data/*.xml ${CMSSW_BASE}/data
-	cp -r data/roccor.2016.v3 ${CMSSW_BASE}/data
+	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
+	cp -rH data/rcdata.2016.v3 ${CMSSW_BASE}/data
 	touch $(data)
 
 endif
