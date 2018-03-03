@@ -481,6 +481,5 @@ int parsed_main(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-  debug::init();
   return parse_then_send(argc, argv, parsed_main);
 }
