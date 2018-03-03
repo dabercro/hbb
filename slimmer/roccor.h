@@ -13,10 +13,8 @@ namespace roccor {
       return rochester.kScaleDT(muon.charge, muon.pt(), muon.eta(), muon.phi());
 
     // If new event, set the seed
-    if (event.eventNumber != lastevent) {
-      roccor_rand.SetSeed(event.eventNumber);
-      lastevent = event.eventNumber;
-    }
+    if (event.eventNumber != lastevent)
+      roccor_rand.SetSeed(lastevent = event.eventNumber);
 
     // Let's generate two number for every MC muon, no matter what
     // (Every muon *MUST* come through this function)
