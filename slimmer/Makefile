@@ -68,8 +68,8 @@ roccor/RoccoR.cc:
 checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* checkrun
 
-feedpanda.h: $(flatclass).h slimmer.cpp misc.h ${CROMBIEPATH}/scripts/feedpanda.pl
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp misc.h feedpanda.h
+feedpanda.h: $(flatclass).h slimmer.cpp misc.h ${CROMBIEPATH}/scripts/feedpanda.pl roccor.h
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp misc.h roccor.h feedpanda.h
 
 $(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
 	crombie maketree $(flatclass).txt
