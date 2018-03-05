@@ -1,5 +1,5 @@
 #include "TRandom3.h"
-#include "roccor/RoccoR.cc" // https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon
+#include "RoccoR.cc" // https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon
 
 namespace {
   RoccoR rochester {"data/rcdata.2016.v3"};
@@ -10,7 +10,8 @@ namespace {
 namespace roccor {
   double scale(panda::Event& event, panda::Muon& muon) {
     if (event.isData)
-      return rochester.kScaleDT(muon.charge, muon.pt(), muon.eta(), muon.phi());
+      return 1.0;
+      /* return rochester.kScaleDT(muon.charge, muon.pt(), muon.eta(), muon.phi()); */
 
     // If new event, set the seed
     if (event.eventNumber != lastevent)

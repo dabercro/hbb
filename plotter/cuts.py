@@ -3,7 +3,7 @@ import sys
 
 jetgood    = 'jet1_chf > 0.15 && jet1_efrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
-lepveto    = '(muon1 || ele1) == 0'
+lepveto    = 'n_lep_loose == 0'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
 unbtag_csv = 'csv_jet1_csv < 0.8484'
@@ -44,8 +44,8 @@ regionCuts = {
     'tt' : ' && '.join([
             common,
             deltaVH,
-            'n_lep_tight >= 1',
-            '(muon1_pt > 25&&muon1_tight) || (ele1_pt > 30&&ele1_tight)',
+            'n_lep_tight == 1',
+#            '(muon1_pt > 25&&muon1_tight) || (ele1_pt > 30&&ele1_tight)',
             'n_centerjet >= 4',
             btag,
             'min_dphi_metj_hard < 1.57',
@@ -54,7 +54,7 @@ regionCuts = {
             common,
             deltaVH,
             lepveto,
-            'n_centerjet < 3',
+            'n_centerjet < 4',
             unbtag,
             antiQCD,
             trkmetphi,

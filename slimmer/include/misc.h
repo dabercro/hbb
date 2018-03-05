@@ -114,7 +114,7 @@ class LepInfo {
 
   SelectionFlag flag;
   float reliso;
-  float corrpt; // Rochester corrected pT (muons only)
+  float corrpt; // Rochester corrected pT (muons) or Smeared pT (electrons)
 };
 
 #endif
