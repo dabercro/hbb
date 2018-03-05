@@ -56,24 +56,25 @@ $(data): data/*.csv data/*.xml $(corrections) data/rcdata.2016.v3
 
 endif
 
-$(target): $(flatclass).h slimmer.cpp feedpanda.h checkrun.h btagreaders.h misc.h debugevent.h roccor.h \
+$(target): slimmer.cpp include/*.h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
 	roccor/RoccoR.cc
-	g++ -I$(pandainc) -I${CROMBIEPATH} -Ibcal $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
+	g++ -I$(pandainc) -I${CROMBIEPATH} -Iinclude -Ibcal -Iroccor $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
 
 roccor/RoccoR.cc:
 	test -d roccor || mkdir roccor
 	cd roccor; test ! -f roccor.2016.v3.tgz || rm roccor.2016.v3.tgz; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/180302/roccor.2016.v3.tgz; tar -xf roccor.2016.v3.tgz
 	cd data; test -f rcdata.2016.v3 || ln -s ../roccor/rcdata.2016.v3 rcdata.2016.v3
 
-checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
-	crombie goodruns certs/* checkrun
+include/checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
+	crombie goodruns certs/* include/checkrun
 
-feedpanda.h: $(flatclass).h slimmer.cpp misc.h ${CROMBIEPATH}/scripts/feedpanda.pl roccor.h
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def $(flatclass).h slimmer.cpp misc.h roccor.h feedpanda.h
+include/feedpanda.h: include/[!f]*.h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/*.h slimmer.cpp include/feedpanda.h
 
-$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
+include/$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
 	crombie maketree $(flatclass).txt
+	mv $(flatclass).h include/
 
 $(effs): data/make_effs.py data/*eff.txt $(corrections)
 	data/make_effs.py
@@ -105,4 +106,4 @@ test: $(target)
 	test -z ${CMSSW_BASE} || cut='|!cmva_hbb_gen|cmva_hbb_gen' crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) $(flatclass).h feedpanda.h checkrun.h $(effs) $(data) $(corrections) roccor/RoccoR.cc
+	rm $(target) include/$(flatclass).h include/feedpanda.h include/checkrun.h $(effs) $(data) $(corrections) roccor/RoccoR.cc

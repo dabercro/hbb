@@ -107,7 +107,7 @@ dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
 
 ! Input jets are used to set the following variables
 "btagreaders.h"
-"bcal/BTagCalibrationStandalone.h"
+"BTagCalibrationStandalone.h"
 ! csv, cmva {
 cmva {
   <_jet{1, 2, 3}> {
