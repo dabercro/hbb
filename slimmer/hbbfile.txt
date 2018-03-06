@@ -1,4 +1,6 @@
 DEFINE REGS 3, 15, 40
+DEFINE UNCS , _ptCorrUp, _ptCorrDown
+DEFINE PT_UNC {[]_pt []_ptCorr, []_e}
 
 <cmath>
 <algorithm>
@@ -21,10 +23,8 @@ mc_weight = event.weight
 
 met = event.pfMet.pt
 metphi = event.pfMet.phi
-calomet = event.caloMet.pt
-calometphi = event.caloMet.phi
-trkmet = event.trkMet.pt
-trkmetphi = event.trkMet.phi
+$@ = event.$@@.pt | calo, trk |@ met
+$@phi = event.$@@.phi | calo, trk |@ met
 
 met_trigger/O = false
 met_filter/O = event.metFilters.pass()
@@ -65,32 +65,33 @@ n_soft {
   }
 }
 
-n_bcsv, n_bcmva, n_lep, n_lep_pog, n_pho {
-  medium
-  tight
-  +n_tau {
-    loose
+n_lep {
+  presel
+  +n_bcsv, n_bcmva, n_lep_pog, n_pho {
+    medium
+    tight
+    +n_tau {
+      loose
+    }
   }
 }
 
 {/F}
 
+! Save the highest pT of tight lepton
+tight_lep_pt
+
 ! Save two leptons of each kind
-muon {
+muon, ele {
   1, 2 {
-    muon(float corrpt)
-      corr_pt -> corrpt
+    lep(panda::Lepton& lep, LepInfo info)
+      /O = false -> true
+      1l_2m_3t/b -> info.flag
+      $ -> info.$ | reliso, corrpt
+      q/B -> lep.charge
 
-    +ele1, ele2 {
-      lep(panda::Lepton& lep, LepInfo info)
-        /O = false -> true
-        1l_2m_3t/b -> info.flag
-        reliso -> info.reliso
-        q/B -> lep.charge
-
-        $/O = false -> lep.$ | loose, medium, tight
-        $ -> lep.$() | pt, eta, phi
-    }
+      $/O = false -> lep.$ | loose, medium, tight
+      $ -> lep.$() | pt, eta, phi
   }
 }
 
@@ -113,8 +114,10 @@ cmva {
   <_jet{1, 2, 3}> {
     bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, \
          BTagEntry::JetFlavor flav, <T> nlep, panda::PFCand* lep)
+      ~~~ []_pt ~~~
       maxtrk -> maxpt
-      $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
+      $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb, ptCorrUp, ptCorrDown
+      mCorr$ -> []_m * []_ptCorr$/[]_pt | Up, Down
 
       @_sf_$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) \
                     | central, up, down |@ loose, medium, tight
@@ -139,12 +142,10 @@ cmva {
       jet(panda::Jet& jet)
         /O = false -> true
         $ -> jet.$() | pt, eta, phi, m, e
-        $ -> jet.$ | chf, nhf, cef, nef
+        $ -> jet.$ | chf, nhf, cef, nef, qgl
         $/O = false -> jet.$ | loose, tight, monojet
 
         $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
-
-        qgl -> jet.qgl
 
       genjet(panda::GenJet& gen, GenNuVec& withnu)
         gen/O = false -> true
@@ -160,14 +161,14 @@ cmva {
 
     ! Many different regressions to compare!
 
-    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
-    [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
-    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
+    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 PT_UNC | , _old |@ REGS
+    [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1 PT_UNC
+    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1 PT_UNC
 
     ! Need a more systematic name system
 
-    pt_reg$ <- []_pt_ratio$ * []_pt | _old, _old_method
-    pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ REGS
+    pt_reg$& <- []_pt_ratio$& * []_pt | _old, _old_method |& UNCS
+    pt_reg$_@& <- []_pt_ratio$_@& * []_pt | , _old |@ REGS |& UNCS
 
   }
 
@@ -175,9 +176,10 @@ cmva {
 
 "TLorentzVector.h"
   _hbb {
-    hbb(TLorentzVector& vec)   ! Hbb set by sums of jets as 4-vectors
+    hbb()
+      (TLorentzVector vec$ = vectorSum(<cmva_jet{1, 2}_{pt$, eta, phi, m$}>)) | , CorrUp, CorrDown
       /O = false -> true
-      $ -> vec.$$() | pt, eta, phi, m
+      $@ -> vec@.$$() | pt, eta, phi, m |@ , CorrUp, CorrDown
 
     hbbgen(panda::GenParticle& gen, float dr)
       gen/O = false -> true
@@ -190,12 +192,12 @@ cmva {
 
   ! Need a more systematic name system
 
-  hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
-  hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
-  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
-  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
+  hbb_m_reg$& <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$&, eta, phi, m}>) | _old, _old_method |& UNCS
+  hbb_pt_reg$& <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$&, phi}>) | _old, _old_method |& UNCS
+  hbb_m_reg$_@& <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@&, eta, phi, m}>) | , _old |@ REGS |& UNCS
+  hbb_pt_reg$_@& <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@&, phi}>) | , _old |@ REGS |& UNCS
 
-  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
+  hbb_reg$_@&_over_m <- []_hbb_m_reg$_@&/[]_hbb_m | , _old |@ REGS |& UNCS
   hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | _old, _old_method
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu

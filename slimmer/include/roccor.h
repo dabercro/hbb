@@ -10,8 +10,7 @@ namespace {
 namespace roccor {
   double scale(panda::Event& event, panda::Muon& muon) {
     if (event.isData)
-      return 1.0;
-      /* return rochester.kScaleDT(muon.charge, muon.pt(), muon.eta(), muon.phi()); */
+      return rochester.kScaleDT(muon.charge, muon.pt(), muon.eta(), muon.phi());
 
     // If new event, set the seed
     if (event.eventNumber != lastevent)

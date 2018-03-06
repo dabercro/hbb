@@ -35,6 +35,11 @@ template<typename S, typename F, typename... Funcs> void set_particles(S& store,
   set_particles(store, funcs...);
 }
 
+template<typename S, typename... Funcs> void set_particles(std::initializer_list<S*>&& stores, Funcs... funcs) {
+  for (auto* store : stores)
+    set_particles(*store, funcs...);
+}
+
 int parsed_main(int argc, char** argv) {
 
   constexpr BTagCounter csv_counter {0.5426, 0.8484, 0.9535};
@@ -87,7 +92,12 @@ int parsed_main(int argc, char** argv) {
 
       // Defined in debugevent.h
       if (debug::debug) {
+        static bool processed = false;
+        if (processed)
+          break;
+
         if (debug::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
+          processed = true;
           std::cout << std::endl << "Found Event in row " << entry << std::endl << std::endl;
           for (auto token : met_trigger_tokens) {
             if (event.triggerFired(token))
@@ -128,14 +138,6 @@ int parsed_main(int argc, char** argv) {
         output.n_pho_loose += pho.loose;
         output.n_pho_medium += pho.medium;
         output.n_pho_tight += pho.tight;
-        // if (pho.medium && pho.csafeVeto && pho.pixelVeto && pho.pt() > 25 && std::abs(pho.eta()) < 2.5)
-        if (pho.medium && pho.pt() > 175 && std::abs(pho.eta()) < 2.5 && pho.loose && pho.csafeVeto) {
-          if (debug::debug) {
-            std::cout << "Placing photon for cleaning [pt, eta, phi] = ["
-                      << pho.pt() << ", " << pho.eta() << ", " << pho.phi() << "]" << std::endl;
-          }
-          em_directions.emplace_back(pho.eta(), pho.phi());
-        }
       }
 
       //// TAUS ////
@@ -168,14 +170,17 @@ int parsed_main(int argc, char** argv) {
                       << reliso << "]" << std::endl;
           }
           em_directions.emplace_back(lep.eta(), lep.phi());
-          output.n_lep_loose++;
+          output.n_lep_presel++;
           if (is_loose()) {
+            output.n_lep_loose++;
             stat_flag = LepInfo::SelectionFlag::loose;
             if (is_med()) {
               output.n_lep_medium++;
               stat_flag = LepInfo::SelectionFlag::medium;
               if (is_tight()) {
                 lepvec += lep.p4();                         // Only want to add the one tight lepton for recoil in ttbar
+                output.tight_lep_pt = std::max(output.tight_lep_pt,
+                                               static_cast<decltype(output.tight_lep_pt)>(lep.pt()));
                 output.n_lep_tight++;
                 stat_flag = LepInfo::SelectionFlag::tight;
               }
@@ -207,18 +212,17 @@ int parsed_main(int argc, char** argv) {
                       lep.dxy < 0.5 and lep.dz < 1.0 and reliso < 0.4;
                   },
                   [&] {   // Loose muons
-                    return true;
-                    // return lep.pf and (lep.global or lep.tracker);
+                    return lep.pf and (lep.global or lep.tracker);
                   },
                   [&] {   // Medium muons; they don't seem to do anything with those
                     return true;
                   },
                   [&] {   // Tight muons; there's probably also a pT cut, but they don't give it directly
-                    return lep.tight and reliso < 0.15;
-                    // return lep.global and lep.normChi2 < 10.0 and
-                    //   lep.nValidMuon > 0 and lep.nMatched > 1 and
-                    //   lep.nValidPixel > 0 and lep.trkLayersWithMmt > 5 and
-                    //   lep.dxy < 0.2 and lep.dz < 0.5;
+                    return lep.tight and reliso < 0.15 and
+                      lep.global and lep.normChi2 < 10.0 and
+                      lep.nValidMuon > 0 and lep.nMatched > 1 and
+                      lep.nValidPixel > 0 and lep.trkLayersWithMmt > 5 and
+                      lep.dxy < 0.2 and lep.dz < 0.5;
                   });
       }
 
@@ -239,22 +243,19 @@ int parsed_main(int argc, char** argv) {
                       reliso < 0.4;
                   },
                   [&] {   // Loose electrons for conservative event classification
-                    return true;
-                    // return lep.mvaWP90;
+                    return lep.mvaWP90;
                   },
                   [&] {   // "Medium" electrons, which I define as the cut applied to match MVA training
-                    return true;
-                    // return lep.smearedPt > 15.0 and lep.hOverE < 0.09 and reliso < 0.18 and
-                    //   ((abseta < 1.4442 and lep.sieie < 0.012 and
-                    //     lep.ecalIso/lep.smearedPt < 0.4 and lep.hcalIso/lep.smearedPt < 0.25 and
-                    //     std::abs(lep.dEtaInSeed) < 0.0095 and std::abs(lep.dPhiIn) < 0.065) or
-                    //    (abseta > 1.5660 and lep.sieie < 0.033 and
-                    //     lep.ecalIso/lep.smearedPt < 0.45 and lep.hcalIso/lep.smearedPt < 0.28)
-                    //    );
+                    return pt > 15.0 and lep.hOverE < 0.09 and lep.trackIso/pt < 0.18 and
+                      ((abseta < 1.4442 and lep.sieie < 0.012 and
+                        lep.ecalIso/pt < 0.4 and lep.hcalIso/pt < 0.25 and
+                        std::abs(lep.dEtaInSeed) < 0.0095 and std::abs(lep.dPhiIn) < 0.065) or
+                       (abseta > 1.5660 and lep.sieie < 0.033 and
+                        lep.ecalIso/pt < 0.45 and lep.hcalIso/pt < 0.28)
+                       );
                   },
                   [&] {   // Tight electrons
-                    return lep.tight;
-                    // return lep.mvaWP80;
+                    return lep.mvaWP80;
                   });
       }
 
@@ -268,14 +269,7 @@ int parsed_main(int argc, char** argv) {
       auto set_lep = [&output](lepstore::Particle& lep) {
         output.set_lep(lep.branch, *lep.particle, lep.extra);
       };
-      set_particles(stored_eles, set_lep);
-
-      // Set muon also sets the corrected pt
-      auto set_muon = [&output, &set_lep] (lepstore::Particle& lep) {
-        auto muon = to_muon(lep.branch);
-        output.set_muon(muon, lep.extra.corrpt);
-      };
-      set_particles(stored_muons, set_lep, set_muon);
+      set_particles({&stored_eles, &stored_muons}, set_lep);
 
       //// GEN PARTICLES ////
 
@@ -373,8 +367,8 @@ int parsed_main(int argc, char** argv) {
         auto abseta = std::abs(jet.eta());
         output.set_countjets(hbbfile::countjets::fake, jet, abseta);
 
-        // if (not jet.loose)
-        //   continue;
+        if (not jet.loose)
+          continue;
 
         output.set_countjets(hbbfile::countjets::n, jet, abseta);
         stored_jets.check(jet);
@@ -395,8 +389,7 @@ int parsed_main(int argc, char** argv) {
           output.set_genjet(jet.branch, *gen, gennu);
         }
       };
-      for (auto* jet : {&stored_jets, &stored_centraljets})
-        set_particles(*jet, set_jet);
+      set_particles({&stored_jets, &stored_centraljets}, set_jet);
 
       // Includes getting secondary vertex and leading leptons
       auto set_bjet = [&output, &set_jet] (jetstore::Particle& jet) {
@@ -439,7 +432,7 @@ int parsed_main(int argc, char** argv) {
       set_particles(stored_cmvas, set_jet, set_bjet);
 
       if (output.cmva_jet2)
-        output.set_hbb(hbbfile::hbb::cmva_hbb, stored_cmvas.store[0].particle->p4() + stored_cmvas.store[1].particle->p4());
+        output.set_hbb(hbbfile::hbb::cmva_hbb);
       else {
         if (debug::debug)
           std::cout << "No second jet. Jet 1 pT: " << output.cmva_jet1_pt << std::endl;

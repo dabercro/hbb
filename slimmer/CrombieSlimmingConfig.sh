@@ -1,11 +1,11 @@
 inp_dir=/data/t3home000/dabercro/fullhbb
-suff='_tightleptoncounting'
+suff=''
 
 # Condor
 export CrombieExe=makehbbtree
 export CrombieInSample=pandaf/009
 export CrombieOutDir=$inp_dir/$(date +%y%m%d)$suff
-export CrombieFilesPerJob=5
+export CrombieFilesPerJob=15
 
 # Skimming
 export CrombieNLocalProcs=12
