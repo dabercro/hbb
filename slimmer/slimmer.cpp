@@ -360,17 +360,13 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet) || jet.pt() < 20.0)
+        if (overlap_em(jet) or jet.pt() < 20.0 or not jet.loose)
           continue;
 
         // Count jets (including forward)
         auto abseta = std::abs(jet.eta());
-        output.set_countjets(hbbfile::countjets::fake, jet, abseta);
+        output.set_countjets(jet, abseta);
 
-        if (not jet.loose)
-          continue;
-
-        output.set_countjets(hbbfile::countjets::n, jet, abseta);
         stored_jets.check(jet);
 
         if (abseta < 2.4) {

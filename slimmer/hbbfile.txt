@@ -31,23 +31,22 @@ met_filter/O = event.metFilters.pass()
 
 ! Count some objects
 
-n, fake {
-  countjets(panda::Jet& jet, float abseta)
+countjets(panda::Jet& jet, float abseta)
+  n_alljet -> ++
+  n_allhard -> +(jet.pt() > 30.0)
 
-    alljet -> ++
+  ~~ abseta < 2.5 ~~
+  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
-    ~~ abseta < 2.5 ~~
-    jet -> ++
-    min_dphi_metj_soft/F = 4 -> std::min([]_min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+  n_jet -> +(jet.pt() > 30.0)
 
-    ~~ jet.pt() > 30.0 ~~
-    min_dphi_metj_hard/F = 4 -> std::min([]_min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
+  ? n_jet; jetpt ? -> +(jet.ptCorr## > 30.0)
 
-    ~~ abseta < 2.4 ~~
-    centerjet -> ++
-}
+  ~~ jet.pt() > 30.0 ~~
+  min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
 
-min_dphi_metj_$/F <- n_min_dphi_metj_$ | hard, soft
+  ~~ abseta < 2.4 ~~
+  n_centerjet -> ++
 
 n_genB
 
@@ -106,7 +105,6 @@ dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
 
 ! Input jets are used to set the following variables
 "btagreaders.h"
-"BTagCalibrationStandalone.h"
 ! csv, cmva {
 cmva {
   <_jet{1, 2, 3}> {
@@ -115,10 +113,10 @@ cmva {
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
-      ? pt; jetpt; e, m ? -> jet.ptCorr   ! Indicate pt uncertainty
+      ? pt; jetpt; e, m ? -> jet.ptCorr##   ! Indicate pt uncertainty
 
-      @_sf$$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <[]_{eta, pt}>) \
-                    | central, up, down |@ loose, medium, tight
+      sf_@ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("central", flav, <[]_{eta, pt}>) |@ loose, medium, tight
+      ? sf_@; btagsf ? = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("#", flav, <[]_{eta, pt}>) |@ loose, medium, tight
 
       ~~ lep ~~
 
@@ -175,7 +173,7 @@ cmva {
 "TLorentzVector.h"
   _hbb {
     hbb()
-      #vec/TLorentzVector = TLorentzVector() -> vectorSum(<cmva_jet{1, 2}_{pt, eta, phi, m}>)  ! want to replace cmva with [^]
+      #vec/TLorentzVector = TLorentzVector() -> vectorSum(<[^]_jet{1, 2}_{pt, eta, phi, m}>)
       /O = false -> true
       $ -> []_vec.$$() | pt, eta, phi, m
 
