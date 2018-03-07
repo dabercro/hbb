@@ -3,7 +3,7 @@ import sys
 
 jetgood    = 'jet1_chf > 0.15 && jet1_efrac < 0.8'
 metcut     = 'met > 170 && met_filter == 1'
-lepveto    = 'n_lep_loose == 0'
+lepveto    = 'n_lep_medium == 0'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
 unbtag_csv = 'csv_jet1_csv < 0.8484'

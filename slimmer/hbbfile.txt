@@ -1,6 +1,4 @@
 DEFINE REGS 3, 15, 40
-DEFINE UNCS , _ptCorrUp, _ptCorrDown
-DEFINE PT_UNC {[]_pt []_ptCorr, []_e}
 
 <cmath>
 <algorithm>
@@ -114,12 +112,12 @@ cmva {
   <_jet{1, 2, 3}> {
     bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, \
          BTagEntry::JetFlavor flav, <T> nlep, panda::PFCand* lep)
-      ~~~ []_pt ~~~
       maxtrk -> maxpt
-      $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb, ptCorrUp, ptCorrDown
-      mCorr$ -> []_m * []_ptCorr$/[]_pt | Up, Down
+      $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
-      @_sf_$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <jet.{eta, pt}()>) \
+      ? pt; jetpt; e, m ? -> jet.ptCorr   ! Indicate pt uncertainty
+
+      @_sf$$ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("$", flav, <[]_{eta, pt}>) \
                     | central, up, down |@ loose, medium, tight
 
       ~~ lep ~~
@@ -161,14 +159,14 @@ cmva {
 
     ! Many different regressions to compare!
 
-    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 PT_UNC | , _old |@ REGS
-    [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1 PT_UNC
-    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1 PT_UNC
+    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
+    [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
+    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
 
     ! Need a more systematic name system
 
-    pt_reg$& <- []_pt_ratio$& * []_pt | _old, _old_method |& UNCS
-    pt_reg$_@& <- []_pt_ratio$_@& * []_pt | , _old |@ REGS |& UNCS
+    pt_reg$ <- []_pt_ratio$ * []_pt | _old, _old_method
+    pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ REGS
 
   }
 
@@ -177,9 +175,9 @@ cmva {
 "TLorentzVector.h"
   _hbb {
     hbb()
-      (TLorentzVector vec$ = vectorSum(<cmva_jet{1, 2}_{pt$, eta, phi, m$}>)) | , CorrUp, CorrDown
+      #vec/TLorentzVector = TLorentzVector() -> vectorSum(<cmva_jet{1, 2}_{pt, eta, phi, m}>)  ! want to replace cmva with [^]
       /O = false -> true
-      $@ -> vec@.$$() | pt, eta, phi, m |@ , CorrUp, CorrDown
+      $ -> []_vec.$$() | pt, eta, phi, m
 
     hbbgen(panda::GenParticle& gen, float dr)
       gen/O = false -> true
@@ -192,12 +190,12 @@ cmva {
 
   ! Need a more systematic name system
 
-  hbb_m_reg$& <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$&, eta, phi, m}>) | _old, _old_method |& UNCS
-  hbb_pt_reg$& <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$&, phi}>) | _old, _old_method |& UNCS
-  hbb_m_reg$_@& <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@&, eta, phi, m}>) | , _old |@ REGS |& UNCS
-  hbb_pt_reg$_@& <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@&, phi}>) | , _old |@ REGS |& UNCS
+  hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
+  hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
+  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
+  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
 
-  hbb_reg$_@&_over_m <- []_hbb_m_reg$_@&/[]_hbb_m | , _old |@ REGS |& UNCS
+  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
   hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | _old, _old_method
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
