@@ -29,7 +29,23 @@ plotter.AddDataFile('MET.root')
 do_limit_dump = sys.argv[1:] and False not in ['event_class' in arg for arg in sys.argv[1:]]
 cats = ['ZvvHbb']
 
+system = ''
+
+region = ''
+
+for args in sys.argv:
+    if '=' in args:
+        com, val = args.split('=')
+        if com == 'sys':
+            system = val
+        if com == 'region':
+            region = val
+
+
 def parse_regions(check=None):
+    if region:
+        return [region]
+
     regions = ['signal', 'heavyz', 'lightz', 'tt']
 
     if do_limit_dump:
@@ -38,6 +54,10 @@ def parse_regions(check=None):
 
     if True in [arg in regions for arg in sys.argv]:
         regions = [r for r in regions if r in sys.argv]
+
+    if system:
+        regions = ['%s_%s' % (r, system) for r in regions]
+
     return [r for r in regions if check is None or r in check]
 
 
@@ -78,13 +98,17 @@ def parse_plots(check=None):
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
         plots = [p for p in plots if p[0] in sys.argv]
 
+    for plot in plots:
+        plot[0] += system
+
     return [plot for plot in plots if check is None or plot[0] in check]
 
 def submit_plots(regions, plots):
     limithistsdir = 'datacards/plots' if do_limit_dump else ''
 
     # Parse everything one last time so that left plots don't slip through
-    MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], limitHistsDir=limithistsdir, parallel=False)
+    MakePlots(cats, parse_regions(regions), [[plot[0], plot[-1]] for plot in parse_plots(plots)], limitHistsDir=limithistsdir,
+              parallel=False, systematics=cuts.syst)
 
 
 def RunPlots(all_left, some_left):
@@ -103,7 +127,7 @@ def RunPlots(all_left, some_left):
 
 
 if __name__ == '__main__':
-    PreparePlots(cats, parse_regions(), [plot[:4] for plot in parse_plots()])
+    PreparePlots(cats, parse_regions(), [plot[:4] for plot in parse_plots()], systematics=cuts.syst)
 
     if 'debug' in sys.argv:
         exit(0)

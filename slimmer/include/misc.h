@@ -30,31 +30,6 @@ class GenNuVec {
   }
 };
 
-// A quick class for counting B-tags. Can be used for any other object that just compares one value
-
-class BTagCounter {
- public:
-  constexpr BTagCounter (float loose, float medium, float tight)
-    : loose(loose), medium(medium), tight(tight) {}
-
-  template <typename T>
-    void count (float value, T& loose_count, T& medium_count, T& tight_count) const {
-    if (value > loose) {
-      loose_count++;
-      if (value > medium) {
-        medium_count++;
-        if (value > tight)
-          tight_count++;
-      }
-    }
-  }
-
- private:  
-  const float loose;
-  const float medium;
-  const float tight;
-};
-
 // A class for forming an ellipse in eta-phi plane
 // Determines quickly if panda::Particles are inside it
 
@@ -103,18 +78,76 @@ Ellipse::Ellipse(panda::Particle& particle1, panda::Particle& particle2, double 
 
 class LepInfo {
  public:
-  enum SelectionFlag {
-    presel = 0,
-    loose = 1,
-    medium = 2,
-    tight = 3
-  };
+  LepInfo (float reliso = 0, float corrpt = 0) : reliso{reliso}, corrpt{corrpt} {}
 
-  LepInfo (SelectionFlag flag = presel, float reliso = 0, float corrpt = 0) : flag{flag}, reliso{reliso}, corrpt{corrpt} {}
-
-  SelectionFlag flag;
   float reliso;
   float corrpt; // Rochester corrected pT (muons) or Smeared pT (electrons)
+};
+
+// Evaluate IDs in a lazy manner and cache the response
+
+using lazy_id = std::function<bool()>;
+namespace {
+  lazy_id _default_lazy = [](){ return true; };
+}
+
+class LazyId {
+ public:
+  LazyId(lazy_id id = _default_lazy) : _id{id} {}
+
+  bool operator()() const {
+    if (not _cached) {
+      _result = _id();
+      _cached = true;
+    }
+    return _result;
+  }
+
+ private:
+  const lazy_id _id;
+  mutable bool _result {false};
+  mutable bool _cached {false};
+};
+
+// Hold multiple LazyIds
+
+class LazyCuts {
+ public:
+  LazyCuts(lazy_id presel = _default_lazy,
+           lazy_id loose = _default_lazy,
+           lazy_id medium = _default_lazy,
+           lazy_id tight = _default_lazy)
+    : presel{presel}, loose{loose}, medium{medium}, tight{tight} {}
+
+  const LazyId presel;
+  const LazyId loose;
+  const LazyId medium;
+  const LazyId tight;
+};
+
+// A quick class for counting B-tags. Can be used for any other object that just compares one value
+
+class BTagCounter {
+ public:
+  constexpr BTagCounter (float loose, float medium, float tight)
+    : loose(loose), medium(medium), tight(tight) {}
+
+  template <typename T>
+    void count (float value, T& loose_count, T& medium_count, T& tight_count) const {
+    if (value > loose) {
+      loose_count++;
+      if (value > medium) {
+        medium_count++;
+        if (value > tight)
+          tight_count++;
+      }
+    }
+  }
+
+ private:  
+  const float loose;
+  const float medium;
+  const float tight;
 };
 
 #endif

@@ -40,7 +40,7 @@ for bos in 'zw':
 
 output = 'datacards/yields_%s' % datetime.date.today().strftime('%y%m%d')
 
-expr = 'event_class_reg_40'
+expr = 'event_class'
 
 alltrees = {'data': ['data_obs'],
             'background': TreeList('MCConfig.txt'),
@@ -169,9 +169,8 @@ kmax   *   number of systematics (automatic)""")
 
         # Systematics
         write('-' * 30)
-        for syst, suffs in cuts.syst:
-            for suff in suffs:
-                write('%s%s param 0.0 1' % (syst, suff))
+        for syst in cuts.syst:
+            write('%s param 0.0 1' % syst)
 
         curs.execute('SELECT DISTINCT(region) FROM yields WHERE type = "background";')
         regions = list(curs.fetchall())

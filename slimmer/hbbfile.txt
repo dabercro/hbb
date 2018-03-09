@@ -19,34 +19,33 @@ npv_true/s = event.npvTrue
 
 mc_weight = event.weight
 
-met = event.pfMet.pt
-metphi = event.pfMet.phi
-$@ = event.$@@.pt | calo, trk |@ met
-$@phi = event.$@@.phi | calo, trk |@ met
+$@ = event.$@@.pt | pf, calo, trk |@ met
+$@phi = event.$@@.phi | pf, calo, trk |@ met
+
+met$ <- pfmet$ | , phi
 
 met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 
-{/b}
+countjets(panda::Jet& jet, float abseta)
+  jet_pt[] -> jet.pt()
+  ? jet_pt[]; jetpt ? -> jet.ptCorr##
+  jet_phi[] -> jet.phi()
+  jet_abseta[] -> abseta
 
 ! Count some objects
+{/b}
 
-countjets(panda::Jet& jet, float abseta)
   n_alljet -> ++
-  n_allhard -> +(jet.pt() > 30.0)
+  n_allhard -> +(jet_pt[] > 30.0)
+  n_jet -> +(jet_pt[] > 30.0 && abseta < 2.5)
+  n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
 
   ~~ abseta < 2.5 ~~
-  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
-
-  n_jet -> +(jet.pt() > 30.0)
-
-  ? n_jet; jetpt ? -> +(jet.ptCorr## > 30.0)
+  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())));
 
   ~~ jet.pt() > 30.0 ~~
-  min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(metphi, jet.phi())));
-
-  ~~ abseta < 2.4 ~~
-  n_centerjet -> ++
+  min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())));
 
 n_genB
 
@@ -62,17 +61,6 @@ n_soft {
   }
 }
 
-n_lep {
-  presel
-  +n_bcsv, n_bcmva, n_lep_pog, n_pho {
-    medium
-    tight
-    +n_tau {
-      loose
-    }
-  }
-}
-
 {/F}
 
 ! Save the highest pT of tight lepton
@@ -80,15 +68,20 @@ tight_lep_pt
 
 ! Save two leptons of each kind
 muon, ele {
-  1, 2 {
-    lep(panda::Lepton& lep, LepInfo info)
-      /O = false -> true
-      1l_2m_3t/b -> info.flag
-      $ -> info.$ | reliso, corrpt
-      q/B -> lep.charge
+  lep(panda::Lepton& lep, LepInfo info, LazyCuts& cuts)
+    $[] -> info.$ | reliso, corrpt
+    q[]/B -> lep.charge
 
-      $/O = false -> lep.$ | loose, medium, tight
-      $ -> lep.$() | pt, eta, phi
+    $[]/O = false -> lep.$ | loose, medium, tight
+    $[] -> lep.$() | pt, eta, phi
+    count_$/b -> +(cuts.$()) | presel, loose, medium, tight
+}
+
+n_bcsv, n_bcmva, n_pho {
+  medium
+  tight
+  +n_tau {
+    loose
   }
 }
 
@@ -101,7 +94,7 @@ muon, ele {
 recoil <- recoilvec.Mod()
 recoilphi <- recoilvec.Phi()
 
-dphi_met_trkmet <- deltaPhi(metphi, trkmetphi)
+dphi_met_trkmet <- deltaPhi(<{pf, trk}metphi>)
 
 ! Input jets are used to set the following variables
 "btagreaders.h"
@@ -134,6 +127,16 @@ cmva {
       vtx_3Derr -> vert->vtx3DeVal
       vtx_ntrk/s -> vert->ntrk
 
+    genjet(panda::GenJet& gen, GenNuVec& withnu)
+      gen/O = false -> true
+      gen_$ -> gen.$() | pt, eta, phi, m
+      gen_withnu_$ -> withnu.genvec.$$() | pt, eta, phi, m
+      gen_numnu/b -> withnu.numnu
+      gen_tWnu_overlap/O = false -> withnu.overlap
+
+      gen_$/S -> gen.$ | pdgid, partonFlavor
+      gen_$/b -> gen.$ | numB
+
     +<{, central_}jet{1, 2, 3}> {
       jet(panda::Jet& jet)
         /O = false -> true
@@ -142,17 +145,6 @@ cmva {
         $/O = false -> jet.$ | loose, tight, monojet
 
         $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
-
-      genjet(panda::GenJet& gen, GenNuVec& withnu)
-        gen/O = false -> true
-        gen_$ -> gen.$() | pt, eta, phi, m
-        gen_withnu_$ -> withnu.genvec.$$() | pt, eta, phi, m
-        gen_numnu/b -> withnu.numnu
-        gen_tWnu_overlap/O = false -> withnu.overlap
-
-        gen_$/S -> gen.$ | pdgid, partonFlavor
-        gen_$/b -> gen.$ | numB
-
     }
 
     ! Many different regressions to compare!
@@ -216,6 +208,6 @@ genboson, gen_t, gen_tbar {
 
 ! Filter
 ! These are filled before the fill function
--- debug::debug or (met_filter == 1 and (met > 150 or recoilvec.Mod() > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8) --
+-- debug::debug or (met_filter == 1 and (met > 150 or recoilvec.Mod() > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 and cmva_hbb_m < 550) --
 ! These are filled in the fill function
 ++ debug::debug or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25) ++

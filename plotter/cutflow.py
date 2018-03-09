@@ -9,7 +9,7 @@ from CrombieTools.AnalysisTools.CutflowMaker import cutflowMaker
 from ROOT import TFile
 
 
-testFile = TFile(sys.argv[-1]) if os.path.exists(sys.argv[-1]) else TFile(os.path.join(os.environ['CrombieInFilesDir'], 'MET.root'))
+testFile = TFile(sys.argv.pop()) if os.path.exists(sys.argv[-1]) else TFile(os.path.join(os.environ['CrombieInFilesDir'], 'MET.root'))
 
 cutflowMaker.AddTree(testFile.Get('events'))
 
@@ -44,15 +44,12 @@ if len(sys.argv) == 1:
     cutflowMaker.PrintCutflow()
 
 else:
-    regions = ['signal', 'heavyz', 'lightz', 'tt']
-
     for region in sys.argv[1:]:
-        if region in regions:
-            cutflowMaker.Reset()
-            for cut in ['met_trigger == 1'] + cuts.cut('ZvvHbb', region).split(' && '):
-                cutflowMaker.AddCut(cut.strip(), cut)
+        cutflowMaker.Reset()
+        for cut in ['met_trigger == 1'] + cuts.cut('ZvvHbb', region).split(' && '):
+            cutflowMaker.AddCut(cut.strip(), cut)
 
-            print '-' * 10
-            print region.upper()
-            print '-' * 10
-            cutflowMaker.PrintCutflow()
+        print '-' * 10
+        print region.upper()
+        print '-' * 10
+        cutflowMaker.PrintCutflow()
