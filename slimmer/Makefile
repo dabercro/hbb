@@ -56,7 +56,7 @@ $(data): data/*.csv data/*.xml $(corrections) data/rcdata.2016.v3
 
 endif
 
-$(target): slimmer.cpp include/*.h \
+$(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
 	roccor/RoccoR.cc
 	g++ -I$(pandainc) -I${CROMBIEPATH} -Iinclude -Ibcal -Iroccor $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp

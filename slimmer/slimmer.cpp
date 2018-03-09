@@ -349,13 +349,13 @@ int parsed_main(int argc, char** argv) {
         }
       }
 
-      auto set_jet = [&output, &gen_nu_map] (jetstore::Particle& jet) {
+      auto set_jet = [&output] (jetstore::Particle& jet) {
         output.set_jet(jet.branch, *jet.particle);
       };
       set_particles({&stored_jets, &stored_centraljets}, set_jet);
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &set_jet] (jetstore::Particle& jet) {
+      auto set_bjet = [&output, &gen_nu_map] (jetstore::Particle& jet) {
         auto bjet = to_bjet(jet.branch);
 
         int nlep = 0;
@@ -385,18 +385,15 @@ int parsed_main(int argc, char** argv) {
             flavor = BTagEntry::FLAV_B;
           else if (abspdgid == 4)
             flavor = BTagEntry::FLAV_C;
+
+          const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
+          output.set_genjet(bjet, *gen, gennu);
         }
 
         // jet.extra is the BTagCalibrationReader
         output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor, nlep, maxlep);
 
         output.set_bvert(bjet, jet.particle->secondaryVertex);
-
-        auto& gen = jet.particle->matchedGenJet;
-        if (gen.isValid()) {
-          const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
-          output.set_genjet(bjet, *gen, gennu);
-        }
       };
 
       set_particles(stored_cmvas, set_jet, set_bjet);
