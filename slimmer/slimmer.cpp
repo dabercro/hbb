@@ -41,9 +41,6 @@ template<typename S, typename... Funcs> void set_particles(std::initializer_list
 
 int parsed_main(int argc, char** argv) {
 
-  constexpr BTagCounter csv_counter {0.5426, 0.8484, 0.9535};
-  constexpr BTagCounter cmva_counter {-0.5884, 0.4432, 0.9432};
-
   hbbfile output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
 
@@ -182,6 +179,7 @@ int parsed_main(int argc, char** argv) {
         auto abseta = std::abs(lep.eta());
         auto pt = lep.pt();
         auto corrpt = pt * roccor::scale(event, lep); // This scale() function must be called for every muon in the event for repeatable random numbers
+        pt = corrpt;
         auto reliso = lep.combIso()/pt;
 
         if(debug::debug)
@@ -214,6 +212,7 @@ int parsed_main(int argc, char** argv) {
         auto abseta = std::abs(lep.eta());
         auto pt = lep.pt();
         auto corrpt = lep.smearedPt;
+        pt = corrpt;
         auto reliso = lep.combIso()/pt;
 
         if(debug::debug)
@@ -335,16 +334,18 @@ int parsed_main(int argc, char** argv) {
         if (overlap_em(jet) or jet.pt() < 20.0 or not jet.loose)
           continue;
 
+
+        LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
+        LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
+
         // Count jets (including forward)
         auto abseta = std::abs(jet.eta());
-        output.set_countjets(jet, abseta);
+        output.set_countjets(jet, abseta, cmva_cuts, csv_cuts);
 
         stored_jets.check(jet);
 
         if (abseta < 2.4) {
           stored_centraljets.check(jet);
-          csv_counter.count(jet.csv, output.n_bcsv_loose, output.n_bcsv_medium, output.n_bcsv_tight);
-          cmva_counter.count(jet.cmva, output.n_bcmva_loose, output.n_bcmva_medium, output.n_bcmva_tight);
           stored_cmvas.check(jet, &cmva_readers);
         }
       }

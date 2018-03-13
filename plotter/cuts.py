@@ -3,8 +3,7 @@ import sys
 import re
 import subprocess
 
-jetgood    = 'jet1_chf > 0.15 && jet1_efrac < 0.8'
-metcut     = 'met > 170 && met_filter == 1'
+metcut     = 'pfmet > 170 && met_filter == 1'
 lepveto    = 'n_lep_presel == 0'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
@@ -30,7 +29,6 @@ undeltaVH  = 'cmva_dphi_uh < 2.0'
 trkmetphi  = 'dphi_met_trkmet < 0.5'
 
 common = ' && '.join([
-        # jetgood,
         'cmva_hbb_m < 500',
         metcut,
         jetpt,
@@ -48,12 +46,10 @@ regionCuts = {
             common,
             deltaVH,
             'n_lep_tight == 1',
-#            '(muon1_pt > 25&&muon1_tight) || (ele1_pt > 30&&ele1_tight)',
             'n_jet >= 4',
 #            'n_centerjet >= 4',
             btag,
-#            'min_dphi_metj_hard < 1.57',
-            'min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57',
+            'min_dphi_metb < 1.57',
             ]),
     'lightz' : ' && '.join([
             common,
@@ -113,6 +109,8 @@ defaultMCWeight = ' * '.join(
      'wkfactor', 'zkfactor',
      'vh_ewk', 'sf_tt',
      'mc_weight',
+     'pdf',
+#     'post_fit_v2',
      'cmva_jet2_sf_loose',
      '(eventNumber % 2 == 0) * 2',
      ])
@@ -146,7 +144,8 @@ syst = {
     'zren': ['zkfactor'],
     'ewk': ['vh_ewk'],
     'btagsf': check_header('btagsf'),
-    'jetpt': check_header('jetpt')
+    'jetpt': check_header('jetpt'),
+    'pdf': check_header('pdf')
     }
 
 keys = list(regionCuts.keys())
@@ -204,4 +203,7 @@ if __name__ == '__main__':
         print regionCuts
         print region_weights
     else:
-        print cut('ZvvHbb', sys.argv[1])
+        if 'weight' in sys.argv:
+            print dataMCCuts(sys.argv[1], False)
+        else:
+            print cut('ZvvHbb', sys.argv[1])

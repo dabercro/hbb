@@ -113,41 +113,24 @@ class LazyId {
 
 class LazyCuts {
  public:
+  // For complex object selection
   LazyCuts(lazy_id presel = _default_lazy,
            lazy_id loose = _default_lazy,
            lazy_id medium = _default_lazy,
            lazy_id tight = _default_lazy)
     : presel{presel}, loose{loose}, medium{medium}, tight{tight} {}
 
+  // For simple working points
+  LazyCuts (float value, float loose, float medium, float tight)
+    : presel{_default_lazy},
+      loose{[=] () { return value > loose; }},
+      medium{[=] () { return value > medium; }},
+      tight{[=] () { return value > tight; }} {}
+
   const LazyId presel;
   const LazyId loose;
   const LazyId medium;
   const LazyId tight;
-};
-
-// A quick class for counting B-tags. Can be used for any other object that just compares one value
-
-class BTagCounter {
- public:
-  constexpr BTagCounter (float loose, float medium, float tight)
-    : loose(loose), medium(medium), tight(tight) {}
-
-  template <typename T>
-    void count (float value, T& loose_count, T& medium_count, T& tight_count) const {
-    if (value > loose) {
-      loose_count++;
-      if (value > medium) {
-        medium_count++;
-        if (value > tight)
-          tight_count++;
-      }
-    }
-  }
-
- private:  
-  const float loose;
-  const float medium;
-  const float tight;
 };
 
 #endif

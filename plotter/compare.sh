@@ -2,20 +2,17 @@
 
 . CrombiePlotterConfig.sh
 
-me_cut="$(python cuts.py heavyz)"
-them_cut='metFilter==1 && pfmet>170 && Sum$(jetPt>30 && abs(jetEta)<2.4)<3 && (hbbm>160 || hbbm<60) && hbbpt>120 && (nLooseMuon+Sum$(electronPt>0&&(electronSelBit&32)!=0))==0 && jetCMVA[hbbjtidx[0]]>0.9432 && jetCMVA[hbbjtidx[1]]>-0.5884 && max(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>60 && min(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>35 && jetPt[hbbjtidx[0]]>60 && jetPt[hbbjtidx[1]]>35 && Sum$(deltaPhi(jetPhi,pfmetphi)<0.5 && jetPt>30 && abs(jetEta)<2.5)==0 && deltaPhi(hbbphi,pfmetphi)>2. && deltaPhi(trkmetphi,pfmetphi)<.5'
+me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_tight == 1 && n_jet >= 4 && cmva_jet1_cmva > 0.4432 && min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57'
+them_cut="$(python cuts.py tt)"
 
-#me_cut="$(python cuts.py lightz)"
-#them_cut='metFilter==1 && pfmet>170 && Sum$(jetPt>30 && abs(jetEta)<2.4)<4 && max(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>60 && min(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>35 && jetPt[hbbjtidx[0]]>60 && jetPt[hbbjtidx[1]]>35 && hbbpt>120 && (nLooseMuon+Sum$(electronPt>0&&(electronSelBit&32)!=0))==0 && Sum$(jetCMVA>0.4432)==0 && Sum$(jetCMVA>-0.5884)>1 && jetCMVA[hbbjtidx[0]]<0.4432 && jetCMVA[hbbjtidx[1]]>-0.5884 && deltaPhi(trkmetphi,pfmetphi)<.5 && deltaPhi(hbbphi,pfmetphi)>2. && Sum$(deltaPhi(jetPhi,pfmetphi)<0.5 && jetPt>30 && abs(jetEta)<2.5)==0'
+#me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_presel == 0 && n_jet < 3 && cmva_jet1_cmva > 0.9432 && min_dphi_metj_hard > 0.5 && dphi_met_trkmet < 0.5 && (60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
+#them_cut="$(python cuts.py heavyz)"
 
-#me_cut="$(python cuts.py tt)"
-#them_cut='metFilter==1 && pfmet>170 && nJet>=4 && Sum$(jetPt>30 && abs(jetEta)<2.4)>=4 && max(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>60 && min(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>35 && jetPt[hbbjtidx[0]]>60 && jetPt[hbbjtidx[1]]>35 && deltaPhi(hbbphi,vectorSumPhi(pfmet,pfmetphi,Alt$((nTightMuon==1)*muonPt[0],0)+Alt$((nTightElectron==1)*electronPt[0],0),Alt$((nTightMuon==1)*muonPhi[0],0)+Alt$((nTightElectron==1)*electronPhi[0],0)))>2 && ((Alt$(muonSelBit[0],0)&8) || (Alt$(electronSelBit[0],0)&8)) && hbbpt>120 && Sum$(jetCMVA>0.4432)>0 && Sum$(jetCMVA>-0.5884)>1 && jetCMVA[hbbjtidx[0]]>0.4432 && jetCMVA[hbbjtidx[1]]>-0.5884 && (nTightMuon+nTightElectron)==1 && (nLooseMuon+nLooseElectron)>=1 && Sum$(deltaPhi(jetPhi,pfmetphi)<1.57 && jetPt>30 && abs(jetEta)<2.5)>0 && min(deltaPhi(jetPhi[hbbjtidx[0]],pfmetphi),deltaPhi(jetPhi[hbbjtidx[1]],pfmetphi))<1.57'
+#me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_presel == 0 && n_jet < 4 && cmva_jet1_cmva < 0.4432 && min_dphi_metj_hard > 0.5 && dphi_met_trkmet < 0.5'
+#them_cut="$(python cuts.py lightz)"
 
-#crombie eventdump /data/t3home000/dabercro/hbb/180304/MET.root me.txt "$me_cut"
-#crombie eventdump /mnt/hadoop/scratch/dhsu/dylansVHSkims/MET.root them.txt "$them_cut"
-
-crombie eventdump /home/dabercro/hbb/slimmer/sync.root me.txt "$me_cut"
-crombie eventdump /data/t3home000/bmaier/hbb/March18/CMSSW_8_0_29/src/PandaAnalysis/Flat/test/testskim.root them.txt "$them_cut"
+crombie eventdump /data/t3home000/dabercro/hbb/180308/MET.root me.txt "$me_cut"
+crombie eventdump /data/t3home000/dabercro/hbb/180312/MET.root them.txt "$them_cut"
 
 # Get the event numbers and sort them
 for b in "me" "them"

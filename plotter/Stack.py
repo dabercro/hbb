@@ -26,7 +26,7 @@ plotter.SetAxisTitleOffset(1.55)
 
 plotter.AddDataFile('MET.root')
 
-do_limit_dump = sys.argv[1:] and False not in ['event_class' in arg for arg in sys.argv[1:]]
+do_limit_dump = sys.argv[1:] and False not in ['cmva_jet2_cmva' in arg for arg in sys.argv[1:]]
 cats = ['ZvvHbb']
 
 system = ''
@@ -81,9 +81,9 @@ def parse_plots(check=None):
             ['cmva_jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
             ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
             ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
-            ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
-            ['n_lep_medium', 5, -1, 4, 'Num Medium Leptons'],
-            ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
+#            ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
+#            ['n_lep_medium', 5, -1, 4, 'Num Medium Leptons'],
+#            ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
             ['dphi_met_trkmet', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
             ['jet1_efrac', 40, 0, 1.0, 'EM Frac jet 1'],
             ['jet1_chf', 40, 0, 1.0, 'CHF Frac jet 1'],

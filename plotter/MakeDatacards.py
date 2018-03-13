@@ -18,9 +18,6 @@ uncertainties = {
     'pileup': {
         'val': 1.05
         },
-    'PDF': {
-        'val': 1.3
-        },
     'diboson': {
         'val': 1.3,
         'procs': ['vv']
@@ -40,7 +37,7 @@ for bos in 'zw':
 
 output = 'datacards/yields_%s' % datetime.date.today().strftime('%y%m%d')
 
-expr = 'event_class'
+expr = 'cmva_jet2_cmva'
 
 alltrees = {'data': ['data_obs'],
             'background': TreeList('MCConfig.txt'),

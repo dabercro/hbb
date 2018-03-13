@@ -22,16 +22,12 @@ mc_weight = event.weight
 $@ = event.$@@.pt | pf, calo, trk |@ met
 $@phi = event.$@@.phi | pf, calo, trk |@ met
 
-met$ <- pfmet$ | , phi
-
 met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 
-countjets(panda::Jet& jet, float abseta)
-  jet_pt[] -> jet.pt()
+countjets(panda::Jet& jet, float abseta, LazyCuts& cmva, LazyCuts& csv)
+  jet_$[] -> jet.$() | pt, eta
   ? jet_pt[]; jetpt ? -> jet.ptCorr##
-  jet_phi[] -> jet.phi()
-  jet_abseta[] -> abseta
 
 ! Count some objects
 {/b}
@@ -42,11 +38,14 @@ countjets(panda::Jet& jet, float abseta)
   n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
 
   ~~ abseta < 2.5 ~~
+  n_b@_$ -> +(@.$() && jet_pt[] > 25.0) | loose, medium, tight |@ cmva, csv
   min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())));
 
   ~~ jet.pt() > 30.0 ~~
   min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())));
 
+! Minimum dphi between MET and b-jet (to be declared)
+min_dphi_metb/F <- std::min(<deltaPhi(cmva_jet{1, 2}_phi, pfmetphi)>)
 n_genB
 
 n_soft {
@@ -58,6 +57,14 @@ n_soft {
       5 -> ++
       ~~ pt > 10 ~~
       10 -> ++
+  }
+}
+
+n_pho {
+  medium
+  tight
+  +n_tau {
+    loose
   }
 }
 
@@ -77,13 +84,7 @@ muon, ele {
     count_$/b -> +(cuts.$()) | presel, loose, medium, tight
 }
 
-n_bcsv, n_bcmva, n_pho {
-  medium
-  tight
-  +n_tau {
-    loose
-  }
-}
+n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
 
 ! Some calculated things
 
@@ -149,7 +150,7 @@ cmva {
 
     ! Many different regressions to compare!
 
-    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
+    #[pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
     [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
     [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
 
@@ -182,10 +183,10 @@ cmva {
 
   hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
   hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
-  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
-  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
+  #hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
+  #hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
 
-  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
+  #hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
   hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | _old, _old_method
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
@@ -204,10 +205,19 @@ genboson, gen_t, gen_tbar {
     pdgid/I -> gen.pdgid
 }
 
-[event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
+pdf = 1.0
+? pdf; pdf ? = 1.0 +- std::abs(event.genReweight.pdfDW)
+
+r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
+r$f@DW = event.genReweight.r$f@DW | 2 |@ 1, 2
+r$f@DW = event.genReweight.r$f@DW | 5 |@ 1, 5
+
+![event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
+
+[event_class; data/Classifier_m$_BDT.weights.xml]
 
 ! Filter
 ! These are filled before the fill function
--- debug::debug or (met_filter == 1 and (met > 150 or recoilvec.Mod() > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 and cmva_hbb_m < 550) --
+-- debug::debug or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 and cmva_hbb_m < 550) --
 ! These are filled in the fill function
 ++ debug::debug or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25) ++
