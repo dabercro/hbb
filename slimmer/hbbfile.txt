@@ -212,9 +212,9 @@ r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
 r$f@DW = event.genReweight.r$f@DW | 2 |@ 1, 2
 r$f@DW = event.genReweight.r$f@DW | 5 |@ 1, 5
 
-![event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
+! [event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
 
-[event_class; data/Classifier_m$_BDT.weights.xml]
+[event_class; data/Classifier_m_BDT.weights.xml]
 
 ! Filter
 ! These are filled before the fill function
