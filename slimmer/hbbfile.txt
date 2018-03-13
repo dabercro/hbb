@@ -44,8 +44,6 @@ countjets(panda::Jet& jet, float abseta, LazyCuts& cmva, LazyCuts& csv)
   ~~ jet.pt() > 30.0 ~~
   min_dphi_metj_hard/F = 4 -> std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())));
 
-! Minimum dphi between MET and b-jet (to be declared)
-min_dphi_metb/F <- std::min(<deltaPhi(cmva_jet{1, 2}_phi, pfmetphi)>)
 n_genB
 
 n_soft {
@@ -73,7 +71,6 @@ n_pho {
 ! Save the highest pT of tight lepton
 tight_lep_pt
 
-! Save two leptons of each kind
 muon, ele {
   lep(panda::Lepton& lep, LepInfo info, LazyCuts& cuts)
     $[] -> info.$ | reliso, corrpt
@@ -81,7 +78,8 @@ muon, ele {
 
     $[]/O = false -> lep.$ | loose, medium, tight
     $[] -> lep.$() | pt, eta, phi
-    count_$/b -> +(cuts.$()) | presel, loose, medium, tight
+
+    ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel, loose, medium, tight
 }
 
 n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
@@ -94,6 +92,9 @@ n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
 
 recoil <- recoilvec.Mod()
 recoilphi <- recoilvec.Phi()
+
+! Minimum dphi between MET and b-jet (to be declared)
+min_dphi_recoilb <- std::min(<deltaPhi(cmva_jet{1, 2}_phi, recoilphi)>)
 
 dphi_met_trkmet <- deltaPhi(<{pf, trk}metphi>)
 

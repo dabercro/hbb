@@ -49,7 +49,8 @@ regionCuts = {
             'n_jet >= 4',
 #            'n_centerjet >= 4',
             btag,
-            'min_dphi_metb < 1.57',
+#            'min_dphi_recoilb < 1.57',
+            'min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57',
             ]),
     'lightz' : ' && '.join([
             common,

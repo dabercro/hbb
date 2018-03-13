@@ -105,7 +105,7 @@ int parsed_main(int argc, char** argv) {
           event.electrons.dump();
           event.chsAK4Jets.dump();
         }
-        else 
+        else
           continue;
       }
 
@@ -150,7 +150,7 @@ int parsed_main(int argc, char** argv) {
       // Define default checks here
       // We'll do a lambda with no arguments for lazy evaluation (class LazyId defined in misc.h)
 
-      auto check_lep = [&output, &lepvec, &em_directions, &selected_leps]
+      auto set_lep = [&output, &lepvec, &em_directions, &selected_leps]
         (hbbfile::lep branch, panda::Lepton& lep, float reliso, float corrpt,
          LazyCuts ids) {
         // Definitions straight from AN
@@ -185,25 +185,21 @@ int parsed_main(int argc, char** argv) {
         if(debug::debug)
           std::cout << "Muon with pt " << lep.pt() << " Corrected to " << corrpt << " has reliso " << reliso << std::endl;
 
-        check_lep(hbbfile::lep::muon, lep, reliso, corrpt,
-                  {[&] {   // Muon preselection
-                      return pt > 5.0 and abseta < 2.4 and lep.loose and
-                        lep.dxy < 0.5 and lep.dz < 1.0 and reliso < 0.4;
-                    },
-                    [&] {   // Loose muons
-                      return lep.pf and (lep.global or lep.tracker);
-                    },
-                    [&] {   // Medium muons; they don't seem to do anything with those
-                      return true;
-                    },
-                    [&] {   // Tight muons; there's probably also a pT cut, but they don't give it directly
-                      return lep.tight and reliso < 0.15 and
-                        lep.global and lep.normChi2 < 10.0 and
-                        lep.nValidMuon > 0 and lep.nMatched > 1 and
-                        lep.nValidPixel > 0 and lep.trkLayersWithMmt > 5 and
-                        lep.dxy < 0.2 and lep.dz < 0.5;
-                    }
-                  });
+        set_lep(hbbfile::lep::muon, lep, reliso, corrpt,
+                {[&] {   // Muon preselection
+                    return pt > 5.0 and abseta < 2.4 and lep.loose and
+                      lep.dxy < 0.5 and lep.dz < 1.0 and reliso < 0.4;
+                  },
+                  [&] {   // Loose muons
+                    return lep.loose;
+                  },
+                  [&] {   // Medium muons; they don't seem to do anything with those
+                    return true;
+                  },
+                  [&] {   // Tight muons; there's probably also a pT cut, but they don't give it directly
+                    return lep.tight;
+                  }
+                });
       }
 
       // Loop over electrons
@@ -218,28 +214,28 @@ int parsed_main(int argc, char** argv) {
         if(debug::debug)
           std::cout << "Electron with pt " << lep.pt() << " Corrected to " << corrpt << " has reliso " << reliso << std::endl;
 
-        check_lep(hbbfile::lep::muon, lep, reliso, corrpt,
-                  {[&] {   // Electron preselection
-                      return lep.smearedPt > 7.0 and abseta < 2.4 and
-                        lep.dxy < 0.05 and lep.dz < 0.20 and
-                        reliso < 0.4;
-                    },
-                    [&] {   // Loose electrons for conservative event classification
-                      return lep.mvaWP90;
-                    },
-                    [&] {   // "Medium" electrons, which I define as the cut applied to match MVA training
-                      return pt > 15.0 and lep.hOverE < 0.09 and lep.trackIso/pt < 0.18 and
-                        ((abseta < 1.4442 and lep.sieie < 0.012 and
-                          lep.ecalIso/pt < 0.4 and lep.hcalIso/pt < 0.25 and
-                          std::abs(lep.dEtaInSeed) < 0.0095 and std::abs(lep.dPhiIn) < 0.065) or
-                         (abseta > 1.5660 and lep.sieie < 0.033 and
-                          lep.ecalIso/pt < 0.45 and lep.hcalIso/pt < 0.28)
-                         );
-                    },
-                    [&] {   // Tight electrons
-                      return lep.mvaWP80;
-                    }
-                  });
+        set_lep(hbbfile::lep::muon, lep, reliso, corrpt,
+                {[&] {   // Electron preselection
+                    return lep.smearedPt > 7.0 and abseta < 2.4 and
+                      lep.dxy < 0.05 and lep.dz < 0.20 and
+                      reliso < 0.4;
+                  },
+                  [&] {   // Loose electrons for conservative event classification
+                    return lep.mvaWP90;
+                  },
+                  [&] {   // "Medium" electrons, which I define as the cut applied to match MVA training
+                    return pt > 15.0 and lep.hOverE < 0.09 and lep.trackIso/pt < 0.18 and
+                      ((abseta < 1.4442 and lep.sieie < 0.012 and
+                        lep.ecalIso/pt < 0.4 and lep.hcalIso/pt < 0.25 and
+                        std::abs(lep.dEtaInSeed) < 0.0095 and std::abs(lep.dPhiIn) < 0.065) or
+                       (abseta > 1.5660 and lep.sieie < 0.033 and
+                        lep.ecalIso/pt < 0.45 and lep.hcalIso/pt < 0.28)
+                       );
+                  },
+                  [&] {   // Tight electrons
+                    return lep.mvaWP80;
+                  }
+                });
       }
 
       //// GEN PARTICLES ////

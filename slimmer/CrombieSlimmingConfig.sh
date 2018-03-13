@@ -1,5 +1,5 @@
 inp_dir=/data/t3home000/dabercro/fullhbb
-suff='_data_sync_v0'
+suff='_data_sync_v1'
 
 # Condor
 export CrombieExe=makehbbtree
