@@ -84,6 +84,11 @@ int parsed_main(int argc, char** argv) {
       if (entry % 10000 == 0)
         std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
       event.getEntry(*events_tree, entry);
+
+      // Set the global generator seed to the first event number of a file
+      if (not entry)
+        myrandom::gen.SetSeed(event.eventNumber);
+
       output.reset(event);
 
       // Defined in debugevent.h
@@ -161,9 +166,9 @@ int parsed_main(int argc, char** argv) {
                       << reliso << "]" << std::endl;
           }
           em_directions.emplace_back(lep.eta(), lep.phi());
+          output.set_lep(branch, lep, {reliso, corrpt}, ids);
           if (ids.loose()) {
             selected_leps.push_back(&lep);
-            output.set_lep(branch, lep, {reliso, corrpt}, ids);  // Only want to store leptons that are at least loose
             if (ids.medium() && ids.tight()) {
               lepvec += lep.p4();                         // Only want to add the one tight lepton for recoil in ttbar
               output.tight_lep_pt = std::max(output.tight_lep_pt,
@@ -191,13 +196,17 @@ int parsed_main(int argc, char** argv) {
                       lep.dxy < 0.5 and lep.dz < 1.0 and reliso < 0.4;
                   },
                   [&] {   // Loose muons
-                    return lep.loose;
+                    return lep.pf and (lep.global or lep.tracker);
                   },
                   [&] {   // Medium muons; they don't seem to do anything with those
                     return true;
                   },
                   [&] {   // Tight muons; there's probably also a pT cut, but they don't give it directly
-                    return lep.tight;
+                    return lep.tight and reliso < 0.15 and
+                      lep.global and lep.normChi2 < 10.0 and
+                      lep.nValidMuon > 0 and lep.nMatched > 1 and
+                      lep.nValidPixel > 0 and lep.trkLayersWithMmt > 5 and
+                      lep.dxy < 0.2 and lep.dz < 0.5;
                   }
                 });
       }

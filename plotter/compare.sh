@@ -11,8 +11,8 @@ them_cut="$(python cuts.py heavyz)"
 #me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_presel == 0 && n_jet < 4 && cmva_jet1_cmva < 0.4432 && min_dphi_metj_hard > 0.5 && dphi_met_trkmet < 0.5'
 #them_cut="$(python cuts.py lightz)"
 
-crombie eventdump /data/t3home000/dabercro/hbb/180308/MET.root me.txt "$me_cut"
-crombie eventdump /data/t3home000/dabercro/hbb/180313/MET.root them.txt "$them_cut"
+crombie eventdump /data/t3home000/dabercro/hbb/180308/MET.root me.txt "met_trigger && $me_cut"
+crombie eventdump /data/t3home000/dabercro/hbb/180314_sync/MET.root them.txt "met_trigger && $them_cut"
 
 # Get the event numbers and sort them
 for b in "me" "them"

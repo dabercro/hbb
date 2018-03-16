@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 
+import os
 import sys
 
 from CrombieTools.PlotTools.PlotStack import plotter, SetupFromEnv, MakePlots, PreparePlots
@@ -26,7 +27,7 @@ plotter.SetAxisTitleOffset(1.55)
 
 plotter.AddDataFile('MET.root')
 
-do_limit_dump = sys.argv[1:] and False not in ['cmva_jet2_cmva' in arg for arg in sys.argv[1:]]
+do_limit_dump = os.environ.get('blind')
 cats = ['ZvvHbb']
 
 system = ''
@@ -68,7 +69,7 @@ def parse_plots(check=None):
             ['cmva_jet1_cmva', 40, -1.0, 1.0, 'CMVA jet 1'],
             ['cmva_jet2_cmva', 40, -1.0, 1.0, 'CMVA jet 2'],
             ['cmva_dphi_uh', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
-            ['met', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
+            ['pfmet', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
             ['n_centerjet', 10, 0, 10, 'Num Jets'],
@@ -91,8 +92,8 @@ def parse_plots(check=None):
             ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
             ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
-            ['event_class_reg_3', 20, -0.5, 0.5, 'Event Classifier'],
-            ['event_class_reg_40', 20, -0.5, 0.5, 'Event Classifier'],
+#            ['event_class_reg_3', 20, -0.5, 0.5, 'Event Classifier'],
+#            ['event_class_reg_40', 20, -0.5, 0.5, 'Event Classifier'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -127,7 +128,8 @@ def RunPlots(all_left, some_left):
 
 
 if __name__ == '__main__':
-    PreparePlots(cats, parse_regions(), [plot[:4] for plot in parse_plots()], systematics=cuts.syst)
+    PreparePlots(cats, parse_regions(), [plot[:4] for plot in parse_plots()],
+                 systematics=cuts.syst, envelope=cuts.env)
 
     if 'debug' in sys.argv:
         exit(0)

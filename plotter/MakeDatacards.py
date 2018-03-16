@@ -35,9 +35,13 @@ for bos in 'zw':
     for num_b in range(3):
         keys.append(bos + 'j' + 'b'*num_b)
 
-output = 'datacards/yields_%s' % datetime.date.today().strftime('%y%m%d')
+datething = datetime.date.today().strftime('%y%m%d')
+output = 'datacards/yields_%s' % datething
 
-expr = 'cmva_jet2_cmva'
+expr = {
+    'signal': 'event_class',
+    'background': 'cmva_jet2_cmva'
+    }
 
 alltrees = {'data': ['data_obs'],
             'background': TreeList('MCConfig.txt'),
@@ -57,6 +61,8 @@ if __name__ == '__main__':
 
     if fresh:
 
+        os.system('./merge_plots.sh')
+
         curs.execute("""
                      CREATE TABLE IF NOT EXISTS yields (
                      region VARCHAR(64),
@@ -72,11 +78,21 @@ if __name__ == '__main__':
         if out_dir and not os.path.exists(out_dir):
             os.makedirs(out_dir)
 
+        hist_file = ROOT.TFile('datacards/plots/plots_dat.root.%s' % datething, 'UPDATE')
         for region in ['signal', 'tt', 'lightz', 'heavyz']:
-            hist_file = ROOT.TFile('datacards/plots/plots_dat.root')
             for sample_type in alltrees:
                 for proc in alltrees[sample_type]:
-                    hist = getattr(hist_file, '{expr}__{proc}____{reg}'.format(expr=expr, proc=proc, reg=region))
+                    hist = getattr(hist_file, '{expr}__{proc}____{reg}'.format(
+                            expr=expr.get(region, expr['background']),
+                            proc=proc, reg=region))
+                    hist_file.WriteTObject(hist.Clone(), '{proc}____{reg}'.format(proc=proc, reg=region))
+                    for syst in list(cuts.syst) + list(cuts.env):
+                        for direction in ['Up', 'Down']:
+                            outname = '{proc}____{reg}__{syst}{direction}'.format(proc=proc, reg=region, syst=syst, direction=direction)
+                            hist_file.WriteTObject(
+                                getattr(hist_file, '{expr}__{out}'.format(expr=expr.get(region, expr['background']), out=outname)),
+                                outname)
+                            
                     for i in xrange(hist.GetNbinsX()):
                         bin = i + 1
                         curs.execute('INSERT INTO yields VALUES (?, ?, ?, ?, ?, ?)',
@@ -98,7 +114,7 @@ kmax   *   number of systematics (automatic)""")
 
         # Write down shape locations
         write('-' * 30)
-        write('shapes * * datacards/plots/plots_dat.root {0}__$PROCESS____$CHANNEL {0}__$PROCESS____$CHANNEL__$SYSTEMATIC'.format(expr))
+        write('shapes * * datacards/plots/plots_dat.root.{0} $PROCESS____$CHANNEL $PROCESS____$CHANNEL__$SYSTEMATIC'.format(datething))
 
         # Write down data observations
         write('-' * 30)
@@ -165,14 +181,18 @@ kmax   *   number of systematics (automatic)""")
             write(unc_line)
 
         # Systematics
-        write('-' * 30)
         for syst in cuts.syst:
-            write('%s param 0.0 1' % syst)
+            unc_line = name_unc.format(syst) + shape_unc.format('shape')
+            for _ in backgrounds:
+                unc_line += content_fmt.format('1.0')
+            write(unc_line)
+
+        write('-' * 30)
 
         curs.execute('SELECT DISTINCT(region) FROM yields WHERE type = "background";')
         regions = list(curs.fetchall())
         for key in keys:
             for region in regions:
-                write('SF_{proc}  rateParam  {region}  {proc}  1  [0.3,3]'.format(proc=key, region=region[0]))
+                write('SF_{proc}  rateParam  {region}  {proc}  1  [0.2,5]'.format(proc=key, region=region[0]))
 
     conn.close()

@@ -23,7 +23,7 @@ def add_corr(name, expr, cut, fileName, histName, matchName='', merge=True):
     applicator.AddCorrector(corr)
 
 add_corr('sf_pu', 'npv_true', '1', 'data/puWeights_80x_37ifb.root', 'puWeights')
-add_corr('sf_met_trigger','met','1','data/metTriggerEfficiency_recoil_monojet_TH1F.root','hden_monojet_recoil_clone_passed')
+add_corr('sf_met_trigger','pfmet','1','data/metTriggerEfficiency_recoil_monojet_TH1F.root','hden_monojet_recoil_clone_passed')
 
 for pdgid, bos in [(23, 'z'), (24, 'w')]:
     add_corr('ewk_%s' % bos, 'genboson_pt', 'abs(genboson_pdgid) == %i' % pdgid, 'data/kfactors.root',

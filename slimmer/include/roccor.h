@@ -1,10 +1,8 @@
-#include "TRandom3.h"
+#include "myrandom.h"
 #include "RoccoR.cc" // https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon
 
 namespace {
   RoccoR rochester {"data/rcdata.2016.v3"};
-  unsigned long lastevent = 0;
-  TRandom3 roccor_rand;
 }
 
 namespace roccor {
@@ -12,14 +10,10 @@ namespace roccor {
     if (event.isData)
       return rochester.kScaleDT(muon.charge, muon.pt(), muon.eta(), muon.phi());
 
-    // If new event, set the seed
-    if (event.eventNumber != lastevent)
-      roccor_rand.SetSeed(lastevent = event.eventNumber);
-
     // Let's generate two number for every MC muon, no matter what
-    // (Every muon *MUST* come through this function)
-    auto roccor_rand1 = roccor_rand.Rndm();
-    auto roccor_rand2 = roccor_rand.Rndm();
+    // If syncing, use the panda::Event to access the generator
+    auto roccor_rand1 = myrandom::gen.Rndm();
+    auto roccor_rand2 = myrandom::gen.Rndm();
 
     auto& gen = muon.matchedGen;
     if (gen.isValid())

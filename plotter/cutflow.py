@@ -46,8 +46,8 @@ if len(sys.argv) == 1:
 else:
     for region in sys.argv[1:]:
         cutflowMaker.Reset()
-#        for cut in ['met_trigger == 1'] + cuts.cut('ZvvHbb', region).split(' && '):
-        for cut in cuts.cut('ZvvHbb', region).split(' && '):
+        for cut in ['met_trigger == 1'] + cuts.cut('ZvvHbb', region).split(' && '):
+#        for cut in cuts.cut('ZvvHbb', region).split(' && '):
             cutflowMaker.AddCut(cut.strip(), cut)
 
         print '-' * 10

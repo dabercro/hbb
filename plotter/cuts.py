@@ -49,8 +49,8 @@ regionCuts = {
             'n_jet >= 4',
 #            'n_centerjet >= 4',
             btag,
-#            'min_dphi_recoilb < 1.57',
-            'min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57',
+            'min_dphi_recoilb < 1.57',
+#            'min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57',
             ]),
     'lightz' : ' && '.join([
             common,
@@ -94,6 +94,7 @@ regionCuts = {
 regionCuts['common'] = common
 regionCuts['signal'] = ' && '.join([
         regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4'),
+        'event_class > -0.3'
         ])
 regionCuts['classifyHveto'] = '%s && !(%s)' % (regionCuts['classify'], regionCuts['signal'])
 
@@ -111,7 +112,7 @@ defaultMCWeight = ' * '.join(
      'vh_ewk', 'sf_tt',
      'mc_weight',
      'pdf',
-#     'post_fit_v2',
+     'post_fit_mix3',
      'cmva_jet2_sf_loose',
      '(eventNumber % 2 == 0) * 2',
      ])
@@ -146,11 +147,22 @@ syst = {
     'ewk': ['vh_ewk'],
     'btagsf': check_header('btagsf'),
     'jetpt': check_header('jetpt'),
-    'pdf': check_header('pdf')
+    'pdf': check_header('pdf'),
     }
+
+env = {
+    'renorm': ['1 + %s' % b for b in ['r1f2DW', 'r1f5DW', 'r2f1DW', 'r2f2DW', 'r5f1DW', 'r5f5DW']]
+    }
+
 
 keys = list(regionCuts.keys())
 for key in keys:
+    for envelope in env:
+        for direction in ['Up', 'Down']:
+            new_key = '%s__%s%s' % (key, envelope, direction)
+            region_weights[new_key] = region_weights.get(key, region_weights['default'])
+            regionCuts[new_key] = regionCuts[key]
+
     for systematic, affects in syst.iteritems():
         for direction in ['Up', 'Down']:
             new_key = '%s__%s%s' % (key, systematic, direction)
