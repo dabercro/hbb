@@ -27,7 +27,7 @@ plotter.SetAxisTitleOffset(1.55)
 
 plotter.AddDataFile('MET.root')
 
-do_limit_dump = os.environ.get('blind')
+do_limit_dump = os.environ.get('syst')
 cats = ['ZvvHbb']
 
 system = ''

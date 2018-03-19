@@ -112,23 +112,26 @@ defaultMCWeight = ' * '.join(
      'vh_ewk', 'sf_tt',
      'mc_weight',
      'pdf',
-     'post_fit_mix3',
-     'cmva_jet2_sf_loose',
-     '(eventNumber % 2 == 0) * 2',
+     'btag_sf',
+#     'cmva_jet2_sf_loose',
+     os.environ.get('post', '1'),           # Postfit expression
      ])
 
 # Additional weights applied to certain control regions
 
 mettrigger = 'met_trigger'
 
-signal = os.environ.get('signal', '0')
+signal = os.environ.get('signal', '0')      # Signal cut
 
 region_weights = { # key : [Data,MC]
-    'signal'   : [signal, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_tight'])],
-    'heavyz'   : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_tight'])],
-    'lightz'   : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_loose'])],
-    'multijet' : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_loose'])],
-    'tt' : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_medium'])],
+    'signal'   : [signal, ' * '.join([defaultMCWeight,
+#                                      'cmva_jet1_sf_tight',
+                                      '(eventNumber % 2 == 0) * 2'
+                                      ])],
+#    'heavyz'   : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_tight'])],
+#    'lightz'   : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_loose'])],
+#    'multijet' : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_loose'])],
+#    'tt' : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_medium'])],
     'classify'  : [signal, defaultMCWeight],
     'default'  : [mettrigger, defaultMCWeight],
     }
@@ -139,16 +142,22 @@ check_header = lambda systematic: subprocess.check_output(
     'perl -ne \'/^\s*(\w*)_' + systematic + 'Up\s\=/ && print"$1\n"\' ../slimmer/include/hbbfile.h | sort | uniq', shell=True
     ).split('\n')[:-1]
 
+btagsf_branches = check_header('btagsf')
+
 syst = {
     'wfact': ['wkfactor'],
     'wren': ['wkfactor'],
     'zfact': ['zkfactor'],
     'zren': ['zkfactor'],
     'ewk': ['vh_ewk'],
-    'btagsf': check_header('btagsf'),
-    'jetpt': check_header('jetpt'),
-    'pdf': check_header('pdf'),
+#    'btagsf': btagsf_branches,
     }
+syst.update(
+    {key: check_header(key) for key in
+     ['jetpt', 'pdf', 'jes',
+      'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
+      'lf', 'hf', 'cferr1', 'cferr2']
+     })
 
 env = {
     'renorm': ['1 + %s' % b for b in ['r1f2DW', 'r1f5DW', 'r2f1DW', 'r2f2DW', 'r5f1DW', 'r5f5DW']]
@@ -176,6 +185,30 @@ for key in keys:
 
             region_weights[new_key] = newweight
             regionCuts[new_key] = newcut
+
+#for key in keys:
+#    origweight = list(region_weights.get(key, region_weights['default']))
+#    pt_low = 20
+#    for pt_up in [50, 80, 120, 200, 300, 400, 500, 700, 1000]:
+#        eta_low = 0.0
+#        for eta_up in [0.5, 1.5, 2.5]:
+#            for direction in ['Up', 'Down']:
+#                newsyst = 'btagsfp%se%s' % (pt_up, str(eta_up).replace('.', 'p'))
+#                syst[newsyst] = []
+#                new_key = '%s__%s%s' % (key, newsyst, direction)
+#
+#                newweight = re.sub(r'((cmva_jet\d)_sf_[a-z]+)',
+#                                   r'(\1 + ((\1_btagsf{direction} - \1) * (\2_pt > {pt_low} && \2_pt < {pt_up} && abs(\2_eta) > {eta_low} && abs(\2_eta) < {eta_up})))',
+#                                   origweight[1])
+#
+#                region_weights[new_key] = [origweight[0],
+#                                           newweight.format(direction=direction,
+#                                                            pt_low=pt_low, pt_up=pt_up,
+#                                                            eta_low=eta_low, eta_up=eta_up)]
+#                regionCuts[new_key] = regionCuts[key]
+#
+#            eta_low = eta_up
+#        pt_low = pt_up
 
 
 # Do not change the names of these functions or required parameters

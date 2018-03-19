@@ -104,20 +104,39 @@ min_dphi_recoilb <- std::min(<deltaPhi(cmva_jet{1, 2}_phi, recoilphi)>)
 
 dphi_met_trkmet <- deltaPhi(<{pf, trk}metphi>)
 
-! Input jets are used to set the following variables
 "btagreaders.h"
-! csv, cmva {
+bsf(panda::Jet& jet)
+  ! Hold some values temporarily. Should implement local variables some day
+  (flavor = btag::flavor(jet.matchedGenJet))
+  (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
+
+DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
+
+  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
+
+  bjet_$[] -> jet.$() | pt, eta
+  bjet_sf[] -> nom_sf
+
+  ! Systematics can be zero sometimes, so we want to evaluate that first
+  ? bjet_sf[]; $ ? -> (tmp_sf_#$ ? tmp_sf_#$ : nom_sf) | BSYST
+
+  btag_sf = 1 -> *(bjet_sf[])
+
+! Input jets are used to set the following variables
 cmva {
   <_jet{1, 2, 3}> {
-    bjet(panda::Jet& jet, float maxpt, BCalReaders& readers, \
-         BTagEntry::JetFlavor flav, <T> nlep, panda::PFCand* lep)
+    bjet(panda::Jet& jet, float maxpt, <T> nlep, panda::PFCand* lep)
+
+      (flav = btag::flavor(jet.matchedGenJet))
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
       ? pt; jetpt; e, m ? -> jet.ptCorr##   ! Indicate pt uncertainty
 
-      sf_@ = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("central", flav, <[]_{eta, pt}>) |@ loose, medium, tight
-      ? sf_@; btagsf ? = 1 -> readers.at(BTagEntry::OP_@@@).eval_auto_bounds("#", flav, <[]_{eta, pt}>) |@ loose, medium, tight
+      sf = 1 -> btag::cmva_reader.eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>)
+
+      sf_@ = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
+      ? sf_@; btagsf ? = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("#", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
 
       ~~ lep ~~
 
@@ -202,6 +221,22 @@ cmva {
   daughter_deta <- std::abs([]_jet1_eta - []_jet2_eta)
   daughter_dphi <- deltaPhi(<[]_jet{1, 2}_phi>)
   daughter_dR <- deltaR(<[]_jet{1, 2}_{eta, phi}>)
+}
+
+{/b}
+
+countfat(panda::FatJet& jet)
+  n_fatjet -> +(jet.pt() > 200)
+  ? n_fatjet; jetpt ? -> +(jet.ptCorr## > 200)
+
+{/F}
+
+! Fat jets are simple for now
+fatjet1 {
+  fatjet(panda::FatJet& jet)
+    $ -> jet.$() | pt, eta, phi, m, e
+    $/O = false -> jet.$ | loose, tight
+    $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}>
 }
 
 genboson, gen_t, gen_tbar {

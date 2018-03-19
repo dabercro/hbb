@@ -85,7 +85,11 @@ if __name__ == '__main__':
                     hist = getattr(hist_file, '{expr}__{proc}____{reg}'.format(
                             expr=expr.get(region, expr['background']),
                             proc=proc, reg=region))
-                    hist_file.WriteTObject(hist.Clone(), '{proc}____{reg}'.format(proc=proc, reg=region))
+                    hist_file.WriteTObject(hist, '{proc}____{reg}'.format(proc=proc, reg=region))
+                    for direction in ['Up', 'Down']:
+                        # Stat uncertainties
+                        pass
+
                     for syst in list(cuts.syst) + list(cuts.env):
                         for direction in ['Up', 'Down']:
                             outname = '{proc}____{reg}__{syst}{direction}'.format(proc=proc, reg=region, syst=syst, direction=direction)
@@ -194,5 +198,7 @@ kmax   *   number of systematics (automatic)""")
         for key in keys:
             for region in regions:
                 write('SF_{proc}  rateParam  {region}  {proc}  1  [0.2,5]'.format(proc=key, region=region[0]))
+
+        write('* autoMCStats 1 1 1')
 
     conn.close()

@@ -313,7 +313,7 @@ int parsed_main(int argc, char** argv) {
       //// JETS ////
 
       // We want the two jets with the highest CSV and CMVA, and carry along the calibrator
-      using jetstore = ObjectStore<hbbfile::jet, panda::Jet, const BCalReaders*>;
+      using jetstore = ObjectStore<hbbfile::jet, panda::Jet>;
 
       jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
                            [](panda::Jet* j) {return j->pt();});
@@ -323,9 +323,9 @@ int parsed_main(int argc, char** argv) {
                             [](panda::Jet* j) {return j->cmva;});
 
       // Check if overlaps with EM object
-      auto overlap_em = [&em_directions] (panda::Jet& jet) {
+      auto overlap_em = [&em_directions] (panda::Particle& jet, double dr2) {
         for (auto& dir : em_directions) {
-          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < std::pow(0.4, 2)) {  // Within dR = 0.4
+          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < dr2) {
             if (debug::debug)
               std::cout << "Jet with pt " << jet.pt() << " cleaned" << std::endl;
             return true;
@@ -336,7 +336,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet) or jet.pt() < 20.0 or not jet.loose)
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not jet.loose)
           continue;
 
 
@@ -350,8 +350,9 @@ int parsed_main(int argc, char** argv) {
         stored_jets.check(jet);
 
         if (abseta < 2.4) {
+          output.set_bsf(jet);
           stored_centraljets.check(jet);
-          stored_cmvas.check(jet, &cmva_readers);
+          stored_cmvas.check(jet);
         }
       }
 
@@ -383,26 +384,37 @@ int parsed_main(int argc, char** argv) {
         }
 
         // Determine the flavor of the jet
-        auto flavor = BTagEntry::FLAV_UDSG;
         auto& gen = jet.particle->matchedGenJet;
         if (gen.isValid()) {
-          auto abspdgid = abs(gen->pdgid);
-          if (abspdgid == 5)
-            flavor = BTagEntry::FLAV_B;
-          else if (abspdgid == 4)
-            flavor = BTagEntry::FLAV_C;
-
           const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
           output.set_genjet(bjet, *gen, gennu);
         }
 
-        // jet.extra is the BTagCalibrationReader
-        output.set_bjet(bjet, *jet.particle, maxtrkpt, *jet.extra, flavor, nlep, maxlep);
-
+        output.set_bjet(bjet, *jet.particle, maxtrkpt, nlep, maxlep);
         output.set_bvert(bjet, jet.particle->secondaryVertex);
       };
 
       set_particles(stored_cmvas, set_jet, set_bjet);
+
+      //// FAT JETS ////
+
+      using fatstore = ObjectStore<hbbfile::fatjet, panda::FatJet>;
+      fatstore stored_fat({hbbfile::fatjet::fatjet1},
+                          [](panda::FatJet* j) {return j->pt();});
+
+      for (auto& fatjet : event.chsAK8Jets) {
+        if (overlap_em(fatjet, std::pow(0.8, 2)) or not fatjet.monojet or not fatjet.loose or std::abs(fatjet.eta()) > 2.4)
+          continue;
+        output.set_countfat(fatjet);
+        stored_fat.check(fatjet);
+      }
+
+      auto set_fatjet = [&output] (fatstore::Particle& fat) {
+        output.set_fatjet(fat.branch, *fat.particle);
+      };
+      set_particles(stored_fat, set_fatjet);
+
+      //// HIGGS ////
 
       if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb);
