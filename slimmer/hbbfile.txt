@@ -1,4 +1,5 @@
-DEFINE REGS 3, 15, 40
+! DEFINE REGS 3, 15, 40
+DEFINE REGS 3, 40
 
 <cmath>
 <algorithm>
@@ -27,7 +28,7 @@ met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, LazyCuts& cmva, LazyCuts& csv)
   jet_$[] -> jet.$() | pt, eta
-  ? jet_pt[]; jetpt ? -> jet.ptCorr##
+  ? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
 {/b}
@@ -110,17 +111,26 @@ bsf(panda::Jet& jet)
   (flavor = btag::flavor(jet.matchedGenJet))
   (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
 
+  bjet_$[] -> jet.$() | pt, eta
+  ? bjet_pt[] ; jetpt ? -> jet.ptCorr%%
+  bjet_sf[] -> nom_sf
+
+  #bsf_eff -> btag::eff(<bjet_{pt, eta}[]>, flavor)
+
 DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
   (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
 
-  bjet_$[] -> jet.$() | pt, eta
-  bjet_sf[] -> nom_sf
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-  ? bjet_sf[]; $ ? -> (tmp_sf_#$ ? tmp_sf_#$ : nom_sf) | BSYST
+  ? bjet_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
 
   btag_sf = 1 -> *(bjet_sf[])
+
+  bsf_num -> +(bjet_sf[] * bsf_eff)
+  bsf_denom -> +(bsf_eff)
+
+  beff_sf <- bsf_num/bsf_denom
 
 ! Input jets are used to set the following variables
 cmva {
@@ -131,12 +141,12 @@ cmva {
       maxtrk -> maxpt
       $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
 
-      ? pt; jetpt; e, m ? -> jet.ptCorr##   ! Indicate pt uncertainty
+      ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
       sf = 1 -> btag::cmva_reader.eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>)
 
       sf_@ = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
-      ? sf_@; btagsf ? = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("#", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
+      ? sf_@; btagsf ? = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("%", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
 
       ~~ lep ~~
 
@@ -176,7 +186,7 @@ cmva {
 
     ! Many different regressions to compare!
 
-    #[pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
+    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
     [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
     [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
 
@@ -209,10 +219,10 @@ cmva {
 
   hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
   hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
-  #hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
-  #hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
+  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
+  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
 
-  #hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
+  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
   hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | _old, _old_method
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
@@ -227,16 +237,22 @@ cmva {
 
 countfat(panda::FatJet& jet)
   n_fatjet -> +(jet.pt() > 200)
-  ? n_fatjet; jetpt ? -> +(jet.ptCorr## > 200)
+  ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
 
 {/F}
+
+"corrections.h"
 
 ! Fat jets are simple for now
 fatjet1 {
   fatjet(panda::FatJet& jet)
     $ -> jet.$() | pt, eta, phi, m, e
-    $/O = false -> jet.$ | loose, tight
-    $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}>
+    ? pt; jetpt ? -> jet.ptCorr%%
+    $/O = false -> jet.$ | loose, tight, monojet
+    $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>, double_sub
+
+    mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
+
 }
 
 genboson, gen_t, gen_tbar {
@@ -254,9 +270,8 @@ r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
 r$f@DW = event.genReweight.r$f@DW | 2 |@ 1, 2
 r$f@DW = event.genReweight.r$f@DW | 5 |@ 1, 5
 
-! [event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
-
-[event_class; data/Classifier_m_BDT.weights.xml]
+[event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
+! [event_class; data/Classifier_m_BDT.weights.xml]
 
 ! Filter
 ! These are filled before the fill function

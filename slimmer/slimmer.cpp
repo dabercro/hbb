@@ -336,7 +336,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not jet.loose)
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not jet.loose)
           continue;
 
 
@@ -402,7 +402,7 @@ int parsed_main(int argc, char** argv) {
       fatstore stored_fat({hbbfile::fatjet::fatjet1},
                           [](panda::FatJet* j) {return j->pt();});
 
-      for (auto& fatjet : event.chsAK8Jets) {
+      for (auto& fatjet : event.puppiAK8Jets) {
         if (overlap_em(fatjet, std::pow(0.8, 2)) or not fatjet.monojet or not fatjet.loose or std::abs(fatjet.eta()) > 2.4)
           continue;
         output.set_countfat(fatjet);

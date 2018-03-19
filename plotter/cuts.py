@@ -94,7 +94,7 @@ regionCuts = {
 regionCuts['common'] = common
 regionCuts['signal'] = ' && '.join([
         regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4'),
-        'event_class > -0.3'
+        'event_class > -0.2'
         ])
 regionCuts['classifyHveto'] = '%s && !(%s)' % (regionCuts['classify'], regionCuts['signal'])
 
@@ -112,7 +112,7 @@ defaultMCWeight = ' * '.join(
      'vh_ewk', 'sf_tt',
      'mc_weight',
      'pdf',
-     'btag_sf',
+     'beff_sf',
 #     'cmva_jet2_sf_loose',
      os.environ.get('post', '1'),           # Postfit expression
      ])
@@ -154,7 +154,8 @@ syst = {
     }
 syst.update(
     {key: check_header(key) for key in
-     ['jetpt', 'pdf', 'jes',
+     ['jetpt',
+      'pdf', 'jes',
       'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
       'lf', 'hf', 'cferr1', 'cferr2']
      })

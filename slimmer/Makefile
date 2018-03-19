@@ -7,6 +7,7 @@ testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 corrections = data/corrections.d
 effs = data/btag_effs.root
 data = data/data.d
+rootdata = data/puppiCorr.root data/btag_effs.root 
 
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
@@ -47,9 +48,9 @@ $(checker): ${CROMBIEPATH}/scripts/findtree.py
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
-$(data): data/*.csv data/*.xml $(corrections) data/rcdata.2016.v3
+$(data): data/*.csv data/*.xml $(rootdata) $(corrections) data/rcdata.2016.v3
 	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
-	cp data/*.csv data/*.xml ${CMSSW_BASE}/data
+	cp data/*.csv data/*.xml $(rootdata) ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
 	cp -rH data/rcdata.2016.v3 ${CMSSW_BASE}/data
 	touch $(data)

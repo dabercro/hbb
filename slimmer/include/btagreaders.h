@@ -9,6 +9,9 @@
 
 #include "PandaTree/Objects/interface/Event.h"
 
+#include "TH2F.h"
+#include "TFile.h"
+
 namespace {
 
   /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
@@ -33,6 +36,16 @@ namespace {
       cmva_reader.load(cmva_calib, flav, "iterativefit");
     return cmva_reader;
   }
+
+  auto effs = [] () {
+    TFile infile {"data/btag_effs.root"};
+    std::map<BTagEntry::JetFlavor, TH2F> output {
+      {BTagEntry::FLAV_UDSG, *(static_cast<TH2F*>(infile.Get("lfeff")))},
+      {BTagEntry::FLAV_C, *(static_cast<TH2F*>(infile.Get("ceff")))},
+      {BTagEntry::FLAV_B, *(static_cast<TH2F*>(infile.Get("beff")))}
+    };
+    return output;
+  } ();
 }
 
 namespace btag {
@@ -56,6 +69,11 @@ namespace btag {
         flavor = BTagEntry::FLAV_C;
     }
     return flavor;
+  }
+
+  double eff(const double jetpt, const double jeteta, const BTagEntry::JetFlavor flav) {
+    auto& hist = effs.at(flav);
+    return hist.GetBinContent(hist.FindBin(std::min(jetpt, 950.0), std::abs(jeteta)));
   }
 
 }
