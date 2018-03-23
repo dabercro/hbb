@@ -3,6 +3,8 @@ import sys
 import re
 import subprocess
 
+from CrombieTools import Nminus1Cut
+
 metcut     = 'pfmet > 170 && met_filter == 1'
 lepveto    = 'n_lep_presel == 0'
 
@@ -29,32 +31,40 @@ undeltaVH  = 'cmva_dphi_uh < 2.0'
 trkmetphi  = 'dphi_met_trkmet < 0.5'
 
 common = ' && '.join([
-        'cmva_hbb_m < 500',
         metcut,
-        jetpt,
-        lbtag,
-        hbbpt
         ])
 
 categoryCuts = {
-    'ZvvHbb' : '1'
+    'inclusive': ' && '.join([
+            'cmva_hbb_m < 500',
+            jetpt,
+            lbtag,
+            deltaVH,
+            hbbpt,
+            ]),
+    'boosted': ' && '.join([
+            'fatjet1_double_sub > 0.8',
+            'fatjet1_pt > 250',
+            '(!cmva_jet2 || cmva_jet2_cmva < -0.5884)',
+            ])
     }
+categoryCuts['resolved'] = ' && '.join([
+        categoryCuts['inclusive'],
+        '(%s)' % ' || '.join(['!(%s)' % cut for cut in categoryCuts['boosted'].split(' && ')])
+        ])
+
 
 regionCuts = {
-    'nocut' : ' && '.join([metcut, jetpt]),
+    'nocut' : common,
     'tt' : ' && '.join([
             common,
-            deltaVH,
             'n_lep_tight == 1',
             'n_jet >= 4',
-#            'n_centerjet >= 4',
             btag,
             'min_dphi_recoilb < 1.57',
-#            'min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57',
             ]),
     'lightz' : ' && '.join([
             common,
-            deltaVH,
             lepveto,
             'n_jet < 4',
             unbtag,
@@ -63,7 +73,6 @@ regionCuts = {
             ]),
     'heavyz' : ' && '.join([
             common,
-            deltaVH,
             lepveto,
             'n_jet < 3',
             tbtag,
@@ -71,32 +80,12 @@ regionCuts = {
             trkmetphi,
             mjjveto
             ]),
-    'multijet' : ' && '.join([
-            common,
-            undeltaVH,
-            lepveto,
-            'min_dphi_metj_hard < 0.4'
-            ]),
-    'classify' : ' && '.join([
-            'met_filter == 1',
-            'met > 150',
-            'jet1_chf > 0.15',
-            'jet1_efrac < 0.8',
-            'jet1_pt > 40',
-            'jet2_pt > 30',
-            'cmva_hbb_pt > 100',
-            'cmva_jet2_cmva > -0.6',
-            'n_jet < 5',
-            'min_dphi_metj_hard > 0.5'
-            ])
     }
 
-regionCuts['common'] = common
 regionCuts['signal'] = ' && '.join([
         regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4'),
-        'event_class > -0.2'
+        'event_class > -0.3'
         ])
-regionCuts['classifyHveto'] = '%s && !(%s)' % (regionCuts['classify'], regionCuts['signal'])
 
 # Making selection of multiple entries
 
@@ -132,7 +121,6 @@ region_weights = { # key : [Data,MC]
 #    'lightz'   : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_loose'])],
 #    'multijet' : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_loose'])],
 #    'tt' : [mettrigger, ' * '.join([defaultMCWeight, 'cmva_jet1_sf_medium'])],
-    'classify'  : [signal, defaultMCWeight],
     'default'  : [mettrigger, defaultMCWeight],
     }
 
@@ -228,7 +216,15 @@ def cut(category='', region=''):
     if 'raw' in regions:
         cut = cut.replace('_reg_old', '')
 
-    return cut
+    if category == 'boosted':
+        cut = Nminus1Cut(
+            Nminus1Cut(cut.replace('cmva_dphi_uh', 'deltaPhi(fatjet1_phi, recoilphi)').\
+                           replace('cmva_hbb_m_reg_old', 'fatjet1_mSD_corr').\
+                           replace('cmva_hbb', 'fatjet1'),
+                       'cmva_jet1_cmva'),
+            'min_dphi_recoilb')
+
+    return '%s && %s' % (cut, categoryCuts[category])
 
 def dataMCCuts(region, isData):
     key = 'default'
@@ -253,4 +249,4 @@ if __name__ == '__main__':
         if 'weight' in sys.argv:
             print dataMCCuts(sys.argv[1], False)
         else:
-            print cut('ZvvHbb', sys.argv[1])
+            print cut(sys.argv[1], sys.argv[2])

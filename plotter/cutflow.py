@@ -44,13 +44,13 @@ if len(sys.argv) == 1:
     cutflowMaker.PrintCutflow()
 
 else:
-    for region in sys.argv[1:]:
-        cutflowMaker.Reset()
-        for cut in ['met_trigger == 1'] + cuts.cut('ZvvHbb', region).split(' && '):
-#        for cut in cuts.cut('ZvvHbb', region).split(' && '):
-            cutflowMaker.AddCut(cut.strip(), cut)
+    for cat in ['boosted', 'resolved']:
+        for region in sys.argv[1:]:
+            cutflowMaker.Reset()
+            for cut in ['met_trigger == 1'] + cuts.cut(cat, region).split(' && '):
+                cutflowMaker.AddCut(cut.strip(), cut)
 
-        print '-' * 10
-        print region.upper()
-        print '-' * 10
-        cutflowMaker.PrintCutflow()
+            print '-' * 30
+            print ' ' * 5, cat.upper(), region.upper()
+            print '-' * 30
+            cutflowMaker.PrintCutflow()

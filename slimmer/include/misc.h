@@ -6,8 +6,16 @@
 
 #include "TLorentzVector.h"
 
-#include "PandaTree/Objects/interface/Event.h"
 #include "PlotTools/interface/KinematicFunctions.h"
+
+#include "checkrun.h"
+#include "feedpanda.h"
+#include "btagreaders.h"
+#include "debugevent.h"
+#include "roccor.h"
+#include "corrections.h"
+#include "softcalc.h"
+#include "lazy.h"
 
 // Hold information about genjet vectors with neutrinos added
 
@@ -30,50 +38,6 @@ class GenNuVec {
   }
 };
 
-// A class for forming an ellipse in eta-phi plane
-// Determines quickly if panda::Particles are inside it
-
-class Ellipse {
- public:
-  // Create ellipse defined by two jets as foci
-  Ellipse (panda::Particle&, panda::Particle&, double add = 0.4);
-  // Check if a particle is inside this ellipse
-  inline bool inside (panda::Particle& part) {
-    return (deltaR(part.eta(), part.phi(), eta1, phi1) + deltaR(part.eta(), part.phi(), eta2, phi2) <= foci_dist);
-    /* and (deltaPhi(part.phi(), center_phi) < deltaPhi(part.phi(), outside_phi)); */ // This is what we should have to pick a side
-    // Old analysis didn't do this. Uncomment all the /* */ stuff to do this right (or at least better).
-  }
-
- private:
-
-  // Locations of foci
-  double eta1;
-  double phi1;
-  double eta2;
-  double phi2;
-
-  // Points must be closer in phi to center phi than outside_phi to be included
-  // This may lead to clipping of ellipse when dphi of jets are close to pi,
-  // but goal is questionable then anyway
-  /* double center_phi; */
-  /* double outside_phi; */
-
-  // Sum of distance of outer point from the two foci
-  double foci_dist;
-};
-
-Ellipse::Ellipse(panda::Particle& particle1, panda::Particle& particle2, double add)
-: eta1{particle1.eta()}, phi1{make_pm(particle1.phi())},
-  eta2{particle2.eta()}, phi2{make_pm(particle2.phi())},
-  foci_dist{deltaR(particle1.eta(), particle1.phi(), particle2.eta(), particle2.phi()) + 2.0 * add}
-{
-  /* bool crosses_seam = (deltaPhi(phi1, phi2) < std::abs(phi1 - phi2)); */
-
-  /* auto avg = (phi1 + phi2) / 2.0; */
-  /* center_phi = crosses_seam ? make_pm(avg + crombie::pi) : avg; */
-  /* outside_phi = make_pm(center_phi + crombie::pi); */
-}
-
 // Define a structure to hold all additional variables about leptons we want to save
 
 class LepInfo {
@@ -84,53 +48,5 @@ class LepInfo {
   float corrpt; // Rochester corrected pT (muons) or Smeared pT (electrons)
 };
 
-// Evaluate IDs in a lazy manner and cache the response
-
-using lazy_id = std::function<bool()>;
-namespace {
-  lazy_id _default_lazy = [](){ return true; };
-}
-
-class LazyId {
- public:
-  LazyId(lazy_id id = _default_lazy) : _id{id} {}
-
-  bool operator()() const {
-    if (not _cached) {
-      _result = _id();
-      _cached = true;
-    }
-    return _result;
-  }
-
- private:
-  const lazy_id _id;
-  mutable bool _result {false};
-  mutable bool _cached {false};
-};
-
-// Hold multiple LazyIds
-
-class LazyCuts {
- public:
-  // For complex object selection
-  LazyCuts(lazy_id presel = _default_lazy,
-           lazy_id loose = _default_lazy,
-           lazy_id medium = _default_lazy,
-           lazy_id tight = _default_lazy)
-    : presel{presel}, loose{loose}, medium{medium}, tight{tight} {}
-
-  // For simple working points
-  LazyCuts (float value, float loose, float medium, float tight)
-    : presel{_default_lazy},
-      loose{[=] () { return value > loose; }},
-      medium{[=] () { return value > medium; }},
-      tight{[=] () { return value > tight; }} {}
-
-  const LazyId presel;
-  const LazyId loose;
-  const LazyId medium;
-  const LazyId tight;
-};
 
 #endif

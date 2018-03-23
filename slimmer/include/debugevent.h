@@ -21,7 +21,8 @@ namespace {
 }
 
 namespace debug {
-  const bool debug = rle;
+  const bool debugevent = rle;
+  const bool debug = debugevent or getenv("debug");
   bool check(unsigned run, unsigned lumi, unsigned long event) {
     return rle_tuple == std::make_tuple(run, lumi, event);
   }

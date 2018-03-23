@@ -3,12 +3,7 @@
 
 #include "hbbfile.h"
 
-#include "checkrun.h"
-#include "feedpanda.h"
-#include "btagreaders.h"
 #include "misc.h"
-#include "debugevent.h"
-#include "roccor.h"
 
 #include "fastjet/ClusterSequence.hh"
 
@@ -18,7 +13,7 @@
 #include "TH1F.h"
 
 // Terminating case first is an object store, then a list of set functions to call on it
-template<typename S, typename F> void set_particles(S& store, F& function) {
+template<typename S, typename F> void set_particles(S& store, const F& function) {
   for (auto& particle : store.store) {
     // Just check that each particle exists
     if (not particle.particle)
@@ -29,7 +24,7 @@ template<typename S, typename F> void set_particles(S& store, F& function) {
 }
 
 // More than two arguments is handled this way...
-template<typename S, typename F, typename... Funcs> void set_particles(S& store, F& function, Funcs... funcs) {
+template<typename S, typename F, typename... Funcs> void set_particles(S& store, const F& function, Funcs... funcs) {
   set_particles(store, function);
   set_particles(store, funcs...);
 }
@@ -92,7 +87,7 @@ int parsed_main(int argc, char** argv) {
       output.reset(event);
 
       // Defined in debugevent.h
-      if (debug::debug) {
+      if (debug::debugevent) {
         static bool processed = false;
         if (processed)
           break;
@@ -117,6 +112,8 @@ int parsed_main(int argc, char** argv) {
       all_hist.Fill(0.0, output.mc_weight);
 
       //// FILTER ////
+      if (debug::debug)
+        std::cout << "Starting filter" << std::endl;
       if (not checkrun(event.runNumber, event.lumiNumber)) {
         if (debug::debug)
           std::cout << "Good run filter: " << event.runNumber << " " << event.lumiNumber << std::endl;
@@ -132,6 +129,8 @@ int parsed_main(int argc, char** argv) {
       }
 
       //// PHOTONS ////
+      if (debug::debug)
+        std::cout << "Starting photons" << std::endl;
 
       std::vector<std::pair<float, float>> em_directions; // Pairs of eta, phi for preselected leptons for cleaning
 
@@ -142,22 +141,26 @@ int parsed_main(int argc, char** argv) {
       }
 
       //// TAUS ////
+      if (debug::debug)
+        std::cout << "Starting taus" << std::endl;
       for (auto& tau : event.taus) {
         if (tau.pt() > 18 && std::abs(tau.eta()) < 2.3 && tau.decayMode && tau.isoDeltaBetaCorr)
           output.n_tau_loose++;
       }
 
       //// OTHER LEPTONS ////
+      if (debug::debug)
+        std::cout << "Starting other leptons" << std::endl;
 
       TLorentzVector lepvec {};
       std::vector<panda::Lepton*> selected_leps;
 
       // Define default checks here
-      // We'll do a lambda with no arguments for lazy evaluation (class LazyId defined in misc.h)
+      // We'll do a lambda with no arguments for lazy evaluation
 
       auto set_lep = [&output, &lepvec, &em_directions, &selected_leps]
         (hbbfile::lep branch, panda::Lepton& lep, float reliso, float corrpt,
-         LazyCuts ids) {
+         lazy::LazyCuts ids) {
         // Definitions straight from AN
         if (ids.presel()) {
           if (debug::debug) {
@@ -248,24 +251,37 @@ int parsed_main(int argc, char** argv) {
       }
 
       //// GEN PARTICLES ////
+      if (debug::debug)
+        std::cout << "Starting gen particles" << std::endl;
 
-      using genhstore = ObjectStore<hbbfile::hbb, panda::GenParticle>;
-
-      // Get the generator particles that are closest to the reconstructed Higgs
-
-      std::vector<genhstore> gen_higgs {
-        {{hbbfile::hbb::cmva_hbb}, [&output] (panda::GenParticle* gen) {return deltaR2(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi());}, genhstore::order::eAsc}
-      };
-
-      std::map<const panda::GenJet*, GenNuVec> gen_nu_map;
-
-      //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
       for (auto& gen_jet : event.ak4GenJets) {
         if (gen_jet.pt() > 20 && std::abs(gen_jet.eta()) < 2.4 && gen_jet.numB != 0)
           ++output.n_genB;
       }
 
+      if (debug::debug)
+        std::cout << "  counted b jets" << std::endl;
+
+      using genhstore = ObjectStore<hbbfile::hbb, panda::GenParticle>;
+
+      // Get the generator particles that are closest to the reconstructed Higgs
+
+      genhstore gen_higgs {
+        {hbbfile::hbb::cmva_hbb},
+        [&output] (panda::GenParticle* gen) {return deltaR2(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi());},
+        genhstore::order::eAsc
+      };
+
+      std::map<const panda::GenJet*, GenNuVec> gen_nu_map;
+
+      //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
+      if (debug::debug)
+        std::cout << "Starting gen bosons, size: " << event.genParticles.size() << std::endl;
+
       for (auto& gen : event.genParticles) {
+        if (debug::debug)
+          std::cout << "  This particle has PDGID " << gen.pdgid << std::endl;
+
         auto abspdgid = abs(gen.pdgid);
         if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
           output.set_gen(hbbfile::gen::genboson, gen);
@@ -276,10 +292,8 @@ int parsed_main(int argc, char** argv) {
         else if (not output.gen_tbar and gen.pdgid == -6)
           output.set_gen(hbbfile::gen::gen_tbar, gen);
 
-        else if (abspdgid == 25) {
-          for (auto& store : gen_higgs)
-            store.check(gen);
-        }
+        else if (abspdgid == 25)
+          gen_higgs.check(gen);
 
         else if (abspdgid == 12 or abspdgid == 14) {
           // Check jets of each collection for closest jet to neutrinos and add to the genvec stored in jetstore's extra
@@ -303,23 +317,22 @@ int parsed_main(int argc, char** argv) {
         }
       }
 
-      for (auto& gen_higg : gen_higgs) {
-        for (auto& entry : gen_higg.store) {
-          if (entry.particle)
-            output.set_hbbgen(entry.branch, *entry.particle, sqrt(entry.result));
-        }
-      }
+      if (debug::debug)
+        std::cout << "  Finished looping all particles" << std::endl;
+
+      set_particles(gen_higgs,
+                    [&output](genhstore::Particle& entry) {
+                      output.set_hbbgen(entry.branch, *entry.particle, sqrt(entry.result));
+                    });
 
       //// JETS ////
+      if (debug::debug)
+        std::cout << "Starting jets" << std::endl;
 
-      // We want the two jets with the highest CSV and CMVA, and carry along the calibrator
-      using jetstore = ObjectStore<hbbfile::jet, panda::Jet>;
+      // We want the two jets with the highest CMVA
+      using jetstore = ObjectStore<hbbfile::bjet, panda::Jet>;
 
-      jetstore stored_jets({hbbfile::jet::jet1, hbbfile::jet::jet2, hbbfile::jet::jet3},
-                           [](panda::Jet* j) {return j->pt();});
-      jetstore stored_centraljets({hbbfile::jet::central_jet1, hbbfile::jet::central_jet2, hbbfile::jet::central_jet3},
-                                  [](panda::Jet* j) {return j->pt();});
-      jetstore stored_cmvas({hbbfile::jet::cmva_jet1, hbbfile::jet::cmva_jet2, hbbfile::jet::cmva_jet3},
+      jetstore stored_cmvas({hbbfile::bjet::cmva_jet1, hbbfile::bjet::cmva_jet2, hbbfile::bjet::cmva_jet3},
                             [](panda::Jet* j) {return j->cmva;});
 
       // Check if overlaps with EM object
@@ -336,34 +349,26 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not jet.loose)
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not jet.loose)
           continue;
 
 
-        LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
-        LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
+        lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
+        lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
 
         // Count jets (including forward)
         auto abseta = std::abs(jet.eta());
         output.set_countjets(jet, abseta, cmva_cuts, csv_cuts);
 
-        stored_jets.check(jet);
-
-        if (abseta < 2.4) {
+        if (abseta < 2.4 and  jet.pt() > 25.0) {
           output.set_bsf(jet);
-          stored_centraljets.check(jet);
           stored_cmvas.check(jet);
         }
       }
 
-      auto set_jet = [&output] (jetstore::Particle& jet) {
-        output.set_jet(jet.branch, *jet.particle);
-      };
-      set_particles({&stored_jets, &stored_centraljets}, set_jet);
-
       // Includes getting secondary vertex and leading leptons
       auto set_bjet = [&output, &gen_nu_map] (jetstore::Particle& jet) {
-        auto bjet = to_bjet(jet.branch);
+        auto bjet = jet.branch;
 
         int nlep = 0;
         const panda::PFCand* maxlep = nullptr;
@@ -394,9 +399,11 @@ int parsed_main(int argc, char** argv) {
         output.set_bvert(bjet, jet.particle->secondaryVertex);
       };
 
-      set_particles(stored_cmvas, set_jet, set_bjet);
+      set_particles(stored_cmvas, set_bjet);
 
       //// FAT JETS ////
+      if (debug::debug)
+        std::cout << "Starting fat jets" << std::endl;
 
       using fatstore = ObjectStore<hbbfile::fatjet, panda::FatJet>;
       fatstore stored_fat({hbbfile::fatjet::fatjet1},
@@ -410,23 +417,64 @@ int parsed_main(int argc, char** argv) {
       }
 
       auto set_fatjet = [&output] (fatstore::Particle& fat) {
-        output.set_fatjet(fat.branch, *fat.particle);
+        using counter = decltype(output.n_alljet);
+
+        // max: The number of indices to loop over
+        // is_iso: A function that takes the index and returns true if this should count as an iso jet
+        // Returns: Number of isolated jets that pass is_iso function
+        auto count = [] (counter max, std::function<bool(counter)>&& is_iso) {
+          counter n = 0;
+          for (counter i_jet = 0; i_jet < max; ++i_jet)
+            n += (is_iso(i_jet));
+
+          return n;
+        };
+
+        using offset_target = decltype(output.jet_eta);
+
+        // Use this to generate a function that says when a jet is isolated from the fat jet
+        auto fat_iso = [&fat, &output] (offset_target hbbfile::*eta_offset, offset_target hbbfile::*phi_offset) {
+          return [&fat, &output, eta_offset, phi_offset] (counter i_jet) {
+            return (deltaR2(fat.particle->eta(), fat.particle->phi(),
+                            (output.*eta_offset)[i_jet],
+                            (output.*phi_offset)[i_jet]) > std::pow(0.8, 2));
+          };
+        };
+
+        // Number of isolated jets
+        counter n_iso = count(output.n_alljet,
+                              fat_iso(&hbbfile::jet_eta, &hbbfile::jet_phi));
+
+        auto b_overlapper = fat_iso(&hbbfile::bjet_eta, &hbbfile::bjet_phi);
+        // Number of isolated (loose) bjets
+        counter n_iso_b = count(output.n_allbjet,
+                                [&output, &b_overlapper] (counter i_jet) {
+                                  return (output.bjet_cmva[i_jet] > -0.5884 and
+                                          b_overlapper(i_jet));
+                                });
+
+        output.set_fatjet(fat.branch, *fat.particle, n_iso, n_iso_b);
       };
       set_particles(stored_fat, set_fatjet);
 
       //// HIGGS ////
+      if (debug::debug)
+        std::cout << "Starting Higgs" << std::endl;
 
       if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb);
-      else {
-        if (debug::debug)
-          std::cout << "No second jet. Jet 1 pT: " << output.cmva_jet1_pt << std::endl;
+
+      if (not (output.fatjet1 or output.cmva_hbb))
         continue;  // Short circuit soft activity this way, because that shit is slow.
-      }
 
       // Soft activity
-      auto ellipse = Ellipse(*stored_cmvas.store[0].particle,
-                             *stored_cmvas.store[1].particle);
+      const auto ellipse = softcalc::Ellipse(stored_cmvas.store[0].particle,
+                                             stored_cmvas.store[1].particle);
+
+      // Fat jet is just a circle on itself with a wider dR
+      const auto fatellipse = softcalc::Ellipse(stored_fat.store[0].particle,
+                                                stored_fat.store[0].particle,
+                                                0.8);
 
       std::vector<fastjet::PseudoJet> pseudojets;
       pseudojets.reserve(event.pfCandidates.size());
@@ -446,7 +494,7 @@ int parsed_main(int argc, char** argv) {
             not (std::abs(cand.track->dz()) > 0.2 or match_lep())) {
 
           allpseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
-          if (not ellipse.inside(cand))
+          if (not (ellipse.inside(cand) or fatellipse.inside(cand)))
             pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
 
         }

@@ -39,8 +39,13 @@ datething = datetime.date.today().strftime('%y%m%d')
 output = 'datacards/yields_%s' % datething
 
 expr = {
-    'signal': 'event_class',
-    'background': 'cmva_jet2_cmva'
+    'resolved': {
+        'signal': 'event_class',
+        'default': 'cmva_jet2_cmva'
+        },
+    'boosted': {
+        'default': 'fatjet1_mSD_corr'
+        }
     }
 
 alltrees = {'data': ['data_obs'],
@@ -51,60 +56,59 @@ alltrees = {'data': ['data_obs'],
 if __name__ == '__main__':
     sql_output = output + '.db'
 
-    fresh = 'dump' in sys.argv or not os.path.exists(sql_output)
-
-    if 'dump' in sys.argv and os.path.exists(sql_output):
+    if os.path.exists(sql_output):
         os.remove(sql_output)
 
     conn = sqlite3.connect(sql_output)
     curs = conn.cursor()
 
-    if fresh:
+    os.system('./merge_plots.sh')
 
-        os.system('./merge_plots.sh')
+    curs.execute("""
+                 CREATE TABLE IF NOT EXISTS yields (
+                 region VARCHAR(64),
+                 process VARCHAR(64),
+                 bin INT,
+                 contents DOUBLE,
+                 stat_unc DOUBLE,
+                 type VARCHAR(32),
+                 PRIMARY KEY (region, process, bin)
+                 )""")
 
-        curs.execute("""
-                     CREATE TABLE IF NOT EXISTS yields (
-                     region VARCHAR(64),
-                     process VARCHAR(64),
-                     bin INT,
-                     contents DOUBLE,
-                     stat_unc DOUBLE,
-                     type VARCHAR(32),
-                     PRIMARY KEY (region, process, bin)
-                     )""")
+    out_dir = os.path.dirname(output)
+    if out_dir and not os.path.exists(out_dir):
+        os.makedirs(out_dir)
 
-        out_dir = os.path.dirname(output)
-        if out_dir and not os.path.exists(out_dir):
-            os.makedirs(out_dir)
-
-        hist_file = ROOT.TFile('datacards/plots/plots_dat.root.%s' % datething, 'UPDATE')
+    in_file = ROOT.TFile('datacards/plots/plots_dat.root')
+    hist_file = ROOT.TFile('datacards/plots/plots_dat.root.%s' % datething, 'RECREATE')
+    for category in expr:
         for region in ['signal', 'tt', 'lightz', 'heavyz']:
+            channel = '%s__%s' % (category, region)
             for sample_type in alltrees:
                 for proc in alltrees[sample_type]:
-                    hist = getattr(hist_file, '{expr}__{proc}____{reg}'.format(
-                            expr=expr.get(region, expr['background']),
-                            proc=proc, reg=region))
-                    hist_file.WriteTObject(hist, '{proc}____{reg}'.format(proc=proc, reg=region))
-                    for direction in ['Up', 'Down']:
-                        # Stat uncertainties
-                        pass
+                    hist = getattr(in_file, '{expr}__{proc}____{reg}'.format(
+                            expr=expr[category].get(region, expr[category]['default']),
+                            proc=proc, reg=channel))
+
+                    if hist.GetEntries() < 5:
+                        continue
+
+                    hist_file.WriteTObject(hist, '{proc}____{reg}'.format(proc=proc, reg=channel))
 
                     for syst in list(cuts.syst) + list(cuts.env):
                         for direction in ['Up', 'Down']:
-                            outname = '{proc}____{reg}__{syst}{direction}'.format(proc=proc, reg=region, syst=syst, direction=direction)
+                            outname = '{proc}____{reg}__{syst}{direction}'.format(proc=proc, reg=channel, syst=syst, direction=direction)
                             hist_file.WriteTObject(
-                                getattr(hist_file, '{expr}__{out}'.format(expr=expr.get(region, expr['background']), out=outname)),
+                                getattr(in_file, '{expr}__{out}'.format(expr=expr[category].get(region, expr[category]['default']), out=outname)),
                                 outname)
                             
                     for i in xrange(hist.GetNbinsX()):
                         bin = i + 1
                         curs.execute('INSERT INTO yields VALUES (?, ?, ?, ?, ?, ?)',
-                                     (region, proc, bin,
+                                     (channel, proc, bin,
                                       hist.GetBinContent(bin), hist.GetBinError(bin),
                                       sample_type))
-        conn.commit()
-
+    conn.commit()
 
     txt_output = output + '.txt'
 
@@ -125,8 +129,8 @@ kmax   *   number of systematics (automatic)""")
         start_fmt = '{:<25}'
         name_unc = '{:<15}'
         shape_unc = '{:<10}'
-        info_fmt = '{:<12}   '
-        content_fmt = '{:<12.4}   '
+        info_fmt = '{:<20}   '
+        content_fmt = '{:<20.4}   '
 
         bin_line = start_fmt.format('bin')
         obs_line = start_fmt.format('observation')
@@ -149,11 +153,16 @@ kmax   *   number of systematics (automatic)""")
 
         # Start with signal
         proc_count = 0
-        curs.execute('SELECT process, region, SUM(contents) FROM yields WHERE type = "signal" GROUP BY region, process ORDER BY process, region;')
+
+        simple = lambda s: 'SELECT process, region, SUM(contents) AS sum FROM yields WHERE type = "%s" GROUP BY region, process ORDER BY process, region' % s
+        query = lambda s: 'WITH data AS (%s), query AS (%s) SELECT query.process, query.region, query.sum FROM query INNER JOIN data ON query.region = data.region' % \
+            (simple('data'), simple(s))
+
+        curs.execute(query('signal'))
         backgrounds = list(curs.fetchall())
 
         # Then background
-        curs.execute('SELECT process, region, SUM(contents) FROM yields WHERE type = "background" GROUP BY region, process ORDER BY process, region;')
+        curs.execute(query('background'))
         backgrounds.extend(list(curs.fetchall()))
 
         prev_proc = backgrounds[0][0]
@@ -193,7 +202,11 @@ kmax   *   number of systematics (automatic)""")
 
         write('-' * 30)
 
-        curs.execute('SELECT DISTINCT(region) FROM yields WHERE type = "background";')
+        simple = lambda s: 'SELECT DISTINCT(region) FROM yields WHERE type = "%s"' % s
+        query = lambda s: 'WITH data AS (%s), back as (%s) SELECT back.region FROM back INNER JOIN data ON data.region = back.region' % \
+            (simple('data'), simple(s))
+
+        curs.execute(query('background'))
         regions = list(curs.fetchall())
         for key in keys:
             for region in regions:

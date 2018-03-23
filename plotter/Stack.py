@@ -28,7 +28,7 @@ plotter.SetAxisTitleOffset(1.55)
 plotter.AddDataFile('MET.root')
 
 do_limit_dump = os.environ.get('syst')
-cats = ['ZvvHbb']
+cats = cuts.categoryCuts.keys()
 
 system = ''
 
@@ -72,28 +72,16 @@ def parse_plots(check=None):
             ['pfmet', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
-            ['n_centerjet', 10, 0, 10, 'Num Jets'],
             ['n_jet', 10, 0, 10, 'Num Jets'],
-            ['jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
-            ['jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
-            ['jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
-            ['jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['cmva_jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['cmva_jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
             ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
             ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
-#            ['n_lep_loose', 5, -1, 4, 'Num Loose Leptons'],
-#            ['n_lep_medium', 5, -1, 4, 'Num Medium Leptons'],
-#            ['n_lep_tight', 5, -1, 4, 'Num Tight Leptons'],
-            ['dphi_met_trkmet', 40, 0, 4, '#Delta#phi(PFMET, TrkMET)'],
-            ['jet1_efrac', 40, 0, 1.0, 'EM Frac jet 1'],
-            ['jet1_chf', 40, 0, 1.0, 'CHF Frac jet 1'],
-            ['jet1_nhf', 40, 0, 1.0, 'NHF Frac jet 1'],
-            ['cmva_daughter_dphi', 40, 0, 4.0, '#Delta #phi_{jj}'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
             ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
-#            ['event_class_reg_3', 20, -0.5, 0.5, 'Event Classifier'],
-#            ['event_class_reg_40', 20, -0.5, 0.5, 'Event Classifier'],
+            ['fatjet1_mSD_corr', 40, 0, 200, 'fat jet m_{SD}'],
+            ['fatjet1_pt', 30, 0, 600, 'fat jet p_{T}'],
+            ['fatjet1_double_sub', 42, -1.05, 1.05, 'fat jet double sub'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -148,3 +136,5 @@ if __name__ == '__main__':
                         'tt': ['n_jet',
                                ]
                         })
+
+    print 'Finished'

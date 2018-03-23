@@ -6,7 +6,6 @@ DEFINE REGS 3, 40
 "PlotTools/interface/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 "misc.h"
-"debugevent.h"
 
 {/F}                           ! Default type
 {0}                            ! Default value
@@ -26,8 +25,11 @@ $@phi = event.$@@.phi | pf, calo, trk |@ met
 met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 
-countjets(panda::Jet& jet, float abseta, LazyCuts& cmva, LazyCuts& csv)
+countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv)
   jet_$[] -> jet.$() | pt, eta
+  ! Don't save phi, but we can use it during the event for iso jet counting
+  #jet_$[] -> jet.$() | phi
+
   ? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
@@ -35,12 +37,14 @@ countjets(panda::Jet& jet, float abseta, LazyCuts& cmva, LazyCuts& csv)
 
   n_alljet -> ++
   n_allhard -> +(jet_pt[] > 30.0)
-  n_softjet -> +(abseta < 2.5)
-  n_jet -> +(jet_pt[] > 30.0 && abseta < 2.5)
-  n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
 
   ~~ abseta < 2.5 ~~
-  n_b@_$ -> +(@.$() && jet_pt[] > 25.0) | loose, medium, tight |@ cmva, csv
+
+  n_softjet -> ++
+  n_jet -> +(jet_pt[] > 30.0)
+  n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
+  n_b@_$ -> +(@.$() && jet_pt[] > 25.0 && abseta < 2.4) | loose, medium, tight |@ cmva, csv
+
   min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())));
 
   ~~ jet.pt() > 30.0 ~~
@@ -74,7 +78,7 @@ n_pho {
 tight_lep_pt
 
 muon, ele {
-  lep(panda::Lepton& lep, LepInfo info, LazyCuts& cuts)
+  lep(panda::Lepton& lep, LepInfo info, lazy::LazyCuts& cuts)
     ! Don't save the rest of the stuff for anything that's not loose
     ! but count presel here
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel, loose
@@ -105,13 +109,17 @@ min_dphi_recoilb <- std::min(<deltaPhi(cmva_jet{1, 2}_phi, recoilphi)>)
 
 dphi_met_trkmet <- deltaPhi(<{pf, trk}metphi>)
 
-"btagreaders.h"
 bsf(panda::Jet& jet)
   ! Hold some values temporarily. Should implement local variables some day
   (flavor = btag::flavor(jet.matchedGenJet))
   (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
 
+  n_allbjet/b -> ++
+
   bjet_$[] -> jet.$() | pt, eta
+  #bjet_$[] -> jet.$() | phi
+  #bjet_$[] -> jet.$ | cmva
+
   ? bjet_pt[] ; jetpt ? -> jet.ptCorr%%
   bjet_sf[] -> nom_sf
 
@@ -130,18 +138,24 @@ DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
   bsf_num -> +(bjet_sf[] * bsf_eff)
   bsf_denom -> +(bsf_eff)
 
-  beff_sf <- bsf_num/bsf_denom
+  beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
 
 ! Input jets are used to set the following variables
 cmva {
   <_jet{1, 2, 3}> {
     bjet(panda::Jet& jet, float maxpt, <T> nlep, panda::PFCand* lep)
 
+      /O = false -> true
+      $ -> jet.$() | pt, eta, phi, m, e
+      ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
+
+      $ -> jet.$ | chf, nhf, cef, nef, qgl, csv, cmva, deepCSVb, deepCMVAb
+      $/O = false -> jet.$ | loose, tight, monojet
+
+      $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
+
       (flav = btag::flavor(jet.matchedGenJet))
       maxtrk -> maxpt
-      $ -> jet.$ | csv, cmva, deepCSVb, deepCMVAb
-
-      ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
       sf = 1 -> btag::cmva_reader.eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>)
 
@@ -174,16 +188,6 @@ cmva {
       gen_$/S -> gen.$ | pdgid, partonFlavor
       gen_$/b -> gen.$ | numB
 
-    +<{, central_}jet{1, 2, 3}> {
-      jet(panda::Jet& jet)
-        /O = false -> true
-        $ -> jet.$() | pt, eta, phi, m, e
-        $ -> jet.$ | chf, nhf, cef, nef, qgl
-        $/O = false -> jet.$ | loose, tight, monojet
-
-        $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
-    }
-
     ! Many different regressions to compare!
 
     [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
@@ -194,7 +198,6 @@ cmva {
 
     pt_reg$ <- []_pt_ratio$ * []_pt | _old, _old_method
     pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ REGS
-
   }
 
   daughter_$_pt <- std::$(<[]_jet{1, 2}_pt>) | min, max
@@ -241,18 +244,23 @@ countfat(panda::FatJet& jet)
 
 {/F}
 
-"corrections.h"
-
 ! Fat jets are simple for now
 fatjet1 {
-  fatjet(panda::FatJet& jet)
+  fatjet(panda::FatJet& jet, <T> n_iso, <T> n_iso_b)
+    /O = false -> true
     $ -> jet.$() | pt, eta, phi, m, e
     ? pt; jetpt ? -> jet.ptCorr%%
     $/O = false -> jet.$ | loose, tight, monojet
-    $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>, double_sub
+    $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
+
+    ! Knock double_sub off of the resolved plots
+    $ = -2 -> jet.$ | double_sub
+
+    $/b -> $ | n_iso, n_iso_b
 
     mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
 
+    dphi_u <- deltaPhi([]_phi, recoilphi)
 }
 
 genboson, gen_t, gen_tbar {
@@ -267,14 +275,13 @@ pdf = 1.0
 ? pdf; pdf ? = 1.0 +- std::abs(event.genReweight.pdfDW)
 
 r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
-r$f@DW = event.genReweight.r$f@DW | 2 |@ 1, 2
-r$f@DW = event.genReweight.r$f@DW | 5 |@ 1, 5
+r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 
 [event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
 ! [event_class; data/Classifier_m_BDT.weights.xml]
 
 ! Filter
 ! These are filled before the fill function
--- debug::debug or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150) and cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 and cmva_hbb_m < 550) --
+-- debug::debugevent or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150) and ((cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 and cmva_hbb_m < 550) or fatjet1)) --
 ! These are filled in the fill function
-++ debug::debug or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25) ++
+++ debug::debugevent or fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25) ++

@@ -79,4 +79,8 @@ then
 
     crombie skim --cut 'n_genB == 0' --tree 'events' --copy 'htotal' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $VJDir --outdir $CrombieSkimDir/norm
 
+    rm $CrombieSkimDir/?J*.root
+    rm $VJDir/*.root
+    rmdir $VJDir
+
 fi
