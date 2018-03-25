@@ -1,4 +1,4 @@
-export CrombieNLocalProcs=8
+export CrombieNLocalProcs=12
 
 export CrombieMCConfig=MCConfig.txt
 export CrombieInFilesDir=/data/t3home000/dabercro/hbb/180322

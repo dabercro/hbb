@@ -11,6 +11,7 @@
 #include "SkimmingTools/interface/ObjectStore.h"
 
 #include "TH1F.h"
+#include "TH1D.h"
 
 // Terminating case first is an object store, then a list of set functions to call on it
 template<typename S, typename F> void set_particles(S& store, const F& function) {
@@ -38,6 +39,7 @@ int parsed_main(int argc, char** argv) {
 
   hbbfile output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
+  TH1D sums;
 
   // Loop over all input files
   for (int i_file = 1; i_file < argc - 1; i_file++) {
@@ -51,6 +53,13 @@ int parsed_main(int argc, char** argv) {
     panda::Event event;
     feedpanda(event, events_tree);
     auto nentries = events_tree->GetEntries();
+
+    // Get the hSumW
+    auto* sumW = static_cast<TH1D*>(input.Get("hSumW"));
+    if (sums.GetNbinsX() == 1)  // SumW has 8 bins, but default constructor makes 1
+      sums = *sumW;
+    else
+      sums.Add(sumW);
 
     //// TRIGGERS ////
 
@@ -519,6 +528,7 @@ int parsed_main(int argc, char** argv) {
   }
 
   output.write(&all_hist);
+  output.write(&sums);
   return 0;
 }
 

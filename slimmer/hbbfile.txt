@@ -149,7 +149,10 @@ cmva {
       $ -> jet.$() | pt, eta, phi, m, e
       ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
-      $ -> jet.$ | chf, nhf, cef, nef, qgl, csv, cmva, deepCSVb, deepCMVAb
+      $ -> jet.$ | chf, nhf, cef, nef
+      ! Set the taggers to -2 to disappear them from plots
+      $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
+
       $/O = false -> jet.$ | loose, tight, monojet
 
       $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
@@ -209,6 +212,14 @@ cmva {
       /O = false -> true
       $ -> []_vec.$$() | pt, eta, phi, m
 
+      m_reg$ <- vectorSumMass(<[^]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
+      pt_reg$ <- vectorSumPt(<[^]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
+      m_reg$_@ <- vectorSumMass(<[^]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
+      pt_reg$_@ <- vectorSumPt(<[^]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
+
+      reg$_@_over_m <- []_m_reg$_@/[]_m | , _old |@ REGS
+      reg$_over_m <- []_m_reg$/[]_m | _old, _old_method
+
     hbbgen(panda::GenParticle& gen, float dr)
       gen/O = false -> true
       gen_$ -> gen.$() | pt, eta, phi, m
@@ -219,14 +230,6 @@ cmva {
   }
 
   ! Need a more systematic name system
-
-  hbb_m_reg$ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
-  hbb_pt_reg$ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
-  hbb_m_reg$_@ <- vectorSumMass(<[]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
-  hbb_pt_reg$_@ <- vectorSumPt(<[]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
-
-  hbb_reg$_@_over_m <- []_hbb_m_reg$_@/[]_hbb_m | , _old |@ REGS
-  hbb_reg$_over_m <- []_hbb_m_reg$/[]_hbb_m | _old, _old_method
 
   $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)

@@ -18,12 +18,16 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
-hbbpt      = 'cmva_hbb_pt_reg_old > 120'
+fat_btag   = 'fatjet1_double_sub > 0'
+fat_unbtag = 'fatjet1_double_sub < 0.5'
+fat_tbtag  = 'fatjet1_double_sub > 0.5'
+
+hbbpt      = 'cmva_hbb_pt_reg_3 > 120'
 jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
                           'cmva_daughter_min_pt > 35',
                           'cmva_jet1_pt > 60'
                           ])
-mjjveto    = '(60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
+mjjveto    = '(60 > cmva_hbb_m_reg_3 || 160 < cmva_hbb_m_reg_3)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
@@ -43,9 +47,9 @@ categoryCuts = {
             hbbpt,
             ]),
     'boosted': ' && '.join([
-            'fatjet1_double_sub > 0.8',
             'fatjet1_pt > 250',
-            '(!cmva_jet2 || cmva_jet2_cmva < -0.5884)',
+            'fatjet1_mSD_corr > 40',
+#            '(!cmva_jet2 || cmva_jet2_cmva < -0.5884)',
             ])
     }
 categoryCuts['resolved'] = ' && '.join([
@@ -83,8 +87,7 @@ regionCuts = {
     }
 
 regionCuts['signal'] = ' && '.join([
-        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4'),
-        'event_class > -0.3'
+        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_3 && 160 > cmva_hbb_m_reg_3').replace('jet < 3', 'jet < 4')
         ])
 
 # Making selection of multiple entries
@@ -214,15 +217,15 @@ def cut(category='', region=''):
             cut = cut.replace(orig, new)
         cut = cut.replace('cmva', 'csv')
     if 'raw' in regions:
-        cut = cut.replace('_reg_old', '')
+        cut = cut.replace('_reg_3', '')
 
     if category == 'boosted':
-        cut = Nminus1Cut(
-            Nminus1Cut(cut.replace('cmva_dphi_uh', 'deltaPhi(fatjet1_phi, recoilphi)').\
-                           replace('cmva_hbb_m_reg_old', 'fatjet1_mSD_corr').\
-                           replace('cmva_hbb', 'fatjet1'),
-                       'cmva_jet1_cmva'),
-            'min_dphi_recoilb')
+        cut = Nminus1Cut(cut, 'min_dphi_recoilb').\
+            replace(btag, fat_btag).replace(tbtag, fat_tbtag).replace(unbtag, fat_unbtag).\
+            replace('cmva_dphi_uh', 'deltaPhi(fatjet1_phi, recoilphi)').\
+            replace('cmva_hbb_m_reg_3', 'fatjet1_mSD_corr').\
+            replace('cmva_hbb', 'fatjet1')
+#        cut = re.sub(r'\b60\b', '80', cut)  # Didn't make plots yet, but maybe try this
 
     return '%s && %s' % (cut, categoryCuts[category])
 

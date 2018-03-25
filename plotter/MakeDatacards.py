@@ -25,11 +25,31 @@ uncertainties = {
     'singletop': {
         'val': 1.3,
         'procs': ['st']
+        },
+    'wfact': {
+        'shape': 'shape',
+        'procs': ['wj', 'wjb', 'wjbb']
+        },
+    'zfact': {
+        'shape': 'shape',
+        'procs': ['zj', 'zjb', 'zjbb']
+        },
+    'renorm': {
+        'shape': 'shape',
+        'procs': []   # Will be filled with proc vetos
         }
     }
         
+for boson in ['w', 'z']:
+    for proc in uncertainties[boson + 'fact']['procs']:
+        uncertainties['renorm']['procs'].append('!' + proc)
+
+    uncertainties[boson + 'ren'] = uncertainties[boson + 'fact']
+
 # These are rateParams
 keys = ['tt']
+
+shapes = list(cuts.syst) + list(cuts.env)
 
 for bos in 'zw':
     for num_b in range(3):
@@ -40,7 +60,8 @@ output = 'datacards/yields_%s' % datething
 
 expr = {
     'resolved': {
-        'signal': 'event_class',
+#    'inclusive': {
+        'signal': 'event_class_reg_3',
         'default': 'cmva_jet2_cmva'
         },
     'boosted': {
@@ -95,7 +116,7 @@ if __name__ == '__main__':
 
                     hist_file.WriteTObject(hist, '{proc}____{reg}'.format(proc=proc, reg=channel))
 
-                    for syst in list(cuts.syst) + list(cuts.env):
+                    for syst in shapes:
                         for direction in ['Up', 'Down']:
                             outname = '{proc}____{reg}__{syst}{direction}'.format(proc=proc, reg=channel, syst=syst, direction=direction)
                             hist_file.WriteTObject(
@@ -187,14 +208,17 @@ kmax   *   number of systematics (automatic)""")
             unc_line = name_unc.format(source) + shape_unc.format(val.get('shape', 'lnN'))
             for proc, region, _ in backgrounds:
                 unc_val = val['val'] if \
-                    (not val.get('procs') or proc in val.get('procs', [])) and \
+                    (not val.get('procs') or (proc in val['procs'] and '!' + proc not in val['procs'])) and \
                     (not val.get('regions') or region in val.get('regions', [])) \
                     else '-'
                 unc_line += content_fmt.format(unc_val)
             write(unc_line)
 
         # Systematics
-        for syst in cuts.syst:
+        for syst in shapes:
+            if syst in uncertainties:
+                continue
+
             unc_line = name_unc.format(syst) + shape_unc.format('shape')
             for _ in backgrounds:
                 unc_line += content_fmt.format('1.0')
