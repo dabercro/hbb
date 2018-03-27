@@ -19,13 +19,13 @@ lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
 fat_btag   = 'fatjet1_double_sub > 0'
-fat_unbtag = 'fatjet1_double_sub < 0.5'
-fat_tbtag  = 'fatjet1_double_sub > 0.5'
+fat_unbtag = 'fatjet1_double_sub < 0.8'
+fat_tbtag  = 'fatjet1_double_sub > 0.8'
 
 hbbpt      = 'cmva_hbb_pt_reg_3 > 120'
 jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
                           'cmva_daughter_min_pt > 35',
-                          'cmva_jet1_pt > 60'
+#                          'cmva_jet1_pt > 60'
                           ])
 mjjveto    = '(60 > cmva_hbb_m_reg_3 || 160 < cmva_hbb_m_reg_3)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
@@ -49,13 +49,14 @@ categoryCuts = {
     'boosted': ' && '.join([
             'fatjet1_pt > 250',
             'fatjet1_mSD_corr > 40',
-#            '(!cmva_jet2 || cmva_jet2_cmva < -0.5884)',
+            'fatjet1_double_sub > -0.5',
+            '(!cmva_jet2 || cmva_jet2_cmva < -0.5884)',
             ])
     }
-categoryCuts['resolved'] = ' && '.join([
-        categoryCuts['inclusive'],
-        '(%s)' % ' || '.join(['!(%s)' % cut for cut in categoryCuts['boosted'].split(' && ')])
-        ])
+#categoryCuts['resolved'] = ' && '.join([
+#        categoryCuts['inclusive'],
+#        '(%s)' % ' || '.join(['!(%s)' % cut for cut in categoryCuts['boosted'].split(' && ')])
+#        ])
 
 
 regionCuts = {
@@ -152,7 +153,9 @@ syst.update(
      })
 
 env = {
-    'renorm': ['1 + %s' % b for b in ['r1f2DW', 'r1f5DW', 'r2f1DW', 'r2f2DW', 'r5f1DW', 'r5f5DW']]
+    'fact': [['1 + %s' % b, i] for i, b in [(2, 'r1f2DW'), (3, 'r1f5DW')]],
+    'renorm': [['1 + %s' % b, i] for i, b in [(4, 'r2f1DW'), (6, 'r5f1DW')]],
+#    'renorm': [['1 + %s' % b, i + 2] for i, b in enumerate(['r1f2DW', 'r1f5DW', 'r2f1DW', 'r2f2DW', 'r5f1DW', 'r5f5DW'])]
     }
 
 

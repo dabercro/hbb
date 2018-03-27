@@ -37,6 +37,18 @@ uncertainties = {
     'renorm': {
         'shape': 'shape',
         'procs': []   # Will be filled with proc vetos
+        },
+    'ttfatsf': {
+        'val': 2.0,
+        'regions': ['boosted__tt']
+        },
+    'lightzfatsf': {
+        'val': 2.0,
+        'regions': ['boosted__lightz']
+        },
+    'heavyfatsf': {
+        'val': 2.0,
+        'regions': ['boosted__heavyz', 'boosted__signal']
         }
     }
         
@@ -45,6 +57,8 @@ for boson in ['w', 'z']:
         uncertainties['renorm']['procs'].append('!' + proc)
 
     uncertainties[boson + 'ren'] = uncertainties[boson + 'fact']
+
+uncertainties['fact'] = uncertainties['renorm']
 
 # These are rateParams
 keys = ['tt']
@@ -55,19 +69,22 @@ for bos in 'zw':
     for num_b in range(3):
         keys.append(bos + 'j' + 'b'*num_b)
 
-datething = datetime.date.today().strftime('%y%m%d')
+datething = datetime.date.today().strftime('%y%m%d') + ('_%s' % sys.argv[1] if len(sys.argv) > 1 else '')
 output = 'datacards/yields_%s' % datething
 
 expr = {
-    'resolved': {
-#    'inclusive': {
+    'inclusive': {
+#        'signal': 'boost_class',
         'signal': 'event_class_reg_3',
         'default': 'cmva_jet2_cmva'
-        },
-    'boosted': {
-        'default': 'fatjet1_mSD_corr'
         }
     }
+
+if 'inclusive' not in sys.argv:
+    # Overwrite expr with just inclusive
+    expr['boosted'] = {
+        'default': 'fatjet1_mSD_corr'
+        }
 
 alltrees = {'data': ['data_obs'],
             'background': TreeList('MCConfig.txt'),
@@ -207,8 +224,8 @@ kmax   *   number of systematics (automatic)""")
         for source, val in uncertainties.iteritems():
             unc_line = name_unc.format(source) + shape_unc.format(val.get('shape', 'lnN'))
             for proc, region, _ in backgrounds:
-                unc_val = val['val'] if \
-                    (not val.get('procs') or (proc in val['procs'] and '!' + proc not in val['procs'])) and \
+                unc_val = val.get('val', '1.0') if \
+                    (not val.get('procs') or (proc in val['procs'] or ('!' + proc not in val['procs'] and val['procs'][0].startswith('!')))) and \
                     (not val.get('regions') or region in val.get('regions', [])) \
                     else '-'
                 unc_line += content_fmt.format(unc_val)

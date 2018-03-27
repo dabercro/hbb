@@ -2,7 +2,7 @@
 
 source ../plotter/CrombiePlotterConfig.sh
 
-cut=$(python ../plotter/cuts.py signal | perl -ne 's/(n_\w*jet\s?<=?\s?\d*)/\(1\)/g; print $_') # Take out the n_(whatever)jets cuts
+cut=$(python ../plotter/cuts.py inclusive signal | perl -ne 's/(n_\w*jet\s?<=?\s?\d*)/\(1\)/g; print $_') # Take out the n_(whatever)jets cuts
 
 for conf in "MC" "Signal"
 do

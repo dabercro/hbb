@@ -1,0 +1,1 @@
+deltaR(cmva_hbb_eta,cmva_hbb_phi,fatjet1_eta,fatjet1_phi)  fatjet1_dR_resolved_hbb

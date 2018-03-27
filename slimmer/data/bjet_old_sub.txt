@@ -2,7 +2,6 @@ jetPt[hbbjtidx[0]]             []_pt
 nJot                           n_alljet
 jetEta[hbbjtidx[0]]            []_eta
 jetE[hbbjtidx[0]]              []_e
-npv                            npv
 jetLeadingTrkPt[hbbjtidx[0]]   []_maxtrk
 jetLeadingLepPt[hbbjtidx[0]]   []_leadlep_pt
 jetNLep[hbbjtidx[0]]           []_nlep

@@ -55,12 +55,8 @@ n_genB
 n_soft {
   , _all {
     softcount(float pt)
-      ~~ pt > 2 ~~
-      2 -> ++
-      ~~ pt > 5 ~~   ! Cuts required to continue
-      5 -> ++
-      ~~ pt > 10 ~~
-      10 -> ++
+      $ -> +(pt > $) | 2, 5, 10
+      ? $ ; softcount ? -> +(pt * (1.0 +- 0.1) > $) | 2, 5, 10
   }
 }
 
@@ -88,7 +84,7 @@ muon, ele {
 
     pog_$[]/O = false -> lep.$ | loose, medium, tight
     $[]/O = false -> cuts.$() | loose, medium, tight
-    $[] -> lep.$() | pt, eta, phi
+    $[] -> lep.$() | pt, eta
 
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | medium, tight
 }
@@ -131,7 +127,7 @@ DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-  ? bjet_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
+  #? bjet_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
 
   btag_sf = 1 -> *(bjet_sf[])
 
@@ -264,6 +260,7 @@ fatjet1 {
     mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
 
     dphi_u <- deltaPhi([]_phi, recoilphi)
+    dR_resolved_hbb <- deltaR(<{[], cmva_hbb}_{eta, phi}>)
 }
 
 genboson, gen_t, gen_tbar {
@@ -281,10 +278,11 @@ r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
 r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 
 [event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
-! [event_class; data/Classifier_m_BDT.weights.xml]
+[boost_class; data/Classifier_wboost_BDT.weights.xml; data/boosted_sub.txt]
+
 
 ! Filter
 ! These are filled before the fill function
--- debug::debugevent or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150) and ((cmva_hbb and cmva_hbb_pt > 70 and cmva_jet2_cmva > -0.8 and cmva_hbb_m < 550) or fatjet1)) --
+-- debug::debugevent or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150)) --
 ! These are filled in the fill function
-++ debug::debugevent or fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25) ++
+++ debug::debugevent or ((fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) and (n_lep_presel == 0 or n_lep_tight == 1)) ++

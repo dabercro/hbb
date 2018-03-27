@@ -1,0 +1,679 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  \emph{Daniel Abercrombie}, Brandon Allen, Zeynep Demiragli,
+  Guillelmo Gomez-Ceballos, Dylan George Hsu, \\
+  Philip Harris, Yutaro Iiyama, Benedikt Maier, \\
+  Siddharth Narayanan, Christoph Paus
+}
+
+\title{\bf \sffamily VH(bb) Update}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage{listings}
+
+\usepackage{fourier}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\wfourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.45\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.45\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+
+\begin{document}
+
+\begin{frame}[nonumbering]
+  \titlepage
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introduction}
+  \begin{itemize}
+  \item Updates on the $W\ell\nu$ channel presented by Dylan at a previous meeting
+  \item Status of the $Z\nu\nu$ (resolved) repeating existing analysis
+  \item Initial studies of boosted $HbbZ\nu\nu$ sensitivity improvements
+  \end{itemize}
+\end{frame}
+
+\section{$W\ell\nu$ Updates (Resolved)}
+
+\begin{frame}
+  \frametitle{$W\ell\nu$ Status}
+  \link{Introduction slides by Dylan}{https://indico.cern.ch/event/690727/contributions/2890780/attachments/1603908/2545128/2018-02-21_statusReportVH.pdf}
+
+  \begin{columns}
+    \begin{column}{0.4\linewidth}
+      \begin{itemize}
+      \item Repeat the WH analysis strategy of HIG-16-044
+      \item Obtain expected limits in agreement with the paper
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.6\linewidth}
+      \includegraphics[width=\linewidth]{dylan/WHSR_WToENu_MVAVar.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{WH Resolved Control Regions}
+
+  \wfourfigs{}{dylan/WH2TopCR_WToENu_MVAVar.pdf}
+            {}{dylan/WHHeavyFlavorLowMassCR_WToMuNu_MVAVar.pdf}
+            {}{dylan/WHLightFlavorCR_WToMuNu_MVAVar.pdf}
+            {}{dylan/WHHeavyFlavorHighMassCR_WToENu_MVAVar.pdf}
+
+  \centering
+  \textcolor{blue}{Prefit shapes, before extracting the W+bb SF in W+HF region}
+\end{frame}
+
+\section{$W\ell\nu$ Updates (Boosted)}
+
+\begin{frame}
+  \frametitle{WH Boosted Strategy}
+  \begin{columns}
+    \begin{column}{0.4\linewidth}
+      \hspace*{-0.2\linewidth}
+      \includegraphics[width=1.9\linewidth]{dylan/whBoostedStrategyDiagram.pdf}
+    \end{column}
+    \begin{column}{0.6\linewidth}
+      \begin{itemize}
+      \item {\bf Take events with:} \\
+        PUPPI AK8 fatjet with $p_T > \SI{250}{GeV}$,
+        soft drop mass $(m_{SD}) > \SI{40}{GeV}$,
+        $(W p_t) > \SI{250}{GeV}$, and
+        $\Delta \phi(W, \mathrm{fatjet}) > \SI{2.5}{rad}$
+      \item {\bf Split into signal and control regions based on:}
+        \begin{itemize}
+        \item If there are b-tagged jets outside the fat jet
+        \item Fat jet double b-tag score $> 0.8$
+        \item $m_{SD}$
+        \end{itemize}
+      \item Measure the double-b efficiency scale factors for W+LF and $t\overline{t}$, \\
+        linking regions in the diagram
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Double-B SFs with W+HF}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item This is a new feature
+      \item Table quotes the MC efficiencies for
+        double-B$> 0.8$ in the case of 0 or 1+ isolated b-tagged jets
+      \item Plots show attempt to measure W+HF fatjets \\
+        (0 isolated b-tagged jets, double-b$> 0.8$, $40 < m_{SD} < \SI{80}{GeV}$)
+      \item Currently applying 25\% uncertainty due to low purity
+      \item Plan to use double-b scale factors from the Higgs-bb Tagging group
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.7\linewidth}
+      {\footnotesize
+        \lstinputlisting{bsf.txt}
+      }
+      \includegraphics[width=\linewidth]{dylan/WHHeavyFlavorFJCR_WToMuNu_minSubjetCSV.pdf}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boosted W+LF and TTbar Samples}
+
+  \begin{columns}
+    \begin{column}{0.45\linewidth}
+      \begin{itemize}
+      \item Notice W+LF overestimates by 15\% due to $m_{SD}$ differences in data and MC
+      \item Flat SF applied to W+jet of 85\% with 15\% uncertainty added to account for this
+      \item Needs additional study
+      \end{itemize}
+      \centering
+      \textcolor{blue}{W+LF, double-b$< 0.8$, 0 $iso_b$} \\
+      \includegraphics[width=\linewidth]{dylan/WHLightFlavorFJCR_WToENu_MVAVar.pdf} \\
+    \end{column}
+    \begin{column}{0.45\linewidth}
+      \centering
+      \textcolor{blue}{TT Failing, \\ double-b$< 0.8$, 1+ $iso_b$} \\
+      \includegraphics[width=\linewidth]{dylan/WHTT1bFJCR_WToMuNu_MVAVar.pdf} \\
+      \textcolor{blue}{TT Passing, \\ double-b$> 0.8$, 1+ $iso_b$} \\
+      \includegraphics[width=\linewidth]{dylan/WHTT2bFJCR_WToMuNu_MVAVar.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boosted WH BDT Classifier}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item Train a BDT event classifier for the boosted category using 13 variables
+      \item Most useful variable is the soft drop mass
+      \item MC statistics are a limiting factor
+      \end{itemize}
+      \centering
+      \includegraphics[width=0.8\linewidth]{dylan/CorrelationMatrixS_optimizeBoostedAda.png}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{Over-training check} \\
+      \includegraphics[width=0.8\linewidth]{dylan/over.png} \\
+      \textcolor{blue}{$\tau_2/\tau_1$ in W+LF CR} \\
+      \includegraphics[width=0.8\linewidth]{dylan/WHLightFlavorFJCR_WToMuNu_fj1Tau21.pdf}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Latest Results for Boosted WH}
+  \begin{columns}
+    \begin{column}{0.4\linewidth}
+      \hspace*{-0.1\linewidth}
+      \includegraphics[width=1.2\linewidth]{dylan/WHFJSR_WToMuNu_MVAVar.pdf}
+
+      {With this splitting scheme, boosted category is statistics limited}
+
+    \end{column}
+    \begin{column}{0.7\linewidth}
+      \begin{itemize}
+      \item Perform a simultaneous fit using 2016 data in the control regions
+        \begin{itemize}
+        \item Boosted WH BDT in the SR
+        \item $m_SD$ in the boosted CRs
+        \item Resolved regions from the orthodox analysis
+        \end{itemize}
+      \item Conservative systematic uncertainties
+        \begin{itemize}
+        \item Measured the double-b SFs
+          \begin{itemize}
+          \item {\bf W+LF:} $1.50 \pm 0.12$
+          \item {\bf ttbar:} $1.12 \pm 0.02$
+          \end{itemize}
+        \item Log-normal uncertainty of 25\% on the $B_2$ SF for W+b, W+bb
+        \item SF with 15\% uncertainty for $m_{SD}$ cut on W+jets
+        \item BDT shape uncertainty due to JES
+        \end{itemize}
+      \item {\bf Expected limit improves by 5\%}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Next Steps for WH}
+  \begin{itemize}
+  \item Try to measure the W+HF $B_W$ SF by looking at muon-tagged QCD events
+  \item Understand better the W+jets $m_{SD}$ cut scale factor
+  \item Improve the $m_{SD}$ resolution for improved BDT performance
+    \begin{itemize}
+    \item Can we reclaim energy from b-decays through regression?
+    \item Can we study the JES uncertainty to reduce it?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{$Z\nu\nu$}
+
+\begin{frame}
+  \frametitle{$Z\nu\nu$ Introduction}
+  List of samples and triggers are in the backup slides
+
+  \begin{itemize}
+  \item We have not reached the sensitivity of the 2016 analysis
+  \item Need a benchmark analysis to start the boosted investigation
+  \item From this framework, we can explore potential improvements
+    from focusing on boosted events
+  \end{itemize}
+
+\end{frame}
+
+\section{$Z\nu\nu$ (Resolved) Replication}
+
+\begin{frame}
+  \frametitle{$Z\nu\nu$ Selection Summary}
+  \begin{itemize}
+  \item MET $> \SI{170}{GeV}$
+  \item Sort central jets $|\eta| < 2.4$ with $p_T > \SI{25}{GeV}$ by cMVA, \\
+    and take top two to reconstruct a potential $H \rightarrow bb$ decay
+  \item Lower cMVA must pass loose working point (cMVA $> -0.5884$)
+  \item Other cMVA depends on the region
+    \begin{itemize}
+    \item Pass tight working point for Z+HF and signal
+    \item Pass medium working point for tt
+    \item Fail medium working point for Z+LF
+    \end{itemize}
+  \item One must have $p_T > \SI{60}{GeV}$ both $p_T > \SI{35}{GeV}$
+  \item di-jet $p_T > \SI{70}{GeV}$, di-jet $m < \SI{500}{GeV}$, $\Delta \phi$(MET, di-jet)$ > 2.0$
+  \item Exactly one tight lepton in the tt region \\ (one or more loose leptons)
+  \item Zero preselected leptons in other regions, \\
+    as defined in AN-2015-168
+  \item $N_{jet} \le 3$ (signal, Z+LF), $N_{jet} \le 2$ (Z+HF), $N_{jet} \ge 4$ (tt) ($|\eta| < 2.5$)
+  \item At least on b with $\Delta \phi($MET,$b) < \pi$ (tt), \\
+    or no jets with $\Delta \phi($MET, $j) < 0.5$ (all other regions)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data Yields}
+  Slightly modified: Add that first cMVA jet must meet harder $p_T > \SI{60}{GeV}$ cut
+  and signal cuts out some background with BDT cut
+
+  \hspace{24pt}
+
+  \begin{tabular}{c c c c}
+    Region & Previous Slide & Slightly Modified & 2016 Analysis \\
+    \hline
+    Signal & 6656           & 4830              & 3865          \\
+    Z+HF   & 3789           & 2878              & 2487          \\
+    Z+LF   & 14321          & 10365             & 8781          \\
+    tt     & 11102          & 7849              & 7931
+  \end{tabular}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{B-jet regression: Training variables}
+
+  Need to recover energy lost in $b$ decay. We train in a fully-leptonic tt sample
+  with 2 tight leptons.
+
+  \hspace{12pt}
+
+  Train on the jet with the highest CMVA value, using the following
+
+  \begin{columns}
+    \begin{column}{0.33\linewidth}
+      \begin{itemize}
+      \item NPV
+      \item \# central jets
+      \item \# total jets
+      \item $p_T$
+      \item $\eta$
+      \item $\phi$
+      \item mass
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{itemize}
+      \item CSV
+      \item CMVA
+      \item QGL
+      \item SV \# tracks
+      \item SV $p_T$
+      \item SV mass
+      \item SV distance
+      \item SV uncertainty
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \begin{itemize}
+      \item Max track $p_T$
+      \item \# leptons
+      \item lead lepton $p_T$
+      \item LL $p_{T, \perp}$
+      \item LL $\Delta R$
+      \item EM fraction
+      \item NH fraction
+      \item CH fraction
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Regression Performance on Signal Sample}
+
+  Higgs mass peak is improved
+
+  \twofigs{Masses with Gen Mass}
+          {180209_v1/regression_withgen.pdf}
+          {Without Gen (Zoomed)}
+          {180209_v1/regression.pdf}
+
+  \begin{itemize}
+  \item \textcolor{red}{Old Regression} is the regression Dylan previously showed
+    (missing a few variables)
+  \item \textcolor{green}{New Regression} includes all the variables in the analysis note
+  \item Gives good improvement to expect limits,
+    but we expect regression from previous efforts will be much better once available
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Signal classification}
+  We train a BDT for signal identification in the signal region, minus the $N_{jet}$ cut,
+  using the following variables
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item MET
+      \item regressed di-jet mass
+      \item regressed di-jet pt
+      \item regressed di-jet pt over MET
+      \item cMVA of top three cMVA jets
+      \item $p_T$ of top three cMVA jets
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item min($\Delta \phi$(MET, jet))
+      \item di-jet $\Delta R$
+      \item di-jet $\Delta \eta$
+      \item di-jet $\Delta \phi$
+      \item $\Delta \phi$(MET, di-jet)
+      \item Soft activity ($> \SI{5}{GeV}$)
+      \item Number of jets
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CR plots (Pre-Fit)}
+  Control with cMVA of the lower cMVA jet, and plot BDT for signal
+
+  \fourfigs{Signal region}
+           {180327_v1/inclusive_signal_event_class_reg_3.pdf}
+           {Z+HF CR}
+           {180327_inc/inclusive_heavyz_cmva_jet2_cmva.pdf}
+           {Z+LF CR}
+           {180327_inc/inclusive_lightz_cmva_jet2_cmva.pdf}
+           {tt CR}
+           {180327_inc/inclusive_tt_cmva_jet2_cmva.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{List of systematics}
+  \begin{itemize}
+  \item 30\% uncertainty on di-boson and single top cross sections
+  \item QCD renormalization and factorization uncertainties for each separate process \\
+    (varies but on the order of a few percent)
+  \item 2.5\% Luminosity uncertainty
+  \item Pileup uncertainty currently applied as flat 5\%
+  \item All of the uncertainties available for the cMVA iterative fit scale factors
+  \item Large shape uncertainty (to event classifier) from jet $p_T$ uncertainty,
+    which moves a number of the di-jet kinematic and counting variables around \\
+    (I'd estimate as high as ~10\% for various bins)
+  \item Allowing major backgrounds, W/Z+jet (split by number of b-jets) and tt, to float, which should be improved by study
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CR plots (Post-Fit)}
+  \fourfigs{Signal region}
+           {180327_yesterday_post/inclusive_signal_event_class_reg_3.pdf}
+           {Z+HF CR}
+           {180327_post/inclusive_heavyz_cmva_jet2_cmva.pdf}
+           {Z+LF CR}
+           {180327_post/inclusive_lightz_cmva_jet2_cmva.pdf}
+           {tt CR}
+           {180327_post/inclusive_tt_cmva_jet2_cmva.pdf}
+
+  We currently have an expect limit of 1.30
+\end{frame}
+
+\section{$Z\nu\nu$ Boosted}
+
+\begin{frame}
+  \frametitle{Boosted Selection}
+  \begin{itemize}
+  \item We found that doing a ``boosted veto'' on the resolved events took too many
+    events out of the analysis, and reduced sensitivity
+  \item Benedikt and I tried two different approaches to using boosted variables
+    \begin{itemize}
+    \item Add boosted jet kinematic and substructure variables to the event classifier BDT
+    \item Instead, create a boosted selection that uses a ``resolved veto'' selection
+    \end{itemize}
+  \item These two improvements seem to stack when put together
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additional BDT Variables}
+  The following variables are filled with dummy values when no fat (PUPPI AK8) jet exists
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item $\Delta \phi$(fat jet, MET)
+      \item fat jet $p_T$
+      \item fat jet $\eta$
+      \item fat jet $m_{SD}$
+      \item $\frac{ECF(2, 3, 10)}{ECF(1, 2, 10)^2}$
+      \item $\Delta R$(fat jet, di-jet)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      This gives a BDT with improvments of $\approx 5\%$ on the expected limit
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Resolved Veto}
+  \begin{itemize}
+  \item Require that fewer than 2 AK4 jets pass the cMVA loose working point
+  \item Fat jet $p_T > \SI{250}{GeV}$
+  \item Fat jet $m_{SD} > \SI{40}{GeV}$
+  \item Use $B_2$ cuts instead of leading jet cMVA cuts to separate HF and LF regions
+    \begin{itemize}
+    \item HF and signal: $B_2 > 0.8$
+    \item tt: $B_2 > 0$
+    \item LF: $-0.5 < B_2 < 0.8$
+    \end{itemize}
+  \item Scale factors for fat jet selection still need to be implemented,
+    so instead, large $\approx 50\%$, decorrelated (except for signal + HF)
+    systematics are applied
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pre-Fit Plots}
+  For now, just constraining based on the $m_SD$ in all regions
+
+  NOTE: I KNOW THESE PLOTS NEED BETTER AXES SCALING
+  \fourfigs{signal}
+           {180326_v3/boosted_signal_fatjet1_mSD_corr}
+           {Z+HF}
+           {180326_v3/boosted_heavyz_fatjet1_mSD_corr}
+           {Z+LF}
+           {180326_v3/boosted_lightz_fatjet1_mSD_corr}
+           {tt}
+           {180326_v3/boosted_tt_fatjet1_mSD_corr}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Post-Fit Plots}
+  \fourfigs{signal}
+           {180327_yesterday_post/boosted_signal_fatjet1_mSD_corr}
+           {Z+HF}
+           {180327_yesterday_post/boosted_heavyz_fatjet1_mSD_corr}
+           {Z+LF}
+           {180327_yesterday_post/boosted_lightz_fatjet1_mSD_corr}
+           {tt}
+           {180327_yesterday_post/boosted_tt_fatjet1_mSD_corr}
+
+  Expect limit improved by 5\%.
+  With fat jet variables in BDT, we get all the way down to 1.20
+\end{frame}
+
+\section{}
+
+\begin{frame}
+  \frametitle{Conclusion}
+
+\end{frame}
+
+\beginbackup
+
+\section{Backup slides}
+
+\begin{frame}
+  \frametitle{Backup Slides}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Data samples and triggers}
+  Using MET 2016, 03Feb2017 samples with \SI{35.9}{\per fb}:
+  \texttt{/MET/Run2016*-03Feb2017\_*/MINIAOD}
+
+  \vspace{12pt}
+
+  Triggers
+  \begin{itemize}
+  \item \texttt{HLT\_PFMET170\_NoiseCleaned}
+  \item \texttt{HLT\_PFMET170\_HBHECleaned}
+  \item \texttt{HLT\_PFMET170\_JetIdCleaned}
+  \item \texttt{HLT\_PFMET170\_NotCleaned}
+  \item \texttt{HLT\_PFMET170\_HBHE\_BeamHaloCleaned}
+  \item \texttt{HLT\_PFMETNoMu120\_NoiseCleaned\_PFMHTNoMu120\_IDTight}
+  \item \texttt{HLT\_PFMETNoMu110\_NoiseCleaned\_PFMHTNoMu110\_IDTight}
+  \item \texttt{HLT\_PFMETNoMu90\_NoiseCleaned\_PFMHTNoMu90\_IDTight}
+  \item \texttt{HLT\_PFMETNoMu90\_PFMHTNoMu90\_IDTight}
+  \item \texttt{HLT\_PFMETNoMu100\_PFMHTNoMu100\_IDTight}
+  \item \texttt{HLT\_PFMETNoMu110\_PFMHTNoMu110\_IDTight}
+  \item \texttt{HLT\_PFMETNoMu120\_PFMHTNoMu120\_IDTight}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{MC Samples}
+  All MC samples from the campaign: \texttt{RunIISummer16MiniAODv2-PUMoriond17\_ \\
+    80X\_mcRun2\_asymptotic\_2016\_TrancheIV}
+
+  \vspace{12pt}
+
+  {\footnotesize
+    \begin{itemize}
+    \item \texttt{QCD\_HT*\_TuneCUETP8M1\_13TeV-madgraphMLM-pythia8}
+    \item \texttt{TTJets\_SingleLeptFromT\{,bar\}\_TuneCUETP8M2T4\_13TeV- \\
+      amcatnloFXFX-pythia8}
+    \item \texttt{TTTo2L2Nu\_TuneCUETP8M2\_ttHtranche3\_13TeV-powheg-pythia8}
+    \item \texttt{ST\_t-channel\_\{anti,\}top\_4f\_inclusiveDecays\_13TeV- \\
+      powhegV2-madspin-pythia8\_TuneCUETP8M1}
+    \item \texttt{ST\_tW\_\{anti,\}top\_5f\_inclusiveDecays\_13TeV- \\
+      powheg-pythia8\_TuneCUETP8M1}
+    \item \texttt{WJetsToLNu\_HT-*\_TuneCUETP8M1\_13TeV-madgraphMLM-pythia8}
+    \item \texttt{ZJetsToNuNu\_HT-*\_13TeV-madgraph}
+    \item \texttt{\{WW, WZ, ZZ\}\_TuneCUETP8M1\_13TeV-pythia8}
+    \end{itemize}
+  }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Signal Samples}
+
+  {
+    \begin{itemize}
+    \item \texttt{GluGluHToBB\_M125\_13TeV\_powheg\_pythia8}
+    \item \texttt{WminusH\_HToBB\_WToLNu\_M125\_13TeV\_powheg\_pythia8}
+    \item \texttt{WplusH\_HToBB\_WToLNu\_M125\_13TeV\_powheg\_pythia8}
+    \item \texttt{ZH\_HToBB\_ZToLL\_M125\_13TeV\_powheg\_pythia8}
+    \item \texttt{ZH\_HToBB\_ZToNuNu\_M125\_13TeV\_powheg\_pythia8}
+    \item \texttt{ggZH\_HToBB\_ZToLL\_M125\_13TeV\_powheg\_pythia8}
+    \item \texttt{ggZH\_HToBB\_ZToNuNu\_M125\_13TeV\_powheg\_pythia8}
+    \end{itemize}
+  }
+\end{frame}
+
+%\input{backup_slides.tex}
+
+\backupend
+
+\end{document}

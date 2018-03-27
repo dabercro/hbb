@@ -473,7 +473,8 @@ int parsed_main(int argc, char** argv) {
       if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb);
 
-      if (not (output.fatjet1 or output.cmva_hbb))
+      if (not ((output.cmva_hbb and output.cmva_hbb_pt > 70 and output.cmva_jet2_cmva > -0.8 and output.cmva_hbb_m < 550) or
+               (output.fatjet1 and output.fatjet1_pt > 220 and output.fatjet1_mSD_corr > 25 and output.fatjet1_double_sub > -0.7)))
         continue;  // Short circuit soft activity this way, because that shit is slow.
 
       // Soft activity

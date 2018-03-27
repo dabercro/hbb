@@ -9,6 +9,8 @@ from CrombieTools.PlotTools import AddOutDir
 from array import array
 from CrombieTools.LoadConfig import cuts
 
+plotter.SetAllHistName('hSumW')
+
 SetupFromEnv()
 
 plotter.SetAddSignal(True)
@@ -67,17 +69,24 @@ def parse_plots(check=None):
             ['cmva_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
             ['cmva_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
             ['cmva_jet1_cmva', 40, -1.0, 1.0, 'CMVA jet 1'],
-            ['cmva_jet2_cmva', 40, -1.0, 1.0, 'CMVA jet 2'],
+#            ['cmva_jet2_cmva', 40, -1.0, 1.0, 'CMVA jet 2'],
+            ['cmva_jet2_cmva', 36, -0.6, 1.0, 'CMVA jet 2'],
             ['cmva_dphi_uh', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['pfmet', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
             ['n_jet', 10, 0, 10, 'Num Jets'],
+            ['n_soft_2', 20, 0, 20, 'Num Soft'],
+            ['n_soft_5', 20, 0, 20, 'Num Soft'],
+            ['n_soft_10', 20, 0, 20, 'Num Soft'],
+            ['fatjet1_n_iso', 10, 0, 10, 'Num Jets'],
+            ['fatjet1_n_iso_b', 10, 0, 10, 'Num Jets'],
             ['cmva_jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['cmva_jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
             ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
             ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
+            ['boost_class', 20, -0.5, 0.5, 'Event Classifier'],
             ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
             ['event_class_reg_3', 20, -0.5, 0.5, 'Event Classifier'],
             ['event_class_reg_40', 20, -0.5, 0.5, 'Event Classifier'],
