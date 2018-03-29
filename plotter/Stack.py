@@ -18,7 +18,7 @@ plotter.SetCMSLabel('Preliminary')
 plotter.SetTreeName('events')
 plotter.SetMinLegendFrac(0.03)
 plotter.SetIgnoreInLinear(0.005)
-plotter.SetRatioMinMax(0.5, 1.5)
+plotter.SetRatioMinMax(0.5, 2.0)
 plotter.SetOthersColor(922)
 plotter.SetRatioTitle('Data/Pred.')
 plotter.SetRatioDivisions(504, False)
@@ -90,7 +90,7 @@ def parse_plots(check=None):
             ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
             ['event_class_reg_3', 20, -0.5, 0.5, 'Event Classifier'],
             ['event_class_reg_40', 20, -0.5, 0.5, 'Event Classifier'],
-            ['fatjet1_mSD_corr', 40, 0, 200, 'fat jet m_{SD}'],
+            ['fatjet1_mSD_corr', 24, 80, 160, 'fat jet m_{SD}'],
             ['fatjet1_pt', 30, 0, 600, 'fat jet p_{T}'],
             ['fatjet1_double_sub', 42, -1.05, 1.05, 'fat jet double sub'],
             ]

@@ -145,7 +145,10 @@ cmva {
       $ -> jet.$() | pt, eta, phi, m, e
       ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
-      $ -> jet.$ | chf, nhf, cef, nef
+      $ -> jet.$ | chf, nhf, cef, nef, ptSmear
+
+      ? ptSmear; jetsmear ? -> jet.ptSmear%%
+
       ! Set the taggers to -2 to disappear them from plots
       $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
 
@@ -192,6 +195,7 @@ cmva {
     [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
     [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
     [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
+    [pt_ratio_smeared; data/Regression_smeared_BDT.weights.xml] = 1
 
     ! Need a more systematic name system
 
@@ -285,4 +289,4 @@ r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 ! These are filled before the fill function
 -- debug::debugevent or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150)) --
 ! These are filled in the fill function
-++ debug::debugevent or ((fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) and (n_lep_presel == 0 or n_lep_tight == 1)) ++
+++ debug::debugevent or ((fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) and (n_lep_presel == 0 or n_lep_tight > 0)) ++

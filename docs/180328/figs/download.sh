@@ -48,6 +48,7 @@ crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php
 
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180327_v4%2Fboosted_signal_fatjet1_mSD_corr%2C180327_v4%2Fboosted_tt_fatjet1_mSD_corr%2C180327_v4%2Fboosted_lightz_fatjet1_mSD_corr%2C180327_v4%2Fboosted_heavyz_fatjet1_mSD_corr"
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180328_v1%2Fboosted_heavyz_fatjet1_mSD_corr"
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180328_v3%2Fboosted_signal_fatjet1_mSD_corr%2C180328_v2%2Finclusive_signal_fatjet1_mSD_corr"
 
 for f in 1*/*.pdf
 do

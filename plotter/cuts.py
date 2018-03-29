@@ -18,14 +18,14 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
-fat_btag   = 'fatjet1_double_sub > 0'
+fat_btag   = 'fatjet1_double_sub > 0.8'
 fat_unbtag = 'fatjet1_double_sub < 0.8'
 fat_tbtag  = 'fatjet1_double_sub > 0.8'
 
 hbbpt      = 'cmva_hbb_pt_reg_3 > 120'
 jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
                           'cmva_daughter_min_pt > 35',
-#                          'cmva_jet1_pt > 60'
+                          'cmva_jet1_pt > 60'
                           ])
 mjjveto    = '(60 > cmva_hbb_m_reg_3 || 160 < cmva_hbb_m_reg_3)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
@@ -49,7 +49,6 @@ categoryCuts = {
     'boosted': ' && '.join([
             'fatjet1_pt > 250',
             'fatjet1_mSD_corr > 40',
-            'fatjet1_double_sub > -0.5',
             '(!cmva_jet2 || cmva_jet2_cmva < -0.5884)',
             ])
     }
@@ -228,7 +227,7 @@ def cut(category='', region=''):
             replace('cmva_dphi_uh', 'deltaPhi(fatjet1_phi, recoilphi)').\
             replace('cmva_hbb_m_reg_3', 'fatjet1_mSD_corr').\
             replace('cmva_hbb', 'fatjet1')
-#        cut = re.sub(r'\b60\b', '80', cut)  # Didn't make plots yet, but maybe try this
+        cut = re.sub(r'\b60\b', '80', cut)  # Didn't make plots yet, but maybe try this
 
     return '%s && %s' % (cut, categoryCuts[category])
 

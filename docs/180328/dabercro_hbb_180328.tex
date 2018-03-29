@@ -165,8 +165,8 @@
       \begin{itemize}
       \item {\bf Take events with:} \\
         PUPPI AK8 fatjet with $p_T > \SI{250}{GeV}$,
-        soft drop mass $(m_{SD}) > \SI{40}{GeV}$,
-        W $p_t > \SI{250}{GeV}$, and
+        soft drop mass, $m_{SD} > \SI{40}{GeV}$,
+        W $p_T > \SI{250}{GeV}$, and
         $\Delta \phi(W, \mathrm{fatjet}) > \SI{2.5}{rad}$
       \item {\bf Split into signal and control regions based on:}
         \begin{itemize}
@@ -183,7 +183,7 @@
   \includegraphics[width=\linewidth]{dylan/whBoostedStrategyDiagram.pdf}
   \begin{itemize}
   \item Arrows in the diagram show link of double-b efficiency scale factors for W+LF and $t\overline{t}$.
-  \item Assume yields are constant, so decrease yields of one side of double-B cut when other increases \\
+  \item Assume yields are constant, so decrease yields of one side of double-b cut when other increases \\
     (Right scaled by $\epsilon \times $ SF, left by $1 - \epsilon \times $ SF)
   \end{itemize}
 \end{frame}
@@ -201,8 +201,8 @@
         \end{itemize}
       \item Plot shows W+HF fatjets \\
         (0 isolated b-tagged jets, double-b$> 0.8$, $40 < m_{SD} < \SI{80}{GeV}$)
-      \item Currently applying 25\% uncertainty to W+HF SF due to low purity
-      \item Plan to use double-b scale factors from the Higgs-bb Tagging group
+      \item Currently applying 25\% uncertainty to W+HF due to low purity
+      \item Plan to use double-b scale factors from the BTV
       \end{itemize}
     \end{column}
     \begin{column}{0.7\linewidth}
@@ -221,7 +221,7 @@
     \begin{column}{0.55\linewidth}
       \begin{itemize}
       \item Notice W+LF overestimates by 15\% due to $m_{SD}$ differences in data and MC
-      \item Flat SF applied to W+jet of 85\% with 15\% uncertainty added to account for this
+      \item Flat SF applied to W+jets of 85\% with 15\% uncertainty added to account for this
       \item Needs additional study
       \end{itemize}
       \centering
@@ -233,8 +233,7 @@
       \textcolor{blue}{TT, double-b$< 0.8$, 1+ $iso_b$} \\
       \includegraphics[width=\linewidth]{dylan/WHTT1bFJCR_WToMuNu_MVAVar.pdf} \\
       \textcolor{blue}{TT, double-b$> 0.8$, 1+ $iso_b$} \\
-      \includegraphics[width=\linewidth]{dylan/WHTT2bFJCR_WToMuNu_MVAVar.pdf}
-    \end{column}
+      \includegraphics[width=\linewidth]{dylan/WHTT2bFJCR_WToMuNu_MVAVar.pdf}    \end{column}
   \end{columns}
 
 \end{frame}
@@ -246,7 +245,7 @@
       \begin{itemize}
       \item Train a BDT event classifier for the boosted category using 13 variables
       \item Most useful variable is the soft drop mass
-      \item MC statistics are a limiting factor
+      \item Mismodeling of W+jets gluon content studied in private gen-level samples
       \end{itemize}
       \centering
       \includegraphics[width=0.8\linewidth]{dylan/CorrelationMatrixS_optimizeBoostedAda.png}
@@ -256,7 +255,7 @@
       \textcolor{blue}{Over-training check} \\
       \includegraphics[width=0.8\linewidth]{dylan/over.png} \\
       \textcolor{blue}{$\tau_2/\tau_1$ in W+LF CR} \\
-      \includegraphics[width=0.8\linewidth]{dylan/WHLightFlavorFJCR_WToMuNu_fj1Tau21.pdf}
+      \includegraphics[width=0.8\linewidth]{dylan/WHLightFlavorFJCR_WToMuNu_fj1Tau21.pdf} \\
     \end{column}
   \end{columns}
 \end{frame}
@@ -286,7 +285,7 @@
           \item {\bf W+LF:} $1.50 \pm 0.12$
           \item {\bf ttbar:} $1.12 \pm 0.02$
           \end{itemize}
-        \item Log-normal uncertainty of 25\% on the double-B SF for W+b, W+bb
+        \item Log-normal uncertainty of 25\% on the double-b SF for W+b, W+bb
         \item SF with 15\% uncertainty for $m_{SD}$ cut on W+jets
         \item BDT shape uncertainty due to JES
         \end{itemize}
@@ -299,7 +298,7 @@
 \begin{frame}
   \frametitle{Next Steps for WH}
   \begin{itemize}
-  \item Use Higg-bb tagging group's double-B scale factors
+  \item Use BTV-provided AK8 double-b scale factors for W+HF
   \item Understand better the W+jets $m_{SD}$ cut scale factor
   \item Improve the $m_{SD}$ resolution for improved BDT performance
     \begin{itemize}
@@ -316,10 +315,8 @@
   List of samples and triggers are in the backup slides
 
   \begin{itemize}
-  \item We have not quite reached the sensitivity of the 2016 analysis
-  \item Need a benchmark analysis to start the boosted investigation
-  \item From this framework, we can explore potential improvements
-    from focusing on boosted events
+  \item Trying to repeat 2016 ZH analysis
+  \item This will be the benchmark to start the boosted investigation
   \end{itemize}
 
 \end{frame}
@@ -329,7 +326,7 @@
 \begin{frame}
   \frametitle{$Z\nu\nu$ Selection Summary}
   \begin{itemize}
-  \item MET $> \SI{170}{GeV}$
+  \item MET $> \SI{170}{GeV}$, $\Delta \phi$(MET, TrkMET) $< 0.5$ (except tt)
   \item Exactly one tight lepton in the tt region \\ (one or more loose leptons)
   \item Zero preselected leptons in other regions, \\
     as defined in AN-2015-168
@@ -370,73 +367,73 @@
 
 \end{frame}
 
-\begin{frame}
-  \frametitle{B-jet regression: Training variables}
-
-  Need to recover energy lost in $b$ decay. We train in a fully-leptonic tt sample
-  with 2 tight leptons.
-
-  \hspace{12pt}
-
-  Train on the jet with the highest CMVA value, using the following \textcolor{red}{Same as 2016 Analysis}
-
-  \begin{columns}
-    \begin{column}{0.33\linewidth}
-      \begin{itemize}
-      \item NPV
-      \item \# central jets
-      \item \# total jets
-      \item $p_T$
-      \item $\eta$
-      \item $\phi$
-      \item mass
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.33\linewidth}
-      \begin{itemize}
-      \item CSV
-      \item CMVA
-      \item QGL
-      \item SV \# tracks
-      \item SV $p_T$
-      \item SV mass
-      \item SV distance
-      \item SV uncertainty
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.33\linewidth}
-      \begin{itemize}
-      \item Max track $p_T$
-      \item \# leptons
-      \item lead lepton $p_T$
-      \item LL $p_{T, \perp}$
-      \item LL $\Delta R$
-      \item EM fraction
-      \item NH fraction
-      \item CH fraction
-      \end{itemize}
-    \end{column}
-  \end{columns}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Regression Performance on Signal Sample}
-
-  Higgs mass peak is improved by the regression
-
-  \twofigs{Masses with Gen Mass}
-          {180209_v1/regression_withgen.pdf}
-          {Without Gen (Zoomed)}
-          {180209_v1/regression.pdf}
-
-  \begin{itemize}
-  \item \textcolor{red}{Old Regression} is the regression Dylan previously showed
-    (missing a few variables)
-  \item \textcolor{green}{New Regression} includes all the variables in the analysis note
-  \end{itemize}
-
-\end{frame}
+%\begin{frame}
+%  \frametitle{B-jet regression: Training variables}
+%
+%  Need to recover energy lost in $b$ decay. We train in a fully-leptonic tt sample
+%  with 2 tight leptons.
+%
+%  \hspace{12pt}
+%
+%  Train on the jet with the highest CMVA value, using the following \textcolor{red}{Same as 2016 Analysis}
+%
+%  \begin{columns}
+%    \begin{column}{0.33\linewidth}
+%      \begin{itemize}
+%      \item NPV
+%      \item \# central jets
+%      \item \# total jets
+%      \item $p_T$
+%      \item $\eta$
+%      \item $\phi$
+%      \item mass
+%      \end{itemize}
+%    \end{column}
+%    \begin{column}{0.33\linewidth}
+%      \begin{itemize}
+%      \item CSV
+%      \item CMVA
+%      \item QGL
+%      \item SV \# tracks
+%      \item SV $p_T$
+%      \item SV mass
+%      \item SV distance
+%      \item SV uncertainty
+%      \end{itemize}
+%    \end{column}
+%    \begin{column}{0.33\linewidth}
+%      \begin{itemize}
+%      \item Max track $p_T$
+%      \item \# leptons
+%      \item lead lepton $p_T$
+%      \item LL $p_{T, \perp}$
+%      \item LL $\Delta R$
+%      \item EM fraction
+%      \item NH fraction
+%      \item CH fraction
+%      \end{itemize}
+%    \end{column}
+%  \end{columns}
+%
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Regression Performance on Signal Sample}
+%
+%  Higgs mass peak is improved by the regression
+%
+%  \twofigs{Masses with Gen Mass}
+%          {180209_v1/regression_withgen.pdf}
+%          {Without Gen (Zoomed)}
+%          {180209_v1/regression.pdf}
+%
+%  \begin{itemize}
+%  \item \textcolor{red}{Old Regression} is the regression Dylan previously showed
+%    (missing a few variables)
+%  \item \textcolor{green}{New Regression} includes all the variables in the analysis note
+%  \end{itemize}
+%
+%\end{frame}
 
 \begin{frame}
   \frametitle{Signal classification}
@@ -519,7 +516,7 @@
   \item We currently have an expected limit of {\bf 1.34}
   \item W+jets is relatively unconstrained since this is not combined with WH yet
   \item When we run official ZH datacards without WH combination,
-    we see better limit of {\bf 1.30}
+    we see limit of {\bf 1.30}
   \end{itemize}
   
 \end{frame}
@@ -534,6 +531,7 @@
   \item Instead, create a boosted selection that uses a ``resolved veto'' selection
   \item Require that fewer than 2 AK4 jets pass the cMVA loose working point to be considered
     for boosted region
+  \item This could happen when the b-jets overlap and are clustered into one AK4 jet
   \end{itemize}
 \end{frame}
 
@@ -544,13 +542,13 @@
   \item Fat jet $m_{SD} > \SI{40}{GeV}$
   \item Use double-b cuts instead of leading jet cMVA cuts to separate HF and LF regions
     \begin{itemize}
-    \item HF, tt, and signal: double-B $> 0.8$
-    \item LF: double-B$< 0.8$
+    \item HF, tt, and signal: double-b $> 0.8$
+    \item LF: double-b$< 0.8$
     \end{itemize}
-  \item Previous selections are the same as WH
+  \item Fat jet selections are the same as WH
   \item Scale factors for fat jet selection still need to be implemented.
-    For now, large $\approx 50\%$, decorrelated among regions (except for signal + HF)
-    systematics are applied
+    For now, large ($50\%$) scale factor systematics,
+    decorrelated among regions (except for signal + HF)
   \end{itemize}
 \end{frame}
 
@@ -559,7 +557,7 @@
   Constraining based on the $m_{SD}$. More W+jets than resolved analysis
 
   \fourfigs{signal}
-           {180327_v4/boosted_signal_fatjet1_mSD_corr}
+           {180328_v3/boosted_signal_fatjet1_mSD_corr}
            {Z+HF}
            {180328_v1/boosted_heavyz_fatjet1_mSD_corr}
            {Z+LF}
@@ -571,7 +569,7 @@
 \section{}
 
 \begin{frame}
-  \frametitle{Conclusion}
+  \frametitle{VH Update: 2016 Boosted}
 
   \begin{itemize}
   \item Using boosted regions for ZH improves expected limits by 5\%
@@ -581,8 +579,10 @@
 
   \begin{itemize}
   \item WH analysis with a 5\% improvement on 2016 analysis by adding boosted regions
-  \item Will switch to official double-B scale factors
+    and conservative systematics
+  \item Will switch to official double-b scale factors
   \item Study $m_{SD}$ resolution and scale factors in W+jets
+  \item Derive uncertainties on substructure variables
   \end{itemize}
 
 \end{frame}
@@ -658,6 +658,27 @@
     \item \texttt{ggZH\_HToBB\_ZToNuNu\_M125\_13TeV\_powheg\_pythia8}
     \end{itemize}
   }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boosted BDT Variables}
+
+  \begin{itemize}
+  \item |$\Delta\eta$(lepton, fatjet)|
+  \item |$\Delta\phi$(lepton, fatjet)|
+  \item MET
+  \item W $p_T$
+  \item $\Delta\phi$(W, H)
+  \item lepton charge
+  \item lepton $p_T$
+  \item fatjet $\tau_2/\tau_1$
+  \item fatjet $\tau_3/\tau_2$
+  \item fatjet soft drop mass
+  \item HEPTopTaggerV2 see \link{https://arxiv.org/pdf/1503.05921.pdf}{https://arxiv.org/pdf/1503.05921.pdf}
+  \item fat jet $\eta$
+  \item number of b-tagged jets outside of fat jet
+  \end{itemize}
+
 \end{frame}
 
 %\input{backup_slides.tex}
