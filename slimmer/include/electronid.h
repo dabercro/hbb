@@ -1,5 +1,6 @@
 #include <array>
 
+#include "TMath.h"
 #include "TMVA/Reader.h"
 #include "TMVA/IMethod.h"
 
@@ -24,15 +25,17 @@ namespace electronid {
   // Check if the electron inside the jet is good
   bool is_good(const panda::Electron& ele, const panda::Jet& jet) {
 
+    float track_pt = ele.trackP/TMath::CosH(ele.eta());
+
     vars[0] = std::abs(ele.eta() - jet.eta());
     vars[1] = deltaPhi(ele.phi(), jet.phi());
     vars[2] = ele.eta();
-    vars[3] = ele.ecalIso/ele.pt();
-    vars[4] = ele.hcalIso/ele.pt();
-    vars[5] = ele.trackIso/ele.pt();
-    vars[6] = ele.chIso/ele.pt();
-    vars[7] = ele.nhIso/ele.pt();
-    vars[8] = ele.phIso/ele.pt();
+    vars[3] = ele.ecalIso/track_pt;
+    vars[4] = ele.hcalIso/track_pt;
+    vars[5] = ele.trackIso/track_pt;
+    vars[6] = ele.chIso/track_pt;
+    vars[7] = ele.nhIso/track_pt;
+    vars[8] = ele.phIso/track_pt;
     vars[9] = ele.dxy;
     vars[10] = ele.dz;
     vars[11] = ele.sieie;
