@@ -16,6 +16,7 @@
 #include "corrections.h"
 #include "softcalc.h"
 #include "lazy.h"
+#include "electronid.h"
 
 // Hold information about genjet vectors with neutrinos added
 

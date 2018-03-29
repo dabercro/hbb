@@ -224,7 +224,16 @@ int parsed_main(int argc, char** argv) {
       }
 
       // Loop over electrons
+
+      // Make a map to go from PFCands to Electrons for checking
+
+      std::map<const panda::Ref<panda::PFCand>::index_type, const panda::Electron*> pf_to_electron;
+
       for (auto& lep : event.electrons) {
+
+        const auto pf = lep.matchedPF;
+        if (pf.isValid())
+          pf_to_electron[pf.idx()] = &lep;
 
         auto abseta = std::abs(lep.eta());
         auto pt = lep.pt();
@@ -376,7 +385,7 @@ int parsed_main(int argc, char** argv) {
       }
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &gen_nu_map] (jetstore::Particle& jet) {
+      auto set_bjet = [&output, &gen_nu_map, &pf_to_electron] (jetstore::Particle& jet) {
         auto bjet = jet.branch;
 
         int nlep = 0;
@@ -389,7 +398,8 @@ int parsed_main(int argc, char** argv) {
             auto pt = pf->pt();
             maxtrkpt = std::max(maxtrkpt, pt);
             auto pdgid = abs(pf->pdgId());
-            if (pdgid == 11 || pdgid == 13) {
+            if (pdgid == 13 || ((pf_to_electron.find(pf.idx()) != pf_to_electron.end()) and
+                                electronid::is_good(*pf_to_electron[pf.idx()], *jet.particle))) {
               nlep++;
               if (not maxlep or pt > maxlep->pt())
                 maxlep = pf.get();    // Dereference the panda::Ref, and then get the address
