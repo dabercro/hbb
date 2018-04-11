@@ -2,17 +2,17 @@
 
 . CrombiePlotterConfig.sh
 
-#me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_tight == 1 && n_jet >= 4 && cmva_jet1_cmva > 0.4432 && min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57'
-#them_cut="$(python cuts.py tt)"
+me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_tight == 1 && n_jet >= 4 && cmva_jet1_cmva > 0.4432 && min(deltaPhi(cmva_jet1_phi, recoilphi), deltaPhi(cmva_jet2_phi, recoilphi)) < 1.57'
+them_cut="$(python cuts.py inclusive tt)"
 
-me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_presel == 0 && n_jet < 3 && cmva_jet1_cmva > 0.9432 && min_dphi_metj_hard > 0.5 && dphi_met_trkmet < 0.5 && (60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
-them_cut="$(python cuts.py heavyz)"
+#me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_presel == 0 && n_jet < 3 && cmva_jet1_cmva > 0.9432 && min_dphi_metj_hard > 0.5 && dphi_met_trkmet < 0.5 && (60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
+#them_cut="$(python cuts.py inclusive heavyz)"
 
 #me_cut='cmva_hbb_m < 500 && met > 170 && met_filter == 1 && cmva_daughter_max_pt > 60 && cmva_daughter_min_pt > 35 && cmva_jet1_pt > 60 && cmva_jet2_cmva > -0.5884 && cmva_hbb_pt_reg_old > 120 && cmva_dphi_uh > 2.0 && n_lep_presel == 0 && n_jet < 4 && cmva_jet1_cmva < 0.4432 && min_dphi_metj_hard > 0.5 && dphi_met_trkmet < 0.5'
-#them_cut="$(python cuts.py lightz)"
+#them_cut="$(python cuts.py inclusive lightz)"
 
 crombie eventdump /data/t3home000/dabercro/hbb/180308/MET.root me.txt "met_trigger && $me_cut"
-crombie eventdump /data/t3home000/dabercro/hbb/180314_sync/MET.root them.txt "met_trigger && $them_cut"
+crombie eventdump /data/t3home000/dabercro/hbb/180406/MET.root them.txt "met_trigger && $them_cut"
 
 # Get the event numbers and sort them
 for b in "me" "them"

@@ -14,10 +14,9 @@ do
 
     # For some reasons, BoostType=Grad gives shitty response?
 
-#    for training in '!H:!V:NTrees=400:MinNodeSize=0.2:MaxDepth=40:BoostType=Bagging:SeparationType=RegressionVariance:nCuts=20:PruneMethod=CostComplexity:PruneStrength=20' \
-#        '!H:!V:BoostType=Bagging:SeparationType=RegressionVariance:nCuts=10000:PruneMethod=CostComplexity:PruneStrength=20:MaxDepth=15:NTrees=100' \
-#        '!H:!V:BoostType=Bagging:SeparationType=RegressionVariance:nCuts=20:PruneMethod=CostComplexity:PruneStrength=20'
-    for training in '!H:!V:BoostType=Bagging:SeparationType=RegressionVariance:nCuts=10000:PruneMethod=CostComplexity:PruneStrength=20:MaxDepth=15:NTrees=100'
+    for training in '!H:!V:NTrees=400:MinNodeSize=0.2:MaxDepth=40:BoostType=Bagging:SeparationType=RegressionVariance:nCuts=10000:PruneMethod=CostComplexity:PruneStrength=20' \
+        '!H:!V:BoostType=Bagging:SeparationType=RegressionVariance:nCuts=10000:PruneMethod=CostComplexity:PruneStrength=20:MaxDepth=15:NTrees=100' \
+        '!H:!V:BoostType=Bagging:SeparationType=RegressionVariance:nCuts=10000:PruneMethod=CostComplexity:PruneStrength=20'
     do
 
         depth=$(echo "$training" | perl -ne 'if (/MaxDepth=(\d*)/) { print "$1\n"; } else { print "3\n"; }')

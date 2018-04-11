@@ -8,8 +8,8 @@
 
 #include "PlotTools/interface/KinematicFunctions.h"
 
-#include "checkrun.h"
 #include "feedpanda.h"
+#include "checkrun.h"
 #include "btagreaders.h"
 #include "debugevent.h"
 #include "roccor.h"
@@ -17,6 +17,7 @@
 #include "softcalc.h"
 #include "lazy.h"
 #include "electronid.h"
+#include "puid.h"
 
 // Hold information about genjet vectors with neutrinos added
 

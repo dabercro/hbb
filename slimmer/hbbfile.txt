@@ -1,5 +1,5 @@
-! DEFINE REGS 3, 15, 40
-DEFINE REGS 3, 40
+DEFINE REGS 3, 15, 40
+! DEFINE REGS 3, 40
 
 <cmath>
 <algorithm>
@@ -26,10 +26,7 @@ met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv)
-  jet_$[] -> jet.$() | pt, eta
-  ! Don't save phi, but we can use it during the event for iso jet counting
-  #jet_$[] -> jet.$() | phi
-
+  jet_$[] -> jet.$() | pt, eta, phi
   ? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
@@ -114,12 +111,12 @@ bsf(panda::Jet& jet)
 
   bjet_$[] -> jet.$() | pt, eta
   #bjet_$[] -> jet.$() | phi
-  #bjet_$[] -> jet.$ | cmva
+  bjet_$[] -> jet.$ | cmva
 
   ? bjet_pt[] ; jetpt ? -> jet.ptCorr%%
   bjet_sf[] -> nom_sf
 
-  #bsf_eff -> btag::eff(<bjet_{pt, eta}[]>, flavor)
+  bsf_eff -> btag::eff(<bjet_{pt, eta}[]>, flavor)
 
 DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
@@ -127,7 +124,7 @@ DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-  #? bjet_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
+  ? bjet_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
 
   btag_sf = 1 -> *(bjet_sf[])
 
@@ -145,7 +142,7 @@ cmva {
       $ -> jet.$() | pt, eta, phi, m, e
       ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
-      $ -> jet.$ | chf, nhf, cef, nef, ptSmear
+      $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear
 
       ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
@@ -248,23 +245,28 @@ countfat(panda::FatJet& jet)
 {/F}
 
 ! Fat jets are simple for now
-fatjet1 {
-  fatjet(panda::FatJet& jet, <T> n_iso, <T> n_iso_b)
-    /O = false -> true
-    $ -> jet.$() | pt, eta, phi, m, e
-    ? pt; jetpt ? -> jet.ptCorr%%
-    $/O = false -> jet.$ | loose, tight, monojet
-    $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
+ak8, ca15 {
+  fatjet1 {
+    fatjet(panda::FatJet& jet, <T> n_iso, <T> n_iso_b)
+      /O = false -> true
+      $ -> jet.$() | pt, eta, phi, m, e
+      ? pt; jetpt ? -> jet.ptCorr%%
+      $/O = false -> jet.$ | loose, tight, monojet
+      $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
 
-    ! Knock double_sub off of the resolved plots
-    $ = -2 -> jet.$ | double_sub
+      ! Knock double_sub off of the resolved plots
+      $ = -2 -> jet.$ | double_sub
 
-    $/b -> $ | n_iso, n_iso_b
+      $/b -> $ | n_iso, n_iso_b
 
-    mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
+      mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
 
-    dphi_u <- deltaPhi([]_phi, recoilphi)
-    dR_resolved_hbb <- deltaR(<{[], cmva_hbb}_{eta, phi}>)
+      ! This is just used for some filtering
+      #good/O = false -> []_pt > 220 and []_mSD_corr > 25
+
+      dphi_u <- deltaPhi([]_phi, recoilphi)
+      dR_resolved_hbb <- deltaR(<{[], cmva_hbb}_{eta, phi}>)
+  }
 }
 
 genboson, gen_t, gen_tbar {
@@ -287,6 +289,6 @@ r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 
 ! Filter
 ! These are filled before the fill function
--- debug::debugevent or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150)) --
+-- debug::debugevent or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150) and (min_dphi_metj_hard > 0.5 or n_jet >= 4)) --
 ! These are filled in the fill function
-++ debug::debugevent or ((fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) and (n_lep_presel == 0 or n_lep_tight > 0)) ++
+++ debug::debugevent or ((ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) and (n_lep_presel == 0 or n_lep_tight > 0)) ++

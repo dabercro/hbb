@@ -79,8 +79,8 @@ def parse_plots(check=None):
             ['n_soft_2', 20, 0, 20, 'Num Soft'],
             ['n_soft_5', 20, 0, 20, 'Num Soft'],
             ['n_soft_10', 20, 0, 20, 'Num Soft'],
-            ['fatjet1_n_iso', 10, 0, 10, 'Num Jets'],
-            ['fatjet1_n_iso_b', 10, 0, 10, 'Num Jets'],
+            ['ak8fatjet1_n_iso', 10, 0, 10, 'Num Jets'],
+            ['ak8fatjet1_n_iso_b', 10, 0, 10, 'Num Jets'],
             ['cmva_jet1_pt', 50, 0, 500, 'Jet 1 p_{T} [GeV]'],
             ['cmva_jet2_pt', 50, 0, 500, 'Jet 2 p_{T} [GeV]'],
             ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
@@ -90,9 +90,9 @@ def parse_plots(check=None):
             ['event_class', 20, -0.5, 0.5, 'Event Classifier'],
             ['event_class_reg_3', 20, -0.5, 0.5, 'Event Classifier'],
             ['event_class_reg_40', 20, -0.5, 0.5, 'Event Classifier'],
-            ['fatjet1_mSD_corr', 24, 80, 160, 'fat jet m_{SD}'],
-            ['fatjet1_pt', 30, 0, 600, 'fat jet p_{T}'],
-            ['fatjet1_double_sub', 42, -1.05, 1.05, 'fat jet double sub'],
+            ['ak8fatjet1_mSD_corr', 24, 80, 160, 'fat jet m_{SD}'],
+            ['ak8fatjet1_pt', 30, 0, 600, 'fat jet p_{T}'],
+            ['ak8fatjet1_double_sub', 42, -1.05, 1.05, 'fat jet double sub'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:

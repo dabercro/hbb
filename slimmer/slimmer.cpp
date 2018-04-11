@@ -367,9 +367,8 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not jet.loose)
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not jet.loose or not puid::loose(jet))
           continue;
-
 
         lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
         lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
@@ -425,56 +424,64 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting fat jets" << std::endl;
 
       using fatstore = ObjectStore<hbbfile::fatjet, panda::FatJet>;
-      fatstore stored_fat({hbbfile::fatjet::fatjet1},
-                          [](panda::FatJet* j) {return j->pt();});
 
-      for (auto& fatjet : event.puppiAK8Jets) {
-        if (overlap_em(fatjet, std::pow(0.8, 2)) or not fatjet.monojet or not fatjet.loose or std::abs(fatjet.eta()) > 2.4)
-          continue;
-        output.set_countfat(fatjet);
-        stored_fat.check(fatjet);
-      }
+      auto fill_fat_jet = [&output, &overlap_em] (const std::vector<hbbfile::fatjet>& branches, panda::FatJetCollection& fatjets) {
+        fatstore stored_fat(branches, [](panda::FatJet* j) {return j->pt();});
 
-      auto set_fatjet = [&output] (fatstore::Particle& fat) {
-        using counter = decltype(output.n_alljet);
+        for (auto& fatjet : fatjets) {
+          if (overlap_em(fatjet, std::pow(0.8, 2)) or not fatjet.monojet or not fatjet.loose or std::abs(fatjet.eta()) > 2.4)
+            continue;
+          output.set_countfat(fatjet);
+          stored_fat.check(fatjet);
+        }
 
-        // max: The number of indices to loop over
-        // is_iso: A function that takes the index and returns true if this should count as an iso jet
-        // Returns: Number of isolated jets that pass is_iso function
-        auto count = [] (counter max, std::function<bool(counter)>&& is_iso) {
-          counter n = 0;
-          for (counter i_jet = 0; i_jet < max; ++i_jet)
-            n += (is_iso(i_jet));
+        auto set_fatjet = [&output] (fatstore::Particle& fat) {
+          using counter = decltype(output.n_alljet);
 
-          return n;
-        };
+          // max: The number of indices to loop over
+          // is_iso: A function that takes the index and returns true if this should count as an iso jet
+          // Returns: Number of isolated jets that pass is_iso function
+          auto count = [] (counter max, std::function<bool(counter)>&& is_iso) {
+            counter n = 0;
+            for (counter i_jet = 0; i_jet < max; ++i_jet)
+              n += (is_iso(i_jet));
 
-        using offset_target = decltype(output.jet_eta);
-
-        // Use this to generate a function that says when a jet is isolated from the fat jet
-        auto fat_iso = [&fat, &output] (offset_target hbbfile::*eta_offset, offset_target hbbfile::*phi_offset) {
-          return [&fat, &output, eta_offset, phi_offset] (counter i_jet) {
-            return (deltaR2(fat.particle->eta(), fat.particle->phi(),
-                            (output.*eta_offset)[i_jet],
-                            (output.*phi_offset)[i_jet]) > std::pow(0.8, 2));
+            return n;
           };
+
+          using offset_target = decltype(output.jet_eta);
+
+          // Use this to generate a function that says when a jet is isolated from the fat jet
+          auto fat_iso = [&fat, &output] (offset_target hbbfile::*eta_offset, offset_target hbbfile::*phi_offset) {
+            return [&fat, &output, eta_offset, phi_offset] (counter i_jet) {
+              return (deltaR2(fat.particle->eta(), fat.particle->phi(),
+                              (output.*eta_offset)[i_jet],
+                              (output.*phi_offset)[i_jet]) > std::pow(0.8, 2));
+            };
+          };
+
+          // Number of isolated jets
+          counter n_iso = count(output.n_alljet,
+                                fat_iso(&hbbfile::jet_eta, &hbbfile::jet_phi));
+
+          auto b_overlapper = fat_iso(&hbbfile::bjet_eta, &hbbfile::bjet_phi);
+          // Number of isolated (loose) bjets
+          counter n_iso_b = count(output.n_allbjet,
+                                  [&output, &b_overlapper] (counter i_jet) {
+                                    return (output.bjet_cmva[i_jet] > -0.5884 and
+                                            b_overlapper(i_jet));
+                                  });
+
+          output.set_fatjet(fat.branch, *fat.particle, n_iso, n_iso_b);
         };
-
-        // Number of isolated jets
-        counter n_iso = count(output.n_alljet,
-                              fat_iso(&hbbfile::jet_eta, &hbbfile::jet_phi));
-
-        auto b_overlapper = fat_iso(&hbbfile::bjet_eta, &hbbfile::bjet_phi);
-        // Number of isolated (loose) bjets
-        counter n_iso_b = count(output.n_allbjet,
-                                [&output, &b_overlapper] (counter i_jet) {
-                                  return (output.bjet_cmva[i_jet] > -0.5884 and
-                                          b_overlapper(i_jet));
-                                });
-
-        output.set_fatjet(fat.branch, *fat.particle, n_iso, n_iso_b);
+        set_particles(stored_fat, set_fatjet);
       };
-      set_particles(stored_fat, set_fatjet);
+      std::vector<std::pair<std::vector<hbbfile::fatjet>, panda::FatJetCollection>> fatcollections = {
+        {{hbbfile::fatjet::ak8fatjet1}, event.puppiAK8Jets},
+        {{hbbfile::fatjet::ca15fatjet1}, event.puppiCA15Jets}
+      };
+      for (auto& fats : fatcollections)
+        fill_fat_jet(fats.first, fats.second);
 
       //// HIGGS ////
       if (debug::debug)
@@ -484,17 +491,12 @@ int parsed_main(int argc, char** argv) {
         output.set_hbb(hbbfile::hbb::cmva_hbb);
 
       if (not ((output.cmva_hbb and output.cmva_hbb_pt > 70 and output.cmva_jet2_cmva > -0.8 and output.cmva_hbb_m < 550) or
-               (output.fatjet1 and output.fatjet1_pt > 220 and output.fatjet1_mSD_corr > 25 and output.fatjet1_double_sub > -0.7)))
+               output.ak8fatjet1_good or output.ca15fatjet1_good))
         continue;  // Short circuit soft activity this way, because that shit is slow.
 
       // Soft activity
       const auto ellipse = softcalc::Ellipse(stored_cmvas.store[0].particle,
                                              stored_cmvas.store[1].particle);
-
-      // Fat jet is just a circle on itself with a wider dR
-      const auto fatellipse = softcalc::Ellipse(stored_fat.store[0].particle,
-                                                stored_fat.store[0].particle,
-                                                0.8);
 
       std::vector<fastjet::PseudoJet> pseudojets;
       pseudojets.reserve(event.pfCandidates.size());
@@ -514,7 +516,7 @@ int parsed_main(int argc, char** argv) {
             not (std::abs(cand.track->dz()) > 0.2 or match_lep())) {
 
           allpseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
-          if (not (ellipse.inside(cand) or fatellipse.inside(cand)))
+          if (not ellipse.inside(cand))
             pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
 
         }
