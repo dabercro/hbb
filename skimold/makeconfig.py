@@ -9,51 +9,57 @@ version='v0'
 
 ##
 
-files = []
-config = []
+def makeconfig(resub=False):
 
-with open('files.txt', 'r') as inp:
-    files.extend([f.strip() for f in inp])
+    files = []
+    config = []
 
-with open('condor/tmpl.cfg', 'r') as tmpl:
-    config.extend([l.strip().replace('dabercro', os.environ['USER']) for l in tmpl])
+    with open('files.txt', 'r') as inp:
+        files.extend([f.strip() for f in inp])
 
-this_dir = os.path.abspath(os.path.dirname(__file__))
+    with open('condor/tmpl.cfg', 'r') as tmpl:
+        config.extend([l.strip().replace('dabercro', os.environ['USER']) for l in tmpl])
 
-config.extend(['Executable = %s' % os.path.join(this_dir, 'run.sh'),
-               'transfer_input_files = %s' % os.path.join(this_dir, 'src.tar.gz')])
+    this_dir = os.path.abspath(os.path.dirname(__file__))
 
-log_dir = '%s/public_html/logs/skimold/%s' % (os.environ['HOME'], version)
-for d in ['err', 'out']:
-    if not os.path.exists(os.path.join(log_dir, d)):
-        os.makedirs(os.path.join(log_dir, d))
+    config.extend(['Executable = %s' % os.path.join(this_dir, 'run.sh'),
+                   'transfer_input_files = %s' % os.path.join(this_dir, 'src.tar.gz')])
 
-out_dir = '/data/t3home000/%s/skimold/%s' % (os.environ['USER'], version)
-if not os.path.exists(out_dir):
-    os.makedirs(out_dir)
+    log_dir = '%s/public_html/logs/skimold/%s' % (os.environ['HOME'], version)
+    for d in ['err', 'out']:
+        if not os.path.exists(os.path.join(log_dir, d)):
+            os.makedirs(os.path.join(log_dir, d))
 
-n_job = 0
-low = 0
-high = files_per_job
-while low < len(files):
-    # Files for this job
-    job = files[low:min(high, len(files))]
+    out_dir = '/data/t3home000/%s/skimold/%s' % (os.environ['USER'], version)
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+
+    n_job = 0
+    low = 0
+    high = files_per_job
+    while low < len(files):
+        # Files for this job
+        job = files[low:min(high, len(files))]
     
-    low = high
-    high += files_per_job
+        low = high
+        high += files_per_job
 
-    output_file = '%s/%i.root' % (out_dir, n_job)
+        output_file = '%s/%i.root' % (out_dir, n_job)
 
-    if not os.path.exists(output_file):
-        config.extend(['Output = %s/out/%i.out' % (log_dir, n_job),
-                       'Error = %s/err/%i.err' %  (log_dir, n_job),
-                       'transfer_output_files = output.root',
-                       'transfer_output_remaps = "output.root = %s"' % output_file,
-                       'Arguments = %s' % ' '.join(job),
-                       'Queue'])
+        if not resub or not os.path.exists(output_file):
+            config.extend(['Output = %s/out/%i.out' % (log_dir, n_job),
+                           'Error = %s/err/%i.err' %  (log_dir, n_job),
+                           'transfer_output_files = output.root',
+                           'transfer_output_remaps = "output.root = %s"' % output_file,
+                           'Arguments = %s' % ' '.join(job),
+                           'Queue'])
 
-    n_job += 1
+        n_job += 1
 
-with open('condor.cfg', 'w') as condor:
-    for l in config:
-        condor.write(l + '\n')
+    name = 'resub.cfg' if resub else 'condor.cfg'
+    with open(name, 'w') as condor:
+        for l in config:
+            condor.write(l + '\n')
+
+if __name__ == '__main__':
+    makeconfig()

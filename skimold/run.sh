@@ -1,5 +1,6 @@
 #! /bin/bash
 
+hostname
 ls
 
 export USER=dabercro
