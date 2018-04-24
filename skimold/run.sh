@@ -3,7 +3,7 @@
 ls
 
 export SCRAM_ARCH=slc6_amd64_gcc630
-BASE=/home/$USER/cms/cmssw/CMSSW_8_0_29
+BASE=/home/$USER/cms/cmssw/CMSSW_9_4_5
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
@@ -34,6 +34,6 @@ done
 
 mkdir outputs
 
-crombie skim -c "$(./cuts.py)" -i inputs -o outputs
+crombie skim -c "$(./cuts.py)" -i inputs -o outputs -t tree -r run -l lumi -e evt
 
 hadd output.root outputs/*.root

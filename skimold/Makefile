@@ -14,4 +14,4 @@ src.tar.gz: src/*
 test: all
 	rm -r test/*
 	cp run.sh src.tar.gz test
-	cd test; ./run.sh $(shell head -n3 files.txt)
+	cd test; ./run.sh $(shell head -n10 files.txt)
