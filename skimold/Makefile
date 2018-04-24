@@ -12,6 +12,6 @@ src.tar.gz: src/*
 .PHONY: test
 
 test: all
-	rm -r test/*
+	rm -r test/* || mkdir test
 	cp run.sh src.tar.gz test
 	cd test; ./run.sh $(shell head -n10 files.txt)

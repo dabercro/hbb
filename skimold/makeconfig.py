@@ -16,7 +16,7 @@ with open('files.txt', 'r') as inp:
     files.extend([f.strip() for f in inp])
 
 with open('condor/tmpl.cfg', 'r') as tmpl:
-    config.extend([l.strip() for l in tmpl])
+    config.extend([l.strip().replace('dabercro', os.environ['USER']) for l in tmpl])
 
 this_dir = os.path.abspath(os.path.dirname(__file__))
 
