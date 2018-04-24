@@ -22,6 +22,6 @@ for args in heldargs:
     if os.path.exists(output_file) and output_file.endswith('.root'):
         os.remove(output_file)
 
-subprocess.check_output('condor_rm {0} --constraint \'JobStatus == 5\''.format(os.environ['USER']),
-                        shell=True)
+subprocess.call('condor_rm {0} --constraint \'JobStatus == 5\''.format(os.environ['USER']),
+                shell=True)
 makeconfig(True)

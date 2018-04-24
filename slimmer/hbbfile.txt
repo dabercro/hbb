@@ -22,6 +22,7 @@ mc_weight = event.weight
 $@ = event.$@@.pt | pf, calo, trk |@ met
 $@phi = event.$@@.phi | pf, calo, trk |@ met
 
+hbb_2016_trigger/O = false
 met_trigger/O = false
 met_filter/O = event.metFilters.pass()
 

@@ -5,8 +5,8 @@ ls
 
 export USER=dabercro
 
-export SCRAM_ARCH=slc6_amd64_gcc630
-BASE=/home/$USER/cms/cmssw/CMSSW_9_4_5
+export SCRAM_ARCH=slc6_amd64_gcc530
+BASE=/home/$USER/cms/cmssw/CMSSW_8_0_29
 
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 
@@ -31,7 +31,7 @@ do
     infile=$1
     shift
 
-    xrdcp root://cmsxrootd-site1.fnal.gov:1092/$infile inputs
+    xrdcp -s root://cmsxrootd-site1.fnal.gov:1092/$infile inputs
 
 done
 

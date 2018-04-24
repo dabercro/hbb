@@ -83,6 +83,19 @@ int parsed_main(int argc, char** argv) {
     for (auto path : met_trigger_paths)
       met_trigger_tokens.push_back(event.registerTrigger(path));
 
+    const std::vector<const char*> hbb_2016_paths = {
+      "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
+      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+      "HLT_PFMET170_NoiseCleaned",
+      "HLT_PFMET170_HBHECleaned",
+      "HLT_PFMET170_HBHE_BeamHaloCleaned"
+    };
+
+    std::vector<unsigned> hbb_2016_tokens;
+
+    for (auto path : hbb_2016_paths)
+      hbb_2016_tokens.push_back(event.registerTrigger(path));
+
     // Loop over tree
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
       if (entry % 10000 == 0)
@@ -133,6 +146,13 @@ int parsed_main(int argc, char** argv) {
       for (auto token : met_trigger_tokens) {
         if (event.triggerFired(token)) {
           output.met_trigger = true;
+          break;
+        }
+      }
+
+      for (auto token : hbb_2016_tokens) {
+        if (event.triggerFired(token)) {
+          output.hbb_2016_trigger = true;
           break;
         }
       }

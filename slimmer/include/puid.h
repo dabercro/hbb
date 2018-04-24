@@ -9,8 +9,10 @@ namespace puid {
 
   // Does the jet pass the low PUID working point?
   bool loose(const panda::Jet& jet) {
-    return jet.puid > hist.GetBinContent(hist.GetBin(std::abs(jet.eta()),
-                                                     std::min(jet.pt(), 39.0)));
+    auto to_pass = hist.GetBinContent(hist.FindBin(std::abs(jet.eta()), std::min(jet.pt(), 39.0)));
+    if (debug::debug)
+      std::cout << "Jet with pt " << jet.pt() << " and puid " << jet.puid << " needs to pass " << to_pass << std::endl;
+    return jet.puid > to_pass;
   }
 
 }
