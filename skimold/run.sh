@@ -2,6 +2,8 @@
 
 ls
 
+export USER=dabercro
+
 export SCRAM_ARCH=slc6_amd64_gcc630
 BASE=/home/$USER/cms/cmssw/CMSSW_9_4_5
 
