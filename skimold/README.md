@@ -29,7 +29,7 @@ To resubmit, run:
 ```
 
 This checks held jobs, removes the output, and makes a config file called `resub.cfg`.
-This config file will also work if you remove the output by hand.
+This script will also make a correct config file if you remove the output by hand.
 Then just call
 
 ```
