@@ -22,4 +22,18 @@ Submit:
 condor_submit condor.cfg
 ```
 
+To resubmit, run:
+
+```
+./listheld.py
+```
+
+This checks held jobs, removes the output, and makes a config file called `resub.cfg`.
+This config file will also work if you remove the output by hand.
+Then just call
+
+```
+condor_submit resub.cfg
+```
+
 That's it!
