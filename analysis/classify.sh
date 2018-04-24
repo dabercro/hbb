@@ -15,11 +15,11 @@
         --weight      'scale_factors * xsec1' \
         --cut         "eventNumber % 2 == 1" \
         --method      BDT \
-        --prepare     "nTrain_Signal=77500:nTrain_Background=48500:SplitMode=Random:NormMode=NumEvents:!V" \
+        --prepare     "nTrain_Signal=1000:nTrain_Background=1000:SplitMode=Random:NormMode=NumEvents:!V" \
         --methodopt   'BoostType=AdaBoost:nCuts=50:PruneMethod=NoPruning:NTrees=800:NegWeightTreatment=InverseBoostNegWeights:CreateMVAPdfs=True' \
         --output      classify_wboost.root \
         --traineropt  '!V:!Silent:Color:DrawProgressBar:AnalysisType=Classification' \
-        --trainername "Classifier_wboost" \
+        --trainername "Classifier_test" \
 
 #done
 

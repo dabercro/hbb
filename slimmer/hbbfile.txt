@@ -27,7 +27,7 @@ met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv)
   jet_$[] -> jet.$() | pt, eta, phi
-  ? jet_pt[]; jetpt ? -> jet.ptCorr%%
+  #? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
 {/b}
@@ -113,10 +113,10 @@ bsf(panda::Jet& jet)
   #bjet_$[] -> jet.$() | phi
   bjet_$[] -> jet.$ | cmva
 
-  ? bjet_pt[] ; jetpt ? -> jet.ptCorr%%
+  #? bjet_pt[] ; jetpt ? -> jet.ptCorr%%
   bjet_sf[] -> nom_sf
 
-  bsf_eff -> btag::eff(<bjet_{pt, eta}[]>, flavor)
+  bsf_eff[] -> btag::eff(<bjet_{pt, eta}[]>, flavor)
 
 DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
@@ -128,8 +128,8 @@ DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
   btag_sf = 1 -> *(bjet_sf[])
 
-  bsf_num -> +(bjet_sf[] * bsf_eff)
-  bsf_denom -> +(bsf_eff)
+  #bsf_num -> +(bjet_sf[] * bsf_eff[])
+  #bsf_denom -> +(bsf_eff[])
 
   beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
 
@@ -142,12 +142,16 @@ cmva {
       $ -> jet.$() | pt, eta, phi, m, e
       ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
+      $ -> jet.p4().$$() | et, mt
+
+      loosepu/O = false -> puid::loose(jet)
+
       $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear
 
       ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
       ! Set the taggers to -2 to disappear them from plots
-      $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
+      $ = -2 -> jet.$ | qgl, csv, cmva ! , deepCSVb, deepCMVAb
 
       $/O = false -> jet.$ | loose, tight, monojet
 
@@ -156,10 +160,10 @@ cmva {
       (flav = btag::flavor(jet.matchedGenJet))
       maxtrk -> maxpt
 
-      sf = 1 -> btag::cmva_reader.eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>)
+!      sf = 1 -> btag::cmva_reader.eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>)
 
-      sf_@ = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
-      ? sf_@; btagsf ? = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("%", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
+!      sf_@ = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("central", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
+!      ? sf_@; btagsf ? = 1 -> btag::cmva_readers.at(BTagEntry::OP_@@@).eval_auto_bounds("%", flav, <[]_{eta, pt, cmva}>) |@ loose, medium, tight
 
       ~~ lep ~~
 
@@ -189,15 +193,15 @@ cmva {
 
     ! Many different regressions to compare!
 
-    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
-    [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
-    [pt_ratio_old; data/bjet_regression_v0.weights.xml; data/bjet_old_sub.txt] = 1
-    [pt_ratio_smeared; data/Regression_smeared_BDT.weights.xml] = 1
+!    [pt_ratio$_@; data/Regression$_@_BDT.weights.xml] = 1 | , _old |@ REGS
+!    [pt_ratio_old_method; data/Regression_old_method_BDT.weights.xml] = 1
+    [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
+!    [pt_ratio_smeared; data/Regression_smeared_BDT.weights.xml] = 1
 
     ! Need a more systematic name system
 
-    pt_reg$ <- []_pt_ratio$ * []_pt | _old, _old_method
-    pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ REGS
+    pt_reg$ <- []_pt_ratio$ * []_pt | _old ! , _old_method
+!    pt_reg$_@ <- []_pt_ratio$_@ * []_pt | , _old |@ REGS
   }
 
   daughter_$_pt <- std::$(<[]_jet{1, 2}_pt>) | min, max
@@ -209,13 +213,13 @@ cmva {
       /O = false -> true
       $ -> []_vec.$$() | pt, eta, phi, m
 
-      m_reg$ <- vectorSumMass(<[^]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _old_method
-      pt_reg$ <- vectorSumPt(<[^]_jet{1, 2}_{pt_reg$, phi}>) | _old, _old_method
-      m_reg$_@ <- vectorSumMass(<[^]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
-      pt_reg$_@ <- vectorSumPt(<[^]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
+      m_reg$ <- vectorSumMass(<[^]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old ! , _old_method
+      pt_reg$ <- vectorSumPt(<[^]_jet{1, 2}_{pt_reg$, phi}>) | _old ! , _old_method
+!      m_reg$_@ <- vectorSumMass(<[^]_jet{1, 2}_{pt_reg$_@, eta, phi, m}>) | , _old |@ REGS
+!      pt_reg$_@ <- vectorSumPt(<[^]_jet{1, 2}_{pt_reg$_@, phi}>) | , _old |@ REGS
 
-      reg$_@_over_m <- []_m_reg$_@/[]_m | , _old |@ REGS
-      reg$_over_m <- []_m_reg$/[]_m | _old, _old_method
+!      reg$_@_over_m <- []_m_reg$_@/[]_m | , _old |@ REGS
+      reg$_over_m <- []_m_reg$/[]_m | _old ! , _old_method
 
     hbbgen(panda::GenParticle& gen, float dr)
       gen/O = false -> true
@@ -283,9 +287,9 @@ pdf = 1.0
 r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
 r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 
-[event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
-[boost_class; data/Classifier_wboost_BDT.weights.xml; data/boosted_sub.txt]
-
+! [event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
+! [boost_class; data/Classifier_wboost_BDT.weights.xml; data/boosted_sub.txt]
+[maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
 
 ! Filter
 ! These are filled before the fill function

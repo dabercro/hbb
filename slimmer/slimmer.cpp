@@ -367,8 +367,11 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not jet.loose or not puid::loose(jet))
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not jet.loose or not puid::loose(jet)) {
+          if (debug::debug)
+            std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
           continue;
+        }
 
         lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
         lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
@@ -490,9 +493,10 @@ int parsed_main(int argc, char** argv) {
       if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb);
 
-      if (not ((output.cmva_hbb and output.cmva_hbb_pt > 70 and output.cmva_jet2_cmva > -0.8 and output.cmva_hbb_m < 550) or
-               output.ak8fatjet1_good or output.ca15fatjet1_good))
-        continue;  // Short circuit soft activity this way, because that shit is slow.
+      // if (not debug::debug and
+      //     not ((output.cmva_hbb and output.cmva_hbb_pt > 70 and output.cmva_jet2_cmva > -0.8 and output.cmva_hbb_m < 550) or
+      //          output.ak8fatjet1_good or output.ca15fatjet1_good))
+      //   continue;  // Short circuit soft activity this way, because that shit is slow.
 
       // Soft activity
       const auto ellipse = softcalc::Ellipse(stored_cmvas.store[0].particle,

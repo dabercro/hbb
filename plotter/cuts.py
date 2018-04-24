@@ -40,7 +40,7 @@ common = ' && '.join([
 
 categoryCuts = {
     'inclusive': ' && '.join([
-            'cmva_hbb_m < 500',
+            'cmva_hbb_m_reg_old < 500',
             jetpt,
             lbtag,
             deltaVH,
@@ -87,7 +87,8 @@ regionCuts = {
     }
 
 regionCuts['signal'] = ' && '.join([
-        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4')
+        regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4'),
+#        'maier_event_class > -0.8'
         ])
 
 # Making selection of multiple entries

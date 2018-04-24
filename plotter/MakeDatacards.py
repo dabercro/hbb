@@ -18,14 +18,20 @@ uncertainties = {
     'pileup': {
         'val': 1.05
         },
-    'diboson': {
-        'val': 1.3,
-        'procs': ['vv']
+    'trig_met': {
+        'val': 1.03
         },
-    'singletop': {
-        'val': 1.3,
-        'procs': ['st']
+    'uncl_met': {
+        'val': 1.03
         },
+#    'diboson': {
+#        'val': 1.3,
+#        'procs': ['vv']
+#        },
+#    'singletop': {
+#        'val': 1.3,
+#        'procs': ['st']
+#        },
     'wfact': {
         'shape': 'shape',
         'procs': ['wj', 'wjb', 'wjbb']
@@ -38,18 +44,18 @@ uncertainties = {
         'shape': 'shape',
         'procs': []   # Will be filled with proc vetos
         },
-    'ttfatsf': {
-        'val': 2.0,
-        'regions': ['boosted__tt']
-        },
-    'lightzfatsf': {
-        'val': 2.0,
-        'regions': ['boosted__lightz']
-        },
-    'heavyfatsf': {
-        'val': 2.0,
-        'regions': ['boosted__heavyz', 'boosted__signal']
-        }
+#    'ttfatsf': {
+#        'val': 2.0,
+#        'regions': ['boosted__tt']
+#        },
+#    'lightzfatsf': {
+#        'val': 2.0,
+#        'regions': ['boosted__lightz']
+#        },
+#    'heavyfatsf': {
+#        'val': 2.0,
+#        'regions': ['boosted__heavyz', 'boosted__signal']
+#        }
     }
         
 for boson in ['w', 'z']:
@@ -75,7 +81,7 @@ output = 'datacards/yields_%s' % datething
 expr = {
     'inclusive': {
 #        'signal': 'boost_class',
-        'signal': 'event_class_reg_3',
+        'signal': 'maier_event_class',
         'default': 'cmva_jet2_cmva'
         }
     }

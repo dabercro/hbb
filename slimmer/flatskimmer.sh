@@ -47,7 +47,8 @@ then
 
 else
 
-    crombie skim --cut 'met_filter == 1 && cmva_hbb && abs(cmva_jet1_gen_pdgid) == 5' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+#    crombie skim --cut 'met_filter == 1 && cmva_hbb && abs(cmva_jet1_gen_pdgid) == 5' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+    crombie skim --cut 'met_filter == 1' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
 
 fi
 
