@@ -23,8 +23,8 @@ $@ = event.$@@.pt | pf, calo, trk |@ met
 $@phi = event.$@@.phi | pf, calo, trk |@ met
 
 #dztrkmetvec/TVector2 = trkmet::trkmet(event)
-dztrkmet = dztrkmetvec.Mod()
-dztrkmetphi = dztrkmetvec.Phi()
+dztrkmet <- dztrkmetvec.Mod()
+dztrkmetphi <- dztrkmetvec.Phi()
 
 hbb_2016_trigger/O = false
 met_trigger/O = false
