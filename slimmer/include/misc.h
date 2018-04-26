@@ -18,6 +18,7 @@
 #include "lazy.h"
 #include "electronid.h"
 #include "puid.h"
+#include "trkmet.h"
 
 // Hold information about genjet vectors with neutrinos added
 

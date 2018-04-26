@@ -417,6 +417,8 @@ int parsed_main(int argc, char** argv) {
 
         for (auto pf : jet.particle->constituents) {
           if (pf->q()) {
+            if (debug::debug)
+              std::cout << "Jet with pt " << jet.particle->pt() << " has constituent with pt " << pf->pt() << std::endl;
             auto pt = pf->pt();
             maxtrkpt = std::max(maxtrkpt, pt);
             auto pdgid = abs(pf->pdgId());

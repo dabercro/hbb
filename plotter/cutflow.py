@@ -44,8 +44,8 @@ if len(sys.argv) == 1:
     cutflowMaker.PrintCutflow()
 
 else:
-    cat = sys.argv[1]
-    for region in sys.argv[2:]:
+    cat = 'inclusive'
+    for region in sys.argv[1:]:
         cutflowMaker.Reset()
         for cut in ['met_trigger == 1'] + cuts.cut(cat, region).split(' && '):
             cutflowMaker.AddCut(cut.strip(), cut)

@@ -5,7 +5,10 @@ import subprocess
 
 from CrombieTools import Nminus1Cut
 
-metcut     = 'pfmet > 170 && met_filter == 1'
+metcut     = ' && '.join([
+        'pfmet > 170',
+        'met_filter == 1',
+        ])
 lepveto    = 'n_lep_presel == 0'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
@@ -32,7 +35,7 @@ antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
 undeltaVH  = 'cmva_dphi_uh < 2.0'
-trkmetphi  = 'dphi_met_trkmet < 0.5'
+trkmetphi  = '1' # 'dphi_met_trkmet < 0.5'
 
 common = ' && '.join([
         metcut,

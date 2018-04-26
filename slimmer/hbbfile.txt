@@ -22,6 +22,10 @@ mc_weight = event.weight
 $@ = event.$@@.pt | pf, calo, trk |@ met
 $@phi = event.$@@.phi | pf, calo, trk |@ met
 
+#dztrkmetvec/TVector2 = trkmet::trkmet(event)
+dztrkmet = dztrkmetvec.Mod()
+dztrkmetphi = dztrkmetvec.Phi()
+
 hbb_2016_trigger/O = false
 met_trigger/O = false
 met_filter/O = event.metFilters.pass()
@@ -143,7 +147,9 @@ cmva {
       $ -> jet.$() | pt, eta, phi, m, e
       ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
-      $ -> jet.p4().$$() | et, mt
+      #p4/TLorentzVector = TLorentzVector() -> [&] () { TLorentzVector p4; p4.SetPtEtaPhiM(<[]_{pt, eta, phi, m}>); return p4; } ()
+
+      $ -> []_p4.$$() | et, mt
 
       loosepu/O = false -> puid::loose(jet)
 
@@ -170,8 +176,8 @@ cmva {
 
       nlep/b -> nlep
       leadlep_pt -> lep->pt()
-      leadlep_ptrel -> lep->p4().Perp(jet.p4().Vect())
-      leadlep_dr -> deltaR(<{lep->, jet.}{eta, phi}()>)
+      leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
+      leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
 
     bvert(panda::Ref<panda::SecondaryVertex>& vert)
       ~~ vert.isValid() ~~
@@ -294,6 +300,8 @@ r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 
 ! Filter
 ! These are filled before the fill function
--- debug::debugevent or (met_filter == 1 and (pfmet > 150 or recoilvec.Mod() > 150) and (min_dphi_metj_hard > 0.5 or n_jet >= 4)) --
+! -- debug::debugevent or ((pfmet > 150 or recoilvec.Mod() > 150) and (min_dphi_metj_hard > 0.4 or n_jet >= 4)) --
+-- debug::debugevent or (pfmet > 150 or recoilvec.Mod() > 150) --
 ! These are filled in the fill function
-++ debug::debugevent or ((ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) and (n_lep_presel == 0 or n_lep_tight > 0)) ++
+! ++ debug::debugevent or ((ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) and (n_lep_presel == 0 or n_lep_tight > 0)) ++
+++ debug::debugevent or (ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) ++

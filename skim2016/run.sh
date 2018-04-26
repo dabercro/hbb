@@ -39,4 +39,4 @@ mkdir outputs
 
 crombie skim -c "$(./cuts.py)" -i inputs -o outputs -t tree -r run -l lumi -e evt
 
-hadd output.root outputs/*.root
+hadd -n 2 output.root outputs/*.root
