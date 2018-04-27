@@ -105,7 +105,7 @@ recoilphi <- recoilvec.Phi()
 ! Minimum dphi between MET and b-jet (to be declared)
 min_dphi_recoilb <- std::min(<deltaPhi(cmva_jet{1, 2}_phi, recoilphi)>)
 
-dphi_met_trkmet <- deltaPhi(<{pf, trk}metphi>)
+dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
 
 bsf(panda::Jet& jet)
   ! Hold some values temporarily. Should implement local variables some day

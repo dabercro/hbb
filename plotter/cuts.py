@@ -35,7 +35,7 @@ antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
 undeltaVH  = 'cmva_dphi_uh < 2.0'
-trkmetphi  = '1' # 'dphi_met_trkmet < 0.5'
+trkmetphi  = 'dphi_met_dztrkmet < 0.5'
 
 common = ' && '.join([
         metcut,
@@ -66,14 +66,14 @@ regionCuts = {
     'tt' : ' && '.join([
             common,
             'n_lep_tight == 1',
-            'n_jet >= 4',
+            'n_centerjet >= 4',
             btag,
             'min_dphi_recoilb < 1.57',
             ]),
     'lightz' : ' && '.join([
             common,
             lepveto,
-            'n_jet < 4',
+            'n_centerjet < 4',
             unbtag,
             antiQCD,
             trkmetphi,
@@ -81,7 +81,7 @@ regionCuts = {
     'heavyz' : ' && '.join([
             common,
             lepveto,
-            'n_jet < 3',
+            'n_centerjet < 3',
             tbtag,
             antiQCD,
             trkmetphi,
@@ -115,7 +115,7 @@ defaultMCWeight = ' * '.join(
 
 # Additional weights applied to certain control regions
 
-mettrigger = 'met_trigger'
+mettrigger = 'hbb_2016_trigger'
 
 signal = os.environ.get('signal', '0')      # Signal cut
 
