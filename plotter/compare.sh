@@ -14,7 +14,7 @@ them_cut='(Vtype==4 && Sum$(abs(TVector2::Phi_mpi_pi(Jet_phi-V_phi))<0.5 && Jet_
 #them_cut="metFilter==1 && pfmet>170 && hbbm_reg<500 && Sum$(jetPt>30 && abs(jetEta)<2.4)<4 && max(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>60 && min(jetPt[hbbjtidx[0]],jetPt[hbbjtidx[1]])>35 && jetPt[hbbjtidx[0]]>60 && jetPt[hbbjtidx[1]]>35 && hbbpt_reg>120 && (nLooseMuon+nLooseElectron)==0 && Sum$(jetCMVA>0.4432)==0 && Sum$(jetCMVA>-0.5884)>1 && jetCMVA[hbbjtidx[0]]<0.4432 && jetCMVA[hbbjtidx[1]]>-0.5884 && deltaPhi(trkmetphi,pfmetphi)<.5 && deltaPhi(hbbphi,pfmetphi)>2. && Sum$(deltaPhi(jetPhi,pfmetphi)<0.5 && jetPt>30 && abs(jetEta)<2.5)==0 && (trigger&1) !=0"
 
 crombie eventdump $CrombieInFilesDir/MET.root me.txt "met_trigger == 1 && $me_cut"
-tree=tree crombie eventdump /data/t3home000/dabercro/skimold/out/v1.root them.txt "$them_cut" run lumi evt
+tree=tree crombie eventdump $themfile them.txt "$them_cut && json != 0" run lumi evt
 #crombie eventdump /data/t3home000/hbb/zhnn/v8/sr/MET.root them.txt "$them_cut"
 
 # Get the event numbers and sort them

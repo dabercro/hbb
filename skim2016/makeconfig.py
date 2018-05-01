@@ -4,8 +4,8 @@ import os
 
 ##
 
-files_per_job = 40
-version='v1'
+files_per_job = 20
+version='v2'
 
 ##
 

@@ -133,6 +133,9 @@ int parsed_main(int argc, char** argv) {
 
       all_hist.Fill(0.0, output.mc_weight);
 
+      // Set the PFCandidate map used for redoing reliso calculations
+      reliso::relisomap.AddParticles(event.pfCandidates);
+
       //// FILTER ////
       if (debug::debug)
         std::cout << "Starting filter" << std::endl;
@@ -188,17 +191,17 @@ int parsed_main(int argc, char** argv) {
       // We'll do a lambda with no arguments for lazy evaluation
 
       auto set_lep = [&output, &lepvec, &em_directions, &selected_leps]
-        (hbbfile::lep branch, panda::Lepton& lep, float reliso, float corrpt,
+        (hbbfile::lep branch, panda::Lepton& lep, LepInfo info,
          lazy::LazyCuts ids) {
         // Definitions straight from AN
         if (ids.presel()) {
           if (debug::debug) {
             std::cout << "Placing lepton for cleaning [pt, eta, phi, m, reliso] = ["
                       << lep.pt() << ", " << lep.eta() << ", " << lep.phi() << ", " << lep.m() << ", "
-                      << reliso << "]" << std::endl;
+                      << info.reliso << "]" << std::endl;
           }
           em_directions.emplace_back(lep.eta(), lep.phi());
-          output.set_lep(branch, lep, {reliso, corrpt}, ids);
+          output.set_lep(branch, lep, info, ids);
           if (ids.loose()) {
             selected_leps.push_back(&lep);
             if (ids.medium() && ids.tight()) {
@@ -216,16 +219,16 @@ int parsed_main(int argc, char** argv) {
         auto abseta = std::abs(lep.eta());
         auto pt = lep.pt();
         auto corrpt = pt * roccor::scale(event, lep); // This scale() function must be called for every muon in the event for repeatable random numbers
-        pt = corrpt;
         auto reliso = lep.combIso()/pt;
+        auto minireliso = reliso::minireliso(lep, event.rho);
 
         if(debug::debug)
           std::cout << "Muon with pt " << lep.pt() << " Corrected to " << corrpt << " has reliso " << reliso << std::endl;
 
-        set_lep(hbbfile::lep::muon, lep, reliso, corrpt,
+        set_lep(hbbfile::lep::muon, lep, {reliso, minireliso, corrpt},
                 {[&] {   // Muon preselection
                     return pt > 5.0 and abseta < 2.4 and lep.loose and
-                      lep.dxy < 0.5 and lep.dz < 1.0 and reliso < 0.4;
+                      lep.dxy < 0.5 and lep.dz < 1.0 and std::min(reliso, minireliso) < 0.4;
                   },
                   [&] {   // Loose muons
                     return lep.pf and (lep.global or lep.tracker);
@@ -258,17 +261,16 @@ int parsed_main(int argc, char** argv) {
         auto abseta = std::abs(lep.eta());
         auto pt = lep.pt();
         auto corrpt = lep.smearedPt;
-        pt = corrpt;
         auto reliso = lep.combIso()/pt;
+        auto minireliso = reliso::minireliso(lep);
 
         if(debug::debug)
           std::cout << "Electron with pt " << lep.pt() << " Corrected to " << corrpt << " has reliso " << reliso << std::endl;
 
-        set_lep(hbbfile::lep::muon, lep, reliso, corrpt,
+        set_lep(hbbfile::lep::muon, lep, {reliso, minireliso, corrpt},
                 {[&] {   // Electron preselection
-                    return lep.smearedPt > 7.0 and abseta < 2.4 and
-                      lep.dxy < 0.05 and lep.dz < 0.20 and
-                      reliso < 0.4;
+                    return pt > 7.0 and abseta < 2.4 and
+                      lep.dxy < 0.05 and lep.dz < 0.20 and std::min(reliso, minireliso) < 0.4;
                   },
                   [&] {   // Loose electrons for conservative event classification
                     return lep.mvaWP90;

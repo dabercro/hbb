@@ -81,7 +81,7 @@ muon, ele {
     ! but count presel here
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel, loose
 
-    $[] -> info.$ | reliso, corrpt
+    $[] -> info.$ | reliso, minireliso, corrpt
     q[]/B -> lep.charge
 
     pog_$[]/O = false -> lep.$ | loose, medium, tight

@@ -19,6 +19,7 @@
 #include "electronid.h"
 #include "puid.h"
 #include "trkmet.h"
+#include "reliso.h"
 
 // Hold information about genjet vectors with neutrinos added
 
@@ -45,10 +46,11 @@ class GenNuVec {
 
 class LepInfo {
  public:
-  LepInfo (float reliso = 0, float corrpt = 0) : reliso{reliso}, corrpt{corrpt} {}
+  LepInfo (double reliso = 0, double mini = 0, double corrpt = 0) : reliso{reliso}, minireliso{mini}, corrpt{corrpt} {}
 
-  float reliso;
-  float corrpt; // Rochester corrected pT (muons) or Smeared pT (electrons)
+  double reliso;
+  double minireliso;
+  double corrpt; // Rochester corrected pT (muons) or Smeared pT (electrons)
 };
 
 

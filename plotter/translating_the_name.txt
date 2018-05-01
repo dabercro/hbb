@@ -1,16 +1,16 @@
 Sum$(abs(TVector2::Phi_mpi_pi(Jet_phi-V_phi))<0.5&&Jet_pt>30&&Jet_puId>=4)  min_dphi_metj_hard
 nselLeptons                                                                 n_lep_presel
 Sum$(Jet_pt>30&&abs(Jet_eta)<2.4&&Jet_puId>=4)                              n_centerjet
-abs(TVector2::Phi_mpi_pi(HCMVAV2_reg_phi-V_phi))                            cmva_dphi_uh
+# abs(TVector2::Phi_mpi_pi(HCMVAV2_reg_phi-V_phi))                            cmva_dphi_uh
 abs(TVector2::Phi_mpi_pi(V_phi-tkMet_phi))                                  dphi_met_dztrkmet
-V_phi                                                                       recoilphi
-tkMet_phi                                                                   dztrkmetphi
-HCMVAV2_reg_phi                                                             cmva_hbb_phi
-met_pt                                                                      pfmet
+# V_phi                                                                       TVector2::Phi_mpi_pi(recoilphi)
+# tkMet_phi                                                                   TVector2::Phi_mpi_pi(dztrkmetphi)
+# HCMVAV2_reg_phi                                                             cmva_hbb_phi
+# met_pt                                                                      pfmet
 Jet_pt[hJCMVAV2idx[0]]                                                      cmva_jet1_pt
 Jet_btagCMVAV2[hJCMVAV2idx[0]]                                              cmva_jet1_cmva
 Jet_pt[hJCMVAV2idx[1]]                                                      cmva_jet2_pt
 Jet_btagCMVAV2[hJCMVAV2idx[1]]                                              cmva_jet2_cmva
-HCMVAV2_reg_mass                                                            cmva_hbb_m_reg_old
-HCMVAV2_reg_pt                                                              cmva_hbb_pt_reg_old
-(HLT_BIT_HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v+HLT_BIT_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v+HLT_BIT_HLT_PFMET170_NoiseCleaned_v+HLT_BIT_HLT_PFMET170_HBHECleaned_v+HLT_BIT_HLT_PFMET170_HBHE_BeamHaloCleaned_v) hbb_2016_trigger
+# HCMVAV2_reg_mass                                                            cmva_hbb_m_reg_old
+# HCMVAV2_reg_pt                                                              cmva_hbb_pt_reg_old
+# (HLT_BIT_HLT_PFMETNoMu110_PFMHTNoMu110_IDTight_v+HLT_BIT_HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_v+HLT_BIT_HLT_PFMET170_NoiseCleaned_v+HLT_BIT_HLT_PFMET170_HBHECleaned_v+HLT_BIT_HLT_PFMET170_HBHE_BeamHaloCleaned_v)>0 hbb_2016_trigger
