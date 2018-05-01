@@ -223,7 +223,8 @@ int parsed_main(int argc, char** argv) {
         auto minireliso = reliso::minireliso(lep, event.rho);
 
         if(debug::debug)
-          std::cout << "Muon with pt " << lep.pt() << " Corrected to " << corrpt << " has reliso " << reliso << std::endl;
+          std::cout << "Muon with pt " << lep.pt() << " Corrected to " << corrpt
+                    << " has reliso " << reliso << " minireliso " << minireliso << std::endl;
 
         set_lep(hbbfile::lep::muon, lep, {reliso, minireliso, corrpt},
                 {[&] {   // Muon preselection
@@ -265,9 +266,10 @@ int parsed_main(int argc, char** argv) {
         auto minireliso = reliso::minireliso(lep);
 
         if(debug::debug)
-          std::cout << "Electron with pt " << lep.pt() << " Corrected to " << corrpt << " has reliso " << reliso << std::endl;
+          std::cout << "Electron with pt " << lep.pt() << " Corrected to " << corrpt
+                    << " has reliso " << reliso << " minireliso " << minireliso << std::endl;
 
-        set_lep(hbbfile::lep::muon, lep, {reliso, minireliso, corrpt},
+        set_lep(hbbfile::lep::ele, lep, {reliso, minireliso, corrpt},
                 {[&] {   // Electron preselection
                     return pt > 7.0 and abseta < 2.4 and
                       lep.dxy < 0.05 and lep.dz < 0.20 and std::min(reliso, minireliso) < 0.4;

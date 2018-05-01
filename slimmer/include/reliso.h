@@ -23,13 +23,13 @@ namespace {
 }
 
 namespace reliso {
-  EtaPhiMap<panda::PFCand> relisomap{0.1};
+  EtaPhiMap<panda::PFCand> relisomap {0.1};
 
   // Requires the relisomap to be filled with the event's PFCandidates
   // Only use rho for muon calculations
   double minireliso(panda::Lepton& lep, decltype(panda::Event::rho) rho = 0) {
     // Get the parameter set
-    const auto& params = rho ? muon_params : (std::abs(lep.eta()) < 1.5660 ? ele_barrel : ele_endcap);
+    const auto& params = rho ? muon_params : (std::abs(lep.eta()) < 1.4442 ? ele_barrel : ele_endcap);
 
     double chiso = 0;
     double nhiso = 0;
@@ -66,18 +66,26 @@ namespace reliso {
       }
     }
 
+    if (debug::debug) {
+      std::cout << "Lepton pt " << lep.pt()
+                << " chiso " << chiso
+                << " nhiso " << nhiso
+                << " phiso " << phiso
+                << " puiso " << puiso << std::endl;
+    }
+
     if (rho) {
       auto abseta = std::abs(lep.eta());
       auto ea = 0.0;
-      if      (abseta<0.800) ea = 0.0735;
-      else if (abseta<1.300) ea = 0.0619;
-      else if (abseta<2.000) ea = 0.0465;
-      else if (abseta<2.200) ea = 0.0433;
-      else if (abseta<2.500) ea = 0.0577;
+      if      (abseta < 0.800) ea = 0.0735;
+      else if (abseta < 1.300) ea = 0.0619;
+      else if (abseta < 2.000) ea = 0.0465;
+      else if (abseta < 2.200) ea = 0.0433;
+      else if (abseta < 2.500) ea = 0.0577;
       auto correction = rho * ea * std::pow(drcut/0.3, 2);
       return (chiso + std::max(0.0, nhiso + phiso - correction))/lep.pt();
     }
 
-    return chiso + std::max(0.0, nhiso + phiso - puiso);
+    return (chiso + std::max(0.0, nhiso + phiso - puiso))/lep.pt();
   }
 }
