@@ -391,7 +391,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not jet.loose or not puid::loose(jet)) {
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not puid::loose(jet)) {
           if (debug::debug)
             std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
           continue;
@@ -404,7 +404,7 @@ int parsed_main(int argc, char** argv) {
         auto abseta = std::abs(jet.eta());
         output.set_countjets(jet, abseta, cmva_cuts, csv_cuts);
 
-        if (abseta < 2.4 and  jet.pt() > 25.0) {
+        if (abseta < 2.4 and jet.loose) {
           output.set_bsf(jet);
           stored_cmvas.check(jet);
         }

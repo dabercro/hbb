@@ -31,7 +31,8 @@ jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
                           'cmva_jet1_pt > 60'
                           ])
 mjjveto    = '(60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
-antiQCD    = 'min_dphi_metj_hard > 0.5'
+#antiQCD    = 'min_dphi_metj_hard > 0.5'
+antiQCD    = 'Sum$(jet_pt > 30.0&&deltaPhi(jet_phi, pfmetphi) < 0.5) == 0'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
 undeltaVH  = 'cmva_dphi_uh < 2.0'
