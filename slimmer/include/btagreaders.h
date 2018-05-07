@@ -3,61 +3,90 @@
 
 #include <map>
 #include <string>
+#include <regex>
+#include <sstream>
 
-#include "TLorentzVector.h"
 #include "BTagCalibrationStandalone.cpp" 
 
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "TH2F.h"
+#include "TH1D.h"
 #include "TFile.h"
 
 namespace {
 
-  /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
-  static const BTagCalibration cmva_calib {"cmva", "data/cMVAv2_Moriond17_B_H.csv"};
-
-  // Here we define functions that returns the reader for each working point
-  BTagCalibrationReader get_cmva_reader(const BTagEntry::OperatingPoint op) {
-    if (op != BTagEntry::OP_RESHAPING) {
-      BTagCalibrationReader cmva_reader(op, "central", {"up", "down"});
-      cmva_reader.load(cmva_calib, BTagEntry::FLAV_B, "ttbar");
-      cmva_reader.load(cmva_calib, BTagEntry::FLAV_C, "ttbar");
-      cmva_reader.load(cmva_calib, BTagEntry::FLAV_UDSG, "incl");
-      return cmva_reader;
+  template<typename T>
+  class PtEtaBins {
+    using bin_type = unsigned;
+    std::map<bin_type, std::map<bin_type, T>> internal;
+    bin_type maxpt;
+    bin_type maxeta;
+  public:
+    // Pass bins through these when setting
+    bin_type setmaxpt (bin_type val) {
+      maxpt = std::max(maxpt, val);
+      return val;
+    }
+    bin_type setmaxeta (bin_type val) {
+      maxeta = std::max(maxeta, val);
+      return val;
     }
 
-    BTagCalibrationReader cmva_reader(op, "central", {"up_jes", "down_jes", "up_lf", "down_lf", "up_hf", "down_hf",
-          "up_hfstats1", "down_hfstats1", "up_hfstats2", "down_hfstats2",
-          "up_lfstats1", "down_lfstats1", "up_lfstats2", "down_lfstats2",
-          "up_cferr1", "down_cferr1", "up_cferr2", "down_cferr2"});
+    T& operator() (bin_type _pt, bin_type _eta) {
+      return internal[std::min(maxpt, _pt)][std::min(maxeta, _eta)];
+    }
+  };
 
-    for (auto flav : {BTagEntry::FLAV_B, BTagEntry::FLAV_C, BTagEntry::FLAV_UDSG})
-      cmva_reader.load(cmva_calib, flav, "iterativefit");
-    return cmva_reader;
-  }
+  auto cmva_hists = [] () {
+    using filecontent = std::map<BTagEntry::JetFlavor,   // Jet flavor
+                                 PtEtaBins<              // pt and eta with limits
+                                 std::map<std::string,   // systematic
+                                          TH1D>>>;       // interesting histograms
 
-  auto effs = [] () {
-    TFile infile {"data/btag_effs.root"};
-    std::map<BTagEntry::JetFlavor, TH2F> output {
-      {BTagEntry::FLAV_UDSG, *(static_cast<TH2F*>(infile.Get("lfeff")))},
-      {BTagEntry::FLAV_C, *(static_cast<TH2F*>(infile.Get("ceff")))},
-      {BTagEntry::FLAV_B, *(static_cast<TH2F*>(infile.Get("beff")))}
-    };
+    filecontent output;
+
+    auto default_flav = BTagEntry::FLAV_UDSG;
+    std::regex expr {"(c_)?csv_ratio_Pt(\\d)_Eta(\\d)_final(_[\\w]+)?"};
+
+    for (auto& flavor_file : {"data/cmva_rwt_fit_lf_v0_final_2017_3_29.root",
+                              "data/cmva_rwt_fit_hf_v0_final_2017_3_29.root"}) {
+
+      TFile infile {flavor_file};
+      for (auto* key : *(infile.GetListOfKeys())) {
+        std::cmatch matches;
+        std::stringstream buffer;
+
+        unsigned ptbin;
+        unsigned etabin;
+
+        if (std::regex_match(key->GetName(), matches, expr)) {
+          auto* ptr = static_cast<TH1D*>(static_cast<TKey*>(key)->ReadObj());
+          if (not ptr->GetEntries())
+            continue;
+          buffer << matches[2] << " " << matches[3];
+          buffer >> ptbin >> etabin;
+          auto& binner = output[matches[1].length() ? BTagEntry::FLAV_C : default_flav];    // Flavor: default UDSG in first pass
+          binner(binner.setmaxpt(ptbin), binner.setmaxeta(etabin))                          // Use binner to set upper limit
+            [matches[4].length() ? std::string(matches[4]).substr(1) : "central"] = *ptr;   // systematic: strip leading "_"
+          if (debug::debug)
+            std::cout << key->GetName() << " "
+                      << (matches[4].length() ? std::string(matches[4]).substr(1) : "central") << " "
+                      << (matches[1].length() ? BTagEntry::FLAV_C : default_flav) << " "
+                      << ptbin << " " << etabin << std::endl;
+        }
+      }
+
+      // After first pass, change default entry to "b"
+      default_flav = BTagEntry::FLAV_B;
+    }
+
     return output;
   } ();
+
 }
 
 namespace btag {
-  using BCalReaders = std::map<const BTagEntry::OperatingPoint, const BTagCalibrationReader>;
-
-  const BTagCalibrationReader cmva_reader = get_cmva_reader(BTagEntry::OP_RESHAPING);
-
-  const BCalReaders cmva_readers = {
-    {BTagEntry::OP_LOOSE, get_cmva_reader(BTagEntry::OP_LOOSE)},
-    {BTagEntry::OP_MEDIUM, get_cmva_reader(BTagEntry::OP_MEDIUM)},
-    {BTagEntry::OP_TIGHT, get_cmva_reader(BTagEntry::OP_TIGHT)}
-  };
 
   BTagEntry::JetFlavor flavor(const panda::Ref<panda::GenJet>& gen) {
     auto flavor = BTagEntry::FLAV_UDSG;
@@ -71,9 +100,61 @@ namespace btag {
     return flavor;
   }
 
-  double eff(const double jetpt, const double jeteta, const BTagEntry::JetFlavor flav) {
-    auto& hist = effs.at(flav);
-    return hist.GetBinContent(hist.FindBin(std::min(jetpt, 950.0), std::abs(jeteta)));
+  // Just a floating value that defaults to 1.0
+  class Scale {
+  public:
+    float operator=(float val) { _val = val; }
+    float operator=(double val) { _val = val; }
+    operator float() const { return _val; }
+  private:
+    float _val {1.0};
+  };
+
+  using ScaleWithSys = std::map<std::string, Scale>;
+
+  // Just return all of the systematics at once
+  ScaleWithSys get_scale(const panda::Jet& jet) {
+    ScaleWithSys output;
+
+    auto flav = flavor(jet.matchedGenJet);
+    auto pt = jet.pt();
+    auto eta = std::abs(jet.eta());
+
+    /* auto& binner = cmva_hists[flav]; */
+
+    unsigned ptbin;
+    if (pt < 30)
+      ptbin = 0;
+    else if (pt < 40)
+      ptbin = 1;
+    else if (pt < 60)
+      ptbin = 2;
+    else if (pt < 100)
+      ptbin = 3;
+    else if (pt < 160)
+      ptbin = 4;
+    else
+      ptbin = 5;
+
+    unsigned etabin;
+    if (eta < 0.8)
+      etabin = 0;
+    else if (eta < 1.6)
+      etabin = 1;
+    else
+      etabin = 2;
+
+    auto& hists = cmva_hists[flav](ptbin, etabin);
+
+    for (auto& syshist : hists) {
+      auto histbin = std::max(syshist.second.FindBin(jet.cmva), 1);
+      auto content = syshist.second.GetBinContent(histbin);
+
+      if (content)
+        output[syshist.first] = content;
+    }
+
+    return output;
   }
 
 }

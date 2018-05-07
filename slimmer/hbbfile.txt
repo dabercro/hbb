@@ -40,7 +40,7 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
   n_alljet -> ++
   n_allhard -> +(jet_pt[] > 30.0)
 
-  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard;
+  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
 
   ~~ abseta < 2.5 ~~
 
@@ -106,8 +106,10 @@ dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
 
 bsf(panda::Jet& jet)
   ! Hold some values temporarily. Should implement local variables some day
-  (flavor = btag::flavor(jet.matchedGenJet))
-  (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
+!  (flavor = btag::flavor(jet.matchedGenJet))
+!  (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
+
+  (scale = btag::get_scale(jet))
 
   n_allbjet/b -> ++
 
@@ -116,24 +118,23 @@ bsf(panda::Jet& jet)
   bjet_$[] -> jet.$ | cmva
 
   #? bjet_pt[] ; jetpt ? -> jet.ptCorr%%
-  bjet_sf[] -> nom_sf
-
-  bsf_eff[] -> btag::eff(<bjet_{pt, eta}[]>, flavor)
+!  bjet_sf[] -> nom_sf
+!  bsf_eff[] -> btag::eff(<bjet_{pt, eta}[]>, flavor)
 
 DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
-  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
+!  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
 
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-  ? bjet_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
+!  ? bjet_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
 
-  btag_sf = 1 -> *(bjet_sf[])
+  btag_sf = 1 -> *(scale["central"])
 
-  #bsf_num -> +(bjet_sf[] * bsf_eff[])
-  #bsf_denom -> +(bsf_eff[])
+!  #bsf_num -> +(bjet_sf[] * bsf_eff[])
+!  #bsf_denom -> +(bsf_eff[])
 
-  beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
+!  beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
 
 ! Input jets are used to set the following variables
 cmva {

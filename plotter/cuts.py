@@ -92,7 +92,7 @@ regionCuts = {
 
 regionCuts['signal'] = ' && '.join([
         regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4'),
-#        'maier_event_class > -0.8'
+        'maier_event_class > -0.8'
         ])
 
 # Making selection of multiple entries

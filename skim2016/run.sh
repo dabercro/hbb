@@ -25,13 +25,16 @@ mkdir inputs
 
 ls
 
+count=0
+
 while [ $# -ne 0 ]
 do
 
     infile=$1
     shift
 
-    xrdcp -s root://cmsxrootd-site1.fnal.gov:1092/$infile inputs
+    xrdcp -s root://cmsxrootd-site1.fnal.gov:1092/$infile inputs/$count.root
+    count=$((count + 1))
 
 done
 

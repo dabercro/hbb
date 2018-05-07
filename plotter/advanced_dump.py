@@ -5,6 +5,7 @@ import sys
 
 mode = sys.argv[1]   # '<' or '>'
 limit = int(sys.argv[2])
+input_name = sys.argv[3]
 
 sys.path.append(os.path.join(os.environ['HOME'], 'CrombieTools/scripts'))
 import eventdump
@@ -13,7 +14,7 @@ from CrombieTools import LoadConfig
 
 events = []
 
-with open('diff.txt', 'r') as diff_file:
+with open(input_name, 'r') as diff_file:
     for line in diff_file:
         if line.startswith(mode):
             events.append(line.split()[1:4])

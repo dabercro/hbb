@@ -7,7 +7,7 @@ testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 corrections = data/corrections.d
 effs = data/btag_effs.root
 data = data/data.d
-rootdata = data/puppiCorr.root data/btag_effs.root data/puid.root 
+rootdata = data/puppiCorr.root data/btag_effs.root data/puid.root data/cmva_rwt_fit_*.root
 
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
@@ -96,7 +96,7 @@ test: $(target) $(effs)
 	# Move old test.root to a place for comparison
 	test ! -f test.root || mv test.root old
 	# Don't keep around new test file that's garbage
-	DYLD_LIBRARY_PATH=$(pandalib) $(exename) $(testfile) test.root || rm test.root
+	$(exename) $(testfile) test.root || rm test.root
 	# Kill if test file generation didn't work
 	test -f test.root
 	cp test.root new

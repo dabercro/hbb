@@ -2,6 +2,8 @@ all: files.txt condor.cfg src.tar.gz
 
 files.txt: makelist.py
 	./makelist.py
+	mv files.txt files.txt.full
+	grep '170206' files.txt.full > files.txt
 
 condor.cfg: makeconfig.py files.txt condor/tmpl.cfg
 	./makeconfig.py
