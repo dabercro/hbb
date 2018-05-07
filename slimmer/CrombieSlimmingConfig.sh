@@ -9,5 +9,5 @@ export CrombieFilesPerJob=15
 
 # Skimming
 export CrombieNLocalProcs=12
-export CrombieFullDir=$inp_dir/$(ls -1 -t $inp_dir | head -n1)
+export CrombieFullDir=$(ls -1 -t $inp_dir/*$suff | head -n1)
 export CrombieSkimDir=/data/t3home000/dabercro/hbb/$(date +%y%m%d)$suff
