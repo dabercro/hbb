@@ -19,32 +19,26 @@ namespace {
   template<typename T>
   class PtEtaBins {
     using bin_type = unsigned;
-    std::map<bin_type, std::map<bin_type, T>> internal;
+    std::vector<T> internal;
     bin_type maxpt;
     bin_type maxeta;
   public:
     // Pass bins through these when setting
-    bin_type setmaxpt (bin_type val) {
-      maxpt = std::max(maxpt, val);
-      return val;
-    }
-    bin_type setmaxeta (bin_type val) {
-      maxeta = std::max(maxeta, val);
-      return val;
+    void setmax_pteta (bin_type _pt, bin_type _eta) {
+      maxpt = std::max(maxpt, _pt);
+      maxeta = std::max(maxeta, _eta);
+      internal.resize((maxpt + 1) * (maxeta + 1));
     }
 
     T& operator() (bin_type _pt, bin_type _eta) {
-      return internal[std::min(maxpt, _pt)][std::min(maxeta, _eta)];
+      return internal[std::min(maxpt, _pt) + (maxpt + 1) * std::min(maxeta, _eta)];
     }
   };
 
   auto cmva_hists = [] () {
-    using filecontent = std::map<BTagEntry::JetFlavor,   // Jet flavor
-                                 PtEtaBins<              // pt and eta with limits
-                                 std::map<std::string,   // systematic
-                                          TH1D>>>;       // interesting histograms
-
-    filecontent output;
+    using binnedhists = PtEtaBins<std::map<std::string, TH1D>>;
+    using filecontent = std::vector<binnedhists>;
+    filecontent output(3);   // Three flavors
 
     auto default_flav = BTagEntry::FLAV_UDSG;
     std::regex expr {"(c_)?csv_ratio_Pt(\\d)_Eta(\\d)_final(_[\\w]+)?"};
@@ -53,29 +47,33 @@ namespace {
                               "data/cmva_rwt_fit_hf_v0_final_2017_3_29.root"}) {
 
       TFile infile {flavor_file};
-      for (auto* key : *(infile.GetListOfKeys())) {
-        std::cmatch matches;
-        std::stringstream buffer;
+      unsigned ptbin;
+      unsigned etabin;
+      std::cmatch matches;
+      TH1D* ptr;
 
-        unsigned ptbin;
-        unsigned etabin;
+      auto loop_keys = [&] (std::function<void(binnedhists&)> func) {
+        for (auto* key : *(infile.GetListOfKeys())) {
+          std::stringstream buffer;
 
-        if (std::regex_match(key->GetName(), matches, expr)) {
-          auto* ptr = static_cast<TH1D*>(static_cast<TKey*>(key)->ReadObj());
-          if (not ptr->GetEntries())
-            continue;
-          buffer << matches[2] << " " << matches[3];
-          buffer >> ptbin >> etabin;
-          auto& binner = output[matches[1].length() ? BTagEntry::FLAV_C : default_flav];    // Flavor: default UDSG in first pass
-          binner(binner.setmaxpt(ptbin), binner.setmaxeta(etabin))                          // Use binner to set upper limit
-            [matches[4].length() ? std::string(matches[4]).substr(1) : "central"] = *ptr;   // systematic: strip leading "_"
-          if (debug::debug)
-            std::cout << key->GetName() << " "
-                      << (matches[4].length() ? std::string(matches[4]).substr(1) : "central") << " "
-                      << (matches[1].length() ? BTagEntry::FLAV_C : default_flav) << " "
-                      << ptbin << " " << etabin << std::endl;
+          if (std::regex_match(key->GetName(), matches, expr)) {
+            ptr = static_cast<TH1D*>(static_cast<TKey*>(key)->ReadObj());
+            if (not ptr->GetEntries())
+              continue;
+            buffer << matches[2] << " " << matches[3];
+            buffer >> ptbin >> etabin;
+            auto& binner = output[matches[1].length() ? BTagEntry::FLAV_C : default_flav];    // Flavor: default UDSG in first pass
+            func(binner);
+          }
         }
-      }
+      };
+
+      loop_keys([&] (binnedhists& binner) { binner.setmax_pteta(ptbin, etabin); });
+      loop_keys([&] (binnedhists& binner) {
+          binner(ptbin, etabin)
+            [matches[4].length() ? std::string(matches[4]).substr(1) : "central"] = *ptr;   // systematic: strip leading "_"
+        });
+        
 
       // After first pass, change default entry to "b"
       default_flav = BTagEntry::FLAV_B;
