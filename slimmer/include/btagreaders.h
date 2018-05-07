@@ -29,9 +29,13 @@ namespace {
       maxeta = std::max(maxeta, _eta);
       internal.resize((maxpt + 1) * (maxeta + 1));
     }
+    bin_type get_maxpt () const { return maxpt; }
+    bin_type get_maxeta () const { return maxeta; }
 
     T& operator() (bin_type _pt, bin_type _eta) {
-      return internal[std::min(maxpt, _pt) + (maxpt + 1) * std::min(maxeta, _eta)];
+      // Optimized away, but important to understand design
+      /* return internal[std::min(maxpt, _pt) + (maxpt + 1) * std::min(maxeta, _eta)]; */
+      return internal[_pt + (maxpt + 1) * _eta];
     }
   };
 
@@ -68,7 +72,9 @@ namespace {
         }
       };
 
+      // Loop through once to set the max for each binner
       loop_keys([&] (binnedhists& binner) { binner.setmax_pteta(ptbin, etabin); });
+      // Loop through again to set values
       loop_keys([&] (binnedhists& binner) {
           binner(ptbin, etabin)
             [matches[4].length() ? std::string(matches[4]).substr(1) : "central"] = *ptr;   // systematic: strip leading "_"
@@ -118,31 +124,37 @@ namespace btag {
     auto pt = jet.pt();
     auto eta = std::abs(jet.eta());
 
-    /* auto& binner = cmva_hists[flav]; */
+    auto& binner = cmva_hists[flav];
 
-    unsigned ptbin;
-    if (pt < 30)
-      ptbin = 0;
-    else if (pt < 40)
-      ptbin = 1;
-    else if (pt < 60)
-      ptbin = 2;
-    else if (pt < 100)
-      ptbin = 3;
-    else if (pt < 160)
-      ptbin = 4;
-    else
-      ptbin = 5;
+#define PTCASE(bin, cut)  \
+  case bin: \
+  if (pt >= cut) { \
+    ptbin = bin; \
+    break; \
+  }
+#define ETACASE(bin, cut)  \
+  case bin: \
+  if (eta >= cut) { \
+    etabin = bin; \
+    break; \
+  }
 
-    unsigned etabin;
-    if (eta < 0.8)
-      etabin = 0;
-    else if (eta < 1.6)
-      etabin = 1;
-    else
-      etabin = 2;
+    unsigned ptbin = 0;
+    switch (binner.get_maxpt()) {
+      PTCASE(5, 160);
+      PTCASE(4, 100);
+      PTCASE(3, 60);
+      PTCASE(2, 40);
+      PTCASE(1, 30);
+    }
 
-    auto& hists = cmva_hists[flav](ptbin, etabin);
+    unsigned etabin = 0;
+    switch (binner.get_maxeta()) {
+      ETACASE(2, 1.6);
+      ETACASE(1, 0.8);
+    }
+
+    auto& hists = binner(ptbin, etabin);
 
     for (auto& syshist : hists) {
       auto histbin = std::max(syshist.second.FindBin(jet.cmva), 1);
