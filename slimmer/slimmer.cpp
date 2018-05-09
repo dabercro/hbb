@@ -75,7 +75,10 @@ int parsed_main(int argc, char** argv) {
       "HLT_PFMETNoMu90_PFMHTNoMu90_IDTight",
       "HLT_PFMETNoMu100_PFMHTNoMu100_IDTight",
       "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
-      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight"
+      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
+      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
+      "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
+      "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight"
     };
 
     std::vector<unsigned> met_trigger_tokens;
@@ -430,7 +433,7 @@ int parsed_main(int argc, char** argv) {
                                 electronid::is_good(*pf_to_electron[pf.idx()], *jet.particle))) {
               nlep++;
               if (not maxlep or pt > maxlep->pt())
-                maxlep = pf.get();    // Dereference the panda::Ref, and then get the address
+                maxlep = pf.get();
             }
           }
         }

@@ -37,18 +37,11 @@ SAMPLES=$(ls $CrombieFullDir/links | perl -ne '/(.*)_\d+.root/ && print "$1\n"' 
 if [ $NUMDIRS -ne 2 ]
 then
 
-# Don't need to skim these anymore since we do the filtering in the slimmer
-#    crombie skim --cut '(recoil > 150 || met > 150) && met_filter == 1' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
-
-    for f in $CrombieFullDir/links/*
-    do
-        ln -s $f $SCRATCH/$(basename $f)
-    done
+    crombie skim --cut '(recoil > 150 || pfmet > 150) && met_filter == 1 && (ak8fatjet1 || ca15fatjet1 || (cmva_daughter_min_pt > 25 && cmva_daughter_max_pt > 50 && cmva_hbb_pt > 70)) && (n_lep_presel == 0 || n_jet >= 4)' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
 
 else
 
-#    crombie skim --cut 'met_filter == 1 && cmva_hbb && abs(cmva_jet1_gen_pdgid) == 5' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
-    crombie skim --cut 'met_filter == 1' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+    crombie skim --cut '(recoil > 150 || pfmet > 150) && met_filter == 1 && (ak8fatjet1 || ca15fatjet1 || (cmva_daughter_min_pt > 25 && cmva_daughter_max_pt > 50 && cmva_hbb_pt > 70)) && (n_lep_presel == 0 || n_jet >= 4)' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
 
 fi
 

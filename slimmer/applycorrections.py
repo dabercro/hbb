@@ -25,6 +25,8 @@ def add_corr(name, expr, cut, fileName, histName, matchName='', merge=True):
 add_corr('sf_pu', 'npv_true', '1', 'data/puWeights_80x_37ifb.root', 'puWeights')
 add_corr('sf_met_trigger','pfmet','1','data/metTriggerEfficiency_recoil_monojet_TH1F.root','hden_monojet_recoil_clone_passed')
 
+add_corr('pu_2017to2016', 'npv', '1', 'data/pileup_data.root', ['pu2016', 'pu2017'], merge=False)
+
 for pdgid, bos in [(23, 'z'), (24, 'w')]:
     add_corr('ewk_%s' % bos, 'genboson_pt', 'abs(genboson_pdgid) == %i' % pdgid, 'data/kfactors.root',
              ['EWKcorr/%s' % bos.upper(), '%sJets_012j_NLO/nominal' % bos.upper()], '.*_HT-.*')

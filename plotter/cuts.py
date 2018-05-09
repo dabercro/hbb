@@ -28,11 +28,11 @@ fat_tbtag  = 'ak8fatjet1_double_sub > 0.8'
 hbbpt      = 'cmva_hbb_pt_reg_old > 120'
 jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
                           'cmva_daughter_min_pt > 35',
-                          'cmva_jet1_pt > 60'
+#                          'cmva_jet1_pt > 60'
                           ])
 mjjveto    = '(60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
-#antiQCD    = 'min_dphi_metj_hard > 0.5'
-antiQCD    = 'Sum$(jet_pt > 30.0&&deltaPhi(jet_phi, pfmetphi) < 0.5) == 0'
+antiQCD    = 'min_dphi_metj_hard > 0.5'
+#antiQCD    = 'Sum$(jet_pt > 30.0&&deltaPhi(jet_phi, pfmetphi) < 0.5) == 0'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
 undeltaVH  = 'cmva_dphi_uh < 2.0'
@@ -109,14 +109,16 @@ defaultMCWeight = ' * '.join(
      'vh_ewk', 'sf_tt',
      'mc_weight',
      'pdf',
-     'beff_sf',
+     'btag_sf',
+#     'beff_sf',
 #     'cmva_jet2_sf_loose',
      os.environ.get('post', '1'),           # Postfit expression
      ])
 
 # Additional weights applied to certain control regions
 
-mettrigger = 'hbb_2016_trigger'
+#mettrigger = 'hbb_2016_trigger'
+mettrigger = 'met_trigger'
 
 signal = os.environ.get('signal', '0')      # Signal cut
 
@@ -138,7 +140,7 @@ check_header = lambda systematic: subprocess.check_output(
     'perl -ne \'/^\s*(\w*)_' + systematic + 'Up\s\=/ && print"$1\n"\' ../slimmer/include/hbbfile.h | sort | uniq', shell=True
     ).split('\n')[:-1]
 
-btagsf_branches = check_header('btagsf')
+#btagsf_branches = check_header('btagsf')
 
 syst = {
     'wfact': ['wkfactor'],
@@ -150,10 +152,10 @@ syst = {
     }
 syst.update(
     {key: check_header(key) for key in
-     ['jetpt',
-      'pdf', 'jes',
-      'hfstats1', 'hfstats2', 'lfstats1', 'lfstats2',
-      'lf', 'hf', 'cferr1', 'cferr2']
+     ['jetpt', 'pdf',
+      'JES', 'LF', 'HF',
+      'cErr1',  'cErr2', 'Stats1', 'Stats2'
+      ]
      })
 
 env = {
@@ -259,4 +261,4 @@ if __name__ == '__main__':
         if 'weight' in sys.argv:
             print dataMCCuts(sys.argv[1], False)
         else:
-            print cut(sys.argv[1], sys.argv[2])
+            print '(%s)' % ') || ('.join([cut(sys.argv[1], reg) for reg in sys.argv[2:]])

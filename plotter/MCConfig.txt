@@ -6,7 +6,7 @@
 #.   GluGluToContinToZZTo4mu_13TeV_MCFM701_pythia8.root                                        0.0036478       .                   .
 #.   GluGluToContinToZZTo4tau_13TeV_MCFM701_pythia8.root                                       0.0036478       .                   .
 
-#qcd QCD_HT100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                27990000.0      QCD                 826
+#qcd QCD_HT100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                27990000.0      QCD                 920
 #.   QCD_HT200to300_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                1735000.0       .                   .
 #.   QCD_HT300to500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                366800.0        .                   .
 .   QCD_HT500to700_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                                29370.0         .                   .
@@ -15,16 +15,16 @@
 .   QCD_HT1500to2000_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                              121.5           .                   .
 .   QCD_HT2000toInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                               25.42           .                   .
 
-tt  TTJets_SingleLeptFromT_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root                     180.990976      TT                  802
+tt  TTJets_SingleLeptFromT_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root                     180.990976      TT                  798
 .   TTJets_SingleLeptFromTbar_TuneCUETP8M2T4_13TeV-amcatnloFXFX-pythia8.root                  180.990976      .                   .
 .   TTTo2L2Nu_TuneCUETP8M2_ttHtranche3_13TeV-powheg-pythia8.root                              88.288          .                   .
 
-st  ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1.root  80.95           Single_Top          801
+st  ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1.root  80.95           Single_Top          799
 .   ST_t-channel_top_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1.root      136.02          .                   .
 .   ST_tW_antitop_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root                   35.85           .                   .
 .   ST_tW_top_5f_inclusiveDecays_13TeV-powheg-pythia8_TuneCUETP8M1.root                       35.85           .                   .
 
-wj  norm/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_light            628
+wj  norm/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_light           886
 .   norm/WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                      1.329           .                   .
 .   norm/WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        359.6           .                   .
 .   norm/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       0.03216         .                   .
@@ -32,7 +32,7 @@ wj  norm/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root     
 .   norm/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        12.05           .                   .
 .   norm/WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       5.501           .                   .
 
-wjb  bDir/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_b            629
+wjb  bDir/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_b               888
 .    bDir/WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                      1.329           .                   .
 .    bDir/WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        359.6           .                   .
 .    bDir/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       0.03216         .                   .
@@ -40,7 +40,7 @@ wjb  bDir/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root    
 .    bDir/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        12.05           .                   .
 .    bDir/WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       5.501           .                   .
 
-wjbb  bbDir/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_bb             630
+wjbb  bbDir/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        1343.0          W_+_bb              883
 .     bbDir/WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                      1.329           .                   .
 .     bbDir/WJetsToLNu_HT-200To400_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        359.6           .                   .
 .     bbDir/WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       0.03216         .                   .
@@ -48,7 +48,7 @@ wjbb  bbDir/WJetsToLNu_HT-100To200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root  
 .     bbDir/WJetsToLNu_HT-600To800_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                        12.05           .                   .
 .     bbDir/WJetsToLNu_HT-800To1200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8.root                       5.501           .                   .
 
-zj  norm/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_light            867
+zj  norm/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_light           901
 .   norm/ZJetsToNuNu_HT-1200To2500_13TeV-madgraph.root                                             0.286           .                   .
 .   norm/ZJetsToNuNu_HT-200To400_13TeV-madgraph.root                                               77.7            .                   .
 .   norm/ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph.root                                              0.006945        .                   .
@@ -56,7 +56,7 @@ zj  norm/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                            
 .   norm/ZJetsToNuNu_HT-600To800_13TeV-madgraph.root                                               2.562           .                   .
 .   norm/ZJetsToNuNu_HT-800To1200_13TeV-madgraph.root                                              1.183           .                   .
 
-zjb  bDir/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_b               868
+zjb  bDir/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_b               606
 .    bDir/ZJetsToNuNu_HT-1200To2500_13TeV-madgraph.root                                             0.286           .                   .
 .    bDir/ZJetsToNuNu_HT-200To400_13TeV-madgraph.root                                               77.7            .                   .
 .    bDir/ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph.root                                              0.006945        .                   .
@@ -64,7 +64,7 @@ zjb  bDir/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                           
 .    bDir/ZJetsToNuNu_HT-600To800_13TeV-madgraph.root                                               2.562           .                   .
 .    bDir/ZJetsToNuNu_HT-800To1200_13TeV-madgraph.root                                              1.183           .                   .
 
-zjbb  bbDir/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_bb              869
+zjbb  bbDir/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                                               280.5           Z_+_bb              624
 .     bbDir/ZJetsToNuNu_HT-1200To2500_13TeV-madgraph.root                                             0.286           .                   .
 .     bbDir/ZJetsToNuNu_HT-200To400_13TeV-madgraph.root                                               77.7            .                   .
 .     bbDir/ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph.root                                              0.006945        .                   .
@@ -72,7 +72,7 @@ zjbb  bbDir/ZJetsToNuNu_HT-100To200_13TeV-madgraph.root                         
 .     bbDir/ZJetsToNuNu_HT-600To800_13TeV-madgraph.root                                               2.562           .                   .
 .     bbDir/ZJetsToNuNu_HT-800To1200_13TeV-madgraph.root                                              1.183           .                   .
 
-vv  WW_TuneCUETP8M1_13TeV-pythia8.root                                                        118.7           Diboson             619
+vv  WW_TuneCUETP8M1_13TeV-pythia8.root                                                        118.7           Diboson             851
 .   WZ_TuneCUETP8M1_13TeV-pythia8.root                                                        47.13            .                   .
 .   ZZ_TuneCUETP8M1_13TeV-pythia8.root                                                        16.523            .                   .
 
