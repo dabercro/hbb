@@ -18,6 +18,7 @@
 #include "lazy.h"
 #include "electronid.h"
 #include "puid.h"
+#include "pfcands.h"
 #include "trkmet.h"
 #include "reliso.h"
 
@@ -40,6 +41,7 @@ class GenNuVec {
       genvec += nu.p4();
     }
   }
+
 };
 
 // Define a structure to hold all additional variables about leptons we want to save

@@ -1,4 +1,3 @@
-#include "SkimmingTools/interface/EtaPhiMap.h"
 
 namespace {
 
@@ -23,8 +22,6 @@ namespace {
 }
 
 namespace reliso {
-  EtaPhiMap<panda::PFCand> relisomap {0.1};
-
   // Requires the relisomap to be filled with the event's PFCandidates
   // Only use rho for muon calculations
   double minireliso(panda::Lepton& lep, decltype(panda::Event::rho) rho = 0) {
@@ -39,7 +36,7 @@ namespace reliso {
     // Copy of pat::miniIsoDr
     double drcut = std::max(params.min_dr, std::min(params.max_dr, params.kt_scale/lep.pt()));
 
-    for (const auto* cand : relisomap.GetParticles(lep.eta(), lep.phi(), drcut)) {
+    for (const auto* cand : pfcands::pfmap.GetParticles(lep.eta(), lep.phi(), drcut)) {
       auto id = std::abs(cand->pdgId());
       auto pt = cand->pt();
       auto dr = deltaR(lep.eta(), lep.phi(), cand->eta(), cand->phi());

@@ -5,7 +5,7 @@ suff='_v2'
 export CrombieExe=makehbbtree
 export CrombieInSample=pandaf/010
 export CrombieOutDir=$inp_dir/$(date +%y%m%d)$suff
-export CrombieFilesPerJob=5
+export CrombieFilesPerJob=10
 
 # Skimming
 export CrombieNLocalProcs=12

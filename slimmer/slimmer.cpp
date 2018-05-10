@@ -137,7 +137,7 @@ int parsed_main(int argc, char** argv) {
       all_hist.Fill(0.0, output.mc_weight);
 
       // Set the PFCandidate map used for redoing reliso calculations
-      reliso::relisomap.AddParticles(event.pfCandidates);
+      pfcands::pfmap.AddParticles(event.pfCandidates);
 
       //// FILTER ////
       if (debug::debug)
@@ -317,6 +317,8 @@ int parsed_main(int argc, char** argv) {
         genhstore::order::eAsc
       };
 
+      pfcands::MakeNuJets(event);
+
       std::map<const panda::GenJet*, GenNuVec> gen_nu_map;
 
       //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
@@ -327,7 +329,7 @@ int parsed_main(int argc, char** argv) {
         if (debug::debug)
           std::cout << "  This particle has PDGID " << gen.pdgid << std::endl;
 
-        auto abspdgid = abs(gen.pdgid);
+        auto abspdgid = std::abs(gen.pdgid);
         if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
           output.set_gen(hbbfile::gen::genboson, gen);
 
@@ -447,6 +449,7 @@ int parsed_main(int argc, char** argv) {
 
         output.set_bjet(bjet, *jet.particle, maxtrkpt, nlep, maxlep);
         output.set_bvert(bjet, jet.particle->secondaryVertex);
+        output.set_reclustered(bjet, pfcands::NuJet(*jet.particle));
       };
 
       set_particles(stored_cmvas, set_bjet);
@@ -522,10 +525,10 @@ int parsed_main(int argc, char** argv) {
       if (output.cmva_jet2)
         output.set_hbb(hbbfile::hbb::cmva_hbb);
 
-      // if (not debug::debug and
-      //     not ((output.cmva_hbb and output.cmva_hbb_pt > 70 and output.cmva_jet2_cmva > -0.8 and output.cmva_hbb_m < 550) or
-      //          output.ak8fatjet1_good or output.ca15fatjet1_good))
-      //   continue;  // Short circuit soft activity this way, because that shit is slow.
+      if (not debug::debug and
+          not ((output.cmva_hbb and output.cmva_hbb_pt > 70 and output.cmva_hbb_m < 600) or
+               output.ak8fatjet1_good or output.ca15fatjet1_good))
+        continue;  // Short circuit soft activity this way, because that shit is slow.
 
       // Soft activity
       const auto ellipse = softcalc::Ellipse(stored_cmvas.store[0].particle,

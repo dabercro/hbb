@@ -151,21 +151,32 @@ cmva {
       (flav = btag::flavor(jet.matchedGenJet))
       maxtrk -> maxpt
 
+      ! Puppi stuff
+      (puppi = pfcands::GetPuppiInfo(jet))
+      puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
+
       ~~ lep ~~
 
       nlep/b -> nlep
-      leadlep_pt -> lep->pt()
+      leadlep_$ -> lep->$() | pt, eta, phi, m, e
       leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
       leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
 
     bvert(panda::Ref<panda::SecondaryVertex>& vert)
       ~~ vert.isValid() ~~
 
-      vtx_$ -> vert->$() | pt, m
+      vtx_$ -> vert->$() | pt, eta, phi, m, e
 
       vtx_3Dval -> vert->vtx3DVal
       vtx_3Derr -> vert->vtx3DeVal
       vtx_ntrk/s -> vert->ntrk
+
+    ! Some 4-vector info for training
+
+DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>
+
+    @_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
+    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
     genjet(panda::GenJet& gen, GenNuVec& withnu)
       gen/O = false -> true
@@ -176,6 +187,11 @@ cmva {
 
       gen_$/S -> gen.$ | pdgid, partonFlavor
       gen_$/b -> gen.$ | numB
+
+    reclustered(fastjet::PseudoJet* jet)
+      ~~ jet ~~
+      reclustered/O = false -> true
+      reclustered_$ -> jet->$() | pt, eta, phi, m
 
     ! Many different regressions to compare!
 
@@ -211,7 +227,7 @@ cmva {
 
   ! Need a more systematic name system
 
-  $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
+  $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 
   daughter_deta <- std::abs([]_jet1_eta - []_jet2_eta)
@@ -260,8 +276,12 @@ genboson, gen_t, gen_tbar {
     pdgid/I -> gen.pdgid
 }
 
-pdf = 1.0
-? pdf; pdf ? = 1.0 +- std::abs(event.genReweight.pdfDW)
+! pandaf/009
+! pdf = 1.0
+! ? pdf; pdf ? = 1.0 +- std::abs(event.genReweight.pdfDW)
+
+! pandaf/010
+! pdf_$ = event.genReweight.pdfAltDW[$] | 0..100
 
 r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
 r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
