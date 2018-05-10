@@ -159,15 +159,15 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
       (flav = btag::flavor(jet.matchedGenJet))
       maxtrk -> maxpt
 
-      ! Puppi stuff
+      ! Regression stuff
       (puppi = regression::GetJetInfo(jet))
       puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
-
 
       $_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
       @_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
 
       $ -> puppi.$ | ptD
+      $\s -> puppi.$ | num03
 
       ~~ lep ~~
 

@@ -21,8 +21,9 @@ namespace regression {
     rings ch_rings = rings(5);
     rings mu_rings = rings(5);
 
-    // Additional information about the vertex and pf candidates
+    // Additional information about the pf candidates
     scalar ptD {0};
+    unsigned num03 {0};
   };
 
   JetInfo GetJetInfo(const panda::Jet& jet) {
@@ -71,8 +72,12 @@ namespace regression {
       }
 
       // ptD
-      sum_weight += std::pow(p4.Pt(), 2);
-      sum_pt += p4.Pt();
+      auto pt = p4.Pt();
+      sum_weight += std::pow(pt, 2);
+      sum_pt += pt;
+      // num candidates with pt > 0.3
+      if (pt > 0.3)
+        ++output.num03;
     }
 
     output.ptD = sum_weight/sum_pt;
