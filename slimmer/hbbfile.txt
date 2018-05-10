@@ -152,8 +152,10 @@ cmva {
       maxtrk -> maxpt
 
       ! Puppi stuff
-      (puppi = pfcands::GetPuppiInfo(jet))
+      (puppi = regression::GetPuppiInfo(jet))
       puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
+
+      $_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
 
       ~~ lep ~~
 

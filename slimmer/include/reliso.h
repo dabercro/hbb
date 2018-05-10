@@ -73,12 +73,19 @@ namespace reliso {
 
     if (rho) {
       auto abseta = std::abs(lep.eta());
-      auto ea = 0.0;
-      if      (abseta < 0.800) ea = 0.0735;
-      else if (abseta < 1.300) ea = 0.0619;
-      else if (abseta < 2.000) ea = 0.0465;
-      else if (abseta < 2.200) ea = 0.0433;
-      else if (abseta < 2.500) ea = 0.0577;
+
+      using ea_pair = std::pair<decltype(abseta), decltype(drcut)>;
+      const std::vector<ea_pair> ea_corrections {
+        {0.800, 0.0735},
+        {1.300, 0.0619},
+        {2.000, 0.0465},
+        {2.200, 0.0433},
+        {2.500, 0.0577}
+      };
+      auto ea_iter = std::upper_bound(ea_corrections.begin(), ea_corrections.end(), abseta,
+                                      [] (decltype(abseta) val, const ea_pair& elem) { return val < elem.first; } );
+      auto ea = ea_iter == ea_corrections.end() ? 0.0 : ea_iter->second;
+
       auto correction = rho * ea * std::pow(drcut/0.3, 2);
       return (chiso + std::max(0.0, nhiso + phiso - correction))/lep.pt();
     }

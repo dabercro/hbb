@@ -19,6 +19,7 @@
 #include "electronid.h"
 #include "puid.h"
 #include "pfcands.h"
+#include "regression.h"
 #include "trkmet.h"
 #include "reliso.h"
 

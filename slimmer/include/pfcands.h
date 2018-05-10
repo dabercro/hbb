@@ -49,37 +49,4 @@ namespace pfcands {
     return output;
   }
 
-  // Get the directions of the PUPPI particles in the area
-  class PuppiInfo {
-  public:
-    using type = TLorentzVector;
-    // Charged part of jet
-    type charged {};
-    // Neutral part of jet
-    type neutral {};
-    // Charged pileup
-    type charged_pu {};
-    // Neutral pileup
-    type neutral_pu {};
-  };
-
-  PuppiInfo GetPuppiInfo(const panda::Jet& jet) {
-    PuppiInfo output {};
-
-    for (auto pf : jet.constituents) {
-      auto p4 = pf->p4();
-      auto puppi = pf->puppiW();
-      if (pf->q()) {
-        output.charged += p4 * puppi;
-        output.charged_pu += p4 * (1.0 - puppi);
-      }
-      else {
-        output.neutral += p4 * puppi;
-        output.neutral_pu += p4 * (1.0 - puppi);
-      }
-    }
-
-    return output;
-  }
-
 }
