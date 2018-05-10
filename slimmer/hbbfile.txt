@@ -125,6 +125,14 @@ DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 ! Input jets are used to set the following variables
 cmva {
   <_jet{1, 2, 3}> {
+
+! If this is at the top, we don't save all of the systematics from jet pt
+
+DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, ch, mu}_r{0..5}>
+
+    @_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
+    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
+
     bjet(panda::Jet& jet, float maxpt, <T> nlep, panda::PFCand* lep)
 
       /O = false -> true
@@ -152,10 +160,14 @@ cmva {
       maxtrk -> maxpt
 
       ! Puppi stuff
-      (puppi = regression::GetPuppiInfo(jet))
+      (puppi = regression::GetJetInfo(jet))
       puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
 
+
       $_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
+      @_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
+
+      $ -> puppi.$ | ptD
 
       ~~ lep ~~
 
@@ -174,11 +186,6 @@ cmva {
       vtx_ntrk/s -> vert->ntrk
 
     ! Some 4-vector info for training
-
-DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>
-
-    @_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
-    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
     genjet(panda::GenJet& gen, GenNuVec& withnu)
       gen/O = false -> true
