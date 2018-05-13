@@ -1,5 +1,5 @@
 #include "myrandom.h"
-#include "RoccoR.cc" // https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon
+#include "roccor/RoccoR.cc" // https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon
 
 namespace {
   RoccoR rochester {"data/rcdata.2016.v3"};

@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include "hbbfile.h"
-
 #include "misc.h"
 
 #include "fastjet/ClusterSequence.hh"

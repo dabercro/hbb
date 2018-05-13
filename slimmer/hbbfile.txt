@@ -83,7 +83,7 @@ muon, ele {
 
     pog_$[]/O = false -> lep.$ | loose, medium, tight
     $[]/O = false -> cuts.$() | loose, medium, tight
-    $[] -> lep.$() | pt, eta
+    $[] -> lep.$() | pt, eta, phi
 
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | medium, tight
 }
@@ -167,7 +167,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
       @_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
 
       $ -> puppi.$ | ptD
-      $\s -> puppi.$ | num03
+      $/s -> puppi.$ | num03
 
       ~~ lep ~~
 
@@ -202,13 +202,14 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
       reclustered/O = false -> true
       reclustered_$ -> jet->$() | pt, eta, phi, m
 
-    ! Many different regressions to compare!
-
     [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
+    [[tf_ptratio, tf_deta, tf_dphi, tf_mratio; ../analysis/weights/output4.pb; ../analysis/regression_branches.txt; crombie_input; crombie_output/BiasAdd]]
 
     ! Need a more systematic name system
 
     pt_reg$ <- []_pt_ratio$ * []_pt | _old ! , _old_method
+    $_tf <- []_tf_$ratio * []_$ | pt, m
+    $_tf <- []_tf_d$ + []_$ | eta, phi
   }
 
   daughter_$_pt <- std::$(<[]_jet{1, 2}_pt>) | min, max
@@ -222,6 +223,9 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
       m_reg$ <- vectorSumMass(<[^]_jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old ! , _old_method
       pt_reg$ <- vectorSumPt(<[^]_jet{1, 2}_{pt_reg$, phi}>) | _old ! , _old_method
+
+      m_tf <- vectorSumMass(<[^]_jet{1, 2}_{pt, eta, phi, m}_tf>)
+      pt_tf <- vectorSumPt(<[^]_jet{1, 2}_{pt, phi}_tf>)
 
       reg$_over_m <- []_m_reg$/[]_m | _old ! , _old_method
 
@@ -297,7 +301,7 @@ r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 
 ! [event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
 ! [boost_class; data/Classifier_wboost_BDT.weights.xml; data/boosted_sub.txt]
-[maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
+#[maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
 
 ! Filter
 ! These are filled before the fill function

@@ -9,6 +9,10 @@ effs = data/btag_effs.root
 data = data/data.d
 rootdata = data/puppiCorr.root data/btag_effs.root data/puid.root data/cmva_rwt_fit_*.root
 
+# These flags are needed for tensorflow
+# Need to change if not using CMSSW_9_4_6
+tensorflow = -DEIGEN_DONT_PARALLELIZE -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-cc/1.3.0-mmelna/tensorflow_cc/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/eigen/c7dc0a897676/include/eigen3 -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-c/1.1.0-mmelna/include -Wl,--allow-multiple-definition -Wl,--whole-archive -L/cvmfs/cms.cern.ch/slc6_amd64_gcc630/cms/cmssw/CMSSW_9_4_6/lib/slc6_amd64_gcc630 -L/cvmfs/cms.cern.ch/slc6_amd64_gcc630/cms/cmssw/CMSSW_9_4_6/external/slc6_amd64_gcc630/lib -ltensorflow_cc -lprotobuf -lrt -ltensorflow
+
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
 	pandalib = ../../PandaTree/lib
@@ -58,14 +62,17 @@ $(data): data/*.csv data/*.xml $(rootdata) $(corrections) data/rcdata.2016.v3
 endif
 
 $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
-	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h ${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	 ${CROMBIEPATH}/SkimmingTools/interface/EtaPhiMap.h roccor/RoccoR.cc
-	g++ -I$(pandainc) -I${CROMBIEPATH} -Iinclude -Ibcal -Iroccor $(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
+	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h \
+	${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
+	${CROMBIEPATH}/SkimmingTools/interface/EtaPhiMap.h include/roccor/RoccoR.cc Makefile
+	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH} -Iroccor \
+	$(tensorflow) \
+	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
 
-roccor/RoccoR.cc:
-	test -d roccor || mkdir roccor
-	cd roccor; test ! -f roccor.2016.v3.tgz || rm roccor.2016.v3.tgz; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/180302/roccor.2016.v3.tgz; tar -xf roccor.2016.v3.tgz
-	cd data; test -f rcdata.2016.v3 || ln -s ../roccor/rcdata.2016.v3 rcdata.2016.v3
+include/roccor/RoccoR.cc:
+	test -d include/roccor || mkdir include/roccor
+	cd include/roccor; test ! -f roccor.2016.v3.tgz || rm roccor.2016.v3.tgz; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/180302/roccor.2016.v3.tgz; tar -xf roccor.2016.v3.tgz
+	cd data; test -f rcdata.2016.v3 || ln -s ../include/roccor/rcdata.2016.v3 rcdata.2016.v3
 
 include/checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* include/checkrun
@@ -107,4 +114,4 @@ test: $(target) $(effs)
 	test -z ${CMSSW_BASE} || cut='|!cmva_hbb_gen|cmva_hbb_gen' crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) include/$(flatclass).h include/feedpanda.h include/checkrun.h $(effs) $(data) $(corrections) roccor/RoccoR.cc
+	rm $(target) include/$(flatclass).h include/feedpanda.h include/checkrun.h $(effs) $(data) $(corrections) include/roccor/RoccoR.cc
