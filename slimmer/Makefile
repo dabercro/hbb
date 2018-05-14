@@ -54,7 +54,7 @@ $(thejq): /home/dabercro/bin/jq
 
 $(data): data/*.csv data/*.xml $(rootdata) $(corrections) data/rcdata.2016.v3
 	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
-	cp data/*.csv data/*.xml $(rootdata) ${CMSSW_BASE}/data
+	cp data/*.csv data/*.xml data/*.pb $(rootdata) ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
 	cp -rH data/rcdata.2016.v3 ${CMSSW_BASE}/data
 	touch $(data)

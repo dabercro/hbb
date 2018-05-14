@@ -120,7 +120,7 @@ defaultMCWeight = ' * '.join(
 #mettrigger = 'hbb_2016_trigger'
 mettrigger = 'met_trigger'
 
-signal = os.environ.get('signal', '0')      # Signal cut
+signal = os.environ.get('signal', '0.5 > maier_event_class')      # Signal cut
 
 region_weights = { # key : [Data,MC]
     'signal'   : [signal, ' * '.join([defaultMCWeight,

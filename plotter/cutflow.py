@@ -47,7 +47,7 @@ else:
     cat = 'inclusive'
     for region in sys.argv[1:]:
         cutflowMaker.Reset()
-        for cut in ['met_trigger == 1'] + cuts.cut(cat, region).split(' && '):
+        for cut in cuts.cut(cat, region).split(' && ') + ['met_trigger == 1', 'hbb_2016_trigger == 1']:
             cutflowMaker.AddCut(cut.strip(), cut)
 
         print '-' * 30

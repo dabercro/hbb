@@ -203,7 +203,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
       reclustered_$ -> jet->$() | pt, eta, phi, m
 
     [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
-    [[tf_ptratio, tf_deta, tf_dphi, tf_mratio; ../analysis/weights/output4.pb; ../analysis/regression_branches.txt; crombie_input; crombie_output/BiasAdd]]
+    [[<tf_{ptratio, deta, dphi, mratio}>; ../analysis/weights/output_etaphi.pb; ../analysis/regression_branches.txt; crombie_input; crombie_output/Identity]]
 
     ! Need a more systematic name system
 
