@@ -62,6 +62,15 @@ int parsed_main(int argc, char** argv) {
 
     //// TRIGGERS ////
 
+    using tokens = std::vector<unsigned>;
+
+    auto get_tokens = [&event] (const std::vector<const char*>& paths) {
+      tokens output;
+      for (auto path : paths)
+        output.push_back(event.registerTrigger(path));
+      return output;
+    };
+
     const std::vector<const char*> met_trigger_paths = {
       "HLT_PFMET170_NoiseCleaned",
       "HLT_PFMET170_HBHECleaned",
@@ -80,10 +89,7 @@ int parsed_main(int argc, char** argv) {
       "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight"
     };
 
-    std::vector<unsigned> met_trigger_tokens;
-
-    for (auto path : met_trigger_paths)
-      met_trigger_tokens.push_back(event.registerTrigger(path));
+    tokens met_trigger_tokens = get_tokens(met_trigger_paths);
 
     const std::vector<const char*> hbb_2016_paths = {
       "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
@@ -93,10 +99,13 @@ int parsed_main(int argc, char** argv) {
       "HLT_PFMET170_HBHE_BeamHaloCleaned"
     };
 
-    std::vector<unsigned> hbb_2016_tokens;
+    tokens hbb_2016_tokens = get_tokens(hbb_2016_paths);
 
-    for (auto path : hbb_2016_paths)
-      hbb_2016_tokens.push_back(event.registerTrigger(path));
+    const std::vector<const char*> overlap_paths = {
+      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight"
+    };
+
+    tokens overlap_tokens = get_tokens(overlap_paths);
 
     // Loop over tree
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
@@ -148,19 +157,17 @@ int parsed_main(int argc, char** argv) {
       }
 
       // Check triggers
-      for (auto token : met_trigger_tokens) {
-        if (event.triggerFired(token)) {
-          output.met_trigger = true;
-          break;
+      auto check_tokens = [&event] (tokens& trigger_tokens) {
+        for (auto token : trigger_tokens) {
+          if (event.triggerFired(token))
+            return true;
         }
-      }
+        return false;
+      };
 
-      for (auto token : hbb_2016_tokens) {
-        if (event.triggerFired(token)) {
-          output.hbb_2016_trigger = true;
-          break;
-        }
-      }
+      output.met_trigger = check_tokens(met_trigger_tokens);
+      output.hbb_2016_trigger = check_tokens(hbb_2016_tokens);
+      output.overlap_trigger = check_tokens(overlap_tokens);
 
       //// PHOTONS ////
       if (debug::debug)

@@ -46,7 +46,8 @@ then
 
 else
 
-    crombie skim --cut 'n_lep_tight > 0 && n_lep_loose == 2 && cmva_jet1_pt > 25 && cmva_jet1_gen && (abs(cmva_jet1_gen_pdgid) == 5)' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+#    crombie skim --cut 'n_lep_tight > 0 && n_lep_loose == 2 && cmva_jet1_pt > 25 && cmva_jet1_gen && (abs(cmva_jet1_gen_pdgid) == 5)' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
+    crombie skim --cut 'n_lep_loose == 0 && cmva_jet1_pt > 25 && cmva_jet1_gen && (abs(cmva_jet1_gen_pdgid) == 5)' --tree 'events' --copy 'hSumW' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir $CrombieFullDir/links --outdir $SCRATCH
 
 fi
 

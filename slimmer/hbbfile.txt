@@ -26,8 +26,7 @@ $@phi = event.$@@.phi | pf, calo, trk |@ met
 dztrkmet <- dztrkmetvec.Mod()
 dztrkmetphi <- dztrkmetvec.Phi()
 
-hbb_2016_trigger/O = false
-met_trigger/O = false
+$_trigger/O = false | met, hbb_2016, overlap
 met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv)
@@ -74,9 +73,8 @@ tight_lep_pt
 
 muon, ele {
   lep(panda::Lepton& lep, LepInfo info, lazy::LazyCuts& cuts)
-    ! Don't save the rest of the stuff for anything that's not loose
-    ! but count presel here
-    ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel, loose
+
+    ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel
 
     $[] -> info.$ | reliso, minireliso, corrpt
     q[]/B -> lep.charge
@@ -85,7 +83,7 @@ muon, ele {
     $[]/O = false -> cuts.$() | loose, medium, tight
     $[] -> lep.$() | pt, eta, phi
 
-    ~~ cuts.$() ~~ \\ count_$/b -> ++ | medium, tight
+    ~~ cuts.$() ~~ \\ count_$/b -> ++ | loose, medium, tight
 }
 
 n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
@@ -203,7 +201,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
       reclustered_$ -> jet->$() | pt, eta, phi, m
 
     [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
-    [[<tf_{ptratio, deta, dphi, mratio}>; ../analysis/weights/output_etaphi.pb; ../analysis/regression_branches.txt; crombie_input; crombie_output/Identity]]
+    [[<tf_{ptratio, deta, dphi, mratio}>; data/output_etaphi.pb; ../analysis/regression_branches.txt; crombie_input; crombie_output/Identity]]
 
     ! Need a more systematic name system
 

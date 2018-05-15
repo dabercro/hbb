@@ -8,7 +8,7 @@
 }
 
 \title{\bf \sffamily Z$\nu\nu$Hbb Modifications and \\ 2017 Data Outlook}
-\date{\today}
+\date{May 16, 2018}
 
 \usecolortheme{dove}
 
@@ -25,11 +25,13 @@
 \usepackage{tabularx}
 \usepackage{makecell}
 
+\definecolor{mitred}{RGB}{163,31,52}
+
 \setbeamertemplate{navigation symbols}{}
 \usepackage{graphicx}
 \usepackage{color}
 \setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
-\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{mitred}{\sffamily \insertsection \hfill \insertsubsection}}}
 
 \IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
              {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
@@ -85,7 +87,8 @@
   \end{columns}
 }
 
-\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}~}
+\newcommand{\Znn}{Z$\nu\nu$~}
 
 \begin{document}
 
@@ -98,64 +101,66 @@
   \tableofcontents
 \end{frame}
 
-\section{Additional Cuts for Closer Yields}
+\section{Sync Improvements}
 
 \begin{frame}
-  \frametitle{Some Final Sync Attempts}
+  \frametitle{Improving Sync Between Analyses}
 
-  Two more inconsistencies between our understanding of the AN
-  and the VHbb's Heppy framework (as seen on GitHub) were found.
+  Identified two more inconsistencies between our understanding of the public analysis
+  and the VHbb Heppy framework (as seen on GitHub)
 
   \begin{enumerate}
   \item Track MET (used in a cut on $\Delta\phi$(trkMET, MET)): \\
-    Calculated only using the tracks with $\Delta z < 0.5$ from the Primary Vertex,
-    while MINIAOD seems to store Track MET with all tracks
+    Calculated only using the tracks with $\Delta z < 0.5$ from the primary vertex,
+    while MINIAOD stores Track MET with all tracks
   \item Relative Isolation: \\
-    We followed the explicit formula in \S4.4 of the AN for lepton isolation,
-    but code on GitHub seems to take the minimum value between this definition
-    and ``miniRelIso'', which has a varying cone size.
+    Code on GitHub takes minimum between relative isolation
+    defined in \S4.4 of the AN and ``miniRelIso''
   \end{enumerate}
-
-  We have changed both things in a final attempt to sync.
-
-  \vspace{12pt}
-
-  Yields still do not match the paper, but brings limit down by \textcolor{red}{[SOME NUMBER]?}
 
 \end{frame}
 
-\section{Z$\nu\nu$ Limit Improvements}
+\begin{frame}
+  \frametitle{Sync Status}
+
+  \begin{itemize}
+  \item With selection changes, data yields for \Znn signal and
+    control regions agree within 1.5\% to 2016 analysis setup
+  \item Currently applying changes to MC samples
+  \end{itemize}
+
+\end{frame}
+
+\section{Optimization of 2016 \Znn Analysis}
 
 \begin{frame}
   \frametitle{Investigating Cuts}
 
-  There is an asymmetric $p_T$ cut on the di-jet system in the cutstring
-  supplied by the 2016 analyzers and various branches on GitHub
-  (I will call this ``old cut''):
-
-  \begin{gather*}
-    p_{T,1} > \SI{60}{GeV} \\
-    p_{T,2} > \SI{35}{GeV}
-  \end{gather*}
+  {\centering \bf
+    \Large{\textcolor{blue}{Old cuts}}
+    \begin{gather*}
+      p_{T,1} > \SI{60}{GeV} \\
+      p_{T,2} > \SI{35}{GeV}
+    \end{gather*}
+  }
 
   where $p_{T,1}$ refers to the $p_T$ of the jet with a higher cMVA score.
+  The harder jet does not always have a higher cMVA score
 
-  \vspace{12pt}
-
-  The harder jet does not always have a higher cMVA score,
-  So we investigated the cut (christened ``new cut''):
-
-  \begin{gather*}
-%    \mathrm{max}(p_{T,1}, p_{T,2}) > \SI{60}{GeV} \\
-%    \mathrm{min}(p_{T,1}, p_{T,2}) > \SI{35}{GeV}
-    p_{T,1} > \SI{60}{GeV} \quad \mathrm{or} \quad p_{T,2} > \SI{60}{GeV} \\
-    p_{T,1} > \SI{35}{GeV} \quad \mathrm{and} \quad p_{T,2} > \SI{35}{GeV}
-  \end{gather*}
+  {\centering \bf
+    \Large{\textcolor{blue}{New cuts}}
+    \begin{gather*}
+      \mathrm{max}(p_{T,1}, p_{T,2}) > \SI{60}{GeV} \\
+      \mathrm{min}(p_{T,1}, p_{T,2}) > \SI{35}{GeV}
+    \end{gather*}
+  }
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Yields and Statistical Significances}
+  \frametitle{Yields and Statistical Significance}
+
+  \centering
 
   \begin{center}
     \begin{tabular}{|l|r|r|r|r|}
@@ -168,25 +173,40 @@
     \end{tabular}
   \end{center}
 
-  Purity decreases, however there is a 5\% sensitivity increase
-  to a stat-uncertainty-only cut-and-count experiment.
+  Purity decreases, but with a 5\% sensitivity increase
 
-  \vspace{12pt}
+\end{frame}
 
-  Let's quickly run through the shape analysis (with systematics)
+\begin{frame}
+  \frametitle{Check on Jet $p_T$ (post-fit plots)}
+
+  \twofigs{Signal}
+          {180514_old/inclusive_signal_cmva_jet1_pt.pdf}
+          {Z + Heavy Flavor}
+          {180514_old/inclusive_heavyz_cmva_jet1_pt.pdf}
+
+  \begin{itemize}
+  \item Other CRs are in backup (they look good)
+  \item $W + b$ process has a large scale factor ($\approx 5$) and uncertainty
+  \item WH combination will constrain better
+  \end{itemize}
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Post-fit Plots (1/2)}
 
-  \twofigs{signal}
-          {180514_v1/inclusive_signal_maier_event_class.pdf}
+  \twofigs{Signal}
+          {180515_class_post/inclusive_signal_maier_event_class.pdf}
           {\ttbar}
           {180514_v1/inclusive_tt_cmva_jet2_cmva.pdf}
            
   \vspace{12pt}
-  Agreement still looks good, CR pre-fit plots are in the backup
+
+  \begin{itemize}
+  \item Post-fit agreement looks excellent
+  \item CR pre-fit plots are in the backup
+  \end{itemize}
 
 \end{frame}
 
@@ -199,50 +219,26 @@
           {180514_v1/inclusive_lightz_cmva_jet2_cmva.pdf}
 
   \vspace{12pt}
-  Agreement still looks good, CR pre-fit plots are in the backup
+
+  \begin{itemize}
+  \item Post-fit agreement looks excellent
+  \item CR pre-fit plots are in the backup
+  \end{itemize}
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Result}
-  Running an expected limit over just the Z$\nu\nu$ category with the new cut gives a 5\% improvement over the old cut
-\end{frame}
-
-\begin{frame}
-  \frametitle{Check on Jets (post-fit plots)}
-  Other CRs are in backup (they look fine to me)
-
-  \twofigs{Signal}
-          {180514_old/inclusive_signal_cmva_jet1_pt.pdf}
-          {Z + Heavy Flavor}
-          {180514_old/inclusive_heavyz_cmva_jet1_pt.pdf}
 
   \begin{itemize}
-  \item Plots only have stat uncertainties
-  \item $W + b$ process is driven up dramatically by fit,
-    so WH combination may change the spectrum
+  \item Ran an expected limit over just the \Znn resolved category
+  \item Fit backgrounds with data, and then toy signal for limit calculation
+  \item Gives a 5\% improvement over the old cut from $1.35 \rightarrow 1.30$
   \end{itemize}
 
 \end{frame}
 
-\section{Combination with WH}
-
-\begin{frame}
-  \frametitle{Combination with WH}
-
-  Benedikt ran the combination between WH and Z$\nu\nu$.
-
-  \vspace{12pt}
-
-  Limits were \textcolor{red}{[SOME NUMBER]}
-
-  \vspace{12pt}
-
-  Z$\ell\ell$ will be ready to combine soon.
-
-\end{frame}
-
-\section{A Difference in 2017}
+\section{Difference in 2017 MET Triggers}
 
 \begin{frame}
   \frametitle{New Triggers in 2017}
@@ -251,58 +247,63 @@
 
   \vspace{12pt}
 
-  {\setlength{\parindent}{0cm} \ttfamily
-    HLT\_PFMETNoMu110\_PFMHTNoMu110\_IDTight
-    HLT\_PFMETNoMu120\_PFMHTNoMu120\_IDTight
-    HLT\_PFMET170\_NoiseCleaned
-    HLT\_PFMET170\_HBHECleaned
+  {\setlength{\parindent}{0cm} \ttfamily \textcolor{blue}{
+    HLT\_PFMETNoMu110\_PFMHTNoMu110\_IDTight \\
+    HLT\_PFMETNoMu120\_PFMHTNoMu120\_IDTight \\
+    HLT\_PFMET170\_NoiseCleaned \\
+    HLT\_PFMET170\_HBHECleaned \\
     HLT\_PFMET170\_HBHE\_BeamHaloCleaned
+    }
   }
 
-  \vspace{24pt}
+  \vspace{12pt}
 
   The PFMET170 triggers are gone in 2017, and we first try:
 
   \vspace{12pt}
 
-  {\setlength{\parindent}{0cm} \ttfamily
-    HLT\_PFMETNoMu120\_PFMHTNoMu120\_IDTight\_PFHT60
-    HLT\_PFMETNoMu120\_PFMHTNoMu120\_IDTight
-    HLT\_PFMETNoMu130\_PFMHTNoMu130\_IDTight
+  {\setlength{\parindent}{0cm} \ttfamily \textcolor{blue}{
+    HLT\_PFMETNoMu120\_PFMHTNoMu120\_IDTight\_PFHT60 \\
+    HLT\_PFMETNoMu120\_PFMHTNoMu120\_IDTight \\
+    HLT\_PFMETNoMu130\_PFMHTNoMu130\_IDTight \\
     HLT\_PFMETNoMu140\_PFMHTNoMu140\_IDTight
+    }
   }
+
 \end{frame}
 
 \begin{frame}
-  \frametitle{NPV reweighting}
+  \frametitle{NPV re-weighting}
 
-  Using an independent rough measurement for NPV reweighting on an inclusive
+  Using an independent rough measurement for NPV re-weighting on an inclusive
   signal, Z+HF, and Z+LF selection
 
   \vspace{12pt}
 
-  \twofigs{Before reweighting}
-          {180514_quick/npv.pdf}
-          {After reweighting}
-          {180509_v1/npv.pdf}
+  \twofigs{Before re-weighting}
+          {180515_npv/npv.pdf}
+          {After re-weighting}
+          {180515_lumi/npv.pdf}
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Comparison Plots}
 
-  Jet kinematics look good, but MET turn-on appears slower in the newer data
+  \vspace{12pt}
+
+  \twofigs{PF MET}
+          {180515_fin/pfmet.pdf}
+          {\#jets (normalized)}
+          {180515_fin/n_centerjet.pdf}
 
   \vspace{12pt}
 
-  \twofigs{Number of central jets}
-          {180509_v1/n_centerjet.pdf}
-          {PF MET}
-          {180509_v1/pfmet.pdf}
-
-  \vspace{12pt}
-
-  Other plots are in the backup
+  \begin{itemize}
+  \item MET turn-on is slower in the newer data, \\ leading to boosted topology
+  \item Jet multiplicity looks good
+  \item Other kinematics and tagging plots are in the backup
+  \end{itemize}
 
 \end{frame}
 
@@ -319,23 +320,18 @@
   \frametitle{Conclusion}
   \begin{itemize}
   \item There is wisdom on GitHub that did not make it to the AN
-  \item It is worth some time to revisit 2016 cuts
-  \item Combinations are under way for the various VH processes,
+  \item It is worth revisiting 2016 cuts for 2017 analysis
+  \item MET triggers in 2017 data will lead to harder \Znn events
+  \item Combination is under way for the various VH processes,
     which is prerequisite for accurate assessment of improvements brought by boosted analysis
-  \item MET triggers in 2017 data will lead to harder Z$\nu\nu$ events
   \end{itemize}
 
-  We have now processed enough MC with 2017 run conditions to start plotting
 \end{frame}
 
 \beginbackup
 
 \begin{frame}
   \frametitle{Backup Slides}
-
-  \centering
-  \textcolor{red}{All in random (auto-generated) orders and names. \\ Should fix before Wednesday.}
-
 \end{frame}
 
 \input{backup_slides.tex}
