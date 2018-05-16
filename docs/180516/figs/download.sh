@@ -25,3 +25,5 @@ for f in */*.pdf
 do
     pdfcrop $f $f
 done
+
+test -f 2dpt.png || wget http://t3serv001.mit.edu/~dabercro/misc/2dpt.png

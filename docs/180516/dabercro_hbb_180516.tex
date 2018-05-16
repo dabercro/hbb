@@ -106,16 +106,19 @@
 \begin{frame}
   \frametitle{Improving Sync Between Analyses}
 
-  Identified two more inconsistencies between our understanding of the public analysis
-  and the VHbb Heppy framework (as seen on GitHub)
+  Identified two more inconsistencies between our understanding of the
+  \textcolor{orange}{public analysis}
+  (paper and AN) and the \textcolor{green}{VHbb Heppy framework} (as seen on GitHub)
 
   \begin{enumerate}
   \item Track MET (used in a cut on $\Delta\phi$(trkMET, MET)): \\
-    Calculated only using the tracks with $\Delta z < 0.5$ from the primary vertex,
-    while MINIAOD stores Track MET with all tracks
+    \textcolor{green}
+              {Calculated only using the tracks with $\Delta z < 0.5$ from the primary vertex},
+    while MINIAOD stores \textcolor{orange}{Track MET with all tracks}
   \item Relative Isolation: \\
-    Code on GitHub takes minimum between relative isolation
-    defined in \S4.4 of the AN and ``miniRelIso''
+    Code on GitHub takes \textcolor{green}{minimum between}
+    \textcolor{orange}{relative isolation defined in \S4.4 of the AN}
+    \textcolor{green}{and ``miniRelIso''}
   \end{enumerate}
 
 \end{frame}
@@ -124,8 +127,8 @@
   \frametitle{Sync Status}
 
   \begin{itemize}
-  \item With selection changes, data yields for \Znn signal and
-    control regions agree within 1.5\% to 2016 analysis setup
+  \item With selection changes, our data yields for \Znn signal and
+    control regions agree within 1.5\% with 2016 analysis setup
   \item Currently applying changes to MC samples
   \end{itemize}
 
@@ -161,6 +164,8 @@
   \frametitle{Yields and Statistical Significance}
 
   \centering
+
+  \includegraphics[width=0.7\linewidth]{2dpt.png}
 
   \begin{center}
     \begin{tabular}{|l|r|r|r|r|}
@@ -294,7 +299,7 @@
 
   \twofigs{PF MET}
           {180515_fin/pfmet.pdf}
-          {\#jets (normalized)}
+          {Jet Multiplicity (normalized)}
           {180515_fin/n_centerjet.pdf}
 
   \vspace{12pt}
@@ -319,7 +324,7 @@
 \begin{frame}
   \frametitle{Conclusion}
   \begin{itemize}
-  \item There is wisdom on GitHub that did not make it to the AN
+  \item We found more cuts on GitHub that do not appear in the documentation
   \item It is worth revisiting 2016 cuts for 2017 analysis
   \item MET triggers in 2017 data will lead to harder \Znn events
   \item Combination is under way for the various VH processes,
