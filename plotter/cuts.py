@@ -28,7 +28,7 @@ fat_tbtag  = 'ak8fatjet1_double_sub > 0.8'
 hbbpt      = 'cmva_hbb_pt_reg_old > 120'
 jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
                           'cmva_daughter_min_pt > 35',
-                          'cmva_jet1_pt > 60'
+#                          'cmva_jet1_pt > 60'
                           ])
 mjjveto    = '(60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'

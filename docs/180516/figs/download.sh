@@ -20,6 +20,7 @@ crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180515_lumi%2Fnpv%2C180515_npv%2Fnpv"
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180515_fin%2Fn_centerjet%2C180515_fin%2Fpfmet"
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180515_lumi%2Flog_cmva_jet1_cmva%2C180515_lumi%2Flog_cmva_jet2_cmva%2C180515_lumi%2Fdphi_met_dztrkmet%2C180515_lumi%2Fcmva_jet1_pt%2C180515_lumi%2Fcmva_jet2_pt"
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180516_trig%2Fpfmet"
 
 for f in */*.pdf
 do
