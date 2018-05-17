@@ -202,7 +202,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     reclustered(fastjet::PseudoJet* jet)
       ~~ jet ~~
       reclustered/O = false -> true
-!      reclustered_$ -> jet->$() | pt, eta, phi, m
+      reclustered_$ -> jet->$() | pt, eta, phi, m
 
     [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
     [[<tf_{ptratio, deta, dphi, mratio}>; data/output_test.pb; ../analysis/regression_branches.txt; inputs; <out/{0..4}/Identity>]]
@@ -242,7 +242,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
   ! Need a more systematic name system
 
-  $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu !, reclustered
+  $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 
   daughter_deta <- std::abs([]_jet1_eta - []_jet2_eta)

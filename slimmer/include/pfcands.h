@@ -37,7 +37,7 @@ namespace pfcands {
 
   const fastjet::PseudoJet* NuJet (const panda::Jet& jet) {
     float mindr2 = 10.0;
-    const fastjet::PseudoJet* output;
+    const fastjet::PseudoJet* output {nullptr};
     for (auto* nujet : nujetmap.GetParticles(jet.eta(), jet.phi(), 0.4)) {
       auto check = deltaR2(jet.eta(), jet.phi(), nujet->eta(), nujet->phi());
       if (check < mindr2) {
