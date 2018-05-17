@@ -136,6 +136,7 @@ int parsed_main(int argc, char** argv) {
           event.photons.dump();
           event.muons.dump();
           event.electrons.dump();
+          event.ak4GenJets.dump();
           event.chsAK4Jets.dump();
         }
         else
@@ -143,9 +144,6 @@ int parsed_main(int argc, char** argv) {
       }
 
       all_hist.Fill(0.0, output.mc_weight);
-
-      // Set the PFCandidate map used for redoing reliso calculations
-      pfcands::pfmap.AddParticles(event.pfCandidates);
 
       //// FILTER ////
       if (debug::debug)
@@ -168,6 +166,12 @@ int parsed_main(int argc, char** argv) {
       output.met_trigger = check_tokens(met_trigger_tokens);
       output.hbb_2016_trigger = check_tokens(hbb_2016_tokens);
       output.overlap_trigger = check_tokens(overlap_tokens);
+
+      // Set the PFCandidate map used for redoing reliso calculations
+      pfcands::pfmap.AddParticles(event.pfCandidates);
+      // Gen Jets for determining flavor
+      if (not event.isData)
+        btag::genjetmap.AddParticles(event.ak4GenJets);
 
       //// PHOTONS ////
       if (debug::debug)
@@ -306,7 +310,7 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting gen particles" << std::endl;
 
       for (auto& gen_jet : event.ak4GenJets) {
-        if (gen_jet.pt() > 20 && std::abs(gen_jet.eta()) < 2.4 && gen_jet.numB != 0)
+        if (gen_jet.pt() > 20 && std::abs(gen_jet.eta()) < 2.4 && (gen_jet.numB || std::abs(gen_jet.pdgid) == 5))
           ++output.n_genB;
       }
 
@@ -332,9 +336,6 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting gen bosons, size: " << event.genParticles.size() << std::endl;
 
       for (auto& gen : event.genParticles) {
-        if (debug::debug)
-          std::cout << "  This particle has PDGID " << gen.pdgid << std::endl;
-
         auto abspdgid = std::abs(gen.pdgid);
         if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
           output.set_gen(hbbfile::gen::genboson, gen);
@@ -402,7 +403,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not puid::loose(jet)) {
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not puid::loose(jet)) {
           if (debug::debug)
             std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
           continue;
@@ -416,35 +417,54 @@ int parsed_main(int argc, char** argv) {
         output.set_countjets(jet, abseta, cmva_cuts, csv_cuts);
 
         if (abseta < 2.4 and jet.loose) {
-          output.set_bsf(jet);
           stored_cmvas.check(jet);
+          if (not event.isData)
+            output.set_bsf(jet);
         }
       }
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &gen_nu_map, &pf_to_electron] (jetstore::Particle& jet) {
+      auto set_bjet = [&output, &gen_nu_map, &pf_to_electron, &event] (jetstore::Particle& jet) {
         auto bjet = jet.branch;
 
         int nlep = 0;
-        const panda::PFCand* maxlep = nullptr;
+        const panda::Lepton* maxlep = nullptr;
 
         decltype(maxlep->pt()) maxtrkpt = 0;
 
         for (auto pf : jet.particle->constituents) {
           if (pf->q()) {
-            if (debug::debug)
-              std::cout << "Jet with pt " << jet.particle->pt() << " has constituent with pt " << pf->pt() << std::endl;
             auto pt = pf->pt();
             maxtrkpt = std::max(maxtrkpt, pt);
-            auto pdgid = abs(pf->pdgId());
-            if (pdgid == 13 || ((pf_to_electron.find(pf.idx()) != pf_to_electron.end()) and
-                                electronid::is_good(*pf_to_electron[pf.idx()], *jet.particle))) {
-              nlep++;
-              if (not maxlep or pt > maxlep->pt())
-                maxlep = pf.get();
-            }
+            // auto pdgid = abs(pf->pdgId());
+            // if (pdgid == 13 || ((pf_to_electron.find(pf.idx()) != pf_to_electron.end()) and
+            //                     electronid::is_good(*pf_to_electron[pf.idx()], *jet.particle))) {
+            //   nlep++;
+            //   if (not maxlep or pt > maxlep->pt())
+            //     maxlep = pf.get();
+            // }
           }
         }
+
+        auto check_lep = [&] (const panda::Lepton& lep, std::function<bool()> sel) {
+          if (sel() and deltaR2(jet.particle->eta(), jet.particle->phi(), lep.eta(), lep.phi()) < 0.16) {
+            nlep++;
+            if (not maxlep or lep.pt() > maxlep->pt())
+              maxlep = &lep;
+          }
+        };
+
+        for (auto& ele : event.electrons)
+          check_lep(ele,
+                    [&ele] () {
+                      return ele.pt() >= 5 and std::abs(ele.eta()) <= 2.5 and std::abs(ele.dxy) <= 0.5 and std::abs(ele.dz) <= 1.0 and ele.nMissingHits <= 1;
+                    });
+
+        for (auto& mu : event.muons)
+          check_lep(mu,
+                    [&mu] () {
+                      return mu.pt() >= 3 and std::abs(mu.eta()) <= 2.4 and std::abs(mu.dxy) <= 0.5 and std::abs(mu.dz) <= 1.0;
+                    });
 
         // Determine the flavor of the jet
         auto& gen = jet.particle->matchedGenJet;

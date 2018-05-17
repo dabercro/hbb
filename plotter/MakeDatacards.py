@@ -166,7 +166,7 @@ kmax   *   number of systematics (automatic)""")
 
         # Write down shape locations
         write('-' * 30)
-        write('shapes * * datacards/plots/plots_dat.root.{0} $PROCESS____$CHANNEL $PROCESS____$CHANNEL__$SYSTEMATIC'.format(datething))
+        write('shapes * * {1}/datacards/plots/plots_dat.root.{0} $PROCESS____$CHANNEL $PROCESS____$CHANNEL__$SYSTEMATIC'.format(datething, os.path.abspath('.')))
 
         # Write down data observations
         write('-' * 30)
@@ -204,6 +204,8 @@ kmax   *   number of systematics (automatic)""")
 
         curs.execute(query('signal'))
         backgrounds = list(curs.fetchall())
+
+        proc_count -= len(set([proc for proc, _, _ in backgrounds])) - 1
 
         # Then background
         curs.execute(query('background'))

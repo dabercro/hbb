@@ -6,7 +6,10 @@
 
 #include "TLorentzVector.h"
 
+#include "fastjet/ClusterSequence.hh"
+
 #include "PlotTools/interface/KinematicFunctions.h"
+#include "SkimmingTools/interface/EtaPhiMap.h"
 
 #include "debugevent.h"
 #include "feedpanda.h"

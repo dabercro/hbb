@@ -11,6 +11,8 @@ DEFINE REGS 3, 15, 40
 {0}                            ! Default value
 {reset(panda::Event& event)}   ! Define the arguments of reset
 
+#isData/O = event.isData
+
 $/i = event.$ | runNumber, lumiNumber
 eventNumber/l = event.eventNumber
 
@@ -76,6 +78,8 @@ muon, ele {
 
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel
 
+    lowreliso/b -> +(info.reliso < 0.4)  ! Both preselected and have low reliso
+
     $[] -> info.$ | reliso, minireliso, corrpt
     q[]/B -> lep.charge
 
@@ -87,6 +91,7 @@ muon, ele {
 }
 
 n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
+n_$/b <- <{muon + ele}_$> | lowreliso
 
 ! Some calculated things
 
@@ -128,10 +133,10 @@ cmva {
 
 DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, ch, mu}_r{0..5}>
 
-    @_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
-    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
+    #@_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
+    #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
-    bjet(panda::Jet& jet, float maxpt, <T> nlep, panda::PFCand* lep)
+    bjet(panda::Jet& jet, float maxpt, <T> nlep, <P> lep)
 
       /O = false -> true
       $ -> jet.$() | pt, eta, phi, m, e
@@ -154,15 +159,14 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
       $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
 
-      (flav = btag::flavor(jet.matchedGenJet))
       maxtrk -> maxpt
 
       ! Regression stuff
       (puppi = regression::GetJetInfo(jet))
       puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
 
-      $_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
-      @_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
+      #$_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
+      #@_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
 
       $ -> puppi.$ | ptD
       $/s -> puppi.$ | num03
@@ -198,10 +202,10 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     reclustered(fastjet::PseudoJet* jet)
       ~~ jet ~~
       reclustered/O = false -> true
-      reclustered_$ -> jet->$() | pt, eta, phi, m
+!      reclustered_$ -> jet->$() | pt, eta, phi, m
 
     [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
-    [[<tf_{ptratio, deta, dphi, mratio}>; data/output_etaphi.pb; ../analysis/regression_branches.txt; crombie_input; crombie_output/Identity]]
+    [[<tf_{ptratio, deta, dphi, mratio}>; data/output_test.pb; ../analysis/regression_branches.txt; inputs; <out/{0..4}/Identity>]]
 
     ! Need a more systematic name system
 
@@ -238,7 +242,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
   ! Need a more systematic name system
 
-  $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
+  $_dijet_m <- vectorSumMass(<[]_jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu !, reclustered
   dphi_uh <- deltaPhi([]_hbb_phi, recoilphi)
 
   daughter_deta <- std::abs([]_jet1_eta - []_jet2_eta)
@@ -305,4 +309,4 @@ r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 ! These are filled before the fill function
 -- debug::debugevent or (pfmet > 150 or recoilvec.Mod() > 150) --
 ! These are filled in the fill function
-++ debug::debugevent or (ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 25)) ++
+++ debug::debugevent or (ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 35)) ++
