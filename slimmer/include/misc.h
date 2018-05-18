@@ -3,6 +3,10 @@
 
 #include <cmath>
 #include <utility>
+#include <map>
+#include <string>
+#include <regex>
+#include <sstream>
 
 #include "TLorentzVector.h"
 
@@ -25,6 +29,7 @@
 #include "regression.h"
 #include "trkmet.h"
 #include "reliso.h"
+#include "splitjec.h"
 
 // Hold information about genjet vectors with neutrinos added
 

@@ -1,11 +1,6 @@
 #ifndef DAN_BTAGREADERS_H
 #define DAN_BTAGREADERS_H 1
 
-#include <map>
-#include <string>
-#include <regex>
-#include <sstream>
-
 #include "bcal/BTagCalibrationStandalone.cpp" 
 
 #include "PandaTree/Objects/interface/Event.h"
@@ -232,7 +227,7 @@ namespace btag {
         output[syshist.first] = content;
     }
 
-    if (debug::debug)
+    if (debugevent::debug)
       std::cout << "Jet pt " << pt << " bin " << ptbin << " eta " << jet.eta() << " bin " << etabin
                 << " cmva " << jet.cmva
                 << " matched " << jet.matchedGenJet.idx() << " flav " << flav

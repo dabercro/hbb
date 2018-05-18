@@ -53,10 +53,12 @@ $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
 $(data): data/*.csv data/*.xml $(rootdata) $(corrections) data/rcdata.2016.v3
-	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
+	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.pb ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
 	cp data/*.csv data/*.xml data/*.pb $(rootdata) ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
 	cp -rH data/rcdata.2016.v3 ${CMSSW_BASE}/data
+	test ! -d ${CMSSW_BASE}/data/jec || rm -r ${CMSSW_BASE}/data/jec
+	cp -rH data/jec ${CMSSW_BASE}/data
 	touch $(data)
 
 endif
@@ -64,10 +66,13 @@ endif
 $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h \
 	${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	${CROMBIEPATH}/SkimmingTools/interface/EtaPhiMap.h include/roccor/RoccoR.cc Makefile
-	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH} -Iroccor \
+	${CROMBIEPATH}/SkimmingTools/interface/EtaPhiMap.h include/roccor/RoccoR.cc include/jecsys data/jec/jec.d
+	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH} \
 	$(tensorflow) \
-	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
+	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lCondFormatsJetMETObjects -lTMVA -o $(target) slimmer.cpp
+
+include/jecsys:
+	cd include; git clone https://github.com/miquork/jecsys.git; cd jecsys; git checkout Summer16_23Sep2016V4
 
 include/roccor/RoccoR.cc:
 	test -d include/roccor || mkdir include/roccor
@@ -76,6 +81,10 @@ include/roccor/RoccoR.cc:
 
 include/checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* include/checkrun
+
+data/jec/jec.d: data/jec/download.url
+	cd data/jec; rm *.tar.gz; wget -i download.url; for f in *.tar.gz; do tar -xvf $$f '*_AK4PFchs.txt' '*_AK8PFPuppi.txt'; done
+	touch data/jec/jec.d
 
 include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/*.h slimmer.cpp include/feedpanda.h
@@ -88,7 +97,7 @@ $(effs): data/make_effs.py data/*eff.txt $(corrections)
 	data/make_effs.py
 
 $(corrections): data/downloads.url
-	cd data; rm *.root; rm *.csv; rm *.xml; wget -i downloads.url
+	cd data; rm *.root; rm *.csv; rm *.xml; rm *.pb; wget -i downloads.url
 	touch $(corrections)
 
 .PHONY: clean test install
@@ -114,4 +123,4 @@ test: $(target) $(effs)
 	test -z ${CMSSW_BASE} || cut='|!cmva_hbb_gen|cmva_hbb_gen' crombie plotdump test.root $(testdir)
 
 clean:
-	rm $(target) include/$(flatclass).h include/feedpanda.h include/checkrun.h $(effs) $(data) $(corrections) include/roccor/RoccoR.cc
+	rm $(target) include/$(flatclass).h include/feedpanda.h include/checkrun.h $(effs) $(data) $(corrections) include/roccor/RoccoR.cc data/jec/jec.d
