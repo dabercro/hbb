@@ -41,6 +41,7 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
   n_alljet -> ++
   n_allhard -> +(jet_pt[] > 30.0)
 
+  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
   min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
 
   ~~ abseta < 2.5 ~~
@@ -48,9 +49,12 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
   n_softjet -> ++
   n_jet -> +(jet_pt[] > 30.0)
   n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
-  n_b@_$ -> +(@.$() && jet_pt[] > 25.0 && abseta < 2.4) | loose, medium, tight |@ cmva, csv
+  n_b@_$ -> +(@.$() && abseta < 2.4) | loose, medium, tight |@ cmva, csv
 
 n_genB
+
+nB/b
+stat2b/b
 
 n_soft {
   , _all {
@@ -110,20 +114,40 @@ dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
 bsf(panda::Jet& jet)
   ! Hold some values temporarily. Should implement local variables some day
 
-  (scale = btag::get_scale(jet))
-
   n_allbjet/b -> ++
 
   bjet_$[] -> jet.$() | pt, eta
   #bjet_$[] -> jet.$() | phi
   bjet_$[] -> jet.$ | cmva
 
-DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
+  (flavor = btag::flavor(jet))
+  (scale = btag::get_scale(jet, flavor))
+
+  ! Stuff for histogram-based scale factors
 
   bjet_sf[] -> scale["central"]
   ? bjet_sf[]; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf[] | JES, LF, HF, <{cErr, Stats}{1, 2}>
 
   btag_sf = 1 -> *(bjet_sf[])
+
+  ! BCalibration stuff
+
+  DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
+
+  (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
+
+  bcal_sf[] -> nom_sf
+  bsf_eff[] -> btag::eff(<bjet_{pt, eta}[]>, flavor)
+
+  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
+
+  ! Systematics can be zero sometimes, so we want to evaluate that first
+  ? bcal_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
+
+  #bsf_num -> +(bcal_sf[] * bsf_eff[])
+  #bsf_denom -> +(bsf_eff[])
+
+  beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
 
 ! Input jets are used to set the following variables
 cmva {
@@ -275,6 +299,8 @@ ak8, ca15 {
 
       mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
 
+      ecf_O_N_B -> jet.ecfs[=O=][=N=][=B=] |O 1..4 |N 1..5 |B p5, 1, 2, 4
+
       ! This is just used for some filtering
       #good/O = false -> []_pt > 220 and []_mSD_corr > 25
 
@@ -302,12 +328,11 @@ pdf = 1.0
 r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
 r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
 
-! [event_class$; data/Classifier_m$_BDT.weights.xml] | , _reg_3, _reg_40
-! [boost_class; data/Classifier_wboost_BDT.weights.xml; data/boosted_sub.txt]
 [maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
+[event_class; data/Classifier_resolved_BDT.weights.xml]
 
 ! Filter
 ! These are filled before the fill function
--- debugevent::debugevent or (pfmet > 150 or recoilvec.Mod() > 150) --
+-- debugevent::debugevent or ((pfmet > 160 or recoilvec.Mod() > 160) and met_filter and (ak8fatjet1 or ca15fatjet1 or (n_lep_presel == 0 or (n_centerjet >= 4 and min_dphi_recoilb < 1.6)))) --
 ! These are filled in the fill function
-++ debugevent::debugevent or (ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 35)) ++
+++ debugevent::debugevent or (ak8fatjet1 or ca15fatjet1 or (cmva_daughter_max_pt > 50 and cmva_daughter_min_pt > 30 and cmva_hbb_pt > 110 and cmva_hbb_m < 600 and cmva_jet2_cmva > -0.6)) ++

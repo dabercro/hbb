@@ -23,11 +23,11 @@ for process in MakeDatacards.alltrees['background']:
     def add_corr(name, expr, cut, fileName, histName, matchName='', merge=True):
         corr = Corrector.MakeCorrector(name, expr, cut, fileName, histName)
         if expr == 'cmva_jet2_cmva':
-            corr.SetBinning(36, -0.6, 1.0)
+            corr.SetBinning(37, -0.6, 1.05)
         elif expr == 'fatjet1_mSD_corr':
             corr.SetBinning(24, 80, 160)
         else:
-            corr.SetBinning(42, -1.05, 1.05)
+            corr.SetBinning(36, -0.8, 1.0)
 
         if matchName:
             corr.SetMatchFileName(matchName)

@@ -126,9 +126,6 @@ namespace btag {
 
   static EtaPhiMap<panda::GenJet> genjetmap {0.5, 3.0};
 
-}
-
-namespace {
   BTagEntry::JetFlavor flavor(const panda::Jet& jet) {
     auto flavor = BTagEntry::FLAV_UDSG;
     for (auto& gen : btag::genjetmap.GetParticles(jet.eta(), jet.phi(), 0.3)) {
@@ -144,9 +141,6 @@ namespace {
     }
     return flavor;
   }
-}
-
-namespace btag {
 
   // Calibration reader front end
 
@@ -180,10 +174,10 @@ namespace btag {
   using ScaleWithSys = std::map<std::string, Scale>;
 
   // Just return all of the systematics at once
-  ScaleWithSys get_scale(const panda::Jet& jet) {
+  // Get the flavor ahead of time for use with other bits
+  ScaleWithSys get_scale(const panda::Jet& jet, BTagEntry::JetFlavor flav) {
     ScaleWithSys output;
 
-    auto flav = flavor(jet);
     auto pt = jet.pt();
     auto eta = std::abs(jet.eta());
 

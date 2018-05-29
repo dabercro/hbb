@@ -1,6 +1,6 @@
 LDFLAGS = `root-config --glibs` `fastjet-config --libs`
 CFLAGS = `root-config --cflags` `fastjet-config --cxxflags`
-installname = makehbbtree
+installname = mkhbb
 exename = testhbbtree
 flatclass = hbbfile
 testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root

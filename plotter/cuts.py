@@ -9,8 +9,8 @@ metcut     = ' && '.join([
         'pfmet > 170',
         'met_filter == 1',
         ])
-#lepveto    = 'n_lep_presel == 0'
-lepveto    = '(Sum$(muon_reliso < 0.4) + Sum$(ele_reliso < 0.4)) == 0'
+lepveto    = 'n_lep_presel == 0'
+#lepveto    = '(Sum$(muon_reliso < 0.4) + Sum$(ele_reliso < 0.4)) == 0'
 
 btag_csv   = 'csv_jet1_csv > 0.8484'
 unbtag_csv = 'csv_jet1_csv < 0.8484'
@@ -37,8 +37,8 @@ antiQCD    = 'min_dphi_metj_hard > 0.5'
 antierQCD  = 'min_dphi_metj_hard > 1.5'
 deltaVH    = 'cmva_dphi_uh > 2.0'
 undeltaVH  = 'cmva_dphi_uh < 2.0'
-#trkmetphi  = 'dphi_met_dztrkmet < 0.5'
-trkmetphi  = 'dphi_met_trkmet < 0.5'
+trkmetphi  = 'dphi_met_dztrkmet < 0.5'
+#trkmetphi  = 'dphi_met_trkmet < 0.5'
 
 common = ' && '.join([
         metcut,
@@ -94,7 +94,7 @@ regionCuts = {
 
 regionCuts['signal'] = ' && '.join([
         regionCuts['heavyz'].replace(mjjveto, '60 < cmva_hbb_m_reg_old && 160 > cmva_hbb_m_reg_old').replace('jet < 3', 'jet < 4'),
-        'maier_event_class > -0.8'
+#        'maier_event_class > -0.8'
         ])
 
 # Making selection of multiple entries
@@ -122,7 +122,8 @@ defaultMCWeight = ' * '.join(
 #mettrigger = 'hbb_2016_trigger'
 mettrigger = 'met_trigger'
 
-signal = os.environ.get('signal', '0.5 > maier_event_class')      # Signal cut
+#signal = os.environ.get('signal', '0.5 > maier_event_class')      # Signal cut
+signal = os.environ.get('signal', '0')      # Signal cut
 
 region_weights = { # key : [Data,MC]
     'signal'   : [signal, ' * '.join([defaultMCWeight,
@@ -155,8 +156,8 @@ syst = {
 syst.update(
     {key: check_header(key) for key in
      ['jetpt', 'pdf',
-      'JES', 'LF', 'HF',
-      'cErr1',  'cErr2', 'Stats1', 'Stats2'
+#      'JES', 'LF', 'HF',
+#      'cErr1',  'cErr2', 'Stats1', 'Stats2'
       ]
      })
 
@@ -238,7 +239,7 @@ def cut(category='', region=''):
             replace('cmva_hbb', 'ak8fatjet1')
         cut = re.sub(r'\b60\b', '80', cut)  # Didn't make plots yet, but maybe try this
 
-    return '%s && %s' % (cut, categoryCuts[category])
+    return ('%s && %s' % (cut, categoryCuts[category])).replace('ak8', 'ca15')
 
 def dataMCCuts(region, isData):
     key = 'default'

@@ -7,6 +7,9 @@ crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180514__pre%2Finclusive_tt_cmva_jet2_cmva%2C180514_v1%2Finclusive_tt_cmva_jet2_cmva%2C180514__pre%2Finclusive_lightz_cmva_jet2_cmva%2C180514_v1%2Finclusive_lightz_cmva_jet2_cmva%2C180514__pre%2Finclusive_heavyz_cmva_jet2_cmva%2C180514_v1%2Finclusive_heavyz_cmva_jet2_cmva"
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180515_class%2Finclusive_signal_maier_event_class%2C180515_class_post%2Finclusive_signal_maier_event_class"
 
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180328_v3%2Fboosted_signal_fatjet1_mSD_corr%2C180328_v1%2Fboosted_heavyz_fatjet1_mSD_corr"
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=180327_v4%2Fboosted_tt_fatjet1_mSD_corr%2C180327_v4%2Fboosted_lightz_fatjet1_mSD_corr"
+
 for f in */*.pdf
 do
     pdfcrop $f $f

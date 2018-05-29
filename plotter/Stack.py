@@ -71,10 +71,10 @@ def parse_plots(check=None):
             ['cmva_jet1_cmva', 40, -1.0, 1.0, 'CMVA jet 1'],
             ['cmva_jet2_cmva', 37, -0.6, 1.05, 'CMVA jet 2'],
 #            ['cmva_jet2_cmva', 36, -0.6, 1.0, 'CMVA jet 2'],
-            ['cmva_dphi_uh', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['cmva_dphi_uh', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['pfmet', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
-            ['min_dphi_metj_hard', 40, 0, 4, '#Delta#phi(E_{T}^{miss}, j)'],
+            ['min_dphi_metj_hard', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, j)'],
             ['n_jet', 10, 0, 10, 'Num Jets'],
             ['n_soft_2', 20, 0, 20, 'Num Soft'],
             ['n_soft_5', 20, 0, 20, 'Num Soft'],
@@ -86,10 +86,16 @@ def parse_plots(check=None):
             ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
             ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
-            ['maier_event_class', 36, -0.8, 1.0, 'Event Classifier'],
+            ['event_class', 36, -0.8, 1.0, 'Event Classifier'],
             ['ak8fatjet1_mSD_corr', 24, 80, 160, 'fat jet m_{SD}'],
-            ['ak8fatjet1_pt', 30, 0, 600, 'fat jet p_{T}'],
+            ['ak8fatjet1_pt', 40, 200, 600, 'fat jet p_{T}'],
             ['ak8fatjet1_double_sub', 42, -1.05, 1.05, 'fat jet double sub'],
+            ['ca15fatjet1_mSD_corr', 24, 80, 160, 'fat jet m_{SD}'],
+            ['ca15fatjet1_pt', 40, 200, 600, 'fat jet p_{T}'],
+            ['ca15fatjet1_double_sub', 42, -1.05, 1.05, 'fat jet double sub'],
+            ['dphi_met_dztrkmet', 35, 0, 3.5, '#Delta#phi(PF MET, Track MET)'],
+            ['dphi_met_trkmet', 35, 0, 3.5, '#Delta#phi(PF MET, Track MET)'],
+            ['min_dphi_recoilb', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, b)'],
             ]
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
@@ -135,11 +141,12 @@ if __name__ == '__main__':
                        'jet1_cmva',
                        'jet2_cmva',
                        'cmva_dphi_uh',
-                       'cmva_jet1_cmva'
+                       'cmva_jet1_cmva',
+                       'min_dphi_recoilb',
+                       'ak8fatjet1_double_sub',
                        ],
              some_left={'signal': ['jet1_chf',
                                    'min_dphi_metj_hard',
-                                   'event_class'
                                    ],
                         'tt': ['n_jet',
                                ]

@@ -96,7 +96,7 @@
 \begin{frame}
   \frametitle{Introduction}
   \begin{itemize}
-  \item $VHbb$ is one analysis that is being pursued to observe the $H \rightarrow bb$ process
+  \item VHbb is one analysis that is being pursued to observe the $H \rightarrow bb$ process
     \begin{itemize}
     \item Other analyses: gluon-fusion and vector boson fusion
     \end{itemize}
@@ -106,7 +106,7 @@
     \item $Z\ell\ell$
     \item $W\ell\nu$
     \end{itemize}
-  \item The approach for the three channels are similar
+  \item The approach for the three VH channels are similar
   \end{itemize}
 \end{frame}
 
@@ -124,7 +124,7 @@
   \item Di-jet $p_T > \SI{120}{GeV}$ and $\Delta\phi_{\mathrm{MET}} > 2$
   \item No jets with $p_T > \SI{30}{GeV}$ within $\Delta\phi = 0.5$ of MET (QCD)
   \item No veto electrons
-  \item At most one additional jet in the central region
+  \item At most one additional jet in the central detector
   \end{itemize}
 \end{frame}
 
@@ -174,7 +174,11 @@
   \frametitle{Distributions for Fitting}
   \begin{itemize}
   \item Second cMVA score used
-  \item Note: in 2017, deepCSV is recommended over cMVA
+    \begin{itemize}
+    \item Separates Z + bb and Z + b, for example
+    \end{itemize}
+  \item Note: in 2017, deepCSV will be used over cMVA
+  \item Signal region is fit to a signal classifier BDT
   \end{itemize}
 \end{frame}
 
@@ -299,16 +303,16 @@
 \begin{frame}
   \frametitle{Uncertainties}
   \begin{itemize}
-  \item QCD renormalization and factorization uncertainties for each separate process \\
+  \item All uncertainties for the cMVA iterative fit scale factors,
+    decorrelated in $p_T$ and $\eta$ bins for jets
+  \item JES uncertainty (splitting by source in progress)
+  \item Allowing major backgrounds, W/Z+jet (split by number of b gen jets) and tt, to float; to be improved by combination
+  \item MC statistical uncertainty
+  \item QCD renormalization and factorization uncertainties for each process
     (varies but on the order of a few percent)
   \item EWK and QCD Higgs uncertainties
   \item 2.5\% Luminosity uncertainty
   \item Pileup uncertainty currently applied as flat 2.5\%
-  \item All uncertainties for the cMVA iterative fit scale factors
-  \item Shape uncertainty (to event classifier) from JES uncertainty,
-    which moves a number of the di-jet kinematic and counting variables around
-  \item Allowing major backgrounds, W/Z+jet (split by number of b-jets) and tt, to float; to be improved by combination
-  \item MC statistical uncertainty
   \end{itemize}
 \end{frame}
 
@@ -340,14 +344,30 @@
 \begin{frame}
   \frametitle{Result}
   \begin{itemize}
-  \item As you can see from the post-fit plots, the MC shape is very flexible
-  \item This is possibly due to statstical uncertainties on the MC
-  \item Result still comes out to 1.30
+  \item The MC shape is very flexible
+    \begin{itemize}
+    \item This is possibly due to statstical uncertainties on the MC
+    \end{itemize}
+  \item W + jets regions are not controlled here at all
+    \begin{itemize}
+    \item Our W + jets region will be from combination
+    \end{itemize}
+  \item Expected sensistivity comes out to 1.30
+    \begin{itemize}
+    \item Anticipate a gain when PandaAnalysis switches from \SI{25}{GeV} jets
+      (3\% difference)
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Sample Stitching}
+  Potential solution to reduce effect from MC stats
+  \begin{itemize}
+  \item Use \texttt{VBJets} samples with non-zero number of prompt b 
+  \item Use \texttt{BGenFilter} samples with non-zero status 2 b hadrons
+  \item Cut on those quantities in nominal samples, \textcolor{blue}{or mix samples}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -366,8 +386,6 @@
 
 \begin{frame}
   \frametitle{2017 Data: Comparison Plots}
-
-  \vspace{12pt}
 
   \twofigs{All Triggers}
           {180515_fin/pfmet.pdf}
@@ -398,19 +416,35 @@
     \item double b-tag score
     \end{itemize}
   \item Using CA15 jets, as in Mono-Higgs
+  \item Fit to soft drop mass for control regions
+  \item Train another classifier BDT for signal region
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Pre-fit Plots}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Potential Gains}
+  \frametitle{W + jets ``Contamination'' (old plots)}
+  \fourfigs{signal}
+           {180328_v3/boosted_signal_fatjet1_mSD_corr}
+           {Z+HF}
+           {180328_v1/boosted_heavyz_fatjet1_mSD_corr}
+           {Z+LF}
+           {180327_v4/boosted_lightz_fatjet1_mSD_corr}
+           {tt}
+           {180327_v4/boosted_tt_fatjet1_mSD_corr}
 \end{frame}
 
 \begin{frame}
   \frametitle{Conclusion}
+  \begin{itemize}
+  \item With 2016 strategy and minor changes
+    \begin{itemize}
+    \item Matching their lone datacard
+    \item Reason to believe we can still improve
+    \end{itemize}
+  \item Boosted region as is gives about 10\% improvement over Z($\nu\nu$)
+  \item N-tuple bugs prevented a combination last week, but working on
+  \item 2017 analysis also delayed, but to be added soon
+  \end{itemize}
 \end{frame}
 
 %\beginbackup

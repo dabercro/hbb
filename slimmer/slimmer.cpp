@@ -214,7 +214,8 @@ int parsed_main(int argc, char** argv) {
                       << lep.pt() << ", " << lep.eta() << ", " << lep.phi() << ", " << lep.m() << ", "
                       << info.reliso << "]" << std::endl;
           }
-          em_directions.emplace_back(lep.eta(), lep.phi());
+          if (info.reliso < 0.4)
+            em_directions.emplace_back(lep.eta(), lep.phi());
           output.set_lep(branch, lep, info, ids);
           if (ids.loose()) {
             selected_leps.push_back(&lep);
@@ -370,6 +371,14 @@ int parsed_main(int argc, char** argv) {
             gen_nu_map[closest].add_nu(gen);
           }
         }
+        else if (not (gen.parent.isValid() and gen.parent->pdgid == gen.pdgid)) { // Count bs for stitching
+          if (abspdgid == 5 and gen.testFlag(panda::GenParticle::kIsPrompt))
+            ++output.nB;
+          auto mod10k = abspdgid % 10000;
+          if (gen.testFlag(panda::GenParticle::kIsDecayedLeptonHadron) and
+              ((mod10k >= 500 and mod10k < 600) or (mod10k >= 5000 and mod10k < 6000)))
+            ++output.stat2b;
+        }
       }
 
       if (debugevent::debug)
@@ -404,7 +413,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 25.0 or not puid::loose(jet)) {
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not puid::loose(jet)) {
           if (debugevent::debug)
             std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
           continue;
