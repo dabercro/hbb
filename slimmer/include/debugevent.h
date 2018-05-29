@@ -20,7 +20,7 @@ namespace {
   } ();
 }
 
-namespace debug {
+namespace debugevent {
   const bool debugevent = rle;
   const bool debug = debugevent or getenv("debug");
   bool check(unsigned run, unsigned lumi, unsigned long event) {

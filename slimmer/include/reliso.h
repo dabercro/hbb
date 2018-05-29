@@ -63,7 +63,7 @@ namespace reliso {
       }
     }
 
-    if (debug::debug) {
+    if (debugevent::debug) {
       std::cout << "Lepton pt " << lep.pt()
                 << " chiso " << chiso
                 << " nhiso " << nhiso

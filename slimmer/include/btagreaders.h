@@ -1,11 +1,6 @@
 #ifndef DAN_BTAGREADERS_H
 #define DAN_BTAGREADERS_H 1
 
-#include <map>
-#include <string>
-#include <regex>
-#include <sstream>
-
 #include "bcal/BTagCalibrationStandalone.cpp" 
 
 #include "PandaTree/Objects/interface/Event.h"
@@ -15,6 +10,43 @@
 #include "TFile.h"
 
 namespace {
+
+  // Calibration reader backend
+
+  /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
+  static const BTagCalibration cmva_calib {"cmva", "data/cMVAv2_Moriond17_B_H.csv"};
+
+  // Here we define functions that returns the reader for each working point
+  BTagCalibrationReader get_cmva_reader(const BTagEntry::OperatingPoint op) {
+    if (op != BTagEntry::OP_RESHAPING) {
+      BTagCalibrationReader cmva_reader(op, "central", {"up", "down"});
+      cmva_reader.load(cmva_calib, BTagEntry::FLAV_B, "ttbar");
+      cmva_reader.load(cmva_calib, BTagEntry::FLAV_C, "ttbar");
+      cmva_reader.load(cmva_calib, BTagEntry::FLAV_UDSG, "incl");
+      return cmva_reader;
+    }
+
+    BTagCalibrationReader cmva_reader(op, "central", {"up_jes", "down_jes", "up_lf", "down_lf", "up_hf", "down_hf",
+          "up_hfstats1", "down_hfstats1", "up_hfstats2", "down_hfstats2",
+          "up_lfstats1", "down_lfstats1", "up_lfstats2", "down_lfstats2",
+          "up_cferr1", "down_cferr1", "up_cferr2", "down_cferr2"});
+
+    for (auto flav : {BTagEntry::FLAV_B, BTagEntry::FLAV_C, BTagEntry::FLAV_UDSG})
+      cmva_reader.load(cmva_calib, flav, "iterativefit");
+    return cmva_reader;
+  }
+
+  auto effs = [] () {
+    TFile infile {"data/btag_effs.root"};
+    std::map<BTagEntry::JetFlavor, TH2F> output {
+      {BTagEntry::FLAV_UDSG, *(static_cast<TH2F*>(infile.Get("lfeff")))},
+      {BTagEntry::FLAV_C, *(static_cast<TH2F*>(infile.Get("ceff")))},
+      {BTagEntry::FLAV_B, *(static_cast<TH2F*>(infile.Get("beff")))}
+    };
+    return output;
+  } ();
+
+  // Histogram-based backend
 
   template<typename T>
   class PtEtaBins {
@@ -92,17 +124,48 @@ namespace {
 
 namespace btag {
 
-  BTagEntry::JetFlavor flavor(const panda::Ref<panda::GenJet>& gen) {
+  static EtaPhiMap<panda::GenJet> genjetmap {0.5, 3.0};
+
+}
+
+namespace {
+  BTagEntry::JetFlavor flavor(const panda::Jet& jet) {
     auto flavor = BTagEntry::FLAV_UDSG;
-    if (gen.isValid()) {
+    for (auto& gen : btag::genjetmap.GetParticles(jet.eta(), jet.phi(), 0.3)) {
       auto abspdgid = abs(gen->pdgid);
-      if (abspdgid == 5)
+      if (abspdgid == 5) {
         flavor = BTagEntry::FLAV_B;
-      else if (abspdgid == 4)
+        break;
+      }
+      else if (abspdgid == 4) {
         flavor = BTagEntry::FLAV_C;
+        break;
+      }
     }
     return flavor;
   }
+}
+
+namespace btag {
+
+  // Calibration reader front end
+
+  using BCalReaders = std::map<const BTagEntry::OperatingPoint, const BTagCalibrationReader>;
+
+  const BTagCalibrationReader cmva_reader = get_cmva_reader(BTagEntry::OP_RESHAPING);
+
+  const BCalReaders cmva_readers = {
+    {BTagEntry::OP_LOOSE, get_cmva_reader(BTagEntry::OP_LOOSE)},
+    {BTagEntry::OP_MEDIUM, get_cmva_reader(BTagEntry::OP_MEDIUM)},
+    {BTagEntry::OP_TIGHT, get_cmva_reader(BTagEntry::OP_TIGHT)}
+  };
+
+  double eff(const double jetpt, const double jeteta, const BTagEntry::JetFlavor flav) {
+    auto& hist = effs.at(flav);
+    return hist.GetBinContent(hist.FindBin(std::min(jetpt, 950.0), std::abs(jeteta)));
+  }
+
+  // Histogram-based front end
 
   // Just a floating value that defaults to 1.0
   class Scale {
@@ -120,7 +183,7 @@ namespace btag {
   ScaleWithSys get_scale(const panda::Jet& jet) {
     ScaleWithSys output;
 
-    auto flav = flavor(jet.matchedGenJet);
+    auto flav = flavor(jet);
     auto pt = jet.pt();
     auto eta = std::abs(jet.eta());
 
@@ -163,6 +226,12 @@ namespace btag {
       if (content)
         output[syshist.first] = content;
     }
+
+    if (debugevent::debug)
+      std::cout << "Jet pt " << pt << " bin " << ptbin << " eta " << jet.eta() << " bin " << etabin
+                << " cmva " << jet.cmva
+                << " matched " << jet.matchedGenJet.idx() << " flav " << flav
+                << " central output " << output["central"] << std::endl;
 
     return output;
   }

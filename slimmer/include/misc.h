@@ -3,10 +3,17 @@
 
 #include <cmath>
 #include <utility>
+#include <map>
+#include <string>
+#include <regex>
+#include <sstream>
 
 #include "TLorentzVector.h"
 
+#include "fastjet/ClusterSequence.hh"
+
 #include "PlotTools/interface/KinematicFunctions.h"
+#include "SkimmingTools/interface/EtaPhiMap.h"
 
 #include "debugevent.h"
 #include "feedpanda.h"
@@ -22,6 +29,7 @@
 #include "regression.h"
 #include "trkmet.h"
 #include "reliso.h"
+#include "splitjec.h"
 
 // Hold information about genjet vectors with neutrinos added
 

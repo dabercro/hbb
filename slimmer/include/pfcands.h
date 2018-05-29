@@ -1,6 +1,3 @@
-#include "fastjet/ClusterSequence.hh"
-#include "SkimmingTools/interface/EtaPhiMap.h"
-
 // Here we deal with particle flow stuff
 
 namespace {
@@ -33,12 +30,14 @@ namespace pfcands {
 
     auto sequence = fastjet::ClusterSequence(inputs, {fastjet::JetAlgorithm::antikt_algorithm, 0.4});
     nujets = sequence.inclusive_jets(15.0); // Only want pT > 15.0
+    if (debugevent::debug)
+      std::cout << "Have " << nujets.size() << " jets" << std::endl;
     nujetmap.AddParticles(nujets);
   }
 
   const fastjet::PseudoJet* NuJet (const panda::Jet& jet) {
     float mindr2 = 10.0;
-    const fastjet::PseudoJet* output;
+    const fastjet::PseudoJet* output {nullptr};
     for (auto* nujet : nujetmap.GetParticles(jet.eta(), jet.phi(), 0.4)) {
       auto check = deltaR2(jet.eta(), jet.phi(), nujet->eta(), nujet->phi());
       if (check < mindr2) {
@@ -46,6 +45,8 @@ namespace pfcands {
         output = nujet;
       }
     }
+    if (debugevent::debug)
+      std::cout << "Getting nujet at " << output << std::endl;
     return output;
   }
 
