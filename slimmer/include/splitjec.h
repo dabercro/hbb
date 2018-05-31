@@ -1,6 +1,6 @@
 namespace {
 
-  const std::string input = std::string("Summer16_23Sep2016") + [] () {
+  const std::string myin = std::string("Summer16_23Sep2016") + [] () {
     std::regex expr {"Run201(\\d)(.)"};
     std::cmatch matches;
     auto in_dir = getenv("input_dir");
@@ -32,7 +32,7 @@ namespace {
 namespace splitjec {
 
   std::map<std::string, float> get_unc() {
-    std::cout << input << std::endl;
+    std::cout << myin << std::endl;
   }
 
 }

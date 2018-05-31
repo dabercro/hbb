@@ -14,7 +14,7 @@ namespace {
   // Calibration reader backend
 
   /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
-  static const BTagCalibration cmva_calib {"cmva", "data/cMVAv2_Moriond17_B_H.csv"};
+  static const BTagCalibration cmva_calib {"cmva", input::version <= 9 ? "data/cMVAv2_Moriond17_B_H.csv" : "data/DeepCSV_94XSF_V2_B_F.csv"};
 
   // Here we define functions that returns the reader for each working point
   BTagCalibrationReader get_cmva_reader(const BTagEntry::OperatingPoint op) {
@@ -148,11 +148,11 @@ namespace btag {
 
   const BTagCalibrationReader cmva_reader = get_cmva_reader(BTagEntry::OP_RESHAPING);
 
-  const BCalReaders cmva_readers = {
-    {BTagEntry::OP_LOOSE, get_cmva_reader(BTagEntry::OP_LOOSE)},
-    {BTagEntry::OP_MEDIUM, get_cmva_reader(BTagEntry::OP_MEDIUM)},
-    {BTagEntry::OP_TIGHT, get_cmva_reader(BTagEntry::OP_TIGHT)}
-  };
+  /* const BCalReaders cmva_readers = { */
+  /*   {BTagEntry::OP_LOOSE, get_cmva_reader(BTagEntry::OP_LOOSE)}, */
+  /*   {BTagEntry::OP_MEDIUM, get_cmva_reader(BTagEntry::OP_MEDIUM)}, */
+  /*   {BTagEntry::OP_TIGHT, get_cmva_reader(BTagEntry::OP_TIGHT)} */
+  /* }; */
 
   double eff(const double jetpt, const double jeteta, const BTagEntry::JetFlavor flav) {
     auto& hist = effs.at(flav);
@@ -182,6 +182,8 @@ namespace btag {
     auto eta = std::abs(jet.eta());
 
     auto& binner = cmva_hists[flav];
+
+    auto tagvar = input::version <= 9 ? jet.cmva : jet.deepCSVb;
 
 #define PTCASE(bin, cut)  \
   case bin: \
@@ -214,7 +216,7 @@ namespace btag {
     auto& hists = binner(ptbin, etabin);
 
     for (auto& syshist : hists) {
-      auto histbin = std::max(syshist.second.FindBin(jet.cmva), 1);
+      auto histbin = std::max(syshist.second.FindBin(tagvar), 1);
       auto content = syshist.second.GetBinContent(histbin);
 
       if (content)
@@ -223,7 +225,7 @@ namespace btag {
 
     if (debugevent::debug)
       std::cout << "Jet pt " << pt << " bin " << ptbin << " eta " << jet.eta() << " bin " << etabin
-                << " cmva " << jet.cmva
+                << " tagvar " << tagvar
                 << " matched " << jet.matchedGenJet.idx() << " flav " << flav
                 << " central output " << output["central"] << std::endl;
 

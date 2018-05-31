@@ -1,0 +1,8 @@
+hbb        WminusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8.root   2.0         H_#rightarrow_bb_#times_20  2
+.          WplusH_HToBB_WToLNu_M125_13TeV_powheg_pythia8.root    3.19        .                 .
+.          ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8.root       1.782     .                 .
+.          ZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root         0.973     .                 .
+.          ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8.root     0.28732    .                 .
+.          ggZH_HToBB_ZToLL_M125_13TeV_powheg_pythia8.root       0.007842    .                 .
+.          GluGluHToBB_M125_13TeV_powheg_pythia8.root            28.234752   .                 .
+.          VBFHToBB_M125_13TeV_amcatnlo_pythia8.root             2.2026368   .                 .

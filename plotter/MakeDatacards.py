@@ -81,7 +81,7 @@ output = 'datacards/yields_%s' % datething
 expr = {
     'inclusive': {
 #        'signal': 'boost_class',
-        'signal': 'maier_event_class',
+        'signal': 'event_class',
         'default': 'cmva_jet2_cmva'
         }
     }
@@ -89,12 +89,13 @@ expr = {
 if 'inclusive' not in sys.argv:
     # Overwrite expr with just inclusive
     expr['boosted'] = {
-        'default': 'fatjet1_mSD_corr'
+        'default': 'ak8fatjet1_mSD_corr'
         }
 
 alltrees = {'data': ['data_obs'],
             'background': TreeList('MCConfig.txt'),
-            'signal': TreeList('SignalConfig.txt')
+#            'signal': TreeList('SignalConfig.txt')
+            'signal': TreeList('SignalPlot.txt')
             }
 
 if __name__ == '__main__':

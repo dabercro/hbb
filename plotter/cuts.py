@@ -22,6 +22,11 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
+btag       = 'jet1_cmva > 0.4941'
+unbtag     = 'jet1_cmva < 0.4941'
+lbtag      = 'jet2_cmva > 0.1522'
+tbtag      = 'jet1_cmva > 0.8001'
+
 fat_btag   = 'ak8fatjet1_double_sub > 0.8'
 fat_unbtag = 'ak8fatjet1_double_sub < 0.8'
 fat_tbtag  = 'ak8fatjet1_double_sub > 0.8'
@@ -111,8 +116,8 @@ defaultMCWeight = ' * '.join(
      'vh_ewk', 'sf_tt',
      'mc_weight',
      'pdf',
-     'btag_sf',
-#     'beff_sf',
+#     'btag_sf',
+     'beff_sf',
 #     'cmva_jet2_sf_loose',
      os.environ.get('post', '1'),           # Postfit expression
      ])
@@ -143,7 +148,7 @@ check_header = lambda systematic: subprocess.check_output(
     'perl -ne \'/^\s*(\w*)_' + systematic + 'Up\s\=/ && print"$1\n"\' ../slimmer/include/hbbfile.h | sort | uniq', shell=True
     ).split('\n')[:-1]
 
-#btagsf_branches = check_header('btagsf')
+#btagsf_branches = check_header('btag_sf')
 
 syst = {
     'wfact': ['wkfactor'],
@@ -155,10 +160,14 @@ syst = {
     }
 syst.update(
     {key: check_header(key) for key in
-     ['jetpt', 'pdf',
-#      'JES', 'LF', 'HF',
-#      'cErr1',  'cErr2', 'Stats1', 'Stats2'
-      ]
+     ['jetpt', 'pdf'] + 
+     (['JES', 'LF', 'HF',
+       'cErr1',  'cErr2', 'Stats1', 'Stats2'
+       ] * ('btag_sf' in defaultMCWeight)) +
+     (['cferr1', 'cferr2', 'jes',
+       'hf', 'hfstats1', 'hfstats2',
+       'lf', 'lfstats1', 'lfstats2'
+       ] * ('beff_sf' in defaultMCWeight))
      })
 
 env = {
@@ -239,7 +248,7 @@ def cut(category='', region=''):
             replace('cmva_hbb', 'ak8fatjet1')
         cut = re.sub(r'\b60\b', '80', cut)  # Didn't make plots yet, but maybe try this
 
-    return ('%s && %s' % (cut, categoryCuts[category])).replace('ak8', 'ca15')
+    return ('%s && %s' % (cut, categoryCuts[category])).replace('cmva_', '')
 
 def dataMCCuts(region, isData):
     key = 'default'

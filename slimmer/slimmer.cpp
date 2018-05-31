@@ -111,14 +111,12 @@ int parsed_main(int argc, char** argv) {
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
       if (entry % 10000 == 0) {
         std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
+        // Set the global generator seed to the first event number of a file
         if (not entry)
           myrandom::gen.SetSeed(event.eventNumber);
       }
 
       event.getEntry(*events_tree, entry);
-
-      // Set the global generator seed to the first event number of a file
-
       all_hist.Fill(0.0, event.weight);
 
       // Should check good lumi towards the beginning
@@ -319,13 +317,13 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "  counted b jets" << std::endl;
 
-      using genhstore = ObjectStore<hbbfile::hbb, panda::GenParticle>;
+      using genhstore = ObjectStore<hbbfile::higgs, panda::GenParticle>;
 
       // Get the generator particles that are closest to the reconstructed Higgs
 
       genhstore gen_higgs {
-        {hbbfile::hbb::cmva_hbb},
-        [&output] (panda::GenParticle* gen) {return deltaR2(output.cmva_hbb_eta, output.cmva_hbb_phi, gen->eta(), gen->phi());},
+        {hbbfile::higgs::hbb},
+        [&output] (panda::GenParticle* gen) {return deltaR2(output.hbb_eta, output.hbb_phi, gen->eta(), gen->phi());},
         genhstore::order::eAsc
       };
 
@@ -396,8 +394,8 @@ int parsed_main(int argc, char** argv) {
       // We want the two jets with the highest CMVA
       using jetstore = ObjectStore<hbbfile::bjet, panda::Jet>;
 
-      jetstore stored_cmvas({hbbfile::bjet::cmva_jet1, hbbfile::bjet::cmva_jet2, hbbfile::bjet::cmva_jet3},
-                            [](panda::Jet* j) {return j->cmva;});
+      jetstore stored_cmvas({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
+                            input::version <= 9 ? [](panda::Jet* j){return j->cmva;} : [](panda::Jet* j){return j->deepCSVb;});
 
       // Check if overlaps with EM object
       auto overlap_em = [&em_directions] (panda::Particle& jet, double dr2) {
@@ -421,10 +419,11 @@ int parsed_main(int argc, char** argv) {
 
         lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
         lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
+        lazy::LazyCuts deepCSV_cuts = {jet.deepCSVb, 0.1522, 0.4941, 0.8001};
 
         // Count jets (including forward)
         auto abseta = std::abs(jet.eta());
-        output.set_countjets(jet, abseta, cmva_cuts, csv_cuts);
+        output.set_countjets(jet, abseta, cmva_cuts, csv_cuts, deepCSV_cuts);
 
         if (abseta < 2.4 and jet.loose) {
           stored_cmvas.check(jet);
@@ -558,11 +557,11 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "Starting Higgs" << std::endl;
 
-      if (output.cmva_jet2)
-        output.set_hbb(hbbfile::hbb::cmva_hbb);
+      if (output.jet2)
+        output.set_higgs(hbbfile::higgs::hbb);
 
       if (not debugevent::debug and
-          not ((output.cmva_hbb and output.cmva_hbb_pt > 70 and output.cmva_hbb_m < 600) or
+          not ((output.hbb and output.hbb_pt > 70 and output.hbb_m < 600) or
                output.ak8fatjet1_good or output.ca15fatjet1_good))
         continue;  // Short circuit soft activity this way, because that shit is slow.
 
