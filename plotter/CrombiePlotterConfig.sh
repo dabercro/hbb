@@ -12,6 +12,7 @@ fi
 export CrombieOutPlotDir=$HOME/public_html/plots/$(date +%y%m%d)_$SUFF
 
 export CrombieSignalConfig=SignalPlot.txt
+export CrombieSignalConfig=SignalPlot010.txt
 #export CrombieSignalConfig=SignalConfig.txt
 #export CrombieLuminosity=35900.0
 export CrombieLuminosity=41300.0
