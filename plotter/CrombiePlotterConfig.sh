@@ -1,4 +1,4 @@
-export CrombieNLocalProcs=7
+export CrombieNLocalProcs=6
 
 export CrombieMCConfig=MCConfig.txt
 export CrombieMCConfig=MCConfig010.txt

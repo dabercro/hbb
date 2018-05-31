@@ -1,4 +1,4 @@
-#gg  GluGluToContinToZZTo2e2mu_13TeV_MCFM701_pythia8.root                                      0.0073462       gg_#rightarrow_ZZ   409
+        #gg  GluGluToContinToZZTo2e2mu_13TeV_MCFM701_pythia8.root                                      0.0073462       gg_#rightarrow_ZZ   409
 #.   GluGluToContinToZZTo2e2nu_13TeV_MCFM701_pythia8.root                                      0.003956        .                   .
 #.   GluGluToContinToZZTo2e2tau_13TeV_MCFM701_pythia8.root                                     0.0073462       .                   .
 #.   GluGluToContinToZZTo2mu2tau_13TeV_MCFM701_pythia8.root                                    0.0073462       .                   .
@@ -15,9 +15,9 @@
 .   QCD_HT1500to2000_TuneCP5_13TeV-madgraph-pythia8.root                              121.5           .                   .
 .   QCD_HT2000toInf_TuneCP5_13TeV-madgraph-pythia8.root                               25.42           .                   .
 
-tt  TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8.root                                -1              TT                  798
-.   TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8.root                                       -1              .                   .
-.   TTToHadronic_TuneCP5_13TeV-powheg-pythia8.root                                    -1              .                   .
+tt  TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8.root                                375.224              TT                  798
+.   TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8.root                                       88.288              .                   .
+.   TTToHadronic_TuneCP5_13TeV-powheg-pythia8.root                                    398.6755              .                   .
 
 st  ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8.root       80.95           Single_Top          799
 .   ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8.root           136.02          .                   .
