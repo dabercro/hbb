@@ -31,7 +31,7 @@ then
     VJDir=$CrombieSkimDir/VJets
 
     test -d $VJDir || mkdir $VJDir
-    mv $CrombieSkimDir/{W,Z}Jets* $VJDir
+    mv $CrombieSkimDir/Z{1,2}Jets* $VJDir
 
     test -d $CrombieSkimDir/bDir || mkdir $CrombieSkimDir/bDir
     test -d $CrombieSkimDir/bbDir || mkdir $CrombieSkimDir/bbDir

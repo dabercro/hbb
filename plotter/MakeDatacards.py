@@ -32,6 +32,11 @@ uncertainties = {
 #        'val': 1.3,
 #        'procs': ['st']
 #        },
+    'wj': {
+        'val': 1.1,
+        'shape': 'lnU',
+        'procs': ['wj', 'wjb', 'wjbb']
+        },
     'wfact': {
         'shape': 'shape',
         'procs': ['wj', 'wjb', 'wjbb']
@@ -71,7 +76,8 @@ keys = ['tt']
 
 shapes = list(cuts.syst) + list(cuts.env)
 
-for bos in 'zw':
+#for bos in 'zw':
+for bos in 'z':
     for num_b in range(3):
         keys.append(bos + 'j' + 'b'*num_b)
 
@@ -82,7 +88,8 @@ expr = {
     'inclusive': {
 #        'signal': 'boost_class',
         'signal': 'event_class',
-        'default': 'cmva_jet2_cmva'
+#        'default': 'cmva_jet2_cmva'
+        'default': 'jet2_deepCSVb'
         }
     }
 
@@ -93,9 +100,9 @@ if 'inclusive' not in sys.argv:
         }
 
 alltrees = {'data': ['data_obs'],
-            'background': TreeList('MCConfig.txt'),
+            'background': TreeList('MCConfig010.txt'),
 #            'signal': TreeList('SignalConfig.txt')
-            'signal': TreeList('SignalPlot.txt')
+            'signal': TreeList('SignalPlot010.txt')
             }
 
 if __name__ == '__main__':

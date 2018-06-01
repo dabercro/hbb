@@ -97,6 +97,7 @@ def parse_plots(check=None):
             ['dphi_met_trkmet', 35, 0, 3.5, '#Delta#phi(PF MET, Track MET)'],
             ['min_dphi_recoilb', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, b)'],
             ['jet1_deepCSVb', 20, 0, 1, 'Deep CSV'],
+            ['jet2_deepCSVb', 18, 0.15, 1.05, 'Deep CSV'],
             ['tight_lep_pt', 30, 0, 300, 'Tight Lepton p_{T} [GeV]'],
             ]
 

@@ -24,7 +24,9 @@ for process in MakeDatacards.alltrees['background']:
         corr = Corrector.MakeCorrector(name, expr, cut, fileName, histName)
         if expr == 'cmva_jet2_cmva':
             corr.SetBinning(37, -0.6, 1.05)
-        elif expr == 'fatjet1_mSD_corr':
+        elif expr == 'jet2_deepCSVb':
+            corr.SetBinning(18, 0.15, 1.05)
+        elif expr == 'ak8fatjet1_mSD_corr':
             corr.SetBinning(24, 80, 160)
         else:
             corr.SetBinning(36, -0.8, 1.0)

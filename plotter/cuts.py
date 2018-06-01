@@ -60,7 +60,6 @@ categoryCuts = {
     'boosted': ' && '.join([
             'ak8fatjet1_pt > 250',
             'ak8fatjet1_mSD_corr > 40',
-            '(!cmva_jet2 || cmva_jet2_cmva < -0.5884)',
             ])
     }
 #categoryCuts['resolved'] = ' && '.join([
@@ -120,15 +119,15 @@ defaultMCWeight = ' * '.join(
      'beff_sf',
 #     'cmva_jet2_sf_loose',
      os.environ.get('post', '1'),           # Postfit expression
-     ])
+     ]) + '/((pfmet<170.0)*0.00027602833248+(pfmet>170.0&&pfmet<190.0)*0.000401925327093+(pfmet>190.0&&pfmet<210.0)*0.000520414245269+(pfmet>210.0&&pfmet<230.0)*0.000597059450245+(pfmet>230.0&&pfmet<250.0)*0.000612835820896+(pfmet>250.0&&pfmet<270.0)*0.000647899523603+(pfmet>270.0)*0.000670410783055)*((recoil<170.0)*0.00027602833248+(recoil>170.0&&recoil<190.0)*0.000401925327093+(recoil>190.0&&recoil<210.0)*0.000520414245269+(recoil>210.0&&recoil<230.0)*0.000597059450245+(recoil>230.0&&recoil<250.0)*0.000612835820896+(recoil>250.0&&recoil<270.0)*0.000647899523603+(recoil>270.0)*0.000670410783055)'
 
 # Additional weights applied to certain control regions
 
 #mettrigger = 'hbb_2016_trigger'
 mettrigger = 'met_trigger'
 
-#signal = os.environ.get('signal', '0.5 > maier_event_class')      # Signal cut
-signal = os.environ.get('signal', '0')      # Signal cut
+signal = os.environ.get('signal', '0.5 > event_class')      # Signal cut
+#signal = os.environ.get('signal', '0')      # Signal cut
 
 region_weights = { # key : [Data,MC]
     'signal'   : [signal, ' * '.join([defaultMCWeight,
@@ -231,24 +230,27 @@ for key in keys:
 
 def cut(category='', region=''):
     regions = region.split('+')
-    cut = regionCuts[regions[0]]
+    output = regionCuts[regions[0]]
     if 'csv' in regions:
         for orig, new in [(btag, btag_csv), (unbtag, unbtag_csv),
                           (lbtag, lbtag_csv), (tbtag, tbtag_csv)]:
-            cut = cut.replace(orig, new)
-        cut = cut.replace('cmva', 'csv')
+            output = output.replace(orig, new)
+        output = output.replace('cmva', 'csv')
     if 'raw' in regions:
-        cut = cut.replace('_reg_old', '')
+        output = output.replace('_reg_old', '')
 
     if category == 'boosted':
-        cut = Nminus1Cut(cut, 'min_dphi_recoilb').\
+        output = Nminus1Cut(output, 'min_dphi_recoilb').\
             replace(btag, fat_btag).replace(tbtag, fat_tbtag).replace(unbtag, fat_unbtag).\
             replace('cmva_dphi_uh', 'deltaPhi(ak8fatjet1_phi, recoilphi)').\
             replace('cmva_hbb_m_reg_old', 'ak8fatjet1_mSD_corr').\
             replace('cmva_hbb', 'ak8fatjet1')
-        cut = re.sub(r'\b60\b', '80', cut)  # Didn't make plots yet, but maybe try this
+        output = re.sub(r'\b60\b', '80', output)  # Didn't make plots yet, but maybe try this
 
-    return ('%s && %s' % (cut, categoryCuts[category])).replace('cmva_', '')
+    if category == 'boosted':
+        output += ' && !(%s)' % cut('inclusive', region)
+
+    return ('%s && %s' % (output, categoryCuts[category])).replace('cmva_', '')
 
 def dataMCCuts(region, isData):
     key = 'default'
