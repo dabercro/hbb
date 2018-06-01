@@ -1,0 +1,219 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  \emph{Daniel Abercrombie}, Brandon Allen, Zeynep Demiragli,
+  Guillelmo Gomez-Ceballos, Dylan George Hsu, \\
+  Philip Harris, Yutaro Iiyama, Benedikt Maier, \\
+  Siddharth Narayanan, Christoph Paus
+}
+
+\title{\bf \sffamily Z($\nu\nu$)H Report on 2017}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+
+\begin{document}
+
+\begin{frame}[nonumbering]
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{2016 Analysis}
+  \begin{itemize}
+  \item Missing separation of JES sources
+    \begin{itemize}
+    \item separation in n-tuples already
+    \end{itemize}
+  \item Missing uncertainty on not selecting leptons \\
+    (seems to be missing from previous analysis documentation)
+    \begin{itemize}
+    \item Important for non-trivial W + jets contribution to control regions
+    \item Important for high MET tt contribution to signal region
+    \end{itemize}
+  \item Documentation ready for the freeze
+  \end{itemize}
+  Z($\nu\nu$)H resolved and boosted combined gets an expected sensitivity of 1.15
+
+  \vspace{12pt}
+
+  Combination of Z($\nu\nu$)H and WH resolved gets sensitivity of 1.01 \\
+  (compared to 0.92 for 2016 paper datacards)
+\end{frame}
+
+\begin{frame}
+  \frametitle{2017 Analysis}
+  \begin{itemize}
+  \item Using deepCSV for tagging and control region variable instead of cMVA
+  \item Still using 2016 event classifier (so feeding cMVA in there)
+  \item Have not changed the MET cut yet,
+    so resolved region is in the shifted turn-on region
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pre-fit Plots}
+  \fourfigs{Signal}
+           {180531_class_pre/inclusive_signal_event_class.pdf}
+           {tt}
+           {180531_v2/inclusive_tt_jet2_deepCSVb.pdf}
+           {Z + HF}
+           {180531_v2/inclusive_heavyz_jet2_deepCSVb.pdf}
+           {Z + LF}
+           {180531_v2/inclusive_lightz_jet2_deepCSVb.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Uncertainties}
+  Improvements that can be made
+  \begin{itemize}
+  \item Current plots are with the smaller Z + Jets LO samples
+    \begin{itemize}
+    \item NLO samples ready, but not in time for today
+    \item Will reduce statistical uncertainties
+    \item Reduce uncertainties associated with k-factor
+    \end{itemize}
+  \item Split JES sources, as on first slide
+  \end{itemize}
+  Uncertainties to add
+  \begin{itemize}
+  \item Proper trigger uncertainties as function of recoil
+    \begin{itemize}
+    \item Will probably need to increase the MET cut to reduce effect
+    \end{itemize}
+  \item Uncertainty on not selecting leptons, as on first slide
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Post-fit Plots}
+  \fourfigs{Signal}
+           {180531_post_v5/inclusive_signal_event_class.pdf}
+           {tt}
+           {180531_post_v5/inclusive_tt_jet2_deepCSVb.pdf}
+           {Z + HF}
+           {180531_post_v5/inclusive_heavyz_jet2_deepCSVb.pdf}
+           {Z + LF}
+           {180531_post_v5/inclusive_lightz_jet2_deepCSVb.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{MET Plots (Post-fit)}
+  \fourfigs{Signal}
+           {180531_post_v5/inclusive_signal_pfmet.pdf}
+           {tt}
+           {180531_post_v5/inclusive_tt_pfmet.pdf}
+           {Z + HF}
+           {180531_post_v5/inclusive_heavyz_pfmet.pdf}
+           {Z + LF}
+           {180531_post_v5/inclusive_lightz_pfmet.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boosted}
+  \twofigs{tt}
+          {180531_v2/boosted_tt_ak8fatjet1_mSD_corr.pdf}
+          {Z + Jets}
+          {180531_v2/boosted_lightz_ak8fatjet1_mSD_corr.pdf}
+
+  Z + Jets boosted scale factors are needed, since boosted pulls that process in the other direction
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conclusions}
+  \begin{itemize}
+  \item Need to double check measurement and trigger selection,
+    \begin{itemize}
+    \item We already know the classifier is correlated with MET
+    \item May also explain disagreement in Z + LF deep CSV
+    \end{itemize}
+  \item Proper shape uncertainties for trigger not yet in datacard
+    \begin{itemize}
+    \item Large uncertainties in turn-on
+    \item MET cut will likely be moved up to optimize performance
+    \end{itemize}
+  \item Scale factors into boosted look different in 2017 than 2016
+  \item Combining resolved and boosted categories anyway:
+    \begin{itemize}
+    \item 2017 limits are 18\% worse than 2016, \\
+      despite larger luminosity
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\end{document}
