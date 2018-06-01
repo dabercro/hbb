@@ -1,0 +1,15 @@
+cmva_hbb_m              hbb_m
+cmva_hbb_m_reg_old      hbb_m_reg_old
+cmva_hbb_m_tf           hbb_m_tf
+cmva_hbb_pt             hbb_pt
+cmva_hbb_pt_over_vpt    hbb_pt_over_vpt
+cmva_jet1_cmva          jet1_cmva
+cmva_jet2_cmva          jet2_cmva
+cmva_jet3_cmva          jet3_cmva
+cmva_daughter_dR        daughter_dR
+cmva_daughter_deta      daughter_deta
+cmva_daughter_dphi      daughter_dphi
+cmva_dphi_uh            dphi_uh
+cmva_jet1_pt            jet1_pt
+cmva_jet2_pt            jet2_pt
+cmva_jet3_pt            jet3_pt

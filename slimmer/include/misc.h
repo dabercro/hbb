@@ -16,6 +16,7 @@
 #include "SkimmingTools/interface/EtaPhiMap.h"
 
 #include "debugevent.h"
+#include "input.h"
 #include "feedpanda.h"
 #include "checkrun.h"
 #include "btagreaders.h"

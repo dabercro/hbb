@@ -7,7 +7,6 @@ testfile = F6F880D2-ACBE-E611-B59D-0CC47A706D40.root
 corrections = data/corrections.d
 effs = data/btag_effs.root
 data = data/data.d
-rootdata = data/puppiCorr.root data/btag_effs.root data/puid.root data/cmva_rwt_fit_*.root
 
 # These flags are needed for tensorflow
 # Need to change if not using CMSSW_9_4_6
@@ -52,9 +51,9 @@ $(checker): ${CROMBIEPATH}/scripts/findtree.py
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
-$(data): data/*.csv data/*.xml $(rootdata) $(corrections) data/rcdata.2016.v3
+$(data): data/*.csv data/*.xml data/*.root $(corrections) data/rcdata.2016.v3
 	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.pb ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
-	cp data/*.csv data/*.xml data/*.pb $(rootdata) ${CMSSW_BASE}/data
+	cp data/*.csv data/*.xml data/*.root data/*.pb ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
 	cp -rH data/rcdata.2016.v3 ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/jec || rm -r ${CMSSW_BASE}/data/jec
@@ -66,7 +65,9 @@ endif
 $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
 	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h \
 	${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	${CROMBIEPATH}/SkimmingTools/interface/EtaPhiMap.h include/roccor/RoccoR.cc include/jecsys data/jec/jec.d
+	${CROMBIEPATH}/SkimmingTools/interface/EtaPhiMap.h \
+	${CROMBIEPATH}/SkimmingTools/interface/Correction.h \
+	include/roccor/RoccoR.cc include/jecsys data/jec/jec.d
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH} \
 	$(tensorflow) \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lCondFormatsJetMETObjects -lTMVA -o $(target) slimmer.cpp
@@ -112,7 +113,7 @@ test: $(target) $(effs)
 	# Move old test.root to a place for comparison
 	test ! -f test.root || mv test.root old
 	# Don't keep around new test file that's garbage
-	$(exename) $(testfile) test.root || rm test.root
+	input_dir='/test/pandaf/009/this' $(exename) $(testfile) test.root || rm test.root
 	# Kill if test file generation didn't work
 	test -f test.root
 	cp test.root new
@@ -120,7 +121,7 @@ test: $(target) $(effs)
 	# Move plots, only if last test was valid
 	test -z ${CMSSW_BASE} || test ! -d $(testdir)_old || rm -r $(testdir)_old
 	test -z ${CMSSW_BASE} || test ! -d $(testdir) || mv $(testdir) $(testdir)_old
-	test -z ${CMSSW_BASE} || cut='|!cmva_hbb_gen|cmva_hbb_gen' crombie plotdump test.root $(testdir)
+	test -z ${CMSSW_BASE} || cut='|!hbb_gen|hbb_gen' crombie plotdump test.root $(testdir)
 
 clean:
 	rm $(target) include/$(flatclass).h include/feedpanda.h include/checkrun.h $(effs) $(data) $(corrections) include/roccor/RoccoR.cc data/jec/jec.d
