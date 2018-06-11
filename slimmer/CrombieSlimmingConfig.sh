@@ -1,11 +1,11 @@
-inp_dir=/data/t3home000/dabercro/fullhbb
-suff='_v1'
+inp_dir=/mnt/hadoop/scratch/dabercro/hbb
+suff='_test'
 
 # Condor
 export CrombieExe='eval input_dir=$INPUT_DIR mkhbb'
-export CrombieInSample=pandaf/010
+export CrombieInSample=pandaf/009
 export CrombieOutDir=$inp_dir/$(date +%y%m%d)$suff
-export CrombieFilesPerJob=5
+export CrombieFilesPerJob=10
 
 # Skimming
 export CrombieNLocalProcs=8

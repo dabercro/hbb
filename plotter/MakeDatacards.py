@@ -33,7 +33,7 @@ uncertainties = {
 #        'procs': ['st']
 #        },
     'wj': {
-        'val': 1.1,
+        'val': 1.3,
         'shape': 'lnU',
         'procs': ['wj', 'wjb', 'wjbb']
         },
@@ -88,21 +88,25 @@ expr = {
     'inclusive': {
 #        'signal': 'boost_class',
         'signal': 'event_class',
-#        'default': 'cmva_jet2_cmva'
-        'default': 'jet2_deepCSVb'
+        'default': 'cmva_jet2_cmva'
+#        'default': 'jet2_deepCSVb'
         }
     }
 
 if 'inclusive' not in sys.argv:
     # Overwrite expr with just inclusive
     expr['boosted'] = {
+        'signal': 'event_class',
         'default': 'ak8fatjet1_mSD_corr'
         }
+if 'boosted' in sys.argv:
+    expr.pop('inclusive')
 
 alltrees = {'data': ['data_obs'],
             'background': TreeList('MCConfig010.txt'),
+#            'background': TreeList('MCConfig.txt'),
 #            'signal': TreeList('SignalConfig.txt')
-            'signal': TreeList('SignalPlot010.txt')
+            'signal': TreeList('SignalConfig010.txt')
             }
 
 if __name__ == '__main__':

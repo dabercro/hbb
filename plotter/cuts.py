@@ -22,10 +22,10 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
-btag       = 'jet1_deepCSVb > 0.4941'
-unbtag     = 'jet1_deepCSVb < 0.4941'
-lbtag      = 'jet2_deepCSVb > 0.1522'
-tbtag      = 'jet1_deepCSVb > 0.8001'
+#btag       = 'jet1_deepCSVb > 0.4941'
+#unbtag     = 'jet1_deepCSVb < 0.4941'
+#lbtag      = 'jet2_deepCSVb > 0.1522'
+#tbtag      = 'jet1_deepCSVb > 0.8001'
 
 fat_btag   = 'ak8fatjet1_double_sub > 0.8'
 fat_unbtag = 'ak8fatjet1_double_sub < 0.8'
@@ -119,7 +119,7 @@ defaultMCWeight = ' * '.join(
      'beff_sf',
 #     'cmva_jet2_sf_loose',
      os.environ.get('post', '1'),           # Postfit expression
-     ]) + '/((pfmet<170.0)*0.00027602833248+(pfmet>170.0&&pfmet<190.0)*0.000401925327093+(pfmet>190.0&&pfmet<210.0)*0.000520414245269+(pfmet>210.0&&pfmet<230.0)*0.000597059450245+(pfmet>230.0&&pfmet<250.0)*0.000612835820896+(pfmet>250.0&&pfmet<270.0)*0.000647899523603+(pfmet>270.0)*0.000670410783055)*((recoil<170.0)*0.00027602833248+(recoil>170.0&&recoil<190.0)*0.000401925327093+(recoil>190.0&&recoil<210.0)*0.000520414245269+(recoil>210.0&&recoil<230.0)*0.000597059450245+(recoil>230.0&&recoil<250.0)*0.000612835820896+(recoil>250.0&&recoil<270.0)*0.000647899523603+(recoil>270.0)*0.000670410783055)'
+     ])
 
 # Additional weights applied to certain control regions
 
@@ -250,7 +250,7 @@ def cut(category='', region=''):
     if category == 'boosted':
         output += ' && !(%s)' % cut('inclusive', region)
 
-    return ('%s && %s' % (output, categoryCuts[category])).replace('cmva_', '')
+    return ('%s && %s' % (output, categoryCuts[category]))#.replace('cmva_', '')
 
 def dataMCCuts(region, isData):
     key = 'default'

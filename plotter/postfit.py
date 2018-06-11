@@ -38,7 +38,7 @@ for process in MakeDatacards.alltrees['background']:
 
 
     for cat in [
-#        'boosted',
+        'boosted',
         'inclusive',
         ]:
         for region in ['tt', 'heavyz', 'lightz', 'signal']:

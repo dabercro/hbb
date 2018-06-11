@@ -2,6 +2,7 @@
 
 import os
 import sys
+import glob
 
 from CrombieTools.PlotTools.PlotStack import plotter, SetupFromEnv, MakePlots, PreparePlots
 from CrombieTools.PlotTools import AddOutDir
@@ -27,7 +28,8 @@ plotter.SetCanvasSize(600, 700)
 plotter.SetFontSize(0.03)
 plotter.SetAxisTitleOffset(1.55)
 
-plotter.AddDataFile('MET.root')
+for f in glob.iglob(os.path.join(os.environ['CrombieInFilesDir'], 'MET/*.root')):
+    plotter.AddDataFile(f)
 
 do_limit_dump = os.environ.get('syst')
 cats = cuts.categoryCuts.keys()
@@ -66,12 +68,12 @@ def parse_regions(check=None):
 
 def parse_plots(check=None):
     plots = [
-            ['hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
-            ['hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
-            ['jet1_cmva', 40, -1.0, 1.0, 'CMVA jet 1'],
-            ['jet2_cmva', 37, -0.6, 1.05, 'CMVA jet 2'],
-#            ['jet2_cmva', 36, -0.6, 1.0, 'CMVA jet 2'],
-            ['dphi_uh', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, jj)'],
+            ['cmva_hbb_m', 24, 0, 600, 'm_{bb} [GeV]'],
+            ['cmva_hbb_pt', 24, 0, 600, 'p_{T,bb} [GeV]'],
+            ['cmva_jet1_cmva', 40, -1.0, 1.0, 'CMVA jet 1'],
+#            ['cmva_jet2_cmva', 37, -0.6, 1.05, 'CMVA jet 2'],
+            ['cmva_jet2_cmva', 36, -0.6, 1.0, 'CMVA jet 2'],
+            ['cmva_dphi_uh', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, jj)'],
             ['pfmet', 40, 100, 500, 'E_{T}^{miss} [GeV]'],
             ['npv', 40, 0, 80, 'NPV'],
             ['min_dphi_metj_hard', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, j)'],
@@ -81,11 +83,11 @@ def parse_plots(check=None):
             ['n_soft_10', 20, 0, 20, 'Num Soft'],
             ['ak8fatjet1_n_iso', 10, 0, 10, 'Num Jets'],
             ['ak8fatjet1_n_iso_b', 10, 0, 10, 'Num Jets'],
-            ['jet1_pt', 20, 35, 435, 'Jet 1 p_{T} [GeV]'],
-            ['jet2_pt', 20, 35, 435, 'Jet 2 p_{T} [GeV]'],
-            ['jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
-            ['jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
-            ['daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
+            ['cmva_jet1_pt', 20, 35, 435, 'Jet 1 p_{T} [GeV]'],
+            ['cmva_jet2_pt', 20, 35, 435, 'Jet 2 p_{T} [GeV]'],
+            ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
+            ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
+            ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
             ['event_class', 36, -0.8, 1.0, 'Event Classifier'],
             ['ak8fatjet1_mSD_corr', 24, 80, 160, 'fat jet m_{SD}'],
             ['ak8fatjet1_pt', 40, 200, 600, 'fat jet p_{T}'],
@@ -96,10 +98,14 @@ def parse_plots(check=None):
             ['dphi_met_dztrkmet', 35, 0, 3.5, '#Delta#phi(PF MET, Track MET)'],
             ['dphi_met_trkmet', 35, 0, 3.5, '#Delta#phi(PF MET, Track MET)'],
             ['min_dphi_recoilb', 35, 0, 3.5, '#Delta#phi(E_{T}^{miss}, b)'],
-            ['jet1_deepCSVb', 20, 0, 1, 'Deep CSV'],
-            ['jet2_deepCSVb', 18, 0.15, 1.05, 'Deep CSV'],
+#            ['cmva_jet1_deepCSVb', 20, 0, 1, 'Deep CSV'],
+#            ['cmva_jet2_deepCSVb', 18, 0.15, 1.05, 'Deep CSV'],
             ['tight_lep_pt', 30, 0, 300, 'Tight Lepton p_{T} [GeV]'],
             ]
+
+    if 'cmva' not in os.environ:
+        for l in plots:
+            l[0] = l[0].replace('cmva_', '')
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
         plots = [p for p in plots if p[0] in sys.argv]
