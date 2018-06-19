@@ -316,13 +316,13 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "  counted b jets" << std::endl;
 
-      using genhstore = ObjectStore::ObjectStore<hbbfile::higgs, panda::GenParticle>;
+      using genhstore = ObjectStore<hbbfile::higgs, panda::GenParticle>;
 
       // Get the generator particles that are closest to the reconstructed Higgs
 
       genhstore gen_higgs {
         {hbbfile::higgs::hbb},
-        [&output] (panda::GenParticle* gen) {return KinematicFunctions::deltaR2(output.hbb_eta, output.hbb_phi, gen->eta(), gen->phi());},
+        [&output] (panda::GenParticle* gen) {return deltaR2(output.hbb_eta, output.hbb_phi, gen->eta(), gen->phi());},
         genhstore::order::eAsc
       };
 
@@ -353,7 +353,7 @@ int parsed_main(int argc, char** argv) {
           float cone_size = std::pow(0.4, 2);   // Neutrinos must be within deltaR2 = (0.4)^2
           panda::GenJet* closest = nullptr;
           for (auto& gen_jet : event.ak4GenJets) {
-            auto check = KinematicFunctions::deltaR2(gen_jet.eta(), gen_jet.phi(), gen.eta(), gen.phi());
+            auto check = deltaR2(gen_jet.eta(), gen_jet.phi(), gen.eta(), gen.phi());
             // If the neutrino momentum is super high, probably not from this jet, so scale by anti-kt metric
             if (gen.pt() > gen_jet.pt())
               check *= std::pow(gen.pt()/gen_jet.pt(), 2);
@@ -391,7 +391,7 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting jets" << std::endl;
 
       // We want the two jets with the highest CMVA
-      using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet>;
+      using jetstore = ObjectStore<hbbfile::bjet, panda::Jet>;
 
       jetstore stored_cmvas({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
                             [](panda::Jet* j){return j->cmva + 2 * (j->pt() > 25.0);});
@@ -401,7 +401,7 @@ int parsed_main(int argc, char** argv) {
       // Check if overlaps with EM object
       auto overlap_em = [&em_directions] (panda::Particle& jet, double dr2) {
         for (auto& dir : em_directions) {
-          if (KinematicFunctions::deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < dr2) {
+          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < dr2) {
             if (debugevent::debug)
               std::cout << "Jet with pt " << jet.pt() << " cleaned" << std::endl;
             return true;
@@ -457,7 +457,7 @@ int parsed_main(int argc, char** argv) {
         }
 
         auto check_lep = [&] (const panda::Lepton& lep, std::function<bool()> sel) {
-          if (sel() and KinematicFunctions::deltaR2(jet.particle->eta(), jet.particle->phi(), lep.eta(), lep.phi()) < 0.16) {
+          if (sel() and deltaR2(jet.particle->eta(), jet.particle->phi(), lep.eta(), lep.phi()) < 0.16) {
             nlep++;
             if (not maxlep or lep.pt() > maxlep->pt())
               maxlep = &lep;
@@ -494,7 +494,7 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "Starting fat jets" << std::endl;
 
-      using fatstore = ObjectStore::ObjectStore<hbbfile::fatjet, panda::FatJet>;
+      using fatstore = ObjectStore<hbbfile::fatjet, panda::FatJet>;
 
       auto fill_fat_jet = [&output, &overlap_em] (const std::vector<hbbfile::fatjet>& branches, panda::FatJetCollection& fatjets) {
         fatstore stored_fat(branches, [](panda::FatJet* j) {return j->pt();});
@@ -525,7 +525,7 @@ int parsed_main(int argc, char** argv) {
           // Use this to generate a function that says when a jet is isolated from the fat jet
           auto fat_iso = [&fat, &output] (offset_target hbbfile::*eta_offset, offset_target hbbfile::*phi_offset) {
             return [&fat, &output, eta_offset, phi_offset] (counter i_jet) {
-              return (KinematicFunctions::deltaR2(fat.particle->eta(), fat.particle->phi(),
+              return (deltaR2(fat.particle->eta(), fat.particle->phi(),
                               (output.*eta_offset)[i_jet],
                               (output.*phi_offset)[i_jet]) > std::pow(0.8, 2));
             };
@@ -629,5 +629,5 @@ int parsed_main(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-  return CmsswParse::parse_then_send(argc, argv, parsed_main);
+  return parse_then_send(argc, argv, parsed_main);
 }

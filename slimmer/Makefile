@@ -66,6 +66,7 @@ $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h includ
 	${CROMBIEPATH}/src/include/crombie/*.h \
 	include/roccor/RoccoR.cc include/jecsys data/jec/jec.d
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
+	-I${CROMBIEPATH} \
 	$(tensorflow) \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lCondFormatsJetMETObjects -lTMVA -o $(target) slimmer.cpp
 

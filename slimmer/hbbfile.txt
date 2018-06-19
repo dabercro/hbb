@@ -42,8 +42,8 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
   n_alljet -> ++
   n_allhard -> +(jet_pt[] > 25.0)
 
-  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(KinematicFunctions::deltaPhi(pfmetphi, jet.phi())))
-  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(KinematicFunctions::deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
+  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
+  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
 
   ~~ abseta < 2.5 ~~
 
@@ -108,9 +108,9 @@ recoil <- recoilvec.Mod()
 recoilphi <- recoilvec.Phi()
 
 ! Minimum dphi between MET and b-jet (to be declared)
-min_dphi_recoilb <- std::min(<KinematicFunctions::deltaPhi(jet{1, 2}_phi, recoilphi)>)
+min_dphi_recoilb <- std::min(<deltaPhi(jet{1, 2}_phi, recoilphi)>)
 
-dphi_met_$met <- KinematicFunctions::deltaPhi(<{pf, $}metphi>) | trk, dztrk
+dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
 
 bsf(panda::Jet& jet)
   ! Hold some values temporarily. Should implement local variables some day
@@ -200,7 +200,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     nlep/b -> nlep
     leadlep_$ -> lep->$() | pt, eta, phi, m, e
     leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
-    leadlep_dr = -1 -> KinematicFunctions::deltaR(<{lep->, jet.}{eta, phi}()>)
+    leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
 
   bvert(panda::Ref<panda::SecondaryVertex>& vert)
     ~~ vert.isValid() ~~
@@ -243,15 +243,15 @@ daughter_$_pt <- std::$(<jet{1, 2}_pt>) | min, max
 "TLorentzVector.h"
 hbb {
   higgs()
-    #vec/TLorentzVector = TLorentzVector() -> KinematicFunctions::vectorSum(<jet{1, 2}_{pt, eta, phi, m}>)
+    #vec/TLorentzVector = TLorentzVector() -> vectorSum(<jet{1, 2}_{pt, eta, phi, m}>)
     /O = false -> true
     $ -> []_vec.$$() | pt, eta, phi, m
 
-    m_reg$ <- KinematicFunctions::vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old ! , _old_method
-    pt_reg$ <- KinematicFunctions::vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old ! , _old_method
+    m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old ! , _old_method
+    pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old ! , _old_method
 
-    m_tf <- KinematicFunctions::vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf>)
-    pt_tf <- KinematicFunctions::vectorSumPt(<jet{1, 2}_{pt, phi}_tf>)
+    m_tf <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf>)
+    pt_tf <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf>)
 
     reg$_over_m <- []_m_reg$/[]_m | _old ! , _old_method
 
@@ -266,12 +266,12 @@ hbb {
 
 ! Need a more systematic name system
 
-$_dijet_m <- KinematicFunctions::vectorSumMass(<jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
-dphi_uh <- KinematicFunctions::deltaPhi(hbb_phi, recoilphi)
+$_dijet_m <- vectorSumMass(<jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
+dphi_uh <- deltaPhi(hbb_phi, recoilphi)
 
 daughter_deta <- std::abs(jet1_eta - jet2_eta)
-daughter_dphi <- KinematicFunctions::deltaPhi(<jet{1, 2}_phi>)
-daughter_dR <- KinematicFunctions::deltaR(<jet{1, 2}_{eta, phi}>)
+daughter_dphi <- deltaPhi(<jet{1, 2}_phi>)
+daughter_dR <- deltaR(<jet{1, 2}_{eta, phi}>)
 
 {/b}
 
@@ -303,8 +303,8 @@ ak8, ca15 {
       ! This is just used for some filtering
       #good/O = false -> []_pt > 220 and []_mSD_corr > 25
 
-      dphi_u <- KinematicFunctions::deltaPhi([]_phi, recoilphi)
-      dR_resolved_hbb <- KinematicFunctions::deltaR(<{[], hbb}_{eta, phi}>)
+      dphi_u <- deltaPhi([]_phi, recoilphi)
+      dR_resolved_hbb <- deltaR(<{[], hbb}_{eta, phi}>)
   }
 }
 

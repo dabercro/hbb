@@ -11,8 +11,8 @@ namespace softcalc {
     Ellipse (const panda::Particle*, const panda::Particle*, double add = 0.4);
     // Check if a particle is inside this ellipse
     inline bool inside (const panda::Particle& part) const {
-      return valid and (KinematicFunctions::deltaR(part.eta(), part.phi(), eta1, phi1) + KinematicFunctions::deltaR(part.eta(), part.phi(), eta2, phi2) <= foci_dist) and
-        (KinematicFunctions::deltaPhi(part.phi(), center_phi) < KinematicFunctions::deltaPhi(part.phi(), outside_phi)); // This is what we should have to pick a side
+      return valid and (deltaR(part.eta(), part.phi(), eta1, phi1) + deltaR(part.eta(), part.phi(), eta2, phi2) <= foci_dist) and
+        (deltaPhi(part.phi(), center_phi) < deltaPhi(part.phi(), outside_phi)); // This is what we should have to pick a side
     }
 
    private:
@@ -40,16 +40,16 @@ namespace softcalc {
 softcalc::Ellipse::Ellipse(const panda::Particle* particle1, const panda::Particle* particle2, double add)
 : valid{particle2},
   eta1{valid ? particle1->eta() : 0},
-  phi1{valid ? KinematicFunctions::make_pm(particle1->phi()) : 0},
+  phi1{valid ? make_pm(particle1->phi()) : 0},
   eta2{valid ? particle2->eta() : 0},
-  phi2{valid ? KinematicFunctions::make_pm(particle2->phi()) : 0},
-  foci_dist{valid ? KinematicFunctions::deltaR(eta1, phi1, eta2, phi2) + 2.0 * add : 0}
+  phi2{valid ? make_pm(particle2->phi()) : 0},
+  foci_dist{valid ? deltaR(eta1, phi1, eta2, phi2) + 2.0 * add : 0}
 {
-  bool crosses_seam = (KinematicFunctions::deltaPhi(phi1, phi2) < std::abs(phi1 - phi2));
+  bool crosses_seam = (deltaPhi(phi1, phi2) < std::abs(phi1 - phi2));
 
   auto avg = (phi1 + phi2) / 2.0;
-  center_phi = crosses_seam ? KinematicFunctions::make_pm(avg + crombie::pi) : avg;
-  outside_phi = KinematicFunctions::make_pm(center_phi + crombie::pi);
+  center_phi = crosses_seam ? make_pm(avg + crombie::pi) : avg;
+  outside_phi = make_pm(center_phi + crombie::pi);
 }
 
 class DylanSoft {
@@ -60,7 +60,7 @@ class DylanSoft {
     double eta1MinusEta2 = eta1-eta2;
     double phi1MinusPhi2MPP = TVector2::Phi_mpi_pi(phi1MinusPhi2);
     ellipse_alpha = std::atan2( phi1MinusPhi2, eta1MinusEta2);
-    // compute KinematicFunctions::delta R using already computed qty's to save time
+    // compute delta R using already computed qty's to save time
     ellipse_a = (std::sqrt(std::pow(eta1MinusEta2,2) 
                            + std::pow(TVector2::Phi_mpi_pi(phi1MinusPhi2),2)) + 1.)/2.; // Major axis 2*a = dR(b,b)+1
     ellipse_b = 1./2.; // Minor axis 2*b = 1

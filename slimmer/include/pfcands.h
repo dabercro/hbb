@@ -1,12 +1,12 @@
 // Here we deal with particle flow stuff
 
 namespace {
-  static EtaPhiMap::EtaPhiMap<fastjet::PseudoJet> nujetmap {0.5, 3.5};
+  static EtaPhiMap<fastjet::PseudoJet> nujetmap {0.5, 3.5};
   static std::vector<fastjet::PseudoJet> nujets;
 }
 
 namespace pfcands {
-  static EtaPhiMap::EtaPhiMap<panda::PFCand> pfmap {0.1};
+  static EtaPhiMap<panda::PFCand> pfmap {0.1};
 
   void MakeNuJets (panda::Event& event) {
     if (event.isData)
@@ -39,7 +39,7 @@ namespace pfcands {
     float mindr2 = 10.0;
     const fastjet::PseudoJet* output {nullptr};
     for (auto* nujet : nujetmap.GetParticles(jet.eta(), jet.phi(), 0.4)) {
-      auto check = KinematicFunctions::deltaR2(jet.eta(), jet.phi(), nujet->eta(), nujet->phi());
+      auto check = deltaR2(jet.eta(), jet.phi(), nujet->eta(), nujet->phi());
       if (check < mindr2) {
         mindr2 = check;
         output = nujet;
