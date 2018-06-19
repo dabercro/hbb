@@ -11,10 +11,10 @@ from CrombieTools.SkimmingTools.TMVACorrector import MakeTMVACorrector
 
 import cuts
 
-applicator = Corrector.MakeApplicator('scale_factors', True, 'events', 'events', 10000)
-#applicator = Corrector.MakeApplicator('pu', True, 'events', 'events', 10000)
+#applicator = Corrector.MakeApplicator('scale_factors', True, 'events', 'events', 10000)
+applicator = Corrector.MakeApplicator('pu', True, 'events', 'events', 10000)
 
-applicator.AddFactorToMerge('mc_weight')
+#applicator.AddFactorToMerge('mc_weight')
 
 def add_corr(name, expr, cut, fileName, histName, matchName='', merge=True):
     corr = Corrector.MakeCorrector(name, expr, cut, fileName, histName)
@@ -23,7 +23,13 @@ def add_corr(name, expr, cut, fileName, histName, matchName='', merge=True):
     corr.Merge = merge
     applicator.AddCorrector(corr)
 
-#add_corr('pu_2017to2016_v2', 'npv', '1', 'pu2016to2017.root', 'pileup')
+add_corr('pu_2018to2016_v2', 'npv', '1', '../plotter/npv2018to2016.root', 'puweight')
+
+directory = sys.argv[1]
+applicator.SetInDirectory(directory)
+RunOnDirectory(applicator)
+
+exit(0)
 
 add_corr('sf_pu', 'npv_true', '1', 'data/puWeights_80x_37ifb.root', 'puWeights')
 add_corr('sf_met_trigger','pfmet','1','data/metTriggerEfficiency_recoil_monojet_TH1F.root','hden_monojet_recoil_clone_passed')

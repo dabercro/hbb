@@ -250,7 +250,7 @@ def cut(category='', region=''):
     if category == 'boosted':
         output += ' && !(%s)' % cut('inclusive', region)
 
-    return ('%s && %s' % (output, categoryCuts[category]))#.replace('cmva_', '')
+    return ('%s && %s' % (output, categoryCuts[category])).replace('cmva_', '')
 
 def dataMCCuts(region, isData):
     key = 'default'

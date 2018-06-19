@@ -124,7 +124,7 @@ namespace {
 
 namespace btag {
 
-  static EtaPhiMap<panda::GenJet> genjetmap {0.5, 3.0};
+  static EtaPhiMap::EtaPhiMap<panda::GenJet> genjetmap {0.5, 3.0};
 
   BTagEntry::JetFlavor flavor(const panda::Jet& jet) {
     auto flavor = BTagEntry::FLAV_UDSG;

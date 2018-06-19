@@ -53,7 +53,7 @@ namespace regression {
         std::pow(0.05, 2), std::pow(0.1, 2), std::pow(0.2, 2), std::pow(0.3, 2), std::pow(0.4, 2)
       };
       unsigned bin = std::lower_bound(dr_bins.begin(), dr_bins.end(),
-                                      deltaR2(p4.Eta(), p4.Phi(), jet.eta(), jet.phi())) - dr_bins.begin();
+                                      KinematicFunctions::deltaR2(p4.Eta(), p4.Phi(), jet.eta(), jet.phi())) - dr_bins.begin();
       if (bin < dr_bins.size()) {
         // Get which ring offset
         auto rings = [&pf] () {

@@ -9,7 +9,7 @@ jetCMVA[hbbjtidx[0]]                              jet1_cmva
 deltaPhi(hbbphi,pfmetphi)                         dphi_uh
 deltaPhi(jetPhi[hbbjtidx[0]],jetPhi[hbbjtidx[1]]) daughter_dphi
 deltaR(jetEta[hbbjtidx[0]],jetPhi[hbbjtidx[0]],jetEta[hbbjtidx[1]],jetPhi[hbbjtidx[1]])  daughter_dR
-nJot                                              n_allhard
+nJot                                              n_alljet
 nSoft5                                            n_soft_5
 adjetCMVA                                         jet3_cmva
 adjetPt                                           jet3_pt_reg_old

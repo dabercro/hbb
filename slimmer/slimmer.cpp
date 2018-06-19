@@ -6,11 +6,13 @@
 
 #include "fastjet/ClusterSequence.hh"
 
-#include "SkimmingTools/interface/CmsswParse.h"
-#include "SkimmingTools/interface/ObjectStore.h"
+#include "crombie/CmsswParse.h"
+#include "crombie/ObjectStore.h"
 
 #include "TH1F.h"
 #include "TH1D.h"
+
+using namespace crombie;
 
 // Terminating case first is an object store, then a list of set functions to call on it
 template<typename S, typename F> void set_particles(S& store, const F& function) {
@@ -121,11 +123,8 @@ int parsed_main(int argc, char** argv) {
 
       // Should check good lumi towards the beginning
 
-      if (not checkrun(event.runNumber, event.lumiNumber)) {
-        if (debugevent::debug)
-          std::cout << "Good run filter: " << event.runNumber << " " << event.lumiNumber << std::endl;
+      if (not checkrun(event.runNumber, event.lumiNumber))
         continue;
-      }
 
       output.reset(event);
 
@@ -317,13 +316,13 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "  counted b jets" << std::endl;
 
-      using genhstore = ObjectStore<hbbfile::higgs, panda::GenParticle>;
+      using genhstore = ObjectStore::ObjectStore<hbbfile::higgs, panda::GenParticle>;
 
       // Get the generator particles that are closest to the reconstructed Higgs
 
       genhstore gen_higgs {
         {hbbfile::higgs::hbb},
-        [&output] (panda::GenParticle* gen) {return deltaR2(output.hbb_eta, output.hbb_phi, gen->eta(), gen->phi());},
+        [&output] (panda::GenParticle* gen) {return KinematicFunctions::deltaR2(output.hbb_eta, output.hbb_phi, gen->eta(), gen->phi());},
         genhstore::order::eAsc
       };
 
@@ -354,7 +353,7 @@ int parsed_main(int argc, char** argv) {
           float cone_size = std::pow(0.4, 2);   // Neutrinos must be within deltaR2 = (0.4)^2
           panda::GenJet* closest = nullptr;
           for (auto& gen_jet : event.ak4GenJets) {
-            auto check = deltaR2(gen_jet.eta(), gen_jet.phi(), gen.eta(), gen.phi());
+            auto check = KinematicFunctions::deltaR2(gen_jet.eta(), gen_jet.phi(), gen.eta(), gen.phi());
             // If the neutrino momentum is super high, probably not from this jet, so scale by anti-kt metric
             if (gen.pt() > gen_jet.pt())
               check *= std::pow(gen.pt()/gen_jet.pt(), 2);
@@ -392,15 +391,17 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting jets" << std::endl;
 
       // We want the two jets with the highest CMVA
-      using jetstore = ObjectStore<hbbfile::bjet, panda::Jet>;
+      using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet>;
 
       jetstore stored_cmvas({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
-                            input::version <= 9 ? [](panda::Jet* j){return j->cmva;} : [](panda::Jet* j){return j->deepCSVb;});
+                            [](panda::Jet* j){return j->cmva + 2 * (j->pt() > 25.0);});
+                            // input::version <= 9 ? [](panda::Jet* j){return j->cmva + 2 * (j->pt() > 25.0);} : [](panda::Jet* j){return j->deepCSVb + 2 * (j->pt() > 25.0);});
+      //////// Don't keep this pt hack here forever, please /////////
 
       // Check if overlaps with EM object
       auto overlap_em = [&em_directions] (panda::Particle& jet, double dr2) {
         for (auto& dir : em_directions) {
-          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < dr2) {
+          if (KinematicFunctions::deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < dr2) {
             if (debugevent::debug)
               std::cout << "Jet with pt " << jet.pt() << " cleaned" << std::endl;
             return true;
@@ -456,7 +457,7 @@ int parsed_main(int argc, char** argv) {
         }
 
         auto check_lep = [&] (const panda::Lepton& lep, std::function<bool()> sel) {
-          if (sel() and deltaR2(jet.particle->eta(), jet.particle->phi(), lep.eta(), lep.phi()) < 0.16) {
+          if (sel() and KinematicFunctions::deltaR2(jet.particle->eta(), jet.particle->phi(), lep.eta(), lep.phi()) < 0.16) {
             nlep++;
             if (not maxlep or lep.pt() > maxlep->pt())
               maxlep = &lep;
@@ -493,7 +494,7 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "Starting fat jets" << std::endl;
 
-      using fatstore = ObjectStore<hbbfile::fatjet, panda::FatJet>;
+      using fatstore = ObjectStore::ObjectStore<hbbfile::fatjet, panda::FatJet>;
 
       auto fill_fat_jet = [&output, &overlap_em] (const std::vector<hbbfile::fatjet>& branches, panda::FatJetCollection& fatjets) {
         fatstore stored_fat(branches, [](panda::FatJet* j) {return j->pt();});
@@ -524,7 +525,7 @@ int parsed_main(int argc, char** argv) {
           // Use this to generate a function that says when a jet is isolated from the fat jet
           auto fat_iso = [&fat, &output] (offset_target hbbfile::*eta_offset, offset_target hbbfile::*phi_offset) {
             return [&fat, &output, eta_offset, phi_offset] (counter i_jet) {
-              return (deltaR2(fat.particle->eta(), fat.particle->phi(),
+              return (KinematicFunctions::deltaR2(fat.particle->eta(), fat.particle->phi(),
                               (output.*eta_offset)[i_jet],
                               (output.*phi_offset)[i_jet]) > std::pow(0.8, 2));
             };
@@ -567,11 +568,18 @@ int parsed_main(int argc, char** argv) {
 
       // Soft activity
       const auto ellipse = softcalc::Ellipse(stored_cmvas.store[0].particle,
-                                             stored_cmvas.store[1].particle);
+                                             stored_cmvas.store[1].particle,
+                                             0.5);
+      auto dylans = stored_cmvas.store[1].particle ?
+        DylanSoft(stored_cmvas.store[0].particle->eta(), stored_cmvas.store[0].particle->phi(),
+                  stored_cmvas.store[1].particle->eta(), stored_cmvas.store[1].particle->phi()) :
+        DylanSoft(0, 0, 0, 0);
+
 
       std::vector<fastjet::PseudoJet> pseudojets;
       pseudojets.reserve(event.pfCandidates.size());
       auto allpseudojets = pseudojets;
+      auto dylanjets = pseudojets;
 
       for (auto& cand : event.pfCandidates) {
         auto match_lep = [&cand, &selected_leps] () {
@@ -589,21 +597,25 @@ int parsed_main(int argc, char** argv) {
           allpseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
           if (not ellipse.inside(cand))
             pseudojets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
-
+          if (dylans.ellipse_eq(cand.eta(), cand.phi()) > 1.0)
+            dylanjets.emplace_back(cand.px(), cand.py(), cand.pz(), cand.e());
         }
       }
 
       std::vector<std::pair<hbbfile::softcount, std::vector<fastjet::PseudoJet>*>> soft_inputs = {
-        {hbbfile::softcount::n_soft, &pseudojets}, {hbbfile::softcount::n_soft_all, &allpseudojets}
+        {hbbfile::softcount::n_soft, &pseudojets},
+        {hbbfile::softcount::n_soft_all, &allpseudojets},
+        {hbbfile::softcount::n_soft_dylan, &dylanjets}
       };
 
       for (auto& jets : soft_inputs) {
 
         auto sequence = fastjet::ClusterSequence(*(jets.second), {fastjet::JetAlgorithm::antikt_algorithm, 0.4});
-        auto softjets = sequence.inclusive_jets(2.0); // Only want pT > 2.0
+        auto softjets = sequence.inclusive_jets(1.0); // Only want pT > 2.0
 
         for (auto& soft : softjets)
-          output.set_softcount(jets.first, soft.pt());
+          if (std::abs(soft.eta()) <= 4.7)
+            output.set_softcount(jets.first, soft.pt());
       }
 
       output.fill(event.pfMet.v() + lepvec.Vect().XYvector());
@@ -617,5 +629,5 @@ int parsed_main(int argc, char** argv) {
 }
 
 int main(int argc, char** argv) {
-  return parse_then_send(argc, argv, parsed_main);
+  return CmsswParse::parse_then_send(argc, argv, parsed_main);
 }

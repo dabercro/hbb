@@ -10,7 +10,7 @@ data = data/data.d
 
 # These flags are needed for tensorflow
 # Need to change if not using CMSSW_9_4_6
-tensorflow = -DEIGEN_DONT_PARALLELIZE -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-cc/1.3.0-mmelna/tensorflow_cc/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/eigen/c7dc0a897676/include/eigen3 -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-c/1.1.0-mmelna/include -Wl,--allow-multiple-definition -Wl,--whole-archive -L/cvmfs/cms.cern.ch/slc6_amd64_gcc630/cms/cmssw/CMSSW_9_4_6/lib/slc6_amd64_gcc630 -L/cvmfs/cms.cern.ch/slc6_amd64_gcc630/cms/cmssw/CMSSW_9_4_6/external/slc6_amd64_gcc630/lib -ltensorflow_cc -lprotobuf -lrt -ltensorflow
+tensorflow = -DEIGEN_DONT_PARALLELIZE -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-cc/1.3.0-mmelna/tensorflow_cc/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/eigen/c7dc0a897676/include/eigen3 -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-c/1.1.0-mmelna/include -Wl,--allow-multiple-definition -Wl,--whole-archive -L${CMSSW_RELEASE_BASE}/lib/slc6_amd64_gcc630 -L${CMSSW_RELEASE_BASE}/external/slc6_amd64_gcc630/lib -ltensorflow_cc -lprotobuf -lrt -ltensorflow
 
 ifeq ($(origin CMSSW_BASE), undefined)
 	pandainc = ../..
@@ -63,12 +63,9 @@ $(data): data/*.csv data/*.xml data/*.root $(corrections) data/rcdata.2016.v3
 endif
 
 $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
-	${CROMBIEPATH}/PlotTools/interface/KinematicFunctions.h ${CROMBIEPATH}/SkimmingTools/interface/ObjectStore.h \
-	${CROMBIEPATH}/SkimmingTools/interface/CmsswParse.h \
-	${CROMBIEPATH}/SkimmingTools/interface/EtaPhiMap.h \
-	${CROMBIEPATH}/SkimmingTools/interface/Correction.h \
+	${CROMBIEPATH}/src/include/crombie/*.h \
 	include/roccor/RoccoR.cc include/jecsys data/jec/jec.d
-	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH} \
+	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	$(tensorflow) \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lCondFormatsJetMETObjects -lTMVA -o $(target) slimmer.cpp
 

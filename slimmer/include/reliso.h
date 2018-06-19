@@ -39,7 +39,7 @@ namespace reliso {
     for (const auto* cand : pfcands::pfmap.GetParticles(lep.eta(), lep.phi(), drcut)) {
       auto id = std::abs(cand->pdgId());
       auto pt = cand->pt();
-      auto dr = deltaR(lep.eta(), lep.phi(), cand->eta(), cand->phi());
+      auto dr = KinematicFunctions::deltaR(lep.eta(), lep.phi(), cand->eta(), cand->phi());
       switch(id) {
       case 211:
         if (cand->vertex.idx() == 0) {

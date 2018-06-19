@@ -3,9 +3,10 @@ export CrombieNLocalProcs=6
 export CrombieMCConfig=MCConfig.txt
 #export CrombieMCConfig=MCConfig010.txt
 #export CrombieMCConfig=MCConfigTestExpanded.txt
-export CrombieInFilesDir=/data/t3home000/dabercro/hbb/180528_v2
+#export CrombieInFilesDir=/data/t3home000/dabercro/hbb/180528_v2
+export CrombieInFilesDir=/data/t3home000/dabercro/hbb/180611
 #export CrombieInFilesDir=/data/t3home000/dabercro/hbb/180531_v1
-export themfile=/data/t3home000/dabercro/skimold/in/v2.root
+export themfile=/data/t3home000/hbb/zhnn/v7/cr_zhf/MET.root
 if [ -z $SUFF ]
 then
     SUFF=v1

@@ -19,7 +19,7 @@ them_cut='(metFilter==1) && (pfmet>170) && (Sum$(jetPt>30 && abs(jetEta)<2.4)<3)
 crombie eventdump $CrombieInFilesDir/MET.root me.txt "met_trigger == 1 && $me_cut"
 #crombie eventdump $CrombieInFilesDir/../180520_v2/MET.root them.txt "met_trigger == 1 && $me_cut"
 #tree=tree crombie eventdump $themfile them.txt "$them_cut && json != 0" run lumi evt
-crombie eventdump /data/t3home000/hbb/zhnn/v7/cr_zhf/MET.root them.txt "$them_cut"
+crombie eventdump $themfile them.txt "$them_cut"
 
 # Get the event numbers and sort them
 for b in "me" "them"

@@ -16,7 +16,7 @@ do
         localfile=$(perl -ne 'my @parts = (split /\//, $_) ; print "/mnt/hadoop/cms/store/user/paus/pandaf/009/$parts[4]+$parts[3]-$parts[6]+$parts[5]/$parts[-1]"' <(echo $file))
         if [ -f $localfile ]
         then
-            echo "rm hmm.root;" debugevent=\"$debugsearch\" testhbbtree $localfile hmm.root
+            echo "rm hmm.root;" input_dir=$localfile debugevent=\"$debugsearch\" testhbbtree $localfile hmm.root
         else
             echo "$localfile does not exist"
         fi

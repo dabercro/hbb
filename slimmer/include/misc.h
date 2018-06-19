@@ -12,8 +12,10 @@
 
 #include "fastjet/ClusterSequence.hh"
 
-#include "PlotTools/interface/KinematicFunctions.h"
-#include "SkimmingTools/interface/EtaPhiMap.h"
+#include "crombie/KinematicFunctions.h"
+#include "crombie/EtaPhiMap.h"
+
+using namespace crombie;
 
 #include "debugevent.h"
 #include "input.h"
