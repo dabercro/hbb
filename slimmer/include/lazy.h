@@ -53,4 +53,15 @@ namespace lazy {
     const LazyId medium;
     const LazyId tight;
   };
+
+  // Evaluated cuts
+  struct Evaled {
+    Evaled () {}
+    Evaled (const LazyCuts& cuts)
+    : loose{cuts.loose()}, medium{cuts.medium()}, tight{cuts.tight()} {}
+
+    bool loose {false};
+    bool medium {false};
+    bool tight {false};
+  };
 }

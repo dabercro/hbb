@@ -102,7 +102,7 @@ n_$/b <- <{muon + ele}_$> | lowreliso
 
 "TVector2.h"
 
-{fill(TVector2 recoilvec)}
+{fill(panda::Event& event, TVector2& recoilvec)}
 
 recoil <- recoilvec.Mod()
 recoilphi <- recoilvec.Phi()
@@ -112,24 +112,25 @@ min_dphi_recoilb <- std::min(<deltaPhi(jet{1, 2}_phi, recoilphi)>)
 
 dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
 
-bsf(panda::Jet& jet)
+bsf(panda::Jet& jet, bool loose)
   ! Hold some values temporarily. Should implement local variables some day
+
+  #bjet_$[] -> jet.$() | eta, phi
+  #bjet_isloose[] -> loose
 
   n_allbjet/b -> ++
 
-  bjet_$[] -> jet.$() | pt, eta
-  #bjet_$[] -> jet.$() | phi
-  bjet_$[] -> jet.$ | cmva
+  ~~ not isData ~~
 
   (flavor = btag::flavor(jet))
   (scale = btag::get_scale(jet, flavor))
 
   ! Stuff for histogram-based scale factors
 
-  bjet_sf[] -> scale["central"]
-  ? bjet_sf[]; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf[] | JES, LF, HF, <{cErr, Stats}{1, 2}>
+  #bjet_sf -> scale["central"]
+  #? bjet_sf; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf | JES, LF, HF, <{cErr, Stats}{1, 2}>
 
-  btag_sf = 1 -> *(bjet_sf[])
+  btag_sf = 1 -> *(bjet_sf)
 
   ! BCalibration stuff
 
@@ -137,16 +138,16 @@ bsf(panda::Jet& jet)
 
   (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
 
-  bcal_sf[] -> nom_sf
-  bsf_eff[] -> btag::eff(<bjet_{pt, eta}[]>, flavor)
+  #bcal_sf -> nom_sf
+  (bsf_eff = btag::eff(<jet.{pt, eta}()>, flavor))
 
   (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-  ? bcal_sf[]; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
+  #? bcal_sf; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
 
-  #bsf_num -> +(bcal_sf[] * bsf_eff[])
-  #bsf_denom -> +(bsf_eff[])
+  #bsf_num -> +(bcal_sf * bsf_eff)
+  #bsf_denom -> +(bsf_eff)
 
   beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
 
@@ -160,7 +161,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
   #@_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
   #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
-  bjet(panda::Jet& jet, float maxpt, <T> nlep, <P> lep)
+  bjet(panda::Jet& jet, float maxpt, <T> nlep, <P> lep, <C> cuts)
 
     /O = false -> true
     $ = -1 -> jet.$() | pt, eta, phi, m, e
@@ -180,6 +181,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
 
     $/O = false -> jet.$ | loose, tight, monojet
+    btag$/O = false -> cuts.$ | loose, medium, tight
 
     $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
 
@@ -282,7 +284,7 @@ countfat(panda::FatJet& jet)
 {/F}
 
 ! Fat jets are simple for now
-ak8, ca15 {
+ak8 {
   fatjet1 {
     fatjet(panda::FatJet& jet, <T> n_iso, <T> n_iso_b)
       /O = false -> true
@@ -301,7 +303,7 @@ ak8, ca15 {
       ecf_O_N_B -> jet.ecfs[=O=][=N=][=B=] |O 1..4 |N 1..5 |B p5, 1, 2, 4
 
       ! This is just used for some filtering
-      #good/O = false -> []_pt > 220 and []_mSD_corr > 25
+      #good/O = false -> []_pt > 240 and []_mSD_corr > 35
 
       dphi_u <- deltaPhi([]_phi, recoilphi)
       dR_resolved_hbb <- deltaR(<{[], hbb}_{eta, phi}>)
@@ -324,27 +326,50 @@ pdf = 1.0
 ! pandaf/010
 ! pdf_$ = input::version >= 10 ? event.genReweight.pdfAltDW[$] : 1.0 | 0..100
 
-r$f@DW = event.genReweight.r$f@DW | 1 |@ 2, 5
-r$f@DW = event.genReweight.r$f@DW | 2, 5 |@ 1, $
+renormfact {
+  /F = 1.0
+  r$f@DW <- 1.0 + event.genReweight.r$f@DW | 1 |@ 2, 5
+  r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
+}
 
 [maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
 [event_class; data/Classifier_resolved_BDT.weights.xml; data/dropcmva.txt]
 
 ! Filter
 ! These are filled before the fill function
--- debugevent::debugevent or ((pfmet > 160 or recoilvec.Mod() > 160) and met_filter and (ak8fatjet1 or ca15fatjet1 or (jet2_cmva > -0.6 and (n_lep_presel == 0 or (n_centerjet >= 4 and min_dphi_recoilb < 1.6))))) --
-! These are filled in the fill function
-++ debugevent::debugevent or (ak8fatjet1 or ca15fatjet1 or (daughter_max_pt > 50 and daughter_min_pt > 30 and hbb_pt > 110 and hbb_m < 600)) ++
+-- \
+debugevent::debugevent or \
+((pfmet > 170 or recoilvec.Mod() > 170) and met_filter and \
+ (ak8fatjet1_good or \
+  (jet2_btagloose and \
+   ((n_lep_presel == 0 and min_dphi_metj_hard > 0.4 and (jet1_btagtight or not jet1_btagmedium)) or \
+    (n_lep_tight > 0 and jet1_btagmedium and n_centerjet >= 4 and min_dphi_recoilb < 1.6)\
+   )\
+  )\
+ )\
+) \
+--
 
-! Scale factors
+! These are filled in the fill function
+++ debugevent::debugevent or \
+((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
+ (daughter_max_pt > 50 and daughter_min_pt > 30 and \
+  dphi_uh > 1.8 and \
+  std::max(hbb_pt, hbb_pt_reg_old) > 115 and std::min(hbb_m, hbb_m_reg_old) < 500)\
+) \
+++
+
+
+!!!!!!!! Scale factors !!!!!!!!
+
 
 DEFINE HTCUT input::isHT and std::abs(genboson_pdgid) == 23 + =$=
 DEFINE KFACTORS genboson_pt; data/kfactors.root
 
 sf_tt <- gen_t and gen_tbar ? std::sqrt(std::exp(0.0615-0.0005*std::min(400.0f, gen_t_pt)) * std::exp(0.0615-0.0005 * std::min(400.0f, gen_tbar_pt))) : 1.0
 
-sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 ! I have a bug in my reweighting script which is attempting to normalize things
+sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 ~ sf_met_trigger; pfmet; data/metTriggerEfficiency_recoil_monojet_TH1F.root; hden_monojet_recoil_clone_passed ~
 ~ sf_met_trigger; recoil; data/met2016to2017.root; mettrig; input::version == 10 ~
 

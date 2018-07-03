@@ -32,4 +32,11 @@ namespace input {
     return output;
   } ();
 
+  enum btagger {
+    cmva,
+    deepCSVb
+  };
+
+  const btagger tagger = version <= 9 ? btagger::cmva : btagger::deepCSVb;
+
 }

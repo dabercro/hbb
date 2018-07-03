@@ -316,13 +316,13 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "  counted b jets" << std::endl;
 
-      using genhstore = ObjectStore<hbbfile::higgs, panda::GenParticle>;
+      using genhstore = ObjectStore::ObjectStore<hbbfile::higgs, panda::GenParticle>;
 
       // Get the generator particles that are closest to the reconstructed Higgs
 
       genhstore gen_higgs {
         {hbbfile::higgs::hbb},
-        [&output] (panda::GenParticle* gen) {return deltaR2(output.hbb_eta, output.hbb_phi, gen->eta(), gen->phi());},
+        [&output] (const panda::GenParticle& gen) {return deltaR2(output.hbb_eta, output.hbb_phi, gen.eta(), gen.phi());},
         genhstore::order::eAsc
       };
 
@@ -391,12 +391,12 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting jets" << std::endl;
 
       // We want the two jets with the highest CMVA
-      using jetstore = ObjectStore<hbbfile::bjet, panda::Jet>;
+      using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet, struct lazy::Evaled>;
 
-      jetstore stored_cmvas({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
-                            [](panda::Jet* j){return j->cmva + 2 * (j->pt() > 25.0);});
-                            // input::version <= 9 ? [](panda::Jet* j){return j->cmva + 2 * (j->pt() > 25.0);} : [](panda::Jet* j){return j->deepCSVb + 2 * (j->pt() > 25.0);});
-      //////// Don't keep this pt hack here forever, please /////////
+      jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
+                            input::tagger == input::btagger::cmva ?
+                            [] (const panda::Jet& j) { return j.cmva + 2; } :
+                            [] (const panda::Jet& j) { return j.deepCSVb + 2; });
 
       // Check if overlaps with EM object
       auto overlap_em = [&em_directions] (panda::Particle& jet, double dr2) {
@@ -427,14 +427,13 @@ int parsed_main(int argc, char** argv) {
         output.set_countjets(jet, abseta, cmva_cuts, csv_cuts, deepCSV_cuts);
 
         if (abseta < 2.4 and jet.loose) {
-          stored_cmvas.check(jet);
-          if (not event.isData)
-            output.set_bsf(jet);
+          stored_bjets.check(jet, {input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts});
+          output.set_bsf(jet, (input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts).loose());
         }
       }
 
       // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &gen_nu_map, &pf_to_electron, &event] (jetstore::Particle& jet) {
+      auto set_bjet = [&output, &gen_nu_map, &pf_to_electron, &event] (const jetstore::Particle& jet) {
         auto bjet = jet.branch;
 
         int nlep = 0;
@@ -443,7 +442,10 @@ int parsed_main(int argc, char** argv) {
         decltype(maxlep->pt()) maxtrkpt = 0;
 
         for (auto pf : jet.particle->constituents) {
-          if (pf->q()) {
+          if (debugevent::debugevent)
+            std::cout << "PF Check: " << pf.isValid() << " " << pf.idx() << std::endl;
+
+          if (pf.isValid() and pf->q()) {
             auto pt = pf->pt();
             maxtrkpt = std::max(maxtrkpt, pt);
             // auto pdgid = abs(pf->pdgId());
@@ -483,21 +485,21 @@ int parsed_main(int argc, char** argv) {
           output.set_genjet(bjet, *gen, gennu);
         }
 
-        output.set_bjet(bjet, *jet.particle, maxtrkpt, nlep, maxlep);
+        output.set_bjet(bjet, *jet.particle, maxtrkpt, nlep, maxlep, jet.extra);
         output.set_bvert(bjet, jet.particle->secondaryVertex);
         output.set_reclustered(bjet, pfcands::NuJet(*jet.particle));
       };
 
-      set_particles(stored_cmvas, set_bjet);
+      set_particles(stored_bjets, set_bjet);
 
       //// FAT JETS ////
       if (debugevent::debug)
         std::cout << "Starting fat jets" << std::endl;
 
-      using fatstore = ObjectStore<hbbfile::fatjet, panda::FatJet>;
+      using fatstore = ObjectStore::ObjectStore<hbbfile::fatjet, panda::FatJet>;
 
       auto fill_fat_jet = [&output, &overlap_em] (const std::vector<hbbfile::fatjet>& branches, panda::FatJetCollection& fatjets) {
-        fatstore stored_fat(branches, [](panda::FatJet* j) {return j->pt();});
+        fatstore stored_fat(branches, [] (const panda::FatJet& j) {return j.pt();});
 
         for (auto& fatjet : fatjets) {
           if (overlap_em(fatjet, std::pow(0.8, 2)) or not fatjet.monojet or not fatjet.loose or std::abs(fatjet.eta()) > 2.4)
@@ -539,7 +541,7 @@ int parsed_main(int argc, char** argv) {
           // Number of isolated (loose) bjets
           counter n_iso_b = count(output.n_allbjet,
                                   [&output, &b_overlapper] (counter i_jet) {
-                                    return (output.bjet_cmva[i_jet] > -0.5884 and
+                                    return (output.bjet_isloose[i_jet] and
                                             b_overlapper(i_jet));
                                   });
 
@@ -549,7 +551,6 @@ int parsed_main(int argc, char** argv) {
       };
       std::vector<std::pair<std::vector<hbbfile::fatjet>, panda::FatJetCollection>> fatcollections = {
         {{hbbfile::fatjet::ak8fatjet1}, event.puppiAK8Jets},
-        {{hbbfile::fatjet::ca15fatjet1}, event.puppiCA15Jets}
       };
       for (auto& fats : fatcollections)
         fill_fat_jet(fats.first, fats.second);
@@ -563,16 +564,16 @@ int parsed_main(int argc, char** argv) {
 
       if (not debugevent::debug and
           not ((output.hbb and output.hbb_pt > 70 and output.hbb_m < 600) or
-               output.ak8fatjet1_good or output.ca15fatjet1_good))
+               output.ak8fatjet1_good))
         continue;  // Short circuit soft activity this way, because that shit is slow.
 
       // Soft activity
-      const auto ellipse = softcalc::Ellipse(stored_cmvas.store[0].particle,
-                                             stored_cmvas.store[1].particle,
+      const auto ellipse = softcalc::Ellipse(stored_bjets.store[0].particle,
+                                             stored_bjets.store[1].particle,
                                              0.5);
-      auto dylans = stored_cmvas.store[1].particle ?
-        DylanSoft(stored_cmvas.store[0].particle->eta(), stored_cmvas.store[0].particle->phi(),
-                  stored_cmvas.store[1].particle->eta(), stored_cmvas.store[1].particle->phi()) :
+      auto dylans = stored_bjets.store[1].particle ?
+        DylanSoft(stored_bjets.store[0].particle->eta(), stored_bjets.store[0].particle->phi(),
+                  stored_bjets.store[1].particle->eta(), stored_bjets.store[1].particle->phi()) :
         DylanSoft(0, 0, 0, 0);
 
 
@@ -618,7 +619,7 @@ int parsed_main(int argc, char** argv) {
             output.set_softcount(jets.first, soft.pt());
       }
 
-      output.fill(event.pfMet.v() + lepvec.Vect().XYvector());
+      output.fill(event, event.pfMet.v() + lepvec.Vect().XYvector());
     }
     input.Close();
   }

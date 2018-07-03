@@ -22,10 +22,10 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
-#btag       = 'jet1_deepCSVb > 0.4941'
-#unbtag     = 'jet1_deepCSVb < 0.4941'
-#lbtag      = 'jet2_deepCSVb > 0.1522'
-#tbtag      = 'jet1_deepCSVb > 0.8001'
+btag       = 'jet1_deepCSVb > 0.4941'
+unbtag     = 'jet1_deepCSVb < 0.4941'
+lbtag      = 'jet2_deepCSVb > 0.1522'
+tbtag      = 'jet1_deepCSVb > 0.8001'
 
 fat_btag   = 'ak8fatjet1_double_sub > 0.8'
 fat_unbtag = 'ak8fatjet1_double_sub < 0.8'
@@ -34,7 +34,7 @@ fat_tbtag  = 'ak8fatjet1_double_sub > 0.8'
 hbbpt      = 'cmva_hbb_pt_reg_old > 120'
 jetpt      = ' && '.join(['cmva_daughter_max_pt > 60',
                           'cmva_daughter_min_pt > 35',
-                          'cmva_jet1_pt > 60'
+#                          'cmva_jet1_pt > 60'
                           ])
 mjjveto    = '(60 > cmva_hbb_m_reg_old || 160 < cmva_hbb_m_reg_old)'
 antiQCD    = 'min_dphi_metj_hard > 0.5'
@@ -83,7 +83,7 @@ regionCuts = {
             'n_centerjet < 4',
             unbtag,
             antiQCD,
-            trkmetphi,
+#            trkmetphi,
             ]),
     'heavyz' : ' && '.join([
             common,
@@ -91,7 +91,7 @@ regionCuts = {
             'n_centerjet < 3',
             tbtag,
             antiQCD,
-            trkmetphi,
+#            trkmetphi,
             mjjveto
             ]),
     }

@@ -14,7 +14,7 @@ namespace {
   // Calibration reader backend
 
   /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
-  static const BTagCalibration cmva_calib {"cmva", input::version <= 9 ? "data/cMVAv2_Moriond17_B_H.csv" : "data/DeepCSV_94XSF_V2_B_F.csv"};
+  static const BTagCalibration cmva_calib {"cmva", input::tagger == input::btagger::cmva ? "data/cMVAv2_Moriond17_B_H.csv" : "data/DeepCSV_94XSF_V2_B_F.csv"};
 
   // Here we define functions that returns the reader for each working point
   BTagCalibrationReader get_cmva_reader(const BTagEntry::OperatingPoint op) {
@@ -183,7 +183,7 @@ namespace btag {
 
     auto& binner = cmva_hists[flav];
 
-    auto tagvar = input::version <= 9 ? jet.cmva : jet.deepCSVb;
+    auto tagvar = input::tagger == input::btagger::cmva ? jet.cmva : jet.deepCSVb;
 
 #define PTCASE(bin, cut)  \
   case bin: \

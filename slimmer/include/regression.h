@@ -35,6 +35,9 @@ namespace regression {
 
     // Fill information about the constituents
     for (auto pf : jet.constituents) {
+      if (not pf.isValid())
+        continue;
+
       auto p4 = pf->p4();
 
       // PUPPI
