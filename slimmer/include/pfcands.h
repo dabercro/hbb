@@ -16,6 +16,8 @@ namespace pfcands {
     inputs.reserve(event.pfCandidates.size());
 
     for (auto& gen : event.genParticles) {
+      if (input::version >= 12 and not gen.miniaodPacked)
+        continue;
       if (gen.finalState and gen.pt() > 0.001) {
         auto abspdgid = std::abs(gen.pdgid);
         if ((abspdgid == 12 or abspdgid == 14) and std::abs(gen.eta()) < 3.5) {

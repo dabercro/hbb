@@ -335,6 +335,8 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting gen bosons, size: " << event.genParticles.size() << std::endl;
 
       for (auto& gen : event.genParticles) {
+        if (input::version >= 12 and gen.miniaodPacked)
+          continue;
         auto abspdgid = std::abs(gen.pdgid);
         if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
           output.set_gen(hbbfile::gen::genboson, gen);
