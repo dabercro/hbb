@@ -161,7 +161,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
   #@_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
   #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
-  bjet(panda::Jet& jet, float maxpt, <T> nlep, <P> lep, <C> cuts)
+  bjet(panda::Jet& jet, float maxtrk, float maxpf, <T> nlep, <P> lep, <C> cuts)
 
     /O = false -> true
     $ = -1 -> jet.$() | pt, eta, phi, m, e
@@ -185,7 +185,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
 
-    maxtrk -> maxpt
+    $ -> $ | <max{trk, pf}>
 
     ! Regression stuff
     (puppi = regression::GetJetInfo(jet))

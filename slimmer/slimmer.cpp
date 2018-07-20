@@ -147,6 +147,12 @@ int parsed_main(int argc, char** argv) {
           event.electrons.dump();
           event.ak4GenJets.dump();
           event.chsAK4Jets.dump();
+          int icand = 0;
+          for (auto& cand : event.pfCandidates)
+            std::cout << "PF Candidate: " << icand++
+                      << "; pt: " << cand.pt()
+                      << "; eta: " << cand.eta()
+                      << "; phi: " << cand.phi() << std::endl;
         }
         else
           continue;
@@ -442,14 +448,21 @@ int parsed_main(int argc, char** argv) {
         const panda::Lepton* maxlep = nullptr;
 
         decltype(maxlep->pt()) maxtrkpt = 0;
+        decltype(maxlep->pt()) maxpfpt = 0;
 
+        if (debugevent::debugevent)
+          std::cout << "For jet with pt " << jet.particle->pt() << std::endl;
+
+        // for (auto pf : pfcands::pfmap(jet.particle->eta(), jet.particle->phi(), 0.4)) {
         for (auto pf : jet.particle->constituents) {
           if (debugevent::debugevent)
-            std::cout << "PF Check: " << pf.isValid() << " " << pf.idx() << std::endl;
+            std::cout << "PF Check: " << pf.isValid() << " " << pf.idx() << " " << pf->pt() << " " << pf->q() << std::endl;
 
-          if (pf.isValid() and pf->q()) {
+          if (pf.isValid()) {
             auto pt = pf->pt();
-            maxtrkpt = std::max(maxtrkpt, pt);
+            maxpfpt = std::max(maxpfpt, pt);
+            if (pf->q())
+              maxtrkpt = std::max(maxtrkpt, pt);
             // auto pdgid = abs(pf->pdgId());
             // if (pdgid == 13 || ((pf_to_electron.find(pf.idx()) != pf_to_electron.end()) and
             //                     electronid::is_good(*pf_to_electron[pf.idx()], *jet.particle))) {
@@ -487,7 +500,7 @@ int parsed_main(int argc, char** argv) {
           output.set_genjet(bjet, *gen, gennu);
         }
 
-        output.set_bjet(bjet, *jet.particle, maxtrkpt, nlep, maxlep, jet.extra);
+        output.set_bjet(bjet, *jet.particle, maxtrkpt, maxpfpt, nlep, maxlep, jet.extra);
         output.set_bvert(bjet, jet.particle->secondaryVertex);
         output.set_reclustered(bjet, pfcands::NuJet(*jet.particle));
       };
