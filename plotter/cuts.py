@@ -22,10 +22,10 @@ unbtag     = 'cmva_jet1_cmva < 0.4432'
 lbtag      = 'cmva_jet2_cmva > -0.5884'
 tbtag      = 'cmva_jet1_cmva > 0.9432'
 
-btag       = 'jet1_deepCSVb > 0.4941'
-unbtag     = 'jet1_deepCSVb < 0.4941'
-lbtag      = 'jet2_deepCSVb > 0.1522'
-tbtag      = 'jet1_deepCSVb > 0.8001'
+#btag       = 'jet1_deepCSVb > 0.4941'
+#unbtag     = 'jet1_deepCSVb < 0.4941'
+#lbtag      = 'jet2_deepCSVb > 0.1522'
+#tbtag      = 'jet1_deepCSVb > 0.8001'
 
 fat_btag   = 'ak8fatjet1_double_sub > 0.8'
 fat_unbtag = 'ak8fatjet1_double_sub < 0.8'
@@ -115,8 +115,8 @@ defaultMCWeight = ' * '.join(
      'vh_ewk', 'sf_tt',
      'mc_weight',
      'pdf',
-#     'btag_sf',
-     'beff_sf',
+     'btag_sf',
+#     'beff_sf',
 #     'cmva_jet2_sf_loose',
      os.environ.get('post', '1'),           # Postfit expression
      ])
@@ -250,7 +250,7 @@ def cut(category='', region=''):
     if category == 'boosted':
         output += ' && !(%s)' % cut('inclusive', region)
 
-    return ('%s && %s' % (output, categoryCuts[category])).replace('cmva_', '')
+    return ('%s && %s' % (output, categoryCuts[category]))#.replace('cmva_', '')
 
 def dataMCCuts(region, isData):
     key = 'default'

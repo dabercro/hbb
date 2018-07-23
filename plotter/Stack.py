@@ -88,7 +88,7 @@ def parse_plots(check=None):
             ['cmva_jet1_eta', 30, -2.5, 5, 'Jet 1 #eta [GeV]'],
             ['cmva_jet2_eta', 30, -2.5, 5, 'Jet 2 #eta [GeV]'],
             ['cmva_daughter_dR', 40, 0, 6.0, '#Delta R_{jj}'],
-            ['event_class', 36, -0.8, 1.0, 'Event Classifier'],
+            ['event_class_maier', 36, -0.8, 1.0, 'Event Classifier'],
             ['ak8fatjet1_mSD_corr', 24, 80, 160, 'fat jet m_{SD}'],
             ['ak8fatjet1_pt', 40, 200, 600, 'fat jet p_{T}'],
             ['ak8fatjet1_double_sub', 42, -1.05, 1.05, 'fat jet double sub'],
@@ -105,7 +105,7 @@ def parse_plots(check=None):
 
     if 'cmva' not in os.environ:
         for l in plots:
-            l[0] = l[0].replace('cmva_', '')
+            l[0] = l[0]#.replace('cmva_', '')
 
     if True in [arg in [p[0] for p in plots] for arg in sys.argv]:
         plots = [p for p in plots if p[0] in sys.argv]
