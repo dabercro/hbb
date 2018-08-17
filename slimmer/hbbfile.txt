@@ -76,7 +76,7 @@ n_pho {
 {/F}
 
 ! Save the highest pT of tight lepton
-tight_lep_pt
+# tight_lep_pt
 
 muon, ele {
   lep(panda::Lepton& lep, LepInfo info, lazy::LazyCuts& cuts)
@@ -218,14 +218,14 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
   genjet(panda::GenJet& gen, GenNuVec& withnu)
 
-    gen/O = false -> true
-    gen_$ -> gen.$() | pt, eta, phi, m
-    gen_withnu_$ -> withnu.genvec.$$() | pt, eta, phi, m
-    gen_numnu/b -> withnu.numnu
-    gen_tWnu_overlap/O = false -> withnu.overlap
+#     gen/O = false -> true
+#     gen_$ -> gen.$() | pt, eta, phi, m
+#     gen_withnu_$ -> withnu.genvec.$$() | pt, eta, phi, m
+#     gen_numnu/b -> withnu.numnu
+#     gen_tWnu_overlap/O = false -> withnu.overlap
 
-    gen_$/S -> gen.$ | pdgid, partonFlavor
-    gen_$/b -> gen.$ | numB
+#     gen_$/S -> gen.$ | pdgid, partonFlavor
+#     gen_$/b -> gen.$ | numB
 
   reclustered(fastjet::PseudoJet* jet)
 
@@ -262,8 +262,8 @@ hbb {
 
 #     reg$_over_m <- []_m_reg$/[]_m | _old ! , _old_method
 
-    hbbgen(panda::GenParticle& gen, float dr)
-#     gen/O = false -> true
+  hbbgen(panda::GenParticle& gen, float dr)
+    gen/O = false -> true
 #     gen_$ -> gen.$() | pt, eta, phi, m
 
 #     gen_dr = 10 -> dr
@@ -322,10 +322,10 @@ ak8 {
 genboson, gen_t, gen_tbar {
   gen(panda::GenParticle& gen)
 
-#     /O = false -> true
-#     $ -> gen.$() | pt, eta, phi, m
+    /O = false -> true
+    $ -> gen.$() | pt, eta, phi, m
 
-#     pdgid/I -> gen.pdgid
+    pdgid/I -> gen.pdgid
 
 }
 
