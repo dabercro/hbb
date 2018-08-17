@@ -21,36 +21,36 @@ npv_true/s = event.npvTrue
 
 mc_weight = event.weight
 
-$@ = event.$@@.pt | pf, calo, trk |@ met
-$@phi = event.$@@.phi | pf, calo, trk |@ met
+# $@ = event.$@@.pt | pf, calo, trk |@ met
+# $@phi = event.$@@.phi | pf, calo, trk |@ met
 
 #dztrkmetvec/TVector2 = trkmet::trkmet(event)
-dztrkmet <- dztrkmetvec.Mod()
-dztrkmetphi <- dztrkmetvec.Phi()
+# dztrkmet <- dztrkmetvec.Mod()
+# dztrkmetphi <- dztrkmetvec.Phi()
 
-$_trigger/O = false | met, hbb_2016, overlap
-met_filter/O = event.metFilters.pass()
+# $_trigger/O = false | met, hbb_2016, overlap
+# met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv, lazy::LazyCuts& deepCSV)
-  jet_$[] -> jet.$() | pt, eta, phi
-  jet_$[] -> jet.$ | cmva, deepCSVb
+#   jet_$[] -> jet.$() | pt, eta, phi
+#   jet_$[] -> jet.$ | cmva, deepCSVb
   #? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
 {/b}
 
-  n_alljet -> ++
-  n_allhard -> +(jet_pt[] > 25.0)
+#   n_alljet -> ++
+#   n_allhard -> +(jet_pt[] > 25.0)
 
-  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
-  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
+#   min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
+#   min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
 
   ~~ abseta < 2.5 ~~
 
-  n_softjet -> ++
-  n_jet -> +(jet_pt[] > 30.0)
-  n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
-  n_b@_$ -> +(@.$() && abseta < 2.4) | loose, medium, tight |@ cmva, csv, deepCSV
+#   n_softjet -> ++
+#   n_jet -> +(jet_pt[] > 30.0)
+#   n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
+#   n_b@_$ -> +(@.$() && abseta < 2.4) | loose, medium, tight |@ cmva, csv, deepCSV
 
 n_genB
 
@@ -60,16 +60,16 @@ stat2b/b
 n_soft {
   , _all, _dylan {
     softcount(float pt)
-      $ -> +(pt > $) | 2, 5, 10
-      ? $ ; softcount ? -> +(pt * (1.0 +- 0.1) > $) | 2, 5, 10
+#       $ -> +(pt > $) | 2, 5, 10
+#       ? $ ; softcount ? -> +(pt * (1.0 +- 0.1) > $) | 2, 5, 10
   }
 }
 
 n_pho {
-  medium
-  tight
+#   medium
+#   tight
   +n_tau {
-    loose
+#     loose
   }
 }
 
@@ -83,20 +83,21 @@ muon, ele {
 
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel
 
-    lowreliso/b -> +(info.reliso < 0.4)  ! Both preselected and have low reliso
+#     lowreliso/b -> +(info.reliso < 0.4)  ! Both preselected and have low reliso
 
-    $[] -> info.$ | reliso, minireliso, corrpt
-    q[]/B -> lep.charge
+#     $[] -> info.$ | reliso, minireliso, corrpt
+#     q[]/B -> lep.charge
 
-    pog_$[]/O = false -> lep.$ | loose, medium, tight
-    $[]/O = false -> cuts.$() | loose, medium, tight
-    $[] -> lep.$() | pt, eta, phi
+#     pog_$[]/O = false -> lep.$ | loose, medium, tight
+#     $[]/O = false -> cuts.$() | loose, medium, tight
+#     $[] -> lep.$() | pt, eta, phi
 
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | loose, medium, tight
+
 }
 
-n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
-n_$/b <- <{muon + ele}_$> | lowreliso
+# n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
+# n_$/b <- <{muon + ele}_$> | lowreliso
 
 ! Some calculated things
 
@@ -104,13 +105,13 @@ n_$/b <- <{muon + ele}_$> | lowreliso
 
 {fill(panda::Event& event, TVector2& recoilvec)}
 
-recoil <- recoilvec.Mod()
-recoilphi <- recoilvec.Phi()
+# recoil <- recoilvec.Mod()
+# recoilphi <- recoilvec.Phi()
 
 ! Minimum dphi between MET and b-jet (to be declared)
-min_dphi_recoilb <- std::min(<deltaPhi(jet{1, 2}_phi, recoilphi)>)
+# min_dphi_recoilb <- std::min(<deltaPhi(jet{1, 2}_phi, recoilphi)>)
 
-dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
+# dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
 
 bsf(panda::Jet& jet, bool loose)
   ! Hold some values temporarily. Should implement local variables some day
@@ -163,59 +164,60 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
   bjet(panda::Jet& jet, float maxtrk, float maxpf, <T> nlep, <P> lep, <C> cuts)
 
-    /O = false -> true
-    $ = -1 -> jet.$() | pt, eta, phi, m, e
-    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
+#     /O = false -> true
+#     $ = -1 -> jet.$() | pt, eta, phi, m, e
+#     ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
     #p4/TLorentzVector = TLorentzVector() -> [&] () { TLorentzVector p4; p4.SetPtEtaPhiM(<[]_{pt, eta, phi, m}>); return p4; } ()
 
-    $ -> []_p4.$$() | et, mt
+#     $ -> []_p4.$$() | et, mt
 
-    loosepu/O = false -> puid::loose(jet)
+#     loosepu/O = false -> puid::loose(jet)
 
-    $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear
+#     $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear
 
-    ? ptSmear; jetsmear ? -> jet.ptSmear%%
+#     ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
     ! Set the taggers to -2 to disappear them from plots
-    $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
+#     $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
 
-    $/O = false -> jet.$ | loose, tight, monojet
-    btag$/O = false -> cuts.$ | loose, medium, tight
+#     $/O = false -> jet.$ | loose, tight, monojet
+#     btag$/O = false -> cuts.$ | loose, medium, tight
 
-    $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
+#     $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
 
-    $ -> $ | <max{trk, pf}>
+#     $ -> $ | <max{trk, pf}>
 
     ! Regression stuff
     (puppi = regression::GetJetInfo(jet))
-    puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
+#     puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
 
     #$_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
     #@_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
 
-    $ -> puppi.$ | ptD
-    $/s -> puppi.$ | num03
+#     $ -> puppi.$ | ptD
+#     $/s -> puppi.$ | num03
 
     ~~ lep ~~
 
-    nlep/b -> nlep
-    leadlep_$ -> lep->$() | pt, eta, phi, m, e
-    leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
-    leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
+#     nlep/b -> nlep
+#     leadlep_$ -> lep->$() | pt, eta, phi, m, e
+#     leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
+#     leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
 
   bvert(panda::Ref<panda::SecondaryVertex>& vert)
     ~~ vert.isValid() ~~
 
-    vtx_$ -> vert->$() | pt, eta, phi, m, e
+#     vtx_$ -> vert->$() | pt, eta, phi, m, e
 
-    vtx_3Dval -> vert->vtx3DVal
-    vtx_3Derr -> vert->vtx3DeVal
-    vtx_ntrk/s -> vert->ntrk
+#     vtx_3Dval -> vert->vtx3DVal
+#     vtx_3Derr -> vert->vtx3DeVal
+#     vtx_ntrk/s -> vert->ntrk
 
   ! Some 4-vector info for training
 
   genjet(panda::GenJet& gen, GenNuVec& withnu)
+
     gen/O = false -> true
     gen_$ -> gen.$() | pt, eta, phi, m
     gen_withnu_$ -> withnu.genvec.$$() | pt, eta, phi, m
@@ -226,60 +228,65 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     gen_$/b -> gen.$ | numB
 
   reclustered(fastjet::PseudoJet* jet)
-    ~~ jet ~~
-    reclustered/O = false -> true
-    reclustered_$ -> jet->$() | pt, eta, phi, m
 
-  [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
-  [[<tf_{ptratio, deta, dphi, mratio}>; data/output_test.pb; ../analysis/regression_branches.txt; inputs; <out/{0..4}/Identity>]]
+    ~~ jet ~~
+#     reclustered/O = false -> true
+#     reclustered_$ -> jet->$() | pt, eta, phi, m
+
+#   [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
+!  [[<tf_{ptratio, deta, dphi, mratio}>; data/output_test.pb; ../analysis/regression_branches.txt; inputs; <out/{0..4}/Identity>]]
 
   ! Need a more systematic name system
 
-  pt_reg$ <- []_pt_ratio$ * []_pt | _old ! , _old_method
-  $_tf <- []_tf_$ratio * []_$ | pt, m
-  $_tf <- []_tf_d$ + []_$ | eta, phi
+#   pt_reg$ <- []_pt_ratio$ * []_pt | _old ! , _old_method
+!  $_tf <- []_tf_$ratio * []_$ | pt, m
+!  $_tf <- []_tf_d$ + []_$ | eta, phi
+
 }
 
-daughter_$_pt <- std::$(<jet{1, 2}_pt>) | min, max
+# daughter_$_pt <- std::$(<jet{1, 2}_pt>) | min, max
 
 "TLorentzVector.h"
 hbb {
   higgs()
+
     #vec/TLorentzVector = TLorentzVector() -> vectorSum(<jet{1, 2}_{pt, eta, phi, m}>)
-    /O = false -> true
-    $ -> []_vec.$$() | pt, eta, phi, m
+#     /O = false -> true
+#     $ -> []_vec.$$() | pt, eta, phi, m
 
-    m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old ! , _old_method
-    pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old ! , _old_method
+#     m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old ! , _old_method
+#     pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old ! , _old_method
 
-    m_tf <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf>)
-    pt_tf <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf>)
+!    m_tf <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf>)
+!    pt_tf <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf>)
 
-    reg$_over_m <- []_m_reg$/[]_m | _old ! , _old_method
+#     reg$_over_m <- []_m_reg$/[]_m | _old ! , _old_method
 
     hbbgen(panda::GenParticle& gen, float dr)
-    gen/O = false -> true
-    gen_$ -> gen.$() | pt, eta, phi, m
+#     gen/O = false -> true
+#     gen_$ -> gen.$() | pt, eta, phi, m
 
-    gen_dr = 10 -> dr
+#     gen_dr = 10 -> dr
 
-  pt_over_vpt <- []_pt/recoil
+#   pt_over_vpt <- []_pt/recoil
+
 }
 
 ! Need a more systematic name system
 
-$_dijet_m <- vectorSumMass(<jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
-dphi_uh <- deltaPhi(hbb_phi, recoilphi)
+# $_dijet_m <- vectorSumMass(<jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
+# dphi_uh <- deltaPhi(hbb_phi, recoilphi)
 
-daughter_deta <- std::abs(jet1_eta - jet2_eta)
-daughter_dphi <- deltaPhi(<jet{1, 2}_phi>)
-daughter_dR <- deltaR(<jet{1, 2}_{eta, phi}>)
+# daughter_deta <- std::abs(jet1_eta - jet2_eta)
+# daughter_dphi <- deltaPhi(<jet{1, 2}_phi>)
+# daughter_dR <- deltaR(<jet{1, 2}_{eta, phi}>)
 
 {/b}
 
 countfat(panda::FatJet& jet)
-  n_fatjet -> +(jet.pt() > 200)
-  ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
+
+#   n_fatjet -> +(jet.pt() > 200)
+#   ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
 
 {/F}
 
@@ -287,35 +294,39 @@ countfat(panda::FatJet& jet)
 ak8 {
   fatjet1 {
     fatjet(panda::FatJet& jet, <T> n_iso, <T> n_iso_b)
-      /O = false -> true
-      $ -> jet.$() | pt, eta, phi, m, e
-      ? pt; jetpt ? -> jet.ptCorr%%
-      $/O = false -> jet.$ | loose, tight, monojet
-      $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
+
+#       /O = false -> true
+#       $ -> jet.$() | pt, eta, phi, m, e
+#       ? pt; jetpt ? -> jet.ptCorr%%
+#       $/O = false -> jet.$ | loose, tight, monojet
+#       $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
 
       ! Knock double_sub off of the resolved plots
-      $ = -2 -> jet.$ | double_sub
+#       $ = -2 -> jet.$ | double_sub
 
-      $/b -> $ | n_iso, n_iso_b
+#       $/b -> $ | n_iso, n_iso_b
 
-      mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
+#       mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
 
-      ecf_O_N_B -> jet.ecfs[=O=][=N=][=B=] |O 1..4 |N 1..5 |B p5, 1, 2, 4
+#       ecf_O_N_B -> jet.ecfs[=O=][=N=][=B=] |O 1..4 |N 1..5 |B p5, 1, 2, 4
 
       ! This is just used for some filtering
       #good/O = false -> []_pt > 240 and []_mSD_corr > 35
 
-      dphi_u <- deltaPhi([]_phi, recoilphi)
-      dR_resolved_hbb <- deltaR(<{[], hbb}_{eta, phi}>)
+#       dphi_u <- deltaPhi([]_phi, recoilphi)
+#       dR_resolved_hbb <- deltaR(<{[], hbb}_{eta, phi}>)
+
   }
 }
 
 genboson, gen_t, gen_tbar {
   gen(panda::GenParticle& gen)
-    /O = false -> true
-    $ -> gen.$() | pt, eta, phi, m
 
-    pdgid/I -> gen.pdgid
+#     /O = false -> true
+#     $ -> gen.$() | pt, eta, phi, m
+
+#     pdgid/I -> gen.pdgid
+
 }
 
 pdf = 1.0
@@ -332,32 +343,29 @@ renormfact {
   r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
 }
 
-[maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
-[event_class; data/Classifier_resolved_BDT.weights.xml; data/dropcmva.txt]
+# [maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
+# [event_class; data/Classifier_resolved_BDT.weights.xml; data/dropcmva.txt]
 
-! Filter
-! These are filled before the fill function
--- \
-debugevent::debugevent or \
-((pfmet > 170 or recoilvec.Mod() > 170) and met_filter and \
- (ak8fatjet1_good or \
-  (jet2_btagloose and \
-   ((n_lep_presel == 0 and min_dphi_metj_hard > 0.4 and (jet1_btagtight or not jet1_btagmedium)) or \
-    (n_lep_tight > 0 and jet1_btagmedium and n_centerjet >= 4 and min_dphi_recoilb < 1.6)\
-   )\
-  )\
- )\
-) \
---
+! ! Filter
+! ! These are filled before the fill function
+! -- \
+! debugevent::debugevent or \
+! ((pfmet > 170 or recoilvec.Mod() > 170) and met_filter and \
+!  (ak8fatjet1_good or jet2_btagloose)\
+! ) \
+! --
 
-! These are filled in the fill function
-++ debugevent::debugevent or \
-((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
- (daughter_max_pt > 50 and daughter_min_pt > 30 and \
-  dphi_uh > 1.8 and \
-  std::max(hbb_pt, hbb_pt_reg_old) > 115 and std::min(hbb_m, hbb_m_reg_old) < 500)\
-) \
-++
+! ! These are filled in the fill function
+! ++ debugevent::debugevent or \
+! ((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
+!  (daughter_max_pt > 50 and daughter_min_pt > 30 and \
+!   dphi_uh > 1.8 and \
+!   std::max(hbb_pt, hbb_pt_reg_old) > 115 and std::min(hbb_m, hbb_m_reg_old) < 500) and \
+!    ((n_lep_presel == 0 and min_dphi_metj_hard > 0.4 and (jet1_btagtight or not jet1_btagmedium)) or \
+!     (n_lep_tight > 0 and jet1_btagmedium and n_centerjet >= 4 and min_dphi_recoilb < 1.6)\
+!    )\
+! ) \
+! ++
 
 
 !!!!!!!! Scale factors !!!!!!!!

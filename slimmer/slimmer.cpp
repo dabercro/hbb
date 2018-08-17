@@ -577,10 +577,10 @@ int parsed_main(int argc, char** argv) {
       if (output.jet2)
         output.set_higgs(hbbfile::higgs::hbb);
 
-      if (not debugevent::debug and
-          not ((output.hbb and output.hbb_pt > 70 and output.hbb_m < 600) or
-               output.ak8fatjet1_good))
-        continue;  // Short circuit soft activity this way, because that shit is slow.
+      // if (not debugevent::debug and
+      //     not ((output.hbb and output.hbb_pt > 70 and output.hbb_m < 600) or
+      //          output.ak8fatjet1_good))
+      //   continue;  // Short circuit soft activity this way, because that shit is slow.
 
       // Soft activity
       const auto ellipse = softcalc::Ellipse(stored_bjets.store[0].particle,

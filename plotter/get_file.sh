@@ -5,9 +5,10 @@ debugsearch=$(perl -ne '/(\d+)[^\d]+(\d+)[^\d]+(\d+)/; print "$1 $2 $3"' <(echo 
 
 echo $dassearch
 echo $debugsearch
+perl -ne '/(\d+)[^\d]+(\d+)[^\d]+(\d+)/; print "runNumber==$1 && lumiNumber==$2 && eventNumber==$3\n"' <(echo "$1")
 
-#for sample in $(grep '+Run201' ../slimmer/samples.txt)
-for sample in $(grep '+Run201' ../slimmer/data2017.txt)
+for sample in $(grep '+Run201' ../slimmer/samples.txt)
+#for sample in $(grep '+Run201' ../slimmer/data2017.txt)
 do
     echo dasgoclient -query "file dataset=/$(perl -ne '/([^\+]+)\+([^\+]+)\+([^\+\s]+)/ && print "$1/$2/$3"' <(echo $sample)) $dassearch"
     file=`dasgoclient -query "file dataset=/$(perl -ne '/([^\+]+)\+([^\+]+)\+([^\+\s]+)/ && print "$1/$2/$3"' <(echo $sample)) $dassearch"`
