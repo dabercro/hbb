@@ -6,4 +6,4 @@ version='009'
 export CrombieExe='eval input_dir=$INPUT_DIR mkhbb'
 export CrombieInSample=pandaf/$version
 export CrombieOutDir=$inp_dir/$(date +%y%m%d)_$version
-export CrombieFilesPerJob=15
+export CrombieFilesPerJob=10

@@ -30,7 +30,7 @@ else
 	target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
 	install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
 	pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-	testfile = /mnt/hadoop/scratch/dabercro/panda/009/*.root
+	testfile = /mnt/hadoop/scratch/dabercro/panda/009/MET/*.root
 
 	checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
@@ -64,7 +64,8 @@ endif
 
 $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
 	${CROMBIEPATH}/src/include/crombie/*.h \
-	include/roccor/RoccoR.cc include/jecsys data/jec/jec.d
+	include/roccor/RoccoR.cc include/jecsys data/jec/jec.d \
+	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH} \
 	$(tensorflow) \
