@@ -471,6 +471,8 @@ int parsed_main(int argc, char** argv) {
             //     maxlep = pf.get();
             // }
           }
+          else
+            std::cout << "BAD PF: " << event.eventNumber << " " << pf.idx() << std::endl;
         }
 
         auto check_lep = [&] (const panda::Lepton& lep, std::function<bool()> sel) {
