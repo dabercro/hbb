@@ -1,5 +1,5 @@
-LDFLAGS = `root-config --glibs` `fastjet-config --libs`
-CFLAGS = `root-config --cflags` `fastjet-config --cxxflags`
+LDFLAGS = `root-config --glibs`
+CFLAGS = `root-config --cflags`
 installname = mkhbb
 exename = testhbbtree
 flatclass = hbbfile
@@ -8,33 +8,19 @@ corrections = data/corrections.d
 effs = data/btag_effs.root
 data = data/data.d
 
-# These flags are needed for tensorflow
-# Need to change if not using CMSSW_9_4_6
-tensorflow = -DEIGEN_DONT_PARALLELIZE -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-cc/1.3.0-mmelna/tensorflow_cc/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/protobuf/3.4.0-fmblme/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/eigen/c7dc0a897676/include/eigen3 -I/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-c/1.1.0-mmelna/include -Wl,--allow-multiple-definition -Wl,--whole-archive -L${CMSSW_RELEASE_BASE}/lib/slc6_amd64_gcc630 -L${CMSSW_RELEASE_BASE}/external/slc6_amd64_gcc630/lib -ltensorflow_cc -lprotobuf -lrt -ltensorflow
+# These flags are needed for fastjet
+external = `${PWD}/flags.sh`
 
-ifeq ($(origin CMSSW_BASE), undefined)
-	pandainc = ../..
-	pandalib = ../../PandaTree/lib
-	pandalibs = -lpanda
-	target = ${HOME}/bin/$(exename)
-	install = ${HOME}/bin/$(installname)
+pandainc = ${CMSSW_BASE}/src
+pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
+target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
+install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
+pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
+testfile = /mnt/hadoop/scratch/dabercro/panda/009/MET/*.root
 
-all: $(target) $(effs)
-
-$(install): $(target)
-	cp $(target) $(install)
-
-else
-	pandainc = ${CMSSW_BASE}/src
-	pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
-	target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
-	install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
-	pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-	testfile = /mnt/hadoop/scratch/dabercro/panda/009/MET/*.root
-
-	checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
-	thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
-	tarball = ${CMSSW_BASE}/condor.tgz
+checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
+thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
+tarball = ${CMSSW_BASE}/condor.tgz
 
 all: $(target) $(effs)
 
@@ -60,15 +46,14 @@ $(data): data/*.csv data/*.xml data/*.root $(corrections) data/rcdata.2016.v3
 	cp -rH data/jec ${CMSSW_BASE}/data
 	touch $(data)
 
-endif
-
 $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
 	${CROMBIEPATH}/src/include/crombie/*.h \
 	include/roccor/RoccoR.cc include/jecsys data/jec/jec.d \
-	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so
+	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
+	${PWD}/flags.sh
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH} \
-	$(tensorflow) \
+	$(external) -lrt -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lCondFormatsJetMETObjects -lTMVA -o $(target) slimmer.cpp
 
 include/jecsys:

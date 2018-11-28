@@ -18,6 +18,7 @@
 using namespace crombie;
 
 #include "debugevent.h"
+#include "myrandom.h"
 #include "input.h"
 #include "feedpanda.h"
 #include "checkrun.h"
