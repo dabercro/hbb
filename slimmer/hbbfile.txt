@@ -352,9 +352,7 @@ renormfact {
 ! These are filled before the fill function
 -- \
 debugevent::debugevent or \
-((pfmet > 170 or recoilvec.Mod() > 170) and met_filter and \
- (ak8fatjet1_good or jet2_btagloose)\
-) \
+((pfmet > 150 or recoilvec.Mod() > 150) and met_filter)
 --
 
 ! These are filled in the fill function
@@ -362,9 +360,9 @@ debugevent::debugevent or \
 ((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
  (daughter_max_pt > 50 and daughter_min_pt > 30 and \
   dphi_uh > 1.8 and \
-  std::max(hbb_pt, hbb_pt_reg_old) > 115 and std::min(hbb_m, hbb_m_reg_old) < 500) and \
-   ((n_lep_presel == 0 and min_dphi_metj_hard > 0.4 and (jet1_btagtight or not jet1_btagmedium)) or \
-    (n_lep_tight > 0 and jet1_btagmedium and n_centerjet >= 4 and min_dphi_recoilb < 1.6)\
+  std::max(hbb_pt, hbb_pt_reg_old) > 100) and \
+   ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
+    (n_lep_loose > 0 and n_centerjet >= 4)\
    )\
 ) \
 ++
@@ -387,6 +385,7 @@ sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 ~{scale_factors <- mc_weight * sf_tt * sf_met_trigger}~
 
 ~ sf_pu; npv_true; $; puWeights; input::version <= 9 + =$= ~ | <data/puWeights_{80x_37ifb, 90x}.root>
+~ sf_pu; npv_true; data/puWeights_10x_56ifb.root; puWeights; input::version == 13 ~
 
 ~ ewk_$; KFACTORS; EWKcorr/$$, $$Jets_012j_NLO/nominal; HTCUT ~ | z, w
 ~ $kfactor; KFACTORS; $$Jets_012j_NLO/nominal, $$Jets_LO/inv_pt; HTCUT ~ | z, w

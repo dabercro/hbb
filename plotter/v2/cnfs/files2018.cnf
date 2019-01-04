@@ -1,0 +1,19 @@
+SingleMuon {}
+
+wj   W_+_light   n_genB==0   886
+wjb  W_+_b       n_genB==1   888
+wjbb W_+_bb                  883
+
+WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8 {56000}
+
+tt   TT          798
+
+TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8        {88.288}
+TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8 {365.4}
+
+st   Single_Top  799
+
+ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8 {69.09}
+ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8     {115.3}
+ST_tW_antitop_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8          {34.91}
+ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8              {34.91}

@@ -83,6 +83,7 @@ int parsed_main(int argc, char** argv) {
       "HLT_PFMETNoMu110_NoiseCleaned_PFMHTNoMu110_IDTight",
       "HLT_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight",
       "HLT_PFMETNoMu90_PFMHTNoMu90_IDTight",
+      "HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_PFHT60",
       "HLT_PFMETNoMu100_PFMHTNoMu100_IDTight",
       "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
       "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",

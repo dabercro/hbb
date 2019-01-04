@@ -1,0 +1,96 @@
+mcweight * 'sf_pu'
+           'sf_met_trigger'
+           'ewk_z'
+           'ewk_w'
+           'wkfactor'
+           'zkfactor'
+           'vh_ewk'
+           'sf_tt'
+           'mc_weight'
+           'pdf'
+!           'renormfact'
+           'btag_sf'
+           'env{post:1}'
+
+jetpt && 'daughter_max_pt > 60'
+         'daughter_min_pt > 35'
+!         'jet1_pt > 60'
+
+lepveto    'n_lep_presel == 0'
+
+metcut && 'pfmet > 170'
+          'met_filter == 1'
+
+btag        'jet1_btagmedium'
+unbtag      '!jet1_btagmedium'
+lbtag       'jet2_btagloose'
+tbtag       'jet1_btagtight'
+
+common && 'hbb_m_reg_old < 500'
+          jetpt
+          lbtag
+          'dphi_uh > 2.0'
+          'hbb_pt_reg_old > 120'
+
+fat_btag    'ak8fatjet1_double_sub > 0.8'
+fat_unbtag  'ak8fatjet1_double_sub < 0.8'
+fat_tbtag   'ak8fatjet1_double_sub > 0.8'
+
+hbbpt       'hbb_pt_reg_old > 120'
+
+mjjveto     '(60 > hbb_m_reg_old || 160 < hbb_m_reg_old)'
+antiQCD     'min_dphi_metj_hard > 0.5'
+antierQCD   'min_dphi_metj_hard > 1.5'
+deltaVH     'dphi_uh > 2.0'
+trkmetphi   'dphi_met_dztrkmet < 0.5'
+
+jetpt   &&  'daughter_max_pt > 60'
+            'daughter_min_pt > 35'
+
+inclusive && 'hbb_m_reg_old < 500'
+             jetpt
+             lbtag
+             deltaVH
+             hbbpt
+
+boosted && 'ak8fatjet1_pt > 250'
+           'ak8fatjet1_mSD_corr > 40'
+
+tt     &&   metcut
+            'n_lep_tight == 1'
+            'n_centerjet >= 4'
+            btag
+            'min_dphi_recoilb < 1.57'
+            common
+
+lightz  &&  metcut
+            lepveto
+            'n_centerjet < 4'
+            unbtag
+            antiQCD
+            trkmetphi
+            common
+
+siglike &&  metcut
+            lepveto
+            'n_centerjet < 3'
+            tbtag
+            antiQCD
+            trkmetphi
+            common
+
+heavyz  &&  siglike
+            mjjveto
+            common
+
+signal  &&  siglike
+            '(60 < hbb_m_reg_old && 160 > hbb_m_reg_old)'
+
+trig        'met_trigger'
+
+! b is for "blind"
+
+! :b signal  mcweight  trig
+! :  heavyz  mcweight  trig
+! :  lightz  mcweight  trig
+:  tt      mcweight  trig
