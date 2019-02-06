@@ -5,6 +5,6 @@ version='013'
 # Condor
 export CrombieExe='eval input_dir=$INPUT_DIR mkhbb'
 export CrombieInSample=pandaf/$version
-#export CrombieOutDir=$inp_dir/$(date +%y%m%d)_$version
-export CrombieOutDir=$inp_dir/181211_$version
-export CrombieFilesPerJob=30
+#export CrombieOutDir=$inp_dir/181211_$version
+export CrombieOutDir=$inp_dir/$(date +%y%m%d)_$version
+export CrombieFilesPerJob=25

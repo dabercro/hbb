@@ -52,7 +52,7 @@ $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h includ
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
-	-I${CROMBIEPATH} \
+	-I${CROMBIEPATH}/old \
 	$(external) -lrt -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lCondFormatsJetMETObjects -lTMVA -o $(target) slimmer.cpp
 

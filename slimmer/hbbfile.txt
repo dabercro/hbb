@@ -352,11 +352,13 @@ renormfact {
 ! These are filled before the fill function
 -- \
 debugevent::debugevent or \
-((pfmet > 150 or recoilvec.Mod() > 150) and met_filter)
+((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
+(n_lep_tight > 0 and n_lep_medium > 1)
 --
 
 ! These are filled in the fill function
 ++ debugevent::debugevent or \
+(n_lep_tight > 0 and n_lep_medium > 1) or \
 ((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
  (daughter_max_pt > 50 and daughter_min_pt > 30 and \
   dphi_uh > 1.8 and \
