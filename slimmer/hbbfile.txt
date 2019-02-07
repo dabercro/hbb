@@ -94,7 +94,16 @@ muon, ele {
 
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | loose, medium, tight
 
+  1, 2 {
+    dilep(panda::Lepton& lep)
+      /O = false -> true
+      #$ = -1 -> lep.$() | pt, eta, phi, m
+  }
 }
+
+di$_m <- vectorSumMass(<${1, 2}_{pt, eta, phi, m}>) | muon, ele
+di$_pt <- vectorSumPt(<${1, 2}_{pt, phi}>) | muon, ele
+
 
 n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
 n_$/b <- <{muon + ele}_$> | lowreliso

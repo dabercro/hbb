@@ -208,7 +208,17 @@ int parsed_main(int argc, char** argv) {
       // Define default checks here
       // We'll do a lambda with no arguments for lazy evaluation
 
-      auto set_lep = [&output, &lepvec, &em_directions, &selected_leps]
+      using lepstore = ObjectStore::ObjectStore<hbbfile::dilep, panda::Lepton>;
+
+      lepstore stored_muons({hbbfile::dilep::muon1, hbbfile::dilep::muon2},
+                            [] (const panda::Lepton& l) { return l.pt(); });
+
+      lepstore stored_eles({hbbfile::dilep::ele1, hbbfile::dilep::ele2},
+                           [] (const panda::Lepton& l) { return l.pt(); });
+
+
+      auto set_lep = [&output, &lepvec, &em_directions, &selected_leps,
+                      &stored_muons, &stored_eles]
         (hbbfile::lep branch, panda::Lepton& lep, LepInfo info,
          lazy::LazyCuts ids) {
         // Definitions straight from AN
@@ -223,6 +233,9 @@ int parsed_main(int argc, char** argv) {
           output.set_lep(branch, lep, info, ids);
           if (ids.loose()) {
             selected_leps.push_back(&lep);
+
+            (branch == hbbfile::lep::muon ? stored_muons : stored_eles).check(lep);
+
             if (ids.medium() && ids.tight()) {
               lepvec += lep.p4();                         // Only want to add the one tight lepton for recoil in ttbar
               output.tight_lep_pt = std::max(output.tight_lep_pt,
@@ -310,6 +323,11 @@ int parsed_main(int argc, char** argv) {
                   }
                 });
       }
+
+      set_particles({&stored_muons, &stored_eles},
+                    [&output](lepstore::Particle& entry) {
+                      output.set_dilep(entry.branch, *entry.particle);
+                    });
 
       //// GEN PARTICLES ////
       if (debugevent::debug)
