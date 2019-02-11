@@ -420,7 +420,8 @@ int parsed_main(int argc, char** argv) {
       // We want the two jets with the highest CMVA
       using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet, struct lazy::Evaled>;
 
-      jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
+      // jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
+      jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2},
                             input::tagger == input::btagger::cmva ?
                             [] (const panda::Jet& j) { return j.cmva + 2; } :
                             [] (const panda::Jet& j) { return j.deepCSVb + 2; });

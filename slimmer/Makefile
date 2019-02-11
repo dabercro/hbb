@@ -16,7 +16,7 @@ pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
 target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
 install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
 pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-testfile = /mnt/hadoop/scratch/dabercro/panda/009/MET/*.root
+testfile = /mnt/hadoop/scratch/dabercro/panda/009/*.root
 
 checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq

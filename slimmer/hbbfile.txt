@@ -32,9 +32,9 @@ $_trigger/O = false | met, hbb_2016, overlap
 met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv, lazy::LazyCuts& deepCSV)
-  jet_$[] -> jet.$() | pt, eta, phi
-  jet_$[] -> jet.$ | cmva, deepCSVb
-  #? jet_pt[]; jetpt ? -> jet.ptCorr%%
+  #jet_$[] -> jet.$() | pt, eta, phi
+  #jet_$[] -> jet.$ | cmva, deepCSVb
+!!  #? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
 {/b}
@@ -61,7 +61,7 @@ n_soft {
   , _all, _dylan {
     softcount(float pt)
       $ -> +(pt > $) | 2, 5, 10
-      ? $ ; softcount ? -> +(pt * (1.0 +- 0.1) > $) | 2, 5, 10
+!!      ? $ ; softcount ? -> +(pt * (1.0 +- 0.1) > $) | 2, 5, 10
   }
 }
 
@@ -85,12 +85,12 @@ muon, ele {
 
     lowreliso/b -> +(info.reliso < 0.4)  ! Both preselected and have low reliso
 
-    $[] -> info.$ | reliso, minireliso, corrpt
-    q[]/B -> lep.charge
+    #$[] -> info.$ | reliso, minireliso, corrpt
+    #q[]/B -> lep.charge
 
-    pog_$[]/O = false -> lep.$ | loose, medium, tight
-    $[]/O = false -> cuts.$() | loose, medium, tight
-    $[] -> lep.$() | pt, eta, phi
+    #pog_$[]/O = false -> lep.$ | loose, medium, tight
+    #$[]/O = false -> cuts.$() | loose, medium, tight
+    #$[] -> lep.$() | pt, eta, phi
 
     ~~ cuts.$() ~~ \\ count_$/b -> ++ | loose, medium, tight
 
@@ -98,6 +98,7 @@ muon, ele {
     dilep(panda::Lepton& lep)
       /O = false -> true
       #$ = -1 -> lep.$() | pt, eta, phi, m
+      q/B -> lep.charge
   }
 }
 
@@ -138,7 +139,7 @@ bsf(panda::Jet& jet, bool loose)
   ! Stuff for histogram-based scale factors
 
   #bjet_sf -> scale["central"]
-  #? bjet_sf; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf | JES, LF, HF, <{cErr, Stats}{1, 2}>
+!!  #? bjet_sf; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf | JES, LF, HF, <{cErr, Stats}{1, 2}>
 
   btag_sf = 1 -> *(bjet_sf)
 
@@ -154,15 +155,20 @@ bsf(panda::Jet& jet, bool loose)
   (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-  #? bcal_sf; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
+!!  #? bcal_sf; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
 
   #bsf_num -> +(bcal_sf * bsf_eff)
   #bsf_denom -> +(bsf_eff)
 
   beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
 
+! Place these before to drop uncertainties
+tag_deepCSVb <- eventNumber % 2 ? <jet{1 : 2}_deepCSVb>
+probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSVb, pt, eta, gen_numB
+
 ! Input jets are used to set the following variables
-<jet{1, 2, 3}> {
+!! <jet{1, 2, 3}> {
+<jet{1, 2}> {
 
 ! If this is at the top, we don't save all of the systematics from jet pt
 
@@ -175,7 +181,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     /O = false -> true
     $ = -1 -> jet.$() | pt, eta, phi, m, e
-    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
+!!    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
     #p4/TLorentzVector = TLorentzVector() -> [&] () { TLorentzVector p4; p4.SetPtEtaPhiM(<[]_{pt, eta, phi, m}>); return p4; } ()
 
@@ -185,7 +191,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear
 
-    ? ptSmear; jetsmear ? -> jet.ptSmear%%
+!!    ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
     ! Set the taggers to -2 to disappear them from plots
     $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
@@ -295,7 +301,7 @@ daughter_dR <- deltaR(<jet{1, 2}_{eta, phi}>)
 countfat(panda::FatJet& jet)
 
   n_fatjet -> +(jet.pt() > 200)
-  ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
+!!  ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
 
 {/F}
 
@@ -306,7 +312,7 @@ ak8 {
 
       /O = false -> true
       $ -> jet.$() | pt, eta, phi, m, e
-      ? pt; jetpt ? -> jet.ptCorr%%
+!!      ? pt; jetpt ? -> jet.ptCorr%%
       $/O = false -> jet.$ | loose, tight, monojet
       $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
 
@@ -317,7 +323,7 @@ ak8 {
 
       mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
 
-      ecf_O_N_B -> jet.ecfs[=O=][=N=][=B=] |O 1..4 |N 1..5 |B p5, 1, 2, 4
+      #ecf_O_N_B -> jet.ecfs[=O=][=N=][=B=] |O 1..4 |N 1..5 |B p5, 1, 2, 4
 
       ! This is just used for some filtering
       #good/O = false -> []_pt > 240 and []_mSD_corr > 35
@@ -341,7 +347,7 @@ genboson, gen_t, gen_tbar {
 pdf = 1.0
 
 ! pandaf/009
-? pdf; pdf ? = input::version <= 9 ? 1.0 +- std::abs(event.genReweight.pdfDW) : 1.0
+!! ? pdf; pdf ? = input::version <= 9 ? 1.0 +- std::abs(event.genReweight.pdfDW) : 1.0
 
 ! pandaf/010
 ! pdf_$ = input::version >= 10 ? event.genReweight.pdfAltDW[$] : 1.0 | 0..100
@@ -352,22 +358,24 @@ renormfact {
   r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
 }
 
-[maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
-[event_class; data/Classifier_resolved_BDT.weights.xml; data/dropcmva.txt]
+!! [maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
+!! [event_class; data/Classifier_resolved_BDT.weights.xml; data/dropcmva.txt]
 
 ! -- genboson_pt > 30 --
 
 ! Filter
+DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_medium > 1 and n_centerjet == 2)
+
 ! These are filled before the fill function
 -- \
 debugevent::debugevent or \
 ((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
-(n_lep_tight > 0 and n_lep_medium > 1)
+BTAGPROBE
 --
 
 ! These are filled in the fill function
 ++ debugevent::debugevent or \
-(n_lep_tight > 0 and n_lep_medium > 1) or \
+BTAGPROBE or \
 ((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
  (daughter_max_pt > 50 and daughter_min_pt > 30 and \
   dphi_uh > 1.8 and \
@@ -400,7 +408,10 @@ sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 
 ~ ewk_$; KFACTORS; EWKcorr/$$, $$Jets_012j_NLO/nominal; HTCUT ~ | z, w
 ~ $kfactor; KFACTORS; $$Jets_012j_NLO/nominal, $$Jets_LO/inv_pt; HTCUT ~ | z, w
-?~ $kfactor_$@%%; KFACTORS; $$Jets_012j_NLO/@_%, $$Jets_LO/inv_pt ; HTCUT ~ | z, w |@ fact, ren |% up, down
+!! ?~ $kfactor_$@%%; KFACTORS; $$Jets_012j_NLO/@_%, $$Jets_LO/inv_pt ; HTCUT ~ | z, w |@ fact, ren |% up, down
+
+~ sf_b_$; jet$_deepCSVb; data/reweight_deepcsv_nosub.root; reweight; jet$_gen_numB ~ | 1, 2
+~ sf_b_$; jet$_deepCSVb; data/reweight_deepcsv_nob_nosub.root; reweight; !jet$_gen_numB ~ | 1, 2
 
 DEFINE HFILE genboson_pt; data/$_nloEWK_weight_unnormalized.root
 DEFINE HCUT input::is$ and std::abs(genboson_pdgid) ==
@@ -412,5 +423,5 @@ DEFINE HNOM vh_ewk; HFILE; SignalWeight_nloEWK_rebin; HCUT
 
 DEFINE HUNC vh_ewk_ewk%%; HFILE; SignalWeight_nloEWK_%_rebin; HCUT
 
-?~ HUNC 24 ~ | Wm, Wp |% up, down
-?~ HUNC 25 ~ | Zll, Znn |% up, down
+!! ?~ HUNC 24 ~ | Wm, Wp |% up, down
+!! ?~ HUNC 25 ~ | Zll, Znn |% up, down
