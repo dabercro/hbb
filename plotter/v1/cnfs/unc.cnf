@@ -1,0 +1,12 @@
+$ beff_sf ; <<{cferr hfstats lfstats}{1 2}>> jes hf lf
+
+! '--' means that only files with the matching process are affected
+$fact $kfactor -- $j ; w z
+$ren  $kfactor -- $j ; w z
+ewk vh_ewk -- <{w, z, ggz}h>
+
+jetpt `perl -ne '/\s(\w*)_jetptUp\b/ && print "$1\n"' /home/dabercro/hbb/slimmer/include/hbbfile.h | sort -u | tr '\n' ' '`
+
+! Containing ':' indicates envelopes, with branch name at the end
+! fact:   2:r1f2DW 3:r1f5DW renormfact
+! renorm: 4:r2f1DW 6:r5f1DW renormfact

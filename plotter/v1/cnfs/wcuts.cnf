@@ -1,0 +1,22 @@
+semilep      'n_tightlep == 1 && n_looselep == 1'
+bwindow      'fatjetDRLooseB > 0.8 && fatjetDRLooseB < 1.2'
+dphilep      'fatjetDPhiLep1 > 2.0'
+topmass      'topMass_11 > 120 || topMass_12 > 120)'
+toppruned    'topPrunedM_11 > 70 || topPrunedM_12 > 70)'
+nbtags       'n_bjetsLoose == 2'
+mediumB      'n_bjetsMedium > 0'
+nsmalljets   'n_jetsNotFat == 3 && fatjet2Pt < 0) || (n_jetsNotFat == 2))'
+fatjetPt     'fatjetPt > 100'
+fullhadronic 'fatjet2Pt > 100 && n_looselep == 0'
+tau21        'fatjettau21 < 0.6'
+massp        'fatjetPrunedML2L3 > 65 && fatjetPrunedML2L3 < 105'
+ntau         'n_tau == 0'
+
+
+base   &&   'fatjetPt > 250'
+            'thirdFatMass < 50'
+            nbtags
+            mediumB
+            ntau
+
+: base 'mcFactors' '1'

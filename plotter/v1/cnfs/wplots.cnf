@@ -1,0 +1,2 @@
+'fatjetMass', 25, 0, 250, 'Fat Jet Mass [GeV]'
+'fatjetEta', 50, -5.0, 5.0, 'Fat Jet Eta'

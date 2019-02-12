@@ -26,3 +26,7 @@ hbbfile.h
 
 plotter/datacards/*
 fitDiagnostics.root.*
+
+*.tar.gz
+
+*test*

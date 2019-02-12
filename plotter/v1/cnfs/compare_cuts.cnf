@@ -1,0 +1,21 @@
+common && 'met_trigger'
+          'pfmet > 170'
+          'met_filter == 1'
+          'n_lep_presel == 0'
+          'min_dphi_metj_hard > 0.5'
+          'dphi_met_dztrkmet < 0.5'
+          'hbb_m_reg_old < 500'
+          'daughter_max_pt > 60'
+          'daughter_min_pt > 35'
+          'jet2_cmva > -0.5884'
+          'dphi_uh > 2.0'
+          'hbb_pt_reg_old > 120'
+
+siglike && common
+           'n_centerjet < 4'
+
+revnjets && common
+            'n_centerjet >= 4'
+
+: siglike '1.0'
+: revnjets '1.0'
