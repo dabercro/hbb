@@ -123,15 +123,23 @@ min_dphi_recoilb <- std::min(<deltaPhi(jet{1, 2}_phi, recoilphi)>)
 
 dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
 
+"quickb.h"
+
 bsf(panda::Jet& jet, bool loose)
   ! Hold some values temporarily. Should implement local variables some day
 
-  #bjet_$[] -> jet.$() | eta, phi
-  #bjet_isloose[] -> loose
+  bjet_$[] -> jet.$() | pt, eta
+  #bjet_$[] -> jet.$() | phi
+  bjet_$[] -> jet.$ | deepCSVb
+  bjet_$[]/s -> quickb::$(jet) | numB
+  #bjet_isloose[]/O -> loose
 
   n_allbjet/b -> ++
 
   ~~ not isData ~~
+
+  sf_b_unbin = 1 -> *(quickb::scale_b(jet))
+  sf_b_$_bin = 1 -> *(quickb::scale_b_$(jet)) | pt, pt_eta, pt_eta_v2
 
   (flavor = btag::flavor(jet))
   (scale = btag::get_scale(jet, flavor))
@@ -364,7 +372,7 @@ renormfact {
 ! -- genboson_pt > 30 --
 
 ! Filter
-DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_medium > 1 and n_centerjet == 2)
+DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_medium > 1 and (n_centerjet == 2 or n_allbjet == 2))
 
 ! These are filled before the fill function
 -- \
@@ -397,8 +405,9 @@ sf_tt <- gen_t and gen_tbar ? std::sqrt(std::exp(0.0615-0.0005*std::min(400.0f, 
 
 ! I have a bug in my reweighting script which is attempting to normalize things
 sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
-~ sf_met_trigger; pfmet; data/metTriggerEfficiency_recoil_monojet_TH1F.root; hden_monojet_recoil_clone_passed ~
+~ sf_met_trigger; pfmet; data/metTriggerEfficiency_recoil_monojet_TH1F.root; hden_monojet_recoil_clone_passed; input::version < 13 ~
 ~ sf_met_trigger; recoil; data/met2016to2017.root; mettrig; input::version == 10 ~
+~ sf_met_trigger; recoil; data/met_trigger_effs_2018.root; eff; input::version >= 13 ~
 
 ! Set the name of the merged corrections
 ~{scale_factors <- mc_weight * sf_tt * sf_met_trigger}~
@@ -409,9 +418,6 @@ sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 ~ ewk_$; KFACTORS; EWKcorr/$$, $$Jets_012j_NLO/nominal; HTCUT ~ | z, w
 ~ $kfactor; KFACTORS; $$Jets_012j_NLO/nominal, $$Jets_LO/inv_pt; HTCUT ~ | z, w
 !! ?~ $kfactor_$@%%; KFACTORS; $$Jets_012j_NLO/@_%, $$Jets_LO/inv_pt ; HTCUT ~ | z, w |@ fact, ren |% up, down
-
-~ sf_b_$; jet$_deepCSVb; data/reweight_deepcsv_nosub.root; reweight; jet$_gen_numB ~ | 1, 2
-~ sf_b_$; jet$_deepCSVb; data/reweight_deepcsv_nob_nosub.root; reweight; !jet$_gen_numB ~ | 1, 2
 
 DEFINE HFILE genboson_pt; data/$_nloEWK_weight_unnormalized.root
 DEFINE HCUT input::is$ and std::abs(genboson_pdgid) ==
