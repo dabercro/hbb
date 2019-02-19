@@ -26,7 +26,9 @@
 \setbeamertemplate{navigation symbols}{}
 \usepackage{graphicx}
 \usepackage{color}
-\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{footline}[text line]{
+  \parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}
+}
 \setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
 
 \IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
@@ -84,18 +86,158 @@
 }
 
 \newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
 
 \begin{document}
 
-\begin{frame}[nonumbering]
+\begin{frame}
   \titlepage
 \end{frame}
 
 \begin{frame}
   \frametitle{Introduction}
+
+  \begin{itemize}
+  \item We would like to perform a differential cross section measurement of
+    $H\rightarrow \bbbar$
+  \item First look at 2018 Data and the Autumn18 MC campaign
+  \item {\bf Problems:} We started with the following from old data:
+    \begin{itemize}
+    \item b-tagging scale factors (this talk)
+    \item trigger efficiencies (Benedikt last week)
+    \item pileup reweighting (Guillelmo using 2017 MC?)
+    \end{itemize}
+  \end{itemize}
+
 \end{frame}
 
-\begin{comment}
+\begin{frame}
+  \frametitle{NPV Distributions}
+
+  \twofigs{NPV from 2017 MC}
+          {190219_v1/lightz_npv.pdf}
+          {Not Correcting NPV}
+          {190219_nopu/lightz_npv.pdf}
+
+  \begin{itemize}
+  \item With and without are not quite right
+  \item I used the scale factors throughout
+  \item I'll be skipping MET trigger for now (in backup)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Old b-tag scale factors}
+
+  \twofigs{Z + Heavy Flavor}
+          {190131_2018mc/heavyz_jet2_deepCSVb.pdf}
+          {\ttbar}
+          {190131_2018mc/tt_jet2_deepCSVb.pdf}
+
+  The old b-tag scale factors don't look so great
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{b-tag Strategy}
+
+  \begin{itemize}
+  \item Select di-lepton events with exactly two jets
+  \item At least one tight lepton and exactly two loose leptons
+  \item SingleMuon dataset, no triggers
+  \item Separate into $\ttbar$ and $Z$ + jets using
+    \begin{itemize}
+    \item MET cut, di-lepton (opposite sign, same flavor) mass veto, and
+      probe jet with deep CSV greater than 0.6
+    \item di-muon mass between 60 and 120 GeV, and
+      probe jet with deep CSV less than 0.4
+    \end{itemize}
+  \item Alternated, based on event number, between higher or lower Deep CSV jet as tag jet
+    \begin{itemize}
+    \item Not sure of the best way, but left over from $Hbb$ n-tuple format
+    \end{itemize}
+  \item Still need to make sure we are orthogonal to $ZH \rightarrow \ell\ell bb$
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Binning}
+
+  Distribution doesn't change much over $\eta$, but does over $p_T$
+
+  \fourfigs{\mbox{$p_T < 150$, $|\eta| < 1.4$}}
+           {190214_tnp_bjets/light_pt_0_150_eta_0_1p4_probe_deepCSVb.pdf}
+           {\mbox{$p_T < 150$, $1.4 < \eta < 2.4$}}
+           {190214_tnp_bjets/light_pt_0_150_eta_1p4_2p5_probe_deepCSVb.pdf}
+           {\mbox{$150 < p_T < 250$, $|\eta| < 1.4$}}
+           {190214_tnp_bjets/light_pt_150_250_eta_0_1p4_probe_deepCSVb.pdf}
+           {\mbox{$150 < p_T < 250$, $1.4 < \eta < 2.4$}}
+           {190214_tnp_bjets/light_pt_150_250_eta_1p4_2p5_probe_deepCSVb.pdf}
+           
+\end{frame}
+
+\begin{frame}
+  \frametitle{Method of Reweighting}
+
+  \begin{itemize}
+  \item Using $p_T$ bins $[0, 150), [150, 250), [250, \infty)$
+  \item Tried both with and without background subtraction
+    \begin{itemize}
+    \item Without looks much better due to significant contamination
+      at low Deep CSV values in $\ttbar$ (see backup slides)
+    \end{itemize}
+  \item Normalized distributions beforehand,
+    hopefully accounting for lack of scaling of the probe jet
+  \item Simple reweight (ratio of data/MC)
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Closure Test}
+
+  Scale factor is applied to every single jet in the event
+
+  \twofigs{\ttbar}
+          {190215_closure/tt_jet2_deepCSVb.pdf}
+          {$Z$ + jets}
+          {190215_closure/z_jet2_deepCSVb.pdf}
+
+  Closure looks horrible, especially at low values. \\ But wait there's more!
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$Z\nu\nu$ Analysis Selection}
+
+  Definite improvement
+
+  \fourfigs{Old \ttbar}
+           {190219_olddeep/tt_jet2_deepCSVb.pdf}
+           {Old $Z$ + jets}
+           {190219_olddeep/heavyz_jet2_deepCSVb.pdf}
+           {New \ttbar}
+           {190219_newdeep/tt_jet2_deepCSVb.pdf}
+           {New $Z$ + jets}
+           {190219_newdeep/heavyz_jet2_deepCSVb.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item Need to make a selection that is orthogonal to $Z\ell\ell$ analysis
+  \item We have a b-tag scale factor that looks better, but not perfect
+  \item Don't understand closure plot
+  \item Have framework for measuring and plotting with scale factors within minutes
+    \begin{itemize}
+    \item Can be used in iterative background subtraction
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
 
 \beginbackup
 
@@ -106,7 +248,5 @@
 \input{backup_slides.tex}
 
 \backupend
-
-\end{comment}
 
 \end{document}
