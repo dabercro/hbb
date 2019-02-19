@@ -6,7 +6,7 @@ crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=190215_closure%2Ftt_jet2_deepCSVb%2C190215_closure%2Fz_jet2_deepCSVb"
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=190219_newdeep%2Ftt_jet2_deepCSVb%2C190219_newdeep%2Fheavyz_jet2_deepCSVb"
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=190219_olddeep%2Ftt_jet2_deepCSVb%2C190219_olddeep%2Fheavyz_jet2_deepCSVb"
-crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=190219_newtrig%2Ftt_recoil%2C190219_oldtrig%2Ftt_recoil%2C190219_newtrig%2Flightz_recoil%2C190219_oldtrig%2Flightz_recoil%2C190219_newtrig%2Fheavyz_recoil%2C190219_oldtrig%2Fheavyz_recoil"
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=190219_newtrig%2Flightz_recoil%2C190219_oldtrig%2Flightz_recoil%2C190219_newtrig%2Fheavyz_recoil%2C190219_oldtrig%2Fheavyz_recoil"
 
 for f in */*.pdf
 do

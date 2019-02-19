@@ -101,11 +101,15 @@
   \item We would like to perform a differential cross section measurement of
     $H\rightarrow \bbbar$
   \item First look at 2018 Data and the Autumn18 MC campaign
-  \item {\bf Problems:} We started with the following from old data:
+  \item {\bf Problems:}
     \begin{itemize}
-    \item b-tagging scale factors (this talk)
-    \item trigger efficiencies (Benedikt last week)
-    \item pileup reweighting (Guillelmo using 2017 MC?)
+    \item  We use the following from old data:
+      \begin{itemize}
+      \item b-tagging scale factors \textcolor{red}{(this talk)}
+      \item trigger efficiencies (Benedikt working on this)
+      \item pileup reweighting (Guillelmo using 2017 MC?)
+      \end{itemize}
+    \item missing samples, though more complete than when I started
     \end{itemize}
   \end{itemize}
 
@@ -121,7 +125,7 @@
 
   \begin{itemize}
   \item With and without are not quite right
-  \item I used the scale factors throughout
+  \item I used the scale factors throughout (left plot), trivial to fix
   \item I'll be skipping MET trigger for now (in backup)
   \end{itemize}
 \end{frame}
@@ -134,7 +138,7 @@
           {\ttbar}
           {190131_2018mc/tt_jet2_deepCSVb.pdf}
 
-  The old b-tag scale factors don't look so great
+  The old b-tag scale factors have obvious trend, \\ underestimating low CSV yields
 
 \end{frame}
 
@@ -143,20 +147,31 @@
 
   \begin{itemize}
   \item Select di-lepton events with exactly two jets
-  \item At least one tight lepton and exactly two loose leptons
-  \item SingleMuon dataset, no triggers
-  \item Separate into $\ttbar$ and $Z$ + jets using
     \begin{itemize}
-    \item MET cut, di-lepton (opposite sign, same flavor) mass veto, and
-      probe jet with deep CSV greater than 0.6
-    \item di-muon mass between 60 and 120 GeV, and
-      probe jet with deep CSV less than 0.4
+    \item {\bf Leptons:}
+      \begin{itemize}
+      \item At least one tight lepton and exactly two loose leptons
+      \item SingleMuon dataset, no triggers
+      \end{itemize}
+    \item {\bf Jets:}
+      \begin{itemize}
+      \item Exactly two jets that are b-jet candidates ($p_T > \SI{20}{GeV}, |\eta| < 2.4$)
+      \item Alternated, based on event number,
+        between higher or lower Deep CSV jet as tag jet
+        \begin{itemize}
+        \item Not sure of the best way, but left over from $Hbb$ n-tuple format
+        \end{itemize}
+      \end{itemize}
     \end{itemize}
-  \item Alternated, based on event number, between higher or lower Deep CSV jet as tag jet
+  \item Separate into $\ttbar$ and $Z$ + jets using:
     \begin{itemize}
-    \item Not sure of the best way, but left over from $Hbb$ n-tuple format
+    \item {$Z$ + jets:} di-muon mass between 60 and 120 GeV, and
+      probe jet with deep CSV value less than 0.4
+    \item {$\ttbar$:} MET cut, di-lepton (opposite sign, same flavor) mass veto, and
+      probe jet with deep CSV value greater than 0.6
     \end{itemize}
-  \item Still need to make sure we are orthogonal to $ZH \rightarrow \ell\ell bb$
+  \item \textcolor{orange}{Still need to make sure we are orthogonal to
+    $ZH \rightarrow \ell\ell bb$}
   \end{itemize}
 
 \end{frame}
@@ -182,6 +197,9 @@
 
   \begin{itemize}
   \item Using $p_T$ bins $[0, 150), [150, 250), [250, \infty)$
+    \begin{itemize}
+    \item Can probably also use $\eta$ bins for non-b-jets since yields are higher
+    \end{itemize}
   \item Tried both with and without background subtraction
     \begin{itemize}
     \item Without looks much better due to significant contamination
@@ -195,7 +213,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Closure Test}
+  \frametitle{Closure Check}
 
   Scale factor is applied to every single jet in the event
 
@@ -211,7 +229,7 @@
 \begin{frame}
   \frametitle{$Z\nu\nu$ Analysis Selection}
 
-  Definite improvement
+  Some improvement in trend
 
   \fourfigs{Old \ttbar}
            {190219_olddeep/tt_jet2_deepCSVb.pdf}
@@ -231,10 +249,7 @@
   \item Need to make a selection that is orthogonal to $Z\ell\ell$ analysis
   \item We have a b-tag scale factor that looks better, but not perfect
   \item Don't understand closure plot
-  \item Have framework for measuring and plotting with scale factors within minutes
-    \begin{itemize}
-    \item Can be used in iterative background subtraction
-    \end{itemize}
+  \item Will also try iterative background subtraction
   \end{itemize}
 
 \end{frame}
