@@ -4,7 +4,7 @@
   Daniel Abercrombie
 }
 
-\title{\bf \sffamily Planning for 2018 Data and MC}
+\title{\bf \sffamily b-tag Scale Factors for 2018 Data and MC}
 \date{\today}
 
 \usecolortheme{dove}
@@ -124,7 +124,7 @@
           {190219_nopu/lightz_npv.pdf}
 
   \begin{itemize}
-  \item With and without are not quite right
+  \item With and without are both not quite right
   \item I used the scale factors throughout (left plot), trivial to fix
   \item I'll be skipping MET trigger for now (in backup)
   \end{itemize}
@@ -166,9 +166,9 @@
   \item Separate into $\ttbar$ and $Z$ + jets using:
     \begin{itemize}
     \item {$Z$ + jets:} di-muon mass between 60 and 120 GeV, and
-      probe jet with deep CSV value less than 0.4
+      tag jet with deep CSV value less than 0.4
     \item {$\ttbar$:} MET cut, di-lepton (opposite sign, same flavor) mass veto, and
-      probe jet with deep CSV value greater than 0.6
+      tag jet with deep CSV value greater than 0.6
     \end{itemize}
   \item \textcolor{orange}{Still need to make sure we are orthogonal to
     $ZH \rightarrow \ell\ell bb$}
@@ -177,7 +177,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Binning}
+  \frametitle{Binning for Scale Factors}
 
   Distribution doesn't change much over $\eta$, but does over $p_T$
 
@@ -227,17 +227,17 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{$Z\nu\nu$ Analysis Selection}
+  \frametitle{Analysis Selection}
 
   Some improvement in trend
 
-  \fourfigs{Old \ttbar}
+  \fourfigs{Old SF: \ttbar}
            {190219_olddeep/tt_jet2_deepCSVb.pdf}
-           {Old $Z$ + jets}
+           {Old SF: $Z$ + jets}
            {190219_olddeep/heavyz_jet2_deepCSVb.pdf}
-           {New \ttbar}
+           {New SF: \ttbar}
            {190219_newdeep/tt_jet2_deepCSVb.pdf}
-           {New $Z$ + jets}
+           {New SF: $Z$ + jets}
            {190219_newdeep/heavyz_jet2_deepCSVb.pdf}
 
 \end{frame}
@@ -246,10 +246,10 @@
   \frametitle{Conclusions}
 
   \begin{itemize}
-  \item Need to make a selection that is orthogonal to $Z\ell\ell$ analysis
+  \item Need to make a selection that is orthogonal to $Z\ell\bar{\ell}$ analysis
   \item We have a b-tag scale factor that looks better, but not perfect
   \item Don't understand closure plot
-  \item Will also try iterative background subtraction
+  \item Can also try iterative background subtraction
   \end{itemize}
 
 \end{frame}
