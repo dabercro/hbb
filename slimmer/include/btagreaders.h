@@ -15,25 +15,26 @@ namespace {
 
   /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
   static const BTagCalibration cmva_calib {"cmva", input::tagger == input::btagger::cmva ? "data/cMVAv2_Moriond17_B_H.csv" : "data/DeepCSV_94XSF_V2_B_F.csv"};
+  static const BTagCalibration deepcsv_calib {"deepcsv", "data/DeepCSV_102XSF_V1.csv"};
 
   // Here we define functions that returns the reader for each working point
-  BTagCalibrationReader get_cmva_reader(const BTagEntry::OperatingPoint op) {
+  BTagCalibrationReader get_reader(const BTagEntry::OperatingPoint op, const BTagCalibration& calib) {
     if (op != BTagEntry::OP_RESHAPING) {
-      BTagCalibrationReader cmva_reader(op, "central", {"up", "down"});
-      cmva_reader.load(cmva_calib, BTagEntry::FLAV_B, "ttbar");
-      cmva_reader.load(cmva_calib, BTagEntry::FLAV_C, "ttbar");
-      cmva_reader.load(cmva_calib, BTagEntry::FLAV_UDSG, "incl");
-      return cmva_reader;
+      BTagCalibrationReader reader(op, "central", {"up", "down"});
+      reader.load(calib, BTagEntry::FLAV_B, "ttbar");
+      reader.load(calib, BTagEntry::FLAV_C, "ttbar");
+      reader.load(calib, BTagEntry::FLAV_UDSG, "incl");
+      return reader;
     }
 
-    BTagCalibrationReader cmva_reader(op, "central", {"up_jes", "down_jes", "up_lf", "down_lf", "up_hf", "down_hf",
+    BTagCalibrationReader reader(op, "central", {"up_jes", "down_jes", "up_lf", "down_lf", "up_hf", "down_hf",
           "up_hfstats1", "down_hfstats1", "up_hfstats2", "down_hfstats2",
           "up_lfstats1", "down_lfstats1", "up_lfstats2", "down_lfstats2",
           "up_cferr1", "down_cferr1", "up_cferr2", "down_cferr2"});
 
     for (auto flav : {BTagEntry::FLAV_B, BTagEntry::FLAV_C, BTagEntry::FLAV_UDSG})
-      cmva_reader.load(cmva_calib, flav, "iterativefit");
-    return cmva_reader;
+      reader.load(calib, flav, "iterativefit");
+    return reader;
   }
 
   auto effs = [] () {
@@ -146,12 +147,13 @@ namespace btag {
 
   using BCalReaders = std::map<const BTagEntry::OperatingPoint, const BTagCalibrationReader>;
 
-  const BTagCalibrationReader cmva_reader = get_cmva_reader(BTagEntry::OP_RESHAPING);
+  const BTagCalibrationReader cmva_reader = get_reader(BTagEntry::OP_RESHAPING, cmva_calib);
+  const BTagCalibrationReader deepcsv_reader = get_reader(BTagEntry::OP_RESHAPING, deepcsv_calib);
 
   /* const BCalReaders cmva_readers = { */
-  /*   {BTagEntry::OP_LOOSE, get_cmva_reader(BTagEntry::OP_LOOSE)}, */
-  /*   {BTagEntry::OP_MEDIUM, get_cmva_reader(BTagEntry::OP_MEDIUM)}, */
-  /*   {BTagEntry::OP_TIGHT, get_cmva_reader(BTagEntry::OP_TIGHT)} */
+  /*   {BTagEntry::OP_LOOSE, get_reader(BTagEntry::OP_LOOSE)}, */
+  /*   {BTagEntry::OP_MEDIUM, get_reader(BTagEntry::OP_MEDIUM)}, */
+  /*   {BTagEntry::OP_TIGHT, get_reader(BTagEntry::OP_TIGHT)} */
   /* }; */
 
   double eff(const double jetpt, const double jeteta, const BTagEntry::JetFlavor flav) {

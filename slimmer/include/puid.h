@@ -5,10 +5,17 @@ namespace {
   } ();
 }
 
+class hbbfile;
+
 namespace puid {
 
+  void update(const panda::Jet& jet, hbbfile* output);
+
   // Does the jet pass the low PUID working point?
-  bool loose(const panda::Jet& jet) {
+  bool loose(const panda::Jet& jet, hbbfile* output = nullptr) {
+    if (output)
+      update(jet, output);
+
     auto to_pass = hist.GetBinContent(hist.FindBin(std::abs(jet.eta()), std::min(jet.pt(), 39.0)));
     if (debugevent::debug)
       std::cout << "Jet with pt " << jet.pt() << " and puid " << jet.puid << " needs to pass " << to_pass << std::endl;

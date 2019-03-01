@@ -52,6 +52,10 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
   n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
   n_b@_$ -> +(@.$() && abseta < 2.4) | loose, medium, tight |@ cmva, csv, deepCSV
 
+countnopuid(panda::Jet& jet)
+  n_nopuid -> ++
+  min_dphi_metnopuid/F = 4 -> std::min(min_dphi_metnopuid, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
+
 n_genB
 
 nB/b
@@ -131,6 +135,7 @@ bsf(panda::Jet& jet, bool loose)
   bjet_$[] -> jet.$() | pt, eta
   #bjet_$[] -> jet.$() | phi
   bjet_$[] -> jet.$ | deepCSVb
+  bjet_deepCSV[] -> <jet.deepCSV{b + bb}>
   bjet_$[]/s -> quickb::$(jet) | numB
   #bjet_isloose[]/O -> loose
 
@@ -156,23 +161,25 @@ bsf(panda::Jet& jet, bool loose)
   DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
   (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
+  (nom_sf_2 = btag::deepcsv_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt()}>, <jet.deepCSV{b + bb}>))
 
-  #bcal_sf -> nom_sf
+  #bcal_sf$ -> nom_sf$ | , _2
   (bsf_eff = btag::eff(<jet.{pt, eta}()>, flavor))
 
   (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
+  (tmp_sf_@$_2 = btag::deepcsv_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt()}>, <jet.deepCSV{b + bb}>)) | BSYST |@ up, down
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-!!  #? bcal_sf; $ ? -> (tmp_sf_%$ ? tmp_sf_%$ : nom_sf) | BSYST
+!!  #? bcal_sf@; $ ? -> (tmp_sf_%$ ? tmp_sf_%$@ : nom_sf) | BSYST |@ , _2
 
-  #bsf_num -> +(bcal_sf * bsf_eff)
+  #bsf_num$ -> +(bcal_sf$ * bsf_eff) | , _2
   #bsf_denom -> +(bsf_eff)
 
-  beff_sf <- (bsf_denom ? bsf_num/bsf_denom : 1.0)
+  beff_sf$ <- (bsf_denom ? bsf_num$/bsf_denom : 1.0) | , _2
 
 ! Place these before to drop uncertainties
-tag_deepCSVb <- eventNumber % 2 ? <jet{1 : 2}_deepCSVb>
-probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSVb, pt, eta, gen_numB
+tag_$ <- eventNumber % 2 ? <jet{1 : 2}_$> | deepCSV, deepCSVb
+probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_numB
 
 ! Input jets are used to set the following variables
 !! <jet{1, 2, 3}> {
@@ -203,6 +210,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     ! Set the taggers to -2 to disappear them from plots
     $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
+    deepCSV = -2 -> <jet.deepCSV{b + bb}>
 
     $/O = false -> jet.$ | loose, tight, monojet
     btag$/O = false -> cuts.$ | loose, medium, tight

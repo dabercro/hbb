@@ -14,6 +14,11 @@
 
 using namespace crombie;
 
+// Need to implement this here due to forward declaration in puid.h
+void puid::update (const panda::Jet& jet, hbbfile* output) {
+  output->set_countnopuid(jet);
+}
+
 // Terminating case first is an object store, then a list of set functions to call on it
 template<typename S, typename F> void set_particles(S& store, const F& function) {
   for (auto& particle : store.store) {
@@ -440,7 +445,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not puid::loose(jet)) {
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not puid::loose(jet, &output)) {
           if (debugevent::debug)
             std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
           continue;
