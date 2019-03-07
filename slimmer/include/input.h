@@ -39,4 +39,15 @@ namespace input {
 
   const btagger tagger = version <= 9 ? btagger::cmva : btagger::deepCSVb;
 
+  long long maxevents = [] () {
+    long long output = 0;
+    auto* env = getenv("maxevents");
+    if (env) {
+      std::stringstream iss;
+      iss << env;
+      iss >> output;
+    }
+    return output;
+  } ();
+
 }

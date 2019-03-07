@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <memory>
 
 #include "hbbfile.h"
 #include "misc.h"
@@ -11,6 +12,8 @@
 
 #include "TH1F.h"
 #include "TH1D.h"
+
+#include "PandaTree/Utils/interface/JECCorrector.h"
 
 using namespace crombie;
 
@@ -47,6 +50,8 @@ int parsed_main(int argc, char** argv) {
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
   TH1D sums;
 
+  std::unique_ptr<panda::JECCorrector> corr_ptr {nullptr};
+
   // Loop over all input files
   for (int i_file = 1; i_file < argc - 1; i_file++) {
 
@@ -58,7 +63,7 @@ int parsed_main(int argc, char** argv) {
     auto* events_tree = static_cast<TTree*>(input.Get("events"));
     panda::Event event;
     feedpanda(event, events_tree);
-    auto nentries = events_tree->GetEntries();
+    auto nentries = input::maxevents ? input::maxevents : events_tree->GetEntries();
 
     // Get the hSumW
     auto* sumW = static_cast<TH1D*>(input.Get("hSumW"));
@@ -422,6 +427,51 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "Starting jets" << std::endl;
 
+      if (not corr_ptr and input::version == 13) {
+        std::cout << "Loading JEC Corrections" << std::endl;
+
+        corr_ptr = std::make_unique<panda::JECCorrector>
+          (event.isData ? "data/jec/Autumn18_V3_DATA" : "data/jec/Autumn18_V3_MC",
+           "AK4PFchs");
+      }
+
+      if (corr_ptr) {
+
+        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
+          for (auto& jet : event.chsAK4Jets) {
+            std::cout << "Jet" << std::endl;
+            std::cout << "X: " << jet.px() << std::endl;
+            std::cout << "Y: " << jet.py() << std::endl;
+          }
+          std::cout << "MET" << std::endl;
+          std::cout << "X: " << event.pfMet.v().X() << std::endl;
+          std::cout << "Y: " << event.pfMet.v().Y() << std::endl;
+        }
+
+        corr_ptr->update_event(event, event.chsAK4Jets, event.pfMet);
+        auto& newmet = corr_ptr->get_met();
+        output.pfmet = newmet.pt;
+        output.pfmetphi = newmet.phi;
+
+        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
+          for (auto& jet : corr_ptr->get_jets()) {
+            std::cout << "Jet" << std::endl;
+            std::cout << "X: " << jet.px() << std::endl;
+            std::cout << "Y: " << jet.py() << std::endl;
+          }
+          std::cout << "MET" << std::endl;
+          std::cout << "X: " << newmet.v().X() << std::endl;
+          std::cout << "Y: " << newmet.v().Y() << std::endl;
+        }
+
+        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
+          std::cout << "Corrected values" << std::endl;
+          corr_ptr->get_jets().dump();
+          corr_ptr->get_met().dump();
+        }
+
+      }
+
       // We want the two jets with the highest CMVA
       using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet, struct lazy::Evaled>;
 
@@ -432,7 +482,7 @@ int parsed_main(int argc, char** argv) {
                             [] (const panda::Jet& j) { return j.deepCSVb + 2; });
 
       // Check if overlaps with EM object
-      auto overlap_em = [&em_directions] (panda::Particle& jet, double dr2) {
+      auto overlap_em = [&em_directions] (const panda::Particle& jet, double dr2) {
         for (auto& dir : em_directions) {
           if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < dr2) {
             if (debugevent::debug)
@@ -443,7 +493,7 @@ int parsed_main(int argc, char** argv) {
         return false;
       };
 
-      for (auto& jet : event.chsAK4Jets) {
+      for (auto& jet : (corr_ptr ? corr_ptr->get_jets() : event.chsAK4Jets)) {
 
         if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not puid::loose(jet, &output)) {
           if (debugevent::debug)
@@ -661,7 +711,7 @@ int parsed_main(int argc, char** argv) {
             output.set_softcount(jets.first, soft.pt());
       }
 
-      output.fill(event, event.pfMet.v() + lepvec.Vect().XYvector());
+      output.fill(event, (corr_ptr ? corr_ptr->get_met().v() : event.pfMet.v()) + lepvec.Vect().XYvector());
     }
     input.Close();
   }

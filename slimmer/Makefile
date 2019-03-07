@@ -11,12 +11,14 @@ data = data/data.d
 # These flags are needed for fastjet
 external = `${PWD}/flags.sh`
 
+vers = 013
+
 pandainc = ${CMSSW_BASE}/src
 pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
 target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
 install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
 pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-testfile = /mnt/hadoop/scratch/dabercro/panda/009/*.root
+testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
 
 checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
@@ -54,7 +56,7 @@ $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h includ
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH}/old \
 	$(external) -lrt -g \
-	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lCondFormatsJetMETObjects -lTMVA -o $(target) slimmer.cpp
+	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
 
 include/jecsys:
 	cd include; git clone https://github.com/miquork/jecsys.git; cd jecsys; git checkout Summer16_23Sep2016V4
@@ -97,7 +99,7 @@ test: $(target) $(effs)
 	# Move old test.root to a place for comparison
 	test ! -f test.root || mv test.root old
 	# Don't keep around new test file that's garbage
-	input_dir='/test/pandaf/009/this' $(exename) $(testfile) test.root || rm test.root
+	input_dir='/test/pandaf/$(vers)/this' $(exename) $(testfile) test.root || rm test.root
 	# Kill if test file generation didn't work
 	test -f test.root
 	cp test.root new

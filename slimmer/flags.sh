@@ -1,13 +1,25 @@
 #! /bin/sh
 
+# CMSSW headers are here
+
+echo -n "-I${CMSSW_FULL_RELEASE_BASE}/src "
+
 # CMSSW libraries are here
 
 echo -n "-L${CMSSW_FULL_RELEASE_BASE}/lib/${SCRAM_ARCH} "
 echo -n "-L${CMSSW_RELEASE_BASE}/external/lib/${SCRAM_ARCH} "
 
+# Need this from CMSSW
+
+echo -n "-lFWCoreMessageLogger -lCondFormatsJetMETObjects "
+
 # Get other flags from scram
 
 cd $CMSSW_BASE
+
+# These flags are needed for boost
+
+echo -n "-I$(scram tool tag boost INCLUDE) "
 
 # These flags are needed for fastjet
 

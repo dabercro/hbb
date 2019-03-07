@@ -21,8 +21,11 @@ npv_true/s = event.npvTrue
 
 mc_weight = event.weight
 
-$@ = event.$@@.pt | pf, calo, trk |@ met
-$@phi = event.$@@.phi | pf, calo, trk |@ met
+$@ = event.$@@.pt | pf, calo, trk, raw |@ met
+$@phi = event.$@@.phi | pf, calo, trk, raw |@ met
+
+miniaod_pfmet = event.pfMet.pt
+miniaod_pfmetphi = event.pfMet.phi
 
 #dztrkmetvec/TVector2 = trkmet::trkmet(event)
 dztrkmet <- dztrkmetvec.Mod()
@@ -33,7 +36,7 @@ met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv, lazy::LazyCuts& deepCSV)
   #jet_$[] -> jet.$() | pt, eta, phi
-  #jet_$[] -> jet.$ | cmva, deepCSVb
+  #jet_$[] -> jet.$ | cmva, deepCSVb, rawPt
 !!  #? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
@@ -204,7 +207,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     loosepu/O = false -> puid::loose(jet)
 
-    $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear
+    $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear, rawPt
 
 !!    ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
