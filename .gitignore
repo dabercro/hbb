@@ -30,3 +30,5 @@ fitDiagnostics.root.*
 *.tar.gz
 
 *test*
+
+slimmer/data/jec/*.txt
