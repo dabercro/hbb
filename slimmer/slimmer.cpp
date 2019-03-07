@@ -52,6 +52,11 @@ int parsed_main(int argc, char** argv) {
 
   std::unique_ptr<panda::JECCorrector> corr_ptr {nullptr};
 
+  if (input::jec.size()) {
+    std::cout << "Loading JEC: " << input::jec << std::endl;
+    corr_ptr = std::make_unique<panda::JECCorrector>(std::string("data/jec/") + input::jec, "AK4PFchs");
+  }
+
   // Loop over all input files
   for (int i_file = 1; i_file < argc - 1; i_file++) {
 
@@ -427,48 +432,12 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "Starting jets" << std::endl;
 
-      if (not corr_ptr and input::version == 13) {
-        std::cout << "Loading JEC Corrections" << std::endl;
-
-        corr_ptr = std::make_unique<panda::JECCorrector>
-          (event.isData ? "data/jec/Autumn18_V3_DATA" : "data/jec/Autumn18_V3_MC",
-           "AK4PFchs");
-      }
-
       if (corr_ptr) {
-
-        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
-          for (auto& jet : event.chsAK4Jets) {
-            std::cout << "Jet" << std::endl;
-            std::cout << "X: " << jet.px() << std::endl;
-            std::cout << "Y: " << jet.py() << std::endl;
-          }
-          std::cout << "MET" << std::endl;
-          std::cout << "X: " << event.pfMet.v().X() << std::endl;
-          std::cout << "Y: " << event.pfMet.v().Y() << std::endl;
-        }
 
         corr_ptr->update_event(event, event.chsAK4Jets, event.pfMet);
         auto& newmet = corr_ptr->get_met();
         output.pfmet = newmet.pt;
         output.pfmetphi = newmet.phi;
-
-        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
-          for (auto& jet : corr_ptr->get_jets()) {
-            std::cout << "Jet" << std::endl;
-            std::cout << "X: " << jet.px() << std::endl;
-            std::cout << "Y: " << jet.py() << std::endl;
-          }
-          std::cout << "MET" << std::endl;
-          std::cout << "X: " << newmet.v().X() << std::endl;
-          std::cout << "Y: " << newmet.v().Y() << std::endl;
-        }
-
-        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
-          std::cout << "Corrected values" << std::endl;
-          corr_ptr->get_jets().dump();
-          corr_ptr->get_met().dump();
-        }
 
       }
 

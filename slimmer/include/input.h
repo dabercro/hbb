@@ -50,4 +50,18 @@ namespace input {
     return output;
   } ();
 
+  const std::string jec = [] () {
+    if (version == 13) {
+      std::string data = "Run2018";
+      if (is(data.data())) {
+        std::string indir {in_dir};
+        auto letter = indir.substr(indir.find(data) + data.size(), 1);
+        return std::string("Autumn18_Run" + letter + "_V8_DATA");
+      }
+      // Otherwise, is MC
+      return std::string("Autumn18_V8_MC");
+    }
+    return std::string("");
+  } ();
+
 }

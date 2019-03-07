@@ -39,18 +39,19 @@ $(checker): ${CROMBIEPATH}/scripts/findtree.py
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
-$(data): data/*.csv data/*.xml data/*.root $(corrections) data/rcdata.2016.v3
+$(data): data/*.csv data/*.xml data/*.root $(corrections) data/rcdata.2016.v3 data/jec/jec.d
 	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.pb ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
 	cp data/*.csv data/*.xml data/*.root data/*.pb ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
 	cp -rH data/rcdata.2016.v3 ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/jec || rm -r ${CMSSW_BASE}/data/jec
-	cp -rH data/jec ${CMSSW_BASE}/data
+	mkdir ${CMSSW_BASE}/data/jec
+	cp data/jec/*.txt ${CMSSW_BASE}/data/jec
 	touch $(data)
 
 $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
 	${CROMBIEPATH}/src/include/crombie/*.h \
-	include/roccor/RoccoR.cc include/jecsys data/jec/jec.d \
+	include/roccor/RoccoR.cc include/jecsys \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
@@ -70,7 +71,7 @@ include/checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* include/checkrun
 
 data/jec/jec.d: data/jec/download.url
-	cd data/jec; rm *.tar.gz; wget -i download.url; for f in *.tar.gz; do tar -xvf $$f '*_AK4PFchs.txt' '*_AK8PFPuppi.txt'; done
+	cd data/jec; rm *.tar.gz; rm *.txt; wget -i download.url; for f in *.tar.gz; do tar -xvf $$f '*_AK4PFchs.txt' '*_AK8PFPuppi.txt'; done
 	touch data/jec/jec.d
 
 include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
@@ -93,7 +94,7 @@ install: $(tarball) $(install) $(effs)
 
 testdir = ${HOME}/public_html/plots/testhbb
 
-test: $(target) $(effs)
+test: $(target) $(effs) data/jec/jec.d
 	test -d old || mkdir old
 	test -d new || mkdir new
 	# Move old test.root to a place for comparison
