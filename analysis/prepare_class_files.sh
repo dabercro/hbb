@@ -1,30 +1,38 @@
 #! /bin/bash
 
-source ../plotter/CrombiePlotterConfig.sh
+source CrombiePlotterConfig.sh
 
-cut=$(python ../plotter/cuts.py inclusive signal | perl -ne 's/(n_\w*jet\s?<=?\s?\d*)/\(1\)/g; print $_') # Take out the n_(whatever)jets cuts
+echo "Output directory: $CrombieInFilesDir"
 
-for conf in "MC" "Signal"
+mkdir -p $CrombieInFilesDir
+
+cut="$(crombie2cut /home/dabercro/.crombie2/cuts/44/ce8b76e38c1ae9 light_training)"
+
+echo "Cut: $cut"
+
+while read line
 do
-    test -d links && rm -rf links
-    mkdir links
 
-    trainingdir=/data/t3home000/$USER/training
-    if [ -d $trainingdir ]
+    if echo $line | grep .root > /dev/null
     then
-        rm $trainingdir/[0-9]*.root
-    else
-        mkdir $trainingdir
+        directory=`echo $line | cut -d ' ' -f 2  | cut -d '.' -f 1`
+
+        mkdir $CrombieInFilesDir/$directory
+
+        crombie skim \
+            -n "$CrombieNLocalProcs" \
+            -i "$CrombieBigFilesDir/$directory" \
+            -o "$CrombieInFilesDir/$directory" \
+            -c "$cut" \
+            --keep classify2.txt \
+            --copy htotal
+
+        hadd $CrombieInFilesDir/$directory.root $CrombieInFilesDir/$directory/*.root
+
     fi
 
-    count=0
+done < "$CrombieMCConfig"
 
-    for f in $(perl -ne '/^[^#].*\s([^\s]*\.root)/ && print "$1\n"' ../plotter/${conf}Config.txt)
-    do
-        ln -s $CrombieInFilesDir/$f links/$count.root
-        count=$((count + 1))
-    done
-    crombie skim  --cut "$cut" --tree 'events' --run 'runNumber' --lumi 'lumiNumber' --event 'eventNumber' --freq 100000 --numproc $CrombieNLocalProcs --indir links --outdir $trainingdir
+crombie addxs
 
-    hadd -f $trainingdir/$conf.root $trainingdir/[0-9]*.root
-done
+hadd $CrombieInFilesDir/training.root $CrombieInFilesDir/*.root

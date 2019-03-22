@@ -439,6 +439,13 @@ int parsed_main(int argc, char** argv) {
         output.pfmet = newmet.pt;
         output.pfmetphi = newmet.phi;
 
+        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
+          std::cout << "After corrections" << std::endl;
+
+          corr_ptr->get_met().dump();
+          corr_ptr->get_jets().dump();
+        }
+
       }
 
       // We want the two jets with the highest CMVA
@@ -448,7 +455,7 @@ int parsed_main(int argc, char** argv) {
       jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2},
                             input::tagger == input::btagger::cmva ?
                             [] (const panda::Jet& j) { return j.cmva + 2; } :
-                            [] (const panda::Jet& j) { return j.deepCSVb + 2; });
+                            [] (const panda::Jet& j) { return j.deepCSVb + j.deepCSVbb + 2; });
 
       // Check if overlaps with EM object
       auto overlap_em = [&em_directions] (const panda::Particle& jet, double dr2) {
@@ -472,7 +479,7 @@ int parsed_main(int argc, char** argv) {
 
         lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
         lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
-        lazy::LazyCuts deepCSV_cuts = {jet.deepCSVb, 0.1522, 0.4941, 0.8001};
+        lazy::LazyCuts deepCSV_cuts = {jet.deepCSVb + jet.deepCSVbb, 0.1241, 0.4184, 0.7527};
 
         // Count jets (including forward)
         auto abseta = std::abs(jet.eta());

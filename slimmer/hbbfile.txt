@@ -35,8 +35,8 @@ $_trigger/O = false | met, hbb_2016, overlap
 met_filter/O = event.metFilters.pass()
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv, lazy::LazyCuts& deepCSV)
-  #jet_$[] -> jet.$() | pt, eta, phi
-  #jet_$[] -> jet.$ | cmva, deepCSVb, rawPt
+  jet_$[] -> jet.$() | pt, eta, phi
+  jet_$[] -> jet.$ | cmva, deepCSVb, rawPt
 !!  #? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
@@ -149,6 +149,7 @@ bsf(panda::Jet& jet, bool loose)
   sf_b_unbin = 1 -> *(quickb::scale_b(jet))
   sf_b_$_bin = 1 -> *(quickb::scale_b_$(jet)) | pt, pt_eta, pt_eta_v2
 
+  (abseta = std::abs(jet.eta()))
   (flavor = btag::flavor(jet))
   (scale = btag::get_scale(jet, flavor))
 
@@ -163,14 +164,14 @@ bsf(panda::Jet& jet, bool loose)
 
   DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
 
-  (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt(), cmva}>))
-  (nom_sf_2 = btag::deepcsv_reader.eval_auto_bounds("central", flavor, <jet.{eta(), pt()}>, <jet.deepCSV{b + bb}>))
+  (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, abseta, <jet.{pt(), cmva}>))
+  (nom_sf_2 = btag::deepcsv_reader.eval_auto_bounds("central", flavor, abseta, jet.pt(), <jet.deepCSV{b + bb}>))
 
   #bcal_sf$ -> nom_sf$ | , _2
   (bsf_eff = btag::eff(<jet.{pt, eta}()>, flavor))
 
-  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt(), cmva}>)) | BSYST |@ up, down
-  (tmp_sf_@$_2 = btag::deepcsv_reader.eval_auto_bounds("@_$", flavor, <jet.{eta(), pt()}>, <jet.deepCSV{b + bb}>)) | BSYST |@ up, down
+!!  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, abseta, <jet.{pt(), cmva}>)) | BSYST |@ up, down
+!!  (tmp_sf_@$_2 = btag::deepcsv_reader.eval_auto_bounds("@_$", flavor, abseta, jet.pt(), <jet.deepCSV{b + bb}>)) | BSYST |@ up, down
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
 !!  #? bcal_sf@; $ ? -> (tmp_sf_%$ ? tmp_sf_%$@ : nom_sf) | BSYST |@ , _2
@@ -179,6 +180,10 @@ bsf(panda::Jet& jet, bool loose)
   #bsf_denom -> +(bsf_eff)
 
   beff_sf$ <- (bsf_denom ? bsf_num$/bsf_denom : 1.0) | , _2
+
+  bjet_flav[]/b -> flavor
+  bjet_sf_3[] -> nom_sf_2
+  beff_sf_3 = 1 -> *(nom_sf_2)
 
 ! Place these before to drop uncertainties
 tag_$ <- eventNumber % 2 ? <jet{1 : 2}_$> | deepCSV, deepCSVb
@@ -207,7 +212,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     loosepu/O = false -> puid::loose(jet)
 
-    $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear, rawPt
+    $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear, rawPt, area
 
 !!    ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
@@ -377,8 +382,8 @@ renormfact {
   r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
 }
 
-!! [maier_event_class; data/Hbb_BDTG.weights.xml; data/bdt_translate.txt]
-!! [event_class; data/Classifier_resolved_BDT.weights.xml; data/dropcmva.txt]
+[[<tf$_{no, yes}>; data/test$.pb; ../analysis/classify2.txt; inputs; out/Softmax]] | <_v{1, 3, 4, 5}>
+
 
 ! -- genboson_pt > 30 --
 
@@ -387,17 +392,20 @@ DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_medium > 1 and (n_centerjet == 2 or 
 
 ! These are filled before the fill function
 -- \
+input::noskim or \
 debugevent::debugevent or \
 ((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
 BTAGPROBE
 --
 
 ! These are filled in the fill function
-++ debugevent::debugevent or \
+++ \
+input::noskim or \
+debugevent::debugevent or \
 BTAGPROBE or \
 ((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
- (daughter_max_pt > 50 and daughter_min_pt > 30 and \
-  dphi_uh > 1.8 and \
+ (daughter_max_pt > 40 and daughter_min_pt > 30 and \
+  dphi_uh > 1.6 and \
   std::max(hbb_pt, hbb_pt_reg_old) > 100) and \
    ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
     (n_lep_loose > 0 and n_centerjet >= 4)\

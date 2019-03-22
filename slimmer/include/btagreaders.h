@@ -1,7 +1,8 @@
 #ifndef DAN_BTAGREADERS_H
 #define DAN_BTAGREADERS_H 1
 
-#include "bcal/BTagCalibrationStandalone.cpp" 
+// #include "bcal/BTagCalibrationStandalone.cpp" 
+#include "CondTools/BTau/interface/BTagCalibrationReader.h"
 
 #include "PandaTree/Objects/interface/Event.h"
 
@@ -16,6 +17,7 @@ namespace {
   /* static const BTagCalibration csv_calib {"csv", "data/CSVv2_Moriond17_B_H.csv"}; */
   static const BTagCalibration cmva_calib {"cmva", input::tagger == input::btagger::cmva ? "data/cMVAv2_Moriond17_B_H.csv" : "data/DeepCSV_94XSF_V2_B_F.csv"};
   static const BTagCalibration deepcsv_calib {"deepcsv", "data/DeepCSV_102XSF_V1.csv"};
+  /* static const BTagCalibration deepcsv_calib {"deepcsv", "data/DeepCSV_94XSF_V2_B_F.csv"}; */
 
   // Here we define functions that returns the reader for each working point
   BTagCalibrationReader get_reader(const BTagEntry::OperatingPoint op, const BTagCalibration& calib) {

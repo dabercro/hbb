@@ -11,7 +11,7 @@ echo -n "-L${CMSSW_RELEASE_BASE}/external/lib/${SCRAM_ARCH} "
 
 # Need this from CMSSW
 
-echo -n "-lFWCoreMessageLogger -lCondFormatsJetMETObjects "
+echo -n "-lFWCoreMessageLogger -lCondFormatsJetMETObjects -lCondFormatsBTauObjects -lCondToolsBTau "
 
 # Get other flags from scram
 

@@ -9,6 +9,8 @@ namespace {
 
 namespace input {
 
+  const char* noskim = getenv("noskim");
+
   const bool isHT = is("_HT-");
 
   const bool isW = is("_HToBB_W");
