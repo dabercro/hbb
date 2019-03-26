@@ -1,0 +1,14 @@
+hbb_m
+hbb_pt
+hbb_pt_over_vpt
+jet1_deepCSV
+jet2_deepCSV
+daughter_dR
+daughter_deta
+daughter_dphi
+dphi_uh
+jet1_pt
+jet2_pt
+n_soft_5
+recoil
+min_dphi_metj_hard
