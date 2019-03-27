@@ -35,4 +35,4 @@ done < "$CrombieMCConfig"
 
 crombie addxs
 
-hadd $CrombieInFilesDir/training.root $CrombieInFilesDir/*.root
+hadd $CrombieInFilesDir/training_$vers.root $CrombieInFilesDir/*.root

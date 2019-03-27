@@ -28,11 +28,11 @@ do
     esac
 done
 
-input=/local/dabercro/files/training.root
+input=/local/dabercro/files/training_v3.root
 
 source CrombiePlotterConfig.sh
 
-test -f $input || input=$CrombieInFilesDir/training.root
+test -f $input || input=$CrombieInFilesDir/$(basename $input)
 
 test -d history || mkdir history
 

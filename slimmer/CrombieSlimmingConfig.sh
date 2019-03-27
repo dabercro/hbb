@@ -1,8 +1,7 @@
 #inp_dir=/mnt/hadoop/scratch/dabercro/hbb
 inp_dir=/data/t3home000/dabercro/hbb
 version='013'
-#fin_dir=$(date +%y%m%d)_$version
-fin_dir=190322_$version
+fin_dir=$(date +%y%m%d)_$version
 
 # Condor
 export CrombieExe='eval input_dir=$INPUT_DIR mkhbb'

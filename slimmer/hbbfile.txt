@@ -197,8 +197,8 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
 
 DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, ch, mu}_r{0..5}>
 
-  #@_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
-  #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
+  @_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
+  @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
   bjet(panda::Jet& jet, float maxtrk, float maxpf, <T> nlep, <P> lep, <C> cuts)
 
@@ -231,8 +231,8 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     (puppi = regression::GetJetInfo(jet))
     puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
 
-    #$_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
-    #@_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
+    $_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
+    @_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
 
     $ -> puppi.$ | ptD
     $/s -> puppi.$ | num03
@@ -383,7 +383,8 @@ renormfact {
 }
 
 
-[[<tf$_{no, yes}>; data/test$.pb; ../analysis/classify2.txt; inputs; out/Softmax]] | <_v{1, 3, 4, 5, 6}>
+[[<tf$_{no, yes}>; data/test$.pb; ../analysis/classify2.txt; inputs; out/Softmax]] | <_v{1, 3, 4, 5, 6, 7, 8}>
+! [[<tf_test_{no, yes}>; ../analysis/weights/test$.pb; ../analysis/classify2.txt; inputs; out/Softmax]] | _v8
 
 
 ! -- genboson_pt > 30 --
