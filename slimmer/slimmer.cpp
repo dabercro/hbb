@@ -375,9 +375,9 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Starting gen bosons, size: " << event.genParticles.size() << std::endl;
 
       for (auto& gen : event.genParticles) {
-        if (input::version >= 12 and gen.miniaodPacked)
-          continue;
         auto abspdgid = std::abs(gen.pdgid);
+        if (input::version >= 12 and gen.miniaodPacked and not (abspdgid == 12 or abspdgid == 14))
+          continue;
         if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
           output.set_gen(hbbfile::gen::genboson, gen);
 
@@ -390,7 +390,7 @@ int parsed_main(int argc, char** argv) {
         else if (abspdgid == 25)
           gen_higgs.check(gen);
 
-        else if (abspdgid == 12 or abspdgid == 14) {
+        else if (abspdgid == 12 or abspdgid == 14 and (input::version < 12 or gen.miniaodPacked)) {
           // Check jets of each collection for closest jet to neutrinos and add to the genvec stored in jetstore's extra
           float cone_size = std::pow(0.4, 2);   // Neutrinos must be within deltaR2 = (0.4)^2
           panda::GenJet* closest = nullptr;
@@ -471,7 +471,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : (corr_ptr ? corr_ptr->get_jets() : event.chsAK4Jets)) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 20.0 or not puid::loose(jet, &output)) {
+        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 15.0 or not puid::loose(jet, &output)) {
           if (debugevent::debug)
             std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
           continue;
@@ -485,7 +485,7 @@ int parsed_main(int argc, char** argv) {
         auto abseta = std::abs(jet.eta());
         output.set_countjets(jet, abseta, cmva_cuts, csv_cuts, deepCSV_cuts);
 
-        if (abseta < 2.4 and jet.loose) {
+        if (abseta < 2.5 and jet.loose) {
           stored_bjets.check(jet, {input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts});
           output.set_bsf(jet, (input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts).loose());
         }

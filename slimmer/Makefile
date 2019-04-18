@@ -18,7 +18,8 @@ pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
 target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(exename)
 install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
 pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
+#testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
+testfile = /data/t3home000/dabercro/scratch/$(vers)/*.root
 
 checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
@@ -92,7 +93,7 @@ $(corrections): data/downloads.url
 
 install: $(tarball) $(install) $(effs)
 
-testdir = ${HOME}/public_html/plots/testhbb
+testdir = ${HOME}/public_html/plots/testhbb_$(vers)
 
 test: $(target) $(effs) data/jec/jec.d
 	test -d old || mkdir old

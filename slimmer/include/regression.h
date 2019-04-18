@@ -2,10 +2,23 @@
 
 namespace regression {
 
+  class VectorWrapper : public TLorentzVector {
+  public:
+
+    VectorWrapper& operator += (const TLorentzVector& vec) {
+      filled = true;
+      TLorentzVector::operator+=(vec);
+      return *this;
+    }
+
+    bool filled {false};
+
+  };
+
   // Get the directions of the PUPPI particles in the area
   class JetInfo {
   public:
-    using type = TLorentzVector;
+    using type = VectorWrapper;
     using scalar = float;
 
     // PUPPI vectors

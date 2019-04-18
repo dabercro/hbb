@@ -1,5 +1,8 @@
 #! /bin/bash
 
+export vers=v3
+export type=classification
+
 source CrombiePlotterConfig.sh
 
 echo "Output directory: $CrombieInFilesDir"

@@ -229,25 +229,31 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     ! Regression stuff
     (puppi = regression::GetJetInfo(jet))
-    puppi_@_$ -> puppi.@.$$() | pt, eta, phi, m, e |@ <{charged, neutral}{, _pu}>
+    puppi_@_$ -> puppi.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
+    puppi_@_$ -> puppi.@.filled ? puppi.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
 
     $_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
-    @_rX_$ -> puppi.@_rings[X].second.$$() | pt, eta, phi, m, e |@ em, neut, ch, mu |X 0..5
+    @_rX_$ -> puppi.@_rings[X].second.$$() | pt, m, e |@ em, neut, ch, mu |X 0..5
+    @_rX_$ -> puppi.@_rings[X].second.filled ? puppi.@_rings[X].second.$$() : []_$ | eta, phi |@ em, neut, ch, mu |X 0..5
 
     $ -> puppi.$ | ptD
     $/s -> puppi.$ | num03
 
+    leadlep_$ -> lep ? lep->$() : []_$ | eta, phi
+
     ~~ lep ~~
 
     nlep/b -> nlep
-    leadlep_$ -> lep->$() | pt, eta, phi, m, e
+    leadlep_$ -> lep->$() | pt, m, e
     leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
     leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
 
   bvert(panda::Ref<panda::SecondaryVertex>& vert)
+    vtx_$ -> vert.isValid() ? vert->$() : []_$ | eta, phi
+
     ~~ vert.isValid() ~~
 
-    vtx_$ -> vert->$() | pt, eta, phi, m, e
+    vtx_$ -> vert->$() | pt, m, e
 
     vtx_3Dval -> vert->vtx3DVal
     vtx_3Derr -> vert->vtx3DeVal
@@ -272,14 +278,42 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     reclustered/O = false -> true
     reclustered_$ -> jet->$() | pt, eta, phi, m
 
+DEFINE TF_VERS v2, v4, v9, v10
+
+  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
+         {"linear/linear_model/linear_model/linear_model/weighted_sum"}, 4, \
+         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v9
+
+  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
+         {"dnn/logits/BiasAdd"}, 4, \
+         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v10
+
+  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
+         {"add"}, 4, \
+         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v2
+
+  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
+         {"split_logits/Slice"}, 4, \
+         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v4
+
+!  tf_@_$ <- []_tf_@[=$=] | ptratio, deta, dphi, mratio |@ TF_VERS
+
+  tf_@_$ <- []_tf_@[=$=] | ptratio |@ TF_VERS
+  tf_@_$ = 0 | deta, dphi |@ TF_VERS
+  tf_@_$ = 1 | mratio |@ TF_VERS
+
   [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
-  [[<tf_{ptratio, deta, dphi, mratio}>; data/output_test.pb; ../analysis/regression_branches.txt; inputs; <out/{0..4}/Identity>]]
+  [pt_ratio_new; data/Regression_v3_BDT.weights.xml; jet1] = 1
 
   ! Need a more systematic name system
 
-  pt_reg$ <- []_pt_ratio$ * []_pt | _old ! , _old_method
-  $_tf <- []_tf_$ratio * []_$ | pt, m
-  $_tf <- []_tf_d$ + []_$ | eta, phi
+  pt_reg$ <- []_pt_ratio$ * []_pt | _old, _new ! , _old_method
+  $_tf_@ <- []_tf_@_$ratio * []_$ | pt, m |@ TF_VERS
+  $_tf_@ <- []_tf_@_d$ + []_$ | eta, phi |@ TF_VERS
 
 }
 
@@ -293,13 +327,13 @@ hbb {
     /O = false -> true
     $ -> []_vec.$$() | pt, eta, phi, m
 
-    m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old ! , _old_method
-    pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old ! , _old_method
+    m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _new ! , _old_method
+    pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old, _new ! , _old_method
 
-    m_tf <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf>)
-    pt_tf <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf>)
+    m_tf_@ <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf_@>) |@ TF_VERS
+    pt_tf_@ <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf_@>) |@ TF_VERS
 
-    reg$_over_m <- []_m_reg$/[]_m | _old ! , _old_method
+    reg$_over_m <- []_m_reg$/[]_m | _old, _new ! , _old_method
 
   hbbgen(panda::GenParticle& gen, float dr)
     gen/O = false -> true
@@ -382,38 +416,34 @@ renormfact {
   r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
 }
 
-
-[[<tf$_{no, yes}>; data/test$.pb; ../analysis/classify2.txt; inputs; out/Softmax]] | <_v{1, 3, 4, 5, 6, 7, 8}>
-! [[<tf_test_{no, yes}>; ../analysis/weights/test$.pb; ../analysis/classify2.txt; inputs; out/Softmax]] | _v8
-
-
 ! -- genboson_pt > 30 --
+-- jet1_gen_numB --
 
 ! Filter
 DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_medium > 1 and (n_centerjet == 2 or n_allbjet == 2))
 
-! These are filled before the fill function
--- \
-input::noskim or \
-debugevent::debugevent or \
-((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
-BTAGPROBE
---
-
-! These are filled in the fill function
-++ \
-input::noskim or \
-debugevent::debugevent or \
-BTAGPROBE or \
-((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
- (daughter_max_pt > 40 and daughter_min_pt > 30 and \
-  dphi_uh > 1.6 and \
-  std::max(hbb_pt, hbb_pt_reg_old) > 100) and \
-   ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
-    (n_lep_loose > 0 and n_centerjet >= 4)\
-   )\
-) \
-++
+! ! These are filled before the fill function
+! -- \
+! input::noskim or \
+! debugevent::debugevent or \
+! ((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
+! BTAGPROBE
+! --
+! 
+! ! These are filled in the fill function
+! ++ \
+! input::noskim or \
+! debugevent::debugevent or \
+! BTAGPROBE or \
+! ((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
+!  (daughter_max_pt > 40 and daughter_min_pt > 30 and \
+!   dphi_uh > 1.6 and \
+!   std::max({<hbb_{pt, pt_reg_new, pt_reg_old}>}) > 100) and \
+!    ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
+!     (n_lep_loose > 0 and n_centerjet >= 4)\
+!    )\
+! ) \
+! ++
 
 
 !!!!!!!! Scale factors !!!!!!!!

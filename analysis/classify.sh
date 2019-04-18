@@ -37,7 +37,7 @@ test -f $input || input=$CrombieInFilesDir/$(basename $input)
 test -d history || mkdir history
 
 ./classifier.py \
-    -c classify2.txt \
+    -c classify3.txt \
     -i $input\
     -t hbb_gen \
     -o $output \

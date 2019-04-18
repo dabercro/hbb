@@ -12,10 +12,7 @@ from argparse import ArgumentParser
 
 import numpy
 import keras
-from keras.losses import categorical_crossentropy
-from keras import backend as K
 
-import tensorflow
 from tensorflow.python.framework import graph_util
 from tensorflow.python.framework import graph_io
 
@@ -71,7 +68,7 @@ class Reweighter(object):
 
 
 class Trainer(object):
-    def __init__(self, inputs, targets, layers, endsoft, adversary=None, **kwargs):
+    def __init__(self, inputs, targets, layers, endsoft, **kwargs):
 
         num_inputs = len(inputs)
         num_targets = len(targets[0])
@@ -90,13 +87,8 @@ class Trainer(object):
             activation='softmax' if endsoft else'linear',
             name='out')(keras.layers.Dense(num_targets)(layer))
 
-        self.my_model = keras.models.Model(inputs=input_layer, output=outputs)
-
-        if adversary:
-            adversary.model = self.my_model
-            kwargs['loss'] = adversary.loss
-
-        self.my_model.compile(**kwargs)
+        self.model = keras.models.Model(inputs=input_layer, output=outputs)
+        self.model.compile(**kwargs)
 
 
 def load(inputfile, target, inputs, adversary, weight, reweight):
@@ -164,6 +156,11 @@ def load(inputfile, target, inputs, adversary, weight, reweight):
         for index, point in enumerate(data):
             weights[index] *= reweighters[labels[index][0]].get_weight(point)
 
+#        reweighter = Reweighter(smooths)
+
+#        for index, point in enumerate(data):
+#            weights[index] *= reweighter.get_weight(point)
+
     return keras.utils.to_categorical(labels), data, smooths, weights
 
 
@@ -199,53 +196,6 @@ def parse():
     return parser.parse_args()
 
 
-def min_error (y_true, y_pred):
-    return K.min(K.square(y_true - y_pred), axis=-1)
-
-
-class Adversary(keras.callbacks.Callback, Trainer):
-
-    def __init__(self, data, smooths, **kwargs):
-        Trainer.__init__(self, **kwargs)
-        self.data = data
-        self.smooths = smooths
-        self.evaluated = None
-        self.model = None
-        self.num_epochs = 100
-
-        K.set_value(self.my_model.optimizer.lr, 10.)
-
-    def on_epoch_end(self, epoch, *_):
-        if not epoch or epoch % 100:
-            return
-
-        # This is the classifier model
-        self.evaluated = self.model.predict(self.data)
-        # my_model is the adversary
-        self.my_model.fit(self.evaluated, self.smooths,
-                          validation_split=0.2,
-                          epochs=self.num_epochs, batch_size=200000)
-        # Drop after intial training
-        self.num_epochs = 10
-        K.set_value(self.my_model.optimizer.lr, 1.)
-
-    def loss(self, y_true, y_pred):
-        # Get loss from adversary
-        if self.model is None:
-            LOG.error('Model is None...')
-
-        classifier_result = tensorflow.py_function(self.model.predict,
-                                                   (self.data, ),
-                                                   numpy.ndarray)
-
-        adversary_score = tensorflow.py_function(self.my_model.evaluate,
-                                                 (classifier_result, self.smooths),
-                                                 numpy.ndarray)
-
-        return categorical_crossentropy(y_true, y_pred) - \
-            adversary_score
-
-
 if __name__ == '__main__':
 
     logging.debug('Args: %s', sys.argv)
@@ -261,34 +211,34 @@ if __name__ == '__main__':
 
     labels, data, smooths, weights = load(args.input, args.target, inputs, smooth, args.weight, args.reweight)
 
-    # Adversarial
-#    adversarial = Adversary(data=data,
-#                            smooths=smooths,
-#                            inputs=labels[0],
-#                            targets=smooths,
-#                            layers=20,
-#                            endsoft=False,
-#                            optimizer='adam',
-#                            loss=min_error)
-
     # Initial
     model = Trainer(inputs=inputs,
                     targets=labels,
-#                    adversary=adversarial,
                     layers=args.layers,
                     endsoft=True,
                     optimizer='rmsprop',
                     loss='categorical_crossentropy',
-                    metrics=['accuracy']                                 
-                    )
+                    metrics=['accuracy'])
 
-    initial = model.my_model.fit(data, labels, validation_split=0.5,
-                                 epochs=args.epochs, batch_size=args.batch,
-#                                 callbacks=[adversarial],
-                                 )
+    initial = model.model.fit(data, labels, validation_split=0.5,
+                              epochs=args.epochs, batch_size=args.batch)
+
+#    pickle.dump(initial, 'history/initial.pkl')
+
+    # Adversarial
+    score = model.model.evaluate(data, labels)
+
+    logging.info('Score: %s', score)
+
+    evaluated = model.model.predict(data)
+
+    logging.debug('Evaluated: %s', evaluated)
+
+    #adversarial = Trainer(['class'], smooth, 2, 'adam', 'mean_squared_error')
+    #adversarial.fit(evaluated, smooths)
 
     sess = keras.backend.get_session()
-    output_node = [n.op.name for n in model.my_model.outputs]
+    output_node = [n.op.name for n in model.model.outputs]
     logging.info('Output node: %s', output_node)
     graph = graph_util.convert_variables_to_constants(sess, sess.graph.as_graph_def(), output_node)
 

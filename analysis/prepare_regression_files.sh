@@ -1,14 +1,15 @@
 #! /bin/bash
 
-source CrombiePlotterConfig.sh
+export vers=v5
+export type=regression
 
-export CrombieInFilesDir=$CrombieRegFilesDir
+source CrombiePlotterConfig.sh
 
 echo "Output directory: $CrombieInFilesDir"
 
 mkdir -p $CrombieInFilesDir
 
-cut="$(crombie2cut /home/dabercro/.crombie2/cuts/b3/b435037da855cb regression)"
+cut="$(crombie2cut /home/dabercro/.crombie2/cuts/db/70ce239bddc877 regression) && jet1_gen_numnu == jet1_gen_numnu"
 
 echo "Cut: $cut"
 
@@ -21,11 +22,7 @@ crombie skim \
     -i "$CrombieBigFilesDir/$directory" \
     -o "$CrombieInFilesDir/$directory" \
     -c "$cut" \
-    --keep regression_branches.txt \
+    --keep regression2.txt \
     --copy htotal
 
 hadd $CrombieInFilesDir/$directory.root $CrombieInFilesDir/$directory/*.root
-
-crombie addxs skip
-
-hadd $CrombieInFilesDir/training_$regvers.root $CrombieInFilesDir/*.root

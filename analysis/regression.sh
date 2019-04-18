@@ -1,11 +1,11 @@
 #! /bin/bash
 
-nevents=20000
+nevents=200000
 
-for branches in "regression_branches.txt"
+for branches in "regression2.txt"
 do
 
-    suff='_test'
+    suff='_v3'
 
     # For some reasons, BoostType=Grad gives shitty response?
 
@@ -23,11 +23,11 @@ do
 
         crombie tmva \
             --config      $branches \
-            --regression  /data/t3home000/dabercro/hbb/breg2/TTTo2L2Nu*.root \
+            --regression  /data/t3home000/dabercro/training/regression/v3/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8.root \
             --weight      '1' \
             --cut         '1' \
             --method      BDT \
-            --target      'cmva_jet1_gen_withnu_pt/cmva_jet1_pt' \
+            --target      'jet1_gen_withnu_pt/jet1_pt' \
             --targetname  'ptratio' \
             --prepare     "nTrain_Regression=${nevents}:nTest_Regression=${nevents}:SplitMode=Random:!V" \
             --methodopt   $training \
