@@ -14,6 +14,7 @@ DEFINE REGS 3, 15, 40
 #isData/O = event.isData
 
 $/i = event.$ | runNumber, lumiNumber
+$ = event.$ | rho
 eventNumber/l = event.eventNumber
 
 npv/s = event.npv
@@ -37,7 +38,7 @@ met_filter/O = event.metFilters.pass()
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv, lazy::LazyCuts& deepCSV)
   jet_$[] -> jet.$() | pt, eta, phi
   jet_$[] -> jet.$ | cmva, deepCSVb, rawPt
-!!  #? jet_pt[]; jetpt ? -> jet.ptCorr%%
+  #? jet_pt[]; jetpt ? -> jet.ptCorr%%
 
 ! Count some objects
 {/b}
@@ -68,7 +69,7 @@ n_soft {
   , _all, _dylan {
     softcount(float pt)
       $ -> +(pt > $) | 2, 5, 10
-!!      ? $ ; softcount ? -> +(pt * (1.0 +- 0.1) > $) | 2, 5, 10
+      ? $ ; softcount ? -> +(pt * (1.0 +- 0.1) > $) | 2, 5, 10
   }
 }
 
@@ -156,7 +157,7 @@ bsf(panda::Jet& jet, bool loose)
   ! Stuff for histogram-based scale factors
 
   #bjet_sf -> scale["central"]
-!!  #? bjet_sf; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf | JES, LF, HF, <{cErr, Stats}{1, 2}>
+  #? bjet_sf; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf | JES, LF, HF, <{cErr, Stats}{1, 2}>
 
   btag_sf = 1 -> *(bjet_sf)
 
@@ -170,11 +171,11 @@ bsf(panda::Jet& jet, bool loose)
   #bcal_sf$ -> nom_sf$ | , _2
   (bsf_eff = btag::eff(<jet.{pt, eta}()>, flavor))
 
-!!  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, abseta, <jet.{pt(), cmva}>)) | BSYST |@ up, down
-!!  (tmp_sf_@$_2 = btag::deepcsv_reader.eval_auto_bounds("@_$", flavor, abseta, jet.pt(), <jet.deepCSV{b + bb}>)) | BSYST |@ up, down
+  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, abseta, <jet.{pt(), cmva}>)) | BSYST |@ up, down
+  (tmp_sf_@$_2 = btag::deepcsv_reader.eval_auto_bounds("@_$", flavor, abseta, jet.pt(), <jet.deepCSV{b + bb}>)) | BSYST |@ up, down
 
   ! Systematics can be zero sometimes, so we want to evaluate that first
-!!  #? bcal_sf@; $ ? -> (tmp_sf_%$ ? tmp_sf_%$@ : nom_sf) | BSYST |@ , _2
+  #? bcal_sf@; $ ? -> (tmp_sf_%$ ? tmp_sf_%$@ : nom_sf) | BSYST |@ , _2
 
   #bsf_num$ -> +(bcal_sf$ * bsf_eff) | , _2
   #bsf_denom -> +(bsf_eff)
@@ -204,7 +205,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     /O = false -> true
     $ = -1 -> jet.$() | pt, eta, phi, m, e
-!!    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
+    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
     #p4/TLorentzVector = TLorentzVector() -> [&] () { TLorentzVector p4; p4.SetPtEtaPhiM(<[]_{pt, eta, phi, m}>); return p4; } ()
 
@@ -214,7 +215,9 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear, rawPt, area
 
-!!    ? ptSmear; jetsmear ? -> jet.ptSmear%%
+    rawFactor <- []_pt/[]_rawPt
+
+    ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
     ! Set the taggers to -2 to disappear them from plots
     $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
@@ -227,6 +230,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     $ -> $ | <max{trk, pf}>
 
+    !!!!!!!
     ! Regression stuff
     (puppi = regression::GetJetInfo(jet))
     puppi_@_$ -> puppi.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
@@ -236,8 +240,14 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     @_rX_$ -> puppi.@_rings[X].second.$$() | pt, m, e |@ em, neut, ch, mu |X 0..5
     @_rX_$ -> puppi.@_rings[X].second.filled ? puppi.@_rings[X].second.$$() : []_$ | eta, phi |@ em, neut, ch, mu |X 0..5
 
+    $_r@_rawE <- []_$_r@_energy/[]_rawFactor | em, neut, ch, mu |@ 0..5
+
     $ -> puppi.$ | ptD
     $/s -> puppi.$ | num03
+
+    pf_@_$ -> puppi.pfinfo[@].$ |@ 0..10 | ptfrac, deta, dphi, puppiwt
+    pf_@_$/I -> puppi.pfinfo[@].$ |@ 0..10 | pdgid
+    !!!!!!!
 
     leadlep_$ -> lep ? lep->$() : []_$ | eta, phi
 
@@ -247,6 +257,10 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     leadlep_$ -> lep->$() | pt, m, e
     leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
     leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
+    leadlep_$/S -> lep->$ | pdgid
+    isEle/O <- std::abs([]_leadlep_pdgid) == 11
+    isMu/O <- std::abs([]_leadlep_pdgid) == 13
+    isOther/O <- not ([]_isEle or []_isMu)
 
   bvert(panda::Ref<panda::SecondaryVertex>& vert)
     vtx_$ -> vert.isValid() ? vert->$() : []_$ | eta, phi
@@ -278,33 +292,29 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     reclustered/O = false -> true
     reclustered_$ -> jet->$() | pt, eta, phi, m
 
-DEFINE TF_VERS v2, v4, v9, v10
+DEFINE TF_VERS v5, v7, v8, v10, v12
 
-  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
-         {"linear/linear_model/linear_model/linear_model/weighted_sum"}, 4, \
-         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v9
+!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+!      <- lazytf::eval("data/freeze_@.pb", "data/regression2.txt", \
+!         {"dnn/logits/BiasAdd"}, 4, \
+!         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v7, v10
 
-  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
-         {"dnn/logits/BiasAdd"}, 4, \
-         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v10
+!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+!      <- lazytf::eval("data/freeze_@.pb", "data/regression2.txt", \
+!         {"dnn/split_logits/Slice"}, 4, \
+!         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v5
 
-  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
-         {"add"}, 4, \
-         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v2
+!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+!      <- lazytf::eval("data/freeze_@.pb", "data/regression4.txt", \
+!         {"dnn/split_logits/Slice"}, 4, \
+!         `perl -ane 'chomp; s/jet1/\[\]/g; s/.*=\s*(.*)/$1/; print; eof || print ", "' data/regression4.txt`) |@ v12
 
-  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-      <- lazytf::eval("/home/dabercro/hbb/analysis/models/premade_@/freeze.pb", "data/regression2.txt", \
-         {"split_logits/Slice"}, 4, \
-         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v4
+!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
+!      <- lazytf::eval("data/freeze_@.pb", "data/regression4.txt", \
+!         {"dnn/logits/BiasAdd"}, 4, \
+!         `perl -ane 'chomp; s/jet1/\[\]/g; s/.*=\s*(.*)/$1/; print; eof || print ", "' data/regression4.txt`) |@ v8
 
 !  tf_@_$ <- []_tf_@[=$=] | ptratio, deta, dphi, mratio |@ TF_VERS
-
-  tf_@_$ <- []_tf_@[=$=] | ptratio |@ TF_VERS
-  tf_@_$ = 0 | deta, dphi |@ TF_VERS
-  tf_@_$ = 1 | mratio |@ TF_VERS
 
   [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
   [pt_ratio_new; data/Regression_v3_BDT.weights.xml; jet1] = 1
@@ -312,8 +322,8 @@ DEFINE TF_VERS v2, v4, v9, v10
   ! Need a more systematic name system
 
   pt_reg$ <- []_pt_ratio$ * []_pt | _old, _new ! , _old_method
-  $_tf_@ <- []_tf_@_$ratio * []_$ | pt, m |@ TF_VERS
-  $_tf_@ <- []_tf_@_d$ + []_$ | eta, phi |@ TF_VERS
+!  $_tf_@ <- []_tf_@_$ratio * []_$ | pt, m |@ TF_VERS
+!  $_tf_@ <- []_tf_@_d$ + []_$ | eta, phi |@ TF_VERS
 
 }
 
@@ -330,8 +340,8 @@ hbb {
     m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _new ! , _old_method
     pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old, _new ! , _old_method
 
-    m_tf_@ <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf_@>) |@ TF_VERS
-    pt_tf_@ <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf_@>) |@ TF_VERS
+!    m_tf_@ <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf_@>) |@ TF_VERS
+!    pt_tf_@ <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf_@>) |@ TF_VERS
 
     reg$_over_m <- []_m_reg$/[]_m | _old, _new ! , _old_method
 
@@ -359,7 +369,7 @@ daughter_dR <- deltaR(<jet{1, 2}_{eta, phi}>)
 countfat(panda::FatJet& jet)
 
   n_fatjet -> +(jet.pt() > 200)
-!!  ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
+  ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
 
 {/F}
 
@@ -370,7 +380,7 @@ ak8 {
 
       /O = false -> true
       $ -> jet.$() | pt, eta, phi, m, e
-!!      ? pt; jetpt ? -> jet.ptCorr%%
+      ? pt; jetpt ? -> jet.ptCorr%%
       $/O = false -> jet.$ | loose, tight, monojet
       $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
 
@@ -408,7 +418,7 @@ pdf = 1.0
 !! ? pdf; pdf ? = input::version <= 9 ? 1.0 +- std::abs(event.genReweight.pdfDW) : 1.0
 
 ! pandaf/010
-! pdf_$ = input::version >= 10 ? event.genReweight.pdfAltDW[$] : 1.0 | 0..100
+pdf_$ = input::version >= 10 ? event.genReweight.pdfAltDW[$] : 1.0 | 0..100
 
 renormfact {
   /F = 1.0
@@ -416,34 +426,36 @@ renormfact {
   r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
 }
 
+[[<tf_class_{no, yes}>; data/classifier_190512.pb; ../analysis/classify3.txt; inputs; out/Softmax]]
+
 ! -- genboson_pt > 30 --
--- jet1_gen_numB --
+! -- jet1_gen_numB --
 
 ! Filter
 DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_medium > 1 and (n_centerjet == 2 or n_allbjet == 2))
 
-! ! These are filled before the fill function
-! -- \
-! input::noskim or \
-! debugevent::debugevent or \
-! ((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
-! BTAGPROBE
-! --
-! 
-! ! These are filled in the fill function
-! ++ \
-! input::noskim or \
-! debugevent::debugevent or \
-! BTAGPROBE or \
-! ((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
-!  (daughter_max_pt > 40 and daughter_min_pt > 30 and \
-!   dphi_uh > 1.6 and \
-!   std::max({<hbb_{pt, pt_reg_new, pt_reg_old}>}) > 100) and \
-!    ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
-!     (n_lep_loose > 0 and n_centerjet >= 4)\
-!    )\
-! ) \
-! ++
+! These are filled before the fill function
+-- \
+input::noskim or \
+debugevent::debugevent or \
+((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
+BTAGPROBE
+--
+
+! These are filled in the fill function
+++ \
+input::noskim or \
+debugevent::debugevent or \
+BTAGPROBE or \
+((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
+ (daughter_max_pt > 40 and daughter_min_pt > 30 and \
+  dphi_uh > 1.6 and \
+  std::max({<hbb_{pt, pt_reg_new, pt_reg_old}>}) > 100) and \
+   ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
+    (n_lep_loose > 0 and n_centerjet >= 4)\
+   )\
+) \
+++
 
 
 !!!!!!!! Scale factors !!!!!!!!
@@ -469,7 +481,7 @@ sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 
 ~ ewk_$; KFACTORS; EWKcorr/$$, $$Jets_012j_NLO/nominal; HTCUT ~ | z, w
 ~ $kfactor; KFACTORS; $$Jets_012j_NLO/nominal, $$Jets_LO/inv_pt; HTCUT ~ | z, w
-!! ?~ $kfactor_$@%%; KFACTORS; $$Jets_012j_NLO/@_%, $$Jets_LO/inv_pt ; HTCUT ~ | z, w |@ fact, ren |% up, down
+?~ $kfactor_$@%%; KFACTORS; $$Jets_012j_NLO/@_%, $$Jets_LO/inv_pt ; HTCUT ~ | z, w |@ fact, ren |% up, down
 
 DEFINE HFILE genboson_pt; data/$_nloEWK_weight_unnormalized.root
 DEFINE HCUT input::is$ and std::abs(genboson_pdgid) ==
@@ -481,5 +493,5 @@ DEFINE HNOM vh_ewk; HFILE; SignalWeight_nloEWK_rebin; HCUT
 
 DEFINE HUNC vh_ewk_ewk%%; HFILE; SignalWeight_nloEWK_%_rebin; HCUT
 
-!! ?~ HUNC 24 ~ | Wm, Wp |% up, down
-!! ?~ HUNC 25 ~ | Zll, Znn |% up, down
+?~ HUNC 24 ~ | Wm, Wp |% up, down
+?~ HUNC 25 ~ | Zll, Znn |% up, down

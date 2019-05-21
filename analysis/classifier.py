@@ -226,13 +226,13 @@ if __name__ == '__main__':
 #    pickle.dump(initial, 'history/initial.pkl')
 
     # Adversarial
-    score = model.model.evaluate(data, labels)
+#    score = model.model.evaluate(data, labels)
 
-    logging.info('Score: %s', score)
+#    logging.info('Score: %s', score)
 
-    evaluated = model.model.predict(data)
+#    evaluated = model.model.predict(data)
 
-    logging.debug('Evaluated: %s', evaluated)
+#    logging.debug('Evaluated: %s', evaluated)
 
     #adversarial = Trainer(['class'], smooth, 2, 'adam', 'mean_squared_error')
     #adversarial.fit(evaluated, smooths)

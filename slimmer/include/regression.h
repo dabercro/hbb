@@ -2,6 +2,8 @@
 
 namespace regression {
 
+  const static unsigned pfmax = 10;
+
   class VectorWrapper : public TLorentzVector {
   public:
 
@@ -12,6 +14,21 @@ namespace regression {
     }
 
     bool filled {false};
+
+  };
+
+  class PFInfo {
+  public:
+
+    PFInfo () {}
+    PFInfo (float pt, float de, float dp, int pdg, float pup) :
+    ptfrac {pt}, deta {de}, dphi {dp}, pdgid {pdg}, puppiwt {pup} {}
+
+    float ptfrac {};
+    float deta {};
+    float dphi {};
+    int pdgid {};
+    float puppiwt {};
 
   };
 
@@ -37,6 +54,9 @@ namespace regression {
     // Additional information about the pf candidates
     scalar ptD {0};
     unsigned num03 {0};
+
+    std::vector<PFInfo> pfinfo = std::vector<PFInfo> (pfmax);
+
   };
 
   JetInfo GetJetInfo(const panda::Jet& jet) {
@@ -47,6 +67,7 @@ namespace regression {
     float sum_pt {0};
 
     // Fill information about the constituents
+    unsigned pfindex = 0;
     for (auto pf : jet.constituents) {
       if (not pf.isValid())
         continue;
@@ -94,6 +115,14 @@ namespace regression {
       // num candidates with pt > 0.3
       if (pt > 0.3)
         ++output.num03;
+
+      if (pfindex < pfmax)
+        output.pfinfo[pfindex++] = PFInfo(pt/jet.pt(),
+                                          p4.Eta() - jet.eta(),
+                                          TVector2::Phi_mpi_pi(p4.Phi() - jet.phi()),
+                                          pf->pdgId(),
+                                          puppi);
+
     }
 
     output.ptD = sum_weight/sum_pt;

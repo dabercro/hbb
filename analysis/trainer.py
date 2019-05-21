@@ -2,11 +2,13 @@
 
 import os
 import sys
+import time
+import datetime
 
 import tensorflow as tf
 
 
-INVERSION = 0
+INVERSION = 3
 
 INDIR = '/local/dabercro/files/tf_v%i' % INVERSION
 if not os.path.exists(INDIR):
@@ -14,7 +16,9 @@ if not os.path.exists(INDIR):
 
 INFILES = os.listdir(INDIR)
 
-modelroot = '/home/dabercro/hbb/analysis/models/premade_v%i'
+modelroot = '/data/t3home000/dabercro/models/premade_{0}_v%i'.format(
+    datetime.datetime.fromtimestamp(time.time()).strftime('%y%m%d')
+)
 modelindex = 0
 # Let's make a new directory each time
 while os.path.exists(modelroot % modelindex):
@@ -22,8 +26,8 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression2.txt'
-OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets.txt'
+INPUTSFILE = '/home/dabercro/hbb/analysis/regression5.txt'
+OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets2.txt'
 
 
 # Logging
@@ -51,20 +55,15 @@ def input_fn():
 
         target = tf.stack([parsed_outputs[key] for key in outputs])
 
-        return parsed_inputs, {key: target for key in ['central', 'lower', 'upper']}
+        return parsed_inputs, target
+#        return parsed_inputs, {key: target for key in ['central', 'lower', 'upper']}
+
 
     return dataset.map(mapping).\
         shuffle(100000).\
         batch(10000).\
         repeat()
 
-
-def my_loss(labels, logits, **kwargs):
-    return tf.losses.huber_loss(labels=labels,
-                                predictions=logits,
-                                reduction=tf.losses.Reduction.NONE,
-                                delta=0.05,
-                                **kwargs)
 
 def quantile(quant):
 
@@ -77,30 +76,30 @@ def quantile(quant):
     return loss
 
 
-#estimator = tf.estimator.DNNLinearCombinedEstimator(
+def my_loss(labels, logits, **kwargs):
+    quants = tf.add(quantile(0.25)(labels, logits),
+                    quantile(0.75)(labels, logits))
+
+    return tf.add(quants,
+                  tf.losses.huber_loss(labels=labels,
+                                       predictions=logits,
+                                       reduction=tf.losses.Reduction.NONE,
+                                       delta=0.05,
+                                       **kwargs))
+
+
 estimator = tf.estimator.DNNEstimator(
     feature_columns=[
         tf.feature_column.numeric_column(key=key)
         for key in inputs
     ],
     model_dir=MODELDIR,
-    head=tf.contrib.estimator.multi_head(
-        heads=[
-            tf.contrib.estimator.regression_head(
-                loss_fn=my_loss,
-                label_dimension=len(outputs),
-                name='central'),
-            tf.contrib.estimator.regression_head(
-                loss_fn=quantile(0.25),
-                label_dimension=len(outputs),
-                name='lower'),
-            tf.contrib.estimator.regression_head(
-                loss_fn=quantile(0.75),
-                label_dimension=len(outputs),
-                name='upper')
-        ]
-    ),
-    hidden_units=[400, 400, 200, 300, 200]
+    head=tf.contrib.estimator.regression_head(
+        loss_fn=my_loss,
+        label_dimension=len(outputs),
+        name='central'),
+    hidden_units=[1024, 1024, 1024,
+                  512, 256, 128]
 )
 
 estimator.train(input_fn=input_fn, steps=int(sys.argv[1]))
