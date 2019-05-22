@@ -107,9 +107,13 @@ $(corrections): data/downloads.url
 	cd data; rm *.root; rm *.csv; rm *.xml; rm *.pb; wget -i downloads.url
 	touch $(corrections)
 
-.PHONY: clean test install reg
+.PHONY: clean test install reg regtest
 
 reg: $(regression)
+
+regtest: $(regression)
+	test ! -f reg.root || rm reg.root
+	input_dir='/test/pandaf/013/this' regresstree /data/t3home000/dabercro/scratch/TTToHadronic/661A1D00-21C9-634B-829E-48F95273CAC7.root reg.root
 
 install: $(tarball)
 
