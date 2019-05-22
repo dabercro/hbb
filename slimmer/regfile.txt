@@ -1,4 +1,6 @@
+"genjet.h"
 "regression.h"
+"TVector2.h"
 
 {/F}                           ! Default type
 {0}                            ! Default value
@@ -6,8 +8,8 @@
 
 genWeight = e.weight
 $ = e.$ | rho
-nPVs = e.npv
-nPVs_good = e.npvTrue
+nPVs = e.npvTrue
+nPVs_good = e.npv
 
 met_$ = e.pfMet.$ | pt, phi
 
@@ -16,20 +18,12 @@ run/i = e.runNumber
 luminosityBlock/l = e.lumiNumber
 
 Jet {
-  jet(panda::Jet& jet)
+  jet(panda::Jet& jet, gennujet::GenNuVec& withnu, <G> gen)
 
     puId -> jet.puid
     btagCMVA -> jet.cmva
     btagDeepC -> jet.deepCSVc + jet.deepCSVcc
     btagDeepB -> jet.deepCSVb + jet.deepCSVbb
-
-    !!
-
-    id
-    mcPt
-    mcFlavour
-
-    !!
 
     (p4 = jet.p4())
 
@@ -47,77 +41,39 @@ Jet {
 
     leadTrackPt -> info.maxpfpt
 
-    leptonPdgId/I
-    leptonPt
-    leptonPtRel
-    leptonPtRelnanoAOD
-    leptonDeltaR
+    rawFactor -> 1 - jet.rawPt/[]_pt
+    rawEnergy -> []_e * jet.rawPt/[]_pt
 
-    energyRing_dR0_neut
-    energyRing_dR1_neut
-    energyRing_dR2_neut
-    energyRing_dR3_neut
-    energyRing_dR4_neut
-    energyRing_dR5_neut
-    energyRing_dR0_ch
-    energyRing_dR1_ch
-    energyRing_dR2_ch
-    energyRing_dR3_ch
-    energyRing_dR4_ch
-    energyRing_dR5_ch
-    energyRing_dR0_em
-    energyRing_dR1_em
-    energyRing_dR2_em
-    energyRing_dR3_em
-    energyRing_dR4_em
-    energyRing_dR5_em
-    energyRing_dR0_mu
-    energyRing_dR1_mu
-    energyRing_dR2_mu
-    energyRing_dR3_mu
-    energyRing_dR4_mu
-    energyRing_dR5_mu
-    energyRing_dR0_neut_Jet_rawEnergy
-    energyRing_dR1_neut_Jet_rawEnergy
-    energyRing_dR2_neut_Jet_rawEnergy
-    energyRing_dR3_neut_Jet_rawEnergy
-    energyRing_dR4_neut_Jet_rawEnergy
-    energyRing_dR5_neut_Jet_rawEnergy
-    energyRing_dR0_ch_Jet_rawEnergy
-    energyRing_dR1_ch_Jet_rawEnergy
-    energyRing_dR2_ch_Jet_rawEnergy
-    energyRing_dR3_ch_Jet_rawEnergy
-    energyRing_dR4_ch_Jet_rawEnergy
-    energyRing_dR5_ch_Jet_rawEnergy
-    energyRing_dR0_em_Jet_rawEnergy
-    energyRing_dR1_em_Jet_rawEnergy
-    energyRing_dR2_em_Jet_rawEnergy
-    energyRing_dR3_em_Jet_rawEnergy
-    energyRing_dR4_em_Jet_rawEnergy
-    energyRing_dR5_em_Jet_rawEnergy
-    energyRing_dR0_mu_Jet_rawEnergy
-    energyRing_dR1_mu_Jet_rawEnergy
-    energyRing_dR2_mu_Jet_rawEnergy
-    energyRing_dR3_mu_Jet_rawEnergy
-    energyRing_dR4_mu_Jet_rawEnergy
-    energyRing_dR5_mu_Jet_rawEnergy
+    mcPt -> withnu.genvec.Pt()
+    mcFlavour -> gen->partonFlavor
 
-    rawEnergy
-    rawFactor
+    $/I -> info.$ | leptonPdgId
+    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelnanoAOD, leptonDeltaR
+    leptonPtRelInv <- []_leptonPtRel ? 1/[]_leptonPtRel : 0
+
+    ptd -> info.ptD
+    withPtd <- []_ptd
+
+    energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
+    energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
+
+    numDaughters_pt03/s -> info.num03
+    numberOfDaughters/s -> jet.constituents.size()
+
+    ! BAD
+    met_dPhi <- TVector2::Phi_mpi_pi(met_phi - []_phi)
+
+    !!
+
+    id
     corr_JEC
     JEC1
     JEC2
     JEC3
-    ptd
-    leptonPtRelInv
     bRegNN2
     bRegNN2res
-    withPtd
 
-    numDaughters_pt03/s
-    numberOfDaughters/s
-
-    met_dPhi <- deltaPhi(met_phi, []_phi)
+    !!
 
 }
 

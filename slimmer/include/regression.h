@@ -1,6 +1,8 @@
 #ifndef REGRESSION_H
 #define REGRESSION_H
 
+#include <cmath>
+
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "crombie/KinematicFunctions.h"
@@ -76,7 +78,17 @@ namespace regression {
     double maxtrkpt {0};
     double maxpfpt {0};
 
+    // Lepton stuff
+
+    int leptonPdgId {0};
+    double leptonPt {0};
+    double leptonPtRel {0};
+    double leptonPtRelnanoAOD {0};
+    double leptonDeltaR {0};
+
   };
+
+
 
   JetInfo GetJetInfo(const panda::Jet& jet) {
     JetInfo output {};
@@ -146,6 +158,8 @@ namespace regression {
 
     output.ptD = sum_weight/sum_pt;
 
+    // Secondary vertex
+
     auto& vert = jet.secondaryVertex;
     if (vert.isValid()) {
       output.vtxNtrk = vert->ntrk;
@@ -155,13 +169,32 @@ namespace regression {
       output.vtxPt = vert->pt();
     }
 
+    // Max track
+
+    const panda::PFCand* maxlep = nullptr;
+
     for (auto pf : jet.constituents) {
       if (pf.isValid()) {
         auto pt = pf->pt();
         output.maxpfpt = std::max(output.maxpfpt, pt);
         if (pf->q())
           output.maxtrkpt = std::max(output.maxtrkpt, pt);
+
+        auto pdgid = abs(pf->pdgId());
+        if (pdgid == 13 || pdgid == 15) {
+          if (not maxlep or pt > maxlep->pt())
+            maxlep = pf.get();
+        }
       }
+    }
+
+    if (maxlep) {
+      output.leptonPdgId = maxlep->pdgId();
+      output.leptonPt = maxlep->pt();
+      output.leptonPtRel = maxlep->p4().Perp(jet.p4().Vect());
+      output.leptonPtRelnanoAOD = output.leptonPtRel;
+      output.leptonDeltaR = std::sqrt(deltaR2(jet.eta(), jet.phi(),
+                                              maxlep->eta(), maxlep->phi()));
     }
 
     return output;

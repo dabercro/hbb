@@ -28,13 +28,19 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       output.reset(event);
 
+      auto gennumap = gennujet::get_gen_nu_map(event);
+
       for (auto& jet : event.chsAK4Jets) {
 
-        output.set_jet(regfile::jet::Jet, jet);
+        auto genjet = jet.matchedGenJet;
 
-        output.fill();
+        if (genjet.isValid() and genjet->numB) {
 
-        break;
+          output.set_jet(regfile::jet::Jet,
+                         jet, gennumap.at(genjet.get()), genjet);
+          output.fill();
+
+        }
 
       }
 
