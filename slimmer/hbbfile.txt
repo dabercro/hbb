@@ -13,9 +13,9 @@ DEFINE REGS 3, 15, 40
 
 #isData/O = event.isData
 
-$/i = event.$ | runNumber, lumiNumber
+$/i = event.$ | runNumber
 $ = event.$ | rho
-eventNumber/l = event.eventNumber
+$/l = event.$ | eventNumber, lumiNumber
 
 npv/s = event.npv
 npv_true/s = event.npvTrue
@@ -257,7 +257,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     leadlep_$ -> lep->$() | pt, m, e
     leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
     leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
-    leadlep_$/S -> lep->$ | pdgid
+    leadlep_pdgid/S -> lep->matchedPF.isValid() ? lep->matchedPF->pdgId() : 0
     isEle/O <- std::abs([]_leadlep_pdgid) == 11
     isMu/O <- std::abs([]_leadlep_pdgid) == 13
     isOther/O <- not ([]_isEle or []_isMu)
@@ -275,7 +275,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
   ! Some 4-vector info for training
 
-  genjet(panda::GenJet& gen, GenNuVec& withnu)
+  genjet(panda::GenJet& gen, gennujet::GenNuVec& withnu)
 
     gen/O = false -> true
     gen_$ -> gen.$() | pt, eta, phi, m

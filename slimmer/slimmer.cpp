@@ -368,7 +368,7 @@ int parsed_main(int argc, char** argv) {
 
       pfcands::MakeNuJets(event);
 
-      std::map<const panda::GenJet*, GenNuVec> gen_nu_map;
+      std::map<const panda::GenJet*, gennujet::GenNuVec> gen_nu_map;
 
       //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
       if (debugevent::debug)
@@ -549,7 +549,7 @@ int parsed_main(int argc, char** argv) {
         // Determine the flavor of the jet
         auto& gen = jet.particle->matchedGenJet;
         if (gen.isValid()) {
-          const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : GenNuVec(gen->p4());
+          const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : gennujet::GenNuVec(gen->p4());
           output.set_genjet(bjet, *gen, gennu);
         }
 

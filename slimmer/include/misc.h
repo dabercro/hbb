@@ -35,28 +35,7 @@ using namespace crombie;
 #include "trkmet.h"
 #include "reliso.h"
 #include "splitjec.h"
-
-// Hold information about genjet vectors with neutrinos added
-
-class GenNuVec {
- public:
-  GenNuVec(TLorentzVector vec = TLorentzVector{}) : genvec{vec} {}
-
-  TLorentzVector genvec;
-  int numnu {0};
-  bool overlap {false};
-
-  void add_nu(panda::GenParticle& nu) {
-    auto& parent = nu.parent;
-    if (parent.isValid() and abs(parent->pdgid) == 24 and parent->m() > 50)  // Don't add neutrinos from massive W to jet
-      overlap = true;
-    else {
-      ++numnu;
-      genvec += nu.p4();
-    }
-  }
-
-};
+#include "genjet.h"
 
 // Define a structure to hold all additional variables about leptons we want to save
 

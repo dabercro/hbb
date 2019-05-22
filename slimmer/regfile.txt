@@ -1,0 +1,126 @@
+"regression.h"
+
+{/F}                           ! Default type
+{0}                            ! Default value
+{reset(panda::Event& e)}       ! Define the arguments of reset
+
+genWeight = e.weight
+$ = e.$ | rho
+nPVs = e.npv
+nPVs_good = e.npvTrue
+
+met_$ = e.pfMet.$ | pt, phi
+
+event/l = e.eventNumber
+run/i = e.runNumber
+luminosityBlock/l = e.lumiNumber
+
+Jet {
+  jet(panda::Jet& jet)
+
+    puId -> jet.puid
+    btagCMVA -> jet.cmva
+    btagDeepC -> jet.deepCSVc + jet.deepCSVcc
+    btagDeepB -> jet.deepCSVb + jet.deepCSVbb
+
+    !!
+
+    id
+    mcPt
+    mcFlavour
+
+    !!
+
+    (p4 = jet.p4())
+
+    $ -> p4.$$() | pt, mt, eta, e, phi
+    $ -> p4.M() | mass
+
+    chHEF -> jet.chf
+    neHEF -> jet.nhf
+    chEmEF -> jet.cef
+    neEmEF -> jet.nef
+
+    (info = regression::GetJetInfo(jet))
+    $/s -> info.$ | vtxNtrk
+    $ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
+
+    leadTrackPt -> info.maxpfpt
+
+    leptonPdgId/I
+    leptonPt
+    leptonPtRel
+    leptonPtRelnanoAOD
+    leptonDeltaR
+
+    energyRing_dR0_neut
+    energyRing_dR1_neut
+    energyRing_dR2_neut
+    energyRing_dR3_neut
+    energyRing_dR4_neut
+    energyRing_dR5_neut
+    energyRing_dR0_ch
+    energyRing_dR1_ch
+    energyRing_dR2_ch
+    energyRing_dR3_ch
+    energyRing_dR4_ch
+    energyRing_dR5_ch
+    energyRing_dR0_em
+    energyRing_dR1_em
+    energyRing_dR2_em
+    energyRing_dR3_em
+    energyRing_dR4_em
+    energyRing_dR5_em
+    energyRing_dR0_mu
+    energyRing_dR1_mu
+    energyRing_dR2_mu
+    energyRing_dR3_mu
+    energyRing_dR4_mu
+    energyRing_dR5_mu
+    energyRing_dR0_neut_Jet_rawEnergy
+    energyRing_dR1_neut_Jet_rawEnergy
+    energyRing_dR2_neut_Jet_rawEnergy
+    energyRing_dR3_neut_Jet_rawEnergy
+    energyRing_dR4_neut_Jet_rawEnergy
+    energyRing_dR5_neut_Jet_rawEnergy
+    energyRing_dR0_ch_Jet_rawEnergy
+    energyRing_dR1_ch_Jet_rawEnergy
+    energyRing_dR2_ch_Jet_rawEnergy
+    energyRing_dR3_ch_Jet_rawEnergy
+    energyRing_dR4_ch_Jet_rawEnergy
+    energyRing_dR5_ch_Jet_rawEnergy
+    energyRing_dR0_em_Jet_rawEnergy
+    energyRing_dR1_em_Jet_rawEnergy
+    energyRing_dR2_em_Jet_rawEnergy
+    energyRing_dR3_em_Jet_rawEnergy
+    energyRing_dR4_em_Jet_rawEnergy
+    energyRing_dR5_em_Jet_rawEnergy
+    energyRing_dR0_mu_Jet_rawEnergy
+    energyRing_dR1_mu_Jet_rawEnergy
+    energyRing_dR2_mu_Jet_rawEnergy
+    energyRing_dR3_mu_Jet_rawEnergy
+    energyRing_dR4_mu_Jet_rawEnergy
+    energyRing_dR5_mu_Jet_rawEnergy
+
+    rawEnergy
+    rawFactor
+    corr_JEC
+    JEC1
+    JEC2
+    JEC3
+    ptd
+    leptonPtRelInv
+    bRegNN2
+    bRegNN2res
+    withPtd
+
+    numDaughters_pt03/s
+    numberOfDaughters/s
+
+    met_dPhi <- deltaPhi(met_phi, []_phi)
+
+}
+
+isEle <- std::abs(Jet_leptonPdgId) == 11
+isMu <- std::abs(Jet_leptonPdgId) == 13
+isOther <- not (isEle or isMu)

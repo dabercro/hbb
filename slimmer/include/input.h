@@ -1,3 +1,13 @@
+#ifndef INPUT_H
+#define INPUT_H
+
+
+#include <cstdlib>
+#include <string>
+#include <sstream>
+#include <regex>
+#include <iostream>
+
 namespace {
 
   static auto* in_dir = getenv("input_dir");
@@ -67,3 +77,6 @@ namespace input {
   } ();
 
 }
+
+
+#endif

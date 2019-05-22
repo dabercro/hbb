@@ -1,3 +1,10 @@
+#ifndef REGRESSION_H
+#define REGRESSION_H
+
+#include "PandaTree/Objects/interface/Event.h"
+
+#include "crombie/KinematicFunctions.h"
+
 // Get all the variables for regression
 
 namespace regression {
@@ -46,16 +53,28 @@ namespace regression {
 
     // Rings each are separate vector element
     using rings = std::vector<std::pair<scalar, type>>;
-    rings em_rings = rings(5);
-    rings neut_rings = rings(5);
-    rings ch_rings = rings(5);
-    rings mu_rings = rings(5);
+    rings em_rings = rings(6);
+    rings neut_rings = rings(6);
+    rings ch_rings = rings(6);
+    rings mu_rings = rings(6);
 
     // Additional information about the pf candidates
     scalar ptD {0};
     unsigned num03 {0};
 
     std::vector<PFInfo> pfinfo = std::vector<PFInfo> (pfmax);
+
+    // Vertex info
+    unsigned vtxNtrk {0};
+    float vtxMass {0};
+    float vtx3dL {0};
+    float vtx3deL {0};
+    float vtxPt {0};
+
+    // Max track
+
+    double maxtrkpt {0};
+    double maxpfpt {0};
 
   };
 
@@ -87,7 +106,7 @@ namespace regression {
 
       // Energy Rings
       static const std::vector<double> dr_bins {
-        std::pow(0.05, 2), std::pow(0.1, 2), std::pow(0.2, 2), std::pow(0.3, 2), std::pow(0.4, 2)
+        std::pow(0.05, 2), std::pow(0.1, 2), std::pow(0.2, 2), std::pow(0.3, 2), std::pow(0.4, 2), std::pow(0.5, 2)
       };
       unsigned bin = std::lower_bound(dr_bins.begin(), dr_bins.end(),
                                       deltaR2(p4.Eta(), p4.Phi(), jet.eta(), jet.phi())) - dr_bins.begin();
@@ -127,6 +146,27 @@ namespace regression {
 
     output.ptD = sum_weight/sum_pt;
 
+    auto& vert = jet.secondaryVertex;
+    if (vert.isValid()) {
+      output.vtxNtrk = vert->ntrk;
+      output.vtxMass = vert->m();
+      output.vtx3dL = vert->vtx3DVal;
+      output.vtx3deL = vert->vtx3DeVal;
+      output.vtxPt = vert->pt();
+    }
+
+    for (auto pf : jet.constituents) {
+      if (pf.isValid()) {
+        auto pt = pf->pt();
+        output.maxpfpt = std::max(output.maxpfpt, pt);
+        if (pf->q())
+          output.maxtrkpt = std::max(output.maxtrkpt, pt);
+      }
+    }
+
     return output;
   }
 }
+
+
+#endif

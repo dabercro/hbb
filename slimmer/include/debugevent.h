@@ -8,7 +8,7 @@
 namespace {
   char* rle = getenv("debugevent");
   const auto rle_tuple = [] () {
-    std::tuple<unsigned, unsigned, unsigned long> output;  
+    std::tuple<unsigned, unsigned long, unsigned long> output;  
     if (rle) {
       std::stringstream iss;
       iss << rle;
@@ -23,7 +23,7 @@ namespace {
 namespace debugevent {
   const bool debugevent = rle;
   const bool debug = debugevent or getenv("debug");
-  bool check(unsigned run, unsigned lumi, unsigned long event) {
+  bool check(unsigned run, unsigned long lumi, unsigned long event) {
     return rle_tuple == std::make_tuple(run, lumi, event);
   }
 };
