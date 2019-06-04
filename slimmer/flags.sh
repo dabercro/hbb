@@ -20,6 +20,8 @@ cd $CMSSW_BASE
 # These flags are needed for boost
 
 echo -n "-I$(scram tool tag boost INCLUDE) "
+echo -n "-L$(scram tool tag boost LIBDIR) "
+echo -n "-l$(scram tool tag boost LIB | sed 's/ / -l/g') "
 
 # These flags are needed for fastjet
 

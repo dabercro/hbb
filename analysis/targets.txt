@@ -1,0 +1,4 @@
+target_0 = jet1_gen_withnu_pt/jet1_pt
+target_1 = jet1_gen_withnu_eta-jet1_eta
+target_2 = TVector2::Phi_mpi_pi(jet1_gen_withnu_phi-jet1_phi)
+target_3 = jet1_gen_withnu_m/jet1_m

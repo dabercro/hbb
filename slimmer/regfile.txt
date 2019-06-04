@@ -1,3 +1,6 @@
+<vector>
+
+"lazytf.h"
 "genjet.h"
 "regression.h"
 "TVector2.h"
@@ -17,6 +20,10 @@ event/l = e.eventNumber
 run/i = e.runNumber
 luminosityBlock/l = e.lumiNumber
 
+isEle <- std::abs(Jet_leptonPdgId) == 11
+isMu <- std::abs(Jet_leptonPdgId) == 13
+isOther <- not (isEle or isMu)
+
 Jet {
   jet(panda::Jet& jet, gennujet::GenNuVec& withnu, <G> gen)
 
@@ -27,7 +34,13 @@ Jet {
 
     (p4 = jet.p4())
 
-    $ -> p4.$$() | pt, mt, eta, e, phi
+    raw -> jet.rawPt/jet.pt()
+!    pt -> jet.rawPt
+!    $ -> p4.$$() * []_raw | mt, e
+!    $ -> p4.$$() | eta, phi
+!    $ -> p4.M() * []_raw | mass
+
+    $ -> p4.$$() | pt, eta, phi, mt, e
     $ -> p4.M() | mass
 
     chHEF -> jet.chf
@@ -48,8 +61,7 @@ Jet {
     mcFlavour -> gen->partonFlavor
 
     $/I -> info.$ | leptonPdgId
-    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelnanoAOD, leptonDeltaR
-    leptonPtRelInv <- []_leptonPtRel ? 1/[]_leptonPtRel : 0
+    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
 
     ptd -> info.ptD
     withPtd <- []_ptd
@@ -60,23 +72,25 @@ Jet {
     numDaughters_pt03/s -> info.num03
     numberOfDaughters/s -> jet.constituents.size()
 
-    ! BAD
+    ! Should it be abs value?
     met_dPhi <- TVector2::Phi_mpi_pi(met_phi - []_phi)
 
-    !!
+    pf_@_$ -> info.pfinfo[@].$ |@ 0..10 | ptfrac, deta, dphi, puppiwt, dxy, dz
+    pf_@_$/I -> info.pfinfo[@].$ |@ 0..10 | pdgid
 
-    id
-    corr_JEC
-    JEC1
-    JEC2
-    JEC3
-    bRegNN2
-    bRegNN2res
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("/data/t3home000/dabercro/models/premade_@/freeze.pb", "data/regression6.txt", \
+           {"dnn/logits/BiasAdd"}, 1, \
+           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression6.txt`) |@ 190531_v4, 190604_v0
 
-    !!
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("/data/t3home000/dabercro/models/premade_@/freeze.pb", "data/regression7.txt", \
+           {"dnn/logits/BiasAdd"}, 1, \
+           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression7.txt`) |@ 190531_v5, 190603_v6
+
+    ptfactor_$ <- []_tf_$[0] | 190531_v4, 190604_v0, 190531_v5, 190603_v6
+
+    [ptfactor_$; /data/t3home000/dabercro/TMVA/weights/$_BDT.weights.xml; DUMMY] = 1 | TMVA, themBDT
 
 }
 
-isEle <- std::abs(Jet_leptonPdgId) == 11
-isMu <- std::abs(Jet_leptonPdgId) == 13
-isOther <- not (isEle or isMu)

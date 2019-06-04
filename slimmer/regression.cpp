@@ -5,9 +5,13 @@
 
 #include "crombie/CmsswParse.h"
 
+#include "JECCorrector.h"
+
 int parsed_main(int argc, char** argv) {
 
   regfile output {argv[argc - 1]};
+
+  panda::JECCorrector corrector {"data/jec/Autumn18_V8_MC", "AK4PFchs"};
 
   for (int i_file = 1; i_file < argc - 1; i_file++) {
 
@@ -26,6 +30,11 @@ int parsed_main(int argc, char** argv) {
         std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
 
       event.getEntry(*events_tree, entry);
+
+      corrector.update_event(event, event.chsAK4Jets, event.pfMet);
+      event.chsAK4Jets = corrector.get_jets();
+      event.pfMet = corrector.get_met();
+
       output.reset(event);
 
       auto gennumap = gennujet::get_gen_nu_map(event);

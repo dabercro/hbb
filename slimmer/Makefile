@@ -66,8 +66,8 @@ $(regression): regression.cpp include/*.h include/feedregression.h include/$(reg
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
-	$(external) -lrt -g \
-	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(regression) regression.cpp
+	$(external) -lboost_filesystem -lrt -g \
+	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(regression) regression.cpp
 
 
 include/jecsys:

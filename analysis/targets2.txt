@@ -1,0 +1,4 @@
+ptratio = jet1_gen_withnu_pt/jet1_pt
+deta = jet1_gen_withnu_eta-jet1_eta
+dphi = TVector2::Phi_mpi_pi(jet1_gen_withnu_phi-jet1_phi)
+mratio = jet1_gen_withnu_m/jet1_m

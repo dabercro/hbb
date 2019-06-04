@@ -30,14 +30,16 @@ namespace regression {
   public:
 
     PFInfo () {}
-    PFInfo (float pt, float de, float dp, int pdg, float pup) :
-    ptfrac {pt}, deta {de}, dphi {dp}, pdgid {pdg}, puppiwt {pup} {}
+    PFInfo (float pt, float de, float dp, int pdg, float pup, float dxy, float dz) :
+    ptfrac {pt}, deta {de}, dphi {dp}, pdgid {pdg}, puppiwt {pup}, dxy {dxy}, dz {dz} {}
 
     float ptfrac {};
     float deta {};
     float dphi {};
     int pdgid {};
     float puppiwt {};
+    float dxy {};
+    float dz {};
 
   };
 
@@ -83,7 +85,7 @@ namespace regression {
     int leptonPdgId {0};
     double leptonPt {0};
     double leptonPtRel {0};
-    double leptonPtRelnanoAOD {0};
+    double leptonPtRelInv {0};
     double leptonDeltaR {0};
 
   };
@@ -94,8 +96,8 @@ namespace regression {
     JetInfo output {};
 
     // For the ptD calculation
-    float sum_weight {0};
-    float sum_pt {0};
+    double sum_weight {0};
+    double sum_pt {0};
 
     // Fill information about the constituents
     unsigned pfindex = 0;
@@ -147,16 +149,20 @@ namespace regression {
       if (pt > 0.3)
         ++output.num03;
 
-      if (pfindex < pfmax)
+      if (pfindex < pfmax) {
+        auto trk = pf->track;
         output.pfinfo[pfindex++] = PFInfo(pt/jet.pt(),
                                           p4.Eta() - jet.eta(),
                                           TVector2::Phi_mpi_pi(p4.Phi() - jet.phi()),
                                           pf->pdgId(),
-                                          puppi);
+                                          puppi,
+                                          trk.isValid() ? trk->dxy() : -1.0,
+                                          trk.isValid() ? trk->dz() : -1.0);
+      }
 
     }
 
-    output.ptD = sum_weight/sum_pt;
+    output.ptD = std::sqrt(sum_weight)/sum_pt;
 
     // Secondary vertex
 
@@ -189,10 +195,12 @@ namespace regression {
     }
 
     if (maxlep) {
+      auto lep_p4 = maxlep->p4();
+      auto jet_p4 = jet.p4();
       output.leptonPdgId = maxlep->pdgId();
       output.leptonPt = maxlep->pt();
-      output.leptonPtRel = maxlep->p4().Perp(jet.p4().Vect());
-      output.leptonPtRelnanoAOD = output.leptonPtRel;
+      output.leptonPtRel = lep_p4.Perp(jet_p4.Vect());
+      output.leptonPtRelInv = jet_p4.Perp(lep_p4.Vect());
       output.leptonDeltaR = std::sqrt(deltaR2(jet.eta(), jet.phi(),
                                               maxlep->eta(), maxlep->phi()));
     }
