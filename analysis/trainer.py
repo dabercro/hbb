@@ -27,7 +27,7 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression6.txt'
+INPUTSFILE = '/home/dabercro/hbb/analysis/regression7.txt'
 OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets3.txt'
 
 
@@ -109,8 +109,7 @@ estimator = tf.estimator.DNNEstimator(
         ]
     ),
     optimizer=tf.train.AdamOptimizer(),
-    hidden_units=[1024, 1024, 1024,
-                  512, 256, 128]
+    hidden_units=[64, 128, 128, 64]
 )
 
 estimator.train(input_fn=input_fn, steps=int(sys.argv[1]))

@@ -240,7 +240,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     @_rX_$ -> puppi.@_rings[X].second.$$() | pt, m, e |@ em, neut, ch, mu |X 0..5
     @_rX_$ -> puppi.@_rings[X].second.filled ? puppi.@_rings[X].second.$$() : []_$ | eta, phi |@ em, neut, ch, mu |X 0..5
 
-    $_r@_rawE <- []_$_r@_energy/[]_rawFactor | em, neut, ch, mu |@ 0..5
+    $_r@_rawE_frac <- []_$_r@_energy * []_rawFactor / []_e | em, neut, ch, mu |@ 0..5
 
     $ -> puppi.$ | ptD
     $/s -> puppi.$ | num03
