@@ -34,3 +34,4 @@ fitDiagnostics.root.*
 slimmer/data/jec/*.txt
 
 *.pb
+slimmer/include/roccor/*
