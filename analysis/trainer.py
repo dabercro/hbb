@@ -17,10 +17,10 @@ if not os.path.exists(INDIR):
 
 INFILES = os.listdir(INDIR)
 
-modelroot = '/data/t3home000/dabercro/models/{0}_v%i'.format(
+modelroot = '/data/t3home000/dabercro/models/{0}_%s'.format(
     datetime.datetime.fromtimestamp(time.time()).strftime('%y%m%d')
 )
-modelindex = 0
+modelindex = 0 if len(sys.argv) < 3 else sys.argv[2]
 # Let's make a new directory each time
 while os.path.exists(modelroot % modelindex):
     modelindex += 1
@@ -82,7 +82,7 @@ def my_loss(labels, logits, **kwargs):
     return tf.losses.huber_loss(labels=labels,
                                 predictions=logits,
                                 reduction=tf.losses.Reduction.NONE,
-                                delta=0.05,
+                                delta=0.25,
                                 **kwargs)
 
 

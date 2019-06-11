@@ -1,0 +1,30 @@
+mcweight_nobtag * 'sf_pu'
+    'sf_met_trigger'
+    'ewk_z'
+    'ewk_w'
+    'wkfactor'
+    'zkfactor'
+    'vh_ewk'
+    'sf_tt'
+    'mc_weight'
+    'pdf'
+jetpt && 'daughter_max_pt > 60'
+    'daughter_min_pt > 35'
+leptons && 'n_lep_tight > 0'
+    'n_lep_loose == 2'
+n_jets && 'n_centerjet == 2'
+trig && 'met_trigger'
+tt && jetpt
+    leptons
+    n_jets
+    'tag_deepcsv > 0.6'
+z && jetpt
+    leptons
+    n_jets
+    'tag_deepcsv < 0.4'
+    'muon2 + muon1 == 2'
+    'ele1 == 0'
+    'dimuon_m > 60'
+    'dimuon_m < 120'
+: tt trig mcweight_nobtag
+: z trig mcweight_nobtag

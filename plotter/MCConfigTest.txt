@@ -1,0 +1,28 @@
+tt  TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8                                365.399              TT                  798
+.   TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8                                       88.288              .                   .
+.   TTToHadronic_TuneCP5_13TeV-powheg-pythia8                                    378.073              .                   .
+
+st  ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8       80.95           Single_Top          799
+.   ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8           136.02          .                   .
+.   ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8                        35.6           .                   .
+.   ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8                            35.6           .                   .
+
+wj  WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8                        1343.0          W_+_jets           886
+.   WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8                      1.329           .                   .
+.   WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8                        359.6           .                   .
+.   WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8                       0.03216         .                   .
+.   WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8                        48.85           .                   .
+.   WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8                        12.05           .                   .
+.   WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8                       5.501           .                   .
+
+zj  ZJetsToNuNu_HT-100To200_13TeV-madgraph                                               280.5           Z_+_jets           901
+.   ZJetsToNuNu_HT-1200To2500_13TeV-madgraph                                             0.286           .                   .
+.   ZJetsToNuNu_HT-200To400_13TeV-madgraph                                               77.7            .                   .
+.   ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph                                              0.006945        .                   .
+.   ZJetsToNuNu_HT-400To600_13TeV-madgraph                                               10.71           .                   .
+.   ZJetsToNuNu_HT-600To800_13TeV-madgraph                                               2.562           .                   .
+.   ZJetsToNuNu_HT-800To1200_13TeV-madgraph                                              1.183           .                   .
+
+vv  WW_TuneCP5_13TeV-pythia8                                                        118.7           Diboson             851
+.   WZ_TuneCP5_13TeV-pythia8                                                        47.13            .                   .
+.   ZZ_TuneCP5_13TeV-pythia8                                                        16.523            .                   .

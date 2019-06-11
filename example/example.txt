@@ -1,0 +1,23 @@
+
+! Every branch after this is a float
+{/F}
+
+dimuon {
+  m = -1
+  pt = -1
+}
+
+muon1, muon2 {
+  ! Make a bool to show it's filled
+  muon(panda::Muon& mu)
+    /O -> true
+    $ -> mu.$() | pt, eta, phi, m
+}
+
+! Same as
+! dimuon_m
+! dimuon_pt
+
+n_lep/I
+
+-- muon2 --

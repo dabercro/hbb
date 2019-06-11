@@ -32,3 +32,5 @@ fitDiagnostics.root.*
 *test*
 
 slimmer/data/jec/*.txt
+
+*.pb

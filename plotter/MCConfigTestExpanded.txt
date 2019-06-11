@@ -1,0 +1,1123 @@
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0001.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0002.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0003.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0004.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0005.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0006.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0007.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0008.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0009.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0010.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0011.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0012.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0013.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0014.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0015.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0016.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0017.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0018.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0019.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0020.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0021.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0022.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0023.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0024.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0025.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0026.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0027.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0028.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0029.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0031.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0032.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0033.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0034.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0035.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0036.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0037.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0038.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0039.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0040.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0041.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0042.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0043.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0044.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0045.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0046.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0047.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0048.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0049.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0050.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0051.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0052.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0053.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0054.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0055.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0056.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0057.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0058.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0059.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0060.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0061.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0062.root 365.399 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToSemiLeptonic_TuneCP5_13TeV-powheg-pythia8/0030.root 365.399 TT 798
+ENDGROUP
+
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0001.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0002.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0003.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0004.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0005.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0006.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0007.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0008.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0009.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0010.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0011.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0012.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0013.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0014.root 88.288 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/0015.root 88.288 TT 798
+ENDGROUP
+
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0051.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0052.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0053.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0054.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0055.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0056.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0057.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0058.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0059.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0060.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0061.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0062.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0063.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0064.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0065.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0066.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0067.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0068.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0069.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0070.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0071.root 378.073 TT 798
+INGROUP
+tt /data/t3home000/dabercro/fullhbb/180530_v1/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0072.root 378.073 TT 798
+ENDGROUP
+
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0001.root 80.95 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0002.root 80.95 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0003.root 80.95 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0004.root 80.95 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0005.root 80.95 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0006.root 80.95 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_antitop_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0007.root 80.95 Single_Top 799
+ENDGROUP
+
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0001.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0002.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0003.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0004.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0005.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0006.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0007.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0008.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0009.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0010.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0011.root 136.02 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_t-channel_top_4f_inclusiveDecays_TuneCP5_13TeV-powhegV2-madspin-pythia8/0012.root 136.02 Single_Top 799
+ENDGROUP
+
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0001.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0002.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0003.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0004.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0005.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0006.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0007.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0008.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0009.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0010.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0011.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0012.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0013.root 35.6 Single_Top 799
+ENDGROUP
+
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0001.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0002.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0003.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0004.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0005.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0006.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0007.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0008.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0009.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0010.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0011.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0012.root 35.6 Single_Top 799
+INGROUP
+st /data/t3home000/dabercro/fullhbb/180530_v1/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/0013.root 35.6 Single_Top 799
+ENDGROUP
+
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0001.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0002.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0003.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0004.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0005.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0006.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0007.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0008.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0009.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0010.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0011.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0012.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0013.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0014.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0015.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0016.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0017.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0018.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0019.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0020.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0021.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0022.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0023.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0024.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0025.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0026.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0027.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0028.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0029.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0030.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0031.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0032.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0033.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0034.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0035.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0036.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0037.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0038.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0039.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0040.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0041.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0042.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0043.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0044.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0045.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0046.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0047.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0048.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0049.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0050.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0051.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0052.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0053.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0054.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0055.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0056.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0057.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0058.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0059.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0060.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0061.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0062.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0063.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0064.root 1343.0 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/0065.root 1343.0 W_+_jets 886
+ENDGROUP
+
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0001.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0002.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0003.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0004.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0005.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0006.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0007.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0008.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0009.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0010.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0011.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0012.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0013.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0014.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0015.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0016.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0017.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0018.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0019.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0020.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0021.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0022.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0023.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0024.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0025.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0026.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0027.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0028.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0029.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0030.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0031.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0032.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0033.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0034.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0035.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0036.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0037.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0038.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0039.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0040.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0041.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0042.root 1.329 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/0043.root 1.329 W_+_jets 886
+ENDGROUP
+
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0001.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0002.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0003.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0004.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0005.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0006.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0007.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0008.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0009.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0010.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0011.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0012.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0013.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0014.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0015.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0016.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0017.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0018.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0019.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0020.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0021.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0022.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0023.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0024.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0025.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0026.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0027.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0028.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0029.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0030.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0031.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0032.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0033.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0034.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0035.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0036.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0037.root 359.6 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/0038.root 359.6 W_+_jets 886
+ENDGROUP
+
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/0001.root 0.03216 W_+_jets 886
+ENDGROUP
+
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0001.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0002.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0003.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0004.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0005.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0006.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0007.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0008.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0009.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0010.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0011.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0012.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0013.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0014.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0015.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0016.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0017.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0018.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0019.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0020.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0021.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0022.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0023.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0024.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0025.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0026.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0027.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0028.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0029.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0030.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0031.root 48.85 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/0032.root 48.85 W_+_jets 886
+ENDGROUP
+
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0001.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0002.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0003.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0004.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0005.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0006.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0007.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0008.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0009.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0010.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0011.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0012.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0013.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0014.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0015.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0016.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0017.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0018.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0019.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0020.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0021.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0022.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0023.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0024.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0025.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0026.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0027.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0028.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0029.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0030.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0031.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0032.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0033.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0034.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0035.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0036.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0037.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0038.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0039.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0040.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0041.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0042.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0043.root 12.05 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/0044.root 12.05 W_+_jets 886
+ENDGROUP
+
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0001.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0002.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0003.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0004.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0005.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0006.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0007.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0008.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0009.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0010.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0011.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0012.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0013.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0014.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0015.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0016.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0017.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0018.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0019.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0020.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0021.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0022.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0023.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0024.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0025.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0026.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0027.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0028.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0029.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0030.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0031.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0032.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0033.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0034.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0035.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0036.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0037.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0038.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0039.root 5.501 W_+_jets 886
+INGROUP
+wj /data/t3home000/dabercro/fullhbb/180530_v1/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/0040.root 5.501 W_+_jets 886
+ENDGROUP
+
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0001.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0002.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0003.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0004.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0005.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0006.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0007.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0008.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0009.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0010.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0011.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0012.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0013.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0014.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0015.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0016.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0017.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0018.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0019.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0020.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0021.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0022.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0023.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0024.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0025.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0026.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0027.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0028.root 280.5 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-100To200_13TeV-madgraph/0029.root 280.5 Z_+_jets 901
+ENDGROUP
+
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-1200To2500_13TeV-madgraph/0001.root 0.286 Z_+_jets 901
+ENDGROUP
+
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0001.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0002.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0003.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0004.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0005.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0006.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0007.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0008.root 77.7 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-200To400_13TeV-madgraph/0009.root 77.7 Z_+_jets 901
+ENDGROUP
+
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-2500ToInf_13TeV-madgraph/0001.root 0.006945 Z_+_jets 901
+ENDGROUP
+
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0001.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0002.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0003.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0004.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0005.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0006.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0007.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0008.root 10.71 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-400To600_13TeV-madgraph/0009.root 10.71 Z_+_jets 901
+ENDGROUP
+
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0001.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0002.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0003.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0004.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0005.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0006.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0007.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0008.root 2.562 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-600To800_13TeV-madgraph/0009.root 2.562 Z_+_jets 901
+ENDGROUP
+
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/0001.root 1.183 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/0002.root 1.183 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/0003.root 1.183 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/0004.root 1.183 Z_+_jets 901
+INGROUP
+zj /data/t3home000/dabercro/fullhbb/180530_v1/ZJetsToNuNu_HT-800To1200_13TeV-madgraph/0005.root 1.183 Z_+_jets 901
+ENDGROUP
+
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0001.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0002.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0003.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0004.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0005.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0006.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0007.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0008.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0009.root 118.7 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WW_TuneCP5_13TeV-pythia8/0010.root 118.7 Diboson 851
+ENDGROUP
+
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WZ_TuneCP5_13TeV-pythia8/0001.root 47.13 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WZ_TuneCP5_13TeV-pythia8/0002.root 47.13 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WZ_TuneCP5_13TeV-pythia8/0003.root 47.13 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WZ_TuneCP5_13TeV-pythia8/0004.root 47.13 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/WZ_TuneCP5_13TeV-pythia8/0005.root 47.13 Diboson 851
+ENDGROUP
+
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/ZZ_TuneCP5_13TeV-pythia8/0001.root 16.523 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/ZZ_TuneCP5_13TeV-pythia8/0002.root 16.523 Diboson 851
+INGROUP
+vv /data/t3home000/dabercro/fullhbb/180530_v1/ZZ_TuneCP5_13TeV-pythia8/0003.root 16.523 Diboson 851
+ENDGROUP

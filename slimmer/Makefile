@@ -18,8 +18,8 @@ target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/testhbbtree
 regression = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/regresstree
 install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
 pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-#testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
-testfile = /data/t3home000/dabercro/scratch/$(vers)/*.root
+testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
+#testfile = /data/t3home000/dabercro/scratch/$(vers)/*.root
 
 checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
@@ -27,7 +27,7 @@ tarball = ${CMSSW_BASE}/condor.tgz
 
 all: $(target) $(effs)
 
-$(install): $(target)
+$(install): $(target) $(effs)
 	cp $(target) $(install)
 
 $(tarball): $(install) $(checker) $(thejq) $(data) $(regression) $(effs)

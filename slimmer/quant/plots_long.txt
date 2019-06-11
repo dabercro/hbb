@@ -1,0 +1,525 @@
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.115631,0.142800
+60.000000,0.092648,0.115713
+120.000000,0.082708,0.096288
+180.000000,0.076478,0.085152
+240.000000,0.067726,0.073903
+300.000000,0.063627,0.066668
+360.000000,0.061238,0.064089
+420.000000,0.056680,0.061130
+480.000000,0.051241,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088576,0.109065
+0.400000,0.090189,0.110263
+0.800000,0.097937,0.120502
+1.200000,0.109476,0.133825
+1.600000,0.107565,0.128420
+2.000000,0.123451,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.115442,0.142800
+60.000000,0.092477,0.115713
+120.000000,0.082032,0.096288
+180.000000,0.076177,0.085152
+240.000000,0.068499,0.073903
+300.000000,0.063057,0.066668
+360.000000,0.057816,0.064089
+420.000000,0.061160,0.061130
+480.000000,0.049052,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088379,0.109065
+0.400000,0.089767,0.110263
+0.800000,0.097462,0.120502
+1.200000,0.109330,0.133825
+1.600000,0.107185,0.128420
+2.000000,0.123277,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_40000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.117498,0.142800
+60.000000,0.093796,0.115713
+120.000000,0.082788,0.096288
+180.000000,0.075613,0.085152
+240.000000,0.067166,0.073903
+300.000000,0.062927,0.066668
+360.000000,0.063359,0.064089
+420.000000,0.065108,0.061130
+480.000000,0.051034,0.048870
+eta
+x,dnn,jecs
+0.000000,0.089875,0.109065
+0.400000,0.090874,0.110263
+0.800000,0.098327,0.120502
+1.200000,0.111177,0.133825
+1.600000,0.109254,0.128420
+2.000000,0.125181,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_60000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.115540,0.142800
+60.000000,0.092605,0.115713
+120.000000,0.082435,0.096288
+180.000000,0.076989,0.085152
+240.000000,0.068841,0.073903
+300.000000,0.063272,0.066668
+360.000000,0.063310,0.064089
+420.000000,0.060504,0.061130
+480.000000,0.053374,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088538,0.109065
+0.400000,0.090038,0.110263
+0.800000,0.098184,0.120502
+1.200000,0.110269,0.133825
+1.600000,0.107729,0.128420
+2.000000,0.123984,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_80000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.116637,0.142800
+60.000000,0.092497,0.115713
+120.000000,0.080795,0.096288
+180.000000,0.075149,0.085152
+240.000000,0.068236,0.073903
+300.000000,0.063071,0.066668
+360.000000,0.059087,0.064089
+420.000000,0.061066,0.061130
+480.000000,0.050747,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088500,0.109065
+0.400000,0.089941,0.110263
+0.800000,0.097874,0.120502
+1.200000,0.109914,0.133825
+1.600000,0.107662,0.128420
+2.000000,0.124489,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.115603,0.142800
+60.000000,0.092722,0.115713
+120.000000,0.082485,0.096288
+180.000000,0.075877,0.085152
+240.000000,0.067151,0.073903
+300.000000,0.062762,0.066668
+360.000000,0.061149,0.064089
+420.000000,0.057756,0.061130
+480.000000,0.048516,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088697,0.109065
+0.400000,0.090089,0.110263
+0.800000,0.097753,0.120502
+1.200000,0.109564,0.133825
+1.600000,0.107477,0.128420
+2.000000,0.123439,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.116312,0.142800
+60.000000,0.092204,0.115713
+120.000000,0.082009,0.096288
+180.000000,0.075685,0.085152
+240.000000,0.067577,0.073903
+300.000000,0.062922,0.066668
+360.000000,0.061327,0.064089
+420.000000,0.058151,0.061130
+480.000000,0.049401,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088614,0.109065
+0.400000,0.089974,0.110263
+0.800000,0.097738,0.120502
+1.200000,0.109837,0.133825
+1.600000,0.107329,0.128420
+2.000000,0.124194,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_40000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.116049,0.142800
+60.000000,0.092768,0.115713
+120.000000,0.082285,0.096288
+180.000000,0.076331,0.085152
+240.000000,0.067127,0.073903
+300.000000,0.065387,0.066668
+360.000000,0.064923,0.064089
+420.000000,0.055792,0.061130
+480.000000,0.054507,0.048870
+eta
+x,dnn,jecs
+0.000000,0.089109,0.109065
+0.400000,0.090734,0.110263
+0.800000,0.098372,0.120502
+1.200000,0.110580,0.133825
+1.600000,0.107860,0.128420
+2.000000,0.125132,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_60000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.117049,0.142800
+60.000000,0.093654,0.115713
+120.000000,0.082636,0.096288
+180.000000,0.076796,0.085152
+240.000000,0.066766,0.073903
+300.000000,0.062351,0.066668
+360.000000,0.061548,0.064089
+420.000000,0.058804,0.061130
+480.000000,0.049433,0.048870
+eta
+x,dnn,jecs
+0.000000,0.089197,0.109065
+0.400000,0.090493,0.110263
+0.800000,0.098028,0.120502
+1.200000,0.110883,0.133825
+1.600000,0.108557,0.128420
+2.000000,0.125641,0.144802
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_80000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.116297,0.142800
+60.000000,0.093245,0.115713
+120.000000,0.082143,0.096288
+180.000000,0.076207,0.085152
+240.000000,0.066860,0.073903
+300.000000,0.063292,0.066668
+360.000000,0.061084,0.064089
+420.000000,0.058493,0.061130
+480.000000,0.050421,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088874,0.109065
+0.400000,0.090045,0.110263
+0.800000,0.098033,0.120502
+1.200000,0.110109,0.133825
+1.600000,0.107364,0.128420
+2.000000,0.124370,0.144802
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.115644,0.142800
+60.000000,0.092445,0.115713
+120.000000,0.081609,0.096288
+180.000000,0.075304,0.085152
+240.000000,0.066574,0.073903
+300.000000,0.061208,0.066668
+360.000000,0.061589,0.064089
+420.000000,0.058709,0.061130
+480.000000,0.050616,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088588,0.109065
+0.400000,0.090175,0.110263
+0.800000,0.097529,0.120502
+1.200000,0.109853,0.133825
+1.600000,0.107226,0.128420
+2.000000,0.123281,0.144802
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.115232,0.142800
+60.000000,0.091746,0.115713
+120.000000,0.080972,0.096288
+180.000000,0.075558,0.085152
+240.000000,0.066299,0.073903
+300.000000,0.060832,0.066668
+360.000000,0.059642,0.064089
+420.000000,0.059472,0.061130
+480.000000,0.048388,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088257,0.109065
+0.400000,0.089862,0.110263
+0.800000,0.097615,0.120502
+1.200000,0.108975,0.133825
+1.600000,0.106504,0.128420
+2.000000,0.122846,0.144802
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_40000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.117460,0.142800
+60.000000,0.094302,0.115713
+120.000000,0.083347,0.096288
+180.000000,0.077740,0.085152
+240.000000,0.067063,0.073903
+300.000000,0.063538,0.066668
+360.000000,0.063225,0.064089
+420.000000,0.057001,0.061130
+480.000000,0.049957,0.048870
+eta
+x,dnn,jecs
+0.000000,0.090149,0.109065
+0.400000,0.091324,0.110263
+0.800000,0.098892,0.120502
+1.200000,0.111592,0.133825
+1.600000,0.109084,0.128420
+2.000000,0.125758,0.144802
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_60000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.116732,0.142800
+60.000000,0.093115,0.115713
+120.000000,0.082681,0.096288
+180.000000,0.076418,0.085152
+240.000000,0.068424,0.073903
+300.000000,0.064613,0.066668
+360.000000,0.063183,0.064089
+420.000000,0.060827,0.061130
+480.000000,0.047093,0.048870
+eta
+x,dnn,jecs
+0.000000,0.089366,0.109065
+0.400000,0.090759,0.110263
+0.800000,0.098397,0.120502
+1.200000,0.110730,0.133825
+1.600000,0.107938,0.128420
+2.000000,0.124427,0.144802
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_80000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.116425,0.142800
+60.000000,0.092591,0.115713
+120.000000,0.081130,0.096288
+180.000000,0.075607,0.085152
+240.000000,0.067286,0.073903
+300.000000,0.063692,0.066668
+360.000000,0.065695,0.064089
+420.000000,0.055960,0.061130
+480.000000,0.047573,0.048870
+eta
+x,dnn,jecs
+0.000000,0.088790,0.109065
+0.400000,0.090547,0.110263
+0.800000,0.097867,0.120502
+1.200000,0.110274,0.133825
+1.600000,0.107873,0.128420
+2.000000,0.124274,0.144802
+[?1034h['./validate_regression.py', '190607_pf_wideloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.139320,0.142800
+60.000000,0.101001,0.115713
+120.000000,0.086353,0.096288
+180.000000,0.078715,0.085152
+240.000000,0.067804,0.073903
+300.000000,0.065492,0.066668
+360.000000,0.060947,0.064089
+420.000000,0.059922,0.061130
+480.000000,0.056315,0.048870
+eta
+x,dnn,jecs
+0.000000,0.096180,0.109065
+0.400000,0.097504,0.110263
+0.800000,0.107493,0.120502
+1.200000,0.125502,0.133825
+1.600000,0.125365,0.128420
+2.000000,0.152600,0.144802
+[?1034h['./validate_regression.py', '190607_pf_wideloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.141906,0.142800
+60.000000,0.101969,0.115713
+120.000000,0.086488,0.096288
+180.000000,0.079173,0.085152
+240.000000,0.070455,0.073903
+300.000000,0.066903,0.066668
+360.000000,0.064605,0.064089
+420.000000,0.059786,0.061130
+480.000000,0.052558,0.048870
+eta
+x,dnn,jecs
+0.000000,0.097020,0.109065
+0.400000,0.098384,0.110263
+0.800000,0.108130,0.120502
+1.200000,0.126874,0.133825
+1.600000,0.127913,0.128420
+2.000000,0.155486,0.144802
+[?1034h['./validate_regression.py', '190607_pf_wideloss_40000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.121752,0.142800
+60.000000,0.094694,0.115713
+120.000000,0.083410,0.096288
+180.000000,0.077125,0.085152
+240.000000,0.069243,0.073903
+300.000000,0.065909,0.066668
+360.000000,0.061893,0.064089
+420.000000,0.058050,0.061130
+480.000000,0.050356,0.048870
+eta
+x,dnn,jecs
+0.000000,0.091669,0.109065
+0.400000,0.092596,0.110263
+0.800000,0.100648,0.120502
+1.200000,0.114496,0.133825
+1.600000,0.111394,0.128420
+2.000000,0.129791,0.144802
+[?1034h['./validate_regression.py', '190607_pf_wideloss_60000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.130962,0.142800
+60.000000,0.097748,0.115713
+120.000000,0.084359,0.096288
+180.000000,0.078647,0.085152
+240.000000,0.069674,0.073903
+300.000000,0.066305,0.066668
+360.000000,0.061209,0.064089
+420.000000,0.058618,0.061130
+480.000000,0.051673,0.048870
+eta
+x,dnn,jecs
+0.000000,0.093745,0.109065
+0.400000,0.094990,0.110263
+0.800000,0.104207,0.120502
+1.200000,0.119263,0.133825
+1.600000,0.119035,0.128420
+2.000000,0.141363,0.144802
+[?1034h['./validate_regression.py', '190607_pf_wideloss_80000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.133826,0.142800
+60.000000,0.098972,0.115713
+120.000000,0.085340,0.096288
+180.000000,0.078820,0.085152
+240.000000,0.068408,0.073903
+300.000000,0.065381,0.066668
+360.000000,0.060400,0.064089
+420.000000,0.059484,0.061130
+480.000000,0.052471,0.048870
+eta
+x,dnn,jecs
+0.000000,0.094484,0.109065
+0.400000,0.095802,0.110263
+0.800000,0.105002,0.120502
+1.200000,0.121606,0.133825
+1.600000,0.121575,0.128420
+2.000000,0.146031,0.144802
+[?1034h['./validate_regression.py', '190603_v6']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+pt
+x,dnn,jecs
+0.000000,0.120477,0.142800
+60.000000,0.093571,0.115713
+120.000000,0.082985,0.096288
+180.000000,0.076619,0.085152
+240.000000,0.068559,0.073903
+300.000000,0.063463,0.066668
+360.000000,0.061082,0.064089
+420.000000,0.057860,0.061130
+480.000000,0.051575,0.048870
+eta
+x,dnn,jecs
+0.000000,0.089864,0.109065
+0.400000,0.091225,0.110263
+0.800000,0.099380,0.120502
+1.200000,0.112575,0.133825
+1.600000,0.110083,0.128420
+2.000000,0.127940,0.144802

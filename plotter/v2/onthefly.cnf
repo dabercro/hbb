@@ -1,0 +1,6 @@
+bjet_deepCSVb[n_allbjet], bjet_numB[n_allbjet] && bjet_pt[n_allbjet] < 150, /home/dabercro/hbb/plotter/v2/reweight_190301_1.root, heavy_pt_0_150_reweight
+bjet_deepCSVb[n_allbjet], bjet_numB[n_allbjet] && 150 < bjet_pt[n_allbjet] && bjet_pt[n_allbjet] < 250, /home/dabercro/hbb/plotter/v2/reweight_190301_1.root, heavy_pt_150_250_reweight
+bjet_deepCSVb[n_allbjet], bjet_numB[n_allbjet] && 250 < bjet_pt[n_allbjet], /home/dabercro/hbb/plotter/v2/reweight_190301_1.root, heavy_pt_250_inf_reweight
+bjet_deepCSVb[n_allbjet], !bjet_numB[n_allbjet] && bjet_pt[n_allbjet] < 150, /home/dabercro/hbb/plotter/v2/reweight_190301_1.root, light_pt_0_150_reweight
+bjet_deepCSVb[n_allbjet], !bjet_numB[n_allbjet] && 150 < bjet_pt[n_allbjet] && bjet_pt[n_allbjet] < 250, /home/dabercro/hbb/plotter/v2/reweight_190301_1.root, light_pt_150_250_reweight
+bjet_deepCSVb[n_allbjet], !bjet_numB[n_allbjet] && 250 < bjet_pt[n_allbjet], /home/dabercro/hbb/plotter/v2/reweight_190301_1.root, light_pt_250_inf_reweight

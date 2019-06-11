@@ -205,7 +205,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     /O = false -> true
     $ = -1 -> jet.$() | pt, eta, phi, m, e
-    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
+!    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
     #p4/TLorentzVector = TLorentzVector() -> [&] () { TLorentzVector p4; p4.SetPtEtaPhiM(<[]_{pt, eta, phi, m}>); return p4; } ()
 
@@ -217,7 +217,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     rawFactor <- []_pt/[]_rawPt
 
-    ? ptSmear; jetsmear ? -> jet.ptSmear%%
+!    ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
     ! Set the taggers to -2 to disappear them from plots
     $ = -2 -> jet.$ | qgl, csv, cmva, deepCSVb, deepCMVAb
@@ -245,7 +245,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     $ -> puppi.$ | ptD
     $/s -> puppi.$ | num03
 
-    pf_@_$ -> puppi.pfinfo[@].$ |@ 0..10 | ptfrac, deta, dphi, puppiwt
+    pf_@_$ -> puppi.pfinfo[@].$ |@ 0..10 | ptfrac, deta, dphi, puppiwt, dxy, dz
     pf_@_$/I -> puppi.pfinfo[@].$ |@ 0..10 | pdgid
     !!!!!!!
 
@@ -256,6 +256,7 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     nlep/b -> nlep
     leadlep_$ -> lep->$() | pt, m, e
     leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
+    leadlep_ptrelinv = -1 -> jet.p4().Perp(lep->p4().Vect())
     leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
     leadlep_pdgid/S -> lep->matchedPF.isValid() ? lep->matchedPF->pdgId() : 0
     isEle/O <- std::abs([]_leadlep_pdgid) == 11
@@ -292,7 +293,8 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     reclustered/O = false -> true
     reclustered_$ -> jet->$() | pt, eta, phi, m
 
-DEFINE TF_VERS v5, v7, v8, v10, v12
+! DEFINE TF_VERS v5, v7, v8, v10, v12
+DEFINE TF_VERS 190603_v6, 190604_v0
 
 !  #tf_@/std::vector<float> = {1, 0, 0, 1} \
 !      <- lazytf::eval("data/freeze_@.pb", "data/regression2.txt", \
@@ -314,7 +316,19 @@ DEFINE TF_VERS v5, v7, v8, v10, v12
 !         {"dnn/logits/BiasAdd"}, 4, \
 !         `perl -ane 'chomp; s/jet1/\[\]/g; s/.*=\s*(.*)/$1/; print; eof || print ", "' data/regression4.txt`) |@ v8
 
-!  tf_@_$ <- []_tf_@[=$=] | ptratio, deta, dphi, mratio |@ TF_VERS
+  #tf_@/std::vector<float> = {1} \
+      <- lazytf::eval("data/freeze_@.pb", "data/regression7.txt", \
+         {"dnn/split_logits/Slice"}, 1, \
+         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression7_trns.txt`) |@ 190603_v6
+
+  #tf_@/std::vector<float> = {1} \
+      <- lazytf::eval("data/freeze_@.pb", "data/regression6.txt", \
+         {"dnn/split_logits/Slice"}, 1, \
+         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression6_trns.txt`) |@ 190604_v0
+
+  tf_@_$ <- []_tf_@[=$=] | ptratio |@ TF_VERS
+  tf_@_$ = 1 | mratio |@ TF_VERS
+  tf_@_$ = 0 | deta, dphi |@ TF_VERS
 
   [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
   [pt_ratio_new; data/Regression_v3_BDT.weights.xml; jet1] = 1
@@ -322,8 +336,8 @@ DEFINE TF_VERS v5, v7, v8, v10, v12
   ! Need a more systematic name system
 
   pt_reg$ <- []_pt_ratio$ * []_pt | _old, _new ! , _old_method
-!  $_tf_@ <- []_tf_@_$ratio * []_$ | pt, m |@ TF_VERS
-!  $_tf_@ <- []_tf_@_d$ + []_$ | eta, phi |@ TF_VERS
+  $_tf_@ <- []_tf_@_$ratio * []_$ | pt, m |@ TF_VERS
+  $_tf_@ <- []_tf_@_d$ + []_$ | eta, phi |@ TF_VERS
 
 }
 
@@ -340,8 +354,8 @@ hbb {
     m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _new ! , _old_method
     pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old, _new ! , _old_method
 
-!    m_tf_@ <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf_@>) |@ TF_VERS
-!    pt_tf_@ <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf_@>) |@ TF_VERS
+    m_tf_@ <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf_@>) |@ TF_VERS
+    pt_tf_@ <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf_@>) |@ TF_VERS
 
     reg$_over_m <- []_m_reg$/[]_m | _old, _new ! , _old_method
 

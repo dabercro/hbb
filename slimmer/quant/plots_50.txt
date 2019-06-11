@@ -1,0 +1,1161 @@
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.115995,0.143298
+60.000000,0.092720,0.116078
+120.000000,0.082916,0.097071
+180.000000,0.076106,0.083963
+240.000000,0.070136,0.075509
+300.000000,0.065948,0.068660
+360.000000,0.061812,0.063805
+420.000000,0.057975,0.059843
+480.000000,0.051554,0.053417
+eta
+x,dnn,jecs
+0.000000,0.088963,0.108996
+0.400000,0.090413,0.110571
+0.800000,0.097840,0.121032
+1.200000,0.109354,0.134919
+1.600000,0.106705,0.128940
+2.000000,0.124655,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116132,0.143298
+60.000000,0.092520,0.116078
+120.000000,0.082124,0.097071
+180.000000,0.075444,0.083963
+240.000000,0.069850,0.075509
+300.000000,0.065358,0.068660
+360.000000,0.061431,0.063805
+420.000000,0.059003,0.059843
+480.000000,0.050201,0.053417
+eta
+x,dnn,jecs
+0.000000,0.088792,0.108996
+0.400000,0.090113,0.110571
+0.800000,0.097510,0.121032
+1.200000,0.109350,0.134919
+1.600000,0.106653,0.128940
+2.000000,0.124267,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_40000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.117936,0.143298
+60.000000,0.093890,0.116078
+120.000000,0.082973,0.097071
+180.000000,0.075315,0.083963
+240.000000,0.069198,0.075509
+300.000000,0.065917,0.068660
+360.000000,0.062432,0.063805
+420.000000,0.059871,0.059843
+480.000000,0.051629,0.053417
+eta
+x,dnn,jecs
+0.000000,0.089851,0.108996
+0.400000,0.091147,0.110571
+0.800000,0.098592,0.121032
+1.200000,0.110942,0.134919
+1.600000,0.108048,0.128940
+2.000000,0.126356,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_60000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116114,0.143298
+60.000000,0.092585,0.116078
+120.000000,0.082568,0.097071
+180.000000,0.076143,0.083963
+240.000000,0.070903,0.075509
+300.000000,0.066301,0.068660
+360.000000,0.062355,0.063805
+420.000000,0.058276,0.059843
+480.000000,0.053304,0.053417
+eta
+x,dnn,jecs
+0.000000,0.089060,0.108996
+0.400000,0.090501,0.110571
+0.800000,0.097926,0.121032
+1.200000,0.109784,0.134919
+1.600000,0.107039,0.128940
+2.000000,0.125073,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_narrowloss_80000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.117208,0.143298
+60.000000,0.092383,0.116078
+120.000000,0.081124,0.097071
+180.000000,0.074734,0.083963
+240.000000,0.069491,0.075509
+300.000000,0.065818,0.068660
+360.000000,0.061738,0.063805
+420.000000,0.057915,0.059843
+480.000000,0.052240,0.053417
+eta
+x,dnn,jecs
+0.000000,0.088939,0.108996
+0.400000,0.090330,0.110571
+0.800000,0.097815,0.121032
+1.200000,0.109560,0.134919
+1.600000,0.106990,0.128940
+2.000000,0.125347,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116126,0.143298
+60.000000,0.092794,0.116078
+120.000000,0.082395,0.097071
+180.000000,0.075343,0.083963
+240.000000,0.069775,0.075509
+300.000000,0.064941,0.068660
+360.000000,0.061385,0.063805
+420.000000,0.057655,0.059843
+480.000000,0.050101,0.053417
+eta
+x,dnn,jecs
+0.000000,0.088926,0.108996
+0.400000,0.090309,0.110571
+0.800000,0.097718,0.121032
+1.200000,0.109599,0.134919
+1.600000,0.106975,0.128940
+2.000000,0.124797,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116771,0.143298
+60.000000,0.092468,0.116078
+120.000000,0.082120,0.097071
+180.000000,0.075296,0.083963
+240.000000,0.069863,0.075509
+300.000000,0.065264,0.068660
+360.000000,0.061272,0.063805
+420.000000,0.058057,0.059843
+480.000000,0.050442,0.053417
+eta
+x,dnn,jecs
+0.000000,0.088923,0.108996
+0.400000,0.090321,0.110571
+0.800000,0.097783,0.121032
+1.200000,0.109551,0.134919
+1.600000,0.106674,0.128940
+2.000000,0.124916,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_40000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116639,0.143298
+60.000000,0.092812,0.116078
+120.000000,0.082538,0.097071
+180.000000,0.075555,0.083963
+240.000000,0.069723,0.075509
+300.000000,0.065838,0.068660
+360.000000,0.063267,0.063805
+420.000000,0.059106,0.059843
+480.000000,0.054086,0.053417
+eta
+x,dnn,jecs
+0.000000,0.089558,0.108996
+0.400000,0.091019,0.110571
+0.800000,0.098431,0.121032
+1.200000,0.110403,0.134919
+1.600000,0.107451,0.128940
+2.000000,0.126068,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_60000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.117543,0.143298
+60.000000,0.093696,0.116078
+120.000000,0.082672,0.097071
+180.000000,0.076006,0.083963
+240.000000,0.070440,0.075509
+300.000000,0.065464,0.068660
+360.000000,0.061867,0.063805
+420.000000,0.059068,0.059843
+480.000000,0.051462,0.053417
+eta
+x,dnn,jecs
+0.000000,0.089369,0.108996
+0.400000,0.090713,0.110571
+0.800000,0.098296,0.121032
+1.200000,0.110393,0.134919
+1.600000,0.107729,0.128940
+2.000000,0.126568,0.145553
+[?1034h['./validate_regression.py', '190607_nopf_wideloss_80000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116750,0.143298
+60.000000,0.093326,0.116078
+120.000000,0.082287,0.097071
+180.000000,0.075273,0.083963
+240.000000,0.069717,0.075509
+300.000000,0.065569,0.068660
+360.000000,0.062196,0.063805
+420.000000,0.058602,0.059843
+480.000000,0.051766,0.053417
+eta
+x,dnn,jecs
+0.000000,0.089157,0.108996
+0.400000,0.090521,0.110571
+0.800000,0.098138,0.121032
+1.200000,0.109923,0.134919
+1.600000,0.107101,0.128940
+2.000000,0.125539,0.145553
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116105,0.143298
+60.000000,0.092634,0.116078
+120.000000,0.081916,0.097071
+180.000000,0.075139,0.083963
+240.000000,0.068993,0.075509
+300.000000,0.064675,0.068660
+360.000000,0.060910,0.063805
+420.000000,0.057030,0.059843
+480.000000,0.051301,0.053417
+eta
+x,dnn,jecs
+0.000000,0.088994,0.108996
+0.400000,0.090417,0.110571
+0.800000,0.097755,0.121032
+1.200000,0.109433,0.134919
+1.600000,0.106656,0.128940
+2.000000,0.124527,0.145553
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.115715,0.143298
+60.000000,0.091852,0.116078
+120.000000,0.081532,0.097071
+180.000000,0.074949,0.083963
+240.000000,0.068861,0.075509
+300.000000,0.064035,0.068660
+360.000000,0.059869,0.063805
+420.000000,0.058325,0.059843
+480.000000,0.050285,0.053417
+eta
+x,dnn,jecs
+0.000000,0.088660,0.108996
+0.400000,0.090121,0.110571
+0.800000,0.097447,0.121032
+1.200000,0.109061,0.134919
+1.600000,0.106100,0.128940
+2.000000,0.124105,0.145553
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_40000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.117704,0.143298
+60.000000,0.094340,0.116078
+120.000000,0.083568,0.097071
+180.000000,0.076420,0.083963
+240.000000,0.070481,0.075509
+300.000000,0.065845,0.068660
+360.000000,0.062347,0.063805
+420.000000,0.058573,0.059843
+480.000000,0.052157,0.053417
+eta
+x,dnn,jecs
+0.000000,0.090229,0.108996
+0.400000,0.091564,0.110571
+0.800000,0.099190,0.121032
+1.200000,0.111302,0.134919
+1.600000,0.108449,0.128940
+2.000000,0.126385,0.145553
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_60000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.117247,0.143298
+60.000000,0.093398,0.116078
+120.000000,0.082613,0.097071
+180.000000,0.075976,0.083963
+240.000000,0.070491,0.075509
+300.000000,0.065978,0.068660
+360.000000,0.062701,0.063805
+420.000000,0.058178,0.059843
+480.000000,0.051885,0.053417
+eta
+x,dnn,jecs
+0.000000,0.089568,0.108996
+0.400000,0.090969,0.110571
+0.800000,0.098570,0.121032
+1.200000,0.110340,0.134919
+1.600000,0.107593,0.128940
+2.000000,0.125620,0.145553
+[?1034h['./validate_regression.py', '190607_pf_narrowloss_80000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.116917,0.143298
+60.000000,0.092899,0.116078
+120.000000,0.081546,0.097071
+180.000000,0.075069,0.083963
+240.000000,0.069420,0.075509
+300.000000,0.065265,0.068660
+360.000000,0.062024,0.063805
+420.000000,0.057659,0.059843
+480.000000,0.051427,0.053417
+eta
+x,dnn,jecs
+0.000000,0.089310,0.108996
+0.400000,0.090699,0.110571
+0.800000,0.098107,0.121032
+1.200000,0.109833,0.134919
+1.600000,0.107211,0.128940
+2.000000,0.125235,0.145553
+[?1034h['./validate_regression.py', '190607_pf_wideloss_120000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0040.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0041.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0042.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0043.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0044.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0045.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0046.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0047.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0048.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0049.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0050.root
+pt
+x,dnn,jecs
+0.000000,0.134483,0.143298
+60.000000,0.099206,0.116078
+120.000000,0.085688,0.097071
+180.000000,0.077834,0.083963
+240.000000,0.071970,0.075509
+300.000000,0.067888,0.068660
+360.000000,0.064808,0.063805
+420.000000,0.061416,0.059843
+480.000000,0.053711,0.053417
+eta
+x,dnn,jecs
+0.000000,0.094905,0.108996
+0.400000,0.096520,0.110571
+0.800000,0.105281,0.121032
+1.200000,0.120747,0.134919
+1.600000,0.120483,0.128940
+2.000000,0.144691,0.145553
+[?1034h['./validate_regression.py', '190607_pf_wideloss_160000']
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0001.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0002.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0003.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0004.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0005.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0006.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0007.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0008.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0009.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0010.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0011.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0012.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0013.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0014.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0015.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0016.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0017.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0018.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0019.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0020.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0021.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0022.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0023.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0024.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0025.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0026.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0027.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0028.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0029.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0030.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0031.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0032.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0033.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0034.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0035.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0036.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0037.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0038.root
+Opening .../data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8/0039.root
+Opening .../d

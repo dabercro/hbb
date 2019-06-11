@@ -1,0 +1,2 @@
+ggZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8+RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1+MINIAODSIM
+ZH_HToBB_ZToNuNu_M125_13TeV_powheg_pythia8+RunIIAutumn18MiniAOD-102X_upgrade2018_realistic_v15-v1+MINIAODSIM

@@ -1,0 +1,35 @@
+{
+	"mc": {
+	      "path" : "",
+	      "weights" : "sf_pu",
+	      "samples" : {
+	       "Hbb_noreg": {
+	           "file" : "/home/dabercro/hbb/slimmer/reg_big.root",
+		   "label" : "JECs only",
+		   "variable" : "hbbm",
+		   "color" : "royalblue",
+		   "hatch" : 1
+		   },
+	       "Hbb_dreg_2018_wide": {
+	           "file" : "/home/dabercro/hbb/slimmer/reg_big.root",
+		   "label" : "DNN regression",
+		   "variable" : "hbbm_dreg",
+		   "color" : "crimson",
+		   "plotviolin" : 1
+		   }
+	       }	       
+	 },
+	 "cuts" : "1",
+	 "xtitle" : "Reconstructed $m_{\\mathrm{H}}$ (GeV)",
+	 "ytitle" : "Norm. to unit area",
+	 "nbinsx" : 35,
+	 "xmin" : 40,
+	 "xmax" : 230,
+	 "normalize" : 1,
+	 "labels" : ["0.55:0.86:22:Jet energy regression","0.84:0.8:22:2018","0.71:0.71:20:$p_\\mathrm{T}^{j_{1,2}}>20\\,\\mathrm{GeV}$"],
+	 "fit" : 1,
+	 "year" : 2018,
+	 "history" : "history.log"
+
+}
+

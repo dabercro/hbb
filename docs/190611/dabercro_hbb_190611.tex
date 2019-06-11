@@ -1,0 +1,315 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie
+}
+
+\title{\bf \sffamily B-regression Trainings}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introduction}
+
+  \begin{itemize}
+  \item We are trying to verify that adding PF candidates to the regression helps
+  \item We compare the the regression that was done before
+  \item Using a separate check from Benedikt's, we see PF candidates help to some extent
+  \item We are also seeing what looks like over training
+  \item Having multiple GPUs is starting to quickly increase \\
+    how many trainings we can try at the same time
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hint of overtraining}
+
+  \begin{center}
+  \includegraphics[width=0.6\linewidth]{/home/dabercro/hbb/analysis/more/plot.pdf}
+  \end{center}
+
+  \begin{itemize}
+  \item \textcolor{blue}{JECs}
+  \item \textcolor{red}{Old training at one checkpoint}
+  \item \textcolor{yellow}{Same training at later checkpoint}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Jets Used in Training}
+
+  \begin{itemize}
+  \item Using framework synced with NanoAOD file provided by b-regression team
+  \item Hadronic $t\bar{t}$
+  \item Only requirement for jet is that it's matched to a gen-jet with a $b$ inside
+  \item Overlapping neutrinos are added to jet
+  \item Target $p_T$ only
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Variables used in training}
+
+  \begin{itemize}
+  \item Jet kinematics ($\eta, m_T, m, p_T, p_{TD}$)
+  \item Jet energy fractions (charged, neutral; EM, hadronic)
+  \item Energy rings (charged, neutral, EM, muonic; $R < 0.05, 0.1, 0.2, 0.3, 0.4$)
+  \item Number of constituents
+  \item Pileup ($\rho$)
+  \item Vertex kinematics (location, significance, $m, n_\mathrm{trk}, p_T$)
+  \item Leading track $p_T$
+  \item Leading lepton kinematics ($p_T, \Delta R, p_{T\perp j}$)
+  \item One hot encoded lepton PDGID
+  \end{itemize}
+
+  We added information for the first 5 PF candidates
+
+  \begin{itemize}
+  \item $p_T$ fraction
+  \item $\Delta \eta, \Delta \phi$
+  \item $\Delta z, \Delta xy$
+  \item Puppi weight
+  \item PDGID (not one hot encoded...)
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Model loss function}
+
+  \begin{itemize}
+  \item Only concerned with central value for now
+  \item Use Huber loss function for both cases
+  \end{itemize}
+
+  \begin{gather*}
+    y = x_\mathrm{pred} - x_\mathrm{true} \\
+    f(y) = \begin{cases}
+      \frac12 y^2 & \mbox{for } |y| < \delta \\
+      \delta(|y| - \frac12 \delta) & \mbox{otherwise}
+      \end{cases}
+  \end{gather*}
+
+  \begin{itemize}
+  \item Tried narrow ($\delta = 0.05$) and wide ($\delta = 0.25$) loss functions
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Training Progress}
+
+  \twofigs{Narrow Loss}
+          {190611/plot_narrow.pdf}
+          {Wide Loss}
+          {190611/plot_wide.pdf}
+
+  \begin{itemize}
+  \item \textcolor{blue}{Old variables}
+  \item \textcolor{red}{PF candidates added}
+  \item \textcolor{green}{Previous overtraining}
+  \end{itemize}
+
+  \begin{itemize}
+  \item Saved models every 20,000 steps
+  \item Except for \textcolor{green}{Previous overtraining}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Model differences (old)}
+
+  \begin{center}
+    \textcolor{green}{Old training} \\
+    \includegraphics[width=\linewidth]{old_narrow_board.png} \\
+  \end{center}
+
+  \begin{itemize}
+  \item Differences exist, difficult to say if significant
+  \item Most nodes of the model are not used, \\
+    possibly sub-optimal architecture
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Model differences (new)}
+
+  \begin{center}
+    \textcolor{red}{New training} \\
+    \includegraphics[width=\linewidth]{pf_narrow_board.png} \\
+  \end{center}
+
+  \begin{itemize}
+  \item Differences exist, difficult to say if significant
+  \item Most nodes of the model are not used, \\
+    possibly sub-optimal architecture
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Violin plots}
+
+  Here's just an explanation of the resolution figure of merit
+
+  \twofigs{$\eta$}
+          {190611_violin_190607_pf_narrowloss_60000/bjetreg_2018_violin_eta_Hbb_dreg_2018_wide.pdf}
+          {$p_T$}
+          {190611_violin_190607_pf_narrowloss_60000/bjetreg_2018_violin_Hbb_dreg_2018_wide.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Trainings Over Time}
+    
+  \begin{itemize}
+  \item Overtraining doesn't seem to be showing up anymore...
+  \end{itemize}
+
+  \twofigs{Narrow}
+          {190611/plot_time_pf_narrow.pdf}
+          {Wide}
+          {190611/plot_time_pf_wide.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{PF Candidate Gains}
+
+  \fourfigs{40,000 steps}
+           {190611/plot_time_40000_wide.pdf}
+           {80,000 steps}
+           {190611/plot_time_80000_wide.pdf}
+           {120,000 steps}
+           {190611/plot_time_120000_wide.pdf}
+           {160,000 steps}
+           {190611/plot_time_160000_wide.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Loss Function Difference}
+
+  \twofigs{40,000 Steps}
+          {190611/plot_time_40000_compare.pdf}
+          {160,000 Steps}
+          {190611/plot_time_160000_compare.pdf}
+
+  \begin{itemize}
+  \item Might be a hint of the overtraining we saw before
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item Having trouble confirming improvement from PF candidates
+  \item Either seeing overfitting, or bad loss function selection
+  \item Most important metric will be the improvement of the di-jet mass peak,
+    but not shown here
+  \item Benedikt is trying synced framework with Keras model
+  \end{itemize}
+
+\end{frame}
+
+\beginbackup
+
+\begin{frame}
+  \frametitle{Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+
+\end{document}

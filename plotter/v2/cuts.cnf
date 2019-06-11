@@ -1,0 +1,61 @@
+mcweight * 'sf_met_trigger'
+    'ewk_z'
+    'ewk_w'
+    'wkfactor'
+    'zkfactor'
+    'vh_ewk'
+    'sf_tt'
+    'mc_weight'
+    'pdf'
+jetpt && 'daughter_max_pt > 60'
+    'daughter_min_pt > 35'
+common && 'hbb_m_reg_old < 500'
+    jetpt
+    'jet2_btagloose'
+    'dphi_uh > 2.'
+    'hbb_pt_reg_old > 120'
+    metcut
+    metphi
+metcut && 'recoil > 170'
+    'met_filter == 1'
+tt && common
+    'n_lep_tight == 1'
+    'n_centerjet >= 4'
+    'jet1_btagmedium'
+    'min_dphi_recoilb < 1.57'
+trig && 'met_trigger'
+zcommon && metcut
+    common
+    'n_lep_presel == 0'
+    'min_dphi_metj_hard > 0.5'
+    'dphi_met_dztrkmet < 0.5'
+lightz && zcommon
+    'jet1_btagmedium == 0'
+    'n_centerjet < 4'
+siglike && zcommon
+    'jet1_btagtight == 1'
+    'n_centerjet < 3'
+heavyz && siglike
+    !masswindow
+signal && siglike
+    masswindow
+blind * '0'
+masswindow && '60 < hbb_m_reg_old'
+    '160 > hbb_m_reg_old'
+mcweight_wpu * mcweight
+    'sf_pu'
+metphi || 'recoilphi > 5.8'
+    'recoilphi < 4.8'
+mcweight_newb * mcweight_wpu
+    'beff_sf_2'
+mcweight_roughb * mcweight_wpu
+    'sf_b_pt_bin'
+: tt trig mcweight_wpu nob_tt
+: heavyz trig mcweight_wpu nob_heavyz
+: lightz trig mcweight_wpu nob_lightz
+: tt trig mcweight_newb newb_tt
+: heavyz trig mcweight_newb newb_heavyz
+: lightz trig mcweight_newb newb_lightz
+: tt trig mcweight_roughb roughb_tt
+: heavyz trig mcweight_roughb roughb_heavyz
+: lightz trig mcweight_roughb roughb_lightz

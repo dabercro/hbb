@@ -1,0 +1,10 @@
+hbbm = 5
+
+flav(int i)
+  jotFlav[] -> 5
+  hbbjtidx[] -> i
+
+breg, noreg {
+  dijet(<T>& vec)
+    mass -> vec.M();
+}
