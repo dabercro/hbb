@@ -291,14 +291,14 @@ def violin(option,args):
       plt.savefig("%s/bjetreg_%s_violin_eta_%s.png" % (data['opath'],data['year'],key),dpi=300,bbox_inches='tight')
       plt.savefig("%s/bjetreg_%s_violin_eta_%s.pdf" % (data['opath'],data['year'],key),bbox_inches='tight')
 
-      fig = plt.figure()
+#      fig = plt.figure()
 
       #sns.jointplot(dfx["genjet_pt"], dfx["jet_pt"], kind="hex", color="#4CB391",joint_kws={'gridsize':30})
-      plt.scatter(dfx["genjet_pt"], dfx["jet_pt"])
-      plt.xlabel('gen jet pt')
-      plt.ylabel('jet pt')
-      plt.savefig("%s/bjetreg_%s_2D_%s.png" % (data['opath'],data['year'],key),dpi=300,bbox_inches='tight')
-      plt.savefig("%s/bjetreg_%s_2D_%s.pdf" % (data['opath'],data['year'],key),bbox_inches='tight')
+#      plt.scatter(dfx["genjet_pt"], dfx["jet_pt"])
+#      plt.xlabel('gen jet pt')
+#      plt.ylabel('jet pt')
+#      plt.savefig("%s/bjetreg_%s_2D_%s.png" % (data['opath'],data['year'],key),dpi=300,bbox_inches='tight')
+#      plt.savefig("%s/bjetreg_%s_2D_%s.pdf" % (data['opath'],data['year'],key),bbox_inches='tight')
 
 
 ##----##----##----##----##----##----##
