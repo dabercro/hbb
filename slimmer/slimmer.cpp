@@ -376,7 +376,8 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& gen : event.genParticles) {
         auto abspdgid = std::abs(gen.pdgid);
-        if (input::version >= 12 and gen.miniaodPacked and not (abspdgid == 12 or abspdgid == 14))
+        bool is_neutrino = (abspdgid == 12 or abspdgid == 14 or abspdgid == 16);
+        if (input::version >= 12 and gen.miniaodPacked and not is_neutrino)
           continue;
         if (not output.genboson and (abspdgid == 23 or abspdgid == 24))
           output.set_gen(hbbfile::gen::genboson, gen);
@@ -390,7 +391,7 @@ int parsed_main(int argc, char** argv) {
         else if (abspdgid == 25)
           gen_higgs.check(gen);
 
-        else if (abspdgid == 12 or abspdgid == 14 and (input::version < 12 or gen.miniaodPacked)) {
+        else if (is_neutrino and (input::version < 12 or gen.miniaodPacked)) {
           // Check jets of each collection for closest jet to neutrinos and add to the genvec stored in jetstore's extra
           float cone_size = std::pow(0.4, 2);   // Neutrinos must be within deltaR2 = (0.4)^2
           panda::GenJet* closest = nullptr;

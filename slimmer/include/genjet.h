@@ -46,7 +46,7 @@ namespace gennujet {
     for (auto& gen : event.genParticles) {
       auto abspdgid = std::abs(gen.pdgid);
 
-      if ((abspdgid == 12 or abspdgid == 14) and (input::version < 12 or gen.miniaodPacked)) {
+      if ((abspdgid == 12 or abspdgid == 14 or abspdgid == 16) and (input::version < 12 or gen.miniaodPacked)) {
         // Check jets of each collection for closest jet to neutrinos and add to the genvec stored in jetstore's extra
         float cone_size = std::pow(0.4, 2);   // Neutrinos must be within deltaR2 = (0.4)^2
         const panda::GenJet* closest = nullptr;

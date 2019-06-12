@@ -75,19 +75,19 @@ def violin(option,args):
       if "plotviolin" not in data['mc']['samples'][key]:
          continue
 
+      dataframe_data2 = {"jet_pt": [], "genjet_pt": []}
       dataframe_data = {"pt":[],"category":[],"ptcateg":[],"etacateg":[]}
       ptcateg = [0,60,120,180,240,300,360,420,480]
       etacateg = [0,0.4,0.8,1.2,1.6,2.0]
 
       #Open file
-      indir = '/data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8'
-      infiles = sorted(os.listdir(indir))
 
-      for index in xrange(int(os.environ.get('num', len(infiles)))):
+#      indir = '/data/t3home000/dabercro/hbb/190610_013/TTToHadronic_TuneCP5_13TeV-powheg-pythia8'
+#      infiles = sorted(os.listdir(indir))
+#      for index in xrange(int(os.environ.get('num', len(infiles)))):
+#          ifile = os.path.join(indir, infiles[index])
 
-          ifile = os.path.join(indir, infiles[index])
-
-#      for ifile in ['../reg_big.root']:
+      for ifile in ['../reg_big3.root']:
 
           print "Opening ..." + ifile
           tf = ROOT.TFile(ifile);
@@ -98,10 +98,13 @@ def violin(option,args):
               tt.GetEntry(i)
 
               if tt.Jet_pt > 5:
+                  dataframe_data2["jet_pt"].append(tt.Jet_pt)
+                  dataframe_data2["genjet_pt"].append(tt.Jet_mcPt)
+
                   dataframe_data["pt"].append(tt.Jet_mcPt/tt.Jet_pt)
                   dataframe_data["category"].append("JECs only")
                   dataframe_data["pt"].append(tt.Jet_mcPt/
-                                              (tt.Jet_pt*getattr(tt, 'Jet_ptfactor_%s' % version)))
+                                              (tt.Jet_pt*getattr(tt, 'Jet_tf_ptratio%s' % version)))
                   dataframe_data["category"].append("DNN regression")
 
 
@@ -126,6 +129,8 @@ def violin(option,args):
       # Create dataframe
       df = pd.DataFrame(data=dataframe_data)         
       df = df[df.pt>0]
+      dfx = pd.DataFrame(data=dataframe_data2)         
+      dfx = dfx[(dfx.genjet_pt>0) & (dfx.genjet_pt < 700) & (dfx.jet_pt < 700)]
 
       #
       # PT PLOT
@@ -286,6 +291,14 @@ def violin(option,args):
       plt.savefig("%s/bjetreg_%s_violin_eta_%s.png" % (data['opath'],data['year'],key),dpi=300,bbox_inches='tight')
       plt.savefig("%s/bjetreg_%s_violin_eta_%s.pdf" % (data['opath'],data['year'],key),bbox_inches='tight')
 
+      fig = plt.figure()
+
+      #sns.jointplot(dfx["genjet_pt"], dfx["jet_pt"], kind="hex", color="#4CB391",joint_kws={'gridsize':30})
+      plt.scatter(dfx["genjet_pt"], dfx["jet_pt"])
+      plt.xlabel('gen jet pt')
+      plt.ylabel('jet pt')
+      plt.savefig("%s/bjetreg_%s_2D_%s.png" % (data['opath'],data['year'],key),dpi=300,bbox_inches='tight')
+      plt.savefig("%s/bjetreg_%s_2D_%s.pdf" % (data['opath'],data['year'],key),bbox_inches='tight')
 
 
 ##----##----##----##----##----##----##

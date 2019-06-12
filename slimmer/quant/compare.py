@@ -1,20 +1,27 @@
 #! /usr/bin/env python
 
+import os
 import pandas as pd
 
 import matplotlib.pyplot as plt
 
-for num in ['4', '6', '8', '12', '16']:
+for var in ['pt', 'eta']:
+
     fig, ax = plt.subplots()
 
-    df4 = pd.read_csv('csvs/190607_pf_wideloss_%s0000_pt.csv' % num)
-    dfno = pd.read_csv('csvs/190607_pf_narrowloss_%s0000_pt.csv' % num)
+    df4 = pd.read_csv('csvs/pf_%s.csv' % var)
+    dfno = pd.read_csv('csvs/nopf_%s.csv' % var)
 
     plt.plot(df4['x'], df4['jecs'], label='JECs')
-    plt.plot(df4['x'], df4['dnn'], label='Wide')
-    plt.plot(dfno['x'], dfno['dnn'], label='Narrow')
+    plt.plot(df4['x'], df4['dnn'], label='With PF')
+    plt.plot(dfno['x'], dfno['dnn'], label='Without PF')
 
     plt.legend()
 
-    plt.savefig('/home/dabercro/public_html/plots/190611/plot_time_%s0000_compare.pdf' % num)
-    plt.savefig('/home/dabercro/public_html/plots/190611/plot_time_%s0000_compare.png' % num)
+    outputdir = '/home/dabercro/public_html/plots/190612'
+
+    if not os.path.exists(outputdir):
+        os.makedirs(outputdir)
+
+    plt.savefig(os.path.join(outputdir, 'plot_compare_%s.pdf' % var))
+    plt.savefig(os.path.join(outputdir, 'plot_compare_%s.png' % var))

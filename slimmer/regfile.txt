@@ -78,26 +78,29 @@ Jet {
     pf_@_$ -> info.pfinfo[@].$ |@ 0..10 | ptfrac, deta, dphi, puppiwt, dxy, dz
     pf_@_$/I -> info.pfinfo[@].$ |@ 0..10 | pdgid
 
-DEFINE NOPF_TF <190607_nopf_{narrow, wide}loss_{4, 6, 8, 12, 16}0000>
-DEFINE YESPF_TF <190607_pf_{narrow, wide}loss_{4, 6, 8, 12, 16}0000>
+! DEFINE NOPF_TF <190607_nopf_{narrow, wide}loss_{4, 6, 8, 12, 16}0000>
+! DEFINE YESPF_TF <190607_pf_{narrow, wide}loss_{4, 6, 8, 12, 16}0000>
 
-    #tf_@/std::vector<float> = {1} \
-        <- lazytf::eval("/home/dabercro/hbb/slimmer/data/tf/freeze_@.pb", "data/regression6.txt", \
-           {"dnn/split_logits/Slice"}, 1, \
-           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression6.txt`) |@ NOPF_TF
+!     #tf_@/std::vector<float> = {1} \
+!         <- lazytf::eval("/home/dabercro/hbb/slimmer/data/tf/freeze_@.pb", "data/regression6.txt", \
+!            {"dnn/split_logits/Slice"}, 1, \
+!            `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression6.txt`) |@ NOPF_TF
 
-    #tf_@/std::vector<float> = {1} \
-        <- lazytf::eval("/home/dabercro/hbb/slimmer/data/tf/freeze_@.pb", "data/regression7.txt", \
-           {"dnn/split_logits/Slice"}, 1, \
-           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression7.txt`) |@ YESPF_TF
+!     #tf_@/std::vector<float> = {1} \
+!         <- lazytf::eval("/home/dabercro/hbb/slimmer/data/tf/freeze_@.pb", "data/regression7.txt", \
+!            {"dnn/split_logits/Slice"}, 1, \
+!            `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression7.txt`) |@ YESPF_TF
 
-    #tf_@/std::vector<float> = {1} \
-        <- lazytf::eval("data/freeze_@.pb", "data/regression7.txt", \
-           {"dnn/split_logits/Slice"}, 1, \
-           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression7.txt`) |@ 190603_v6
+!     #tf_@/std::vector<float> = {1} \
+!         <- lazytf::eval("data/freeze_@.pb", "data/regression7.txt", \
+!            {"dnn/split_logits/Slice"}, 1, \
+!            `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression7.txt`) |@ 190603_v6
 
-    ptfactor_$ <- []_tf_$[0] | NOPF_TF, YESPF_TF, 190603_v6
+!     ptfactor_$ <- []_tf_$[0] | NOPF_TF, YESPF_TF, 190603_v6
 
 !    [ptfactor_$; /data/t3home000/dabercro/TMVA/weights/$_BDT.weights.xml; DUMMY] = 1 | TMVA, themBDT
+
+    [[tf_ptratio;  data/v2018_dan.pb; data/regression7.txt; input; output_0/BiasAdd]]
+    [[tf_ptratio_nopf;  data/v2018_dan_noPFs.pb; data/regression6.txt; input; output_0/BiasAdd]]
 
 }
