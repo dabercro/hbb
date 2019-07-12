@@ -1,0 +1,2 @@
+etaratio = Jet_mcEta/Jet_eta
+phiratio = Jet_mcPhi/Jet_phi

@@ -70,23 +70,23 @@ namespace regression {
 
     // Vertex info
     unsigned vtxNtrk {0};
-    float vtxMass {0};
-    float vtx3dL {0};
-    float vtx3deL {0};
-    float vtxPt {0};
+    float vtxMass {-99};
+    float vtx3dL {-99};
+    float vtx3deL {-99};
+    float vtxPt {-99};
 
     // Max track
 
-    double maxtrkpt {0};
-    double maxpfpt {0};
+    double maxtrkpt {-99};
+    double maxpfpt {-99};
 
     // Lepton stuff
 
     int leptonPdgId {0};
-    double leptonPt {0};
-    double leptonPtRel {0};
-    double leptonPtRelInv {0};
-    double leptonDeltaR {0};
+    double leptonPt {-99};
+    double leptonPtRel {-99};
+    double leptonPtRelInv {-99};
+    double leptonDeltaR {-99};
 
   };
 

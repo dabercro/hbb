@@ -1,6 +1,6 @@
 #! /bin/bash
 
-for n in {0..8}
+for n in {0..5}
 do
 
     ./trainer.py 20000

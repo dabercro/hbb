@@ -33,7 +33,8 @@ namespace lazytf {
              const std::vector<std::string>& output_nodes,
              unsigned number_targets) :
     output_nodes{output_nodes},
-    outputs(number_targets)
+    outputs(number_targets * output_nodes.size()),
+    targets_per_node{number_targets}
     {
 
       std::cout << "Initializing session to read " << graph_file << std::endl;
@@ -76,8 +77,10 @@ namespace lazytf {
       _check_tf(session->Run(inputs, output_nodes, {}, &output_tensor));
       if (debugevent::debug)
         std::cout << "Done" << std::endl;
-      for (unsigned i = 0; i < outputs.size(); i++)
-        outputs[i] = output_tensor[0].matrix<float>()(0, i);
+      for (unsigned i_node = 0; i_node < output_nodes.size(); i_node++) {
+        for (unsigned i = 0; i < targets_per_node; i++)
+          outputs[i_node * targets_per_node + i] = output_tensor[i_node].matrix<float>()(0, i);
+      }
       return outputs;
     }
 
@@ -97,7 +100,7 @@ namespace lazytf {
 
     std::vector<std::string> output_nodes;
     std::vector<float> outputs;
-
+    unsigned targets_per_node;
 
   };
 

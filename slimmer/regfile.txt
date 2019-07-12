@@ -1,7 +1,8 @@
-<vector>
+1;2501;0c<vector>
 
 "lazytf.h"
 "genjet.h"
+"pfvecs.h"
 "regression.h"
 "TVector2.h"
 
@@ -49,7 +50,7 @@ Jet {
     neEmEF -> jet.nef
 
     (info = regression::GetJetInfo(jet))
-    $/s -> info.$ | vtxNtrk
+    $/S -> info.$ | vtxNtrk
     $ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
 
     leadTrackPt -> info.maxpfpt
@@ -57,7 +58,7 @@ Jet {
     rawFactor -> 1 - jet.rawPt/[]_pt
     rawEnergy -> []_e * jet.rawPt/[]_pt
 
-    mcPt -> withnu.genvec.Pt()
+    mc$$ -> withnu.genvec.$$() | pt, eta, phi, m
     mcFlavour -> gen->partonFlavor
 
     $/I -> info.$ | leptonPdgId
@@ -75,32 +76,33 @@ Jet {
     ! Should it be abs value?
     met_dPhi <- TVector2::Phi_mpi_pi(met_phi - []_phi)
 
-    pf_@_$ -> info.pfinfo[@].$ |@ 0..10 | ptfrac, deta, dphi, puppiwt, dxy, dz
-    pf_@_$/I -> info.pfinfo[@].$ |@ 0..10 | pdgid
+    pf_@_$ -> info.pfinfo[@].$ |@ 0..5 | ptfrac, deta, dphi, puppiwt, dxy, dz
+    pf_@_$/I -> info.pfinfo[@].$ |@ 0..5 | pdgid
 
-! DEFINE NOPF_TF <190607_nopf_{narrow, wide}loss_{4, 6, 8, 12, 16}0000>
-! DEFINE YESPF_TF <190607_pf_{narrow, wide}loss_{4, 6, 8, 12, 16}0000>
+    puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
+    puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
 
-!     #tf_@/std::vector<float> = {1} \
-!         <- lazytf::eval("/home/dabercro/hbb/slimmer/data/tf/freeze_@.pb", "data/regression6.txt", \
-!            {"dnn/split_logits/Slice"}, 1, \
-!            `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression6.txt`) |@ NOPF_TF
+DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
 
-!     #tf_@/std::vector<float> = {1} \
-!         <- lazytf::eval("/home/dabercro/hbb/slimmer/data/tf/freeze_@.pb", "data/regression7.txt", \
-!            {"dnn/split_logits/Slice"}, 1, \
-!            `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression7.txt`) |@ YESPF_TF
+    @_$frac <- []_@_$/[]_$ | pt |@ bkinematics
+    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
-!     #tf_@/std::vector<float> = {1} \
-!         <- lazytf::eval("data/freeze_@.pb", "data/regression7.txt", \
-!            {"dnn/split_logits/Slice"}, 1, \
-!            `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression7.txt`) |@ 190603_v6
+    (pfvecs = pfvecs::get_vecs(jet))
 
-!     ptfactor_$ <- []_tf_$[0] | NOPF_TF, YESPF_TF, 190603_v6
+    $/std::vector<Float_t> -> std::move(pfvecs.$) | <pf_{pt, fastjet}_sorted_{pt, eta, phi, m}>
 
-!    [ptfactor_$; /data/t3home000/dabercro/TMVA/weights/$_BDT.weights.xml; DUMMY] = 1 | TMVA, themBDT
+    #tf_@/std::vector<float> = {1, 0, 0, 1} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression9.txt", \
+           {"dnn/split_logits/Slice", "dnn/split_logits/Slice_1", "dnn/split_logits/Slice_2", "dnn/split_logits/Slice_3"}, 1, \
+           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression9.txt`) |@ 190711_0
 
-    [[tf_ptratio;  data/v2018_dan.pb; data/regression7.txt; input; output_0/BiasAdd]]
-    [[tf_ptratio_nopf;  data/v2018_dan_noPFs.pb; data/regression6.txt; input; output_0/BiasAdd]]
+    tf_@_$ <- []_tf_@[=$=] | ptratio, deta, dphi, mratio |@ 190711_0
+
+    #tf_@/std::vector<float> = {0, 0} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression9.txt", \
+           {"dnn/split_logits/Slice", "dnn/split_logits/Slice_1"}, 1, \
+           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression9.txt`) |@ 190711_2
+
+    tf_@_$ <- []_tf_@[=$=] | deta, dphi |@ 190711_2
 
 }

@@ -1,0 +1,4 @@
+ptratio = Jet_mcPt/Jet_pt
+deta = Jet_mcEta-Jet_eta
+dphi = TVector2::Phi_mpi_pi(Jet_mcPhi-Jet_phi)
+mratio = Jet_mcM/Jet_mass

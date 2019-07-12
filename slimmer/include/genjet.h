@@ -36,7 +36,7 @@ namespace gennujet {
   };
 
 
-  std::map<const panda::GenJet*, GenNuVec> get_gen_nu_map (const panda::Event& event) {
+  const std::map<const panda::GenJet*, GenNuVec> get_gen_nu_map (const panda::Event& event) {
 
     std::map<const panda::GenJet*, GenNuVec> output {};
 

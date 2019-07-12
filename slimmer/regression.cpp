@@ -41,13 +41,18 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        auto genjet = jet.matchedGenJet;
+        if (jet.pt() > 15) {
 
-        if (genjet.isValid() and genjet->numB) {
+          auto genjet = jet.matchedGenJet;
 
-          output.set_jet(regfile::jet::Jet,
-                         jet, gennumap.at(genjet.get()), genjet);
-          output.fill();
+          if (genjet.isValid() and genjet->numB) {
+
+            auto gennuvec = gennumap.at(genjet.get());
+
+            output.set_jet(regfile::jet::Jet, jet, gennuvec, genjet);
+            output.fill();
+
+          }
 
         }
 

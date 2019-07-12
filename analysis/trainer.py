@@ -8,7 +8,7 @@ import datetime
 import tensorflow as tf
 
 
-INVERSION = 5
+INVERSION = 6
 
 INDIR = '/local/dabercro/files/tf_v%i' % INVERSION
 if not os.path.exists(INDIR):
@@ -27,8 +27,8 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression7.txt'
-OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets3.txt'
+INPUTSFILE = '/home/dabercro/hbb/analysis/regression%i.txt' % 9
+OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 5
 
 
 # Logging
@@ -56,8 +56,9 @@ def input_fn():
 
         target = tf.stack([parsed_outputs[key] for key in outputs])
 
-#        return parsed_inputs, target
-        return parsed_inputs, {key: target for key in ['central', 'lower', 'upper']}
+        return parsed_inputs, parsed_outputs
+#        return parsed_inputs, {key: target for key in ['central', 'lower', 'upper']}
+#        return parsed_inputs, {key: target for key in ['central']}
 
 
     return dataset.map(mapping).\
@@ -96,20 +97,13 @@ estimator = tf.estimator.DNNEstimator(
         heads=[
             tf.contrib.estimator.regression_head(
                 loss_fn=my_loss,
-                label_dimension=len(outputs),
-                name='central'),
-            tf.contrib.estimator.regression_head(
-                loss_fn=quantile(0.25),
-                label_dimension=len(outputs),
-                name='lower'),
-            tf.contrib.estimator.regression_head(
-                loss_fn=quantile(0.75),
-                label_dimension=len(outputs),
-                name='upper')
+                label_dimension=1,
+                name=label)
+            for label in outputs
         ]
     ),
     optimizer=tf.train.AdamOptimizer(),
-    hidden_units=[64, 128, 128, 64]
+    hidden_units=[50, 50, 50]
 )
 
 estimator.train(input_fn=input_fn, steps=int(sys.argv[1]))
