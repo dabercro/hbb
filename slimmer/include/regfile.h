@@ -126,14 +126,20 @@ class regfile {
   Int_t Jet_pf_4_pdgid;
   Float_t Jet_pf_4_ptfrac;
   Float_t Jet_pf_4_puppiwt;
+  std::vector<Float_t> Jet_pf_fastjet_sorted_dxy;
+  std::vector<Float_t> Jet_pf_fastjet_sorted_dz;
   std::vector<Float_t> Jet_pf_fastjet_sorted_eta;
   std::vector<Float_t> Jet_pf_fastjet_sorted_m;
   std::vector<Float_t> Jet_pf_fastjet_sorted_phi;
   std::vector<Float_t> Jet_pf_fastjet_sorted_pt;
+  std::vector<Char_t> Jet_pf_fastjet_sorted_q;
+  std::vector<Float_t> Jet_pf_pt_sorted_dxy;
+  std::vector<Float_t> Jet_pf_pt_sorted_dz;
   std::vector<Float_t> Jet_pf_pt_sorted_eta;
   std::vector<Float_t> Jet_pf_pt_sorted_m;
   std::vector<Float_t> Jet_pf_pt_sorted_phi;
   std::vector<Float_t> Jet_pf_pt_sorted_pt;
+  std::vector<Char_t> Jet_pf_pt_sorted_q;
   Float_t Jet_phi;
   Float_t Jet_pt;
   Float_t Jet_ptd;
@@ -173,14 +179,6 @@ class regfile {
   Float_t Jet_raw;
   Float_t Jet_rawEnergy;
   Float_t Jet_rawFactor;
-  std::vector<float> Jet_tf_190711_0;
-  Float_t Jet_tf_190711_0_deta;
-  Float_t Jet_tf_190711_0_dphi;
-  Float_t Jet_tf_190711_0_mratio;
-  Float_t Jet_tf_190711_0_ptratio;
-  std::vector<float> Jet_tf_190711_2;
-  Float_t Jet_tf_190711_2_deta;
-  Float_t Jet_tf_190711_2_dphi;
   Float_t Jet_vtx3dL;
   Float_t Jet_vtx3deL;
   Float_t Jet_vtxMass;
@@ -197,6 +195,7 @@ class regfile {
   Float_t met_pt;
   Float_t nPVs;
   Float_t nPVs_good;
+  TVector3 pv;
   Float_t rho;
   UInt_t run;
 
@@ -327,14 +326,20 @@ regfile::regfile(const char* outfile_name, const char* name)
   t->Branch("Jet_pf_4_pdgid", &Jet_pf_4_pdgid, "Jet_pf_4_pdgid/I");
   t->Branch("Jet_pf_4_ptfrac", &Jet_pf_4_ptfrac, "Jet_pf_4_ptfrac/F");
   t->Branch("Jet_pf_4_puppiwt", &Jet_pf_4_puppiwt, "Jet_pf_4_puppiwt/F");
+  t->Branch("Jet_pf_fastjet_sorted_dxy", &Jet_pf_fastjet_sorted_dxy);
+  t->Branch("Jet_pf_fastjet_sorted_dz", &Jet_pf_fastjet_sorted_dz);
   t->Branch("Jet_pf_fastjet_sorted_eta", &Jet_pf_fastjet_sorted_eta);
   t->Branch("Jet_pf_fastjet_sorted_m", &Jet_pf_fastjet_sorted_m);
   t->Branch("Jet_pf_fastjet_sorted_phi", &Jet_pf_fastjet_sorted_phi);
   t->Branch("Jet_pf_fastjet_sorted_pt", &Jet_pf_fastjet_sorted_pt);
+  t->Branch("Jet_pf_fastjet_sorted_q", &Jet_pf_fastjet_sorted_q);
+  t->Branch("Jet_pf_pt_sorted_dxy", &Jet_pf_pt_sorted_dxy);
+  t->Branch("Jet_pf_pt_sorted_dz", &Jet_pf_pt_sorted_dz);
   t->Branch("Jet_pf_pt_sorted_eta", &Jet_pf_pt_sorted_eta);
   t->Branch("Jet_pf_pt_sorted_m", &Jet_pf_pt_sorted_m);
   t->Branch("Jet_pf_pt_sorted_phi", &Jet_pf_pt_sorted_phi);
   t->Branch("Jet_pf_pt_sorted_pt", &Jet_pf_pt_sorted_pt);
+  t->Branch("Jet_pf_pt_sorted_q", &Jet_pf_pt_sorted_q);
   t->Branch("Jet_phi", &Jet_phi, "Jet_phi/F");
   t->Branch("Jet_pt", &Jet_pt, "Jet_pt/F");
   t->Branch("Jet_ptd", &Jet_ptd, "Jet_ptd/F");
@@ -374,12 +379,6 @@ regfile::regfile(const char* outfile_name, const char* name)
   t->Branch("Jet_raw", &Jet_raw, "Jet_raw/F");
   t->Branch("Jet_rawEnergy", &Jet_rawEnergy, "Jet_rawEnergy/F");
   t->Branch("Jet_rawFactor", &Jet_rawFactor, "Jet_rawFactor/F");
-  t->Branch("Jet_tf_190711_0_deta", &Jet_tf_190711_0_deta, "Jet_tf_190711_0_deta/F");
-  t->Branch("Jet_tf_190711_0_dphi", &Jet_tf_190711_0_dphi, "Jet_tf_190711_0_dphi/F");
-  t->Branch("Jet_tf_190711_0_mratio", &Jet_tf_190711_0_mratio, "Jet_tf_190711_0_mratio/F");
-  t->Branch("Jet_tf_190711_0_ptratio", &Jet_tf_190711_0_ptratio, "Jet_tf_190711_0_ptratio/F");
-  t->Branch("Jet_tf_190711_2_deta", &Jet_tf_190711_2_deta, "Jet_tf_190711_2_deta/F");
-  t->Branch("Jet_tf_190711_2_dphi", &Jet_tf_190711_2_dphi, "Jet_tf_190711_2_dphi/F");
   t->Branch("Jet_vtx3dL", &Jet_vtx3dL, "Jet_vtx3dL/F");
   t->Branch("Jet_vtx3deL", &Jet_vtx3deL, "Jet_vtx3deL/F");
   t->Branch("Jet_vtxMass", &Jet_vtxMass, "Jet_vtxMass/F");
@@ -509,14 +508,20 @@ void regfile::reset(const panda::Event& e) {
   Jet_pf_4_pdgid = 0;
   Jet_pf_4_ptfrac = 0;
   Jet_pf_4_puppiwt = 0;
+  Jet_pf_fastjet_sorted_dxy.clear();
+  Jet_pf_fastjet_sorted_dz.clear();
   Jet_pf_fastjet_sorted_eta.clear();
   Jet_pf_fastjet_sorted_m.clear();
   Jet_pf_fastjet_sorted_phi.clear();
   Jet_pf_fastjet_sorted_pt.clear();
+  Jet_pf_fastjet_sorted_q.clear();
+  Jet_pf_pt_sorted_dxy.clear();
+  Jet_pf_pt_sorted_dz.clear();
   Jet_pf_pt_sorted_eta.clear();
   Jet_pf_pt_sorted_m.clear();
   Jet_pf_pt_sorted_phi.clear();
   Jet_pf_pt_sorted_pt.clear();
+  Jet_pf_pt_sorted_q.clear();
   Jet_phi = 0;
   Jet_pt = 0;
   Jet_ptd = 0;
@@ -556,14 +561,6 @@ void regfile::reset(const panda::Event& e) {
   Jet_raw = 0;
   Jet_rawEnergy = 0;
   Jet_rawFactor = 0;
-  Jet_tf_190711_0.clear();
-  Jet_tf_190711_0_deta = 0;
-  Jet_tf_190711_0_dphi = 0;
-  Jet_tf_190711_0_mratio = 0;
-  Jet_tf_190711_0_ptratio = 0;
-  Jet_tf_190711_2.clear();
-  Jet_tf_190711_2_deta = 0;
-  Jet_tf_190711_2_dphi = 0;
   Jet_vtx3dL = 0;
   Jet_vtx3deL = 0;
   Jet_vtxMass = 0;
@@ -580,6 +577,7 @@ void regfile::reset(const panda::Event& e) {
   met_pt = e.pfMet.pt;
   nPVs = e.npvTrue;
   nPVs_good = e.npv;
+  pv = e.vertices[0].position();
   rho = e.rho;
   run = e.runNumber;
 }
@@ -602,21 +600,13 @@ void regfile::fill() {
   Jet_puppi_neutral_dphi = TVector2::Phi_mpi_pi(Jet_puppi_neutral_phi - Jet_phi);
   Jet_puppi_neutral_pu_deta = TVector2::Phi_mpi_pi(Jet_puppi_neutral_pu_eta - Jet_eta);
   Jet_puppi_neutral_pu_dphi = TVector2::Phi_mpi_pi(Jet_puppi_neutral_pu_phi - Jet_phi);
-  Jet_tf_190711_0 = lazytf::eval("data/freeze_190711_0.pb", "data/regression9.txt", {"dnn/split_logits/Slice", "dnn/split_logits/Slice_1", "dnn/split_logits/Slice_2", "dnn/split_logits/Slice_3"}, 1, Jet_chEmEF, Jet_chHEF, Jet_energyRing_dR0_ch_Jet_rawEnergy, Jet_energyRing_dR0_em_Jet_rawEnergy, Jet_energyRing_dR0_mu_Jet_rawEnergy, Jet_energyRing_dR0_neut_Jet_rawEnergy, Jet_energyRing_dR1_ch_Jet_rawEnergy, Jet_energyRing_dR1_em_Jet_rawEnergy, Jet_energyRing_dR1_mu_Jet_rawEnergy, Jet_energyRing_dR1_neut_Jet_rawEnergy, Jet_energyRing_dR2_ch_Jet_rawEnergy, Jet_energyRing_dR2_em_Jet_rawEnergy, Jet_energyRing_dR2_mu_Jet_rawEnergy, Jet_energyRing_dR2_neut_Jet_rawEnergy, Jet_energyRing_dR3_ch_Jet_rawEnergy, Jet_energyRing_dR3_em_Jet_rawEnergy, Jet_energyRing_dR3_mu_Jet_rawEnergy, Jet_energyRing_dR3_neut_Jet_rawEnergy, Jet_energyRing_dR4_ch_Jet_rawEnergy, Jet_energyRing_dR4_em_Jet_rawEnergy, Jet_energyRing_dR4_mu_Jet_rawEnergy, Jet_energyRing_dR4_neut_Jet_rawEnergy, Jet_eta, Jet_leadTrackPt, Jet_leptonDeltaR, Jet_leptonPtRel, Jet_leptonPtRelInv, Jet_mass, Jet_mt, Jet_neEmEF, Jet_neHEF, Jet_numDaughters_pt03, Jet_pt, Jet_ptd, Jet_vtx3dL, Jet_vtx3deL, Jet_vtxMass, Jet_vtxNtrk, Jet_vtxPt, isEle, isMu, isOther, rho, Jet_pf_0_deta, Jet_pf_0_dphi, Jet_pf_0_dxy, Jet_pf_0_dz, Jet_pf_0_pdgid, Jet_pf_0_ptfrac, Jet_pf_0_puppiwt, Jet_pf_1_deta, Jet_pf_1_dphi, Jet_pf_1_dxy, Jet_pf_1_dz, Jet_pf_1_pdgid, Jet_pf_1_ptfrac, Jet_pf_1_puppiwt, Jet_pf_2_deta, Jet_pf_2_dphi, Jet_pf_2_dxy, Jet_pf_2_dz, Jet_pf_2_pdgid, Jet_pf_2_ptfrac, Jet_pf_2_puppiwt, Jet_pf_3_deta, Jet_pf_3_dphi, Jet_pf_3_dxy, Jet_pf_3_dz, Jet_pf_3_pdgid, Jet_pf_3_ptfrac, Jet_pf_3_puppiwt, Jet_pf_4_deta, Jet_pf_4_dphi, Jet_pf_4_dxy, Jet_pf_4_dz, Jet_pf_4_pdgid, Jet_pf_4_ptfrac, Jet_pf_4_puppiwt, Jet_puppi_charged_deta, Jet_puppi_charged_dphi, Jet_puppi_charged_ptfrac, Jet_puppi_charged_pu_deta, Jet_puppi_charged_pu_dphi, Jet_puppi_charged_pu_ptfrac, Jet_puppi_neutral_deta, Jet_puppi_neutral_dphi, Jet_puppi_neutral_ptfrac, Jet_puppi_neutral_pu_deta, Jet_puppi_neutral_pu_dphi, Jet_puppi_neutral_pu_ptfrac);
-  Jet_tf_190711_0_ptratio = Jet_tf_190711_0[0];
-  Jet_tf_190711_0_deta = Jet_tf_190711_0[1];
-  Jet_tf_190711_0_dphi = Jet_tf_190711_0[2];
-  Jet_tf_190711_0_mratio = Jet_tf_190711_0[3];
-  Jet_tf_190711_2 = lazytf::eval("data/freeze_190711_2.pb", "data/regression9.txt", {"dnn/split_logits/Slice", "dnn/split_logits/Slice_1"}, 1, Jet_chEmEF, Jet_chHEF, Jet_energyRing_dR0_ch_Jet_rawEnergy, Jet_energyRing_dR0_em_Jet_rawEnergy, Jet_energyRing_dR0_mu_Jet_rawEnergy, Jet_energyRing_dR0_neut_Jet_rawEnergy, Jet_energyRing_dR1_ch_Jet_rawEnergy, Jet_energyRing_dR1_em_Jet_rawEnergy, Jet_energyRing_dR1_mu_Jet_rawEnergy, Jet_energyRing_dR1_neut_Jet_rawEnergy, Jet_energyRing_dR2_ch_Jet_rawEnergy, Jet_energyRing_dR2_em_Jet_rawEnergy, Jet_energyRing_dR2_mu_Jet_rawEnergy, Jet_energyRing_dR2_neut_Jet_rawEnergy, Jet_energyRing_dR3_ch_Jet_rawEnergy, Jet_energyRing_dR3_em_Jet_rawEnergy, Jet_energyRing_dR3_mu_Jet_rawEnergy, Jet_energyRing_dR3_neut_Jet_rawEnergy, Jet_energyRing_dR4_ch_Jet_rawEnergy, Jet_energyRing_dR4_em_Jet_rawEnergy, Jet_energyRing_dR4_mu_Jet_rawEnergy, Jet_energyRing_dR4_neut_Jet_rawEnergy, Jet_eta, Jet_leadTrackPt, Jet_leptonDeltaR, Jet_leptonPtRel, Jet_leptonPtRelInv, Jet_mass, Jet_mt, Jet_neEmEF, Jet_neHEF, Jet_numDaughters_pt03, Jet_pt, Jet_ptd, Jet_vtx3dL, Jet_vtx3deL, Jet_vtxMass, Jet_vtxNtrk, Jet_vtxPt, isEle, isMu, isOther, rho, Jet_pf_0_deta, Jet_pf_0_dphi, Jet_pf_0_dxy, Jet_pf_0_dz, Jet_pf_0_pdgid, Jet_pf_0_ptfrac, Jet_pf_0_puppiwt, Jet_pf_1_deta, Jet_pf_1_dphi, Jet_pf_1_dxy, Jet_pf_1_dz, Jet_pf_1_pdgid, Jet_pf_1_ptfrac, Jet_pf_1_puppiwt, Jet_pf_2_deta, Jet_pf_2_dphi, Jet_pf_2_dxy, Jet_pf_2_dz, Jet_pf_2_pdgid, Jet_pf_2_ptfrac, Jet_pf_2_puppiwt, Jet_pf_3_deta, Jet_pf_3_dphi, Jet_pf_3_dxy, Jet_pf_3_dz, Jet_pf_3_pdgid, Jet_pf_3_ptfrac, Jet_pf_3_puppiwt, Jet_pf_4_deta, Jet_pf_4_dphi, Jet_pf_4_dxy, Jet_pf_4_dz, Jet_pf_4_pdgid, Jet_pf_4_ptfrac, Jet_pf_4_puppiwt, Jet_puppi_charged_deta, Jet_puppi_charged_dphi, Jet_puppi_charged_ptfrac, Jet_puppi_charged_pu_deta, Jet_puppi_charged_pu_dphi, Jet_puppi_charged_pu_ptfrac, Jet_puppi_neutral_deta, Jet_puppi_neutral_dphi, Jet_puppi_neutral_ptfrac, Jet_puppi_neutral_pu_deta, Jet_puppi_neutral_pu_dphi, Jet_puppi_neutral_pu_ptfrac);
-  Jet_tf_190711_2_deta = Jet_tf_190711_2[0];
-  Jet_tf_190711_2_dphi = Jet_tf_190711_2[1];
   t->Fill();
 }
 
 template <typename G> void regfile::set_jet(const jet base, const panda::Jet& jet, const gennujet::GenNuVec& withnu, const G gen) {
   auto p4 = jet.p4();
   auto info = regression::GetJetInfo(jet);
-  auto pfvecs = pfvecs::get_vecs(jet);
+  auto pfvecs = pfvecs::get_vecs(jet, pv);
   switch(base) {
   case regfile::jet::Jet:
     Jet_puId = jet.puid;
@@ -762,10 +752,16 @@ template <typename G> void regfile::set_jet(const jet base, const panda::Jet& je
     Jet_pf_pt_sorted_eta = std::move(pfvecs.pf_pt_sorted_eta);
     Jet_pf_pt_sorted_phi = std::move(pfvecs.pf_pt_sorted_phi);
     Jet_pf_pt_sorted_m = std::move(pfvecs.pf_pt_sorted_m);
+    Jet_pf_pt_sorted_dxy = std::move(pfvecs.pf_pt_sorted_dxy);
+    Jet_pf_pt_sorted_dz = std::move(pfvecs.pf_pt_sorted_dz);
     Jet_pf_fastjet_sorted_pt = std::move(pfvecs.pf_fastjet_sorted_pt);
     Jet_pf_fastjet_sorted_eta = std::move(pfvecs.pf_fastjet_sorted_eta);
     Jet_pf_fastjet_sorted_phi = std::move(pfvecs.pf_fastjet_sorted_phi);
     Jet_pf_fastjet_sorted_m = std::move(pfvecs.pf_fastjet_sorted_m);
+    Jet_pf_fastjet_sorted_dxy = std::move(pfvecs.pf_fastjet_sorted_dxy);
+    Jet_pf_fastjet_sorted_dz = std::move(pfvecs.pf_fastjet_sorted_dz);
+    Jet_pf_pt_sorted_q = std::move(pfvecs.pf_pt_sorted_q);
+    Jet_pf_fastjet_sorted_q = std::move(pfvecs.pf_fastjet_sorted_q);
     break;
   default:
     throw;

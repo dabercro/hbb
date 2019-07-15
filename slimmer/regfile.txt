@@ -10,6 +10,8 @@
 {0}                            ! Default value
 {reset(panda::Event& e)}       ! Define the arguments of reset
 
+#pv/TVector3 = e.vertices[0].position()
+
 genWeight = e.weight
 $ = e.$ | rho
 nPVs = e.npvTrue
@@ -87,22 +89,16 @@ DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
     @_$frac <- []_@_$/[]_$ | pt |@ bkinematics
     @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
-    (pfvecs = pfvecs::get_vecs(jet))
+    (pfvecs = pfvecs::get_vecs(jet, pv))
 
-    $/std::vector<Float_t> -> std::move(pfvecs.$) | <pf_{pt, fastjet}_sorted_{pt, eta, phi, m}>
+    $/std::vector<Float_t> -> std::move(pfvecs.$) | <pf_{pt, fastjet}_sorted_{pt, eta, phi, m, dxy, dz}>
+    $/std::vector<Char_t> -> std::move(pfvecs.$) | <pf_{pt, fastjet}_sorted_q>
 
-    #tf_@/std::vector<float> = {1, 0, 0, 1} \
-        <- lazytf::eval("data/freeze_@.pb", "data/regression9.txt", \
-           {"dnn/split_logits/Slice", "dnn/split_logits/Slice_1", "dnn/split_logits/Slice_2", "dnn/split_logits/Slice_3"}, 1, \
-           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression9.txt`) |@ 190711_0
+!    #tf_@/std::vector<float> = {0, 0} \
+!        <- lazytf::eval("data/freeze_@.pb", "data/regression9.txt", \
+!           {"dnn/split_logits/Slice", "dnn/split_logits/Slice_1"}, 1, \
+!           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression9.txt`) |@ 190711_2
 
-    tf_@_$ <- []_tf_@[=$=] | ptratio, deta, dphi, mratio |@ 190711_0
-
-    #tf_@/std::vector<float> = {0, 0} \
-        <- lazytf::eval("data/freeze_@.pb", "data/regression9.txt", \
-           {"dnn/split_logits/Slice", "dnn/split_logits/Slice_1"}, 1, \
-           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression9.txt`) |@ 190711_2
-
-    tf_@_$ <- []_tf_@[=$=] | deta, dphi |@ 190711_2
+!    tf_@_$ <- []_tf_@[=$=] | deta, dphi |@ 190711_2
 
 }

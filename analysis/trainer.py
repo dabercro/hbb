@@ -28,7 +28,7 @@ while os.path.exists(modelroot % modelindex):
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
 INPUTSFILE = '/home/dabercro/hbb/analysis/regression%i.txt' % 9
-OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 5
+OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 7
 
 
 # Logging

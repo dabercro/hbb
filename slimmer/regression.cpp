@@ -41,7 +41,7 @@ int parsed_main(int argc, char** argv) {
 
       for (auto& jet : event.chsAK4Jets) {
 
-        if (jet.pt() > 15) {
+        if (jet.pt() > 15 and std::abs(jet.eta() < 2.5)) {
 
           auto genjet = jet.matchedGenJet;
 

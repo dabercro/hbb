@@ -1,0 +1,2 @@
+ptratio = Jet_mcPt/Jet_pt
+mratio = Jet_mcM/Jet_mass
