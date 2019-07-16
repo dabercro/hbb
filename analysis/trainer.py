@@ -8,7 +8,7 @@ import datetime
 import tensorflow as tf
 
 
-INVERSION = 6
+INVERSION = 7
 
 INDIR = '/local/dabercro/files/tf_v%i' % INVERSION
 if not os.path.exists(INDIR):
@@ -39,6 +39,7 @@ get_branches = lambda x: [name.strip().split(' = ')[0] for name in open(x, 'r') 
 inputs = get_branches(INPUTSFILE)
 outputs = get_branches(OUTPUTSFILE)
 
+
 def input_fn():
 
     dataset = tf.data.TFRecordDataset([os.path.join(INDIR, infile) for infile in INFILES],
@@ -56,9 +57,9 @@ def input_fn():
 
         target = tf.stack([parsed_outputs[key] for key in outputs])
 
-        return parsed_inputs, parsed_outputs
-#        return parsed_inputs, {key: target for key in ['central', 'lower', 'upper']}
-#        return parsed_inputs, {key: target for key in ['central']}
+        # Return stuff
+
+        return parsed_inputs, target
 
 
     return dataset.map(mapping).\
@@ -67,43 +68,57 @@ def input_fn():
         repeat()
 
 
-def quantile(quant):
-
-    def loss(labels, logits):
-        diff = tf.math.subtract(labels, logits)
-        return diff * (quant - tf.where(diff < 0,
-                                        tf.ones_like(diff),
-                                        tf.zeros_like(diff)))
-
-    return loss
-
-
 def my_loss(labels, logits, **kwargs):
 
     return tf.losses.huber_loss(labels=labels,
                                 predictions=logits,
-                                reduction=tf.losses.Reduction.NONE,
+#                                reduction=tf.losses.Reduction.NONE,
                                 delta=0.25,
                                 **kwargs)
 
 
-estimator = tf.estimator.DNNEstimator(
-    feature_columns=[
+def model_fn(features, labels, mode):
+    # Set up the PFCandidates info
+
+    n_pfcands = 30
+    pf_features = [
+        'pt', 'eta', 'phi', 'm',
+        'dxy', 'dz', 'q'
+    ]
+
+    net = tf.feature_column.input_layer(features, [
         tf.feature_column.numeric_column(key=key)
         for key in inputs
-    ],
-    model_dir=MODELDIR,
-    head=tf.contrib.estimator.multi_head(
-        heads=[
-            tf.contrib.estimator.regression_head(
-                loss_fn=my_loss,
-                label_dimension=1,
-                name=label)
-            for label in outputs
-        ]
-    ),
-    optimizer=tf.train.AdamOptimizer(),
-    hidden_units=[50, 50, 50]
+    ])
+
+    for units in [50, 50, 50]:
+        net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
+
+    out_layer = tf.layers.dense(net, len(outputs), activation=None)
+
+    if mode == tf.estimator.ModeKeys.PREDICT:
+
+        return tf.estimator.EstimatorSpec(
+            mode, predictions={
+                'output': out_layer
+            })
+
+    loss = my_loss(labels, out_layer)
+
+    if mode == tf.estimator.ModeKeys.EVAL:
+        return tf.estimator.EstimatorSpec(
+            mode, loss=loss)
+
+    optimizer = tf.train.AdamOptimizer()
+
+    train_op = optimizer.minimize(loss, global_step=tf.train.get_global_step())
+
+    return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
+
+
+estimator = tf.estimator.Estimator(
+    model_fn=model_fn,
+    model_dir=MODELDIR
 )
 
 estimator.train(input_fn=input_fn, steps=int(sys.argv[1]))
