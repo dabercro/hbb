@@ -27,7 +27,7 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression%i.txt' % 9
+INPUTSFILE = '/home/dabercro/hbb/analysis/regression%i.txt' % 10
 OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 7
 
 
@@ -78,18 +78,45 @@ def my_loss(labels, logits, **kwargs):
 
 
 def model_fn(features, labels, mode):
-    # Set up the PFCandidates info
 
+    # Set up the PFCandidates info
     n_pfcands = 30
     pf_features = [
-        'pt', 'eta', 'phi', 'm',
+        'ptfrac', 'deta', 'dphi',
         'dxy', 'dz', 'q'
     ]
 
-    net = tf.feature_column.input_layer(features, [
+    sort_type = 'fastjet'
+
+    lstm_inputs = ['Jet_pf_%s_%i_%s' % (sort_type, n_pfcands - 1 - i_cand, pf_feature)
+                   for i_cand in xrange(n_pfcands)
+                   for pf_feature in pf_features]
+
+    reg_net = tf.feature_column.input_layer(features, [
         tf.feature_column.numeric_column(key=key)
-        for key in inputs
+        for key in inputs if key not in lstm_inputs
     ])
+
+    lstm_net = tf.feature_column.input_layer(features, [
+        tf.feature_column.numeric_column(key=key)
+        for key in lstm_inputs
+    ])
+
+    last_size = 50
+
+    for units in [50, 50, last_size]:
+        reg_net = tf.layers.dense(reg_net, units=units, activation=tf.nn.relu)
+
+    lstm_net = tf.split(lstm_net, n_pfcands, 1)
+
+    rnn_cell = tf.nn.rnn_cell.MultiRNNCell([
+            tf.nn.rnn_cell.BasicLSTMCell(n_hidden)
+            for n_hidden in [24, 24, last_size]
+        ])
+
+    lstm_net, states = tf.nn.static_rnn(rnn_cell, lstm_net, dtype=tf.float32)
+
+    net = tf.concat([reg_net, lstm_net[-1]], 1)
 
     for units in [50, 50, 50]:
         net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
