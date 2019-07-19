@@ -8,6 +8,8 @@ import datetime
 import tensorflow as tf
 
 
+DO_LSTM = True
+
 INVERSION = 7
 
 INDIR = '/local/dabercro/files/tf_v%i' % INVERSION
@@ -27,15 +29,18 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression%i.txt' % 10
+INPUTSFILE = '/home/dabercro/hbb/analysis/regression%i.txt' % (10 if DO_LSTM else 9)
 OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 7
+
+SORT_TYPE = 'fastjet'
 
 
 # Logging
 tf.logging.set_verbosity(tf.logging.INFO)
 
 # Read the keys from the txt file containing inputs
-get_branches = lambda x: [name.strip().split(' = ')[0] for name in open(x, 'r') if name.strip()]
+get_branches = lambda x: [name.strip().split(' = ')[0].replace('fastjet', SORT_TYPE)
+                          for name in open(x, 'r') if name.strip()]
 inputs = get_branches(INPUTSFILE)
 outputs = get_branches(OUTPUTSFILE)
 
@@ -86,9 +91,7 @@ def model_fn(features, labels, mode):
         'dxy', 'dz', 'q'
     ]
 
-    sort_type = 'fastjet'
-
-    lstm_inputs = ['Jet_pf_%s_%i_%s' % (sort_type, n_pfcands - 1 - i_cand, pf_feature)
+    lstm_inputs = ['Jet_pf_%s_%i_%s' % (SORT_TYPE, n_pfcands - 1 - i_cand, pf_feature)
                    for i_cand in xrange(n_pfcands)
                    for pf_feature in pf_features]
 
@@ -97,29 +100,37 @@ def model_fn(features, labels, mode):
         for key in inputs if key not in lstm_inputs
     ])
 
-    lstm_net = tf.feature_column.input_layer(features, [
-        tf.feature_column.numeric_column(key=key)
-        for key in lstm_inputs
-    ])
+    reg_net = tf.layers.batch_normalization(reg_net)
 
-    last_size = 50
-
-    for units in [50, 50, last_size]:
+    for units in [500, 500, 500]:
         reg_net = tf.layers.dense(reg_net, units=units, activation=tf.nn.relu)
 
-    lstm_net = tf.split(lstm_net, n_pfcands, 1)
+    if DO_LSTM:
 
-    rnn_cell = tf.nn.rnn_cell.MultiRNNCell([
-            tf.nn.rnn_cell.BasicLSTMCell(n_hidden)
-            for n_hidden in [24, 24, last_size]
+        lstm_net = tf.feature_column.input_layer(features, [
+            tf.feature_column.numeric_column(key=key)
+            for key in lstm_inputs
         ])
 
-    lstm_net, states = tf.nn.static_rnn(rnn_cell, lstm_net, dtype=tf.float32)
+        lstm_net = tf.layers.batch_normalization(lstm_net)
 
-    net = tf.concat([reg_net, lstm_net[-1]], 1)
+        lstm_net = tf.split(lstm_net, n_pfcands, 1)
 
-    for units in [50, 50, 50]:
-        net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
+        rnn_cell = tf.nn.rnn_cell.MultiRNNCell([
+                tf.nn.rnn_cell.BasicLSTMCell(n_hidden)
+                for n_hidden in [24, 24, 24]
+            ])
+
+        lstm_net, states = tf.nn.static_rnn(rnn_cell, lstm_net, dtype=tf.float32)
+
+        net = tf.concat([reg_net, lstm_net[-1]], 1)
+
+        for units in [128, 128]:
+            net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
+
+    else:
+
+        net = reg_net
 
     out_layer = tf.layers.dense(net, len(outputs), activation=None)
 

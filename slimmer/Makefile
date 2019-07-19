@@ -111,9 +111,14 @@ $(corrections): data/downloads.url
 
 reg: $(regression)
 
+regtestdir = ${HOME}/public_html/plots/testref_$(vers)
+
 regtest: $(regression)
 	test ! -f reg.root || rm reg.root
 	input_dir='/test/pandaf/013/this' regresstree /data/t3home000/dabercro/scratch/TTToHadronic/661A1D00-21C9-634B-829E-48F95273CAC7.root reg.root
+	test -z ${CMSSW_BASE} || test ! -d $(regtestdir)_old || rm -r $(regtestdir)_old
+	test -z ${CMSSW_BASE} || test ! -d $(regtestdir) || mv $(regtestdir) $(regtestdir)_old
+	test -z ${CMSSW_BASE} || crombie plotdump reg.root $(regtestdir)
 
 install: $(tarball)
 

@@ -1,7 +1,7 @@
 #inp_dir=/mnt/hadoop/scratch/dabercro/hbb
 inp_dir=/data/t3home000/dabercro/hbb
 version='013'
-fin_dir=190715_$version
+fin_dir=190719_$version
 
 # Condor
 export CrombieExe='eval input_dir=$INPUT_DIR regresstree'
