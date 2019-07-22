@@ -527,36 +527,8 @@ int parsed_main(int argc, char** argv) {
             std::cout << "BAD PF: " << event.eventNumber << " " << pf.idx() << std::endl;
         }
 
-        auto check_lep = [&] (const panda::Lepton& lep, std::function<bool()> sel) {
-          if (sel() and deltaR2(jet.particle->eta(), jet.particle->phi(), lep.eta(), lep.phi()) < 0.16) {
-            nlep++;
-            if (not maxlep or lep.pt() > maxlep->pt())
-              maxlep = &lep;
-          }
-        };
 
-        for (auto& ele : event.electrons)
-          check_lep(ele,
-                    [&ele] () {
-                      return ele.pt() >= 5 and std::abs(ele.eta()) <= 2.5 and std::abs(ele.dxy) <= 0.5 and std::abs(ele.dz) <= 1.0 and ele.nMissingHits <= 1;
-                    });
-
-        for (auto& mu : event.muons)
-          check_lep(mu,
-                    [&mu] () {
-                      return mu.pt() >= 3 and std::abs(mu.eta()) <= 2.4 and std::abs(mu.dxy) <= 0.5 and std::abs(mu.dz) <= 1.0;
-                    });
-
-        // Determine the flavor of the jet
-        auto& gen = jet.particle->matchedGenJet;
-        if (gen.isValid()) {
-          const auto& gennu = gen_nu_map.find(gen.get()) != gen_nu_map.end() ? gen_nu_map[gen.get()] : gennujet::GenNuVec(gen->p4());
-          output.set_genjet(bjet, *gen, gennu);
-        }
-
-        output.set_bjet(bjet, *jet.particle, maxtrkpt, maxpfpt, nlep, maxlep, jet.extra);
-        output.set_bvert(bjet, jet.particle->secondaryVertex);
-        output.set_reclustered(bjet, pfcands::NuJet(*jet.particle));
+        output.set_bjet(bjet, *jet.particle, jet.extra);
       };
 
       set_particles(stored_bjets, set_bjet);

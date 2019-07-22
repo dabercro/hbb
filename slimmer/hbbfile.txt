@@ -6,6 +6,7 @@ DEFINE REGS 3, 15, 40
 "crombie/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 "misc.h"
+"pfvecs.h"
 
 {/F}                           ! Default type
 {0}                            ! Default value
@@ -113,7 +114,6 @@ muon, ele {
 di$_m <- vectorSumMass(<${1, 2}_{pt, eta, phi, m}>) | muon, ele
 di$_pt <- vectorSumPt(<${1, 2}_{pt, phi}>) | muon, ele
 
-
 n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
 n_$/b <- <{muon + ele}_$> | lowreliso
 
@@ -190,32 +190,21 @@ bsf(panda::Jet& jet, bool loose)
 tag_$ <- eventNumber % 2 ? <jet{1 : 2}_$> | deepCSV, deepCSVb
 probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_numB
 
+#pv/TVector3 = event.vertices[0].position()
+
 ! Input jets are used to set the following variables
 !! <jet{1, 2, 3}> {
 <jet{1, 2}> {
 
 ! If this is at the top, we don't save all of the systematics from jet pt
 
-DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, ch, mu}_r{0..5}>
 
-  @_$frac <- []_@_$/[]_$ | pt, m, e |@ bkinematics
-  @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
-
-  bjet(panda::Jet& jet, float maxtrk, float maxpf, <T> nlep, <P> lep, <C> cuts)
+  bjet(panda::Jet& jet, <C> cuts)
 
     /O = false -> true
-    $ = -1 -> jet.$() | pt, eta, phi, m, e
 !    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
-    #p4/TLorentzVector = TLorentzVector() -> [&] () { TLorentzVector p4; p4.SetPtEtaPhiM(<[]_{pt, eta, phi, m}>); return p4; } ()
-
-    $ -> []_p4.$$() | et, mt
-
     loosepu/O = false -> puid::loose(jet)
-
-    $ -> jet.$ | puid, chf, nhf, cef, nef, ptSmear, rawPt, area
-
-    rawFactor <- []_pt/[]_rawPt
 
 !    ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
@@ -226,55 +215,70 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
     $/O = false -> jet.$ | loose, tight, monojet
     btag$/O = false -> cuts.$ | loose, medium, tight
 
-    $frac <- <[]_{c + n}$f> | e, h  ! EM and Had Fractions
-
-    $ -> $ | <max{trk, pf}>
-
     !!!!!!!
     ! Regression stuff
-    (puppi = regression::GetJetInfo(jet))
-    puppi_@_$ -> puppi.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
-    puppi_@_$ -> puppi.@.filled ? puppi.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
+    puId -> jet.puid
+    btagCMVA -> jet.cmva
+    btagDeepC -> jet.deepCSVc + jet.deepCSVcc
+    btagDeepB -> jet.deepCSVb + jet.deepCSVbb
 
-    $_r@_energy -> puppi.$_rings[@].first | em, neut, ch, mu |@ 0..5
-    @_rX_$ -> puppi.@_rings[X].second.$$() | pt, m, e |@ em, neut, ch, mu |X 0..5
-    @_rX_$ -> puppi.@_rings[X].second.filled ? puppi.@_rings[X].second.$$() : []_$ | eta, phi |@ em, neut, ch, mu |X 0..5
+    (p4 = jet.p4())
 
-    $_r@_rawE_frac <- []_$_r@_energy * []_rawFactor / []_e | em, neut, ch, mu |@ 0..5
+    raw -> jet.rawPt/jet.pt()
 
-    $ -> puppi.$ | ptD
-    $/s -> puppi.$ | num03
+    $ -> p4.$$() | pt, eta, phi, m, mt, e
+    $ -> jet.$ | <{c, n}{e, h}f>
 
-    pf_@_$ -> puppi.pfinfo[@].$ |@ 0..10 | ptfrac, deta, dphi, puppiwt, dxy, dz
-    pf_@_$/I -> puppi.pfinfo[@].$ |@ 0..10 | pdgid
+    (info = regression::GetJetInfo(jet))
+    $/S -> info.$ | vtxNtrk
+    $ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
+
+    leadTrackPt -> info.maxpfpt
+
+    rawFactor -> 1 - jet.rawPt/[]_pt
+    rawEnergy -> []_e * jet.rawPt/[]_pt
+
+    $/I -> info.$ | leptonPdgId
+    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
+
+    ptd -> info.ptD
+    withPtd <- []_ptd
+
+    energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
+    energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
+
+    numDaughters_pt03/s -> info.num03
+    numberOfDaughters/s -> jet.constituents.size()
+
+    ! Should it be abs value?
+    pfmet_dphi <- TVector2::Phi_mpi_pi(pfmetphi - []_phi)
+
+    puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
+    puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
+
+DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
+
+    @_$frac <- []_@_$/[]_$ | pt |@ bkinematics
+    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
+
+    #transform/TLorentzRotation = TLorentzRotation() -> pfvecs::get_transform(jet)
+    #pfvecs/std::vector<pfvecs::PFInfo> -> pfvecs::get_vecs(jet, []_transform, pv)
+
+DEFINE numpf 0..50
+
+    pf_@/O -> []_pfvecs.size() > @ |@ numpf
+    pf_@_$ -> []_pf_@ ? []_pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
+    pf_@_$/B -> []_pf_@ ? []_pfvecs[@].$ : -10 | q |@ numpf
+    pf_@_$/O -> []_pf_@ ? []_pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
+    pf_@_X_$ -> []_pf_@ ? []_pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
     !!!!!!!
 
-    leadlep_$ -> lep ? lep->$() : []_$ | eta, phi
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("/data/t3home000/dabercro/models/@/freeze_@.pb", "data/regression11.txt", \
+           {"dense_3/BiasAdd"}, 1, \
+           `./translate.pl data/regression11.txt`) |@ 190722_1
 
-    ~~ lep ~~
-
-    nlep/b -> nlep
-    leadlep_$ -> lep->$() | pt, m, e
-    leadlep_ptrel = -1 -> lep->p4().Perp(jet.p4().Vect())
-    leadlep_ptrelinv = -1 -> jet.p4().Perp(lep->p4().Vect())
-    leadlep_dr = -1 -> deltaR(<{lep->, jet.}{eta, phi}()>)
-    leadlep_pdgid/S -> lep->matchedPF.isValid() ? lep->matchedPF->pdgId() : 0
-    isEle/O <- std::abs([]_leadlep_pdgid) == 11
-    isMu/O <- std::abs([]_leadlep_pdgid) == 13
-    isOther/O <- not ([]_isEle or []_isMu)
-
-  bvert(panda::Ref<panda::SecondaryVertex>& vert)
-    vtx_$ -> vert.isValid() ? vert->$() : []_$ | eta, phi
-
-    ~~ vert.isValid() ~~
-
-    vtx_$ -> vert->$() | pt, m, e
-
-    vtx_3Dval -> vert->vtx3DVal
-    vtx_3Derr -> vert->vtx3DeVal
-    vtx_ntrk/s -> vert->ntrk
-
-  ! Some 4-vector info for training
+    tf_@_$ <- []_tf_@[=$=] | ptratio |@ 190722_1
 
   genjet(panda::GenJet& gen, gennujet::GenNuVec& withnu)
 
@@ -286,58 +290,6 @@ DEFINE bkinematics leadlep, vtx, <puppi_{charged, neutral}{, _pu}>, <{em, neut, 
 
     gen_$/S -> gen.$ | pdgid, partonFlavor
     gen_$/b -> gen.$ | numB
-
-  reclustered(fastjet::PseudoJet* jet)
-
-    ~~ jet ~~
-    reclustered/O = false -> true
-    reclustered_$ -> jet->$() | pt, eta, phi, m
-
-! DEFINE TF_VERS v5, v7, v8, v10, v12
-DEFINE TF_VERS 190603_v6, 190604_v0
-
-!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-!      <- lazytf::eval("data/freeze_@.pb", "data/regression2.txt", \
-!         {"dnn/logits/BiasAdd"}, 4, \
-!         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v7, v10
-
-!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-!      <- lazytf::eval("data/freeze_@.pb", "data/regression2.txt", \
-!         {"dnn/split_logits/Slice"}, 4, \
-!         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression2.txt`) |@ v5
-
-!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-!      <- lazytf::eval("data/freeze_@.pb", "data/regression4.txt", \
-!         {"dnn/split_logits/Slice"}, 4, \
-!         `perl -ane 'chomp; s/jet1/\[\]/g; s/.*=\s*(.*)/$1/; print; eof || print ", "' data/regression4.txt`) |@ v12
-
-!  #tf_@/std::vector<float> = {1, 0, 0, 1} \
-!      <- lazytf::eval("data/freeze_@.pb", "data/regression4.txt", \
-!         {"dnn/logits/BiasAdd"}, 4, \
-!         `perl -ane 'chomp; s/jet1/\[\]/g; s/.*=\s*(.*)/$1/; print; eof || print ", "' data/regression4.txt`) |@ v8
-
-  #tf_@/std::vector<float> = {1} \
-      <- lazytf::eval("data/freeze_@.pb", "data/regression7.txt", \
-         {"dnn/split_logits/Slice"}, 1, \
-         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression7_trns.txt`) |@ 190603_v6
-
-  #tf_@/std::vector<float> = {1} \
-      <- lazytf::eval("data/freeze_@.pb", "data/regression6.txt", \
-         {"dnn/split_logits/Slice"}, 1, \
-         `perl -ane 'chomp; s/jet1/\[\]/; print; eof || print ", "' data/regression6_trns.txt`) |@ 190604_v0
-
-  tf_@_$ <- []_tf_@[=$=] | ptratio |@ TF_VERS
-  tf_@_$ = 1 | mratio |@ TF_VERS
-  tf_@_$ = 0 | deta, dphi |@ TF_VERS
-
-  [pt_ratio_old; data/TMVARegression_BDT.weights.xml; data/bjet_old_sub.txt] = 1
-  [pt_ratio_new; data/Regression_v3_BDT.weights.xml; jet1] = 1
-
-  ! Need a more systematic name system
-
-  pt_reg$ <- []_pt_ratio$ * []_pt | _old, _new ! , _old_method
-  $_tf_@ <- []_tf_@_$ratio * []_$ | pt, m |@ TF_VERS
-  $_tf_@ <- []_tf_@_d$ + []_$ | eta, phi |@ TF_VERS
 
 }
 
@@ -351,14 +303,6 @@ hbb {
     /O = false -> true
     $ -> []_vec.$$() | pt, eta, phi, m
 
-    m_reg$ <- vectorSumMass(<jet{1, 2}_{pt_reg$, eta, phi, m}>) | _old, _new ! , _old_method
-    pt_reg$ <- vectorSumPt(<jet{1, 2}_{pt_reg$, phi}>) | _old, _new ! , _old_method
-
-    m_tf_@ <- vectorSumMass(<jet{1, 2}_{pt, eta, phi, m}_tf_@>) |@ TF_VERS
-    pt_tf_@ <- vectorSumPt(<jet{1, 2}_{pt, phi}_tf_@>) |@ TF_VERS
-
-    reg$_over_m <- []_m_reg$/[]_m | _old, _new ! , _old_method
-
   hbbgen(panda::GenParticle& gen, float dr)
     gen/O = false -> true
     gen_$ -> gen.$() | pt, eta, phi, m
@@ -371,7 +315,7 @@ hbb {
 
 ! Need a more systematic name system
 
-$_dijet_m <- vectorSumMass(<jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu, reclustered
+$_dijet_m <- vectorSumMass(<jet{1, 2}_$_{pt, eta, phi, m}>) | gen, gen_withnu
 dphi_uh <- deltaPhi(hbb_phi, recoilphi)
 
 daughter_deta <- std::abs(jet1_eta - jet2_eta)
@@ -440,8 +384,6 @@ renormfact {
   r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
 }
 
-[[<tf_class_{no, yes}>; data/classifier_190512.pb; ../analysis/classify3.txt; inputs; out/Softmax]]
-
 ! -- genboson_pt > 30 --
 ! -- jet1_gen_numB --
 
@@ -461,14 +403,10 @@ BTAGPROBE
 input::noskim or \
 debugevent::debugevent or \
 BTAGPROBE or \
-((ak8fatjet1_good and ak8fatjet1_dphi_u > 1.8) or \
- (daughter_max_pt > 40 and daughter_min_pt > 30 and \
-  dphi_uh > 1.6 and \
-  std::max({<hbb_{pt, pt_reg_new, pt_reg_old}>}) > 100) and \
-   ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
-    (n_lep_loose > 0 and n_centerjet >= 4)\
-   )\
-) \
+daughter_max_pt > 40 and daughter_min_pt > 30 and \
+dphi_uh > 1.6 and hbb_pt > 100 and \
+ ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
+  (n_lep_loose > 0 and n_centerjet >= 4)) \
 ++
 
 

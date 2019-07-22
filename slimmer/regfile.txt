@@ -5,6 +5,7 @@
 "pfvecs.h"
 "regression.h"
 "TVector2.h"
+"TLorentzRotation.h"
 
 {/F}                           ! Default type
 {0}                            ! Default value
@@ -17,15 +18,15 @@ $ = e.$ | rho
 nPVs = e.npvTrue
 nPVs_good = e.npv
 
-met_$ = e.pfMet.$ | pt, phi
+pfmet_$ = e.pfMet.$ | pt, phi
 
 event/l = e.eventNumber
 run/i = e.runNumber
 luminosityBlock/l = e.lumiNumber
 
-!isEle <- std::abs(Jet_leptonPdgId) == 11
-!isMu <- std::abs(Jet_leptonPdgId) == 13
-!isOther <- not (isEle or isMu)
+isEle <- std::abs(Jet_leptonPdgId) == 11
+isMu <- std::abs(Jet_leptonPdgId) == 13
+isOther <- not (isEle or isMu)
 
 Jet {
   jet(panda::Jet& jet, gennujet::GenNuVec& withnu, <G> gen)
@@ -38,62 +39,59 @@ Jet {
     (p4 = jet.p4())
 
     raw -> jet.rawPt/jet.pt()
-!    pt -> jet.rawPt
-!    $ -> p4.$$() * []_raw | mt, e
-!    $ -> p4.$$() | eta, phi
-!    $ -> p4.M() * []_raw | mass
 
-    $ -> p4.$$() | pt, eta, phi, mt, e
-    $ -> p4.M() | mass
+    $ -> p4.$$() | pt, eta, phi, m, mt, e
+    $ -> jet.$ | <{c, n}{e, h}f>
 
-    chHEF -> jet.chf
-    neHEF -> jet.nhf
-    chEmEF -> jet.cef
-    neEmEF -> jet.nef
+    (info = regression::GetJetInfo(jet))
+    $/S -> info.$ | vtxNtrk
+    $ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
 
-!    (info = regression::GetJetInfo(jet))
-!    $/S -> info.$ | vtxNtrk
-!    $ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
+    leadTrackPt -> info.maxpfpt
 
-!    leadTrackPt -> info.maxpfpt
-
-!    rawFactor -> 1 - jet.rawPt/[]_pt
-!    rawEnergy -> []_e * jet.rawPt/[]_pt
+    rawFactor -> 1 - jet.rawPt/[]_pt
+    rawEnergy -> []_e * jet.rawPt/[]_pt
 
     mc$$ -> withnu.genvec.$$() | pt, eta, phi, m
     mcFlavour -> gen->partonFlavor
 
-!    $/I -> info.$ | leptonPdgId
-!    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
+    $/I -> info.$ | leptonPdgId
+    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
 
-!    ptd -> info.ptD
-!    withPtd <- []_ptd
+    ptd -> info.ptD
+    withPtd <- []_ptd
 
-!    energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
-!    energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
+    energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
+    energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
 
-!    numDaughters_pt03/s -> info.num03
+    numDaughters_pt03/s -> info.num03
     numberOfDaughters/s -> jet.constituents.size()
 
     ! Should it be abs value?
-    met_dPhi <- TVector2::Phi_mpi_pi(met_phi - []_phi)
+    pfmet_dphi <- TVector2::Phi_mpi_pi(pfmet_phi - []_phi)
 
-!    puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
-!    puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
+    puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
+    puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
 
 DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
 
-!    @_$frac <- []_@_$/[]_$ | pt |@ bkinematics
-!    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
+    @_$frac <- []_@_$/[]_$ | pt |@ bkinematics
+    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
-    (pfvecs = pfvecs::get_vecs(jet, pv))
+    (transform = pfvecs::get_transform(jet))
+    (pfvecs = pfvecs::get_vecs(jet, transform, pv))
 
-DEFINE numpf 0..20
+DEFINE numpf 0..50
 
-    pf_@_$ -> (pfvecs.size() > @) ? pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
-    pf_@_$/B -> (pfvecs.size() > @) ? pfvecs[@].$ : -10 | q |@ numpf
-    pf_@_$/O -> (pfvecs.size() > @) ? pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
-    pf_@_X_$ -> (pfvecs.size() > @) ? pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}> |@ numpf
+    pf_@/O -> pfvecs.size() > @ |@ numpf
+    pf_@_$ -> []_pf_@ ? pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
+    pf_@_$/B -> []_pf_@ ? pfvecs[@].$ : -10 | q |@ numpf
+    pf_@_$/O -> []_pf_@ ? pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
+    pf_@_X_$ -> []_pf_@ ? pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
+
+    (gen_transformed = transform * withnu.genvec)
+
+    gen_transformed_$ -> gen_transformed.$$() | <p{x, y, z}>, e
 
 !    #tf_@/std::vector<float> = {1, 1} \
 !        <- lazytf::eval("data/freeze_@.pb", "data/regression9.txt", \
@@ -107,4 +105,11 @@ DEFINE numpf 0..20
 
 !    tf_@_$ <- []_tf_@[=$=] | ptratio, mratio |@ <19071{6_1, 7_6}>
 
+
+    gen_ptratio <- []_mcPt/[]_pt
+    gen_deta <- []_mcEta - []_eta
+    gen_dphi <- TVector2::Phi_mpi_pi([]_mcPhi - []_phi)
+    gen_mratio <- []_mcM/[]_m
+
 }
+

@@ -96,7 +96,7 @@ include/$(regclass).h: $(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corr
 	crombie maketree $(regclass).txt
 	mv $(regclass).h include/
 
-include/$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
+include/$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) translate.pl
 	crombie maketree $(flatclass).txt
 	mv $(flatclass).h include/
 

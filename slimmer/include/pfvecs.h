@@ -12,25 +12,25 @@
 
 namespace pfvecs {
 
-  TLorentzRotation get_transform (TLorentzVector jet,
-                                  TLorentzVector pf_0,
-                                  TLorentzVector pf_1) {
+  TLorentzRotation get_transform (const panda::Jet& jet) {
 
     TLorentzRotation output {};
 
     // Boost into jet's center of mass
-    output.Boost(-1 * jet.BoostVector());
+    output.Boost(-1 * jet.p4().BoostVector());
 
     // Rotate around z until desired pf_0 in x-z plane
-    auto z_direction = output * pf_0;
+    auto z_direction = output * jet.constituents.at(0)->p4();
     output.RotateZ(-1 * z_direction.Phi());
 
     // Rotate around y until in z direction
     output.RotateY(-1 * z_direction.Theta());
 
-    // Now rotate pf_1 into x-z plane, after applying transform so far
-    auto xz_plane = output * pf_1;
-    output.RotateZ(-1 * xz_plane.Phi());
+    if (jet.constituents.size() > 1) {
+      // Now rotate pf_1 into x-z plane, after applying transform so far
+      auto xz_plane = output * jet.constituents.at(1)->p4();
+      output.RotateZ(-1 * xz_plane.Phi());
+    }
 
     // Done!
     return output;
@@ -76,15 +76,13 @@ namespace pfvecs {
 
   };
 
-  std::vector<PFInfo> get_vecs(const panda::Jet& jet, TVector3 primary_vert) {
+  std::vector<PFInfo> get_vecs(const panda::Jet& jet, const TLorentzRotation& transform, const TVector3& primary_vert) {
     std::vector<PFInfo> output {};
     output.reserve(jet.constituents.size());
 
     if (jet.constituents.size() < 2)
       // Return empty stuff
       return output;
-
-    auto transform = get_transform(jet.p4(), jet.constituents.at(0)->p4(), jet.constituents.at(1)->p4());
 
     // Make pseudojets
 
