@@ -9,11 +9,9 @@ http://t3serv001.mit.edu/~dabercro/slimmerfiles/180206/Znn_nloEWK_weight_unnorma
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180319/puppiCorr.root
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180402/hfEleMva_hfEleMva_hp0_test4.weights.xml
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180423/puid.root
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/180423/TMVARegression_BDT.weights.xml
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180503/cmva_rwt_fit_lf_v0_final_2017_3_29.root
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180503/cmva_rwt_fit_hf_v0_final_2017_3_29.root
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180508/pileup_data.root
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/180517/output_test.pb
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180530/DeepCSV_94XSF_V2_B_F.csv
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180530/puWeights_90x.root
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/180530/met2016to2017.root
@@ -25,11 +23,6 @@ http://t3serv001.mit.edu/~dabercro/slimmerfiles/190213/met_trigger_effs_2018.roo
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/190213/reweight.root
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/190214/reweight_190214.root
 http://t3serv001.mit.edu/~dabercro/slimmerfiles/190301/DeepCSV_102XSF_V1.csv
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190328/regression_v2.pb
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190329/Regression_v3_BDT.weights.xml
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190607/freeze_190604_v0.pb
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190607/freeze_190603_v6.pb
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190711/freeze_190711_0.pb
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190712/freeze_190711_2.pb
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190718/freeze_190716_1.pb
-http://t3serv001.mit.edu/~dabercro/slimmerfiles/190718/freeze_190717_6.pb
+http://t3serv001.mit.edu/~dabercro/slimmerfiles/190724/freeze_190723_0.pb
+http://t3serv001.mit.edu/~dabercro/slimmerfiles/190724/freeze_190723_origin.pb
+http://t3serv001.mit.edu/~dabercro/slimmerfiles/190724/freeze_190723_puppi.pb

@@ -78,8 +78,12 @@ namespace lazytf {
       if (debugevent::debug)
         std::cout << "Done" << std::endl;
       for (unsigned i_node = 0; i_node < output_nodes.size(); i_node++) {
-        for (unsigned i = 0; i < targets_per_node; i++)
+        for (unsigned i = 0; i < targets_per_node; i++) {
+          if (debugevent::debug)
+            std::cout << "i_node: " << i_node << " i_target: " << i
+                      << " value: " << output_tensor[i_node].matrix<float>()(0, i) << std::endl;
           outputs[i_node * targets_per_node + i] = output_tensor[i_node].matrix<float>()(0, i);
+        }
       }
       return outputs;
     }

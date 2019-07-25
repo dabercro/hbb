@@ -1,0 +1,276 @@
+Jet_chEmEF
+Jet_chHEF
+Jet_energyRing_dR0_ch_Jet_rawEnergy
+Jet_energyRing_dR0_em_Jet_rawEnergy
+Jet_energyRing_dR0_mu_Jet_rawEnergy
+Jet_energyRing_dR0_neut_Jet_rawEnergy
+Jet_energyRing_dR1_ch_Jet_rawEnergy
+Jet_energyRing_dR1_em_Jet_rawEnergy
+Jet_energyRing_dR1_mu_Jet_rawEnergy
+Jet_energyRing_dR1_neut_Jet_rawEnergy
+Jet_energyRing_dR2_ch_Jet_rawEnergy
+Jet_energyRing_dR2_em_Jet_rawEnergy
+Jet_energyRing_dR2_mu_Jet_rawEnergy
+Jet_energyRing_dR2_neut_Jet_rawEnergy
+Jet_energyRing_dR3_ch_Jet_rawEnergy
+Jet_energyRing_dR3_em_Jet_rawEnergy
+Jet_energyRing_dR3_mu_Jet_rawEnergy
+Jet_energyRing_dR3_neut_Jet_rawEnergy
+Jet_energyRing_dR4_ch_Jet_rawEnergy
+Jet_energyRing_dR4_em_Jet_rawEnergy
+Jet_energyRing_dR4_mu_Jet_rawEnergy
+Jet_energyRing_dR4_neut_Jet_rawEnergy
+Jet_eta
+Jet_leadTrackPt
+Jet_leptonDeltaR
+Jet_leptonPtRel
+Jet_leptonPtRelInv
+Jet_mass
+Jet_mt
+Jet_neEmEF
+Jet_neHEF
+Jet_numDaughters_pt03
+Jet_pt
+Jet_ptd
+Jet_vtx3dL
+Jet_vtx3deL
+Jet_vtxMass
+Jet_vtxNtrk
+Jet_vtxPt
+isEle
+isMu
+isOther
+rho
+Jet_pf_0_deta
+Jet_pf_0_dphi
+Jet_pf_0_dxy
+Jet_pf_0_dz
+Jet_pf_0_pdgid
+Jet_pf_0_ptfrac
+Jet_pf_0_puppiwt
+Jet_pf_1_deta
+Jet_pf_1_dphi
+Jet_pf_1_dxy
+Jet_pf_1_dz
+Jet_pf_1_pdgid
+Jet_pf_1_ptfrac
+Jet_pf_1_puppiwt
+Jet_pf_2_deta
+Jet_pf_2_dphi
+Jet_pf_2_dxy
+Jet_pf_2_dz
+Jet_pf_2_pdgid
+Jet_pf_2_ptfrac
+Jet_pf_2_puppiwt
+Jet_pf_3_deta
+Jet_pf_3_dphi
+Jet_pf_3_dxy
+Jet_pf_3_dz
+Jet_pf_3_pdgid
+Jet_pf_3_ptfrac
+Jet_pf_3_puppiwt
+Jet_pf_4_deta
+Jet_pf_4_dphi
+Jet_pf_4_dxy
+Jet_pf_4_dz
+Jet_pf_4_pdgid
+Jet_pf_4_ptfrac
+Jet_pf_4_puppiwt
+Jet_puppi_charged_deta
+Jet_puppi_charged_dphi
+Jet_puppi_charged_ptfrac
+Jet_puppi_charged_pu_deta
+Jet_puppi_charged_pu_dphi
+Jet_puppi_charged_pu_ptfrac
+Jet_puppi_neutral_deta
+Jet_puppi_neutral_dphi
+Jet_puppi_neutral_ptfrac
+Jet_puppi_neutral_pu_deta
+Jet_puppi_neutral_pu_dphi
+Jet_puppi_neutral_pu_ptfrac
+Jet_pf_fastjet_0_deta = Alt$(Jet_pf_fastjet_sorted_eta[0]-Jet_eta, -99)
+Jet_pf_fastjet_1_deta = Alt$(Jet_pf_fastjet_sorted_eta[1]-Jet_eta, -99)
+Jet_pf_fastjet_2_deta = Alt$(Jet_pf_fastjet_sorted_eta[2]-Jet_eta, -99)
+Jet_pf_fastjet_3_deta = Alt$(Jet_pf_fastjet_sorted_eta[3]-Jet_eta, -99)
+Jet_pf_fastjet_4_deta = Alt$(Jet_pf_fastjet_sorted_eta[4]-Jet_eta, -99)
+Jet_pf_fastjet_5_deta = Alt$(Jet_pf_fastjet_sorted_eta[5]-Jet_eta, -99)
+Jet_pf_fastjet_6_deta = Alt$(Jet_pf_fastjet_sorted_eta[6]-Jet_eta, -99)
+Jet_pf_fastjet_7_deta = Alt$(Jet_pf_fastjet_sorted_eta[7]-Jet_eta, -99)
+Jet_pf_fastjet_8_deta = Alt$(Jet_pf_fastjet_sorted_eta[8]-Jet_eta, -99)
+Jet_pf_fastjet_9_deta = Alt$(Jet_pf_fastjet_sorted_eta[9]-Jet_eta, -99)
+Jet_pf_fastjet_10_deta = Alt$(Jet_pf_fastjet_sorted_eta[10]-Jet_eta, -99)
+Jet_pf_fastjet_11_deta = Alt$(Jet_pf_fastjet_sorted_eta[11]-Jet_eta, -99)
+Jet_pf_fastjet_12_deta = Alt$(Jet_pf_fastjet_sorted_eta[12]-Jet_eta, -99)
+Jet_pf_fastjet_13_deta = Alt$(Jet_pf_fastjet_sorted_eta[13]-Jet_eta, -99)
+Jet_pf_fastjet_14_deta = Alt$(Jet_pf_fastjet_sorted_eta[14]-Jet_eta, -99)
+Jet_pf_fastjet_15_deta = Alt$(Jet_pf_fastjet_sorted_eta[15]-Jet_eta, -99)
+Jet_pf_fastjet_16_deta = Alt$(Jet_pf_fastjet_sorted_eta[16]-Jet_eta, -99)
+Jet_pf_fastjet_17_deta = Alt$(Jet_pf_fastjet_sorted_eta[17]-Jet_eta, -99)
+Jet_pf_fastjet_18_deta = Alt$(Jet_pf_fastjet_sorted_eta[18]-Jet_eta, -99)
+Jet_pf_fastjet_19_deta = Alt$(Jet_pf_fastjet_sorted_eta[19]-Jet_eta, -99)
+Jet_pf_fastjet_20_deta = Alt$(Jet_pf_fastjet_sorted_eta[20]-Jet_eta, -99)
+Jet_pf_fastjet_21_deta = Alt$(Jet_pf_fastjet_sorted_eta[21]-Jet_eta, -99)
+Jet_pf_fastjet_22_deta = Alt$(Jet_pf_fastjet_sorted_eta[22]-Jet_eta, -99)
+Jet_pf_fastjet_23_deta = Alt$(Jet_pf_fastjet_sorted_eta[23]-Jet_eta, -99)
+Jet_pf_fastjet_24_deta = Alt$(Jet_pf_fastjet_sorted_eta[24]-Jet_eta, -99)
+Jet_pf_fastjet_25_deta = Alt$(Jet_pf_fastjet_sorted_eta[25]-Jet_eta, -99)
+Jet_pf_fastjet_26_deta = Alt$(Jet_pf_fastjet_sorted_eta[26]-Jet_eta, -99)
+Jet_pf_fastjet_27_deta = Alt$(Jet_pf_fastjet_sorted_eta[27]-Jet_eta, -99)
+Jet_pf_fastjet_28_deta = Alt$(Jet_pf_fastjet_sorted_eta[28]-Jet_eta, -99)
+Jet_pf_fastjet_29_deta = Alt$(Jet_pf_fastjet_sorted_eta[29]-Jet_eta, -99)
+Jet_pf_fastjet_30_deta = Alt$(Jet_pf_fastjet_sorted_eta[30]-Jet_eta, -99)
+Jet_pf_fastjet_0_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[0]-Jet_phi), -99)
+Jet_pf_fastjet_1_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[1]-Jet_phi), -99)
+Jet_pf_fastjet_2_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[2]-Jet_phi), -99)
+Jet_pf_fastjet_3_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[3]-Jet_phi), -99)
+Jet_pf_fastjet_4_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[4]-Jet_phi), -99)
+Jet_pf_fastjet_5_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[5]-Jet_phi), -99)
+Jet_pf_fastjet_6_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[6]-Jet_phi), -99)
+Jet_pf_fastjet_7_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[7]-Jet_phi), -99)
+Jet_pf_fastjet_8_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[8]-Jet_phi), -99)
+Jet_pf_fastjet_9_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[9]-Jet_phi), -99)
+Jet_pf_fastjet_10_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[10]-Jet_phi), -99)
+Jet_pf_fastjet_11_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[11]-Jet_phi), -99)
+Jet_pf_fastjet_12_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[12]-Jet_phi), -99)
+Jet_pf_fastjet_13_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[13]-Jet_phi), -99)
+Jet_pf_fastjet_14_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[14]-Jet_phi), -99)
+Jet_pf_fastjet_15_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[15]-Jet_phi), -99)
+Jet_pf_fastjet_16_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[16]-Jet_phi), -99)
+Jet_pf_fastjet_17_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[17]-Jet_phi), -99)
+Jet_pf_fastjet_18_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[18]-Jet_phi), -99)
+Jet_pf_fastjet_19_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[19]-Jet_phi), -99)
+Jet_pf_fastjet_20_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[20]-Jet_phi), -99)
+Jet_pf_fastjet_21_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[21]-Jet_phi), -99)
+Jet_pf_fastjet_22_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[22]-Jet_phi), -99)
+Jet_pf_fastjet_23_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[23]-Jet_phi), -99)
+Jet_pf_fastjet_24_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[24]-Jet_phi), -99)
+Jet_pf_fastjet_25_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[25]-Jet_phi), -99)
+Jet_pf_fastjet_26_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[26]-Jet_phi), -99)
+Jet_pf_fastjet_27_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[27]-Jet_phi), -99)
+Jet_pf_fastjet_28_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[28]-Jet_phi), -99)
+Jet_pf_fastjet_29_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[29]-Jet_phi), -99)
+Jet_pf_fastjet_30_dphi = Alt$(TVector2::Phi_mpi_pi(Jet_pf_fastjet_sorted_phi[30]-Jet_phi), -99)
+Jet_pf_fastjet_0_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[0], -99)
+Jet_pf_fastjet_1_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[1], -99)
+Jet_pf_fastjet_2_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[2], -99)
+Jet_pf_fastjet_3_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[3], -99)
+Jet_pf_fastjet_4_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[4], -99)
+Jet_pf_fastjet_5_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[5], -99)
+Jet_pf_fastjet_6_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[6], -99)
+Jet_pf_fastjet_7_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[7], -99)
+Jet_pf_fastjet_8_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[8], -99)
+Jet_pf_fastjet_9_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[9], -99)
+Jet_pf_fastjet_10_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[10], -99)
+Jet_pf_fastjet_11_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[11], -99)
+Jet_pf_fastjet_12_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[12], -99)
+Jet_pf_fastjet_13_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[13], -99)
+Jet_pf_fastjet_14_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[14], -99)
+Jet_pf_fastjet_15_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[15], -99)
+Jet_pf_fastjet_16_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[16], -99)
+Jet_pf_fastjet_17_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[17], -99)
+Jet_pf_fastjet_18_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[18], -99)
+Jet_pf_fastjet_19_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[19], -99)
+Jet_pf_fastjet_20_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[20], -99)
+Jet_pf_fastjet_21_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[21], -99)
+Jet_pf_fastjet_22_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[22], -99)
+Jet_pf_fastjet_23_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[23], -99)
+Jet_pf_fastjet_24_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[24], -99)
+Jet_pf_fastjet_25_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[25], -99)
+Jet_pf_fastjet_26_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[26], -99)
+Jet_pf_fastjet_27_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[27], -99)
+Jet_pf_fastjet_28_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[28], -99)
+Jet_pf_fastjet_29_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[29], -99)
+Jet_pf_fastjet_30_dxy = Alt$(Jet_pf_fastjet_sorted_dxy[30], -99)
+Jet_pf_fastjet_0_dz = Alt$(Jet_pf_fastjet_sorted_dz[0], -99)
+Jet_pf_fastjet_1_dz = Alt$(Jet_pf_fastjet_sorted_dz[1], -99)
+Jet_pf_fastjet_2_dz = Alt$(Jet_pf_fastjet_sorted_dz[2], -99)
+Jet_pf_fastjet_3_dz = Alt$(Jet_pf_fastjet_sorted_dz[3], -99)
+Jet_pf_fastjet_4_dz = Alt$(Jet_pf_fastjet_sorted_dz[4], -99)
+Jet_pf_fastjet_5_dz = Alt$(Jet_pf_fastjet_sorted_dz[5], -99)
+Jet_pf_fastjet_6_dz = Alt$(Jet_pf_fastjet_sorted_dz[6], -99)
+Jet_pf_fastjet_7_dz = Alt$(Jet_pf_fastjet_sorted_dz[7], -99)
+Jet_pf_fastjet_8_dz = Alt$(Jet_pf_fastjet_sorted_dz[8], -99)
+Jet_pf_fastjet_9_dz = Alt$(Jet_pf_fastjet_sorted_dz[9], -99)
+Jet_pf_fastjet_10_dz = Alt$(Jet_pf_fastjet_sorted_dz[10], -99)
+Jet_pf_fastjet_11_dz = Alt$(Jet_pf_fastjet_sorted_dz[11], -99)
+Jet_pf_fastjet_12_dz = Alt$(Jet_pf_fastjet_sorted_dz[12], -99)
+Jet_pf_fastjet_13_dz = Alt$(Jet_pf_fastjet_sorted_dz[13], -99)
+Jet_pf_fastjet_14_dz = Alt$(Jet_pf_fastjet_sorted_dz[14], -99)
+Jet_pf_fastjet_15_dz = Alt$(Jet_pf_fastjet_sorted_dz[15], -99)
+Jet_pf_fastjet_16_dz = Alt$(Jet_pf_fastjet_sorted_dz[16], -99)
+Jet_pf_fastjet_17_dz = Alt$(Jet_pf_fastjet_sorted_dz[17], -99)
+Jet_pf_fastjet_18_dz = Alt$(Jet_pf_fastjet_sorted_dz[18], -99)
+Jet_pf_fastjet_19_dz = Alt$(Jet_pf_fastjet_sorted_dz[19], -99)
+Jet_pf_fastjet_20_dz = Alt$(Jet_pf_fastjet_sorted_dz[20], -99)
+Jet_pf_fastjet_21_dz = Alt$(Jet_pf_fastjet_sorted_dz[21], -99)
+Jet_pf_fastjet_22_dz = Alt$(Jet_pf_fastjet_sorted_dz[22], -99)
+Jet_pf_fastjet_23_dz = Alt$(Jet_pf_fastjet_sorted_dz[23], -99)
+Jet_pf_fastjet_24_dz = Alt$(Jet_pf_fastjet_sorted_dz[24], -99)
+Jet_pf_fastjet_25_dz = Alt$(Jet_pf_fastjet_sorted_dz[25], -99)
+Jet_pf_fastjet_26_dz = Alt$(Jet_pf_fastjet_sorted_dz[26], -99)
+Jet_pf_fastjet_27_dz = Alt$(Jet_pf_fastjet_sorted_dz[27], -99)
+Jet_pf_fastjet_28_dz = Alt$(Jet_pf_fastjet_sorted_dz[28], -99)
+Jet_pf_fastjet_29_dz = Alt$(Jet_pf_fastjet_sorted_dz[29], -99)
+Jet_pf_fastjet_30_dz = Alt$(Jet_pf_fastjet_sorted_dz[30], -99)
+Jet_pf_fastjet_0_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[0]-Jet_pt, -99)
+Jet_pf_fastjet_1_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[1]-Jet_pt, -99)
+Jet_pf_fastjet_2_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[2]-Jet_pt, -99)
+Jet_pf_fastjet_3_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[3]-Jet_pt, -99)
+Jet_pf_fastjet_4_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[4]-Jet_pt, -99)
+Jet_pf_fastjet_5_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[5]-Jet_pt, -99)
+Jet_pf_fastjet_6_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[6]-Jet_pt, -99)
+Jet_pf_fastjet_7_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[7]-Jet_pt, -99)
+Jet_pf_fastjet_8_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[8]-Jet_pt, -99)
+Jet_pf_fastjet_9_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[9]-Jet_pt, -99)
+Jet_pf_fastjet_10_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[10]-Jet_pt, -99)
+Jet_pf_fastjet_11_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[11]-Jet_pt, -99)
+Jet_pf_fastjet_12_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[12]-Jet_pt, -99)
+Jet_pf_fastjet_13_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[13]-Jet_pt, -99)
+Jet_pf_fastjet_14_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[14]-Jet_pt, -99)
+Jet_pf_fastjet_15_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[15]-Jet_pt, -99)
+Jet_pf_fastjet_16_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[16]-Jet_pt, -99)
+Jet_pf_fastjet_17_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[17]-Jet_pt, -99)
+Jet_pf_fastjet_18_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[18]-Jet_pt, -99)
+Jet_pf_fastjet_19_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[19]-Jet_pt, -99)
+Jet_pf_fastjet_20_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[20]-Jet_pt, -99)
+Jet_pf_fastjet_21_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[21]-Jet_pt, -99)
+Jet_pf_fastjet_22_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[22]-Jet_pt, -99)
+Jet_pf_fastjet_23_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[23]-Jet_pt, -99)
+Jet_pf_fastjet_24_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[24]-Jet_pt, -99)
+Jet_pf_fastjet_25_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[25]-Jet_pt, -99)
+Jet_pf_fastjet_26_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[26]-Jet_pt, -99)
+Jet_pf_fastjet_27_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[27]-Jet_pt, -99)
+Jet_pf_fastjet_28_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[28]-Jet_pt, -99)
+Jet_pf_fastjet_29_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[29]-Jet_pt, -99)
+Jet_pf_fastjet_30_ptfrac = Alt$(Jet_pf_fastjet_sorted_pt[30]-Jet_pt, -99)
+Jet_pf_fastjet_0_q = Alt$(Jet_pf_fastjet_sorted_q[0], -10)
+Jet_pf_fastjet_1_q = Alt$(Jet_pf_fastjet_sorted_q[1], -10)
+Jet_pf_fastjet_2_q = Alt$(Jet_pf_fastjet_sorted_q[2], -10)
+Jet_pf_fastjet_3_q = Alt$(Jet_pf_fastjet_sorted_q[3], -10)
+Jet_pf_fastjet_4_q = Alt$(Jet_pf_fastjet_sorted_q[4], -10)
+Jet_pf_fastjet_5_q = Alt$(Jet_pf_fastjet_sorted_q[5], -10)
+Jet_pf_fastjet_6_q = Alt$(Jet_pf_fastjet_sorted_q[6], -10)
+Jet_pf_fastjet_7_q = Alt$(Jet_pf_fastjet_sorted_q[7], -10)
+Jet_pf_fastjet_8_q = Alt$(Jet_pf_fastjet_sorted_q[8], -10)
+Jet_pf_fastjet_9_q = Alt$(Jet_pf_fastjet_sorted_q[9], -10)
+Jet_pf_fastjet_10_q = Alt$(Jet_pf_fastjet_sorted_q[10], -10)
+Jet_pf_fastjet_11_q = Alt$(Jet_pf_fastjet_sorted_q[11], -10)
+Jet_pf_fastjet_12_q = Alt$(Jet_pf_fastjet_sorted_q[12], -10)
+Jet_pf_fastjet_13_q = Alt$(Jet_pf_fastjet_sorted_q[13], -10)
+Jet_pf_fastjet_14_q = Alt$(Jet_pf_fastjet_sorted_q[14], -10)
+Jet_pf_fastjet_15_q = Alt$(Jet_pf_fastjet_sorted_q[15], -10)
+Jet_pf_fastjet_16_q = Alt$(Jet_pf_fastjet_sorted_q[16], -10)
+Jet_pf_fastjet_17_q = Alt$(Jet_pf_fastjet_sorted_q[17], -10)
+Jet_pf_fastjet_18_q = Alt$(Jet_pf_fastjet_sorted_q[18], -10)
+Jet_pf_fastjet_19_q = Alt$(Jet_pf_fastjet_sorted_q[19], -10)
+Jet_pf_fastjet_20_q = Alt$(Jet_pf_fastjet_sorted_q[20], -10)
+Jet_pf_fastjet_21_q = Alt$(Jet_pf_fastjet_sorted_q[21], -10)
+Jet_pf_fastjet_22_q = Alt$(Jet_pf_fastjet_sorted_q[22], -10)
+Jet_pf_fastjet_23_q = Alt$(Jet_pf_fastjet_sorted_q[23], -10)
+Jet_pf_fastjet_24_q = Alt$(Jet_pf_fastjet_sorted_q[24], -10)
+Jet_pf_fastjet_25_q = Alt$(Jet_pf_fastjet_sorted_q[25], -10)
+Jet_pf_fastjet_26_q = Alt$(Jet_pf_fastjet_sorted_q[26], -10)
+Jet_pf_fastjet_27_q = Alt$(Jet_pf_fastjet_sorted_q[27], -10)
+Jet_pf_fastjet_28_q = Alt$(Jet_pf_fastjet_sorted_q[28], -10)
+Jet_pf_fastjet_29_q = Alt$(Jet_pf_fastjet_sorted_q[29], -10)
+Jet_pf_fastjet_30_q = Alt$(Jet_pf_fastjet_sorted_q[30], -10)

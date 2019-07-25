@@ -5,25 +5,26 @@
 
 #include "PandaTree/Objects/interface/Event.h"
 
-void feedpanda(panda::Event& event, TTree* input) {
-  event.setStatus(*input, {"!*"});
-  event.setAddress(*input,
-    {"ak4GenJets",
-     "chsAK4Jets",
-     "eventNumber",
-     "genParticles",
-     "lumiNumber",
-     "npv",
-     "npvTrue",
-     "pfCandidates",
-     "pfMet",
-     "rho",
-     "runNumber",
-     "secondaryVertices",
-     "tracks",
-     "triggers",
-     "vertices",
-     "weight"});
+namespace crombie {
+  void feedpanda(panda::Event& event, TTree* input) {
+    event.setStatus(*input, {"!*"});
+    event.setAddress(*input,
+      {"ak4GenJets",
+       "chsAK4Jets",
+       "eventNumber",
+       "genParticles",
+       "lumiNumber",
+       "npv",
+       "pfCandidates",
+       "pfMet",
+       "rho",
+       "runNumber",
+       "secondaryVertices",
+       "tracks",
+       "triggers",
+       "vertices",
+       "weight"  });
+  }
 }
 
 #endif

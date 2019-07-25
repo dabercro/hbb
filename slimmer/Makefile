@@ -111,7 +111,7 @@ $(corrections): data/downloads.url
 
 reg: $(regression)
 
-regtestdir = ${HOME}/public_html/plots/testref_$(vers)
+regtestdir = ${HOME}/public_html/plots/testreg_$(vers)
 
 regtest: $(regression)
 	test ! -f reg.root || rm reg.root

@@ -15,8 +15,7 @@
 
 genWeight = e.weight
 $ = e.$ | rho
-nPVs = e.npvTrue
-nPVs_good = e.npv
+npv = e.npv
 
 pfmet_$ = e.pfMet.$ | pt, phi
 
@@ -93,17 +92,12 @@ DEFINE numpf 0..50
 
     gen_transformed_$ -> gen_transformed.$$() | <p{x, y, z}>, e
 
-!    #tf_@/std::vector<float> = {1, 1} \
-!        <- lazytf::eval("data/freeze_@.pb", "data/regression9.txt", \
-!           {"dense_3/BiasAdd"}, 2, \
-!           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression9.txt`) |@ 190716_1
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression12.txt", \
+           {"split_logits/Slice", "split_logits/Slice_1", "split_logits/Slice_2", "split_logits/Slice_3"}, 1, \
+           `./translate.pl data/regression12.txt`) |@ 190723_0
 
-!    #tf_@/std::vector<float> = {1, 1} \
-!        <- lazytf::eval("data/freeze_@.pb", "data/regression10.txt", \
-!           {"dense_5/BiasAdd"}, 2, \
-!           `perl -ane 'chomp; s/Jet/\[\]/; print; eof || print ", "' data/regression10_adj.txt`) |@ 190717_6
-
-!    tf_@_$ <- []_tf_@[=$=] | ptratio, mratio |@ <19071{6_1, 7_6}>
+    tf_@_$ <- []_tf_@[=$=] | <trans_{e, px, py, pz}> |@ 190723_0
 
 
     gen_ptratio <- []_mcPt/[]_pt

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "hbbfile.h"
+#include "triggers.h"
 #include "misc.h"
 
 #include "fastjet/ClusterSequence.hh"
@@ -70,60 +71,14 @@ int parsed_main(int argc, char** argv) {
     feedpanda(event, events_tree);
     auto nentries = input::maxevents ? input::maxevents : events_tree->GetEntries();
 
+    triggers::init(event);
+
     // Get the hSumW
     auto* sumW = static_cast<TH1D*>(input.Get("hSumW"));
     if (sums.GetNbinsX() == 1)  // SumW has 8 bins, but default constructor makes 1
       sums = *sumW;
     else
       sums.Add(sumW);
-
-    //// TRIGGERS ////
-
-    using tokens = std::vector<unsigned>;
-
-    auto get_tokens = [&event] (const std::vector<const char*>& paths) {
-      tokens output;
-      for (auto path : paths)
-        output.push_back(event.registerTrigger(path));
-      return output;
-    };
-
-    const std::vector<const char*> met_trigger_paths = {
-      "HLT_PFMET170_NoiseCleaned",
-      "HLT_PFMET170_HBHECleaned",
-      "HLT_PFMET170_JetIdCleaned",
-      "HLT_PFMET170_NotCleaned",
-      "HLT_PFMET170_HBHE_BeamHaloCleaned",
-      "HLT_PFMETNoMu120_NoiseCleaned_PFMHTNoMu120_IDTight",
-      "HLT_PFMETNoMu110_NoiseCleaned_PFMHTNoMu110_IDTight",
-      "HLT_PFMETNoMu90_NoiseCleaned_PFMHTNoMu90_IDTight",
-      "HLT_PFMETNoMu90_PFMHTNoMu90_IDTight",
-      "HLT_PFMETNoMu100_PFMHTNoMu100_IDTight_PFHT60",
-      "HLT_PFMETNoMu100_PFMHTNoMu100_IDTight",
-      "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
-      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
-      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight_PFHT60",
-      "HLT_PFMETNoMu130_PFMHTNoMu130_IDTight",
-      "HLT_PFMETNoMu140_PFMHTNoMu140_IDTight"
-    };
-
-    tokens met_trigger_tokens = get_tokens(met_trigger_paths);
-
-    const std::vector<const char*> hbb_2016_paths = {
-      "HLT_PFMETNoMu110_PFMHTNoMu110_IDTight",
-      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight",
-      "HLT_PFMET170_NoiseCleaned",
-      "HLT_PFMET170_HBHECleaned",
-      "HLT_PFMET170_HBHE_BeamHaloCleaned"
-    };
-
-    tokens hbb_2016_tokens = get_tokens(hbb_2016_paths);
-
-    const std::vector<const char*> overlap_paths = {
-      "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight"
-    };
-
-    tokens overlap_tokens = get_tokens(overlap_paths);
 
     // Loop over tree
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
@@ -153,10 +108,6 @@ int parsed_main(int argc, char** argv) {
         if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
           processed = true;
           std::cout << std::endl << "Found Event in row " << entry << std::endl << std::endl;
-          for (auto token : met_trigger_tokens) {
-            if (event.triggerFired(token))
-              std::cout << met_trigger_paths[token] << std::endl;
-          }
           event.pfMet.dump();
           event.photons.dump();
           event.muons.dump();
@@ -173,19 +124,6 @@ int parsed_main(int argc, char** argv) {
         else
           continue;
       }
-
-      //// TRIGGERS ////
-      auto check_tokens = [&event] (tokens& trigger_tokens) {
-        for (auto token : trigger_tokens) {
-          if (event.triggerFired(token))
-            return true;
-        }
-        return false;
-      };
-
-      output.met_trigger = check_tokens(met_trigger_tokens);
-      output.hbb_2016_trigger = check_tokens(hbb_2016_tokens);
-      output.overlap_trigger = check_tokens(overlap_tokens);
 
       // Set the PFCandidate map used for redoing reliso calculations
       pfcands::pfmap.AddParticles(event.pfCandidates);
@@ -532,69 +470,6 @@ int parsed_main(int argc, char** argv) {
       };
 
       set_particles(stored_bjets, set_bjet);
-
-      //// FAT JETS ////
-      if (debugevent::debug)
-        std::cout << "Starting fat jets" << std::endl;
-
-      using fatstore = ObjectStore::ObjectStore<hbbfile::fatjet, panda::FatJet>;
-
-      auto fill_fat_jet = [&output, &overlap_em] (const std::vector<hbbfile::fatjet>& branches, panda::FatJetCollection& fatjets) {
-        fatstore stored_fat(branches, [] (const panda::FatJet& j) {return j.pt();});
-
-        for (auto& fatjet : fatjets) {
-          if (overlap_em(fatjet, std::pow(0.8, 2)) or not fatjet.monojet or not fatjet.loose or std::abs(fatjet.eta()) > 2.4)
-            continue;
-          output.set_countfat(fatjet);
-          stored_fat.check(fatjet);
-        }
-
-        auto set_fatjet = [&output] (fatstore::Particle& fat) {
-          using counter = decltype(output.n_alljet);
-
-          // max: The number of indices to loop over
-          // is_iso: A function that takes the index and returns true if this should count as an iso jet
-          // Returns: Number of isolated jets that pass is_iso function
-          auto count = [] (counter max, std::function<bool(counter)>&& is_iso) {
-            counter n = 0;
-            for (counter i_jet = 0; i_jet < max; ++i_jet)
-              n += (is_iso(i_jet));
-
-            return n;
-          };
-
-          using offset_target = decltype(output.jet_eta);
-
-          // Use this to generate a function that says when a jet is isolated from the fat jet
-          auto fat_iso = [&fat, &output] (offset_target hbbfile::*eta_offset, offset_target hbbfile::*phi_offset) {
-            return [&fat, &output, eta_offset, phi_offset] (counter i_jet) {
-              return (deltaR2(fat.particle->eta(), fat.particle->phi(),
-                              (output.*eta_offset)[i_jet],
-                              (output.*phi_offset)[i_jet]) > std::pow(0.8, 2));
-            };
-          };
-
-          // Number of isolated jets
-          counter n_iso = count(output.n_alljet,
-                                fat_iso(&hbbfile::jet_eta, &hbbfile::jet_phi));
-
-          auto b_overlapper = fat_iso(&hbbfile::bjet_eta, &hbbfile::bjet_phi);
-          // Number of isolated (loose) bjets
-          counter n_iso_b = count(output.n_allbjet,
-                                  [&output, &b_overlapper] (counter i_jet) {
-                                    return (output.bjet_isloose[i_jet] and
-                                            b_overlapper(i_jet));
-                                  });
-
-          output.set_fatjet(fat.branch, *fat.particle, n_iso, n_iso_b);
-        };
-        set_particles(stored_fat, set_fatjet);
-      };
-      std::vector<std::pair<std::vector<hbbfile::fatjet>, panda::FatJetCollection>> fatcollections = {
-        {{hbbfile::fatjet::ak8fatjet1}, event.puppiAK8Jets},
-      };
-      for (auto& fats : fatcollections)
-        fill_fat_jet(fats.first, fats.second);
 
       //// HIGGS ////
       if (debugevent::debug)

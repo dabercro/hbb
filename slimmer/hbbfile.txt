@@ -6,6 +6,7 @@ DEFINE REGS 3, 15, 40
 "crombie/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 "misc.h"
+"triggers.h"
 "pfvecs.h"
 
 {/F}                           ! Default type
@@ -18,23 +19,20 @@ $/i = event.$ | runNumber
 $ = event.$ | rho
 $/l = event.$ | eventNumber, lumiNumber
 
-npv/s = event.npv
-npv_true/s = event.npvTrue
-
-mc_weight = event.weight
+$/s = event.$ | npv, npvTrue
+$ = event.$ | weight
 
 $@ = event.$@@.pt | pf, calo, trk, raw |@ met
 $@phi = event.$@@.phi | pf, calo, trk, raw |@ met
-
-miniaod_pfmet = event.pfMet.pt
-miniaod_pfmetphi = event.pfMet.phi
 
 #dztrkmetvec/TVector2 = trkmet::trkmet(event)
 dztrkmet <- dztrkmetvec.Mod()
 dztrkmetphi <- dztrkmetvec.Phi()
 
-$_trigger/O = false | met, hbb_2016, overlap
+$_trigger/O = triggers::check_tokens(triggers::$_tokens) | met, hbb_2016, overlap
 met_filter/O = event.metFilters.pass()
+
+tight_lep_pt
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv, lazy::LazyCuts& deepCSV)
   jet_$[] -> jet.$() | pt, eta, phi
@@ -45,17 +43,16 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
 {/b}
 
   n_alljet -> ++
-  n_allhard -> +(jet_pt[] > 25.0)
 
   min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
   min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
 
   ~~ abseta < 2.5 ~~
 
-  n_softjet -> ++
   n_jet -> +(jet_pt[] > 30.0)
   n_centerjet -> +(jet_pt[] > 30.0 && abseta < 2.4)
   n_b@_$ -> +(@.$() && abseta < 2.4) | loose, medium, tight |@ cmva, csv, deepCSV
+
 
 countnopuid(panda::Jet& jet)
   n_nopuid -> ++
@@ -63,8 +60,8 @@ countnopuid(panda::Jet& jet)
 
 n_genB
 
-nB/b
-stat2b/b
+nB
+stat2b
 
 n_soft {
   , _all, _dylan {
@@ -83,9 +80,6 @@ n_pho {
 }
 
 {/F}
-
-! Save the highest pT of tight lepton
-tight_lep_pt
 
 muon, ele {
   lep(panda::Lepton& lep, LepInfo info, lazy::LazyCuts& cuts)
@@ -198,7 +192,6 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
 
 ! If this is at the top, we don't save all of the systematics from jet pt
 
-
   bjet(panda::Jet& jet, <C> cuts)
 
     /O = false -> true
@@ -224,63 +217,82 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
 
     (p4 = jet.p4())
 
-    raw -> jet.rawPt/jet.pt()
+    #raw -> jet.rawPt/jet.pt()
 
     $ -> p4.$$() | pt, eta, phi, m, mt, e
     $ -> jet.$ | <{c, n}{e, h}f>
 
     (info = regression::GetJetInfo(jet))
-    $/S -> info.$ | vtxNtrk
-    $ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
+    #$/S -> info.$ | vtxNtrk
+    #$ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
 
-    leadTrackPt -> info.maxpfpt
+    #leadTrackPt -> info.maxpfpt
 
-    rawFactor -> 1 - jet.rawPt/[]_pt
-    rawEnergy -> []_e * jet.rawPt/[]_pt
+    #rawFactor -> 1 - jet.rawPt/[]_pt
+    #rawEnergy -> []_e * jet.rawPt/[]_pt
 
-    $/I -> info.$ | leptonPdgId
-    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
+    #$/I -> info.$ | leptonPdgId
+    #$ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
 
-    ptd -> info.ptD
-    withPtd <- []_ptd
+    #ptd -> info.ptD
+    #withPtd <- []_ptd
 
-    energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
-    energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
+    #energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
+    #energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
 
-    numDaughters_pt03/s -> info.num03
-    numberOfDaughters/s -> jet.constituents.size()
+    #numDaughters_pt03/s -> info.num03
+    #numberOfDaughters/s -> jet.constituents.size()
 
     ! Should it be abs value?
-    pfmet_dphi <- TVector2::Phi_mpi_pi(pfmetphi - []_phi)
+    #pfmet_dphi <- TVector2::Phi_mpi_pi(pfmetphi - []_phi)
 
-    puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
-    puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
+    #puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
+    #puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
 
 DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
 
-    @_$frac <- []_@_$/[]_$ | pt |@ bkinematics
-    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
+    #@_$frac <- []_@_$/[]_$ | pt |@ bkinematics
+    #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
     #transform/TLorentzRotation = TLorentzRotation() -> pfvecs::get_transform(jet)
     #pfvecs/std::vector<pfvecs::PFInfo> -> pfvecs::get_vecs(jet, []_transform, pv)
 
-DEFINE numpf 0..50
+DEFINE numpf 0..30
 
-    pf_@/O -> []_pfvecs.size() > @ |@ numpf
-    pf_@_$ -> []_pf_@ ? []_pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
-    pf_@_$/B -> []_pf_@ ? []_pfvecs[@].$ : -10 | q |@ numpf
-    pf_@_$/O -> []_pf_@ ? []_pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
-    pf_@_X_$ -> []_pf_@ ? []_pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
+    #pf_@/O -> []_pfvecs.size() > @ |@ numpf
+    #pf_@_$ -> []_pf_@ ? []_pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
+    #pf_@_$/B -> []_pf_@ ? []_pfvecs[@].$ : -10 | q |@ numpf
+    #pf_@_$/O -> []_pf_@ ? []_pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
+    #pf_@_X_$ -> []_pf_@ ? []_pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
+
+    #isEle <- std::abs([]_leptonPdgId) == 11
+    #isMu <- std::abs([]_leptonPdgId) == 13
+    #isOther <- not ([]_isEle or []_isMu)
     !!!!!!!
 
-    #tf_@/std::vector<float> = {1} \
-        <- lazytf::eval("/data/t3home000/dabercro/models/@/freeze_@.pb", "data/regression11.txt", \
-           {"dense_3/BiasAdd"}, 1, \
-           `./translate.pl data/regression11.txt`) |@ 190722_1
+!    #tf_@/std::vector<float> = {1} \
+!        <- lazytf::eval("data/freeze_@.pb", "data/regression12.txt", \
+!           {"split_logits/Slice", "split_logits/Slice_1", "split_logits/Slice_2", "split_logits/Slice_3"}, 1, \
+!           `./translate.pl data/regression12.txt`) |@ 190723_0
+!
+!    tf_@_$ <- []_tf_@[=$=] | <trans_{e, px, py, pz}> |@ 190723_0
+!
+!    #tf_@/std::vector<float> = {1} \
+!        <- lazytf::eval("data/freeze_@.pb", "data/regression_origin.txt", \
+!           {"split_logits/Slice"}, 1, \
+!           `./translate.pl data/regression_origin.txt`) |@ 190723_origin
+!    #tf_@/std::vector<float> = {1} \
+!        <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi.txt", \
+!           {"split_logits/Slice"}, 1, \
+!           `./translate.pl data/regression_puppi.txt`) |@ 190723_puppi
+!
+!    tf_@_$ <- []_tf_@[=$=] | ptratio |@ <190723_{origin, puppi}>
 
-    tf_@_$ <- []_tf_@[=$=] | ptratio |@ 190722_1
 
   genjet(panda::GenJet& gen, gennujet::GenNuVec& withnu)
+
+    #gen_transformed/TLorentzVector = TLorentzVector() -> []_transform * withnu.genvec
+    #gen_transformed_$ -> []_gen_transformed.$$() | <p{x, y, z}>, e
 
     gen/O = false -> true
     gen_$ -> gen.$() | pt, eta, phi, m
@@ -321,44 +333,6 @@ dphi_uh <- deltaPhi(hbb_phi, recoilphi)
 daughter_deta <- std::abs(jet1_eta - jet2_eta)
 daughter_dphi <- deltaPhi(<jet{1, 2}_phi>)
 daughter_dR <- deltaR(<jet{1, 2}_{eta, phi}>)
-
-{/b}
-
-countfat(panda::FatJet& jet)
-
-  n_fatjet -> +(jet.pt() > 200)
-  ? n_fatjet; jetpt ? -> +(jet.ptCorr%% > 200)
-
-{/F}
-
-! Fat jets are simple for now
-ak8 {
-  fatjet1 {
-    fatjet(panda::FatJet& jet, <T> n_iso, <T> n_iso_b)
-
-      /O = false -> true
-      $ -> jet.$() | pt, eta, phi, m, e
-      ? pt; jetpt ? -> jet.ptCorr%%
-      $/O = false -> jet.$ | loose, tight, monojet
-      $ -> jet.$ | mSD, mPruned, <tau{1, 2, 3}{, SD}>
-
-      ! Knock double_sub off of the resolved plots
-      $ = -2 -> jet.$ | double_sub
-
-      $/b -> $ | n_iso, n_iso_b
-
-      mSD_corr -> []_mSD * corrections::mSD([]_pt, []_eta)
-
-      #ecf_O_N_B -> jet.ecfs[=O=][=N=][=B=] |O 1..4 |N 1..5 |B p5, 1, 2, 4
-
-      ! This is just used for some filtering
-      #good/O = false -> []_pt > 240 and []_mSD_corr > 35
-
-      dphi_u <- deltaPhi([]_phi, recoilphi)
-      dR_resolved_hbb <- deltaR(<{[], hbb}_{eta, phi}>)
-
-  }
-}
 
 genboson, gen_t, gen_tbar {
   gen(panda::GenParticle& gen)
@@ -426,10 +400,10 @@ sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 ~ sf_met_trigger_2; recoil; data/met_trigger_effs_2018.root; eff ~
 
 ! Set the name of the merged corrections
-~{scale_factors <- mc_weight * sf_tt * sf_met_trigger}~
+~{scale_factors <- weight * sf_tt * sf_met_trigger}~
 
-~ sf_pu; npv_true; $; puWeights; input::version <= 9 + =$= ~ | <data/puWeights_{80x_37ifb, 90x}.root>
-~ sf_pu; npv_true; data/puWeights_10x_56ifb.root; puWeights; input::version == 13 ~
+~ sf_pu; npvTrue; $; puWeights; input::version <= 9 + =$= ~ | <data/puWeights_{80x_37ifb, 90x}.root>
+~ sf_pu; npvTrue; data/puWeights_10x_56ifb.root; puWeights; input::version == 13 ~
 
 ~ ewk_$; KFACTORS; EWKcorr/$$, $$Jets_012j_NLO/nominal; HTCUT ~ | z, w
 ~ $kfactor; KFACTORS; $$Jets_012j_NLO/nominal, $$Jets_LO/inv_pt; HTCUT ~ | z, w
