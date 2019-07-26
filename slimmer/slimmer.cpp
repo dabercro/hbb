@@ -430,46 +430,10 @@ int parsed_main(int argc, char** argv) {
         }
       }
 
-      // Includes getting secondary vertex and leading leptons
-      auto set_bjet = [&output, &gen_nu_map, &pf_to_electron, &event] (const jetstore::Particle& jet) {
-        auto bjet = jet.branch;
-
-        int nlep = 0;
-        const panda::Lepton* maxlep = nullptr;
-
-        decltype(maxlep->pt()) maxtrkpt = 0;
-        decltype(maxlep->pt()) maxpfpt = 0;
-
-        if (debugevent::debugevent)
-          std::cout << "For jet with pt " << jet.particle->pt() << std::endl;
-
-        // for (auto pf : pfcands::pfmap(jet.particle->eta(), jet.particle->phi(), 0.4)) {
-        for (auto pf : jet.particle->constituents) {
-          if (debugevent::debugevent)
-            std::cout << "PF Check: " << pf.isValid() << " " << pf.idx() << " " << pf->pt() << " " << pf->q() << std::endl;
-
-          if (pf.isValid()) {
-            auto pt = pf->pt();
-            maxpfpt = std::max(maxpfpt, pt);
-            if (pf->q())
-              maxtrkpt = std::max(maxtrkpt, pt);
-            // auto pdgid = abs(pf->pdgId());
-            // if (pdgid == 13 || ((pf_to_electron.find(pf.idx()) != pf_to_electron.end()) and
-            //                     electronid::is_good(*pf_to_electron[pf.idx()], *jet.particle))) {
-            //   nlep++;
-            //   if (not maxlep or pt > maxlep->pt())
-            //     maxlep = pf.get();
-            // }
-          }
-          else
-            std::cout << "BAD PF: " << event.eventNumber << " " << pf.idx() << std::endl;
-        }
-
-
-        output.set_bjet(bjet, *jet.particle, jet.extra);
-      };
-
-      set_particles(stored_bjets, set_bjet);
+      set_particles(stored_bjets,
+                    [&output] (const jetstore::Particle& jet) {
+                      output.set_bjet(jet.branch, *jet.particle, jet.extra);
+                    });
 
       //// HIGGS ////
       if (debugevent::debug)

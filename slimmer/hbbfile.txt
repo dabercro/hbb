@@ -29,7 +29,7 @@ $@phi = event.$@@.phi | pf, calo, trk, raw |@ met
 dztrkmet <- dztrkmetvec.Mod()
 dztrkmetphi <- dztrkmetvec.Phi()
 
-$_trigger/O = triggers::check_tokens(triggers::$_tokens) | met, hbb_2016, overlap
+$_trigger/O = triggers::check(triggers::trigger::$$$) | met, hbb_2016, overlap
 met_filter/O = event.metFilters.pass()
 
 tight_lep_pt
