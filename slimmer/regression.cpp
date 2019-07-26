@@ -22,7 +22,7 @@ int parsed_main(int argc, char** argv) {
     TFile input {argv[i_file]};
     auto* events_tree = static_cast<TTree*>(input.Get("events"));
     panda::Event event;
-    feedpanda(event, events_tree);
+    crombie::feedpanda(event, events_tree);
     auto nentries = input::maxevents ? input::maxevents : events_tree->GetEntries();
 
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
