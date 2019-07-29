@@ -277,17 +277,31 @@ DEFINE numpf 0..30
 !
 !    tf_@_$ <- []_tf_@[=$=] | <trans_{e, px, py, pz}> |@ 190723_0
 !
-!    #tf_@/std::vector<float> = {1} \
-!        <- lazytf::eval("data/freeze_@.pb", "data/regression_origin.txt", \
-!           {"split_logits/Slice"}, 1, \
-!           `./translate.pl data/regression_origin.txt`) |@ 190723_origin
-!    #tf_@/std::vector<float> = {1} \
-!        <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi.txt", \
-!           {"split_logits/Slice"}, 1, \
-!           `./translate.pl data/regression_puppi.txt`) |@ 190723_puppi
-!
-!    tf_@_$ <- []_tf_@[=$=] | ptratio |@ <190723_{origin, puppi}>
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression_origin.txt", \
+           {"split_logits/Slice"}, 1, \
+           `./translate.pl data/regression_origin.txt`) |@ 190723_origin
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi.txt", \
+           {"split_logits/Slice"}, 1, \
+           `./translate.pl data/regression_puppi.txt`) |@ 190723_puppi
 
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression_origin.txt", \
+           {"split_logits/Slice", "split_logits/Slice_1"}, 1, \
+           `./translate.pl data/regression_origin.txt`) |@ 190724_origin_direction
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi.txt", \
+           {"split_logits/Slice", "split_logits/Slice_1"}, 1, \
+           `./translate.pl data/regression_puppi.txt`) |@ 190724_puppi_direction
+
+    #tf_@/std::vector<float> = {1} \
+        <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi_pf.txt", \
+           {"split_logits/Slice"}, 1, \
+           `./translate.pl data/regression_puppi_pf.txt`) |@ 190725_dense_pf, 190725_lstm_pf
+
+    tf_@_$ <- []_tf_@[=$=] | ptratio |@ <190723_{origin, puppi}>, <190725_{dense, lstm}_pf>
+    tf_@_$ <- []_tf_@[=$=] | deta, dphi |@ <190724_{origin, puppi}_direction>
 
   genjet(panda::GenJet& gen, gennujet::GenNuVec& withnu)
 
@@ -314,6 +328,15 @@ hbb {
     #vec/TLorentzVector = TLorentzVector() -> vectorSum(<jet{1, 2}_{pt, eta, phi, m}>)
     /O = false -> true
     $ -> []_vec.$$() | pt, eta, phi, m
+
+    #vec_@/TLorentzVector = TLorentzVector() -> \
+        vectorSum(jet1_pt * jet1_tf_@_ptratio, <jet1_{eta, phi, m}>, \
+                  jet2_pt * jet2_tf_@_ptratio, <jet2_{eta, phi, m}>) |@ <190723_{origin, puppi}>, <190725_{dense, lstm}_pf>
+    #vec_@/TLorentzVector = TLorentzVector() -> \
+        vectorSum(jet1_pt, jet1_eta + jet1_tf_@_deta, jet1_phi + jet1_tf_@_dphi, jet1_m, \
+                  jet2_pt, jet2_eta + jet2_tf_@_deta, jet2_phi + jet2_tf_@_dphi, jet2_m) |@ <190724_{origin, puppi}_direction>
+
+    $_@ -> []_vec_@.$$() | pt, eta, phi, m |@ <190723_{origin, puppi}>, <190725_{dense, lstm}_pf>, <190724_{origin, puppi}_direction>
 
   hbbgen(panda::GenParticle& gen, float dr)
     gen/O = false -> true
