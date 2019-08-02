@@ -21,7 +21,6 @@ pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
 testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
 #testfile = /data/t3home000/dabercro/scratch/$(vers)/*.root
 
-checker = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/findtree.py
 thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
 tarball = ${CMSSW_BASE}/condor.tgz
 
@@ -30,12 +29,9 @@ all: $(target) $(effs)
 $(install): $(target) $(effs)
 	cp $(target) $(install)
 
-$(tarball): $(install) $(checker) $(thejq) $(data) $(regression) $(effs)
+$(tarball): $(install) $(thejq) $(data) $(regression) $(effs)
 	test -d ${CMSSW_BASE}/data || mkdir ${CMSSW_BASE}/data
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib external data
-
-$(checker): ${CROMBIEPATH}/scripts/findtree.py
-	cp ${CROMBIEPATH}/scripts/findtree.py $(checker)
 
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)

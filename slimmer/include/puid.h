@@ -1,3 +1,5 @@
+// Needs headers, update function is weird too
+
 namespace {
   auto hist = [] () {
     TFile infile {"data/puid.root"};

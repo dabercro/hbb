@@ -1,3 +1,7 @@
+#ifndef ELECTRONID_H
+#define ELECTRONID_H 1
+
+
 #include <array>
 
 #include "TMath.h"
@@ -52,3 +56,6 @@ namespace electronid {
   }
 
 }
+
+
+#endif

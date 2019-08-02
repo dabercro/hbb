@@ -13,7 +13,7 @@ DO_LSTM = False
 
 INVERSION = 9
 
-INDIR = '/local/dabercro/files/tf_v%i_fin' % INVERSION
+INDIR = '/local/dabercro/files/tf_v%i' % INVERSION
 if not os.path.exists(INDIR):
     INDIR = INDIR.replace('/local/dabercro/files/',
                           '/data/t3home000/dabercro/training/regression/')
@@ -30,7 +30,7 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression%s.txt' % '_puppi'
+INPUTSFILE = '/home/dabercro/hbb/analysis/regression%s.txt' % '_puppi_pf'
 OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 8
 
 
@@ -86,9 +86,8 @@ def model_fn(features, labels, mode, params):
     head = params['head']
 
     # Set up the PFCandidates info
-    n_pfcands = 30
+    n_pfcands = 10
     pf_features = [
-        '',
         '_dxy',
         '_dz',
         '_is_chhadron',
@@ -97,8 +96,6 @@ def model_fn(features, labels, mode, params):
         '_is_nhadron',
         '_is_photon',
         '_puppiwt',
-        '_q',
-        '_transformed_e',
         '_transformed_px',
         '_transformed_py',
         '_transformed_pz',
@@ -112,7 +109,7 @@ def model_fn(features, labels, mode, params):
 
         reg_net = tf.feature_column.input_layer(features, [
             tf.feature_column.numeric_column(key=key)
-            for key in inputs if '_pf_' not in key
+            for key in inputs # if '_pf_' not in key
         ])
 
         reg_net = tf.layers.batch_normalization(reg_net)
@@ -155,7 +152,7 @@ def model_fn(features, labels, mode, params):
     logits = tf.layers.dense(net, len(outputs), activation=None)
 
     def train_op_fn(loss):
-        optimizer = tf.train.AdamOptimizer()
+        optimizer = tf.train.AdamOptimizer(0.0001)
         train_op = optimizer.minimize(
             loss,
             global_step=tf.train.get_global_step()
@@ -187,7 +184,15 @@ estimator = tf.estimator.Estimator(
         }
     )
 
-estimator.train(input_fn=input_fn, steps=int(sys.argv[1]))
+
+train = lambda x: estimator.train(input_fn=input_fn, steps=x)
+steps = int(sys.argv[1])
+while steps > 0:
+    try:
+        train(steps)
+        steps = 0
+    except:
+        steps -= 100
 
 
 def receiver_fn():

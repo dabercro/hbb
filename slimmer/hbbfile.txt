@@ -8,6 +8,7 @@ DEFINE REGS 3, 15, 40
 "misc.h"
 "triggers.h"
 "pfvecs.h"
+"exceptions.h"
 
 {/F}                           ! Default type
 {0}                            ! Default value
@@ -184,7 +185,7 @@ bsf(panda::Jet& jet, bool loose)
 tag_$ <- eventNumber % 2 ? <jet{1 : 2}_$> | deepCSV, deepCSVb
 probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_numB
 
-#pv/TVector3 = event.vertices[0].position()
+#pv/TVector3 = event.vertices.at(0).position()
 
 ! Input jets are used to set the following variables
 !! <jet{1, 2, 3}> {
@@ -237,7 +238,7 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
     #ptd -> info.ptD
     #withPtd <- []_ptd
 
-    #energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
+    #energyRing_dR$_@ -> info.@_rings.at($).first | 0..6 |@ neut, ch, em, mu
     #energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
 
     #numDaughters_pt03/s -> info.num03
@@ -260,48 +261,48 @@ DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
 DEFINE numpf 0..30
 
     #pf_@/O -> []_pfvecs.size() > @ |@ numpf
-    #pf_@_$ -> []_pf_@ ? []_pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
-    #pf_@_$/B -> []_pf_@ ? []_pfvecs[@].$ : -10 | q |@ numpf
-    #pf_@_$/O -> []_pf_@ ? []_pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
-    #pf_@_X_$ -> []_pf_@ ? []_pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
+    #pf_@_$ -> []_pf_@ ? []_pfvecs.at(@).$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
+    #pf_@_$/B -> []_pf_@ ? []_pfvecs.at(@).$ : -10 | q |@ numpf
+    #pf_@_$/O -> []_pf_@ ? []_pfvecs.at(@).$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
+    #pf_@_X_$ -> []_pf_@ ? []_pfvecs.at(@).X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
 
     #isEle <- std::abs([]_leptonPdgId) == 11
     #isMu <- std::abs([]_leptonPdgId) == 13
     #isOther <- not ([]_isEle or []_isMu)
     !!!!!!!
 
-!    #tf_@/std::vector<float> = {1} \
+!    #tf_@/std::vector<float> \
 !        <- lazytf::eval("data/freeze_@.pb", "data/regression12.txt", \
 !           {"split_logits/Slice", "split_logits/Slice_1", "split_logits/Slice_2", "split_logits/Slice_3"}, 1, \
 !           `./translate.pl data/regression12.txt`) |@ 190723_0
 !
-!    tf_@_$ <- []_tf_@[=$=] | <trans_{e, px, py, pz}> |@ 190723_0
-!
-    #tf_@/std::vector<float> = {1} \
+!    tf_@_$ <- []_tf_@.at(=$=) | <trans_{e, px, py, pz}> |@ 190723_0
+
+    #tf_@/std::vector<float> \
         <- lazytf::eval("data/freeze_@.pb", "data/regression_origin.txt", \
            {"split_logits/Slice"}, 1, \
            `./translate.pl data/regression_origin.txt`) |@ 190723_origin
-    #tf_@/std::vector<float> = {1} \
+    #tf_@/std::vector<float> \
         <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi.txt", \
            {"split_logits/Slice"}, 1, \
            `./translate.pl data/regression_puppi.txt`) |@ 190723_puppi
 
-    #tf_@/std::vector<float> = {1} \
+    #tf_@/std::vector<float> \
         <- lazytf::eval("data/freeze_@.pb", "data/regression_origin.txt", \
            {"split_logits/Slice", "split_logits/Slice_1"}, 1, \
            `./translate.pl data/regression_origin.txt`) |@ 190724_origin_direction
-    #tf_@/std::vector<float> = {1} \
+    #tf_@/std::vector<float> \
         <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi.txt", \
            {"split_logits/Slice", "split_logits/Slice_1"}, 1, \
            `./translate.pl data/regression_puppi.txt`) |@ 190724_puppi_direction
 
-    #tf_@/std::vector<float> = {1} \
+    #tf_@/std::vector<float> \
         <- lazytf::eval("data/freeze_@.pb", "data/regression_puppi_pf.txt", \
            {"split_logits/Slice"}, 1, \
-           `./translate.pl data/regression_puppi_pf.txt`) |@ 190725_dense_pf, 190725_lstm_pf
+           `./translate.pl data/regression_puppi_pf.txt`) |@ 190730_dense_pf, 190725_lstm_pf
 
-    tf_@_$ <- []_tf_@[=$=] | ptratio |@ <190723_{origin, puppi}>, <190725_{dense, lstm}_pf>
-    tf_@_$ <- []_tf_@[=$=] | deta, dphi |@ <190724_{origin, puppi}_direction>
+    tf_@_$ <- exceptions::at([]_tf_@, =$=, __LINE__) | ptratio |@ <190723_{origin, puppi}>, 190730_dense_pf, 190725_lstm_pf
+    tf_@_$ <- exceptions::at([]_tf_@, =$=, __LINE__) | deta, dphi |@ <190724_{origin, puppi}_direction>
 
   genjet(panda::GenJet& gen, gennujet::GenNuVec& withnu)
 
@@ -329,14 +330,14 @@ hbb {
     /O = false -> true
     $ -> []_vec.$$() | pt, eta, phi, m
 
-    #vec_@/TLorentzVector = TLorentzVector() -> \
+    #vec_@/TLorentzVector = TLorentzVector() <- \
         vectorSum(jet1_pt * jet1_tf_@_ptratio, <jet1_{eta, phi, m}>, \
-                  jet2_pt * jet2_tf_@_ptratio, <jet2_{eta, phi, m}>) |@ <190723_{origin, puppi}>, <190725_{dense, lstm}_pf>
-    #vec_@/TLorentzVector = TLorentzVector() -> \
+                  jet2_pt * jet2_tf_@_ptratio, <jet2_{eta, phi, m}>) |@ <190723_{origin, puppi}>, 190730_dense_pf, 190725_lstm_pf
+    #vec_@/TLorentzVector = TLorentzVector() <- \
         vectorSum(jet1_pt, jet1_eta + jet1_tf_@_deta, jet1_phi + jet1_tf_@_dphi, jet1_m, \
                   jet2_pt, jet2_eta + jet2_tf_@_deta, jet2_phi + jet2_tf_@_dphi, jet2_m) |@ <190724_{origin, puppi}_direction>
 
-    $_@ -> []_vec_@.$$() | pt, eta, phi, m |@ <190723_{origin, puppi}>, <190725_{dense, lstm}_pf>, <190724_{origin, puppi}_direction>
+    $_@ <- []_vec_@.$$() | pt, eta, phi, m |@ <190723_{origin, puppi}>, <190724_{origin, puppi}_direction>, 190730_dense_pf, 190725_lstm_pf
 
   hbbgen(panda::GenParticle& gen, float dr)
     gen/O = false -> true
