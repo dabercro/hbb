@@ -115,13 +115,13 @@
   \item Hadronic $t\bar{t}$
   \item Jet is matched to a gen-jet with a $b$ inside
   \item Reconstructed $p_T > \SI{15}{GeV}, |\eta| < 2.5$
-  \item Overlapping neutrinos are added to jet
+  \item Overlapping neutrinos are added to gen jet
   \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Loss Function}
+  \frametitle{Huber Loss Function}
 
   \begin{columns}
     \begin{column}{0.5\linewidth}
@@ -155,18 +155,17 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Six Models to Compare}
+  \frametitle{Five Models to Compare}
 
   Dense networks have layers [1024, 1024, 1024, 512, 256, 128]
 
   \begin{enumerate}
-  \item Dense network using input variables for 2016 training
+  \item Dense network using input variables for 2016/2017 training
   \item Dense network with PUPPI variables added
   \item Network 1, training for $\Delta \eta$ and $\Delta \phi$
   \item Network 2, training for $\Delta \eta$ and $\Delta \phi$
-  \item Network 2, with PF Candidate information
-  \item Network 5, but feeding PF Candidate information through LSTM cells
-    instead of through the dense network
+  \item Feeding PF Candidate information through LSTM cells,
+    and merging with the dense network like 2
   \end{enumerate}
 
 \end{frame}
@@ -181,6 +180,8 @@
   \item To save time, trained separately for now
   \end{itemize}
 
+  % Plot for tomorrow
+
 \end{frame}
 
 \begin{frame}
@@ -189,8 +190,10 @@
   Compared the performance in $ZH \rightarrow \nu\nu bb$ resolved selection
 
   \begin{itemize}
-  \item Ratio between background and signal + background
+  \item No jet smearing
+  \item Cut on the di-jet mass peak, not the di-jet $p_T$
   \item Resolution of di-jet mass peak in signal sample
+%  \item Ratio between background and signal
   \item Sensitivity using combine (not all systematics in place)
   \end{itemize}
 
@@ -216,7 +219,7 @@
 \begin{frame}
   \frametitle{Additional Information From PUPPI}
 
-  Jet constituents split into
+  Each jet constituent split into
 
   \begin{itemize}
   \item charged
@@ -239,7 +242,7 @@
   \frametitle{Additional Information From PF Candidates}
 
   \begin{itemize}
-  \item Used first 10 PF candidates ordered by anti-$k_T$ algorithm
+  \item Used first 10 PF candidates ordered by anti-$k_t$ algorithm
   \item Fed into LSTM in reverse order
   \end{itemize}
 
@@ -255,7 +258,7 @@
     \item Boosted so jet's center has zero momentum
     \item Highest $p_T$ constituent along $z$ axis
     \item Second highest $p_T$ constituent in $xz$ plane \\
-      (different than second anti-$k_T$ particle)
+      (different than second anti-$k_t$ particle)
     \end{itemize}
   \end{itemize}
 
@@ -272,23 +275,13 @@
   \item Allowed output to be a tensor with 12 features
   \item Dense network ran next to LSTM,
     and merged through one more dense layer
-    to form final layer of logits
+    to form final layer of output
   \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Dense Network Limitations}
-
-  \begin{itemize}
-  \item Network #5 (dense network with PF Candidate information)
-    quickly diverged every time it was trained
-  \item Using an AdamOptimizer with a starting learning rate 10 times
-    lower than default didn't help
-  \item Saved a model with 300 training steps that hadn't diverged
-  \item Looks terrible, results are not worth showing
-  \item LSTM managed to handle the same information fine
-  \end{itemize}
+  \frametitle{Training Specs}
 
   Other networks needed 5,000 to 10,000 steps to converge
 
@@ -328,6 +321,8 @@
     \end{column}
   \end{columns}
 
+  % Have improvement numbers ready
+
 \end{frame}
 
 \begin{frame}
@@ -342,6 +337,8 @@
   \item PUPPI information seems to be giving the best improvement
   \item Direction training does not look beneficial
   \end{itemize}
+
+  % Looser cuts
 
 \end{frame}
 
@@ -376,24 +373,13 @@
   \item PUPPI information seems to be giving the best improvement
   \end{itemize}
 
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Ratio Between Signal and Background}
-
-  Comparing one bin from $\SI{110}{GeV} < m_{jj} < \SI{130}{GeV}$
-
-  \fourfigs{\scriptsize{No reg; S/B = 0.034}}
-           {190813_ratio/signal_hbb_m.pdf}
-           {\scriptsize{Original; S/B = 0.037}}
-           {190813_ratio/signal_hbb_m_190723_origin.pdf}
-           {\scriptsize{PUPPI; S/B = 0.035}}
-           {190813_ratio/signal_hbb_m_190723_puppi.pdf}
-           {\scriptsize{LSTM; S/B = 0.035}}
-           {190813_ratio/signal_hbb_m_190725_lstm_pf.pdf}
+  % Compare relative resolution
 
 \end{frame}
+
+
+% Validation plots in CRs
+
 
 \begin{frame}
   \frametitle{Differences in Analysis Sensitivity}
@@ -440,6 +426,22 @@
 
 \begin{frame}
   \frametitle{Backup Slides}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ratio Between Signal and Background}
+
+  Comparing one bin from $\SI{110}{GeV} < m_{jj} < \SI{130}{GeV}$
+
+  \fourfigs{\scriptsize{No reg; S/B = 0.034}}
+           {190813_ratio/signal_hbb_m.pdf}
+           {\scriptsize{Original; S/B = 0.037}}
+           {190813_ratio/signal_hbb_m_190723_origin.pdf}
+           {\scriptsize{PUPPI; S/B = 0.035}}
+           {190813_ratio/signal_hbb_m_190723_puppi.pdf}
+           {\scriptsize{LSTM; S/B = 0.035}}
+           {190813_ratio/signal_hbb_m_190725_lstm_pf.pdf}
+
 \end{frame}
 
 \input{backup_slides.tex}
