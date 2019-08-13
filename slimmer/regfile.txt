@@ -92,12 +92,12 @@ DEFINE numpf 0..50
 
     gen_transformed_$ -> gen_transformed.$$() | <p{x, y, z}>, e
 
-    #tf_@/std::vector<float> = {1} \
-        <- lazytf::eval("data/freeze_@.pb", "data/regression12.txt", \
-           {"split_logits/Slice", "split_logits/Slice_1", "split_logits/Slice_2", "split_logits/Slice_3"}, 1, \
-           `./translate.pl data/regression12.txt`) |@ 190723_0
+!    #tf_@/std::vector<float> = {1} \
+!        <- lazytf::eval("data/freeze_@.pb", "data/regression12.txt", \
+!           {"split_logits/Slice", "split_logits/Slice_1", "split_logits/Slice_2", "split_logits/Slice_3"}, 1, \
+!           `./translate.pl data/regression12.txt`) |@ 190723_0
 
-    tf_@_$ <- []_tf_@[=$=] | <trans_{e, px, py, pz}> |@ 190723_0
+!    tf_@_$ <- []_tf_@[=$=] | <trans_{e, px, py, pz}> |@ 190723_0
 
 
     gen_ptratio <- []_mcPt/[]_pt

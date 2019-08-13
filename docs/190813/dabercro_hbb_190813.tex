@@ -1,0 +1,449 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie
+}
+
+\title{\bf \sffamily Exploring b-jet Regression Architectures}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introduction}
+
+  \begin{itemize}
+  \item Need to run a new b-jet regression for 2018
+  \item Wanted to explore additional architectures for the regression
+    \begin{itemize}
+    \item Additional information
+    \item New techniques (LSTM cells)
+    \item New targets
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Training Sample}
+
+  \begin{itemize}
+  \item Using framework synced with NanoAOD file
+  \item Hadronic $t\bar{t}$
+  \item Jet is matched to a gen-jet with a $b$ inside
+  \item Reconstructed $p_T > \SI{15}{GeV}, |\eta| < 2.5$
+  \item Overlapping neutrinos are added to jet
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Loss Function}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{gather*}
+        y = x_\mathrm{pred} - x_\mathrm{true} \\
+        f(y) = \begin{cases}
+          \frac12 y^2 & \mbox{for } |y| < \delta \\
+          \delta(|y| - \frac12 \delta) & \mbox{otherwise}
+        \end{cases}
+      \end{gather*}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{190813_testreg_013/Jet_gen_ptratio.pdf}
+    \end{column}
+  \end{columns}
+
+  \begin{itemize}
+  \item Using $\delta = 0.05$ instead of batch normalization for target
+  \item Standard deviation of targets actually larger, but
+    \link{previous study}{http://t3serv001.mit.edu/~dabercro/docs/hbb/dabercro_hbb_190611.pdf}
+    showed wider loss function can be ``overtrained''
+    more easily
+  \item This way, we don't have to transform target output
+  \item Ran tests with and without batch normalization for inputs
+    \begin{itemize}
+    \item Made no difference in performance
+    \item Left batch normalization layer on for these studies
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Six Models to Compare}
+
+  Dense networks have layers [1024, 1024, 1024, 512, 256, 128]
+
+  \begin{enumerate}
+  \item Dense network using input variables for 2016 training
+  \item Dense network with PUPPI variables added
+  \item Network 1, training for $\Delta \eta$ and $\Delta \phi$
+  \item Network 2, training for $\Delta \eta$ and $\Delta \phi$
+  \item Network 2, with PF Candidate information
+  \item Network 5, but feeding PF Candidate information through LSTM cells
+    instead of through the dense network
+  \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why Train Direction Separately?}
+
+  \begin{itemize}
+  \item Training for full 4-vector led to bias in
+    $\Delta \eta$ and $\Delta \phi$ 
+  \item Likely caused by applying equal weight for each loss
+  \item To save time, trained separately for now
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparison Evaluation}
+
+  Compared the performance in $ZH \rightarrow \nu\nu bb$ resolved selection
+
+  \begin{itemize}
+  \item Ratio between background and signal + background
+  \item Resolution of di-jet mass peak in signal sample
+  \item Sensitivity using combine (not all systematics in place)
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Regression Inputs}
+
+  \begin{itemize}
+  \item Jet kinematics ($\eta, m_T, m, p_T, p_{TD}$)
+  \item Jet energy fractions (charged, neutral; EM, hadronic)
+  \item Energy rings (charged, neutral, EM, muonic; $R < 0.05, 0.1, 0.2, 0.3, 0.4$)
+  \item Number of constituents
+  \item Pileup ($\rho$)
+  \item Vertex kinematics (location, significance, $m, n_\mathrm{trk}, p_T$)
+  \item Leading track $p_T$
+  \item Leading lepton kinematics ($p_T, \Delta R, p_{T\perp j}$)
+  \item One hot encoded lepton PDGID
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additional Information From PUPPI}
+
+  Jet constituents split into
+
+  \begin{itemize}
+  \item charged
+  \item charged pileup
+  \item neutral
+  \item neutral pileup
+  \end{itemize}
+
+  Eight variables were used from each grouping 
+
+  \begin{itemize}
+  \item $\Delta \eta$ and $\Delta \phi$
+  \item Kinematics ($p_T, \eta, \phi, m, E$)
+  \item $p_T$ fraction of full jet
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additional Information From PF Candidates}
+
+  \begin{itemize}
+  \item Used first 10 PF candidates ordered by anti-$k_T$ algorithm
+  \item Fed into LSTM in reverse order
+  \end{itemize}
+
+  The following of each PF Candidate was given
+
+  \begin{itemize}
+  \item Displacement from vertex, $\Delta xy, \Delta z$
+  \item One-hot encoded PF Type \\
+    (charged hadron, neutral hadron, electron, muon, photon)
+  \item PUPPI weight
+  \item Lorentz-rotated $p_x, p_y, p_z$:
+    \begin{itemize}
+    \item Boosted so jet's center has zero momentum
+    \item Highest $p_T$ constituent along $z$ axis
+    \item Second highest $p_T$ constituent in $xz$ plane \\
+      (different than second anti-$k_T$ particle)
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{LSTM Architecture}
+
+  \link{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
+  \includegraphics[width=\linewidth]{LSTM3-chain.png}
+
+  \begin{itemize}
+  \item Each cell gives an output and some additional information to the next cell
+  \item Allowed output to be a tensor with 12 features
+  \item Dense network ran next to LSTM,
+    and merged through one more dense layer
+    to form final layer of logits
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dense Network Limitations}
+
+  \begin{itemize}
+  \item Network #5 (dense network with PF Candidate information)
+    quickly diverged every time it was trained
+  \item Using an AdamOptimizer with a starting learning rate 10 times
+    lower than default didn't help
+  \item Saved a model with 300 training steps that hadn't diverged
+  \item Looks terrible, results are not worth showing
+  \item LSTM managed to handle the same information fine
+  \end{itemize}
+
+  Other networks needed 5,000 to 10,000 steps to converge
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Resolution of Signal Sample}
+
+  Fit a Bukin distribution over each training's di-jet mass peak
+
+  \begin{center}
+    \textcolor{blue}{Dense network with PUPPI, $p_T$ target}
+    \includegraphics[width=0.5\linewidth]{190813_bukin/signal_hbb_m_190723_puppi.pdf}
+  \end{center}
+
+  Width for no training: $\sigma = 13.43$
+
+  \vspace{12pt}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      For $p_T$ targets:
+      \begin{itemize}
+      \item Original: $\sigma = 11.83$
+      \item PUPPI: $\sigma = 11.80$
+      \item PF Cands in LSTM: $\sigma = 12.22$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      For direction targets:
+      \begin{itemize}
+      \item Original: $\sigma = 13.43$
+      \item PUPPI: $\sigma = 13.70$
+        \phantom{\item PF Cands in LSTM: \\ $\sigma = 12.22$}
+        \phantom{\item PF Cands in LSTM: \\ $\sigma = 12.22$}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Resolution of Signal Sample}
+
+  \twofigs{$p_T$ targets}
+          {190813_compare/comparison.pdf}
+          {Direction targets}
+          {190813_compare_direction/comparison.pdf}
+
+  \begin{itemize}
+  \item PUPPI information seems to be giving the best improvement
+  \item Direction training does not look beneficial
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bukin Mean of Signal Sample}
+
+  Mean for no training: $\mu = 120.8$
+
+  \vspace{12pt}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      For $p_T$ targets:
+      \begin{itemize}
+      \item Original: $\mu = 121.8$
+      \item PUPPI: $\mu = 125.0$
+      \item PF Cands in LSTM: $\mu = 124.5$
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      For direction targets:
+      \begin{itemize}
+      \item Original: $\mu = 120.8$
+      \item PUPPI: $\mu = 120.5$
+        \phantom{\item PF Cands in LSTM: \\ $\mu = 12.22$}
+        \phantom{\item PF Cands in LSTM: \\ $\mu = 12.22$}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+
+  \begin{itemize}
+  \item PUPPI information seems to be giving the best improvement
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Ratio Between Signal and Background}
+
+  Comparing one bin from $\SI{110}{GeV} < m_{jj} < \SI{130}{GeV}$
+
+  \fourfigs{\scriptsize{No reg; S/B = 0.034}}
+           {190813_ratio/signal_hbb_m.pdf}
+           {\scriptsize{Original; S/B = 0.037}}
+           {190813_ratio/signal_hbb_m_190723_origin.pdf}
+           {\scriptsize{PUPPI; S/B = 0.035}}
+           {190813_ratio/signal_hbb_m_190723_puppi.pdf}
+           {\scriptsize{LSTM; S/B = 0.035}}
+           {190813_ratio/signal_hbb_m_190725_lstm_pf.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Differences in Analysis Sensitivity}
+
+  Performed a rough sensitivity analysis using 2018 data
+
+  \begin{itemize}
+  \item Zero lepton selection and control regions
+  \item Using lower deepCSV value of dijet system as fit distribution
+  \item Very little constraint on W + jets
+  \item Few systematics: \\ luminosity, pileup, and diboson uncertainties
+  \item Only difference is mass window used \\ to separate signal and Z + heavy jets
+  \end{itemize}
+
+  Expected significances
+
+  \centering
+  \begin{tabular}{l | r | r}
+    Model & 50\% & 97.5\% \\
+    \hline
+    No training & 3.6406 & 6.2425 \\
+    Original & 3.6406 & 6.2312 \\
+    PUPPI & 3.6094 & 6.1778 \\
+    LSTM & 3.6719 & 6.2602
+  \end{tabular}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conclusions}
+
+  For 2018 data and MC:
+
+  \begin{itemize}
+  \item PUPPI information brings improvement on top of information used in 2016 training
+  \item Theoretically, LSTM should perform better,
+    but initial results do not suggest it's worth optimizing
+  \item Training for direction does not help
+  \end{itemize}
+
+\end{frame}
+
+\beginbackup
+
+\begin{frame}
+  \frametitle{Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+
+\end{document}

@@ -1,4 +1,4 @@
-# /usr/bin/env python
+#! /usr/bin/env python
 
 import glob
 import os
@@ -8,7 +8,7 @@ import ROOT
 from HelperPython import Bukin
 
 
-for filename in glob.iglob('/home/dabercro/public_html/plots/190812/*.root'):
+for filename in glob.iglob('/home/dabercro/public_html/plots/190813/*.root'):
 
     infile = ROOT.TFile(filename)
 
@@ -37,6 +37,7 @@ for filename in glob.iglob('/home/dabercro/public_html/plots/190812/*.root'):
     fittedHist = histogram.GetFunction("bukin")
     fittedHist.Draw("histsame")
 
-    test.SaveAs(os.path.basename(filename).replace('.root', '.pdf'))
+    for ext in ['.pdf', '.png', '.C']:
+        test.SaveAs(os.path.basename(filename).replace('.root', ext))
 
-    print filename, function.GetParameter(2)
+    print filename, '#sigma = %f' % function.GetParameter(2), 'mean = %f' % function.GetParameter(1)
