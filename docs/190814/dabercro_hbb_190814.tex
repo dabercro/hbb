@@ -1,0 +1,202 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie
+}
+
+\title{\bf \sffamily Exploring b-jet Regression Architectures}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introduction}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Six Models to Compare}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Training Sample}
+
+  \begin{itemize}
+  \item Using framework synced with NanoAOD file
+  \item Hadronic $t\bar{t}$
+  \item Jet is matched to a gen-jet with a $b$ inside
+  \item Reconstructed $p_T > \SI{15}{GeV}, |\eta| < 2.5$
+  \item Overlapping neutrinos are added to jet
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Loss Function}
+
+  \begin{gather*}
+    y = x_\mathrm{pred} - x_\mathrm{true} \\
+    f(y) = \begin{cases}
+      \frac12 y^2 & \mbox{for } |y| < \delta \\
+      \delta(|y| - \frac12 \delta) & \mbox{otherwise}
+      \end{cases}
+  \end{gather*}
+
+  % Which delta
+  % Not batch normalizing targets so that we don't have to transform outputs
+  % With and without inputs makes no difference, shown with
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evaluation}
+
+  % Resolution
+  % Sensitivity
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Regression Inputs}
+
+  \begin{itemize}
+  \item Jet kinematics ($\eta, m_T, m, p_T, p_{TD}$)
+  \item Jet energy fractions (charged, neutral; EM, hadronic)
+  \item Energy rings (charged, neutral, EM, muonic; $R < 0.05, 0.1, 0.2, 0.3, 0.4$)
+  \item Number of constituents
+  \item Pileup ($\rho$)
+  \item Vertex kinematics (location, significance, $m, n_\mathrm{trk}, p_T$)
+  \item Leading track $p_T$
+  \item Leading lepton kinematics ($p_T, \Delta R, p_{T\perp j}$)
+  \item One hot encoded lepton PDGID
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Potential Red Flags for Loss Function}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Weighting for Direction}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additional Information From PUPPI}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additional Information From PF Candidates}
+\end{frame}
+
+\begin{frame}
+  \frametitle{LSTM Architecture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Resolution of Signal Sample}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Differences in Analysis Sensitivity}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conclusions}
+\end{frame}
+
+\begin{comment}
+\beginbackup
+
+\begin{frame}
+  \frametitle{Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+\end{comment}
+
+\end{document}
