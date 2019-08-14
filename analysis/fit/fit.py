@@ -33,11 +33,11 @@ for filename in glob.iglob('/home/dabercro/public_html/plots/190813/*.root'):
     function.SetParameter(3, -0.2 )
     function.SetParameter(4, 0.2)
     function.SetParameter(5, 0.001)
-    histogram.Fit("bukin", "Q", "histsame")
+    result = histogram.Fit("bukin", "S", "histsame")
     fittedHist = histogram.GetFunction("bukin")
     fittedHist.Draw("histsame")
 
     for ext in ['.pdf', '.png', '.C']:
         test.SaveAs(os.path.basename(filename).replace('.root', ext))
 
-    print filename, '#sigma = %f' % function.GetParameter(2), 'mean = %f' % function.GetParameter(1)
+    print filename, '#sigma = %f +- %f' % (function.GetParameter(2), result.Error(2)), 'mean = %f +- %f' % (function.GetParameter(1), result.Error(1))

@@ -111,11 +111,11 @@
   \frametitle{Training Sample}
 
   \begin{itemize}
-  \item Using framework synced with NanoAOD file
-  \item Hadronic $t\bar{t}$
+  \item Using framework synced with NanoAOD setup used for 2016/2017
+  \item Trained on hadronic $t\bar{t}$ sample
   \item Jet is matched to a gen-jet with a $b$ inside
   \item Reconstructed $p_T > \SI{15}{GeV}, |\eta| < 2.5$
-  \item Overlapping neutrinos are added to gen jet
+  \item Overlapping generator neutrinos are added to gen-jet
   \end{itemize}
 
 \end{frame}
@@ -141,10 +141,9 @@
   \begin{itemize}
   \item Using $\delta = 0.05$ instead of batch normalization for target
   \item Standard deviation of targets actually larger, but
-    \link{previous study}{http://t3serv001.mit.edu/~dabercro/docs/hbb/dabercro_hbb_190611.pdf}
-    showed wider loss function can be ``overtrained''
-    more easily
-  \item This way, we don't have to transform target output
+    we have found that wider loss function can be ``overtrained''
+    more easily, while there is no difference in performance
+  \item No need to transform output at end
   \item Ran tests with and without batch normalization for inputs
     \begin{itemize}
     \item Made no difference in performance
@@ -162,10 +161,10 @@
   \begin{enumerate}
   \item {\bf Original}: Dense network using input variables for 2016/2017 training
   \item {\bf PUPPI}: Dense network with PUPPI variables added
-  \item Network 1 (Original), training for $\Delta \eta$ and $\Delta \phi$
-  \item Network 2 (PUPPI), training for $\Delta \eta$ and $\Delta \phi$
   \item {\bf LSTM}: Feeding PF Candidate information through LSTM cells,
     and merging with a dense network like 2
+  \item Network 1 (Original), training for $\Delta \eta$ and $\Delta \phi$
+  \item Network 2 (PUPPI), training for $\Delta \eta$ and $\Delta \phi$
   \end{enumerate}
 
 \end{frame}
@@ -180,12 +179,10 @@
   \item To save time, trained separately for now
   \end{itemize}
 
-  % Plot for tomorrow
-
 \end{frame}
 
 \begin{frame}
-  \frametitle{Comparison Evaluation}
+  \frametitle{Comparison Method}
 
   Compared the performance in $ZH \rightarrow \nu\nu bb$ resolved selection
 
@@ -193,7 +190,6 @@
   \item No jet smearing
   \item Cut on the di-jet mass peak, not the di-jet $p_T$
   \item Resolution of di-jet mass peak in signal sample
-%  \item Ratio between background and signal
   \item Sensitivity using combine (not all systematics in place)
   \end{itemize}
 
@@ -273,6 +269,7 @@
 
   \begin{itemize}
   \item Each cell gives an output and some additional information to the next cell
+  \item Information from ordering of clustering algorithm extracted
   \item Allowed output to be a tensor with 12 features
   \item Dense network ran next to LSTM,
     and merged through one more dense layer
@@ -285,15 +282,19 @@
   \frametitle{Training Specs}
 
   \begin{itemize}
-  \item Networks needed a few thousands steps to converge
+  \item Trained with batch sizes of 10,000 jets
   \item The LSTM had the least training steps at 2,000, due to time constraints
-  \item Loss has not improved significantly in the meanwhile (below)
-  \item A more thorough comparision will be prepared
+    \begin{itemize}
+    \item Continued to train while creating n-tuples
+    \end{itemize}
+  \item Other networks trained for 7,500 steps
+  \item All can benefit from additional training time
   \end{itemize}
 
-  \includegraphics[width=\linewidth]{../../190813/figs/Screenshot_2019-08-13_TensorBoard.png}
+  \centering
+  \includegraphics[width=0.5\linewidth]{190814_loss/plot_loss.pdf}
 
-  % Plot multiple performances over one
+  Can be smoothed out by increasing batch size
 
 \end{frame}
 
@@ -306,11 +307,9 @@
           {190813_compare_direction/comparison.pdf}
 
   \begin{itemize}
-  \item PUPPI information seems to be giving the best improvement
+  \item PUPPI information shifts peak the most
   \item Direction training does not look beneficial
   \end{itemize}
-
-  % Looser cuts ???
 
 \end{frame}
 
@@ -348,8 +347,6 @@
     \end{column}
   \end{columns}
 
-  % Have improvement numbers ready
-
 \end{frame}
 
 \begin{frame}
@@ -379,16 +376,52 @@
     \end{column}
   \end{columns}
 
-  \begin{itemize}
-  \item PUPPI information seems to be giving the best improvement
-  \end{itemize}
+  \vspace{24pt}
 
-  % Compare relative resolution
+  PUPPI information gives best relative improvement
+
+  \begin{itemize}
+  \item No Training: $\frac\sigma\mu = 0.1111 \pm 0.0006$
+  \item Original: $\frac\sigma\mu = 0.0971 \pm 0.0005$
+  \item PUPPI: $\frac\sigma\mu = 0.0944 \pm 0.0005$
+  \item LSTM: $\frac\sigma\mu = 0.0980 \pm 0.0005$
+  \end{itemize}
 
 \end{frame}
 
 
-% Validation plots in CRs
+\begin{frame}
+  \frametitle{Validation in Control Regions: Original Network}
+
+  Original architecture agrees well
+
+  \fourfigs{Z + b; high tag}
+           {190813_validation/heavyz_jet1_tf_190723_origin_ptratio.pdf}
+           {Z + b; low tag}
+           {190813_validation/heavyz_jet2_tf_190723_origin_ptratio.pdf}
+           {$t\bar{t}$; high tag}
+           {190813_validation/tt_jet1_tf_190723_origin_ptratio.pdf}
+           {$t\bar{t}$; low tag}
+           {190813_validation/tt_jet2_tf_190723_origin_ptratio.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Validation in Control Regions: Original Network}
+
+  PUPPI is behaving poorly in $t\bar{t}$
+
+  \fourfigs{Z + b; high tag}
+           {190813_validation/heavyz_jet1_tf_190723_puppi_ptratio.pdf}
+           {Z + b; low tag}
+           {190813_validation/heavyz_jet2_tf_190723_puppi_ptratio.pdf}
+           {$t\bar{t}$; high tag}
+           {190813_validation/tt_jet1_tf_190723_puppi_ptratio.pdf}
+           {$t\bar{t}$; low tag}
+           {190813_validation/tt_jet2_tf_190723_puppi_ptratio.pdf}
+
+\end{frame}
 
 
 \begin{frame}
@@ -398,10 +431,11 @@
 
   \begin{itemize}
   \item Zero lepton selection and control regions
-  \item Using lower deepCSV value of dijet system as fit distribution
+  \item Cutting on adjusted di-jet $p_T$
+  \item Using lower deepCSV value of dijet for CRs
+  \item Fitting mass for signal region
   \item Very little constraint on W + jets
   \item Few systematics: \\ luminosity, pileup, and diboson uncertainties
-  \item Only difference is mass window used \\ to separate signal and Z + heavy jets
   \end{itemize}
 
   Expected significances
@@ -410,13 +444,11 @@
   \begin{tabular}{l | r | r}
     Model & 50\% & 97.5\% \\
     \hline
-    No training & 3.64 & 6.24 \\
-    Original & 3.64 & 6.23 \\
-    PUPPI & 3.61 & 6.18 \\
-    LSTM & 3.67 & 6.26
+    No training & 1.82 & 3.45 \\
+    Original & 1.73 & 3.25 \\
+    PUPPI & 1.71 & 3.22 \\
+    LSTM & 1.73 & 3.29
   \end{tabular}
-
-  % Cut on proper p_T
 
 \end{frame}
 
@@ -428,8 +460,16 @@
   \begin{itemize}
   \item PUPPI information brings improvement on top of information used in 2016/2017 training
   \item Theoretically, LSTM should perform better,
-    but initial results do not suggest it's worth optimizing
-  \item Training for direction does not help
+    but initial results do not suggest there is much to gain
+  \item Training for direction only does not help
+  \end{itemize}
+
+  Action list:
+
+  \begin{itemize}
+  \item Train all achitectures longer and with previous Huber loss $\delta$
+  \item Determine how many PUPPI variables can be removed
+  \item Apply direction change on top of $p_T$ regression
   \end{itemize}
 
 \end{frame}
@@ -438,22 +478,6 @@
 
 \begin{frame}
   \frametitle{Backup Slides}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Ratio Between Signal and Background}
-
-  Comparing one bin from $\SI{110}{GeV} < m_{jj} < \SI{130}{GeV}$
-
-  \fourfigs{\scriptsize{No reg; S/B = 0.034}}
-           {190813_ratio/signal_hbb_m.pdf}
-           {\scriptsize{Original; S/B = 0.037}}
-           {190813_ratio/signal_hbb_m_190723_origin.pdf}
-           {\scriptsize{PUPPI; S/B = 0.035}}
-           {190813_ratio/signal_hbb_m_190723_puppi.pdf}
-           {\scriptsize{LSTM; S/B = 0.035}}
-           {190813_ratio/signal_hbb_m_190725_lstm_pf.pdf}
-
 \end{frame}
 
 \input{backup_slides.tex}

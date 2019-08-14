@@ -1,0 +1,4 @@
+Andrey Pozdnyakov wants slides on resolution improvement
+Add PUPPI variables to CR validation plots
+Bin mass peaks in bins of Z pT (MET) for signal sample
+Use maximum likelihood, not limit, in combine
