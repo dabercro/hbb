@@ -11,7 +11,7 @@ int parsed_main(int argc, char** argv) {
 
   regfile output {argv[argc - 1]};
 
-  panda::JECCorrector corrector {"data/jec/Autumn18_V8_MC", "AK4PFchs"};
+  panda::JECCorrector corrector {"data/jec/Winter19_Autumn18_V8_MC", "AK4PFPuppi"};
 
   for (int i_file = 1; i_file < argc - 1; i_file++) {
 
@@ -31,15 +31,15 @@ int parsed_main(int argc, char** argv) {
 
       event.getEntry(*events_tree, entry);
 
-      corrector.update_event(event, event.chsAK4Jets, event.pfMet);
-      event.chsAK4Jets = corrector.get_jets();
+      corrector.update_event(event, event.puppiAK4Jets, event.pfMet);
+      event.puppiAK4Jets = corrector.get_jets();
       event.pfMet = corrector.get_met();
 
       output.reset(event);
 
       auto gennumap = gennujet::get_gen_nu_map(event);
 
-      for (auto& jet : event.chsAK4Jets) {
+      for (auto& jet : event.puppiAK4Jets) {
 
         if (jet.pt() > 15 and std::abs(jet.eta() < 2.5)) {
 

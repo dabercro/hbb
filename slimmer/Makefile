@@ -36,7 +36,7 @@ $(tarball): $(install) $(thejq) $(data) $(regression) $(effs)
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
-$(data): data/*.csv data/*.txt data/*.xml data/*.root $(corrections) data/rcdata.2016.v3 data/jec/jec.d
+$(data): data/*.csv data/*.txt data/*.xml data/*.root $(corrections) data/rcdata.2016.v3 data/jec/*.txt
 	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.pb ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
 	cp data/*.csv data/*.txt data/*.xml data/*.root data/*.pb ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
