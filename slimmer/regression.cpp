@@ -2,16 +2,16 @@
 
 #include "regfile.h"
 #include "feedregression.h"
+#include "jetselect.h"
 
 #include "crombie/CmsswParse.h"
 
-#include "JECCorrector.h"
 
 int parsed_main(int argc, char** argv) {
 
   regfile output {argv[argc - 1]};
 
-  panda::JECCorrector corrector {"data/jec/Winter19_Autumn18_V8_MC", "AK4PFPuppi"};
+  jetselect::JetSelector jetselector {};
 
   for (int i_file = 1; i_file < argc - 1; i_file++) {
 
@@ -25,21 +25,22 @@ int parsed_main(int argc, char** argv) {
     crombie::feedpanda(event, events_tree);
     auto nentries = input::maxevents ? input::maxevents : events_tree->GetEntries();
 
+    jetselector.init(event);
+
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
       if (entry % 10000 == 0)
         std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
 
       event.getEntry(*events_tree, entry);
 
-      corrector.update_event(event, event.puppiAK4Jets, event.pfMet);
-      event.puppiAK4Jets = corrector.get_jets();
-      event.pfMet = corrector.get_met();
+      auto updated_jets = jetselector.update_event();
+      event.pfMet = updated_jets.pfmet;
 
       output.reset(event);
 
       auto gennumap = gennujet::get_gen_nu_map(event);
 
-      for (auto& jet : event.puppiAK4Jets) {
+      for (auto& jet : updated_jets.ak4jets) {
 
         if (jet.pt() > 15 and std::abs(jet.eta() < 2.5)) {
 
