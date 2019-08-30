@@ -82,6 +82,9 @@ class regfile {
   Float_t Jet_gen_transformed_px;
   Float_t Jet_gen_transformed_py;
   Float_t Jet_gen_transformed_pz;
+  Float_t Jet_isEle;
+  Float_t Jet_isMu;
+  Float_t Jet_isOther;
   Float_t Jet_leadTrackPt;
   Float_t Jet_leptonDeltaR;
   Int_t Jet_leptonPdgId;
@@ -997,9 +1000,6 @@ class regfile {
   Float_t Jet_withPtd;
   ULong64_t event;
   Float_t genWeight;
-  Float_t isEle;
-  Float_t isMu;
-  Float_t isOther;
   ULong64_t luminosityBlock;
   Float_t npv;
   Float_t pfmet_phi;
@@ -1090,6 +1090,9 @@ regfile::regfile(const char* outfile_name, const char* name)
   t->Branch("Jet_gen_transformed_px", &Jet_gen_transformed_px, "Jet_gen_transformed_px/F");
   t->Branch("Jet_gen_transformed_py", &Jet_gen_transformed_py, "Jet_gen_transformed_py/F");
   t->Branch("Jet_gen_transformed_pz", &Jet_gen_transformed_pz, "Jet_gen_transformed_pz/F");
+  t->Branch("Jet_isEle", &Jet_isEle, "Jet_isEle/F");
+  t->Branch("Jet_isMu", &Jet_isMu, "Jet_isMu/F");
+  t->Branch("Jet_isOther", &Jet_isOther, "Jet_isOther/F");
   t->Branch("Jet_leadTrackPt", &Jet_leadTrackPt, "Jet_leadTrackPt/F");
   t->Branch("Jet_leptonDeltaR", &Jet_leptonDeltaR, "Jet_leptonDeltaR/F");
   t->Branch("Jet_leptonPdgId", &Jet_leptonPdgId, "Jet_leptonPdgId/I");
@@ -2005,9 +2008,6 @@ regfile::regfile(const char* outfile_name, const char* name)
   t->Branch("Jet_withPtd", &Jet_withPtd, "Jet_withPtd/F");
   t->Branch("event", &event, "event/l");
   t->Branch("genWeight", &genWeight, "genWeight/F");
-  t->Branch("isEle", &isEle, "isEle/F");
-  t->Branch("isMu", &isMu, "isMu/F");
-  t->Branch("isOther", &isOther, "isOther/F");
   t->Branch("luminosityBlock", &luminosityBlock, "luminosityBlock/l");
   t->Branch("npv", &npv, "npv/F");
   t->Branch("pfmet_phi", &pfmet_phi, "pfmet_phi/F");
@@ -2080,6 +2080,9 @@ void regfile::reset(const panda::Event& e) {
   Jet_gen_transformed_px = 0;
   Jet_gen_transformed_py = 0;
   Jet_gen_transformed_pz = 0;
+  Jet_isEle = 0;
+  Jet_isMu = 0;
+  Jet_isOther = 0;
   Jet_leadTrackPt = 0;
   Jet_leptonDeltaR = 0;
   Jet_leptonPdgId = 0;
@@ -2995,9 +2998,6 @@ void regfile::reset(const panda::Event& e) {
   Jet_withPtd = 0;
   event = e.eventNumber;
   genWeight = e.weight;
-  isEle = 0;
-  isMu = 0;
-  isOther = 0;
   luminosityBlock = e.lumiNumber;
   npv = e.npv;
   pfmet_phi = e.pfMet.phi;
@@ -3008,9 +3008,9 @@ void regfile::reset(const panda::Event& e) {
 }
 
 void regfile::fill() {
-  isEle = std::abs(Jet_leptonPdgId) == 11;
-  isMu = std::abs(Jet_leptonPdgId) == 13;
-  isOther = not (isEle or isMu);
+  Jet_isEle = std::abs(Jet_leptonPdgId) == 11;
+  Jet_isMu = std::abs(Jet_leptonPdgId) == 13;
+  Jet_isOther = not (Jet_isEle or Jet_isMu);
   Jet_withPtd = Jet_ptd;
   Jet_pfmet_dphi = TVector2::Phi_mpi_pi(pfmet_phi - Jet_phi);
   Jet_puppi_charged_ptfrac = Jet_puppi_charged_pt/Jet_pt;
@@ -3063,11 +3063,6 @@ template <typename G> void regfile::set_jet(const jet base, const panda::Jet& je
     Jet_leadTrackPt = info.maxpfpt;
     Jet_rawFactor = 1 - jet.rawPt/Jet_pt;
     Jet_rawEnergy = Jet_e * jet.rawPt/Jet_pt;
-    Jet_mcPt = withnu.genvec.Pt();
-    Jet_mcEta = withnu.genvec.Eta();
-    Jet_mcPhi = withnu.genvec.Phi();
-    Jet_mcM = withnu.genvec.M();
-    Jet_mcFlavour = gen->partonFlavor;
     Jet_leptonPdgId = info.leptonPdgId;
     Jet_leptonPt = info.leptonPt;
     Jet_leptonPtRel = info.leptonPtRel;
@@ -3994,6 +3989,11 @@ template <typename G> void regfile::set_jet(const jet base, const panda::Jet& je
     Jet_pf_49_transformed_py = Jet_pf_49 ? pfvecs[49].transformed.Py() : 0;
     Jet_pf_49_transformed_pz = Jet_pf_49 ? pfvecs[49].transformed.Pz() : 0;
     Jet_pf_49_transformed_e = Jet_pf_49 ? pfvecs[49].transformed.E() : 0;
+    Jet_mcPt = withnu.genvec.Pt();
+    Jet_mcEta = withnu.genvec.Eta();
+    Jet_mcPhi = withnu.genvec.Phi();
+    Jet_mcM = withnu.genvec.M();
+    Jet_mcFlavour = gen->partonFlavor;
     Jet_gen_transformed_px = gen_transformed.Px();
     Jet_gen_transformed_py = gen_transformed.Py();
     Jet_gen_transformed_pz = gen_transformed.Pz();
