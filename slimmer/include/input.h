@@ -21,6 +21,8 @@ namespace input {
 
   const char* noskim = getenv("noskim");
 
+  const char* ispuppi = getenv("ispuppi");
+
   const bool isHT = is("_HT-");
 
   const bool isW = is("_HToBB_W");
@@ -65,13 +67,20 @@ namespace input {
   const std::string jec = [] () {
     if (version == 13) {
       std::string data = "Run2018";
+      std::string start = "Autumn18";
+      if (ispuppi)
+        start = "Winter19_Autumn18";
+
       if (is(data.data())) {
+        if (not ispuppi)
+          start += "_Run";
+
         std::string indir {in_dir};
         auto letter = indir.substr(indir.find(data) + data.size(), 1);
-        return std::string("Autumn18_Run" + letter + "_V8_DATA");
+        return std::string(start + letter + "_V8_DATA");
       }
       // Otherwise, is MC
-      return std::string("Autumn18_V8_MC");
+      return std::string(start + "_V8_MC");
     }
     return std::string("");
   } ();

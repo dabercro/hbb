@@ -5,6 +5,7 @@
 #include "hbbfile.h"
 #include "triggers.h"
 #include "misc.h"
+#include "jetselect.h"
 
 #include "fastjet/ClusterSequence.hh"
 
@@ -13,8 +14,6 @@
 
 #include "TH1F.h"
 #include "TH1D.h"
-
-#include "PandaTree/Utils/interface/JECCorrector.h"
 
 using namespace crombie;
 
@@ -51,12 +50,7 @@ int parsed_main(int argc, char** argv) {
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
   TH1D sums;
 
-  std::unique_ptr<panda::JECCorrector> corr_ptr {nullptr};
-
-  if (input::jec.size()) {
-    std::cout << "Loading JEC: " << input::jec << std::endl;
-    corr_ptr = std::make_unique<panda::JECCorrector>(std::string("data/jec/") + input::jec, "AK4PFchs");
-  }
+  jetselect::JetSelector jetselector {};
 
   // Loop over all input files
   for (int i_file = 1; i_file < argc - 1; i_file++) {
@@ -72,6 +66,7 @@ int parsed_main(int argc, char** argv) {
     auto nentries = input::maxevents ? input::maxevents : events_tree->GetEntries();
 
     triggers::init(event);
+    jetselector.init(event);
 
     // Get the hSumW
     auto* sumW = static_cast<TH1D*>(input.Get("hSumW"));
@@ -94,7 +89,8 @@ int parsed_main(int argc, char** argv) {
 
       // Should check good lumi towards the beginning
 
-      if (not checkrun(event.runNumber, event.lumiNumber))
+      if (not checkrun(event.runNumber,
+                       event.lumiNumber))
         continue;
 
       output.reset(event);
@@ -105,7 +101,9 @@ int parsed_main(int argc, char** argv) {
         if (processed)
           break;
 
-        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
+        if (debugevent::check(event.runNumber,
+                              event.lumiNumber,
+                              event.eventNumber)) {
           processed = true;
           std::cout << std::endl << "Found Event in row " << entry << std::endl << std::endl;
           event.pfMet.dump();
@@ -113,7 +111,7 @@ int parsed_main(int argc, char** argv) {
           event.muons.dump();
           event.electrons.dump();
           event.ak4GenJets.dump();
-          event.chsAK4Jets.dump();
+          // (event.*ak4jets).dump();
           int icand = 0;
           for (auto& cand : event.pfCandidates)
             std::cout << "PF Candidate: " << icand++
@@ -371,21 +369,9 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "Starting jets" << std::endl;
 
-      if (corr_ptr) {
-
-        corr_ptr->update_event(event, event.chsAK4Jets, event.pfMet);
-        auto& newmet = corr_ptr->get_met();
-        output.pfmet = newmet.pt;
-        output.pfmetphi = newmet.phi;
-
-        if (debugevent::check(event.runNumber, event.lumiNumber, event.eventNumber)) {
-          std::cout << "After corrections" << std::endl;
-
-          corr_ptr->get_met().dump();
-          corr_ptr->get_jets().dump();
-        }
-
-      }
+      auto updated_jets = jetselector.update_event();
+      output.pfmet = updated_jets.pfmet.pt;
+      output.pfmetphi = updated_jets.pfmet.phi;
 
       // We want the two jets with the highest CMVA
       using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet, struct lazy::Evaled>;
@@ -408,7 +394,7 @@ int parsed_main(int argc, char** argv) {
         return false;
       };
 
-      for (auto& jet : (corr_ptr ? corr_ptr->get_jets() : event.chsAK4Jets)) {
+      for (auto& jet : updated_jets.ak4jets) {
 
         if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 15.0 or not puid::loose(jet, &output)) {
           if (debugevent::debug)
@@ -499,7 +485,7 @@ int parsed_main(int argc, char** argv) {
             output.set_softcount(jets.first, soft.pt());
       }
 
-      output.fill(event, (corr_ptr ? corr_ptr->get_met().v() : event.pfMet.v()) + lepvec.Vect().XYvector());
+      output.fill(event, updated_jets.pfmet.v() + lepvec.Vect().XYvector());
     }
     input.Close();
   }

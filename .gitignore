@@ -36,3 +36,5 @@ slimmer/data/jec/*.txt
 *.pb
 slimmer/include/roccor/*
 analysis/fit/*.C
+analysis/fit/*/*.C
+*.cnf

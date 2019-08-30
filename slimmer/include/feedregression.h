@@ -10,6 +10,7 @@ namespace crombie {
     event.setStatus(*input, {"!*"});
     event.setAddress(*input,
       {"ak4GenJets",
+       "chsAK4Jets",
        "eventNumber",
        "genParticles",
        "lumiNumber",

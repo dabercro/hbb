@@ -8,7 +8,7 @@ import ROOT
 from HelperPython import Bukin
 
 
-for filename in glob.iglob('/home/dabercro/public_html/plots/190813/*.root'):
+for filename in glob.iglob('/home/dabercro/public_html/plots/190828_puppi_signal/*.root'):
 
     infile = ROOT.TFile(filename)
 

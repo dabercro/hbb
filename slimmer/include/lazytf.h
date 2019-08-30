@@ -1,6 +1,8 @@
 #ifndef LAZYTF_H
 #define LAZYTF_H
 
+#include <algorithm>
+#include <cstdlib>
 #include <list>
 #include <memory>
 #include <string>
@@ -19,6 +21,8 @@ namespace {
       throw;
     }
   }
+
+  char* skiptf = getenv("skiptf");
 
 }
 
@@ -110,11 +114,18 @@ namespace lazytf {
 
 
   template <typename ... A>
-    const std::vector<float>& eval (const std::string& graph_file,
+    const std::vector<float>& eval (bool dothis,
+                                    const std::string& graph_file,
                                     const std::string& input_names_file,
                                     const std::vector<std::string>& output_nodes,
                                     unsigned number_targets,
                                     A ... args) {
+
+    if (skiptf or not dothis) {
+      static std::vector<float> dummy {};
+      dummy.resize(std::max(output_nodes.size() * number_targets, dummy.size()));
+      return dummy;
+    }
 
     static std::map<std::string, TFReader> readers {};
 

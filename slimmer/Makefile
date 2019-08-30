@@ -18,8 +18,8 @@ target = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/testhbbtree
 regression = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/regresstree
 install = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/$(installname)
 pandalibs = -lPandaTreeFramework -lPandaTreeObjects -lPandaTreeUtils
-testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
-#testfile = /data/t3home000/dabercro/scratch/$(vers)/*.root
+#testfile = /mnt/hadoop/scratch/dabercro/panda/$(vers)/*.root
+testfile = /data/t3home000/dabercro/scratch/$(vers)/*.root
 
 thejq = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/jq
 tarball = ${CMSSW_BASE}/condor.tgz
@@ -83,10 +83,10 @@ data/jec/jec.d: data/jec/download.url
 
 include/feedregression.h: include/[!f]*.h regression.cpp include/$(regclass).h ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def \
-	include/genjet.h include/regression.h include/regression.h include/$(regclass).h regression.cpp include/feedregression.h
+	include/genjet.h include/regression.h include/regression.h include/jetselect.h include/$(regclass).h regression.cpp include/feedregression.h
 
 include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/*.h slimmer.cpp include/feedpanda.h
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/[!f]*.h slimmer.cpp include/feedpanda.h
 
 include/$(regclass).h: $(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
 	crombie maketree $(regclass).txt
