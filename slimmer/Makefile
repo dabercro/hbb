@@ -88,11 +88,11 @@ include/feedregression.h: include/[!f]*.h regression.cpp include/$(regclass).h $
 include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/[!f]*.h slimmer.cpp include/feedpanda.h
 
-include/$(regclass).h: $(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
+include/$(regclass).h: $(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) regression.txt
 	crombie maketree $(regclass).txt
 	mv $(regclass).h include/
 
-include/$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) translate.pl
+include/$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) translate.pl regression.txt
 	crombie maketree $(flatclass).txt
 	mv $(flatclass).h include/
 

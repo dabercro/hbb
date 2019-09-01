@@ -24,7 +24,7 @@ $/s = event.$ | npv, npvTrue
 $ = event.$ | weight
 
 $@ = event.$@@.pt | pf, calo, trk, raw |@ met
-$@phi = event.$@@.phi | pf, calo, trk, raw |@ met
+$@_phi = event.$@@.phi | pf, calo, trk, raw |@ met
 
 #dztrkmetvec/TVector2 = trkmet::trkmet(event)
 dztrkmet <- dztrkmetvec.Mod()
@@ -45,8 +45,8 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
 
   n_alljet -> ++
 
-  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
-  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi()))) : min_dphi_metj_hard
+  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmet_phi, jet.phi())))
+  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmet_phi, jet.phi()))) : min_dphi_metj_hard
 
   ~~ abseta < 2.5 ~~
 
@@ -57,7 +57,7 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
 
 countnopuid(panda::Jet& jet)
   n_nopuid -> ++
-  min_dphi_metnopuid/F = 4 -> std::min(min_dphi_metnopuid, static_cast<Float_t>(deltaPhi(pfmetphi, jet.phi())))
+  min_dphi_metnopuid/F = 4 -> std::min(min_dphi_metnopuid, static_cast<Float_t>(deltaPhi(pfmet_phi, jet.phi())))
 
 n_genB
 
@@ -124,7 +124,7 @@ recoilphi <- recoilvec.Phi()
 ! Minimum dphi between MET and b-jet (to be declared)
 min_dphi_recoilb <- std::min(<deltaPhi(jet{1, 2}_phi, recoilphi)>)
 
-dphi_met_$met <- deltaPhi(<{pf, $}metphi>) | trk, dztrk
+dphi_met_$met <- deltaPhi(<{pf, $}met_phi>) | trk, dztrk
 
 "quickb.h"
 
@@ -211,64 +211,9 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
 
     !!!!!!!
     ! Regression stuff
-    puId -> jet.puid
-    btagCMVA -> jet.cmva
-    btagDeepC -> jet.deepCSVc + jet.deepCSVcc
-    btagDeepB -> jet.deepCSVb + jet.deepCSVbb
 
-    (p4 = jet.p4())
+    #INCLUDE regression.txt
 
-    #raw -> jet.rawPt/jet.pt()
-
-    $ -> p4.$$() | pt, eta, phi, m, mt, e
-    $ -> jet.$ | <{c, n}{e, h}f>, rawPt
-
-    (info = regression::GetJetInfo(jet))
-    #$/S -> info.$ | vtxNtrk
-    #$ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
-
-    #leadTrackPt -> info.maxpfpt
-
-    #rawFactor -> 1 - jet.rawPt/[]_pt
-    #rawEnergy -> []_e * jet.rawPt/[]_pt
-
-    #$/I -> info.$ | leptonPdgId
-    #$ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
-
-    #ptd -> info.ptD
-    #withPtd <- []_ptd
-
-    #energyRing_dR$_@ -> info.@_rings.at($).first | 0..6 |@ neut, ch, em, mu
-    #energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
-
-    numDaughters_pt03/s -> info.num03
-    numberOfDaughters/s -> jet.constituents.size()
-
-    ! Should it be abs value?
-    #pfmet_dphi <- TVector2::Phi_mpi_pi(pfmetphi - []_phi)
-
-    puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
-    puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
-
-DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
-
-    #@_$frac <- []_@_$/[]_$ | pt |@ bkinematics
-    #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
-
-    #transform/TLorentzRotation = TLorentzRotation() -> pfvecs::get_transform(jet)
-    #pfvecs/std::vector<pfvecs::PFInfo> -> pfvecs::get_vecs(jet, []_transform, pv)
-
-DEFINE numpf 0..30
-
-    #pf_@/O -> []_pfvecs.size() > @ |@ numpf
-    #pf_@_$ -> []_pf_@ ? []_pfvecs.at(@).$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
-    #pf_@_$/B -> []_pf_@ ? []_pfvecs.at(@).$ : -10 | q |@ numpf
-    #pf_@_$/O -> []_pf_@ ? []_pfvecs.at(@).$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
-    #pf_@_X_$ -> []_pf_@ ? []_pfvecs.at(@).X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
-
-    #isEle <- std::abs([]_leptonPdgId) == 11
-    #isMu <- std::abs([]_leptonPdgId) == 13
-    #isOther <- not ([]_isEle or []_isMu)
     !!!!!!!
 
     #tf_@/std::vector<float> \
@@ -299,7 +244,7 @@ DEFINE numpf 0..30
 
   genjet(panda::GenJet& gen, gennujet::GenNuVec& withnu)
 
-    #gen_transformed/TLorentzVector = TLorentzVector() -> []_transform * withnu.genvec
+    #gen_transformed/TLorentzVector = TLorentzVector() -> transform * withnu.genvec
     #gen_transformed_$ -> []_gen_transformed.$$() | <p{x, y, z}>, e
 
     gen/O = false -> true

@@ -5,54 +5,54 @@
 
     (p4 = jet.p4())
 
-    raw -> jet.rawPt/jet.pt()
+    #raw -> jet.rawPt/jet.pt()
 
     $ -> p4.$$() | pt, eta, phi, m, mt, e
     $ -> jet.$ | <{c, n}{e, h}f>
 
     (info = regression::GetJetInfo(jet))
-    $/S -> info.$ | vtxNtrk
-    $ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
+    #$/S -> info.$ | vtxNtrk
+    #$ -> info.$ | vtxMass, vtx3dL, vtx3deL, vtxPt
 
-    leadTrackPt -> info.maxpfpt
+    #leadTrackPt -> info.maxpfpt
 
-    rawFactor -> 1 - jet.rawPt/[]_pt
-    rawEnergy -> []_e * jet.rawPt/[]_pt
+    #rawFactor -> 1 - jet.rawPt/[]_pt
+    #rawEnergy -> []_e * jet.rawPt/[]_pt
 
-    $/I -> info.$ | leptonPdgId
-    $ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
+    #$/I -> info.$ | leptonPdgId
+    #$ -> info.$ | leptonPt, leptonPtRel, leptonPtRelInv, leptonDeltaR
 
-    isEle <- std::abs([]_leptonPdgId) == 11
-    isMu <- std::abs([]_leptonPdgId) == 13
-    isOther <- not ([]_isEle or []_isMu)
+    #isEle <- std::abs([]_leptonPdgId) == 11
+    #isMu <- std::abs([]_leptonPdgId) == 13
+    #isOther <- not ([]_isEle or []_isMu)
 
-    ptd -> info.ptD
-    withPtd <- []_ptd
+    #ptd -> info.ptD
+    #withPtd <- []_ptd
 
-    energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
-    energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
+    #energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
+    #energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
 
     numDaughters_pt03/s -> info.num03
     numberOfDaughters/s -> jet.constituents.size()
 
     ! Should it be abs value?
-    pfmet_dphi <- TVector2::Phi_mpi_pi(pfmet_phi - []_phi)
+    #pfmet_dphi <- TVector2::Phi_mpi_pi(pfmet_phi - []_phi)
 
     puppi_@_$ -> info.@.$$() | pt, m, e |@ <{charged, neutral}{, _pu}>
     puppi_@_$ -> info.@.filled ? info.@.$$() : []_$ | eta, phi |@ <{charged, neutral}{, _pu}>
 
 DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
 
-    @_$frac <- []_@_$/[]_$ | pt |@ bkinematics
-    @_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
+    #@_$frac <- []_@_$/[]_$ | pt |@ bkinematics
+    #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
     (transform = pfvecs::get_transform(jet))
     (pfvecs = pfvecs::get_vecs(jet, transform, pv))
 
-DEFINE numpf 0..50
+DEFINE numpf 0..30
 
-    pf_@/O -> pfvecs.size() > @ |@ numpf
-    pf_@_$ -> []_pf_@ ? pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
-    pf_@_$/B -> []_pf_@ ? pfvecs[@].$ : -10 | q |@ numpf
-    pf_@_$/O -> []_pf_@ ? pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
-    pf_@_X_$ -> []_pf_@ ? pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf
+    #pf_@/O -> pfvecs.size() > @ |@ numpf
+    #pf_@_$ -> []_pf_@ ? pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf
+    #pf_@_$/B -> []_pf_@ ? pfvecs[@].$ : -10 | q |@ numpf
+    #pf_@_$/O -> []_pf_@ ? pfvecs[@].$ : 0 | is_ele, is_muon, is_photon, is_nhadron, is_chhadron |@ numpf
+    #pf_@_X_$ -> []_pf_@ ? pfvecs[@].X.$$() : 0 |X transformed | <p{x, y, z}>, e |@ numpf

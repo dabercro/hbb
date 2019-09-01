@@ -371,7 +371,7 @@ int parsed_main(int argc, char** argv) {
 
       auto updated_jets = jetselector.update_event();
       output.pfmet = updated_jets.pfmet.pt;
-      output.pfmetphi = updated_jets.pfmet.phi;
+      output.pfmet_phi = updated_jets.pfmet.phi;
 
       // We want the two jets with the highest CMVA
       using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet, struct lazy::Evaled>;
