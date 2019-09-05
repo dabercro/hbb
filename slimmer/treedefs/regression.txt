@@ -1,6 +1,7 @@
 ! Needs following parameters defined:
 !
-!  panda::Jet& jet
+!  TVector3 pv     // Primary vertex for the event
+!  panda::Jet& jet // Jet to evaluate regression stuff for
 !
 
 "pfvecs.h"

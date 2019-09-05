@@ -1,19 +1,22 @@
-#include "input.h"
-
-#include "regfile.h"
-#include "feedregression.h"
 #include "jetselect.h"
+#include "smearfile.h"
+#include "checkrun.h"
+#include "triggers.h"
+#include "feedsmear.h"
+
+#include "TH1F.h"
 
 #include "crombie/CmsswParse.h"
 
 
 int parsed_main(int argc, char** argv) {
 
-  regfile output {argv[argc - 1]};
+  smearfile output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
 
   jetselect::JetSelector jetselector {};
 
+  // Loop over all input files
   for (int i_file = 1; i_file < argc - 1; i_file++) {
 
     std::cout << "Running over file " << argv[i_file]
@@ -26,45 +29,24 @@ int parsed_main(int argc, char** argv) {
     crombie::feedpanda(event, events_tree);
     auto nentries = input::maxevents ? input::maxevents : events_tree->GetEntries();
 
+    triggers::init(event);
     jetselector.init(event);
 
     for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
-      if (entry % 10000 == 0)
-        std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
 
       event.getEntry(*events_tree, entry);
       all_hist.Fill(0.0, event.weight);
 
-      auto updated_jets = jetselector.update_event();
-      event.pfMet = updated_jets.pfmet;
+      if (not checkrun(event.runNumber,
+                       event.lumiNumber))
+        continue;
 
       output.reset(event);
 
-      auto gennumap = gennujet::get_gen_nu_map(event);
+      // Do the stuff
 
-      for (auto& jet : updated_jets.ak4jets) {
-
-        if (jet.pt() > 15 and std::abs(jet.eta() < 2.5)) {
-
-          auto genjet = jet.matchedGenJet;
-
-          if (genjet.isValid() and genjet->numB) {
-
-            auto gennuvec = gennumap.at(genjet.get());
-
-            output.set_jet(regfile::jet::Jet, jet, gennuvec, genjet);
-            output.fill();
-
-          }
-
-        }
-
-      }
-
+      output.fill();
     }
-
-    input.Close();
-
   }
 
   output.write(&all_hist);

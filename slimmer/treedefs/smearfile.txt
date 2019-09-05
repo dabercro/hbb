@@ -4,6 +4,15 @@
 
 {reset(panda::Event& event)}
 
+$/i = event.$ | runNumber
+$ = event.$ | rho
+$/l = event.$ | eventNumber, lumiNumber
+
+#pv/TVector3 = event.vertices.at(0).position()
+
+$@ = event.$@@.pt | pf |@ met
+$@_phi = event.$@@.phi | pf |@ met
+
 <lep{1, 2}> {
   lep(panda::Lepton& lep)
 
@@ -14,13 +23,17 @@
 dilep {
 
   #vec/TLorentzVector = TLorentzVector() <- vectorSum(<lep{1, 2}_{pt, eta, phi, m}>)
-  $ <- vec.$$() | pt, eta, phi, m
+  $ <- []_vec.$$() | pt, eta, phi, m
 
 }
 
 <jet{1, 2}> {
   jet(panda::Jet& jet)
 
-    $ -> jet.$() | pt, eta, phi, m
+    /O = false -> true
+
+    #INCLUDE treedefs/regression.txt
+
+  #INCLUDE treedefs/regeval.txt
 
 }
