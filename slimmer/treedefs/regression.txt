@@ -1,3 +1,11 @@
+! Needs following parameters defined:
+!
+!  panda::Jet& jet
+!
+
+"pfvecs.h"
+"regression.h"
+
     puId -> jet.puid
     btagCMVA -> jet.cmva
     btagDeepC -> jet.deepCSVc + jet.deepCSVcc
@@ -5,10 +13,8 @@
 
     (p4 = jet.p4())
 
-    #raw -> jet.rawPt/jet.pt()
-
     $ -> p4.$$() | pt, eta, phi, m, mt, e
-    $ -> jet.$ | <{c, n}{e, h}f>
+    $ -> jet.$ | <{c, n}{e, h}f>, rawPt
 
     (info = regression::GetJetInfo(jet))
     #$/S -> info.$ | vtxNtrk
@@ -27,7 +33,6 @@
     #isOther <- not ([]_isEle or []_isMu)
 
     #ptd -> info.ptD
-    #withPtd <- []_ptd
 
     #energyRing_dR$_@ -> info.@_rings[$].first | 0..6 |@ neut, ch, em, mu
     #energyRing_dR$_@_Jet_rawEnergy -> []_energyRing_dR$_@/[]_rawEnergy | 0..6 |@ neut, ch, em, mu
@@ -43,13 +48,12 @@
 
 DEFINE bkinematics <puppi_{charged, neutral}{, _pu}>
 
-    #@_$frac <- []_@_$/[]_$ | pt |@ bkinematics
+    #@_$frac <- []_@_pt/[]_$ | pt, rawPt |@ bkinematics
     #@_d$ <- TVector2::Phi_mpi_pi([]_@_$ - []_$) | eta, phi |@ bkinematics
 
-    (transform = pfvecs::get_transform(jet))
-    (pfvecs = pfvecs::get_vecs(jet, transform, pv))
-
 DEFINE numpf 0..30
+
+    (pfvecs = pfvecs::get_vecs(jet, pfvecs::get_transform(jet), pv))
 
     #pf_@/O -> pfvecs.size() > @ |@ numpf
     #pf_@_$ -> []_pf_@ ? pfvecs[@].$ : -50 | ptfrac, deta, dphi, puppiwt, dxy, dz |@ numpf

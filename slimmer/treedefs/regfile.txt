@@ -1,9 +1,6 @@
 <vector>
 
-"lazytf.h"
 "genjet.h"
-"pfvecs.h"
-"regression.h"
 "TVector2.h"
 "TLorentzRotation.h"
 
@@ -26,14 +23,10 @@ luminosityBlock/l = e.lumiNumber
 Jet {
   jet(panda::Jet& jet, gennujet::GenNuVec& withnu, <G> gen)
 
-    INCLUDE regression.txt
+    INCLUDE treedefs/regression.txt
 
     mc$$ -> withnu.genvec.$$() | pt, eta, phi, m
     mcFlavour -> gen->partonFlavor
-
-    (gen_transformed = transform * withnu.genvec)
-
-    gen_transformed_$ -> gen_transformed.$$() | <p{x, y, z}>, e
 
     gen_ptratio <- []_mcPt/[]_pt
     gen_deta <- []_mcEta - []_eta

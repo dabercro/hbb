@@ -46,7 +46,7 @@ $(data): data/*.csv data/*.txt data/*.xml data/*.root $(corrections) data/rcdata
 	cp data/jec/*.txt ${CMSSW_BASE}/data/jec
 	touch $(data)
 
-$(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
+$(target): src/slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
 	${CROMBIEPATH}/src/include/crombie/*.h \
 	include/roccor/RoccoR.cc include/jecsys \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
@@ -54,16 +54,16 @@ $(target): slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h includ
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH}/old \
 	$(external) -lrt -g \
-	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) slimmer.cpp
+	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) src/slimmer.cpp
 
-$(regression): regression.cpp include/*.h include/feedregression.h include/$(regclass).h \
+$(regression): src/regression.cpp include/*.h include/feedregression.h include/$(regclass).h \
 	${CROMBIEPATH}/src/include/crombie/*.h \
 	include/roccor/RoccoR.cc include/jecsys \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	$(external) -lboost_filesystem -lrt -g \
-	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(regression) regression.cpp
+	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(regression) src/regression.cpp
 
 
 include/jecsys:
@@ -81,20 +81,22 @@ data/jec/jec.d: data/jec/download.url
 	cd data/jec; rm *.tar.gz; rm *.txt; wget -i download.url; for f in *.tar.gz; do tar -xvf $$f '*_AK4PFchs.txt' '*_AK8PFPuppi.txt'; done
 	touch data/jec/jec.d
 
-include/feedregression.h: include/[!f]*.h regression.cpp include/$(regclass).h ${CROMBIEPATH}/scripts/feedpanda.pl
+include/feedregression.h: include/[!f]*.h src/regression.cpp include/$(regclass).h ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def \
-	include/genjet.h include/regression.h include/regression.h include/jetselect.h include/$(regclass).h regression.cpp include/feedregression.h
+	include/genjet.h include/regression.h include/regression.h include/jetselect.h include/$(regclass).h src/regression.cpp include/feedregression.h
 
-include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/[!f]*.h slimmer.cpp include/feedpanda.h
+include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h src/slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/[!f]*.h src/slimmer.cpp include/feedpanda.h
 
-include/$(regclass).h: $(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) regression.txt
-	crombie maketree $(regclass).txt
+include/$(regclass).h: treedefs/$(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) treedefs/regression.txt
+	crombie maketree treedefs/$(regclass).txt
 	mv $(regclass).h include/
 
-include/$(flatclass).h: $(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) translate.pl regression.txt
-	crombie maketree $(flatclass).txt
+include/$(flatclass).h: treedefs/$(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) translate.pl treedefs/regression.txt
+	crombie maketree treedefs/$(flatclass).txt
 	mv $(flatclass).h include/
+
+
 
 $(effs): data/make_effs.py data/*eff.txt $(corrections)
 	data/make_effs.py

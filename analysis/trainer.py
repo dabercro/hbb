@@ -11,9 +11,9 @@ import tensorflow as tf
 DO_DNN = True
 DO_LSTM = False
 
-INVERSION = 10
+INVERSION = '190903_chs'
 
-INDIR = '/local/dabercro/files/tf_v%i' % INVERSION
+INDIR = '/local/dabercro/files/tf_%s' % INVERSION
 if not os.path.exists(INDIR):
     INDIR = INDIR.replace('/local/dabercro/files/',
                           '/data/t3home000/dabercro/training/regression/')
@@ -30,8 +30,8 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression%s.txt' % '_puppi'
-OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 8
+INPUTSFILE = '/home/dabercro/hbb/analysis/regression%s.txt' % '_rawpuppi'
+OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 9
 
 
 # Logging

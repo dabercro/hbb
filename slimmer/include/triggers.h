@@ -15,7 +15,8 @@ namespace triggers {
   enum class trigger {
     MET,
     HBB_2016,
-    OVERLAP
+    OVERLAP,
+    DILEPTON
   };
 
 }
@@ -52,6 +53,12 @@ namespace {
       }},
     {triggers::trigger::OVERLAP, {
         "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight"
+      }},
+    {triggers::trigger::DILEPTON, {
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+        "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"
       }}};
 
   triggers::tokens get_tokens (const std::vector<const char*>& paths) {

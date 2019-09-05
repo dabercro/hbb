@@ -1,0 +1,26 @@
+"crombie/KinematicFunctions.h"
+"PandaTree/Objects/interface/Event.h"
+
+
+{reset(panda::Event& event)}
+
+<lep{1, 2}> {
+  lep(panda::Lepton& lep)
+
+    $ -> lep.$() | pt, eta, phi, m
+
+}
+
+dilep {
+
+  #vec/TLorentzVector = TLorentzVector() <- vectorSum(<lep{1, 2}_{pt, eta, phi, m}>)
+  $ <- vec.$$() | pt, eta, phi, m
+
+}
+
+<jet{1, 2}> {
+  jet(panda::Jet& jet)
+
+    $ -> jet.$() | pt, eta, phi, m
+
+}

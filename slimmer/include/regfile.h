@@ -6,12 +6,11 @@
 #include "TObject.h"
 #include "TFile.h"
 #include "TTree.h"
-#include "lazytf.h"
 #include "genjet.h"
-#include "pfvecs.h"
-#include "regression.h"
 #include "TVector2.h"
 #include "TLorentzRotation.h"
+#include "pfvecs.h"
+#include "regression.h"
 
 class regfile {
 
@@ -78,10 +77,6 @@ class regfile {
   Float_t Jet_gen_dphi;
   Float_t Jet_gen_mratio;
   Float_t Jet_gen_ptratio;
-  Float_t Jet_gen_transformed_e;
-  Float_t Jet_gen_transformed_px;
-  Float_t Jet_gen_transformed_py;
-  Float_t Jet_gen_transformed_pz;
   Float_t Jet_isEle;
   Float_t Jet_isMu;
   Float_t Jet_isOther;
@@ -633,6 +628,8 @@ class regfile {
   Float_t Jet_puppi_charged_pu_phi;
   Float_t Jet_puppi_charged_pu_pt;
   Float_t Jet_puppi_charged_pu_ptfrac;
+  Float_t Jet_puppi_charged_pu_rawPtfrac;
+  Float_t Jet_puppi_charged_rawPtfrac;
   Float_t Jet_puppi_neutral_deta;
   Float_t Jet_puppi_neutral_dphi;
   Float_t Jet_puppi_neutral_e;
@@ -649,15 +646,16 @@ class regfile {
   Float_t Jet_puppi_neutral_pu_phi;
   Float_t Jet_puppi_neutral_pu_pt;
   Float_t Jet_puppi_neutral_pu_ptfrac;
-  Float_t Jet_raw;
+  Float_t Jet_puppi_neutral_pu_rawPtfrac;
+  Float_t Jet_puppi_neutral_rawPtfrac;
   Float_t Jet_rawEnergy;
   Float_t Jet_rawFactor;
+  Float_t Jet_rawPt;
   Float_t Jet_vtx3dL;
   Float_t Jet_vtx3deL;
   Float_t Jet_vtxMass;
   Short_t Jet_vtxNtrk;
   Float_t Jet_vtxPt;
-  Float_t Jet_withPtd;
   ULong64_t event;
   Float_t genWeight;
   ULong64_t luminosityBlock;
@@ -746,10 +744,6 @@ regfile::regfile(const char* outfile_name, const char* name)
   t->Branch("Jet_gen_dphi", &Jet_gen_dphi, "Jet_gen_dphi/F");
   t->Branch("Jet_gen_mratio", &Jet_gen_mratio, "Jet_gen_mratio/F");
   t->Branch("Jet_gen_ptratio", &Jet_gen_ptratio, "Jet_gen_ptratio/F");
-  t->Branch("Jet_gen_transformed_e", &Jet_gen_transformed_e, "Jet_gen_transformed_e/F");
-  t->Branch("Jet_gen_transformed_px", &Jet_gen_transformed_px, "Jet_gen_transformed_px/F");
-  t->Branch("Jet_gen_transformed_py", &Jet_gen_transformed_py, "Jet_gen_transformed_py/F");
-  t->Branch("Jet_gen_transformed_pz", &Jet_gen_transformed_pz, "Jet_gen_transformed_pz/F");
   t->Branch("Jet_isEle", &Jet_isEle, "Jet_isEle/F");
   t->Branch("Jet_isMu", &Jet_isMu, "Jet_isMu/F");
   t->Branch("Jet_isOther", &Jet_isOther, "Jet_isOther/F");
@@ -1301,6 +1295,8 @@ regfile::regfile(const char* outfile_name, const char* name)
   t->Branch("Jet_puppi_charged_pu_phi", &Jet_puppi_charged_pu_phi, "Jet_puppi_charged_pu_phi/F");
   t->Branch("Jet_puppi_charged_pu_pt", &Jet_puppi_charged_pu_pt, "Jet_puppi_charged_pu_pt/F");
   t->Branch("Jet_puppi_charged_pu_ptfrac", &Jet_puppi_charged_pu_ptfrac, "Jet_puppi_charged_pu_ptfrac/F");
+  t->Branch("Jet_puppi_charged_pu_rawPtfrac", &Jet_puppi_charged_pu_rawPtfrac, "Jet_puppi_charged_pu_rawPtfrac/F");
+  t->Branch("Jet_puppi_charged_rawPtfrac", &Jet_puppi_charged_rawPtfrac, "Jet_puppi_charged_rawPtfrac/F");
   t->Branch("Jet_puppi_neutral_deta", &Jet_puppi_neutral_deta, "Jet_puppi_neutral_deta/F");
   t->Branch("Jet_puppi_neutral_dphi", &Jet_puppi_neutral_dphi, "Jet_puppi_neutral_dphi/F");
   t->Branch("Jet_puppi_neutral_e", &Jet_puppi_neutral_e, "Jet_puppi_neutral_e/F");
@@ -1317,15 +1313,16 @@ regfile::regfile(const char* outfile_name, const char* name)
   t->Branch("Jet_puppi_neutral_pu_phi", &Jet_puppi_neutral_pu_phi, "Jet_puppi_neutral_pu_phi/F");
   t->Branch("Jet_puppi_neutral_pu_pt", &Jet_puppi_neutral_pu_pt, "Jet_puppi_neutral_pu_pt/F");
   t->Branch("Jet_puppi_neutral_pu_ptfrac", &Jet_puppi_neutral_pu_ptfrac, "Jet_puppi_neutral_pu_ptfrac/F");
-  t->Branch("Jet_raw", &Jet_raw, "Jet_raw/F");
+  t->Branch("Jet_puppi_neutral_pu_rawPtfrac", &Jet_puppi_neutral_pu_rawPtfrac, "Jet_puppi_neutral_pu_rawPtfrac/F");
+  t->Branch("Jet_puppi_neutral_rawPtfrac", &Jet_puppi_neutral_rawPtfrac, "Jet_puppi_neutral_rawPtfrac/F");
   t->Branch("Jet_rawEnergy", &Jet_rawEnergy, "Jet_rawEnergy/F");
   t->Branch("Jet_rawFactor", &Jet_rawFactor, "Jet_rawFactor/F");
+  t->Branch("Jet_rawPt", &Jet_rawPt, "Jet_rawPt/F");
   t->Branch("Jet_vtx3dL", &Jet_vtx3dL, "Jet_vtx3dL/F");
   t->Branch("Jet_vtx3deL", &Jet_vtx3deL, "Jet_vtx3deL/F");
   t->Branch("Jet_vtxMass", &Jet_vtxMass, "Jet_vtxMass/F");
   t->Branch("Jet_vtxNtrk", &Jet_vtxNtrk, "Jet_vtxNtrk/S");
   t->Branch("Jet_vtxPt", &Jet_vtxPt, "Jet_vtxPt/F");
-  t->Branch("Jet_withPtd", &Jet_withPtd, "Jet_withPtd/F");
   t->Branch("event", &event, "event/l");
   t->Branch("genWeight", &genWeight, "genWeight/F");
   t->Branch("luminosityBlock", &luminosityBlock, "luminosityBlock/l");
@@ -1396,10 +1393,6 @@ void regfile::reset(const panda::Event& e) {
   Jet_gen_dphi = 0;
   Jet_gen_mratio = 0;
   Jet_gen_ptratio = 0;
-  Jet_gen_transformed_e = 0;
-  Jet_gen_transformed_px = 0;
-  Jet_gen_transformed_py = 0;
-  Jet_gen_transformed_pz = 0;
   Jet_isEle = 0;
   Jet_isMu = 0;
   Jet_isOther = 0;
@@ -1951,6 +1944,8 @@ void regfile::reset(const panda::Event& e) {
   Jet_puppi_charged_pu_phi = 0;
   Jet_puppi_charged_pu_pt = 0;
   Jet_puppi_charged_pu_ptfrac = 0;
+  Jet_puppi_charged_pu_rawPtfrac = 0;
+  Jet_puppi_charged_rawPtfrac = 0;
   Jet_puppi_neutral_deta = 0;
   Jet_puppi_neutral_dphi = 0;
   Jet_puppi_neutral_e = 0;
@@ -1967,15 +1962,16 @@ void regfile::reset(const panda::Event& e) {
   Jet_puppi_neutral_pu_phi = 0;
   Jet_puppi_neutral_pu_pt = 0;
   Jet_puppi_neutral_pu_ptfrac = 0;
-  Jet_raw = 0;
+  Jet_puppi_neutral_pu_rawPtfrac = 0;
+  Jet_puppi_neutral_rawPtfrac = 0;
   Jet_rawEnergy = 0;
   Jet_rawFactor = 0;
+  Jet_rawPt = 0;
   Jet_vtx3dL = 0;
   Jet_vtx3deL = 0;
   Jet_vtxMass = 0;
   Jet_vtxNtrk = 0;
   Jet_vtxPt = 0;
-  Jet_withPtd = 0;
   event = e.eventNumber;
   genWeight = e.weight;
   luminosityBlock = e.lumiNumber;
@@ -1991,12 +1987,15 @@ void regfile::fill() {
   Jet_isEle = std::abs(Jet_leptonPdgId) == 11;
   Jet_isMu = std::abs(Jet_leptonPdgId) == 13;
   Jet_isOther = not (Jet_isEle or Jet_isMu);
-  Jet_withPtd = Jet_ptd;
   Jet_pfmet_dphi = TVector2::Phi_mpi_pi(pfmet_phi - Jet_phi);
   Jet_puppi_charged_ptfrac = Jet_puppi_charged_pt/Jet_pt;
+  Jet_puppi_charged_rawPtfrac = Jet_puppi_charged_pt/Jet_rawPt;
   Jet_puppi_charged_pu_ptfrac = Jet_puppi_charged_pu_pt/Jet_pt;
+  Jet_puppi_charged_pu_rawPtfrac = Jet_puppi_charged_pu_pt/Jet_rawPt;
   Jet_puppi_neutral_ptfrac = Jet_puppi_neutral_pt/Jet_pt;
+  Jet_puppi_neutral_rawPtfrac = Jet_puppi_neutral_pt/Jet_rawPt;
   Jet_puppi_neutral_pu_ptfrac = Jet_puppi_neutral_pu_pt/Jet_pt;
+  Jet_puppi_neutral_pu_rawPtfrac = Jet_puppi_neutral_pu_pt/Jet_rawPt;
   Jet_puppi_charged_deta = TVector2::Phi_mpi_pi(Jet_puppi_charged_eta - Jet_eta);
   Jet_puppi_charged_dphi = TVector2::Phi_mpi_pi(Jet_puppi_charged_phi - Jet_phi);
   Jet_puppi_charged_pu_deta = TVector2::Phi_mpi_pi(Jet_puppi_charged_pu_eta - Jet_eta);
@@ -2015,16 +2014,13 @@ void regfile::fill() {
 template <typename G> void regfile::set_jet(const jet base, const panda::Jet& jet, const gennujet::GenNuVec& withnu, const G gen) {
   auto p4 = jet.p4();
   auto info = regression::GetJetInfo(jet);
-  auto transform = pfvecs::get_transform(jet);
-  auto pfvecs = pfvecs::get_vecs(jet, transform, pv);
-  auto gen_transformed = transform * withnu.genvec;
+  auto pfvecs = pfvecs::get_vecs(jet, pfvecs::get_transform(jet), pv);
   switch(base) {
   case regfile::jet::Jet:
     Jet_puId = jet.puid;
     Jet_btagCMVA = jet.cmva;
     Jet_btagDeepC = jet.deepCSVc + jet.deepCSVcc;
     Jet_btagDeepB = jet.deepCSVb + jet.deepCSVbb;
-    Jet_raw = jet.rawPt/jet.pt();
     Jet_pt = p4.Pt();
     Jet_eta = p4.Eta();
     Jet_phi = p4.Phi();
@@ -2035,6 +2031,7 @@ template <typename G> void regfile::set_jet(const jet base, const panda::Jet& je
     Jet_chf = jet.chf;
     Jet_nef = jet.nef;
     Jet_nhf = jet.nhf;
+    Jet_rawPt = jet.rawPt;
     Jet_vtxNtrk = info.vtxNtrk;
     Jet_vtxMass = info.vtxMass;
     Jet_vtx3dL = info.vtx3dL;
@@ -2634,10 +2631,6 @@ template <typename G> void regfile::set_jet(const jet base, const panda::Jet& je
     Jet_mcPhi = withnu.genvec.Phi();
     Jet_mcM = withnu.genvec.M();
     Jet_mcFlavour = gen->partonFlavor;
-    Jet_gen_transformed_px = gen_transformed.Px();
-    Jet_gen_transformed_py = gen_transformed.Py();
-    Jet_gen_transformed_pz = gen_transformed.Pz();
-    Jet_gen_transformed_e = gen_transformed.E();
     break;
   default:
     throw;
