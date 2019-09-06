@@ -1,3 +1,4 @@
+"TVector2.h"
 "crombie/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 
@@ -30,10 +31,13 @@ dilep {
 <jet{1, 2}> {
   jet(panda::Jet& jet)
 
-    /O = false -> true
-
     #INCLUDE treedefs/regression.txt
+
+    dphi_met -> std::abs(TVector2::Phi_mpi_pi(pfmet_phi - []_phi))
 
   #INCLUDE treedefs/regeval.txt
 
+
 }
+
+-- jet1 and jet2_pt/jet1_pt < 0.3 and jet1_dphi_met > 2.0 --

@@ -1,3 +1,18 @@
+#ifndef CROMBIE_PFCANDS_H
+#define CROMBIE_PFCANDS_H 1
+
+#include <cmath>
+#include <vector>
+#include <iostream>
+
+#include "fastjet/ClusterSequence.hh"
+#include "crombie/EtaPhiMap.h"
+
+#include "PandaTree/Objects/interface/Event.h"
+
+#include "input.h"
+#include "debugevent.h"
+
 // Here we deal with particle flow stuff
 
 namespace {
@@ -53,3 +68,5 @@ namespace pfcands {
   }
 
 }
+
+#endif

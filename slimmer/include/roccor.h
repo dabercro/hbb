@@ -6,7 +6,7 @@
 /* } */
 
 namespace roccor {
-  double scale(panda::Event& event, panda::Muon& muon) {
+  double scale(const panda::Event& event, const panda::Muon& muon) {
     return 1.0;
     /* if (event.isData) */
     /*   return rochester.kScaleDT(muon.charge, muon.pt(), muon.eta(), muon.phi()); */

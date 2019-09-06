@@ -1,3 +1,6 @@
+#ifndef CROMBIE_TRKMET_H
+#define CROMBIE_TRKMET_H 1
+
 #include <cmath>
 #include "TMath.h"
 #include "TVector2.h"
@@ -29,3 +32,5 @@ namespace trkmet {
   }
 
 }
+
+#endif

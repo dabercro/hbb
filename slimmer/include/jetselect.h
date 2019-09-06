@@ -1,5 +1,5 @@
 #ifndef CROMBIE_JETSELECT_H
-
+#define CROMBIE_JETSELECT_H 1
 
 #include <iostream>
 #include <memory>
@@ -7,11 +7,17 @@
 #include <debugevent.h>
 #include <input.h>
 
-#include "PandaTree/Utils/interface/JECCorrector.h"
+#include "crombie/KinematicFunctions.h"
 
+#include "PandaTree/Utils/interface/JECCorrector.h"
+#include "PandaTree/Objects/interface/Event.h"
+
+#include "debugevent.h"
+#include "leptonselect.h"
 
 namespace jetselect {
 
+  // The corrected jets and MET
   class UpdateResult {
   public:
     UpdateResult (const panda::JetCollection& ak4jets,
@@ -66,6 +72,29 @@ namespace jetselect {
     panda::Event* event {nullptr};
 
   };
+
+  bool clean_jet (const panda::Jet& jet,
+                  const leptonselect::SelectedLeptons& leptons,
+                  double cleaning_dr2 = std::pow(0.4, 2)) {
+
+    // Loop through both muons and electrons
+
+    for (auto& info : leptons.preselected) {
+
+      auto* lepton = info.particle;
+      auto reliso = lepton->combIso()/lepton->pt();
+
+      if (reliso < 0.4 and
+          deltaR2(jet.eta(), jet.phi(), lepton->eta(), lepton->phi()) < cleaning_dr2) {
+        if (debugevent::debug)
+          std::cout << "Jet with pt " << jet.pt() << " cleaned" << std::endl;
+        return false;
+      }
+    }
+
+    return true;
+
+  }
 
 }
 

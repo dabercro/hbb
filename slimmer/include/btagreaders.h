@@ -1,14 +1,21 @@
 #ifndef DAN_BTAGREADERS_H
 #define DAN_BTAGREADERS_H 1
 
+#include <regex>
+
 // #include "bcal/BTagCalibrationStandalone.cpp" 
 #include "CondTools/BTau/interface/BTagCalibrationReader.h"
 
 #include "PandaTree/Objects/interface/Event.h"
 
+#include "crombie/EtaPhiMap.h"
+
 #include "TH2F.h"
 #include "TH1D.h"
 #include "TFile.h"
+
+#include "input.h"
+#include "debugevent.h"
 
 namespace {
 

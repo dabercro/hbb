@@ -4,23 +4,22 @@
 
 #include "hbbfile.h"
 #include "triggers.h"
-#include "misc.h"
 #include "jetselect.h"
+#include "leptonselect.h"
+#include "softcalc.h"
+#include "feedpanda.h"
+#include "myrandom.h"
+#include "checkrun.h"
 
 #include "fastjet/ClusterSequence.hh"
 
-#include "crombie/CmsswParse.h"
 #include "crombie/ObjectStore.h"
+#include "crombie/CmsswParse.h"
 
 #include "TH1F.h"
 #include "TH1D.h"
 
 using namespace crombie;
-
-// Need to implement this here due to forward declaration in puid.h
-void puid::update (const panda::Jet& jet, hbbfile* output) {
-  output->set_countnopuid(jet);
-}
 
 // Terminating case first is an object store, then a list of set functions to call on it
 template<typename S, typename F> void set_particles(S& store, const F& function) {
@@ -133,31 +132,20 @@ int parsed_main(int argc, char** argv) {
       if (debugevent::debug)
         std::cout << "Starting photons" << std::endl;
 
-      std::vector<std::pair<float, float>> em_directions; // Pairs of eta, phi for preselected leptons for cleaning
-
       for (auto& pho : event.photons) {
         output.n_pho_loose += pho.loose;
         output.n_pho_medium += pho.medium;
         output.n_pho_tight += pho.tight;
       }
 
-      //// TAUS ////
-      if (debugevent::debug)
-        std::cout << "Starting taus" << std::endl;
-      for (auto& tau : event.taus) {
-        if (tau.pt() > 18 && std::abs(tau.eta()) < 2.3 && tau.decayMode && tau.isoDeltaBetaCorr)
-          output.n_tau_loose++;
-      }
+      //// LEPTONS ////
 
-      //// OTHER LEPTONS ////
-      if (debugevent::debug)
-        std::cout << "Starting other leptons" << std::endl;
+      leptonselect::SelectedLeptons selectedleptons {event};
+
+      output.n_tau_loose = selectedleptons.numloosetau;
 
       TLorentzVector lepvec {};
-      std::vector<panda::Lepton*> selected_leps;
 
-      // Define default checks here
-      // We'll do a lambda with no arguments for lazy evaluation
 
       using lepstore = ObjectStore::ObjectStore<hbbfile::dilep, panda::Lepton>;
 
@@ -167,112 +155,16 @@ int parsed_main(int argc, char** argv) {
       lepstore stored_eles({hbbfile::dilep::ele1, hbbfile::dilep::ele2},
                            [] (const panda::Lepton& l) { return l.pt(); });
 
+      output.set_countselected(selectedleptons);
 
-      auto set_lep = [&output, &lepvec, &em_directions, &selected_leps,
-                      &stored_muons, &stored_eles]
-        (hbbfile::lep branch, panda::Lepton& lep, LepInfo info,
-         lazy::LazyCuts ids) {
-        // Definitions straight from AN
-        if (ids.presel()) {
-          if (debugevent::debug) {
-            std::cout << "Placing lepton for cleaning [pt, eta, phi, m, reliso] = ["
-                      << lep.pt() << ", " << lep.eta() << ", " << lep.phi() << ", " << lep.m() << ", "
-                      << info.reliso << "]" << std::endl;
-          }
-          if (info.reliso < 0.4)
-            em_directions.emplace_back(lep.eta(), lep.phi());
-          output.set_lep(branch, lep, info, ids);
-          if (ids.loose()) {
-            selected_leps.push_back(&lep);
+      for (auto& info : selectedleptons.loose)
+        (info.ismuon ? stored_muons : stored_eles).check(*(info.particle));
 
-            (branch == hbbfile::lep::muon ? stored_muons : stored_eles).check(lep);
-
-            if (ids.medium() && ids.tight()) {
-              lepvec += lep.p4();                         // Only want to add the one tight lepton for recoil in ttbar
-              output.tight_lep_pt = std::max(output.tight_lep_pt,
-                                             static_cast<decltype(output.tight_lep_pt)>(lep.pt()));
-            }
-          }
-        }
-      };
-
-      // Loop over muons
-      for (auto& lep : event.muons) {
-
-        auto abseta = std::abs(lep.eta());
-        auto pt = lep.pt();
-        auto corrpt = pt * roccor::scale(event, lep); // This scale() function must be called for every muon in the event for repeatable random numbers
-        auto reliso = lep.combIso()/pt;
-        auto minireliso = reliso::minireliso(lep, event.rho);
-
-        if(debugevent::debug)
-          std::cout << "Muon with pt " << lep.pt() << " Corrected to " << corrpt
-                    << " has reliso " << reliso << " minireliso " << minireliso << std::endl;
-
-        set_lep(hbbfile::lep::muon, lep, {reliso, minireliso, corrpt},
-                {[&] {   // Muon preselection
-                    return pt > 5.0 and abseta < 2.4 and lep.loose and
-                      lep.dxy < 0.5 and lep.dz < 1.0 and std::min(reliso, minireliso) < 0.4;
-                  },
-                  [&] {   // Loose muons
-                    return lep.pf and (lep.global or lep.tracker);
-                  },
-                  [&] {   // Medium muons; they don't seem to do anything with those
-                    return true;
-                  },
-                  [&] {   // Tight muons; there's probably also a pT cut, but they don't give it directly
-                    return lep.tight and reliso < 0.15 and
-                      lep.global and lep.normChi2 < 10.0 and
-                      lep.nValidMuon > 0 and lep.nMatched > 1 and
-                      lep.nValidPixel > 0 and lep.trkLayersWithMmt > 5 and
-                      lep.dxy < 0.2 and lep.dz < 0.5;
-                  }
-                });
-      }
-
-      // Loop over electrons
-
-      // Make a map to go from PFCands to Electrons for checking
-
-      std::map<const panda::Ref<panda::PFCand>::index_type, const panda::Electron*> pf_to_electron;
-
-      for (auto& lep : event.electrons) {
-
-        const auto pf = lep.matchedPF;
-        if (pf.isValid())
-          pf_to_electron[pf.idx()] = &lep;
-
-        auto abseta = std::abs(lep.eta());
-        auto pt = lep.pt();
-        auto corrpt = lep.smearedPt;
-        auto reliso = lep.combIso()/pt;
-        auto minireliso = reliso::minireliso(lep);
-
-        if(debugevent::debug)
-          std::cout << "Electron with pt " << lep.pt() << " Corrected to " << corrpt
-                    << " has reliso " << reliso << " minireliso " << minireliso << std::endl;
-
-        set_lep(hbbfile::lep::ele, lep, {reliso, minireliso, corrpt},
-                {[&] {   // Electron preselection
-                    return pt > 7.0 and abseta < 2.4 and
-                      lep.dxy < 0.05 and lep.dz < 0.20 and std::min(reliso, minireliso) < 0.4;
-                  },
-                  [&] {   // Loose electrons for conservative event classification
-                    return lep.mvaWP90;
-                  },
-                  [&] {   // "Medium" electrons, which I define as the cut applied to match MVA training
-                    return pt > 15.0 and lep.hOverE < 0.09 and lep.trackIso/pt < 0.18 and
-                      ((abseta < 1.4442 and lep.sieie < 0.012 and
-                        lep.ecalIso/pt < 0.4 and lep.hcalIso/pt < 0.25 and
-                        std::abs(lep.dEtaInSeed) < 0.0095 and std::abs(lep.dPhiIn) < 0.065) or
-                       (abseta > 1.5660 and lep.sieie < 0.033 and
-                        lep.ecalIso/pt < 0.45 and lep.hcalIso/pt < 0.28)
-                       );
-                  },
-                  [&] {   // Tight electrons
-                    return lep.mvaWP80;
-                  }
-                });
+      for (auto& info : selectedleptons.tight) {
+        auto& lep = *info.particle;
+        lepvec += lep.p4();                         // Only want to add the one tight lepton for recoil in ttbar
+        output.tight_lep_pt = std::max(output.tight_lep_pt,
+                                       static_cast<decltype(output.tight_lep_pt)>(lep.pt()));
       }
 
       set_particles({&stored_muons, &stored_eles},
@@ -303,8 +195,6 @@ int parsed_main(int argc, char** argv) {
       };
 
       pfcands::MakeNuJets(event);
-
-      std::map<const panda::GenJet*, gennujet::GenNuVec> gen_nu_map;
 
       //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
       if (debugevent::debug)
@@ -340,11 +230,6 @@ int parsed_main(int argc, char** argv) {
               cone_size = check;
               closest = &gen_jet;
             }
-          }
-          if (closest) {
-            if (gen_nu_map.find(closest) == gen_nu_map.end())
-              gen_nu_map[closest] = {closest->p4()};
-            gen_nu_map[closest].add_nu(gen);
           }
         }
         else if (not (gen.parent.isValid() and gen.parent->pdgid == gen.pdgid)) { // Count bs for stitching
@@ -382,25 +267,18 @@ int parsed_main(int argc, char** argv) {
                             [] (const panda::Jet& j) { return j.cmva + 2; } :
                             [] (const panda::Jet& j) { return j.deepCSVb + j.deepCSVbb + 2; });
 
-      // Check if overlaps with EM object
-      auto overlap_em = [&em_directions] (const panda::Particle& jet, double dr2) {
-        for (auto& dir : em_directions) {
-          if (deltaR2(jet.eta(), jet.phi(), dir.first, dir.second) < dr2) {
-            if (debugevent::debug)
-              std::cout << "Jet with pt " << jet.pt() << " cleaned" << std::endl;
-            return true;
-          }
-        }
-        return false;
-      };
-
       for (auto& jet : updated_jets.ak4jets) {
 
-        if (overlap_em(jet, std::pow(0.4, 2)) or jet.pt() < 15.0 or not puid::loose(jet, &output)) {
+        if (jet.pt() < 15.0 or not jetselect::clean_jet(jet, selectedleptons)) {
           if (debugevent::debug)
             std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
           continue;
         }
+
+        output.set_countnopuid(jet);
+
+        if (not puid::loose(jet))
+          continue;
 
         lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
         lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
@@ -449,9 +327,9 @@ int parsed_main(int argc, char** argv) {
       auto dylanjets = pseudojets;
 
       for (auto& cand : event.pfCandidates) {
-        auto match_lep = [&cand, &selected_leps] () {
-          for (auto* lep : selected_leps) {
-            if (lep->matchedPF.get() == &cand)
+        auto match_lep = [&cand, &selectedleptons] () {
+          for (auto& info : selectedleptons.loose) {
+            if (info.particle->matchedPF.get() == &cand)
               return true;
           }
           return false;

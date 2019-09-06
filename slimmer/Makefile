@@ -48,7 +48,7 @@ $(data): data/*.csv data/*.txt data/*.xml data/*.root $(corrections) data/rcdata
 	touch $(data)
 
 $(target): src/slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h include/$(flatclass).h \
-	${CROMBIEPATH}/src/include/crombie/*.h \
+	${CROMBIEPATH}/src/include/crombie/*.h ${CROMBIEPATH}/old/SkimmingTools/interface/*.h \
 	include/roccor/RoccoR.cc include/jecsys \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh
@@ -58,7 +58,7 @@ $(target): src/slimmer.cpp include/*.h include/checkrun.h include/feedpanda.h in
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(target) src/slimmer.cpp
 
 $(regression): src/regression.cpp include/*.h include/feedregression.h include/$(regclass).h \
-	${CROMBIEPATH}/src/include/crombie/*.h \
+	${CROMBIEPATH}/src/include/crombie/*.h ${CROMBIEPATH}/old/SkimmingTools/interface/*.h \
 	include/roccor/RoccoR.cc include/jecsys \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh
@@ -67,7 +67,7 @@ $(regression): src/regression.cpp include/*.h include/feedregression.h include/$
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(regression) src/regression.cpp
 
 $(smear): src/smear.cpp include/*.h include/feedsmear.h include/smearfile.h \
-	${CROMBIEPATH}/src/include/crombie/*.h \
+	${CROMBIEPATH}/src/include/crombie/*.h ${CROMBIEPATH}/old/SkimmingTools/interface/*.h \
 	include/roccor/RoccoR.cc include/jecsys \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh

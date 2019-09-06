@@ -1,7 +1,5 @@
 ! Needs following parameters defined:
 !
-!  bool matching the jet name
-!
 !  everything from regression.txt
 !
 

@@ -1,4 +1,10 @@
-// Needs headers
+#ifndef CROMBIE_RELISO_H
+#define CROMBIE_RELISO_H 1
+
+
+#include "debugevent.h"
+#include "pfcands.h"
+
 
 namespace {
 
@@ -25,7 +31,7 @@ namespace {
 namespace reliso {
   // Requires the relisomap to be filled with the event's PFCandidates
   // Only use rho for muon calculations
-  double minireliso(panda::Lepton& lep, decltype(panda::Event::rho) rho = 0) {
+  double minireliso(const panda::Lepton& lep, decltype(panda::Event::rho) rho = 0) {
     // Get the parameter set
     const auto& params = rho ? muon_params : (std::abs(lep.eta()) < 1.4442 ? ele_barrel : ele_endcap);
 
@@ -94,3 +100,6 @@ namespace reliso {
     return (chiso + std::max(0.0, nhiso + phiso - puiso))/lep.pt();
   }
 }
+
+
+#endif

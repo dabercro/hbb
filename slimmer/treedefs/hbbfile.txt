@@ -2,7 +2,6 @@
 <algorithm>
 "crombie/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
-"misc.h"
 "triggers.h"
 
 {/F}                           ! Default type
@@ -21,6 +20,8 @@ $ = event.$ | weight
 $@ = event.$@@.pt | pf, calo, trk, raw |@ met
 $@_phi = event.$@@.phi | pf, calo, trk, raw |@ met
 
+"trkmet.h"
+
 #dztrkmetvec/TVector2 = trkmet::trkmet(event)
 dztrkmet <- dztrkmetvec.Mod()
 dztrkmet_phi <- dztrkmetvec.Phi()
@@ -29,6 +30,8 @@ $_trigger/O = triggers::check(triggers::trigger::$$$) | met, hbb_2016, overlap
 met_filter/O = event.metFilters.pass()
 
 tight_lep_pt
+
+"lazy.h"
 
 countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& csv, lazy::LazyCuts& deepCSV)
   jet_$[] -> jet.$() | pt, eta, phi
@@ -77,22 +80,9 @@ n_pho {
 
 {/F}
 
+"leptonselect.h"
+
 muon, ele {
-  lep(panda::Lepton& lep, LepInfo info, lazy::LazyCuts& cuts)
-
-    ~~ cuts.$() ~~ \\ count_$/b -> ++ | presel
-
-    lowreliso/b -> +(info.reliso < 0.4)  ! Both preselected and have low reliso
-
-    #$[] -> info.$ | reliso, minireliso, corrpt
-    #q[]/B -> lep.charge
-
-    #pog_$[]/O = false -> lep.$ | loose, medium, tight
-    #$[]/O = false -> cuts.$() | loose, medium, tight
-    #$[] -> lep.$() | pt, eta, phi
-
-    ~~ cuts.$() ~~ \\ count_$/b -> ++ | loose, medium, tight
-
   1, 2 {
     dilep(panda::Lepton& lep)
       /O = false -> true
@@ -104,8 +94,8 @@ muon, ele {
 di$_m <- vectorSumMass(<${1, 2}_{pt, eta, phi, m}>) | muon, ele
 di$_pt <- vectorSumPt(<${1, 2}_{pt, phi}>) | muon, ele
 
-n_lep_$/b <- <{muon + ele}_count_$> | presel, loose, medium, tight
-n_$/b <- <{muon + ele}_$> | lowreliso
+countselected(<T>& selected)
+  n_lep_$/b -> selected.$.size() | preselected, loose, tight
 
 ! Some calculated things
 
@@ -122,6 +112,7 @@ min_dphi_recoilb <- std::min(<deltaPhi(jet{1, 2}_phi, recoilphi)>)
 dphi_met_$met <- deltaPhi(<{pf, $}met_phi>) | trk, dztrk
 
 "quickb.h"
+"btagreaders.h"
 
 bsf(panda::Jet& jet, bool loose)
   ! Hold some values temporarily. Should implement local variables some day
@@ -182,6 +173,8 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
 
 #pv/TVector3 = event.vertices.at(0).position()
 
+"puid.h"
+
 ! Input jets are used to set the following variables
 !! <jet{1, 2, 3}> {
 <jet{1, 2}> {
@@ -190,7 +183,6 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
 
   bjet(panda::Jet& jet, <C> cuts)
 
-    /O = false -> true
 !    ? pt; jetpt; e, m ? -> jet.ptCorr%%   ! Indicate pt uncertainty
 
     loosepu/O = false -> puid::loose(jet)
@@ -212,6 +204,8 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
     !!!!!!!
 
     #INCLUDE treedefs/regeval.txt
+
+"genjet.h"
 
   genjet(panda::GenJet& gen, gennujet::GenNuVec& withnu)
 
@@ -276,6 +270,8 @@ genboson, gen_t, gen_tbar {
 
 pdf = 1.0
 
+"input.h"
+
 ! pandaf/009
 !! ? pdf; pdf ? = input::version <= 9 ? 1.0 +- std::abs(event.genReweight.pdfDW) : 1.0
 
@@ -292,14 +288,16 @@ renormfact {
 ! -- jet1_gen_numB --
 
 ! Filter
-DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_medium > 1 and (n_centerjet == 2 or n_allbjet == 2))
+DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_loose > 1 and (n_centerjet == 2 or n_allbjet == 2))
+
+"debugevent.h"
 
 ! These are filled before the fill function
 -- \
 input::noskim or \
 debugevent::debugevent or \
 ((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
-BTAGPROBE
+BTAGPROBE \
 --
 
 ! These are filled in the fill function
@@ -307,10 +305,10 @@ BTAGPROBE
 input::noskim or \
 debugevent::debugevent or \
 BTAGPROBE or \
-daughter_max_pt > 40 and daughter_min_pt > 30 and \
-dphi_uh > 1.6 and hbb_pt > 100 and \
- ((n_lep_presel == 0 and min_dphi_metj_hard > 0.25) or \
-  (n_lep_loose > 0 and n_centerjet >= 4)) \
+(daughter_max_pt > 40 and daughter_min_pt > 30 and \
+ dphi_uh > 1.6 and hbb_pt > 100 and \
+  ((n_lep_preselected == 0 and min_dphi_metj_hard > 0.25) or \
+   (n_lep_loose > 0 and n_centerjet >= 4))) \
 ++
 
 

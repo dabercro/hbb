@@ -21,8 +21,8 @@ condor.cfg
 *.d
 condor.cfg
 checkrun.h
-feedpanda.h
-hbbfile.h
+feed*.h
+*file.h
 
 plotter/datacards/*
 fitDiagnostics.root.*
