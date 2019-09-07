@@ -6,6 +6,8 @@
 #include <vector>
 #include <functional>
 
+#include "crombie/EtaPhiMap.h"
+
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "reliso.h"
@@ -57,15 +59,20 @@ namespace leptonselect {
   public:
     SelectedLeptons (const panda::Event& event) {
 
-      auto update = [this, &event] (const auto& leptons,
-                                    bool ismuon,
-                                    auto is_presel,
-                                    auto is_loose,
-                                    auto is_tight) {
+      EtaPhiMap<panda::PFCand> pfmap {0.1};
+
+      // Set the PFCandidate map used for redoing reliso calculations
+      pfmap.AddParticles(event.pfCandidates);
+
+      auto update = [this, &event, &pfmap] (const auto& leptons,
+                                            bool ismuon,
+                                            auto is_presel,
+                                            auto is_loose,
+                                            auto is_tight) {
 
         for (auto& lep : leptons) {
           auto reliso = lep.combIso()/lep.pt();
-          auto minireliso = reliso::minireliso(lep, ismuon * event.rho);
+          auto minireliso = reliso::minireliso(pfmap, lep, ismuon * event.rho);
           auto abseta = std::abs(lep.eta());
 
           auto check = [&] (auto& func) {

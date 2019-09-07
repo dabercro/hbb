@@ -21,7 +21,6 @@ namespace {
 }
 
 namespace pfcands {
-  static EtaPhiMap<panda::PFCand> pfmap {0.1};
 
   void MakeNuJets (panda::Event& event) {
     if (event.isData)

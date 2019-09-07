@@ -1,8 +1,10 @@
+#include "exceptions.h"
 #include "jetselect.h"
 #include "smearfile.h"
 #include "checkrun.h"
 #include "triggers.h"
 #include "feedsmear.h"
+#include "puid.h"
 
 #include "TH1F.h"
 
@@ -41,9 +43,40 @@ int parsed_main(int argc, char** argv) {
                        event.lumiNumber))
         continue;
 
-      output.reset(event);
-
       // Do the stuff
+
+      leptonselect::SelectedLeptons selectedleptons {event};
+
+      if (selectedleptons.loose.size() != 2)
+        continue;
+
+      auto updated_jets = jetselector.update_event();
+
+      if (not updated_jets.ak4jets.size())
+        continue;
+
+      output.reset(event, updated_jets.pfmet);
+
+      output.set_lep(smearfile::lep::lep1, exceptions::at(selectedleptons.loose, 0, __LINE__));
+      output.set_lep(smearfile::lep::lep2, exceptions::at(selectedleptons.loose, 1, __LINE__));
+
+      unsigned num_jet = 0;
+
+      for (auto& jet : updated_jets.ak4jets)
+        if (jet.pt() > 15 and jetselect::clean_jet(jet, selectedleptons) and puid::loose(jet)) {
+
+          if (not output.jet2)
+            output.set_jet(output.jet1
+                           ? smearfile::jet::jet2
+                           : smearfile::jet::jet1,
+                           jet);
+
+          num_jet++;
+
+        }
+
+      if (num_jet > 2)
+        continue;
 
       output.fill();
     }

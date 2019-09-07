@@ -122,8 +122,6 @@ int parsed_main(int argc, char** argv) {
           continue;
       }
 
-      // Set the PFCandidate map used for redoing reliso calculations
-      pfcands::pfmap.AddParticles(event.pfCandidates);
       // Gen Jets for determining flavor
       if (not event.isData)
         btag::genjetmap.AddParticles(event.ak4GenJets);

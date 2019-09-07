@@ -97,7 +97,7 @@ include/feedregression.h: include/[!f]*.h src/regression.cpp include/$(regclass)
 
 include/feedsmear.h: include/[!f]*.h src/smear.cpp include/smearfile.h ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def \
-	include/pfvecs.h include/jetselect.h include/smearfile.h src/smear.cpp include/feedsmear.h
+	include/pfvecs.h include/jetselect.h include/leptonselect.h include/smearfile.h src/smear.cpp include/feedsmear.h
 
 include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h src/slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/[!f]*.h src/slimmer.cpp include/feedpanda.h
@@ -143,7 +143,7 @@ smeartestdir = ${HOME}/public_html/plots/testsmear_$(vers)
 
 smeartest: $(smear)
 	test ! -f smear.root || rm smear.root
-	input_dir='/test/pandaf/013/this' smeartree /data/t3home000/dabercro/scratch/TTToHadronic/661A1D00-21C9-634B-829E-48F95273CAC7.root smear.root
+	input_dir='/test/pandaf/013/this' smeartree /data/t3home000/dabercro/scratch/DYJetsToLL_M-50/*.root smear.root
 	test -z ${CMSSW_BASE} || test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || test ! -d $(smeartestdir) || mv $(smeartestdir) $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump smear.root $(smeartestdir)

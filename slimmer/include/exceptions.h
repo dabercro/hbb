@@ -7,7 +7,7 @@
 namespace exceptions {
 
   template<typename T>
-    typename T::value_type at(T vec, unsigned index, unsigned line) {
+    typename T::value_type& at(T& vec, unsigned index, unsigned line) {
 
     try {
       return vec.at(index);

@@ -31,7 +31,8 @@ namespace {
 namespace reliso {
   // Requires the relisomap to be filled with the event's PFCandidates
   // Only use rho for muon calculations
-  double minireliso(const panda::Lepton& lep, decltype(panda::Event::rho) rho = 0) {
+  double minireliso(const EtaPhiMap<panda::PFCand>& pfmap, const panda::Lepton& lep,
+                    decltype(panda::Event::rho) rho = 0) {
     // Get the parameter set
     const auto& params = rho ? muon_params : (std::abs(lep.eta()) < 1.4442 ? ele_barrel : ele_endcap);
 
@@ -43,7 +44,7 @@ namespace reliso {
     // Copy of pat::miniIsoDr
     double drcut = std::max(params.min_dr, std::min(params.max_dr, params.kt_scale/lep.pt()));
 
-    for (const auto* cand : pfcands::pfmap.GetParticles(lep.eta(), lep.phi(), drcut)) {
+    for (const auto* cand : pfmap.GetParticles(lep.eta(), lep.phi(), drcut)) {
       auto id = std::abs(cand->pdgId());
       auto pt = cand->pt();
       auto dr = deltaR(lep.eta(), lep.phi(), cand->eta(), cand->phi());

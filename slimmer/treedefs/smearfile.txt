@@ -1,9 +1,15 @@
+<cmath>
+
+"triggers.h"
+"leptonselect.h"
+
 "TVector2.h"
+
 "crombie/KinematicFunctions.h"
 "PandaTree/Objects/interface/Event.h"
 
 
-{reset(panda::Event& event)}
+{reset(panda::Event& event, panda::RecoMet& met)}
 
 $/i = event.$ | runNumber
 $ = event.$ | rho
@@ -11,13 +17,18 @@ $/l = event.$ | eventNumber, lumiNumber
 
 #pv/TVector3 = event.vertices.at(0).position()
 
-$@ = event.$@@.pt | pf |@ met
-$@_phi = event.$@@.phi | pf |@ met
+pfmet = met.pt
+pfmet_phi = met.phi
+
+trigger/O = triggers::check(triggers::trigger::DILEPTON)
 
 <lep{1, 2}> {
-  lep(panda::Lepton& lep)
+  lep(leptonselect::LepInfo& lep)
 
-    $ -> lep.$() | pt, eta, phi, m
+    $ -> lep.particle->$() | pt, eta, phi, m
+    q/B -> lep.particle->charge
+    $/O -> lep.$ | ismuon
+    $ -> lep.$ | reliso, minireliso, corrpt
 
 }
 
@@ -33,11 +44,12 @@ dilep {
 
     #INCLUDE treedefs/regression.txt
 
-    dphi_met -> std::abs(TVector2::Phi_mpi_pi(pfmet_phi - []_phi))
+  dphi_ll <- std::abs(TVector2::Phi_mpi_pi(dilep_phi - []_phi))
 
   #INCLUDE treedefs/regeval.txt
 
-
 }
 
--- jet1 and jet2_pt/jet1_pt < 0.3 and jet1_dphi_met > 2.0 --
+-- jet1 and jet2_pt/jet1_pt < 0.3 --
+
+++ jet1_dphi_ll > 2.0 ++
