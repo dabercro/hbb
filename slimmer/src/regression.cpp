@@ -1,78 +1,37 @@
-#include "input.h"
-
 #include "regfile.h"
 #include "feedregression.h"
-#include "jetselect.h"
+#include "main.h"
 
 #include "crombie/CmsswParse.h"
 
+template <>
+void process_event<regfile>(regfile& output, const panda::Event& event, jetselect::JetSelector& jetselector) {
 
-int parsed_main(int argc, char** argv) {
+  auto updated_jets = jetselector.update_event();
 
-  regfile output {argv[argc - 1]};
-  TH1F all_hist {"htotal", "htotal", 1, -1, 1};
+  output.reset(event, updated_jets.pfmet);
 
-  jetselect::JetSelector jetselector {};
+  auto gennumap = gennujet::get_gen_nu_map(event);
 
-  for (int i_file = 1; i_file < argc - 1; i_file++) {
+  for (auto& jet : updated_jets.ak4jets) {
 
-    std::cout << "Running over file " << argv[i_file]
-              << " (" << i_file << "/" << (argc - 2) << ")" << std::endl;
+    if (jet.pt() > 15 and std::abs(jet.eta() < 2.5)) {
 
-    // Get the PandaTree
-    TFile input {argv[i_file]};
-    auto* events_tree = static_cast<TTree*>(input.Get("events"));
-    panda::Event event;
-    crombie::feedpanda(event, events_tree);
-    auto nentries = input::maxevents ? input::maxevents : events_tree->GetEntries();
+      auto genjet = jet.matchedGenJet;
 
-    jetselector.init(event);
+      if (genjet.isValid() and genjet->numB) {
 
-    for(decltype(nentries) entry = 0; entry != nentries; ++entry) {
-      if (entry % 10000 == 0)
-        std::cout << "Processing events: ... " << float(entry)/nentries*100 << " %" << std::endl;
+        auto gennuvec = gennumap.at(genjet.get());
 
-      event.getEntry(*events_tree, entry);
-      all_hist.Fill(0.0, event.weight);
-
-      auto updated_jets = jetselector.update_event();
-      event.pfMet = updated_jets.pfmet;
-
-      output.reset(event);
-
-      auto gennumap = gennujet::get_gen_nu_map(event);
-
-      for (auto& jet : updated_jets.ak4jets) {
-
-        if (jet.pt() > 15 and std::abs(jet.eta() < 2.5)) {
-
-          auto genjet = jet.matchedGenJet;
-
-          if (genjet.isValid() and genjet->numB) {
-
-            auto gennuvec = gennumap.at(genjet.get());
-
-            output.set_jet(regfile::jet::Jet, jet, gennuvec, genjet);
-            output.fill();
-
-          }
-
-        }
+        output.set_jet(regfile::jet::Jet, jet, gennuvec, genjet);
+        output.fill();
 
       }
-
     }
-
-    input.Close();
-
   }
-
-  output.write(&all_hist);
-  return 0;
-
 }
 
 
 int main(int argc, char** argv) {
-  return parse_then_send(argc, argv, parsed_main);
+  return parse_then_send(argc, argv, parsed_main<regfile>);
 }

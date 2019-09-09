@@ -5,6 +5,8 @@
 #include <cmath>
 #include <map>
 
+#include "input.h"
+
 #include "TLorentzVector.h"
 
 #include "crombie/KinematicFunctions.h"

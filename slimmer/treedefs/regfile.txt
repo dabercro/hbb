@@ -6,19 +6,19 @@
 
 {/F}                           ! Default type
 {0}                            ! Default value
-{reset(panda::Event& e)}       ! Define the arguments of reset
+{reset(panda::Event& event, panda::RecoMet& met)}
 
-#pv/TVector3 = e.vertices[0].position()
+#pv/TVector3 = event.vertices[0].position()
 
-genWeight = e.weight
-$ = e.$ | rho
-npv = e.npv
+genWeight = event.weight
+$ = event.$ | rho
+npv = event.npv
 
-pfmet_$ = e.pfMet.$ | pt, phi
+pfmet_$ = met.$ | pt, phi
 
-event/l = e.eventNumber
-run/i = e.runNumber
-luminosityBlock/l = e.lumiNumber
+eventNumber/l = event.eventNumber
+runNumber/i = event.runNumber
+lumiNumber/l = event.lumiNumber
 
 Jet {
   jet(panda::Jet& jet, gennujet::GenNuVec& withnu, <G> gen)

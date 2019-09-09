@@ -22,7 +22,7 @@ namespace {
 
 namespace pfcands {
 
-  void MakeNuJets (panda::Event& event) {
+  void MakeNuJets (const panda::Event& event) {
     if (event.isData)
       return;
 

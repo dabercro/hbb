@@ -1,0 +1,12 @@
+    #tf_@/std::vector<float> \
+        <- lazytf::eval([] and not input::ispuppi, "data/freeze_@.pb", "data/regression_origin.txt", \
+           {"split_logits/Slice", "split_logits/Slice_1"}, 1, \
+           `./translate.pl data/regression_origin.txt`) |@ 190724_origin_direction
+    #tf_@/std::vector<float> \
+        <- lazytf::eval([] and not input::ispuppi, "data/freeze_@.pb", "data/regression_puppi.txt", \
+           {"split_logits/Slice", "split_logits/Slice_1"}, 1, \
+           `./translate.pl data/regression_puppi.txt`) |@ 190724_puppi_direction
+
+DEFINE DIRREGS <190724_{origin, puppi}_direction>
+
+    tf_@_$ <- exceptions::at([]_tf_@, =$=, __LINE__) | deta, dphi |@ DIRREGS
