@@ -38,6 +38,8 @@ void process_event<smearfile>(smearfile& output, const panda::Event& event, jets
   for (auto& jet : updated_jets.ak4jets)
     if (jet.pt() > 15 and jetselect::clean_jet(jet, selectedleptons) and puid::loose(jet)) {
 
+      output.set_bsf(jet);
+
       if (not output.jet2)
         output.set_jet(output.jet1
                        ? smearfile::jet::jet2

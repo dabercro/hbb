@@ -1,0 +1,54 @@
+"quickb.h"
+"btagreaders.h"
+
+bsf(panda::Jet& jet)
+  ! Hold some values temporarily. Should implement local variables some day
+
+  bjet_$[] -> jet.$() | pt, eta
+  #bjet_$[] -> jet.$() | phi
+  bjet_$[] -> jet.$ | deepCSVb
+  bjet_deepCSV[] -> <jet.deepCSV{b + bb}>
+  bjet_$[]/s -> quickb::$(jet) | numB
+
+  n_allbjet/b -> ++
+
+  ~~ not isData ~~
+
+  sf_b_unbin = 1 -> *(quickb::scale_b(jet))
+  sf_b_$_bin = 1 -> *(quickb::scale_b_$(jet)) | pt, pt_eta, pt_eta_v2
+
+  (abseta = std::abs(jet.eta()))
+  (flavor = btag::flavor(jet))
+  (scale = btag::get_scale(jet, flavor))
+
+  ! Stuff for histogram-based scale factors
+
+  #bjet_sf -> scale["central"]
+  #? bjet_sf; $ ? -> scale.find("$%%") != scale.end() ? scale["$%%"] : bjet_sf | JES, LF, HF, <{cErr, Stats}{1, 2}>
+
+  btag_sf = 1 -> *(bjet_sf)
+
+  ! BCalibration stuff
+
+  DEFINE BSYST jes, lf, hf, <{hfstats, lfstats, cferr}{1, 2}>
+
+  (nom_sf = btag::cmva_reader.eval_auto_bounds("central", flavor, abseta, <jet.{pt(), cmva}>))
+  (nom_sf_2 = btag::deepcsv_reader.eval_auto_bounds("central", flavor, abseta, jet.pt(), <jet.deepCSV{b + bb}>))
+
+  #bcal_sf$ -> nom_sf$ | , _2
+  (bsf_eff = btag::eff(<jet.{pt, eta}()>, flavor))
+
+  (tmp_sf_@$ = btag::cmva_reader.eval_auto_bounds("@_$", flavor, abseta, <jet.{pt(), cmva}>)) | BSYST |@ up, down
+  (tmp_sf_@$_2 = btag::deepcsv_reader.eval_auto_bounds("@_$", flavor, abseta, jet.pt(), <jet.deepCSV{b + bb}>)) | BSYST |@ up, down
+
+  ! Systematics can be zero sometimes, so we want to evaluate that first
+  #? bcal_sf@; $ ? -> (tmp_sf_%$ ? tmp_sf_%$@ : nom_sf) | BSYST |@ , _2
+
+  #bsf_num$ -> +(bcal_sf$ * bsf_eff) | , _2
+  #bsf_denom -> +(bsf_eff)
+
+  beff_sf$ <- (bsf_denom ? bsf_num$/bsf_denom : 1.0) | , _2
+
+  bjet_flav[]/b -> flavor
+  bjet_sf_3[] -> nom_sf_2
+  beff_sf_3 = 1 -> *(nom_sf_2)

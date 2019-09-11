@@ -12,8 +12,10 @@
 {reset(panda::Event& event, panda::RecoMet& met)}
 
 $/i = event.$ | runNumber
-$ = event.$ | rho
 $/l = event.$ | eventNumber, lumiNumber
+
+$/s = event.$ | npv, npvTrue
+$ = event.$ | rho, weight
 
 #pv/TVector3 = event.vertices.at(0).position()
 
@@ -22,11 +24,18 @@ pfmet_phi = met.phi
 
 trigger/O = triggers::check(triggers::trigger::DILEPTON)
 
+#isData/O = event.isData
+
+#INCLUDE treedefs/bsf.txt
+
 <lep{1, 2}> {
   lep(leptonselect::LepInfo& lep)
 
     $ -> lep.particle->$() | pt, eta, phi, m
+    $ -> lep.particle->$ | dxy, dz
     q/B -> lep.particle->charge
+    $/O = false -> lep.particle->$ | loose, medium, tight
+
     $/O -> lep.$ | ismuon
     $ -> lep.$ | reliso, minireliso, corrpt
 
@@ -36,6 +45,9 @@ dilep {
 
   #vec/TLorentzVector = TLorentzVector() <- vectorSum(<lep{1, 2}_{pt, eta, phi, m}>)
   $ <- []_vec.$$() | pt, eta, phi, m
+
+  #corr_vec/TLorentzVector = TLorentzVector() <- vectorSum(<lep{1, 2}_{corrpt, eta, phi, m}>)
+  corr_$ <- []_corr_vec.$$() | pt, eta, phi, m
 
 }
 
@@ -50,6 +62,8 @@ dilep {
 
 }
 
--- jet1 and jet2_pt/jet1_pt < 0.3 --
+-- jet1 --
 
 ++ jet1_dphi_ll > 2.0 ++
+
+~ sf_pu; npvTrue; data/puWeights_10x_56ifb.root; puWeights; 1 ~

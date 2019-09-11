@@ -37,11 +37,11 @@ $(tarball): $(install) $(thejq) $(data) $(regression) $(effs) $(smear)
 $(thejq): /home/dabercro/bin/jq
 	cp /home/dabercro/bin/jq $(thejq)
 
-$(data): data/*.csv data/*.txt data/*.xml data/*.root $(corrections) data/rcdata.2016.v3 data/jec/*.txt
+$(data): data/*.csv data/*.txt data/*.xml data/*.root $(corrections) data/roccor data/jec/*.txt
 	test -d ${CMSSW_BASE}/data && rm ${CMSSW_BASE}/data/*.pb ${CMSSW_BASE}/data/*.??? || mkdir ${CMSSW_BASE}/data
 	cp data/*.csv data/*.txt data/*.xml data/*.root data/*.pb ${CMSSW_BASE}/data
-	test ! -d ${CMSSW_BASE}/data/rcdata.2016.v3 || rm -r ${CMSSW_BASE}/data/rcdata.2016.v3
-	cp -rH data/rcdata.2016.v3 ${CMSSW_BASE}/data
+	test ! -d ${CMSSW_BASE}/data/roccor || rm -r ${CMSSW_BASE}/data/roccor
+	cp -rH data/roccor ${CMSSW_BASE}/data
 	test ! -d ${CMSSW_BASE}/data/jec || rm -r ${CMSSW_BASE}/data/jec
 	mkdir ${CMSSW_BASE}/data/jec
 	cp data/jec/*.txt ${CMSSW_BASE}/data/jec
@@ -72,6 +72,7 @@ $(smear): src/smear.cpp include/*.h include/feedsmear.h include/smearfile.h \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
 	${PWD}/flags.sh
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
+	-I${CROMBIEPATH}/old \
 	$(external) -lboost_filesystem -lrt -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(smear) src/smear.cpp
 
@@ -79,10 +80,13 @@ $(smear): src/smear.cpp include/*.h include/feedsmear.h include/smearfile.h \
 include/jecsys:
 	cd include; git clone https://github.com/miquork/jecsys.git; cd jecsys; git checkout Summer16_23Sep2016V4
 
+roccortar=roccor.Run2.v3
+
 include/roccor/RoccoR.cc:
-	test -d include/roccor || mkdir include/roccor
-	cd include/roccor; test ! -f roccor.2016.v3.tgz || rm roccor.2016.v3.tgz; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/180302/roccor.2016.v3.tgz; tar -xf roccor.2016.v3.tgz
-	cd data; test -f rcdata.2016.v3 || ln -s ../include/roccor/rcdata.2016.v3 rcdata.2016.v3
+	rm -rf include/roccor
+	mkdir include/roccor
+	cd include/roccor; test ! -f $(roccortar).tar || rm $(roccortar).tar; wget http://t3serv001.mit.edu/~dabercro/slimmerfiles/190909/$(roccortar).tar; tar -xf $(roccortar).tar; mv roccor.Run2.v3/* .
+	cd data; test -f roccor || ln -s ../include/roccor/ roccor
 
 include/checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* include/checkrun

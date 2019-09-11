@@ -217,7 +217,7 @@ template <>
 
     if (abseta < 2.5 and jet.loose) {
       stored_bjets.check(jet, {input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts});
-      output.set_bsf(jet, (input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts).loose());
+      output.set_bsf(jet);
     }
   }
 

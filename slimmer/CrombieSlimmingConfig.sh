@@ -1,5 +1,4 @@
-day=190906
-version='014'
+day=190910
 #exe=mkhbb
 #exe=regresstree
 exe=smeartree
@@ -7,14 +6,20 @@ exe=smeartree
 #inp_dir=/mnt/hadoop/scratch/dabercro/hbb
 inp_dir=/data/t3home000/dabercro/hbb
 
-if [ -z $puppi ]
+if [ -z $version ]
 then
-    jet=puppi
-else
-    jet=chs
+    echo "Set panda version"
+    exit 1
 fi
 
-fin_dir=${day}_${exe}_${jet}_${version}
+if [ -z $puppi ]
+then
+    jet=chs
+else
+    jet=puppi
+fi
+
+fin_dir=${day}_${exe}_${jet}
 
 # Condor
 export CrombieExe='eval '$puppi'input_dir=$INPUT_DIR '$exe
