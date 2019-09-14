@@ -64,12 +64,24 @@ namespace input {
     return output;
   } ();
 
+  const std::string year = [] () {
+    std::string indir {in_dir};
+    auto pos = indir.find("Run");
+    if (pos != std::string::npos)
+      return indir.substr(pos + 3, 4);
+
+    // Otherwise, is MC
+    if (version == 9)
+      return std::string("2016");
+    if (version == 12)
+      return std::string("2017");
+    return std::string("2018");
+  } ();
+
   const std::string jec = [] () {
-    if (version == 13) {
+    if (version >= 13) {
       std::string data = "Run2018";
-      std::string start = "Autumn18";
-      if (ispuppi)
-        start = "Winter19_Autumn18";
+      std::string start = "Winter19_Autumn18";
 
       if (is(data.data())) {
         if (not ispuppi)

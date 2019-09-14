@@ -1,8 +1,8 @@
 #! /bin/bash
 
-for n in {0..5}
+for n in {0..8}
 do
 
-    ./trainer.py 2000
+    ./trainer.py 10000
 
 done

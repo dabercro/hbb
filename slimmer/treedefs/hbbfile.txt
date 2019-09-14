@@ -8,14 +8,7 @@
 {0}                            ! Default value
 {reset(panda::Event& event)}   ! Define the arguments of reset
 
-#isData/O = event.isData
-
-$/i = event.$ | runNumber
-$ = event.$ | rho
-$/l = event.$ | eventNumber, lumiNumber
-
-$/s = event.$ | npv, npvTrue
-$ = event.$ | weight
+#INCLUDE treedefs/eventinfo.txt
 
 $@ = event.$@@.pt | pf, calo, trk, raw |@ met
 $@_phi = event.$@@.phi | pf, calo, trk, raw |@ met
@@ -276,9 +269,6 @@ sf_met_trigger = input::version == 10 ? 1.0/0.000670411 : 1.0
 
 ! Set the name of the merged corrections
 ~{scale_factors <- weight * sf_tt * sf_met_trigger}~
-
-~ sf_pu; npvTrue; $; puWeights; input::version <= 9 + =$= ~ | <data/puWeights_{80x_37ifb, 90x}.root>
-~ sf_pu; npvTrue; data/puWeights_10x_56ifb.root; puWeights; input::version == 13 ~
 
 ~ ewk_$; KFACTORS; EWKcorr/$$, $$Jets_012j_NLO/nominal; HTCUT ~ | z, w
 ~ $kfactor; KFACTORS; $$Jets_012j_NLO/nominal, $$Jets_LO/inv_pt; HTCUT ~ | z, w

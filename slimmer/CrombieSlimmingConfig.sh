@@ -1,4 +1,4 @@
-day=190910
+day=190914
 #exe=mkhbb
 #exe=regresstree
 exe=smeartree
@@ -8,8 +8,7 @@ inp_dir=/data/t3home000/dabercro/hbb
 
 if [ -z $version ]
 then
-    echo "Set panda version"
-    exit 1
+    version=013
 fi
 
 if [ -z $puppi ]

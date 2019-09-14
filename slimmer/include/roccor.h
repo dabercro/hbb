@@ -2,11 +2,16 @@
 #define CROMBIE_ROCCOR_H 1
 
 
+#include <string>
+
 #include "roccor/RoccoR.cc" // https://twiki.cern.ch/twiki/bin/view/CMS/RochcorMuon
+
+#include "input.h"
+#include "myrandom.h"
 
 
 namespace {
-  RoccoR rochester {"data/roccor/RoccoR2018.txt"};
+  RoccoR rochester {std::string("data/roccor/RoccoR") + input::year + ".txt"};
 }
 
 namespace roccor {
@@ -19,7 +24,8 @@ namespace roccor {
     if (gen.isValid())
       return rochester.kSpreadMC(muon.charge, muon.pt(), muon.eta(), muon.phi(), gen->pt());
 
-    return 1.0;
+    return rochester.kSmearMC(muon.charge, muon.pt(), muon.eta(), muon.phi(),
+                              muon.trkLayersWithMmt, myrandom::gen.Rndm());
 
   }
 }

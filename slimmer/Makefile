@@ -91,8 +91,8 @@ include/roccor/RoccoR.cc:
 include/checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* include/checkrun
 
-data/jec/jec.d: data/jec/download.url
-	cd data/jec; rm *.tar.gz; rm *.txt; wget -i download.url; for f in *.tar.gz; do tar -xvf $$f '*_AK4PFchs.txt' '*_AK8PFPuppi.txt'; done
+data/jec/jec.d:
+	cp /data/t3home000/dabercro/tars/hbb/190819_puppijets_mc2018_013/data/jec/Winter19*.txt data/jec
 	touch data/jec/jec.d
 
 include/feedregression.h: include/[!f]*.h src/regression.cpp include/$(regclass).h ${CROMBIEPATH}/scripts/feedpanda.pl
@@ -101,7 +101,7 @@ include/feedregression.h: include/[!f]*.h src/regression.cpp include/$(regclass)
 
 include/feedsmear.h: include/[!f]*.h src/smear.cpp include/smearfile.h ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def \
-	include/pfvecs.h include/jetselect.h include/leptonselect.h include/smearfile.h src/smear.cpp include/feedsmear.h
+	include/pfvecs.h include/jetselect.h include/leptonselect.h include/smearfile.h src/smear.cpp include/roccor.h include/feedsmear.h
 
 include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h src/slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
 	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/[!f]*.h src/slimmer.cpp include/feedpanda.h

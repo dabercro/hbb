@@ -16,7 +16,8 @@ namespace triggers {
     MET,
     HBB_2016,
     OVERLAP,
-    DILEPTON
+    DILEPTON_MU,
+    DILEPTON_ELE
   };
 
 }
@@ -54,9 +55,11 @@ namespace {
     {triggers::trigger::OVERLAP, {
         "HLT_PFMETNoMu120_PFMHTNoMu120_IDTight"
       }},
-    {triggers::trigger::DILEPTON, {
+    {triggers::trigger::DILEPTON_MU, {
         "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8",
-        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
+        "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8"
+      }},
+    {triggers::trigger::DILEPTON_ELE, {
         "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
         "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL"
       }}};

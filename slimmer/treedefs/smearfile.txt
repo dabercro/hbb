@@ -11,20 +11,12 @@
 
 {reset(panda::Event& event, panda::RecoMet& met)}
 
-$/i = event.$ | runNumber
-$/l = event.$ | eventNumber, lumiNumber
-
-$/s = event.$ | npv, npvTrue
-$ = event.$ | rho, weight
-
-#pv/TVector3 = event.vertices.at(0).position()
+#INCLUDE treedefs/eventinfo.txt
 
 pfmet = met.pt
 pfmet_phi = met.phi
 
-trigger/O = triggers::check(triggers::trigger::DILEPTON)
-
-#isData/O = event.isData
+trigger_$/O = triggers::check(triggers::trigger::DILEPTON_$$$) | mu, ele
 
 #INCLUDE treedefs/bsf.txt
 
@@ -65,5 +57,3 @@ dilep {
 -- jet1 --
 
 ++ jet1_dphi_ll > 2.0 ++
-
-~ sf_pu; npvTrue; data/puWeights_10x_56ifb.root; puWeights; 1 ~
