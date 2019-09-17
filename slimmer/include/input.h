@@ -66,7 +66,7 @@ namespace input {
 
   const std::string year = [] () {
     std::string indir {in_dir};
-    auto pos = indir.find("Run");
+    auto pos = indir.find("Run201");
     if (pos != std::string::npos)
       return indir.substr(pos + 3, 4);
 
@@ -84,11 +84,11 @@ namespace input {
       std::string start = "Winter19_Autumn18";
 
       if (is(data.data())) {
-        if (not ispuppi)
-          start += "_Run";
 
         std::string indir {in_dir};
         auto letter = indir.substr(indir.find(data) + data.size(), 1);
+        if (letter == "D" or letter == "E")
+          letter = "DE";
         return std::string(start + letter + "_V8_DATA");
       }
       // Otherwise, is MC

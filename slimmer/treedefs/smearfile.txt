@@ -54,6 +54,12 @@ dilep {
 
 }
 
+
+gen(<T>& particle)
+  gen/O = false -> true
+  gen_$ -> particle.$() | pt
+
+
 -- jet1 --
 
 ++ jet1_dphi_ll > 2.0 ++

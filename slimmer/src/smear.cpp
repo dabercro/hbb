@@ -53,6 +53,15 @@ void process_event<smearfile>(smearfile& output, const panda::Event& event, jets
   if (num_jet > 2)
     return;
 
+  for (auto& gen : event.genParticles) {
+
+    if (input::version >= 12 and gen.miniaodPacked)
+      continue;
+    if (not output.gen and gen.pdgid == 23)
+      output.set_gen(gen);
+
+  }
+
   output.fill();
 }
 

@@ -2,10 +2,17 @@
 
 import glob
 import os
+import datetime
 
 import ROOT
 
 from HelperPython import Bukin
+
+
+newdir = datetime.date.strftime(datetime.datetime.now(), '%y%m%d')
+
+if not os.path.exists(newdir):
+    os.mkdir(newdir)
 
 
 for filename in glob.iglob('/home/dabercro/public_html/plots/190910_tofit/*.root'):
@@ -38,6 +45,10 @@ for filename in glob.iglob('/home/dabercro/public_html/plots/190910_tofit/*.root
     fittedHist.Draw("histsame")
 
     for ext in ['.pdf', '.png', '.C']:
-        test.SaveAs(os.path.basename(filename).replace('.root', ext))
+        test.SaveAs(
+            os.path.join(newdir,
+                         os.path.basename(filename).replace('.root', ext)
+                         )
+            )
 
     print filename, '#sigma = %f +- %f' % (function.GetParameter(2), result.Error(2)), 'mean = %f +- %f' % (function.GetParameter(1), result.Error(1))

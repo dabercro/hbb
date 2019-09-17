@@ -1,8 +1,8 @@
-day=190914
-#exe=mkhbb
+day=190913
+exe=mkhbb
 #exe=regresstree
-exe=smeartree
-#puppi='ispuppi=1 '
+#exe=smeartree
+puppi='ispuppi=1 '
 #inp_dir=/mnt/hadoop/scratch/dabercro/hbb
 inp_dir=/data/t3home000/dabercro/hbb
 
