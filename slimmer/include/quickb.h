@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 
+#include "input.h"
+
 #include "TH1F.h"
 #include "TFile.h"
 
@@ -62,7 +64,21 @@ namespace {
     {"light_pt_250_inf_eta_0_1p4_190214", {"data/reweight_190214.root", "light_pt_250_inf_eta_0_1p4_reweight"}},
     {"light_pt_0_150_eta_1p4_2p5_190214", {"data/reweight_190214.root", "light_pt_0_150_eta_1p4_2p5_reweight"}},
     {"light_pt_150_250_eta_1p4_2p5_190214", {"data/reweight_190214.root", "light_pt_150_250_eta_1p4_2p5_reweight"}},
-    {"light_pt_250_inf_eta_1p4_2p5_190214", {"data/reweight_190214.root", "light_pt_250_inf_eta_1p4_2p5_reweight"}}
+    {"light_pt_250_inf_eta_1p4_2p5_190214", {"data/reweight_190214.root", "light_pt_250_inf_eta_1p4_2p5_reweight"}},
+
+    // Reweighting for PUPPI Jets
+    {"heavy_pt_0_150_eta_0_1p4_190916", {"data/reweight_190916.root", "heavy_pt_0_150_eta_0_1p4_reweight"}},
+    {"heavy_pt_150_250_eta_0_1p4_190916", {"data/reweight_190916.root", "heavy_pt_150_250_eta_0_1p4_reweight"}},
+    {"heavy_pt_250_inf_eta_0_1p4_190916", {"data/reweight_190916.root", "heavy_pt_250_inf_eta_0_1p4_reweight"}},
+    {"heavy_pt_0_150_eta_1p4_2p5_190916", {"data/reweight_190916.root", "heavy_pt_0_150_eta_1p4_2p5_reweight"}},
+    {"heavy_pt_150_250_eta_1p4_2p5_190916", {"data/reweight_190916.root", "heavy_pt_150_250_eta_1p4_2p5_reweight"}},
+    {"heavy_pt_250_inf_eta_1p4_2p5_190916", {"data/reweight_190916.root", "heavy_pt_250_inf_eta_1p4_2p5_reweight"}},
+    {"light_pt_0_150_eta_0_1p4_190916", {"data/reweight_190916.root", "light_pt_0_150_eta_0_1p4_reweight"}},
+    {"light_pt_150_250_eta_0_1p4_190916", {"data/reweight_190916.root", "light_pt_150_250_eta_0_1p4_reweight"}},
+    {"light_pt_250_inf_eta_0_1p4_190916", {"data/reweight_190916.root", "light_pt_250_inf_eta_0_1p4_reweight"}},
+    {"light_pt_0_150_eta_1p4_2p5_190916", {"data/reweight_190916.root", "light_pt_0_150_eta_1p4_2p5_reweight"}},
+    {"light_pt_150_250_eta_1p4_2p5_190916", {"data/reweight_190916.root", "light_pt_150_250_eta_1p4_2p5_reweight"}},
+    {"light_pt_250_inf_eta_1p4_2p5_190916", {"data/reweight_190916.root", "light_pt_250_inf_eta_1p4_2p5_reweight"}}
   };
 
   std::string flav (const panda::Jet& jet) {
@@ -122,7 +138,8 @@ namespace quickb {
 
   double scale_b_pt_eta_v2 (const panda::Jet& jet) {
 
-    return correctors.at(flav(jet) + pt(jet) + eta(jet) + "_190214").
+    return correctors.at(flav(jet) + pt(jet) + eta(jet) +
+                         (input::ispuppi? "_190916" : "_190214")).
       GetCorrection(jet.deepCSVb);
 
   }

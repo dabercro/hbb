@@ -1,4 +1,4 @@
-#!/usr/bin/python
+
 import numpy
 import math
 import inspect
@@ -216,7 +216,7 @@ class Gauss:
 class Bukin:
     def __call__( self, x, par ):
 
-      debug=False
+      debug=True
 
       if debug:
         print "******"

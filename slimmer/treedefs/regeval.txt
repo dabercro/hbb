@@ -23,12 +23,11 @@
            {"split_logits/Slice"}, 1, \
            `./translate.pl data/regression_rawpuppi.txt`) |@ <190904_{0, 0_2}>
 
-!    #tf_@/std::vector<float> \
-!        <- lazytf::eval([] and not input::ispuppi, "data/freeze_@.pb", "data/regression_puppi_pf.txt", \
-!           {"split_logits/Slice"}, 1, \
-!           `./translate.pl data/regression_puppi_pf.txt`) |@ 190725_lstm_pf
+    #tf_@/std::vector<float> \
+        <- lazytf::eval([] and not input::ispuppi, "data/freeze_@.pb", "data/regression_puppi_pf.txt", \
+           {"split_logits/Slice"}, 1, \
+           `./translate.pl data/regression_puppi_pf.txt`) |@ 190725_lstm_pf
 
-DEFINE PTREGS <190723_{origin, puppi}>, <190{817_0, 904_0, 904_0_2}>
-! , 190725_lstm_pf
+DEFINE PTREGS <190723_{origin, puppi}>, <190{817_0, 904_0, 904_0_2}>, 190725_lstm_pf
 
     tf_@_$ <- exceptions::at([]_tf_@, =$=, __LINE__) | ptratio |@ PTREGS

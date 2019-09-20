@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import os
+import sys
 import datetime
 
 import ROOT
@@ -9,16 +10,22 @@ import ROOT
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s_resolution' % datetime.date.strftime(
-        datetime.datetime.now(), '%y%m%d'
+    '%s_resolution%s' % (
+        datetime.date.strftime(
+            datetime.datetime.now(), '%y%m%d'
+            ),
+        sys.argv[1] if len(sys.argv) > 1 else ''
         )
     )
 
 if not os.path.exists(newdir):
     os.mkdir(newdir)
+elif len(sys.argv) < 2:
+    print newdir, 'exists. Please delete instead of overwriting.'
+    exit(1)
 
-alphadir = '/home/dabercro/public_html/plots/190917_alpha'
-ratiodir = '/home/dabercro/public_html/plots/190916_alphacuts2'
+alphadir = '/home/dabercro/public_html/plots/190919_alpha'
+ratiodir = '/home/dabercro/public_html/plots/190920_smear_weighted'
 
 class MeanCalc(object):
 
@@ -34,16 +41,14 @@ class MeanCalc(object):
         for val in self.values:
             tot += val[0] * val[1]
             totw += val[1]
-        return tot/totw
+        return max(tot/totw, 0)
 
 
 # Name of region and max alpha value
 ranges = [
-    ('smearplot_0_to_p1', 0.1, MeanCalc(), MeanCalc()),
-    ('smearplot_p1_to_p15', 0.15, MeanCalc(), MeanCalc()),
-    ('smearplot_p15_to_p2', 0.2, MeanCalc(), MeanCalc()),
-    ('smearplot_p2_to_p25', 0.25, MeanCalc(), MeanCalc()),
-    ('smearplot_p25', 0.3, MeanCalc(), MeanCalc())
+    ('smearplot_1', 0.185, MeanCalc(), MeanCalc()),
+    ('smearplot_2', 0.245, MeanCalc(), MeanCalc()),
+    ('smearplot_3', 0.3, MeanCalc(), MeanCalc()),
 ]
 index = 0
 
@@ -62,22 +67,31 @@ while index != len(ranges):
 
 trainings = [
     '',
-    'jet1_tf_190904_0_2_ptratio*',
-    'jet1_tf_190723_origin_ptratio*',
-    'jet1_tf_190723_puppi_ptratio*',
+    'jet1_tf_190904_0_2_ptratio_',
+    'jet1_tf_190723_origin_ptratio_',
+    'jet1_tf_190723_puppi_ptratio_',
+    'jet1_tf_190725_lstm_pf_ptratio_',
     ]
 
 for training in trainings:
 
     index = 0
 
-    data_graph = ROOT.TGraph(len(ranges))
-    data_graph.SetMarkerStyle(8)
-    data_graph.SetMarkerColor(2)
+    data_graph_res = ROOT.TGraph(len(ranges))
+    data_graph_res.SetMarkerStyle(8)
+    data_graph_res.SetMarkerColor(1)
 
-    mc_graph = ROOT.TGraph(len(ranges))
-    mc_graph.SetMarkerStyle(8)
-    mc_graph.SetMarkerColor(1)
+    mc_graph_res = ROOT.TGraph(len(ranges))
+    mc_graph_res.SetMarkerStyle(8)
+    mc_graph_res.SetMarkerColor(2)
+
+    data_graph_mean = ROOT.TGraph(len(ranges))
+    data_graph_mean.SetMarkerStyle(8)
+    data_graph_mean.SetMarkerColor(1)
+
+    mc_graph_mean = ROOT.TGraph(len(ranges))
+    mc_graph_mean.SetMarkerStyle(8)
+    mc_graph_mean.SetMarkerColor(2)
 
     for mean in ranges:
 
@@ -96,18 +110,77 @@ for training in trainings:
         print mean[2].mean(), smearfile.Get("Data").GetStdDev()
         print mean[3].mean(), smearfile.Get("DY").GetStdDev()
 
-        data_graph.SetPoint(index, mean[2].mean(), smearfile.Get("Data").GetStdDev())
-        mc_graph.SetPoint(index, mean[3].mean(), smearfile.Get("DY").GetStdDev())
+        data_hist = smearfile.Get("Data")
+        data_mean = mean[2].mean()
+        data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev())
+        data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
+
+        mc_hist = smearfile.Get("DY")
+        mc_mean = mean[3].mean()
+        mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
+        mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
 
         index += 1
 
-    c1 = ROOT.TCanvas()
-    data_graph.Draw('')
-    mc_graph.Draw('lp,same')
+    for data, mc, name, mini, maxi, fit, makesub in [
+        (data_graph_res, mc_graph_res, 'resolution', 0.0, 0.4,
+         lambda: ROOT.TF1('res', 'TMath::Sqrt(pow([0] * x + [1], 2) + pow([2] * x, 2))', 0, 0.3), True),
+        (data_graph_mean, mc_graph_mean, 'mean', 0.7, 1.0,
+         lambda: ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3), False)
+        ]:
 
-    for ext in ['pdf', 'png', 'C']:
-        c1.SaveAs(
-            os.path.join(newdir,
-                         os.path.basename('resolution_%s.%s' % (training.rstrip('*'), ext))
-                         )
-            )
+        hide = ROOT.TGraph(2)
+        hide.SetPoint(0, 0, mini)
+        hide.SetPoint(1, 0.3, maxi)
+
+        for hist in [data, mc]:
+            hist.SetMinimum(mini)
+            hist.SetMaximum(maxi)
+
+        data_func = fit()
+        data_func.SetLineColor(1)
+        mc_func = fit()
+        mc_func.SetLineColor(2)
+
+        c1 = ROOT.TCanvas()
+
+        datares = data.Fit(data_func)
+        mcres = mc.Fit(mc_func)
+
+        hide.Draw('ap')
+        data.Draw('p,same')
+        mc.Draw('p,same')
+        data_func.Draw('same')
+        mc_func.Draw('same')
+
+        if makesub:
+            data_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
+            data_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
+            data_sub1.SetParameter(0, data_func.GetParameter(0))
+            data_sub1.SetParameter(1, data_func.GetParameter(1))
+            data_sub2.SetParameter(0, data_func.GetParameter(2))
+
+            for data_sub in [data_sub1, data_sub2]:
+                data_sub.SetLineWidth(1)
+                data_sub.SetLineColor(data_func.GetLineColor())
+                data_sub.Draw('same')
+
+            mc_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
+            mc_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
+            mc_sub1.SetParameter(0, mc_func.GetParameter(0))
+            mc_sub1.SetParameter(1, mc_func.GetParameter(1))
+            mc_sub2.SetParameter(0, mc_func.GetParameter(2))
+
+            for mc_sub in [mc_sub1, mc_sub2]:
+                mc_sub.SetLineWidth(1)
+                mc_sub.SetLineColor(mc_func.GetLineColor())
+                mc_sub.Draw('same')
+
+        for ext in ['pdf', 'png', 'C']:
+            c1.SaveAs(
+                os.path.join(newdir,
+                             os.path.basename('%s_%s.%s' % (name, training.rstrip('*'), ext))
+                             )
+                )
+
+os.system('cp %s %s/models.cnf' % (__file__, newdir))

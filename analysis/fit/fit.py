@@ -9,17 +9,21 @@ import ROOT
 from HelperPython import Bukin
 
 
-newdir = datetime.date.strftime(datetime.datetime.now(), '%y%m%d')
+newdir = os.path.join(
+    os.environ['HOME'],
+    'public_html/plots',
+    '%s_fit' % datetime.date.strftime(datetime.datetime.now(), '%y%m%d')
+)
 
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 
-for filename in glob.iglob('/home/dabercro/public_html/plots/190910_tofit/*.root'):
+for filename in sorted(glob.glob('/home/dabercro/public_html/plots/190917_dphi/smearplot_?_*jet1_pt_dilep_corr_pt*.root')):
 
     infile = ROOT.TFile(filename)
 
-    histogram = infile.ZH
+    histogram = infile.DY
 
     test = ROOT.TCanvas()
 
