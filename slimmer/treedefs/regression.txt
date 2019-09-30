@@ -7,6 +7,8 @@
 "pfvecs.h"
 "regression.h"
 
+    %ptr/CONSTpanda::Jet* = nullptr -> &jet
+
     /O = false -> true
 
     puId -> jet.puid

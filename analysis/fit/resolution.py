@@ -3,6 +3,7 @@
 import os
 import sys
 import datetime
+import math
 
 import ROOT
 
@@ -20,12 +21,9 @@ newdir = os.path.join(
 
 if not os.path.exists(newdir):
     os.mkdir(newdir)
-elif len(sys.argv) < 2:
-    print newdir, 'exists. Please delete instead of overwriting.'
-    exit(1)
 
-alphadir = '/home/dabercro/public_html/plots/190919_alpha'
-ratiodir = '/home/dabercro/public_html/plots/190920_smear_weighted'
+alphadir = '/home/dabercro/public_html/plots/190918_alpha'
+ratiodir = '/home/dabercro/public_html/plots/190927_904_ptcut'
 
 class MeanCalc(object):
 
@@ -46,7 +44,9 @@ class MeanCalc(object):
 
 # Name of region and max alpha value
 ranges = [
-    ('smearplot_1', 0.185, MeanCalc(), MeanCalc()),
+    ('smearplot_0', 0.125, MeanCalc(), MeanCalc()),
+    ('smearplot_1', 0.155, MeanCalc(), MeanCalc()),
+    ('smearplot_1b', 0.185, MeanCalc(), MeanCalc()),
     ('smearplot_2', 0.245, MeanCalc(), MeanCalc()),
     ('smearplot_3', 0.3, MeanCalc(), MeanCalc()),
 ]
@@ -66,14 +66,14 @@ while index != len(ranges):
         index += 1
 
 trainings = [
-    '',
-    'jet1_tf_190904_0_2_ptratio_',
-    'jet1_tf_190723_origin_ptratio_',
-    'jet1_tf_190723_puppi_ptratio_',
-    'jet1_tf_190725_lstm_pf_ptratio_',
+    ('', 'No regression'),
+    ('190904_0_2', 'PUPPI with raw p_{T}'),
+    ('190723_origin', 'Previous network'),
+    ('190723_puppi', 'PUPPI network'),
+    ('190725_lstm_pf', 'LSTM'),
     ]
 
-for training in trainings:
+for training, trainname in trainings:
 
     index = 0
 
@@ -98,17 +98,12 @@ for training in trainings:
         smearfile = ROOT.TFile(
             os.path.join(
                 ratiodir,
-                '%s_%s%s.root' % (
-                    mean[0], training, 'jet1_pt_dilep_corr_pt'
-                    )
+                '%s_jet1_%s_ptsmear_dilep_corr_pt.root' % (
+                    mean[0], training
+                    ) if training else
+                '%s_jet1_pt_dilep_corr_pt.root' % mean[0]
                 )
             )
-
-        print '-' * 20
-        print mean[0]
-        print training
-        print mean[2].mean(), smearfile.Get("Data").GetStdDev()
-        print mean[3].mean(), smearfile.Get("DY").GetStdDev()
 
         data_hist = smearfile.Get("Data")
         data_mean = mean[2].mean()
@@ -123,13 +118,15 @@ for training in trainings:
         index += 1
 
     for data, mc, name, mini, maxi, fit, makesub in [
-        (data_graph_res, mc_graph_res, 'resolution', 0.0, 0.4,
-         lambda: ROOT.TF1('res', 'TMath::Sqrt(pow([0] * x + [1], 2) + pow([2] * x, 2))', 0, 0.3), True),
-        (data_graph_mean, mc_graph_mean, 'mean', 0.7, 1.0,
-         lambda: ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3), False)
+        (data_graph_res, mc_graph_res, '#sigma', 0.0, 0.4,
+#         lambda: ROOT.TF1('res', 'TMath::Sqrt(pow([0] * x + [1], 2) + pow([2] * x, 2))', 0, 0.3), True),
+         lambda: ROOT.TF1('resolution', 'TMath::Sqrt(pow([0], 2) + pow([1] * x, 2))', 0, 0.3), True),
+        (data_graph_mean, mc_graph_mean, '#mu', 0.7, 1.0,
+         lambda: ROOT.TF1('mean', '[0] * x + [1]', 0, 0.3), False)
         ]:
 
         hide = ROOT.TGraph(2)
+        hide.SetTitle('%s;#alpha;%s' % (trainname, name))
         hide.SetPoint(0, 0, mini)
         hide.SetPoint(1, 0.3, maxi)
 
@@ -153,12 +150,20 @@ for training in trainings:
         data_func.Draw('same')
         mc_func.Draw('same')
 
+        print '-'*30
+        print trainname
+        print '-'*30
+
         if makesub:
             data_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
             data_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
-            data_sub1.SetParameter(0, data_func.GetParameter(0))
-            data_sub1.SetParameter(1, data_func.GetParameter(1))
-            data_sub2.SetParameter(0, data_func.GetParameter(2))
+#            data_sub1.SetParameter(0, abs(data_func.GetParameter(0)))
+#            data_sub1.SetParameter(1, abs(data_func.GetParameter(1)))
+            data_sub1.SetParameter(0, 0)
+            data_sub1.SetParameter(1, abs(data_func.GetParameter(0)))
+            data_sub2.SetParameter(0, abs(data_func.GetParameter(1)))
+
+            print 'Data at y-axis:', abs(data_func.GetParameter(0))
 
             for data_sub in [data_sub1, data_sub2]:
                 data_sub.SetLineWidth(1)
@@ -167,19 +172,31 @@ for training in trainings:
 
             mc_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
             mc_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
-            mc_sub1.SetParameter(0, mc_func.GetParameter(0))
-            mc_sub1.SetParameter(1, mc_func.GetParameter(1))
-            mc_sub2.SetParameter(0, mc_func.GetParameter(2))
+#            mc_sub1.SetParameter(0, abs(mc_func.GetParameter(0)))
+#            mc_sub1.SetParameter(1, abs(mc_func.GetParameter(1)))
+            mc_sub1.SetParameter(0, 0)
+            mc_sub1.SetParameter(1, abs(mc_func.GetParameter(0)))
+            mc_sub2.SetParameter(0, abs(mc_func.GetParameter(1)))
+
+            print 'MC at y-axis:', abs(mc_func.GetParameter(0))
+
+            print 'Smear factor:', math.sqrt(math.pow(data_func.GetParameter(0), 2) - 
+                                             math.pow(mc_func.GetParameter(0), 2))
 
             for mc_sub in [mc_sub1, mc_sub2]:
                 mc_sub.SetLineWidth(1)
                 mc_sub.SetLineColor(mc_func.GetLineColor())
                 mc_sub.Draw('same')
 
+        else:
+            print 'Data at y-axis:', data_func.GetParameter(1)
+            print 'MC at y-axis:', mc_func.GetParameter(1)
+            print 'Scale factor:', data_func.GetParameter(1)/mc_func.GetParameter(1)
+
         for ext in ['pdf', 'png', 'C']:
             c1.SaveAs(
                 os.path.join(newdir,
-                             os.path.basename('%s_%s.%s' % (name, training.rstrip('*'), ext))
+                             os.path.basename('%s_%s.%s' % (data_func.GetName(), training, ext))
                              )
                 )
 

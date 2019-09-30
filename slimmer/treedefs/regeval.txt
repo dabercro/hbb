@@ -6,28 +6,33 @@
 "lazytf.h"
 "input.h"
 "exceptions.h"
+"applysmear.h"
 
 ! 190817 is for puppi jets
 
-    #tf_@/std::vector<float> \
+    %tf_@/std::vector<float> \
         <- lazytf::eval([] and not input::ispuppi, "data/freeze_@.pb", "data/regression_origin.txt", \
            {"split_logits/Slice"}, 1, \
            `./translate.pl data/regression_origin.txt`) |@ 190723_origin
-    #tf_@/std::vector<float> \
+    %tf_@/std::vector<float> \
         <- lazytf::eval([] and bool(input::ispuppi) == =@=, "data/freeze_@.pb", "data/regression_puppi.txt", \
            {"split_logits/Slice"}, 1, \
            `./translate.pl data/regression_puppi.txt`) |@ 190723_puppi, 190817_0
 
-    #tf_@/std::vector<float> \
+    %tf_@/std::vector<float> \
         <- lazytf::eval([] and not input::ispuppi, "data/freeze_@.pb", "data/regression_rawpuppi.txt", \
            {"split_logits/Slice"}, 1, \
-           `./translate.pl data/regression_rawpuppi.txt`) |@ <190904_{0, 0_2}>
+           `./translate.pl data/regression_rawpuppi.txt`) |@ <190904_{0, 0_2}>, 190924_0
 
-    #tf_@/std::vector<float> \
+    %tf_@/std::vector<float> \
         <- lazytf::eval([] and not input::ispuppi, "data/freeze_@.pb", "data/regression_puppi_pf.txt", \
            {"split_logits/Slice"}, 1, \
            `./translate.pl data/regression_puppi_pf.txt`) |@ 190725_lstm_pf
 
-DEFINE PTREGS <190723_{origin, puppi}>, <190{817_0, 904_0, 904_0_2}>, 190725_lstm_pf
+DEFINE PTREGS <190723_{origin, puppi}>, <190{817_0, 904_0, 904_0_2, 924_0}>, 190725_lstm_pf
 
     tf_@_$ <- exceptions::at([]_tf_@, =$=, __LINE__) | ptratio |@ PTREGS
+
+    tf_@_pt <- []_tf_@_ptratio * []_pt |@ PTREGS
+
+    @_ptsmear <- []_ptr ? applysmear::smeared_pt(*[]_ptr, []_tf_@_ptratio, "@") : 0 |@ <190904_{0, 0_2}>, <190723_{origin, puppi}>, 190725_lstm_pf

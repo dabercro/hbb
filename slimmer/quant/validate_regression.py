@@ -77,7 +77,7 @@ def violin(option,args):
 
       dataframe_data2 = {"jet_pt": [], "genjet_pt": []}
       dataframe_data = {"pt":[],"category":[],"ptcateg":[],"etacateg":[]}
-      ptcateg = [0,60,120,180,240,300,360,420,480]
+      ptcateg = [0,60,120,180,250,320,400]
       etacateg = [0,0.4,0.8,1.2,1.6,2.0]
 
       #Open file
@@ -87,7 +87,8 @@ def violin(option,args):
 #      for index in xrange(int(os.environ.get('num', len(infiles)))):
 #          ifile = os.path.join(indir, infiles[index])
 
-      for ifile in ['../reg_big3.root']:
+#      for ifile in ['../bigreg.root']:
+      for ifile in ['../reg.root']:
 
           print "Opening ..." + ifile
           tf = ROOT.TFile(ifile);
@@ -104,7 +105,7 @@ def violin(option,args):
                   dataframe_data["pt"].append(tt.Jet_mcPt/tt.Jet_pt)
                   dataframe_data["category"].append("JECs only")
                   dataframe_data["pt"].append(tt.Jet_mcPt/
-                                              (tt.Jet_pt*getattr(tt, 'Jet_tf_ptratio%s' % version)))
+                                              (getattr(tt, 'Jet_tf_%s_pt' % version)))
                   dataframe_data["category"].append("DNN regression")
 
 

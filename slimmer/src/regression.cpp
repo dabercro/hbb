@@ -17,7 +17,7 @@ void process_event<regfile>(regfile& output, const panda::Event& event, jetselec
 
     if (jet.pt() > 15 and std::abs(jet.eta() < 2.5)) {
 
-      auto genjet = jet.matchedGenJet;
+      auto& genjet = jet.matchedGenJet;
 
       if (genjet.isValid() and genjet->numB) {
 

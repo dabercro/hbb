@@ -9,16 +9,20 @@ for var in ['pt', 'eta']:
 
     fig, ax = plt.subplots()
 
-    df4 = pd.read_csv('csvs/pf_%s.csv' % var)
-    dfno = pd.read_csv('csvs/nopf_%s.csv' % var)
+    df0 = pd.read_csv('csvs/190723_origin_%s.csv' % var)
+    df1 = pd.read_csv('csvs/190723_puppi_%s.csv' % var)
+    df2 = pd.read_csv('csvs/190725_lstm_pf_%s.csv' % var)
+    df3 = pd.read_csv('csvs/190904_0_2_%s.csv' % var)
 
-    plt.plot(df4['x'], df4['jecs'], label='JECs')
-    plt.plot(df4['x'], df4['dnn'], label='With PF')
-    plt.plot(dfno['x'], dfno['dnn'], label='Without PF')
+    plt.plot(df0['x'], df0['jecs'], label='JECs')
+    plt.plot(df0['x'], df0['dnn'], label='Original')
+    plt.plot(df1['x'], df1['dnn'], label='PUPPI')
+    plt.plot(df2['x'], df2['dnn'], label='LSTM')
+    plt.plot(df3['x'], df3['dnn'], label='PUPPI Raw')
 
     plt.legend()
 
-    outputdir = '/home/dabercro/public_html/plots/190612'
+    outputdir = '/home/dabercro/public_html/plots/190925_compareres'
 
     if not os.path.exists(outputdir):
         os.makedirs(outputdir)

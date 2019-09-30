@@ -1,6 +1,8 @@
 #ifndef PUID_H
 #define PUID_H 1
 
+#include "input.h"
+
 #include "TFile.h"
 #include "TH2D.h"
 
@@ -15,6 +17,9 @@ namespace puid {
 
   // Does the jet pass the low PUID working point?
   bool loose(const panda::Jet& jet) {
+
+    if (input::ispuppi)
+      return true;
 
     auto to_pass = hist.GetBinContent(hist.FindBin(std::abs(jet.eta()), std::min(jet.pt(), 39.0)));
     if (debugevent::debug)

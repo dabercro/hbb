@@ -67,8 +67,8 @@ def input_fn():
 
 
     return dataset.map(mapping).\
-        shuffle(100000).\
-        batch(10000).\
+        shuffle(1000000).\
+        batch(100000).\
         repeat()
 
 

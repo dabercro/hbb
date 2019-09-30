@@ -66,7 +66,7 @@ $(regression): src/regression.cpp include/*.h include/feedregression.h include/$
 	$(external) -lboost_filesystem -lrt -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -lTMVA -o $(regression) src/regression.cpp
 
-$(smear): src/smear.cpp include/*.h include/feedsmear.h include/smearfile.h \
+$(smear): src/smear.cpp include/*.h include/feedsmear.h include/smearfile.h include/checkrun.h \
 	${CROMBIEPATH}/src/include/crombie/*.h ${CROMBIEPATH}/old/SkimmingTools/interface/*.h \
 	include/roccor/RoccoR.cc include/jecsys \
 	${CMSSW_BASE}/lib/${SCRAM_ARCH}/*.so \
@@ -96,17 +96,15 @@ data/jec/jec.d:
 	touch data/jec/jec.d
 
 include/feedregression.h: include/[!f]*.h src/regression.cpp include/$(regclass).h ${CROMBIEPATH}/scripts/feedpanda.pl
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def \
-	include/genjet.h include/regression.h include/jetselect.h include/$(regclass).h src/regression.cpp include/feedregression.h
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include src/regression.cpp include/feedregression.h
 
 include/feedsmear.h: include/[!f]*.h src/smear.cpp include/smearfile.h ${CROMBIEPATH}/scripts/feedpanda.pl
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def \
-	include/pfvecs.h include/jetselect.h include/leptonselect.h include/smearfile.h src/smear.cpp include/roccor.h include/feedsmear.h
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include src/smear.cpp include/feedsmear.h
 
 include/feedpanda.h: include/[!f]*.h include/$(flatclass).h include/checkrun.h src/slimmer.cpp ${CROMBIEPATH}/scripts/feedpanda.pl
-	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include/[!f]*.h src/slimmer.cpp include/feedpanda.h
+	crombie feedpanda $(pandainc)/PandaTree/defs/panda.def include src/slimmer.cpp include/feedpanda.h
 
-include/$(regclass).h: treedefs/$(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) treedefs/regression.txt
+include/$(regclass).h: treedefs/$(regclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) treedefs/regression.txt treedefs/regeval.txt
 	crombie maketree treedefs/$(regclass).txt
 	mv $(regclass).h include/
 
@@ -134,7 +132,7 @@ reg: $(regression)
 
 regtestdir = ${HOME}/public_html/plots/testreg_$(vers)
 
-regtest: $(regression)
+regtest: $(regression) $(effs)
 	test ! -f reg.root || rm reg.root
 	input_dir='/test/pandaf/013/this' regresstree /data/t3home000/dabercro/scratch/TTToHadronic/661A1D00-21C9-634B-829E-48F95273CAC7.root reg.root
 	test -z ${CMSSW_BASE} || test ! -d $(regtestdir)_old || rm -r $(regtestdir)_old
@@ -145,7 +143,7 @@ smear: $(smear)
 
 smeartestdir = ${HOME}/public_html/plots/testsmear_$(vers)
 
-smeartest: $(smear)
+smeartest: $(smear) $(effs)
 	test ! -f smear.root || rm smear.root
 	input_dir='/test/pandaf/013/this' smeartree /data/t3home000/dabercro/scratch/DYJetsToLL_M-50/*.root smear.root
 	test -z ${CMSSW_BASE} || test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
