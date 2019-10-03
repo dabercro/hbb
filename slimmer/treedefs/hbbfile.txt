@@ -168,14 +168,14 @@ hbb {
     $ -> []_vec.$$() | pt, eta, phi, m
 
     #vec_@/TLorentzVector = TLorentzVector() <- \
-        vectorSum(jet1_pt * jet1_tf_@_ptratio, <jet1_{eta, phi, m}>, \
-                  jet2_pt * jet2_tf_@_ptratio, <jet2_{eta, phi, m}>) |@ PTREGS
+        vectorSum(jet1_pt * jet1_@_ptratio, <jet1_{eta, phi, m}>, \
+                  jet2_pt * jet2_@_ptratio, <jet2_{eta, phi, m}>) |@ PTREGS
 
     $_@ <- []_vec_@.$$() | pt, eta, phi, m |@ PTREGS
 
 !    #vec_@/TLorentzVector = TLorentzVector() <- \
-!        vectorSum(jet1_pt, jet1_eta + jet1_tf_@_deta, jet1_phi + jet1_tf_@_dphi, jet1_m, \
-!                  jet2_pt, jet2_eta + jet2_tf_@_deta, jet2_phi + jet2_tf_@_dphi, jet2_m) |@ DIRREGS
+!        vectorSum(jet1_pt, jet1_eta + jet1_@_deta, jet1_phi + jet1_@_dphi, jet1_m, \
+!                  jet2_pt, jet2_eta + jet2_@_deta, jet2_phi + jet2_@_dphi, jet2_m) |@ DIRREGS
 !
 !    $_@ <- []_vec_@.$$() | pt, eta, phi, m |@ DIRREGS
 

@@ -1,0 +1,327 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie
+}
+
+\title{\bf \sffamily b-jet Regression Update and Smearing Application}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+
+  \begin{itemize}
+  \item Fixing the PUPPI information difference between MC and Data
+  \item Evaluation of regression architectures using single jets \\
+    (not in the $Hbb$ signal region)
+  \item Smearing extraction and application
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Fixing PUPPI Regression}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Brief Recap of Last Talk}
+  \link{Slides from previous talk here.}
+       {https://indico.cern.ch/event/788750/contributions/3529492/attachments/1893446/3123086/dabercro_hbb_190814.pdf}
+
+  \begin{itemize}
+  \item Trained on hadronic $t\bar{t}$ sample
+  \item Overlapping neutrinos are added to gen-jet for target
+  \item PUPPI splits energy into four categories
+    \begin{itemize}
+    \item charged
+    \item charged pileup
+    \item neutral
+    \item neutral pileup
+    \end{itemize}
+  \item New variables included each category's $p_T$ over the jet $p_T$
+  \item PUPPI performed best when comparing performance in \\
+    $ZH \rightarrow \nu\nu bb$ resolved selection
+  \item PUPPI infomation had poor agreement in MC and Data
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Validation in Control Regions}
+
+  Reminder: PUPPI regression behaves particularly poorly in $t\bar{t}$
+
+  \fourfigs{Z + b; high tag}
+           {../../190814/figs/190813_validation/heavyz_jet1_tf_190723_puppi_ptratio.pdf}
+           {Z + b; low tag}
+           {../../190814/figs/190813_validation/heavyz_jet2_tf_190723_puppi_ptratio.pdf}
+           {$t\bar{t}$; high tag}
+           {../../190814/figs/190813_validation/tt_jet1_tf_190723_puppi_ptratio.pdf}
+           {$t\bar{t}$; low tag}
+           {../../190814/figs/190813_validation/tt_jet2_tf_190723_puppi_ptratio.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Input Variable: PUPPI $p_T$ Fraction}
+
+  There is a strong trend in the difference between data and MC
+
+  \twofigs{Charged Fraction}
+          {../../190911/figs/190815_validation/tt_jet1_puppi_charged_pt_jet1_pt.pdf}
+          {Neutral Fraction}
+          {../../190911/figs/190815_validation/tt_jet1_puppi_neutral_pt_jet1_pt.pdf}
+
+  This is using corrected $p_T$ of the jet
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Replacement Variable: PUPPI $p_T$ Over Raw Jet $p_T$}
+
+  \twofigs{Corrected Jet $p_T$}
+          {../../190911/figs/190815_validation/tt_jet1_puppi_charged_pt_jet1_pt.pdf}
+          {Raw Jet $p_T$}
+          {../../190911/figs/190830_puppi_raw/tt_jet1_puppi_charged_pt_jet1_rawPt.pdf}
+
+  Agreement is not perfect,
+  but there is no longer a monotonically decreasing relation
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Retrain and Reapply}
+
+  \twofigs{Corrected Jet $p_T$}
+          {../../190814/figs/190813_validation/tt_jet1_tf_190723_puppi_ptratio.pdf}
+          {Raw Jet $p_T$}
+          {../../190911/figs/190910_valid/tt_jet1_tf_190904_0_2_ptratio.pdf}
+
+  Using the raw jet $p_T$ for the fraction looks much better \\
+  Note: \ttbar \, picked because it always looks the worst
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Resolution of Signal Sample}
+
+  Fit a Bukin distribution over each training's di-jet mass peak
+
+  \begin{center}
+    \includegraphics[width=0.5\linewidth]{../../190814/figs/190813_bukin/signal_hbb_m_190723_puppi.pdf}
+  \end{center}
+
+  Parameters for no training: $\mu = 120.8 \pm 0.1$, $\sigma = 13.43 \pm 0.07$
+
+  \vspace{12pt}
+
+  \begin{itemize}
+  \item No PUPPI: $\mu = 121.8 \pm 0.1$, $\sigma = 11.83 \pm 0.06$
+  \item Corrected $p_T$: $\mu = 125.0 \pm 0.1$, $\sigma = 11.80 \pm 0.06$
+  \item Raw $p_T$: $\mu = 124.1 \pm 0.1$, $\sigma = 11.75 \pm 0.06$
+  \end{itemize}
+
+  Changing inputs does not cause significant perform loss
+
+\end{frame}
+
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Evaluation of Regression with Single Jets}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Relative Resolution}
+
+  \twofigs{Function of $\eta$}
+          {190927_violin_190723_origin/bjetreg_2018_violin_eta_Hbb_dreg_2018_wide.pdf}
+          {Function of $p_T$}
+          {190927_violin_190723_origin/bjetreg_2018_violin_Hbb_dreg_2018_wide.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Improvement from PUPPI Information}  
+
+  Based on resolution metric, PUPPI information improves for all $\eta$ and $p_T$
+
+  \twofigs{Function of $\eta$}
+          {191003_compareres/plot_compare_eta.pdf}
+          {Function of $p_T$}
+          {191003_compareres/plot_compare_pt.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Smearing}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Data/MC Comparison}
+
+  Binned in $\alpha = \frac{p_{T, \mathrm{trailing jet}}}{p_{T, \ell\ell}}$
+  to get resolution in MC and Data
+
+  \centering
+  \includegraphics[width=0.6\linewidth]{191002_tosmear/smearplot_1_jet1_190904_0_2_pt_dilep_corr_pt.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fit Results}
+
+  Smearing factors were extracted from fit in $\alpha$
+
+  \centering
+  \includegraphics[width=0.6\linewidth]{191003_resolution_tosmear/resolution_190904_0_2.pdf}
+
+  \[
+  f(\alpha) = \sqrt{a^2 + (b \alpha)^2} \\
+  \sigma_{smear} = \sqrt{a^2_{data} - a^2_{mc}}
+  \]
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Application of Smearing}
+
+  Agreement of resolution at $\alpha = 0$ is much better after smearing
+
+  \centering
+  \includegraphics[width=0.6\linewidth]{191003_resolution_smeared/resolution_190904_0_2.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  todo: Dissection of dector regions to compare performance of smearing
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item Discrepency in PUPPI information fixed by using raw $p_T$
+  \item Network performs better in previous metric as well as when considering
+    b-jets alone in general
+  \item Smearing factors are extracted and successfully applied
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{comment}
+\beginbackup
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+\end{comment}
+
+\end{document}

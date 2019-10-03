@@ -8,6 +8,8 @@ import math
 import ROOT
 
 
+end = '_smeared'
+
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
@@ -15,7 +17,7 @@ newdir = os.path.join(
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
-        sys.argv[1] if len(sys.argv) > 1 else ''
+        sys.argv[1] if len(sys.argv) > 1 else end
         )
     )
 
@@ -23,7 +25,7 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 alphadir = '/home/dabercro/public_html/plots/190918_alpha'
-ratiodir = '/home/dabercro/public_html/plots/190927_904_ptcut'
+ratiodir = '/home/dabercro/public_html/plots/191003%s' % end
 
 class MeanCalc(object):
 
@@ -67,10 +69,15 @@ while index != len(ranges):
 
 trainings = [
     ('', 'No regression'),
-    ('190904_0_2', 'PUPPI with raw p_{T}'),
+    ('190904_0', 'PUPPI network'),
+    ('190904_0_2', 'PUPPI network'),
+    ('190904_0_3', 'PUPPI network'),
     ('190723_origin', 'Previous network'),
     ('190723_puppi', 'PUPPI network'),
-    ('190725_lstm_pf', 'LSTM'),
+    ('190723_origin_2', 'Previous network'),
+    ('190723_puppi_2', 'PUPPI network'),
+    ('190725_lstm_pf', 'LSTM network'),
+    ('190924_0', 'Large Batch')
     ]
 
 for training, trainname in trainings:
@@ -98,7 +105,7 @@ for training, trainname in trainings:
         smearfile = ROOT.TFile(
             os.path.join(
                 ratiodir,
-                '%s_jet1_%s_ptsmear_dilep_corr_pt.root' % (
+                '%s_jet1_%s_pt_dilep_corr_pt.root' % (
                     mean[0], training
                     ) if training else
                 '%s_jet1_pt_dilep_corr_pt.root' % mean[0]
@@ -150,8 +157,14 @@ for training, trainname in trainings:
         data_func.Draw('same')
         mc_func.Draw('same')
 
+        leg = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+        leg.AddEntry(data, 'Data', 'p')
+        leg.AddEntry(mc, 'MC', 'p')
+        leg.Draw()
+
         print '-'*30
         print trainname
+        print training
         print '-'*30
 
         if makesub:
@@ -180,8 +193,8 @@ for training, trainname in trainings:
 
             print 'MC at y-axis:', abs(mc_func.GetParameter(0))
 
-            print 'Smear factor:', math.sqrt(math.pow(data_func.GetParameter(0), 2) - 
-                                             math.pow(mc_func.GetParameter(0), 2))
+            print 'Smear factor:', math.sqrt(abs(math.pow(data_func.GetParameter(0), 2) - 
+                                                 math.pow(mc_func.GetParameter(0), 2)))
 
             for mc_sub in [mc_sub1, mc_sub2]:
                 mc_sub.SetLineWidth(1)
