@@ -57,7 +57,7 @@ def load_data(jsonfile):
     with open(jsonfile) as config_file:
         data = json.load(config_file)
 
-    data['opath'] = '/home/dabercro/public_html/plots/%s_violin_%s/' % \
+    data['opath'] = '/home/dabercro/public_html/plots/%s_smeared_%s/' % \
         (datetime.date.fromtimestamp(time.time()).strftime('%y%m%d'),
          version)
 
@@ -87,8 +87,8 @@ def violin(option,args):
 #      for index in xrange(int(os.environ.get('num', len(infiles)))):
 #          ifile = os.path.join(indir, infiles[index])
 
-#      for ifile in ['../bigreg.root']:
-      for ifile in ['../reg.root']:
+      for ifile in ['../bigreg3.root']:
+#      for ifile in ['../reg.root']:
 
           print "Opening ..." + ifile
           tf = ROOT.TFile(ifile);
@@ -98,14 +98,14 @@ def violin(option,args):
          
               tt.GetEntry(i)
 
-              if tt.Jet_pt > 5:
+              if tt.Jet_pt:
                   dataframe_data2["jet_pt"].append(tt.Jet_pt)
                   dataframe_data2["genjet_pt"].append(tt.Jet_mcPt)
 
                   dataframe_data["pt"].append(tt.Jet_mcPt/tt.Jet_pt)
                   dataframe_data["category"].append("JECs only")
                   dataframe_data["pt"].append(tt.Jet_mcPt/
-                                              (getattr(tt, 'Jet_tf_%s_pt' % version)))
+                                              (getattr(tt, 'Jet_%s_ptsmear' % version)))
                   dataframe_data["category"].append("DNN regression")
 
 
@@ -185,7 +185,7 @@ def violin(option,args):
       ax2.get_xaxis().set_tick_params(which='both', direction='in',zorder=99)
 
       ax2.set_xlabel("gen jet $p_\\mathrm{T}$ (GeV)",fontsize=20,labelpad=22)
-      ax2.set_ylabel("$(\\sigma - \\sigma_{\\mathrm{base}}) / \\sigma_{\\mathrm{base}}$",fontsize=20,labelpad=22)
+      ax2.set_ylabel("$(Q_{0.75} - Q_{0.25}) / Q_{0.40}$",fontsize=20,labelpad=22)
 
       low,high = ax2.get_ylim()
       ax2.set_ylim(low/1.1,high*1.1)
@@ -263,7 +263,7 @@ def violin(option,args):
       ax2.get_xaxis().set_tick_params(which='both', direction='in',zorder=99)
 
       ax2.set_xlabel("jet $|\eta|$",fontsize=20,labelpad=22)
-      ax2.set_ylabel("$(\\sigma - \\sigma_{\\mathrm{base}}) / \\sigma_{\\mathrm{base}}$",fontsize=20,labelpad=22)
+      ax2.set_ylabel("$(Q_{0.75} - Q_{0.25}) / Q_{0.40}$",fontsize=20,labelpad=22)
 
       low,high = ax2.get_ylim()
       ax2.set_ylim(low/1.1,high*1.1)

@@ -1,0 +1,198 @@
+[?1034h FCN=26.2119 FROM MIGRAD    STATUS=CONVERGED     232 CALLS         233 TOTAL
+                     EDM=8.19453e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       4.78911e+00   4.51950e-02   7.44437e-05   1.76052e-02
+   2  mean         1.18608e+02   2.35360e-01   2.44448e-04   2.42928e-03
+   3  width        1.39915e+01   1.38569e-01   1.54360e-04   6.12011e-03
+   4  asymmetry   -7.18072e-02   1.29879e-02   8.49356e-06   1.72240e-01
+   5  size of lower tail  -4.32751e-02   3.55360e-02   4.28646e-05  -4.68775e-02
+   6  size of higher tail  -2.81898e-01   5.37173e-02   6.24825e-05   1.25351e-02
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_0_hbb_m.root #sigma = 13.991545 +- 0.138569 mean = 118.607801 +- 0.235360
+ FCN=12.1642 FROM MIGRAD    STATUS=CONVERGED     261 CALLS         262 TOTAL
+                     EDM=2.1291e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       5.33553e+00   5.23272e-02   5.72748e-05   2.75924e-03
+   2  mean         1.22796e+02   1.95543e-01   1.43738e-04  -5.21925e-04
+   3  width        1.23362e+01   1.16747e-01   8.71530e-05  -2.15586e-04
+   4  asymmetry   -7.11975e-02   1.13090e-02   5.16485e-06   7.56528e-02
+   5  size of lower tail   5.15525e-02   1.93524e-02   1.70975e-05  -2.94698e-02
+   6  size of higher tail  -2.35509e-01   4.55784e-02   3.44694e-05   1.87226e-02
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_0_hbb_m_190723_origin_2.root #sigma = 12.336236 +- 0.116747 mean = 122.795764 +- 0.195543
+ FCN=15.9535 FROM MIGRAD    STATUS=CONVERGED     265 CALLS         266 TOTAL
+                     EDM=2.19438e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       5.37184e+00   5.21694e-02   6.54178e-05  -1.02977e-02
+   2  mean         1.22409e+02   1.93702e-01   1.61562e-04  -3.53580e-03
+   3  width        1.22363e+01   1.12327e-01   9.70576e-05  -3.38037e-03
+   4  asymmetry   -7.05770e-02   1.08958e-02   5.77777e-06  -3.26865e-02
+   5  size of lower tail   5.84622e-02   1.90412e-02   1.91627e-05  -2.93615e-02
+   6  size of higher tail  -2.40586e-01   4.04512e-02   3.71625e-05   1.30879e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_0_hbb_m_190723_origin_3.root #sigma = 12.236322 +- 0.112327 mean = 122.408753 +- 0.193702
+ FCN=9.54997 FROM MIGRAD    STATUS=CONVERGED     265 CALLS         266 TOTAL
+                     EDM=4.65696e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       5.09797e+00   5.30221e-02   5.02092e-05  -3.93940e-03
+   2  mean         1.23394e+02   2.11240e-01   1.32464e-04  -8.50859e-04
+   3  width        1.29587e+01   1.24177e-01   7.93549e-05  -9.15162e-03
+   4  asymmetry   -5.98501e-02   1.14898e-02   4.54754e-06  -7.13013e-02
+   5  size of lower tail   4.80655e-02   2.15549e-02   1.66617e-05   1.79033e-02
+   6  size of higher tail  -3.30255e-01   4.84994e-02   3.32659e-05  -7.58467e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_0_hbb_m_190725_lstm_pf.root #sigma = 12.958747 +- 0.124177 mean = 123.394442 +- 0.211240
+ FCN=12.5022 FROM MIGRAD    STATUS=CONVERGED     262 CALLS         263 TOTAL
+                     EDM=3.2939e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       5.29735e+00   5.13224e-02   5.74110e-05  -1.01445e-02
+   2  mean         1.23044e+02   1.95418e-01   1.44814e-04  -5.33114e-03
+   3  width        1.24278e+01   1.14102e-01   8.67080e-05  -3.01082e-04
+   4  asymmetry   -6.92354e-02   1.09307e-02   5.11507e-06  -1.33997e-01
+   5  size of lower tail   4.86424e-02   1.92501e-02   1.72579e-05   3.90073e-02
+   6  size of higher tail  -2.70847e-01   4.28630e-02   3.41832e-05   8.13999e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_0_hbb_m_190904_0_2.root #sigma = 12.427818 +- 0.114102 mean = 123.044375 +- 0.195418
+ FCN=13.397 FROM MIGRAD    STATUS=CONVERGED     264 CALLS         265 TOTAL
+                     EDM=4.03433e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       5.32396e+00   5.22640e-02   5.96316e-05   2.87181e-04
+   2  mean         1.23363e+02   1.94183e-01   1.49652e-04   3.00836e-04
+   3  width        1.22920e+01   1.15125e-01   9.03597e-05  -1.93107e-04
+   4  asymmetry   -7.75849e-02   1.11101e-02   5.34117e-06   1.07691e-02
+   5  size of lower tail   4.63055e-02   1.89340e-02   1.74268e-05  -1.97041e-04
+   6  size of higher tail  -1.99772e-01   4.22386e-02   3.42884e-05   2.16855e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_0_hbb_m_190904_0_3.root #sigma = 12.291988 +- 0.115125 mean = 123.362514 +- 0.194183
+ FCN=33.4261 FROM MIGRAD    STATUS=CONVERGED     246 CALLS         247 TOTAL
+                     EDM=3.8597e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       4.17818e+00   4.54335e-02   8.14878e-05   5.97415e-03
+   2  mean         1.20526e+02   2.39781e-01   2.71329e-04  -1.14429e-03
+   3  width        1.31018e+01   1.39669e-01   1.67054e-04   2.46770e-03
+   4  asymmetry   -1.01631e-01   1.32384e-02   9.55492e-06  -4.30281e-02
+   5  size of lower tail  -7.81639e-02   3.58535e-02   4.86838e-05   6.31159e-03
+   6  size of higher tail  -1.73846e-01   4.63668e-02   6.25021e-05  -3.68306e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_1_hbb_m.root #sigma = 13.101804 +- 0.139669 mean = 120.526337 +- 0.239781
+ FCN=17.8342 FROM MIGRAD    STATUS=CONVERGED     259 CALLS         260 TOTAL
+                     EDM=2.77071e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       4.65732e+00   5.22970e-02   6.75962e-05  -5.82740e-03
+   2  mean         1.23489e+02   1.94727e-01   1.78815e-04  -2.18469e-03
+   3  width        1.15719e+01   1.18620e-01   1.08054e-04   2.43409e-03
+   4  asymmetry   -9.57973e-02   1.12842e-02   6.73078e-06   2.22238e-02
+   5  size of lower tail   1.05320e-02   2.05958e-02   2.25288e-05   1.72823e-02
+   6  size of higher tail  -1.20482e-01   3.12558e-02   3.21242e-05   3.44802e-02
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_1_hbb_m_190723_origin_2.root #sigma = 11.571879 +- 0.118620 mean = 123.489133 +- 0.194727
+ FCN=19.9173 FROM MIGRAD    STATUS=CONVERGED     234 CALLS         235 TOTAL
+                     EDM=2.69494e-09    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.8 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       4.65899e+00   5.22324e-02  -1.14617e-06  -9.63313e-04
+   2  mean         1.23205e+02   1.96911e-01   4.50065e-05   6.87496e-04
+   3  width        1.15227e+01   1.19061e-01  -7.61450e-06  -5.70346e-04
+   4  asymmetry   -1.00799e-01   1.14045e-02  -1.92543e-06   4.40654e-03
+   5  size of lower tail   2.29172e-03   2.16252e-02   1.38152e-06   1.10763e-03
+   6  size of higher tail  -1.02061e-01   3.06740e-02   2.01478e-05  -1.41698e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_1_hbb_m_190723_origin_3.root #sigma = 11.522680 +- 0.119061 mean = 123.205073 +- 0.196911
+ FCN=33.0673 FROM MIGRAD    STATUS=CONVERGED     255 CALLS         256 TOTAL
+                     EDM=1.40016e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       4.43774e+00   4.88680e-02   8.65193e-05   2.05172e-03
+   2  mean         1.24174e+02   2.21369e-01   2.55859e-04  -1.08149e-03
+   3  width        1.21862e+01   1.24932e-01   1.52397e-04   1.16923e-03
+   4  asymmetry   -8.39923e-02   1.21983e-02   9.15389e-06  -2.80978e-02
+   5  size of lower tail   5.39432e-03   2.31648e-02   3.32606e-05   1.15359e-02
+   6  size of higher tail  -1.94478e-01   3.84112e-02   5.00792e-05   1.22865e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_1_hbb_m_190725_lstm_pf.root #sigma = 12.186203 +- 0.124932 mean = 124.174294 +- 0.221369
+ FCN=18.15 FROM MIGRAD    STATUS=CONVERGED     261 CALLS         262 TOTAL
+                     EDM=2.06013e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       4.61024e+00   4.91973e-02   6.64892e-05  -6.39878e-03
+   2  mean         1.23753e+02   2.03963e-01   1.82163e-04  -5.55201e-03
+   3  width        1.16532e+01   1.15890e-01   1.09801e-04  -1.45555e-03
+   4  asymmetry   -1.00098e-01   1.18185e-02   6.80634e-06  -1.08635e-01
+   5  size of lower tail   1.10914e-02   2.22196e-02   2.37889e-05   2.52571e-02
+   6  size of higher tail  -1.31071e-01   3.25161e-02   3.40025e-05   6.07037e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_1_hbb_m_190904_0_2.root #sigma = 11.653216 +- 0.115890 mean = 123.753184 +- 0.203963
+ FCN=27.6424 FROM MIGRAD    STATUS=CONVERGED     259 CALLS         260 TOTAL
+                     EDM=2.9306e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       4.61694e+00   5.13853e-02   8.23854e-05   9.25283e-04
+   2  mean         1.23964e+02   1.98141e-01   2.23124e-04  -2.47192e-05
+   3  width        1.15977e+01   1.19476e-01   1.35106e-04   1.85954e-03
+   4  asymmetry   -9.49946e-02   1.15552e-02   8.38504e-06  -3.08864e-02
+   5  size of lower tail   1.39069e-02   2.13740e-02   2.89193e-05   1.88833e-02
+   6  size of higher tail  -1.09293e-01   3.32443e-02   4.13262e-05  -3.81706e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_1_hbb_m_190904_0_3.root #sigma = 11.597658 +- 0.119476 mean = 123.964017 +- 0.198141
+ FCN=22.503 FROM MIGRAD    STATUS=CONVERGED     258 CALLS         259 TOTAL
+                     EDM=2.18778e-07    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.8 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       2.83938e+00   4.05265e-02  -3.01866e-05  -3.80807e-03
+   2  mean         1.23795e+02   3.11843e-01  -4.50500e-04  -5.95138e-03
+   3  width        1.17924e+01   1.61690e-01   8.28902e-04   2.42271e-03
+   4  asymmetry   -8.18227e-02   1.73680e-02   9.73777e-06  -1.40585e-01
+   5  size of lower tail  -7.02894e-02   3.32733e-02  -1.42006e-04   3.17429e-02
+   6  size of higher tail  -2.31004e-01   6.90813e-02  -2.69168e-04  -3.82970e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_2_hbb_m.root #sigma = 11.792391 +- 0.161690 mean = 123.795196 +- 0.311843
+ FCN=26.177 FROM MIGRAD    STATUS=CONVERGED     262 CALLS         263 TOTAL
+                     EDM=3.14101e-08    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.1 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       3.17832e+00   4.28640e-02   1.69301e-05  -1.39370e-03
+   2  mean         1.25759e+02   2.56374e-01   9.87489e-05  -9.07817e-05
+   3  width        1.03471e+01   1.40126e-01  -1.01757e-04  -2.64813e-03
+   4  asymmetry   -9.23138e-02   1.48935e-02  -8.37862e-07  -3.30037e-02
+   5  size of lower tail  -1.57533e-02   2.23151e-02  -1.40110e-05   6.57653e-03
+   6  size of higher tail  -1.44969e-01   4.40741e-02   2.19651e-05  -1.33633e-02
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_2_hbb_m_190723_origin_2.root #sigma = 10.347084 +- 0.140126 mean = 125.759062 +- 0.256374
+ FCN=21.945 FROM MIGRAD    STATUS=CONVERGED     264 CALLS         265 TOTAL
+                     EDM=3.0849e-07    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   3.6 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       3.22107e+00   4.43565e-02  -7.40928e-05   1.34399e-02
+   2  mean         1.25696e+02   2.90685e-01   3.40312e-03   1.51314e-03
+   3  width        1.02428e+01   1.31560e-01   5.96890e-04  -2.19195e-03
+   4  asymmetry   -1.11696e-01   1.59557e-02  -1.57526e-04  -9.53214e-03
+   5  size of lower tail  -3.30076e-02   2.48036e-02  -3.31691e-04   1.05285e-02
+   6  size of higher tail  -8.32801e-02   3.80494e-02   4.81189e-05  -2.71425e-02
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_2_hbb_m_190723_origin_3.root #sigma = 10.242850 +- 0.131560 mean = 125.695806 +- 0.290685
+ FCN=33.9292 FROM MIGRAD    STATUS=CONVERGED     304 CALLS         305 TOTAL
+                     EDM=1.65146e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       3.07241e+00   4.50840e-02   8.49791e-05  -1.37212e-02
+   2  mean         1.26244e+02   2.49604e-01   3.44662e-04   5.62512e-04
+   3  width        1.07149e+01   1.51821e-01   1.92437e-04   4.26187e-03
+   4  asymmetry   -8.06601e-02   1.51712e-02   1.30114e-05  -5.73301e-02
+   5  size of lower tail  -1.75683e-02   2.26405e-02   3.38383e-05   1.10676e-01
+   6  size of higher tail  -1.70595e-01   4.87376e-02   6.54104e-05   2.58933e-02
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_2_hbb_m_190725_lstm_pf.root #sigma = 10.714900 +- 0.151821 mean = 126.244089 +- 0.249604
+ FCN=31.5233 FROM MIGRAD    STATUS=CONVERGED     298 CALLS         299 TOTAL
+                     EDM=6.75609e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       3.17047e+00   4.73275e-02   8.50200e-05   3.77942e-03
+   2  mean         1.25754e+02   2.47566e-01   3.24209e-04  -6.49827e-03
+   3  width        1.03501e+01   1.47209e-01   1.80563e-04  -5.44644e-03
+   4  asymmetry   -1.03764e-01   1.54760e-02   1.26117e-05  -3.90541e-02
+   5  size of lower tail  -2.64675e-02   2.30752e-02   3.31013e-05  -2.97020e-02
+   6  size of higher tail  -1.10967e-01   4.35700e-02   5.62557e-05   1.52909e-03
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_2_hbb_m_190904_0_2.root #sigma = 10.350078 +- 0.147209 mean = 125.754314 +- 0.247566
+ FCN=33.1862 FROM MIGRAD    STATUS=CONVERGED     320 CALLS         321 TOTAL
+                     EDM=8.79321e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  height       3.22093e+00   4.42959e-02   8.65922e-05   2.42423e-02
+   2  mean         1.26292e+02   2.77412e-01   3.37358e-04   3.56961e-03
+   3  width        1.02505e+01   1.28633e-01   1.79062e-04   6.68613e-03
+   4  asymmetry   -9.91761e-02   1.51976e-02   1.23875e-05  -1.17884e-02
+   5  size of lower tail  -1.94311e-02   2.25002e-02   3.22535e-05   1.87133e-02
+   6  size of higher tail  -9.51901e-02   3.93825e-02   5.91879e-05  -1.85111e-02
+/home/dabercro/public_html/plots/191008_dijet_recoilbin2/signal_2_hbb_m_190904_0_3.root #sigma = 10.250452 +- 0.128633 mean = 126.292474 +- 0.277412

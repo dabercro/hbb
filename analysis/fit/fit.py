@@ -19,11 +19,11 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 
-for filename in sorted(glob.glob('/home/dabercro/public_html/plots/190917_dphi/smearplot_?_*jet1_pt_dilep_corr_pt*.root')):
+for filename in sorted(glob.glob('/home/dabercro/public_html/plots/191008_dijet_recoilbin2/*.root')):
 
     infile = ROOT.TFile(filename)
 
-    histogram = infile.DY
+    histogram = infile.ZH
 
     test = ROOT.TCanvas()
 

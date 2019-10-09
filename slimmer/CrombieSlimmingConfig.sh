@@ -1,7 +1,7 @@
-day=191002
-#exe=mkhbb
+day=191007
+exe=mkhbb
 #exe=regresstree
-exe=smeartree
+#exe=smeartree
 #puppi='ispuppi=1 '
 
 #inp_dir=/mnt/hadoop/scratch/dabercro/hbb

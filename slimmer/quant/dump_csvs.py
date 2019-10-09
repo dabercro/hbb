@@ -4,6 +4,13 @@ import os
 import json
 import sys
 
+import datetime
+
+outdir = 'csvs_%s' % datetime.date.strftime(datetime.datetime.now(), '%y%m%d')
+
+if not os.path.exists(outdir):
+    os.makedirs(outdir)
+
 with open(sys.argv[1], 'r') as rawfile:
     outfile = ''
     outhandle = None
@@ -15,7 +22,7 @@ with open(sys.argv[1], 'r') as rawfile:
         elif line.strip() == 'pt' or line.strip() == 'eta':
             if outhandle:
                 outhandle.close()
-            outhandle = open(os.path.join('csvs', outfile + '_' + line.strip() + '.csv'), 'w')
+            outhandle = open(os.path.join(outdir, outfile + '_' + line.strip() + '.csv'), 'w')
 
         elif ',' in line and outhandle:
             outhandle.write(line)

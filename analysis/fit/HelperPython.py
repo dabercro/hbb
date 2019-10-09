@@ -216,7 +216,7 @@ class Gauss:
 class Bukin:
     def __call__( self, x, par ):
 
-      debug=True
+      debug=False
 
       if debug:
         print "******"

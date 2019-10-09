@@ -8,7 +8,9 @@ import math
 import ROOT
 
 
-end = '_smeared'
+bintype = 'eta'
+
+end = '_%sbinned' % bintype
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -25,7 +27,7 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 alphadir = '/home/dabercro/public_html/plots/190918_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191003%s' % end
+ratiodir = '/home/dabercro/public_html/plots/191008%s' % end
 
 class MeanCalc(object):
 
@@ -46,11 +48,9 @@ class MeanCalc(object):
 
 # Name of region and max alpha value
 ranges = [
-    ('smearplot_0', 0.125, MeanCalc(), MeanCalc()),
-    ('smearplot_1', 0.155, MeanCalc(), MeanCalc()),
-    ('smearplot_1b', 0.185, MeanCalc(), MeanCalc()),
-    ('smearplot_2', 0.245, MeanCalc(), MeanCalc()),
-    ('smearplot_3', 0.3, MeanCalc(), MeanCalc()),
+    ('%splot_1' % bintype, 0.15, MeanCalc(), MeanCalc()),
+    ('%splot_2' % bintype, 0.185, MeanCalc(), MeanCalc()),
+    ('%splot_3' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 index = 0
 
@@ -82,135 +82,132 @@ trainings = [
 
 for training, trainname in trainings:
 
-    index = 0
+    for bin in range(2):
 
-    data_graph_res = ROOT.TGraph(len(ranges))
-    data_graph_res.SetMarkerStyle(8)
-    data_graph_res.SetMarkerColor(1)
+        index = 0
 
-    mc_graph_res = ROOT.TGraph(len(ranges))
-    mc_graph_res.SetMarkerStyle(8)
-    mc_graph_res.SetMarkerColor(2)
+        data_graph_res = ROOT.TGraph(len(ranges))
+        data_graph_res.SetMarkerStyle(8)
+        data_graph_res.SetMarkerColor(1)
 
-    data_graph_mean = ROOT.TGraph(len(ranges))
-    data_graph_mean.SetMarkerStyle(8)
-    data_graph_mean.SetMarkerColor(1)
+        mc_graph_res = ROOT.TGraph(len(ranges))
+        mc_graph_res.SetMarkerStyle(8)
+        mc_graph_res.SetMarkerColor(2)
 
-    mc_graph_mean = ROOT.TGraph(len(ranges))
-    mc_graph_mean.SetMarkerStyle(8)
-    mc_graph_mean.SetMarkerColor(2)
+        data_graph_mean = ROOT.TGraph(len(ranges))
+        data_graph_mean.SetMarkerStyle(8)
+        data_graph_mean.SetMarkerColor(1)
 
-    for mean in ranges:
+        mc_graph_mean = ROOT.TGraph(len(ranges))
+        mc_graph_mean.SetMarkerStyle(8)
+        mc_graph_mean.SetMarkerColor(2)
 
-        smearfile = ROOT.TFile(
-            os.path.join(
-                ratiodir,
-                '%s_jet1_%s_pt_dilep_corr_pt.root' % (
-                    mean[0], training
-                    ) if training else
-                '%s_jet1_pt_dilep_corr_pt.root' % mean[0]
+        for mean in ranges:
+
+            smearfile = ROOT.TFile(
+                os.path.join(
+                    ratiodir,
+                    '%s_%i_jet1_%s_pt_dilep_corr_pt.root' % (
+                        mean[0], bin, training
+                        ) if training else
+                    '%s_%i_jet1_pt_dilep_corr_pt.root' % (mean[0], bin)
+                    )
                 )
-            )
 
-        data_hist = smearfile.Get("Data")
-        data_mean = mean[2].mean()
-        data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev())
-        data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
+            data_hist = smearfile.Get("Data")
+            data_mean = mean[2].mean()
+            data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev())
+            data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
-        mc_hist = smearfile.Get("DY")
-        mc_mean = mean[3].mean()
-        mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
-        mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
+            mc_hist = smearfile.Get("DY")
+            mc_mean = mean[3].mean()
+            mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
+            mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
 
-        index += 1
+            index += 1
 
-    for data, mc, name, mini, maxi, fit, makesub in [
-        (data_graph_res, mc_graph_res, '#sigma', 0.0, 0.4,
-#         lambda: ROOT.TF1('res', 'TMath::Sqrt(pow([0] * x + [1], 2) + pow([2] * x, 2))', 0, 0.3), True),
-         lambda: ROOT.TF1('resolution', 'TMath::Sqrt(pow([0], 2) + pow([1] * x, 2))', 0, 0.3), True),
-        (data_graph_mean, mc_graph_mean, '#mu', 0.7, 1.0,
-         lambda: ROOT.TF1('mean', '[0] * x + [1]', 0, 0.3), False)
-        ]:
+        for data, mc, name, mini, maxi, fit, makesub in [
+            (data_graph_res, mc_graph_res, '#sigma', 0.0, 0.4,
+             lambda: ROOT.TF1('resolution', 'TMath::Sqrt(pow([0], 2) + pow([1] * x, 2))', 0, 0.3), True),
+            (data_graph_mean, mc_graph_mean, '#mu', 0.7, 1.0,
+             lambda: ROOT.TF1('mean', '[0] * x + [1]', 0, 0.3), False)
+            ]:
 
-        hide = ROOT.TGraph(2)
-        hide.SetTitle('%s;#alpha;%s' % (trainname, name))
-        hide.SetPoint(0, 0, mini)
-        hide.SetPoint(1, 0.3, maxi)
+            hide = ROOT.TGraph(2)
+            hide.SetTitle('%s;#alpha;%s' % (trainname, name))
+            hide.SetPoint(0, 0, mini)
+            hide.SetPoint(1, 0.3, maxi)
 
-        for hist in [data, mc]:
-            hist.SetMinimum(mini)
-            hist.SetMaximum(maxi)
+            for hist in [data, mc]:
+                hist.SetMinimum(mini)
+                hist.SetMaximum(maxi)
 
-        data_func = fit()
-        data_func.SetLineColor(1)
-        mc_func = fit()
-        mc_func.SetLineColor(2)
+            data_func = fit()
+            data_func.SetLineColor(1)
+            mc_func = fit()
+            mc_func.SetLineColor(2)
 
-        c1 = ROOT.TCanvas()
+            c1 = ROOT.TCanvas()
 
-        datares = data.Fit(data_func)
-        mcres = mc.Fit(mc_func)
+            datares = data.Fit(data_func)
+            mcres = mc.Fit(mc_func)
 
-        hide.Draw('ap')
-        data.Draw('p,same')
-        mc.Draw('p,same')
-        data_func.Draw('same')
-        mc_func.Draw('same')
+            hide.Draw('ap')
+            data.Draw('p,same')
+            mc.Draw('p,same')
+            data_func.Draw('same')
+            mc_func.Draw('same')
 
-        leg = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
-        leg.AddEntry(data, 'Data', 'p')
-        leg.AddEntry(mc, 'MC', 'p')
-        leg.Draw()
+            leg = ROOT.TLegend(0.7, 0.7, 0.9, 0.9)
+            leg.AddEntry(data, 'Data', 'p')
+            leg.AddEntry(mc, 'MC', 'p')
+            leg.Draw()
 
-        print '-'*30
-        print trainname
-        print training
-        print '-'*30
+            print '-'*30
+            print trainname
+            print training
+            print '-'*30
 
-        if makesub:
-            data_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
-            data_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
-#            data_sub1.SetParameter(0, abs(data_func.GetParameter(0)))
-#            data_sub1.SetParameter(1, abs(data_func.GetParameter(1)))
-            data_sub1.SetParameter(0, 0)
-            data_sub1.SetParameter(1, abs(data_func.GetParameter(0)))
-            data_sub2.SetParameter(0, abs(data_func.GetParameter(1)))
+            if makesub:
+                data_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
+                data_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
+                data_sub1.SetParameter(0, 0)
+                data_sub1.SetParameter(1, abs(data_func.GetParameter(0)))
+                data_sub2.SetParameter(0, abs(data_func.GetParameter(1)))
 
-            print 'Data at y-axis:', abs(data_func.GetParameter(0))
+                print 'Data at y-axis:', abs(data_func.GetParameter(0))
 
-            for data_sub in [data_sub1, data_sub2]:
-                data_sub.SetLineWidth(1)
-                data_sub.SetLineColor(data_func.GetLineColor())
-                data_sub.Draw('same')
+                for data_sub in [data_sub1, data_sub2]:
+                    data_sub.SetLineWidth(1)
+                    data_sub.SetLineColor(data_func.GetLineColor())
+                    data_sub.Draw('same')
 
-            mc_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
-            mc_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
-#            mc_sub1.SetParameter(0, abs(mc_func.GetParameter(0)))
-#            mc_sub1.SetParameter(1, abs(mc_func.GetParameter(1)))
-            mc_sub1.SetParameter(0, 0)
-            mc_sub1.SetParameter(1, abs(mc_func.GetParameter(0)))
-            mc_sub2.SetParameter(0, abs(mc_func.GetParameter(1)))
+                mc_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
+                mc_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
+                mc_sub1.SetParameter(0, 0)
+                mc_sub1.SetParameter(1, abs(mc_func.GetParameter(0)))
+                mc_sub2.SetParameter(0, abs(mc_func.GetParameter(1)))
 
-            print 'MC at y-axis:', abs(mc_func.GetParameter(0))
+                print 'MC at y-axis:', abs(mc_func.GetParameter(0))
 
-            print 'Smear factor:', math.sqrt(abs(math.pow(data_func.GetParameter(0), 2) - 
-                                                 math.pow(mc_func.GetParameter(0), 2)))
+                print 'Smear factor:', math.sqrt(abs(math.pow(data_func.GetParameter(0), 2) - 
+                                                     math.pow(mc_func.GetParameter(0), 2)))
 
-            for mc_sub in [mc_sub1, mc_sub2]:
-                mc_sub.SetLineWidth(1)
-                mc_sub.SetLineColor(mc_func.GetLineColor())
-                mc_sub.Draw('same')
+                for mc_sub in [mc_sub1, mc_sub2]:
+                    mc_sub.SetLineWidth(1)
+                    mc_sub.SetLineColor(mc_func.GetLineColor())
+                    mc_sub.Draw('same')
 
-        else:
-            print 'Data at y-axis:', data_func.GetParameter(1)
-            print 'MC at y-axis:', mc_func.GetParameter(1)
-            print 'Scale factor:', data_func.GetParameter(1)/mc_func.GetParameter(1)
+            else:
+                print 'Data at y-axis:', data_func.GetParameter(1)
+                print 'MC at y-axis:', mc_func.GetParameter(1)
+                print 'Scale factor:', data_func.GetParameter(1)/mc_func.GetParameter(1)
 
-        for ext in ['pdf', 'png', 'C']:
-            c1.SaveAs(
-                os.path.join(newdir,
-                             os.path.basename('%s_%s.%s' % (data_func.GetName(), training, ext))
-                             )
-                )
+            for ext in ['pdf', 'png', 'C']:
+                c1.SaveAs(
+                    os.path.join(newdir,
+                                 os.path.basename('%s_%s_%s_%i.%s' % (data_func.GetName(), training, bintype, bin, ext))
+                                 )
+                    )
 
 os.system('cp %s %s/models.cnf' % (__file__, newdir))
