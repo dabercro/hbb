@@ -91,8 +91,9 @@ include/roccor/RoccoR.cc:
 include/checkrun.h: certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns certs/* include/checkrun
 
-data/jec/jec.d:
+data/jec/jec.d: data/jec/download.url
 	cp /data/t3home000/dabercro/tars/hbb/190819_puppijets_mc2018_013/data/jec/Winter19*.txt data/jec
+	cd data/jec; rm *.tgz; wget -i download.url; cat download.url | xargs -n1 basename | xargs -n1 tar -xf
 	touch data/jec/jec.d
 
 include/feedregression.h: include/[!f]*.h src/regression.cpp include/$(regclass).h ${CROMBIEPATH}/scripts/feedpanda.pl

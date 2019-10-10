@@ -126,6 +126,8 @@ probe_$ <- eventNumber % 2 ? <jet{2 : 1}_$> | deepCSV, deepCSVb, pt, eta, gen_nu
 
     loosepu/O = false -> puid::loose(jet)
 
+    $ -> jet.$ | ptSmear
+
 !    ? ptSmear; jetsmear ? -> jet.ptSmear%%
 
     ! Set the taggers to -2 to disappear them from plots

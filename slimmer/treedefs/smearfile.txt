@@ -60,6 +60,8 @@ gen(<T>& particle)
   gen_$ -> particle.$() | pt
 
 
+r$f$DW = 1.0 + event.genReweight.r$f$DW | 2, 5
+
 -- jet1 --
 
 ++ jet1_dphi_ll > 2.0 ++

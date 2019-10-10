@@ -28,6 +28,7 @@ plotter/datacards/*
 fitDiagnostics.root.*
 
 *.tar.gz
+*.tgz
 
 *test*
 

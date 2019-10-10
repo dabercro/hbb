@@ -9,7 +9,7 @@
 
 #include "crombie/KinematicFunctions.h"
 
-#include "PandaTree/Utils/interface/JECCorrector.h"
+#include "JECCorrector.h"
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "debugevent.h"

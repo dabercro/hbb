@@ -7,10 +7,13 @@
 
 #include <boost/filesystem.hpp>
 
+#include "myrandom.h"
+
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
+#include "JetMETCorrections/Modules/interface/JetResolution.h"
 
 
 namespace panda {
@@ -33,6 +36,9 @@ namespace panda {
 
   private:
 
+    /// Gets the smeared pT
+    double smeared_pt (const panda::Jet& jet, const panda::Event& event);
+
     /// Holds the corrected jets
     JetCollection m_corrected_jets {};
 
@@ -43,6 +49,7 @@ namespace panda {
     std::vector<JetCorrectorParameters> m_corrector_params;
     /// The FactorizedJetCorrector that is used underneath
     FactorizedJetCorrector m_corrector;
+    JME::JetResolution m_resolution;
 
   };
 }
@@ -77,12 +84,19 @@ namespace {
 
   }
 
+
+  std::string uncertainty_file (const std::string& jet_type) {
+    std::string base {"data/jec/Autumn18_V7_MC_PtResolution_"};
+    return  base + jet_type + ".txt";
+  }
+
 }
 
 
 panda::JECCorrector::JECCorrector (const std::string& files_base, const std::string& jet_type) :
   m_corrector_params {load_params(files_base, jet_type)},
-  m_corrector {m_corrector_params} {}
+  m_corrector {m_corrector_params},
+  m_resolution {uncertainty_file(jet_type)} {}
 
 
 void panda::JECCorrector::update_event (const panda::Event& event, const panda::JetCollection& jets, const RecoMet& met) {
@@ -118,6 +132,9 @@ void panda::JECCorrector::update_event (const panda::Event& event, const panda::
     new_met += met_correction;
 
     jet.setPtEtaPhiM(new_pt, jet.eta(), jet.phi(), jet.m());
+    if (not event.isData)
+      jet.ptSmear = smeared_pt(jet, event);
+
   }
 
   m_corrected_jets.sort(panda::Particle::PtGreater);
@@ -138,6 +155,35 @@ const panda::JetCollection& panda::JECCorrector::get_jets () const {
 const panda::RecoMet& panda::JECCorrector::get_met () const {
 
   return m_corrected_met;
+
+}
+
+
+double panda::JECCorrector::smeared_pt (const panda::Jet& jet, const panda::Event& event) {
+
+  // Get the smearing resolution
+  JME::JetParameters jet_params {};
+
+  jet_params.setJetArea(jet.area);
+  jet_params.setJetE(jet.e());
+  jet_params.setJetPt(jet.pt());
+  jet_params.setJetEta(jet.eta());
+
+  /*
+  Pretty sure I don't need these:
+
+  JetParameters & setMu (float mu);
+  */
+
+  jet_params.setNPV(event.npv);
+  jet_params.setRho(event.rho);
+
+  auto resolution = m_resolution.getResolution(jet_params);
+
+  auto& gen = jet.matchedGenJet;
+  double pt = (gen.isValid() ? gen->pt() : jet.pt());
+
+  return jet.pt() + myrandom::gen.Gaus(0, resolution) * pt;
 
 }
 

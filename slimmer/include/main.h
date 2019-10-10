@@ -64,6 +64,9 @@ int parsed_main(int argc, char** argv) {
       event.getEntry(*events_tree, entry);
       all_hist.Fill(0.0, event.weight);
 
+      if (not entry)
+        myrandom::gen.SetSeed(event.eventNumber);
+
       process_event(output, event, jetselector);
 
     }
