@@ -47,6 +47,7 @@ dilep {
   jet(panda::Jet& jet)
 
     #INCLUDE treedefs/regression.txt
+    $ -> jet.$ | ptSmear
 
   dphi_ll <- std::abs(TVector2::Phi_mpi_pi(dilep_phi - []_phi))
 

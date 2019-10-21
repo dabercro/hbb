@@ -8,9 +8,9 @@ import math
 import ROOT
 
 
-bintype = 'eta'
+bintype = 'rho'
 
-end = '_%sbinned' % bintype
+end = '_%sbin3' % bintype
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -26,8 +26,8 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-alphadir = '/home/dabercro/public_html/plots/190918_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191008%s' % end
+alphadir = '/home/dabercro/public_html/plots/191011_rho'
+ratiodir = '/home/dabercro/public_html/plots/191015%s' % end
 
 class MeanCalc(object):
 
@@ -48,9 +48,10 @@ class MeanCalc(object):
 
 # Name of region and max alpha value
 ranges = [
-    ('%splot_1' % bintype, 0.15, MeanCalc(), MeanCalc()),
-    ('%splot_2' % bintype, 0.185, MeanCalc(), MeanCalc()),
-    ('%splot_3' % bintype, 0.3, MeanCalc(), MeanCalc()),
+    ('%splot_1' % bintype, 0.125, MeanCalc(), MeanCalc()),
+    ('%splot_2' % bintype, 0.15, MeanCalc(), MeanCalc()),
+    ('%splot_3' % bintype, 0.2, MeanCalc(), MeanCalc()),
+    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 index = 0
 
@@ -73,16 +74,16 @@ trainings = [
     ('190904_0_2', 'PUPPI network'),
     ('190904_0_3', 'PUPPI network'),
     ('190723_origin', 'Previous network'),
-    ('190723_puppi', 'PUPPI network'),
     ('190723_origin_2', 'Previous network'),
-    ('190723_puppi_2', 'PUPPI network'),
+#    ('190723_puppi', 'PUPPI network'),
+#    ('190723_puppi_2', 'PUPPI network'),
     ('190725_lstm_pf', 'LSTM network'),
     ('190924_0', 'Large Batch')
     ]
 
 for training, trainname in trainings:
 
-    for bin in range(2):
+    for bin in range(3):
 
         index = 0
 

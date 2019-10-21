@@ -1,2 +1,3 @@
 hbb_gen
 ttbar = gen_t && gen_tbar
+vector = !(gen_t || gen_tbar || hbb_gen) && genboson_pdgid

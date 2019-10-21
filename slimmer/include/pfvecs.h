@@ -40,7 +40,7 @@ namespace pfvecs {
   class PFInfo {
   public:
     PFInfo (const panda::Jet& jet,
-            const panda::PFCand& pfcand,
+            const panda::PFCandBase& pfcand,
             const TVector3& pv,
             TLorentzRotation transform) : 
       ptfrac {pfcand.pt()/jet.pt()},

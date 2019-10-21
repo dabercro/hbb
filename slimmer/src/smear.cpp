@@ -28,7 +28,7 @@ void process_event<smearfile>(smearfile& output, const panda::Event& event, jets
   if (not updated_jets.ak4jets.size())
     return;
 
-  output.reset(event, updated_jets.pfmet);
+  output.reset(event, updated_jets.met);
 
   output.set_lep(smearfile::lep::lep1, exceptions::at(selectedleptons.loose, 0, __LINE__));
   output.set_lep(smearfile::lep::lep2, exceptions::at(selectedleptons.loose, 1, __LINE__));

@@ -4,8 +4,6 @@ $/l = event.$ | eventNumber, lumiNumber
 $/s = event.$ | npv, npvTrue
 $ = event.$ | rho, weight
 
-~ sf_pu; npvTrue; data/puWeights_10x_56ifb.root; puWeights; 1 ~
-
 #pv/TVector3 = event.vertices.at(0).position()
 
 #isData/O = event.isData

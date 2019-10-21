@@ -177,7 +177,7 @@ namespace regression {
 
     // Max track
 
-    const panda::PFCand* maxlep = nullptr;
+    const panda::PFCandBase* maxlep = nullptr;
 
     for (auto pf : jet.constituents) {
       if (pf.isValid()) {

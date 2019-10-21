@@ -123,6 +123,62 @@ template <>
 
   pfcands::MakeNuJets(event);
 
+  //// JETS ////
+  if (debugevent::debug)
+    std::cout << "Starting jets" << std::endl;
+
+  auto updated_jets = jetselector.update_event();
+  output.met = updated_jets.met.pt;
+  output.met_phi = updated_jets.met.phi;
+
+  // We want the two jets with the highest CMVA
+  using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet, struct lazy::Evaled>;
+
+  // jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
+  jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2},
+                        input::tagger == input::btagger::cmva ?
+                        [] (const panda::Jet& j) { return j.cmva + 2; } :
+                        [] (const panda::Jet& j) { return j.deepCSVb + j.deepCSVbb + 2; });
+
+  for (auto& jet : updated_jets.ak4jets) {
+
+    if (jet.pt() < 15.0 or not jetselect::clean_jet(jet, selectedleptons)) {
+      if (debugevent::debug)
+        std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
+      continue;
+    }
+
+    output.set_countnopuid(jet);
+
+    if (not puid::loose(jet))
+      continue;
+
+    lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
+    lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
+    lazy::LazyCuts deepCSV_cuts = {jet.deepCSVb + jet.deepCSVbb, 0.1241, 0.4184, 0.7527};
+
+    // Count jets (including forward)
+    auto abseta = std::abs(jet.eta());
+    output.set_countjets(jet, abseta, cmva_cuts, csv_cuts, deepCSV_cuts);
+
+    if (abseta < 2.5 and jet.loose) {
+      stored_bjets.check(jet, {input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts});
+      output.set_bsf(jet);
+    }
+  }
+
+  set_particles(stored_bjets,
+                [&output] (const jetstore::Particle& jet) {
+                  output.set_bjet(jet.branch, *jet.particle, jet.extra);
+                });
+
+  //// HIGGS ////
+  if (debugevent::debug)
+    std::cout << "Starting Higgs" << std::endl;
+
+  if (output.jet2)
+    output.set_higgs(hbbfile::higgs::hbb);
+
   //// GEN BOSON FOR KFACTORS AND TTBAR FOR PT SCALING ////
   if (debugevent::debug)
     std::cout << "Starting gen bosons, size: " << event.genParticles.size() << std::endl;
@@ -177,62 +233,6 @@ template <>
                   output.set_hbbgen(entry.branch, *entry.particle, sqrt(entry.result));
                 });
 
-  //// JETS ////
-  if (debugevent::debug)
-    std::cout << "Starting jets" << std::endl;
-
-  auto updated_jets = jetselector.update_event();
-  output.pfmet = updated_jets.pfmet.pt;
-  output.pfmet_phi = updated_jets.pfmet.phi;
-
-  // We want the two jets with the highest CMVA
-  using jetstore = ObjectStore::ObjectStore<hbbfile::bjet, panda::Jet, struct lazy::Evaled>;
-
-  // jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2, hbbfile::bjet::jet3},
-  jetstore stored_bjets({hbbfile::bjet::jet1, hbbfile::bjet::jet2},
-                        input::tagger == input::btagger::cmva ?
-                        [] (const panda::Jet& j) { return j.cmva + 2; } :
-                        [] (const panda::Jet& j) { return j.deepCSVb + j.deepCSVbb + 2; });
-
-  for (auto& jet : updated_jets.ak4jets) {
-
-    if (jet.pt() < 15.0 or not jetselect::clean_jet(jet, selectedleptons)) {
-      if (debugevent::debug)
-        std::cout << "Jet with pt " << jet.pt() << " did not pass initial jet filter" << std::endl;
-      continue;
-    }
-
-    output.set_countnopuid(jet);
-
-    if (not puid::loose(jet))
-      continue;
-
-    lazy::LazyCuts cmva_cuts = {jet.cmva, -0.5884, 0.4432, 0.9432};
-    lazy::LazyCuts csv_cuts = {jet.csv, 0.5426, 0.8484, 0.9535};
-    lazy::LazyCuts deepCSV_cuts = {jet.deepCSVb + jet.deepCSVbb, 0.1241, 0.4184, 0.7527};
-
-    // Count jets (including forward)
-    auto abseta = std::abs(jet.eta());
-    output.set_countjets(jet, abseta, cmva_cuts, csv_cuts, deepCSV_cuts);
-
-    if (abseta < 2.5 and jet.loose) {
-      stored_bjets.check(jet, {input::tagger == input::btagger::cmva ? cmva_cuts : deepCSV_cuts});
-      output.set_bsf(jet);
-    }
-  }
-
-  set_particles(stored_bjets,
-                [&output] (const jetstore::Particle& jet) {
-                  output.set_bjet(jet.branch, *jet.particle, jet.extra);
-                });
-
-  //// HIGGS ////
-  if (debugevent::debug)
-    std::cout << "Starting Higgs" << std::endl;
-
-  if (output.jet2)
-    output.set_higgs(hbbfile::higgs::hbb);
-
   // Soft activity
   const auto ellipse = softcalc::Ellipse(stored_bjets.store[0].particle,
                                          stored_bjets.store[1].particle,
@@ -285,7 +285,7 @@ template <>
         output.set_softcount(jets.first, soft.pt());
   }
 
-  output.fill(event, updated_jets.pfmet.v() + lepvec.Vect().XYvector());
+  output.fill(event, updated_jets.met.v() + lepvec.Vect().XYvector());
 }
 
 

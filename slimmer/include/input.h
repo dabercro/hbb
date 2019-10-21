@@ -22,6 +22,7 @@ namespace input {
   const char* noskim = getenv("noskim");
 
   const char* ispuppi = getenv("ispuppi");
+  const char* ispuppimet = getenv("ispuppimet");
 
   const bool isHT = is("_HT-");
 

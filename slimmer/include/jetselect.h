@@ -6,6 +6,7 @@
 
 #include <debugevent.h>
 #include <input.h>
+#include <metphicorr.h>
 
 #include "crombie/KinematicFunctions.h"
 
@@ -21,11 +22,17 @@ namespace jetselect {
   class UpdateResult {
   public:
     UpdateResult (const panda::JetCollection& ak4jets,
-                  const panda::RecoMet& pfmet) :
+                  const panda::RecoMet& in_met,
+                  const panda::Event& event) :
       ak4jets {ak4jets},
-      pfmet {pfmet} {}
+      met {in_met}
+    {
+      if (not input::ispuppimet)
+        metphicorr::correctMETXY(event, met);
+    }
+
     const panda::JetCollection& ak4jets;
-    const panda::RecoMet& pfmet;
+    panda::RecoMet met;
   };
 
   // Both selects the type of jets we'll be using and loads the correction
@@ -35,7 +42,8 @@ namespace jetselect {
     corr_ptr {input::jec.size()
         ? std::make_unique<panda::JECCorrector>(std::string("data/jec/") + input::jec, input::ispuppi ? "AK4PFPuppi" : "AK4PFchs")
         : nullptr},
-      ak4jets {input::ispuppi ? &panda::Event::puppiAK4Jets : &panda::Event::chsAK4Jets}
+      ak4jets {input::ispuppi ? &panda::Event::puppiAK4Jets : &panda::Event::chsAK4Jets},
+      met {input::ispuppimet ? &panda::Event::puppiMet : &panda::Event::pfMet}
     {
       if (input::jec.size())
         std::cout << "Loaded JEC: " << input::jec << std::endl;
@@ -53,12 +61,12 @@ namespace jetselect {
         throw;
 
       if (corr_ptr) {
-        corr_ptr->update_event(*event, event->*ak4jets, event->pfMet);
+        corr_ptr->update_event(*event, event->*ak4jets, event->*met);
 
-        return UpdateResult(corr_ptr->get_jets(), corr_ptr->get_met());
+        return UpdateResult(corr_ptr->get_jets(), corr_ptr->get_met(), *event);
       }
 
-      return UpdateResult(event->*ak4jets, event->pfMet);
+      return UpdateResult(event->*ak4jets, event->*met, *event);
 
     }
 
@@ -67,6 +75,7 @@ namespace jetselect {
 
     std::unique_ptr<panda::JECCorrector> corr_ptr {};
     panda::JetCollection panda::Event::*ak4jets;
+    panda::RecoMet panda::Event::*met;
 
     // Not owned, must call JetSelector::init to set reference to event
     panda::Event* event {nullptr};

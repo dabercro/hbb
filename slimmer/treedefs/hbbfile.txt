@@ -10,6 +10,8 @@
 
 #INCLUDE treedefs/eventinfo.txt
 
+met = 0
+met_phi = 0
 $@ = event.$@@.pt | pf, calo, trk, raw |@ met
 $@_phi = event.$@@.phi | pf, calo, trk, raw |@ met
 
@@ -36,8 +38,8 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
 
   n_alljet -> ++
 
-  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(pfmet_phi, jet.phi())))
-  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(pfmet_phi, jet.phi()))) : min_dphi_metj_hard
+  min_dphi_metj_soft/F = 4 -> std::min(min_dphi_metj_soft, static_cast<Float_t>(deltaPhi(met_phi, jet.phi())))
+  min_dphi_metj_hard/F = 4 -> jet_pt[] > 30.0 ? std::min(min_dphi_metj_hard, static_cast<Float_t>(deltaPhi(met_phi, jet.phi()))) : min_dphi_metj_hard
 
   ~~ abseta < 2.5 ~~
 
@@ -48,7 +50,7 @@ countjets(panda::Jet& jet, float abseta, lazy::LazyCuts& cmva, lazy::LazyCuts& c
 
 countnopuid(panda::Jet& jet)
   n_nopuid -> ++
-  min_dphi_metnopuid/F = 4 -> std::min(min_dphi_metnopuid, static_cast<Float_t>(deltaPhi(pfmet_phi, jet.phi())))
+  min_dphi_metnopuid/F = 4 -> std::min(min_dphi_metnopuid, static_cast<Float_t>(deltaPhi(met_phi, jet.phi())))
 
 n_genB
 
@@ -238,7 +240,7 @@ DEFINE BTAGPROBE (n_lep_tight > 0 and n_lep_loose > 1 and (n_centerjet == 2 or n
 -- \
 input::noskim or \
 debugevent::debugevent or \
-((pfmet > 150 or recoilvec.Mod() > 150) and met_filter) or \
+((met > 150 or recoilvec.Mod() > 150) and met_filter) or \
 BTAGPROBE \
 --
 

@@ -9,7 +9,7 @@ void process_event<regfile>(regfile& output, const panda::Event& event, jetselec
 
   auto updated_jets = jetselector.update_event();
 
-  output.reset(event, updated_jets.pfmet);
+  output.reset(event, updated_jets.met);
 
   auto gennumap = gennujet::get_gen_nu_map(event);
 
