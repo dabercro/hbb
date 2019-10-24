@@ -228,6 +228,8 @@ renormfact {
   r$f@DW <- 1.0 + event.genReweight.r$f@DW | 2, 5 |@ 1, $
 }
 
+#INCLUDE treedefs/classeval.txt
+
 ! -- genboson_pt > 30 --
 ! -- jet1_gen_numB --
 

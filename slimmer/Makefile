@@ -109,7 +109,8 @@ include/$(regclass).h: treedefs/$(regclass).txt ${CROMBIEPATH}/scripts/maketree.
 	crombie maketree treedefs/$(regclass).txt
 	mv $(regclass).h include/
 
-include/$(flatclass).h: treedefs/$(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) translate.pl treedefs/regression.txt treedefs/regeval.txt
+include/$(flatclass).h: treedefs/$(flatclass).txt ${CROMBIEPATH}/scripts/maketree.py $(corrections) translate.pl \
+	treedefs/regression.txt treedefs/regeval.txt treedefs/classeval.txt
 	crombie maketree treedefs/$(flatclass).txt
 	mv $(flatclass).h include/
 

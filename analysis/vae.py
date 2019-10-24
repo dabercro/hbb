@@ -4,6 +4,8 @@ import os
 import sys
 import time
 import datetime
+import glob
+import random
 
 import tensorflow as tf
 
@@ -11,11 +13,12 @@ import tensorflow as tf
 DO_DNN = True
 DO_LSTM = False
 
-INVERSION = 'vae'
+INVERSION = '191022'
 
-INDIR = '/data/t3home000/dabercro/training/classification/tf_%s' % INVERSION
+INDIR = '/data/t3home000/dabercro/training/classify/%s' % INVERSION
 
-INFILES = os.listdir(INDIR)
+INFILES = glob.glob('%s/*/*.tfrecord' % INDIR)
+random.shuffle(INFILES)
 
 modelroot = '/data/t3home000/dabercro/models/{0}_%s'.format(
     datetime.datetime.fromtimestamp(time.time()).strftime('%y%m%d')
@@ -27,8 +30,9 @@ while os.path.exists(modelroot % modelindex):
 
 MODELDIR = modelroot % modelindex if not os.path.exists('checkpoint') else '.'
 
-INPUTSFILE = '/home/dabercro/hbb/analysis/regression%s.txt' % '_rawpuppi'
-OUTPUTSFILE = '/home/dabercro/hbb/analysis/targets%i.txt' % 9
+INPUTSFILE = '/home/dabercro/hbb/analysis/classify3.txt'
+OUTPUTSFILE = '/home/dabercro/hbb/analysis/class_targets.txt'
+DECORRFILE = '/home/dabercro/hbb/analysis/class_decorrelate.txt'
 
 
 # Logging
@@ -39,11 +43,12 @@ get_branches = lambda x: [name.strip().split(' = ')[0]
                           for name in open(x, 'r') if name.strip()]
 inputs = get_branches(INPUTSFILE)
 outputs = get_branches(OUTPUTSFILE)
+decorr = get_branches(DECORRFILE)
 
 
 def input_fn():
 
-    dataset = tf.data.TFRecordDataset([os.path.join(INDIR, infile) for infile in INFILES],
+    dataset = tf.data.TFRecordDataset(INFILES,
                                       compression_type='GZIP')
 
     def mapping(record):
@@ -54,11 +59,11 @@ def input_fn():
         })
                 
         parsed_inputs = parsed(inputs)
-        parsed_outputs = parsed(outputs)
+        parsed_outputs = parsed(outputs + decorr + inputs)
 
         return parsed_inputs, {
             key: parsed_outputs[key]
-            for key in outputs + inputs
+            for key in outputs + decorr + inputs
             }
 
 
@@ -76,6 +81,11 @@ def my_loss(labels, logits, **kwargs):
                                 delta=0.05,
                                 **kwargs)
 
+def my_class_loss(labels, logits, **kwargs):
+    return tf.losses.sigmoid_cross_entropy(multi_class_labels=labels,
+                                           logits=logits,
+                                           reduction=tf.losses.Reduction.NONE,
+                                           **kwargs)
 
 def model_fn(features, labels, mode, params):
 
@@ -95,9 +105,24 @@ def model_fn(features, labels, mode, params):
 
     # Encoded layer
 
+    # Classifier + decorrelated variables + other bits
+    encoded_num = 1 + len(decorr) + 3
+
+    encoded_mean = tf.layers.dense(net, units=encoded_num)
+    encoded_sigma = tf.layers.dense(net, units=encoded_num)
+
+    random_layer = tf.random.normal(shape=tf.shape(encoded_sigma))
+
+    encoded_result = encoded_mean + encoded_sigma * random_layer
+
     # Decoding
 
-    logits = tf.layers.dense(net, len(outputs) + len(inputs), activation=None)
+    net = encoded_result
+
+    for units in [128, 256, 512]:
+        net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
+
+    logits = tf.layers.dense(net, len(outputs) + len(decorr) + len(inputs), activation=None)
 
     def train_op_fn(loss):
         optimizer = tf.train.AdamOptimizer()
@@ -121,12 +146,20 @@ estimator = tf.estimator.Estimator(
     model_dir=MODELDIR,
     params={
         'head': tf.contrib.estimator.multi_head(
-            heads=[
+            heads=
+            [
+                tf.contrib.estimator.binary_classification_head(
+                    loss_fn=my_class_loss,
+                    name=label
+                    )
+                for label in outputs
+                ] +
+            [
                 tf.contrib.estimator.regression_head(
                     loss_fn=my_loss,
                     label_dimension=1,
                     name=label)
-                for label in outputs + inputs
+                for label in decorr + inputs
                 ]
             )
         }

@@ -1,0 +1,25 @@
+
+"lazytf.h"
+"exceptions.h"
+
+%tf_class_@/std::vector<float> \
+   <- lazytf::eval(true, "data/freeze_@.pb", "data/classify3.txt", \
+                   {"split_logits/Slice", <"split_logits/Slice_{1..16}">}, 1, \
+                   `./translate.pl data/classify3.txt`) |@ vae_test
+
+DEFINE CLASSES hbb_gen, ttbar, vector
+
+%tf_class_@/std::vector<float> \
+   <- lazytf::eval(true, "data/freeze_@.pb", "data/classify3.txt", \
+                   {<"{CLASSES}/predictions/probabilities">}, 2, \
+                   `./translate.pl data/classify3.txt`) |@ 191022_vae_test_prob
+
+DEFINE VAE vae_test
+
+tf_@_$ <- exceptions::at(tf_class_@, =$=, __LINE__) | hbb_gen, ttbar, vector |@ VAE
+tf_@_$ <- exceptions::at(tf_class_@, =$= + 3, __LINE__) | hbb_m, hbb_pt |@ VAE
+tf_@_$ <- exceptions::at(tf_class_@, =$= + 5, __LINE__) | `./translate.pl data/classify3.txt` |@ VAE
+
+DEFINE CLASSIFIERS 191022_vae_test_prob
+
+tf_@_$_X <- exceptions::at(tf_class_@, =$= * 2 + =X=, __LINE__) | hbb_gen, ttbar, vector |X no, yes |@ CLASSIFIERS
