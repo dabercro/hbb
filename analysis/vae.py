@@ -8,6 +8,7 @@ import glob
 import random
 
 import tensorflow as tf
+import numpy as np
 
 
 DO_DNN = True
@@ -61,10 +62,17 @@ def input_fn():
         parsed_inputs = parsed(inputs)
         parsed_outputs = parsed(outputs + decorr + inputs)
 
-        return parsed_inputs, {
-            key: parsed_outputs[key]
-            for key in outputs + decorr + inputs
+        output = {
+            '%s_%i' % (key, index): parsed_outputs[key]
+            for key in outputs
+            for index in range(2)
             }
+        output.update({
+                key: parsed_outputs[key]
+                for key in decorr + inputs
+                })
+
+        return parsed_inputs, output
 
 
     return dataset.map(mapping).\
@@ -81,11 +89,21 @@ def my_loss(labels, logits, **kwargs):
                                 delta=0.05,
                                 **kwargs)
 
+
 def my_class_loss(labels, logits, **kwargs):
     return tf.losses.sigmoid_cross_entropy(multi_class_labels=labels,
                                            logits=logits,
                                            reduction=tf.losses.Reduction.NONE,
                                            **kwargs)
+
+
+# Some stuff from https://www.tensorflow.org/tutorials/generative/cvae
+def log_normal_pdf(sample, mean, logvar, raxis=1):
+  log2pi = tf.math.log(2. * np.pi)
+  return tf.reduce_sum(-0.5 * ((sample - mean) ** 2. * tf.exp(-logvar) + logvar + log2pi),
+                       axis=raxis)
+
+
 
 def model_fn(features, labels, mode, params):
 
@@ -106,26 +124,76 @@ def model_fn(features, labels, mode, params):
     # Encoded layer
 
     # Classifier + decorrelated variables + other bits
-    encoded_num = 1 + len(decorr) + 3
+    additional_bits = 3
+    encoded_num = 1 + len(decorr) + additional_bits
 
+    # This will be used to reconstruct event
     encoded_mean = tf.layers.dense(net, units=encoded_num)
     encoded_sigma = tf.layers.dense(net, units=encoded_num)
 
     random_layer = tf.random.normal(shape=tf.shape(encoded_sigma))
-
     encoded_result = encoded_mean + encoded_sigma * random_layer
+
+    # Recontruct class and decorrelated stuff
+    class_mean, decorr_mean, _ = tf.split(encoded_mean, [1, len(decorr), additional_bits], 1)
+    class_sigma, decorr_sigma, _ = tf.split(encoded_sigma, [1, len(decorr), additional_bits], 1)
+
+    random_class = tf.random.normal(shape=tf.shape(class_sigma))
+    random_decorr = tf.random.normal(shape=tf.shape(decorr_sigma))
+
+    # Used to reconstruct decorrelated variables
+    decorr_result = decorr_mean + decorr_sigma * random_decorr
+    # Added to decorr_result to make classifier training
+    class_result = class_mean + class_sigma * random_class
+    class_result = tf.concat([decorr_result, class_result], 1)
 
     # Decoding
 
+    # Re-make the event content
     net = encoded_result
 
     for units in [128, 256, 512]:
         net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
 
-    logits = tf.layers.dense(net, len(outputs) + len(decorr) + len(inputs), activation=None)
+    reconstruction = tf.layers.dense(net, len(inputs), activation=None)
+
+    # Get the decorrelated variables
+    net = decorr_result
+
+    decorr_out = None
+
+    for var in tf.split(net, [1] * len(decorr), 1):
+        for units in [3, 3]:
+            var = tf.layers.dense(var, units=units, activation=tf.nn.relu)
+        var = tf.layers.dense(var, 1, activation=None)
+        decorr_out = tf.concat([decorr_out, var], 1) if decorr_out is not None else var
+
+    net = class_result
+
+    for units in [10, 10, 10]:
+        net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
+
+    class_out = tf.layers.dense(net, len(outputs), activation=None)
+
+    # Non-sampled classifier
+    net = tf.concat([class_mean, class_sigma], 1)
+
+    for units in [10, 10, 10]:
+        net = tf.layers.dense(net, units=units, activation=tf.nn.relu)
+
+    non_sampled = tf.layers.dense(net, len(outputs), activation=None)
+
+    logits = tf.concat([non_sampled, class_out, decorr_out, reconstruction], 1)
 
     def train_op_fn(loss):
         optimizer = tf.train.AdamOptimizer()
+
+        # From https://www.tensorflow.org/tutorials/generative/cvae again
+        logpx_z = -1. * loss #?
+        logpz = log_normal_pdf(encoded_result, 0., 0.)
+        logqz_x = log_normal_pdf(encoded_result, encoded_mean, encoded_sigma)
+        loss = -1.* (logpx_z + logpz - logqz_x)
+
         train_op = optimizer.minimize(
             loss,
             global_step=tf.train.get_global_step()
@@ -149,9 +217,10 @@ estimator = tf.estimator.Estimator(
             heads=
             [
                 tf.contrib.estimator.binary_classification_head(
-                    loss_fn=my_class_loss,
-                    name=label
+                    loss_fn=(lambda labels, logits, **y: weight * my_class_loss(labels, logits, **y)),
+                    name='%s_%i' % (label, index)
                     )
+                for index, weight in enumerate([0.1, 1.0])
                 for label in outputs
                 ] +
             [

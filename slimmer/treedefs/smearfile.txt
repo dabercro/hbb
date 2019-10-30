@@ -53,6 +53,10 @@ dilep {
 
   #INCLUDE treedefs/regeval.txt
 
+  @_response <- []_@_pt/dilep_corr_pt |@ PTREGS
+
+  ptsmear <- []_ptr ? applysmear::smeared_pt(*[]_ptr, 1.0, "", rho) : 0
+
 }
 
 
@@ -63,6 +67,12 @@ gen(<T>& particle)
 
 r$f$DW = 1.0 + event.genReweight.r$f$DW | 2, 5
 
--- jet1 --
+alpha <- jet2_pt/dilep_corr_pt
+untrained_response <- jet1_pt/dilep_corr_pt
 
-++ jet1_dphi_ll > 2.0 ++
+
+-- jet2 and lep1_corrpt > 20 and lep2_corrpt > 20 \
+   and (lep1_q + lep2_q) == 0  and lep1_ismuon and lep2_ismuon \
+   and lep1_minireliso < 0.25 and lep2_minireliso < 0.25 and fabs(jet1_eta) < 2.0 --
+
+++ dilep_corr_pt > 100 and jet1_dphi_ll > 2.8 ++

@@ -10,7 +10,7 @@ import ROOT
 
 bintype = 'rho'
 
-end = '_%sbin3' % bintype
+end = '_smeared_ht_2'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -26,8 +26,8 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-alphadir = '/home/dabercro/public_html/plots/191011_rho'
-ratiodir = '/home/dabercro/public_html/plots/191015%s' % end
+alphadir = '/home/dabercro/public_html/plots/191029_rho'
+ratiodir = '/home/dabercro/public_html/plots/191030%s' % end
 
 class MeanCalc(object):
 
@@ -69,7 +69,7 @@ while index != len(ranges):
         index += 1
 
 trainings = [
-    ('', 'No regression'),
+#    ('', 'No regression'),
     ('190904_0', 'PUPPI network'),
     ('190904_0_2', 'PUPPI network'),
     ('190904_0_3', 'PUPPI network'),

@@ -6,7 +6,7 @@
 
 #include <debugevent.h>
 #include <input.h>
-#include <metphicorr.h>
+/* #include <metphicorr.h> */
 
 #include "crombie/KinematicFunctions.h"
 
@@ -27,12 +27,12 @@ namespace jetselect {
       ak4jets {ak4jets},
       met {in_met}
     {
-      if (not input::ispuppimet)
-        metphicorr::correctMETXY(event, met);
+      /* if (not input::ispuppimet) */
+      /*   metphicorr::correctMETXY(event, met); */
     }
 
     const panda::JetCollection& ak4jets;
-    panda::RecoMet met;
+    const panda::RecoMet& met;
   };
 
   // Both selects the type of jets we'll be using and loads the correction

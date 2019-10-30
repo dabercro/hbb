@@ -35,4 +35,4 @@ DEFINE PTREGS <190723_origin{, _2, _3}>, <190723_puppi{, _2}>, <190{817_0, 904_0
 
     @_pt <- []_@_ptratio * []_pt |@ PTREGS
 
-    @_ptsmear <- []_ptr ? applysmear::smeared_pt(*[]_ptr, []_@_ptratio, "@") : 0 |@ PTREGS
+    @_ptsmear <- []_ptr ? applysmear::smeared_pt(*[]_ptr, []_@_ptratio, "@", rho) : 0 |@ PTREGS
