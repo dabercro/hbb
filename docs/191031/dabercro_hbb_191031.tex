@@ -1,0 +1,338 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  \emph{Daniel Abercrombie}, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{\bf \sffamily Smearing in $\rho$ Bins \\ First Look at 2018 Classifier}
+\date{October 31, 2019}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+ 
+\begin{frame}
+  \frametitle{Summary of Previous Smearing}
+
+  \begin{itemize}
+  \item Ran training and smearing for b-jet regression using three different networks
+    \begin{itemize}
+    \item Architecture used in 2017 training
+    \item Additional PUPPI variables information
+    \item LSTM adding PF candidate information in RNN cells
+    \end{itemize}
+  \item Smearing results:
+    \begin{itemize}
+    \item Previous Network: 10.4\%
+    \item PUPPI Network: 11.2\%
+    \item LSTM Network: 11.0\%
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Strategy to Separate Phase Space}
+
+  \vfill
+  Use three $\rho$ bins with bounds of [0, 16, 22, $\infty$) \\
+  to get similar number of events in each bin
+  \vfill
+
+  \centering
+  \includegraphics[width=0.6\linewidth]{191030_rho2/smearplot_rho.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{$\rho$-Binned Smearing Results}
+
+  \centering
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+    Network & $0 \leq \rho < 16$ & $16 \leq \rho < 22$ & $22 \leq \rho$ \\
+    \hline
+    Previous & 10.9\% & 8.3\% & 7.7\% \\
+    PUPPI & 11.1\% & 9.3\% & 8.2\% \\
+    LSTM & 10.8\% & 8.9\% & 8.4\% \\
+    \hline
+  \end{tabular}
+
+  \vfill
+  \begin{itemize}
+  \item Smearing needed gets smaller with increasing $\rho$
+  \item Also smaller than single bin
+  \end{itemize}
+  \vfill
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Applied: Previous Network}
+
+  Top row: before smearing \\
+  Bottom row: after smearing \\
+  \vfill
+
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$0 \leq \rho < 16$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190723_origin_2_rho_0.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190723_origin_2_rho_0.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$16 \leq \rho < 22$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190723_origin_2_rho_1.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190723_origin_2_rho_1.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$22 \leq \rho$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190723_origin_2_rho_2.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190723_origin_2_rho_2.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Applied: PUPPI Network}
+
+  Top row: before smearing \\
+  Bottom row: after smearing \\
+  \vfill
+
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$0 \leq \rho < 16$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190904_0_2_rho_0.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190904_0_2_rho_0.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$16 \leq \rho < 22$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190904_0_2_rho_1.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190904_0_2_rho_1.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$22 \leq \rho$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190904_0_2_rho_2.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190904_0_2_rho_2.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Applied: LSTM Network}
+
+  Top row: before smearing \\
+  Bottom row: after smearing \\
+  \vfill
+
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$0 \leq \rho < 16$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190725_lstm_pf_rho_0.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190725_lstm_pf_rho_0.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$16 \leq \rho < 22$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190725_lstm_pf_rho_1.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190725_lstm_pf_rho_1.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{$22 \leq \rho$} \\
+      \includegraphics[width=\linewidth]{191029_resolution_res/resolution_190725_lstm_pf_rho_2.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_2/resolution_190725_lstm_pf_rho_2.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Applied: All $\rho$ simultaneously}
+
+  Top row: Previous smearing results \\
+  Bottom row: $\rho$-binned smearing results \\
+  \vfill
+
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{Previous} \\
+      \includegraphics[width=\linewidth]{191003_resolution_smeared/resolution_190723_origin_2.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_onebin/resolution_190723_origin_2.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{PUPPI} \\
+      \includegraphics[width=\linewidth]{191003_resolution_smeared/resolution_190904_0_2.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_onebin/resolution_190904_0_2.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{LSTM} \\
+      \includegraphics[width=\linewidth]{191003_resolution_smeared/resolution_190725_lstm_pf.pdf} \\
+      \includegraphics[width=\linewidth]{191030_resolution_smeared_ht_onebin/resolution_190725_lstm_pf.pdf}       
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Classifier Correlations with Mass}
+
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{No Classifier} \\
+      \includegraphics[width=\linewidth]{191030_masses/siglike_hbb_m_190723_origin_2.pdf} \\
+      \textcolor{blue}{Prob $0.6$} \\
+      \includegraphics[width=\linewidth]{191030_masses/class_0_hbb_m_190723_origin_2.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{Prob $0.8$} \\
+      \includegraphics[width=\linewidth]{191030_masses/class_1_hbb_m_190723_origin_2.pdf} \\
+      \textcolor{blue}{Prob $0.9$} \\
+      \includegraphics[width=\linewidth]{191030_masses/class_2_hbb_m_190723_origin_2.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{191031_compare/comparison.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item Binning in $\rho$ improves post-smearing agreement across $\alpha$
+  \item Direct classifier will need to be modified \\
+    \emph{Options}:
+    \begin{itemize}
+    \item Auto-encoder
+    \item Adversarial network
+    \item Cuts as function of mass
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{comment}
+\beginbackup
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+\end{comment}
+
+\end{document}
