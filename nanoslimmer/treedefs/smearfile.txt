@@ -1,0 +1,61 @@
+"PandaTree/Objects/interface/Event.h"
+
+{reset(panda::Event& e)}
+
+run/i = e.$ | runNumber, luminosityBlock
+$/l = e.$ | event
+
+$/s = e.PV.$ | npvs, npvsGood
+$ = e.$ | genWeight
+
+pfmet = e.MET.pt
+pfmet_phi = e.MET.phi
+
+trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL or \
+            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ
+
+<lepid.h>
+
+<lep{1, 2}> {
+  lep(<T>& lep)
+
+    /O = false -> true
+    $ -> lep.$ | pt, eta, phi, mass, dxy, dz, <{miniPFRelIso, pfRelIso03}_{all, chg}>
+    q/B -> lep.charge
+    $/O = false -> lepid::$(lep) \\ ~~ []_$ ~~ | presel, loose, tight
+
+}
+
+"crombie/KinematicFunctions.h"
+
+dilep {
+
+  #vec/TLorentzVector = TLorentzVector() <- vectorSum(<lep{1, 2}_{pt, eta, phi, mass}>)
+  $ <- []_vec.$$() | pt, eta, phi, m
+
+}
+
+"TVector2.h"
+
+<jet{1, 2}> {
+  jet(panda::Jet& jet)
+
+    /O = false -> true
+    $ -> jet.$ | pt, eta, phi, mass, area, bRegCorr, bRegRes, \
+                 btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
+                 chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
+
+  dphi_ll <- std::abs(TVector2::Phi_mpi_pi(dilep_phi - []_phi))
+
+!  ptsmear <- []_ptr ? applysmear::smeared_pt(*[]_ptr, 1.0, "", rho) : 0
+
+}
+
+alpha <- jet2_pt/dilep_pt
+untrained_response <- jet1_pt/dilep_pt
+
+
+-- jet2 and lep1_pt > 20 and lep2_pt > 20 \
+   and (lep1_q + lep2_q) == 0 --
+
+++ dilep_pt > 100 and jet1_dphi_ll > 2.8 ++
