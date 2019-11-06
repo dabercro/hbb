@@ -1,6 +1,7 @@
 #include "smearfile.h"
 #include "checkrun.h"
 #include "feedsmear.h"
+#include "lepid.h"
 
 #include "crombie/CmsswParse.h"
 
@@ -19,13 +20,23 @@ void process_event(smearfile& output, const panda::Event& event) {
 
   output.reset(event);
 
-  output.set_lep(smearfile::lep::lep1, event.Muon.at(0));
-  output.set_lep(smearfile::lep::lep2, event.Muon.at(1));
+  for (auto& muon : event.Muon) {
+    if (lepid::loose(muon)) {
 
-  unsigned num_jet = 0;
+      if (not output.lep2)
+        output.set_lep(output.lep1
+                       ? smearfile::lep::lep2
+                       : smearfile::lep::lep1,
+                       muon);
+
+      else
+        return;
+
+    }
+  }
 
   for (auto& jet : event.Jet) {
-    if (jet.pt > 15 and jet.puId) {
+    if (jet.pt > 15 and jet.puId and jet.cleanmask) {
 
       if (not output.jet2)
         output.set_jet(output.jet1
@@ -33,13 +44,10 @@ void process_event(smearfile& output, const panda::Event& event) {
                        : smearfile::jet::jet1,
                        jet);
 
-      num_jet++;
+      output.num_jet++;
 
     }
   }
-
-  // if (num_jet > 2)
-  //   return;
 
   output.fill();
 
@@ -47,6 +55,8 @@ void process_event(smearfile& output, const panda::Event& event) {
 
 template <typename T> 
 int parsed_main(int argc, char** argv) {
+
+  int output_code = 0;
 
   T output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
@@ -58,8 +68,15 @@ int parsed_main(int argc, char** argv) {
               << " (" << i_file << "/" << (argc - 2) << ")" << std::endl;
 
     // Get the PandaTree
-    TFile input {argv[i_file]};
-    auto* events_tree = static_cast<TTree*>(input.Get("Events"));
+    auto* input = TFile::Open(argv[i_file]);
+
+    if (not input) {
+      std::cerr << "Could not open " << argv[i_file] << std::endl;
+      output_code += 1;
+      continue;
+    }
+
+    auto* events_tree = static_cast<TTree*>(input->Get("Events"));
     panda::Event event;
     crombie::feedpanda(event, events_tree);
     auto nentries = events_tree->GetEntries();
@@ -77,15 +94,16 @@ int parsed_main(int argc, char** argv) {
 
     }
 
-    input.Close();
+    input->Close();
+    delete input;
   }
 
   output.write(&all_hist);
-  return 0;
+  return output_code;
 
 }
 
 
 int main(int argc, char** argv) {
-  return parse_then_send(argc, argv, parsed_main<smearfile>);
+  return parsed_main<smearfile>(argc, argv);
 }

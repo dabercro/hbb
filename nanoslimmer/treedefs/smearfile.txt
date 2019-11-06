@@ -8,6 +8,8 @@ $/l = e.$ | event
 $/s = e.PV.$ | npvs, npvsGood
 $ = e.$ | genWeight
 
+bsf_$ = e.btagWeight.$ | CSVV2, CMVA
+
 pfmet = e.MET.pt
 pfmet_phi = e.MET.phi
 
@@ -37,6 +39,8 @@ dilep {
 
 "TVector2.h"
 
+num_jet/s
+
 <jet{1, 2}> {
   jet(panda::Jet& jet)
 
@@ -44,6 +48,8 @@ dilep {
     $ -> jet.$ | pt, eta, phi, mass, area, bRegCorr, bRegRes, \
                  btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
                  chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
+
+  response <- []_pt * []_bRegCorr / dilep_pt
 
   dphi_ll <- std::abs(TVector2::Phi_mpi_pi(dilep_phi - []_phi))
 
@@ -55,7 +61,5 @@ alpha <- jet2_pt/dilep_pt
 untrained_response <- jet1_pt/dilep_pt
 
 
--- jet2 and lep1_pt > 20 and lep2_pt > 20 \
-   and (lep1_q + lep2_q) == 0 --
-
-++ dilep_pt > 100 and jet1_dphi_ll > 2.8 ++
+-- lep1_pt > 20 and lep2_pt > 20 \
+   and (lep1_q + lep2_q) == 0 and num_jet and num_jet < 3 --

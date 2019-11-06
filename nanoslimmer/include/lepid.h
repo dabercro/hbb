@@ -4,10 +4,13 @@
 
 #include <cmath>
 
+#include "PandaTree/Objects/interface/Electron.h"
 #include "PandaTree/Objects/interface/Muon.h"
 
 
 namespace lepid {
+
+  // Muons
 
   bool presel (const panda::Muon& mu) {
     return mu.pt > 5.0 and std::abs(mu.eta) < 2.4 and
