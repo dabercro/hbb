@@ -8,6 +8,7 @@ use Data::Dumper;
 
 # Location of Panda definitions
 my $def_file = shift @ARGV;
+my $out_file = pop @ARGV;
 my @source;
 my @branches;
 
@@ -52,7 +53,7 @@ for (@ARGV) {
     open(my $handle, '<', $_);
 
     for (<$handle>) {
-        if (/\be(vent)?(\.|->)(\w+)(?!\w*\()/) {
+        while (/\be(vent)?(\.|->)(\w+)(?!\w*\()/g) {
             push @primary, $3;
         }
     }
@@ -71,6 +72,7 @@ for (uniq_sort @primary) {
         if ($check_type =~ /(\w+)Collection/) {
             $check_type = $1;
             $event_types{$_} = $1;
+            push @full, "n$_";
         }
         push @possible, @{$type_branches{$check_type}};
     }
@@ -83,7 +85,7 @@ for (@ARGV) {
     open(my $handle, '<', $_);
 
     for (<$handle>) {
-        if (/\b\w+\.(\w+)(?!\w*\()/) {
+        while (/\b\w+\.(\w+)(?!\w*\()/g) {
             if ($poss_hash{$1}) {
                 push @secondary, $1;
             }
@@ -111,6 +113,31 @@ foreach my $obj (@primary) {
     }
 }
 
+# Now we have our branches. Time to write a header file!
+open (my $out, '>', $out_file);
 
-print Dumper uniq_sort @full;
+print $out <<HEAD;
+#ifndef CROMBIE_FEEDNANO_H
+#define CROMBIE_FEEDNANO_H 1
 
+#include "TTree.h"
+
+#include "PandaTree/Objects/interface/Event.h"
+
+namespace crombie {
+  void feednano(panda::Event& event, TTree* input) {
+    event.setStatus(*input, {"!*"});
+    event.setAddress(*input,
+HEAD
+
+print $out '      {"' . join("\",\n       \"", uniq_sort @full) . '"';
+
+print $out <<HEAD;
+});
+  }
+}
+
+#endif
+HEAD
+
+close $out;

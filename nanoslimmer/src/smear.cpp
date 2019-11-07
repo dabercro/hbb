@@ -1,6 +1,6 @@
 #include "smearfile.h"
 #include "checkrun.h"
-#include "feedsmear.h"
+#include "feednano.h"
 #include "lepid.h"
 
 #include "crombie/CmsswParse.h"
@@ -78,7 +78,7 @@ int parsed_main(int argc, char** argv) {
 
     auto* events_tree = static_cast<TTree*>(input->Get("Events"));
     panda::Event event;
-    crombie::feedpanda(event, events_tree);
+    crombie::feednano(event, events_tree);
     auto nentries = events_tree->GetEntries();
 
     // Loop over tree
