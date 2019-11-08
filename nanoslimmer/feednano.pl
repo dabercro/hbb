@@ -85,7 +85,7 @@ for (@ARGV) {
     open(my $handle, '<', $_);
 
     for (<$handle>) {
-        while (/\b\w+\.(\w+)(?!\w*\()/g) {
+        while (/\b\w+\.(\w+)(?!\w*[\(\.])/g) {
             if ($poss_hash{$1}) {
                 push @secondary, $1;
             }

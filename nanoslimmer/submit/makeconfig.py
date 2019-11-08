@@ -54,8 +54,8 @@ def makeconfig(resub=False):
             output_file = '%s/%i.root' % (this_out, n_job)
 
             if not resub or not os.path.exists(output_file):
-                config.extend(['Output = %s/out/%s_%i.out' % (log_dir, os.path.basename(this_out), n_job),
-                               'Error = %s/err/%s_%i.err' %  (log_dir, os.path.basename(this_out), n_job),
+                config.extend(['Output = %s/%s_%i.out' % (log_dir, os.path.basename(this_out), n_job),
+                               'Error = %s/%s_%i.err' %  (log_dir, os.path.basename(this_out), n_job),
                                'transfer_output_files = output.root',
                                'transfer_output_remaps = "output.root = %s"' % output_file,
                                'Arguments = %s' % ' '.join(job),

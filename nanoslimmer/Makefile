@@ -11,7 +11,7 @@ smeartestfile = /data/t3home000/dabercro/scratch/nano/*.root
 
 all: $(smear)
 
-include/feednano.h: include/[!f]*.h src/smear.cpp include/smearfile.h feednano.pl
+include/feednano.h: include/[!f]*.h src/smear.cpp include/smearfile.h $(pandainc)/PandaTree/defs/nanoaod.def feednano.pl
 	./feednano.pl $(pandainc)/PandaTree/defs/nanoaod.def include/*.h src/smear.cpp include/feednano.h
 
 include/smearfile.h: treedefs/smearfile.txt ${CROMBIEPATH}/scripts/maketree.py $(corrections)
