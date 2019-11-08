@@ -2,10 +2,11 @@
 
 import os
 import glob
+import shutil
 
 ##
 
-files_per_job = 3
+files_per_job = 2
 version='v0'
 door='root://cms-xrd-global.cern.ch/'
 
@@ -20,15 +21,19 @@ def makeconfig(resub=False):
     with open(os.path.join(this_dir, 'tmpl.cfg'), 'r') as tmpl:
         config.extend([l.strip().replace('dabercro', os.environ['USER']) for l in tmpl])
 
-    config.extend(['Executable = %s' % os.path.join(this_dir, 'run.sh'),
-                   'transfer_input_files = %s' % os.path.join(os.environ['CMSSW_BASE'], 'nano.tgz')])
-
     log_dir = '%s/public_html/logs/nano/%s' % (os.environ['HOME'], version)
-    for d in ['err', 'out']:
-        if not os.path.exists(os.path.join(log_dir, d)):
-            os.makedirs(os.path.join(log_dir, d))
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
 
     out_dir = '/data/t3home000/%s/nano/%s' % (os.environ['USER'], version)
+
+    tarfile = 'nano.tgz'
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+        shutil.copy(os.path.join(os.environ['CMSSW_BASE'], tarfile), out_dir)
+
+    config.extend(['Executable = %s' % os.path.join(this_dir, 'run.sh'),
+                   'transfer_input_files = %s' % os.path.join(out_dir, tarfile)])
 
     for file_list in glob.glob(os.path.join(this_dir, 'files', '*.txt')):
 

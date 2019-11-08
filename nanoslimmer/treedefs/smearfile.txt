@@ -8,7 +8,7 @@ $/l = e.$ | event
 $/s = e.PV.$ | npvs, npvsGood
 $ = e.$ | genWeight
 
-bsf_$ = e.btagWeight.$ | CSVV2, CMVA
+bsf_$ = e.btagWeight.$ | CSVV2, DeepCSVB
 
 pfmet = e.MET.pt
 pfmet_phi = e.MET.phi
