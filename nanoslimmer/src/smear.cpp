@@ -1,5 +1,6 @@
 #include "smearfile.h"
 #include "checkrun.h"
+#include "cleaning.h"
 #include "feednano.h"
 #include "lepid.h"
 
@@ -36,7 +37,7 @@ void process_event(smearfile& output, const panda::Event& event) {
   }
 
   for (auto& jet : event.Jet) {
-    if (jet.pt > 15 and jet.puId and jet.cleanmask) {
+    if (jet.pt > 15 and jet.puId and cleaning::cleanjet(jet, event)) {
 
       if (not output.jet2)
         output.set_jet(output.jet1

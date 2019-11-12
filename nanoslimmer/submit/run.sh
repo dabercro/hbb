@@ -23,4 +23,4 @@ cd ../..
 
 ls
 
-smearnano $@ output.root
+$@ output.root

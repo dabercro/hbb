@@ -7,7 +7,8 @@ import shutil
 ##
 
 files_per_job = 2
-version='v0'
+exe='smearnano'
+version='191112'
 door='root://cms-xrd-global.cern.ch/'
 
 ##
@@ -21,11 +22,11 @@ def makeconfig(resub=False):
     with open(os.path.join(this_dir, 'tmpl.cfg'), 'r') as tmpl:
         config.extend([l.strip().replace('dabercro', os.environ['USER']) for l in tmpl])
 
-    log_dir = '%s/public_html/logs/nano/%s' % (os.environ['HOME'], version)
+    log_dir = '%s/public_html/logs/nano/%s/%s' % (os.environ['HOME'], exe, version)
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
 
-    out_dir = '/data/t3home000/%s/nano/%s' % (os.environ['USER'], version)
+    out_dir = '/data/t3home000/%s/nano/%s/%s' % (os.environ['USER'], exe, version)
 
     tarfile = 'nano.tgz'
     if not os.path.exists(out_dir):
@@ -63,7 +64,7 @@ def makeconfig(resub=False):
                                'Error = %s/%s_%i.err' %  (log_dir, os.path.basename(this_out), n_job),
                                'transfer_output_files = output.root',
                                'transfer_output_remaps = "output.root = %s"' % output_file,
-                               'Arguments = %s' % ' '.join(job),
+                               'Arguments = %s %s' % (exe, ' '.join(job)),
                                'Queue'])
 
             n_job += 1

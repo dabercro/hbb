@@ -2,11 +2,13 @@
 
 {reset(panda::Event& e)}
 
-run/i = e.$ | runNumber, luminosityBlock
+$/i = e.$ | run, luminosityBlock
 $/l = e.$ | event
 
 $/s = e.PV.$ | npvs, npvsGood
 $ = e.$ | genWeight
+
+rho$ = e.fixedGridRhoFastjet$ | All, CentralCalo, CentralNeutral
 
 bsf_$ = e.btagWeight.$ | CSVV2, DeepCSVB
 
