@@ -1,0 +1,15 @@
+$/i = e.$ | run, luminosityBlock
+$/l = e.$ | event
+
+$/s = e.PV.$ | npvs, npvsGood
+$ = e.$ | genWeight
+
+rho$ = e.fixedGridRhoFastjet$ | All, CentralCalo, CentralNeutral
+
+bsf_$ = e.btagWeight.$ | CSVV2, DeepCSVB
+
+scale_weight_$ = e.LHEScaleWeight.size() > $ ? e.LHEScaleWeight.at($).VAL : 1 | 0..9
+ps_weight_$ = e.PSWeight.size() > $ ? e.PSWeight.at($).VAL : 1 | 0..4
+LHE_weight_orig = e.LHEWeight_originalXWGTUP
+
+%e_ptr/CONSTpanda::Event* = &e

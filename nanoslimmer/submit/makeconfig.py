@@ -6,9 +6,9 @@ import shutil
 
 ##
 
-files_per_job = 2
+files_per_job = 1
 exe='smearnano'
-version='191112'
+version='191117'
 door='root://cms-xrd-global.cern.ch/'
 
 ##
@@ -36,7 +36,7 @@ def makeconfig(resub=False):
     config.extend(['Executable = %s' % os.path.join(this_dir, 'run.sh'),
                    'transfer_input_files = %s' % os.path.join(out_dir, tarfile)])
 
-    for file_list in glob.glob(os.path.join(this_dir, 'files', '*.txt')):
+    for file_list in glob.glob(os.path.join(this_dir, 'files', exe, '*.txt')):
 
         n_job = 0
 

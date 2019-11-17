@@ -4,13 +4,15 @@ import os
 import sys
 import datetime
 import math
+import numpy
+import random
 
 import ROOT
 
 
 bintype = 'rho'
 
-end = '_smeared_ht_2'
+end = '_envps'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -26,8 +28,8 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-alphadir = '/home/dabercro/public_html/plots/191029_rho'
-ratiodir = '/home/dabercro/public_html/plots/191030%s' % end
+alphadir = '/home/dabercro/public_html/plots/191114_rho'
+ratiodir = '/home/dabercro/public_html/plots/191117%s' % end
 
 class MeanCalc(object):
 
@@ -40,10 +42,32 @@ class MeanCalc(object):
     def mean(self):
         tot = 0
         totw = 0
-        for val in self.values:
-            tot += val[0] * val[1]
-            totw += val[1]
+        for val, weight in self.values:
+            tot += val * weight
+            totw += weight
         return max(tot/totw, 0)
+
+    def std(self):
+        # https://www.itl.nist.gov/div898/software/dataplot/refman2/ch2/weightsd.pdf
+        mean = self.mean()
+        numerator = 0
+        totw = 0
+        for val, weight in self.values:
+            numerator += weight * pow(val - mean, 2)
+            totw += weight
+        return math.sqrt((len(self.values) * numerator)/((len(self.values) - 1) * totw))
+
+
+# Sample for the uncertainty
+def toy_unc(data_val, data_err, mc_val, mc_err):
+    num_toys = 100000
+    toys = numpy.zeros(num_toys)
+    for index in range(num_toys):
+        data = random.gauss(data_val, data_err)
+        mc = random.gauss(mc_val, mc_err)
+        toys[index] = math.sqrt(abs(math.pow(data, 2) - math.pow(mc, 2)))
+
+    return numpy.mean(toys), numpy.std(toys)
 
 
 # Name of region and max alpha value
@@ -55,7 +79,7 @@ ranges = [
 ]
 index = 0
 
-average_file = ROOT.TFile(os.path.join(alphadir, 'smearplot_jet2_pt_dilep_corr_pt.root'))
+average_file = ROOT.TFile(os.path.join(alphadir, 'smearplot_alpha.root'))
 data_hist = average_file.Get("Data")
 mc_hist = average_file.Get("DY")
 bin = 1
@@ -69,16 +93,7 @@ while index != len(ranges):
         index += 1
 
 trainings = [
-#    ('', 'No regression'),
-    ('190904_0', 'PUPPI network'),
-    ('190904_0_2', 'PUPPI network'),
-    ('190904_0_3', 'PUPPI network'),
-    ('190723_origin', 'Previous network'),
-    ('190723_origin_2', 'Previous network'),
-#    ('190723_puppi', 'PUPPI network'),
-#    ('190723_puppi_2', 'PUPPI network'),
-    ('190725_lstm_pf', 'LSTM network'),
-    ('190924_0', 'Large Batch')
+    ('jet1_response', '')
     ]
 
 for training, trainname in trainings:
@@ -87,11 +102,11 @@ for training, trainname in trainings:
 
         index = 0
 
-        data_graph_res = ROOT.TGraph(len(ranges))
+        data_graph_res = ROOT.TGraphErrors(len(ranges))
         data_graph_res.SetMarkerStyle(8)
         data_graph_res.SetMarkerColor(1)
 
-        mc_graph_res = ROOT.TGraph(len(ranges))
+        mc_graph_res = ROOT.TGraphErrors(len(ranges))
         mc_graph_res.SetMarkerStyle(8)
         mc_graph_res.SetMarkerColor(2)
 
@@ -108,21 +123,24 @@ for training, trainname in trainings:
             smearfile = ROOT.TFile(
                 os.path.join(
                     ratiodir,
-                    '%s_%i_jet1_%s_pt_dilep_corr_pt.root' % (
+                    '%s_%i_%s.root' % (
                         mean[0], bin, training
-                        ) if training else
-                    '%s_%i_jet1_pt_dilep_corr_pt.root' % (mean[0], bin)
+                        )
                     )
                 )
 
             data_hist = smearfile.Get("Data")
             data_mean = mean[2].mean()
             data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev())
+            data_graph_res.SetPointError(index, 0, #mean[2].std(),
+                                         data_hist.GetStdDevError())
             data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
             mc_hist = smearfile.Get("DY")
             mc_mean = mean[3].mean()
             mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
+            mc_graph_res.SetPointError(index, 0, #mean[3].std(),
+                                       mc_hist.GetStdDevError())
             mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
 
             index += 1
@@ -150,8 +168,8 @@ for training, trainname in trainings:
 
             c1 = ROOT.TCanvas()
 
-            datares = data.Fit(data_func)
-            mcres = mc.Fit(mc_func)
+            datares = data.Fit(data_func, 'S')
+            mcres = mc.Fit(mc_func, 'S')
 
             hide.Draw('ap')
             data.Draw('p,same')
@@ -176,7 +194,7 @@ for training, trainname in trainings:
                 data_sub1.SetParameter(1, abs(data_func.GetParameter(0)))
                 data_sub2.SetParameter(0, abs(data_func.GetParameter(1)))
 
-                print 'Data at y-axis:', abs(data_func.GetParameter(0))
+                print 'Data at y-axis: %s +- %s' % (abs(data_func.GetParameter(0)), datares.Error(0))
 
                 for data_sub in [data_sub1, data_sub2]:
                     data_sub.SetLineWidth(1)
@@ -189,10 +207,18 @@ for training, trainname in trainings:
                 mc_sub1.SetParameter(1, abs(mc_func.GetParameter(0)))
                 mc_sub2.SetParameter(0, abs(mc_func.GetParameter(1)))
 
-                print 'MC at y-axis:', abs(mc_func.GetParameter(0))
+                print 'MC at y-axis: %s +- %s' % (abs(mc_func.GetParameter(0)), mcres.Error(0))
 
-                print 'Smear factor:', math.sqrt(abs(math.pow(data_func.GetParameter(0), 2) - 
-                                                     math.pow(mc_func.GetParameter(0), 2)))
+                smear = math.sqrt(abs(math.pow(data_func.GetParameter(0), 2) - 
+                                      math.pow(mc_func.GetParameter(0), 2)))
+
+                smear_unc, unc_unc = toy_unc(data_func.GetParameter(0), datares.Error(0),
+                                             mc_func.GetParameter(0), mcres.Error(0))
+
+                print 'Smear factor: %f +- %f (%f +- %f)' % (smear,
+                                                             math.sqrt(abs(math.pow(data_func.GetParameter(0) * datares.Error(0), 2) +
+                                                                           math.pow(mc_func.GetParameter(0) * mcres.Error(0), 2))) / smear,
+                                                             smear_unc, unc_unc)
 
                 for mc_sub in [mc_sub1, mc_sub2]:
                     mc_sub.SetLineWidth(1)

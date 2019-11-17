@@ -85,9 +85,9 @@ for (@ARGV) {
     open(my $handle, '<', $_);
 
     for (<$handle>) {
-        while (/\b\w+\.(\w+)(?!\w*[\(\.])/g) {
-            if ($poss_hash{$1}) {
-                push @secondary, $1;
+        while (/\b[\w\)]+(\.|\-\>)(\w+)(?!\w*[\(\.])/g) {
+            if ($poss_hash{$2}) {
+                push @secondary, $2;
             }
         }
     }
@@ -104,7 +104,12 @@ foreach my $obj (@primary) {
 
         for (@secondary) {
             if ($look{$_}) {
-                push @full, "${obj}_$_";
+                if (/^VAL$/) {
+                    push @full, $obj;
+                }
+                else {
+                    push @full, "${obj}_$_";
+                }
             }
         }
     }

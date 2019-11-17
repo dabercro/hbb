@@ -12,10 +12,15 @@ trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
 
 <lepid.h>
 
+<type_traits>
+
+n_lep_$/b = 0 | presel, loose, tight
+
 <lep{1, 2}> {
   lep(<T>& lep)
 
     /O = false -> true
+    is_muon/O = false -> std::is_same<decltype(lep), const panda::Muon&>::value;
     $ -> lep.$ | pt, eta, phi, mass, dxy, dz, <{miniPFRelIso, pfRelIso03}_{all, chg}>
     q/B -> lep.charge
     $/O = false -> lepid::$(lep) \\ ~~ []_$ ~~ | presel, loose, tight
@@ -35,9 +40,6 @@ dilep {
 
 num_jet/s
 
-"applysmearing.h"
-"genjet.h"
-
 <jet{1, 2}> {
   jet(panda::Jet& jet)
 
@@ -46,24 +48,14 @@ num_jet/s
                  btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
                  chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
 
-    (gen_jet_ptr = genjet::matched(jet, *e_ptr))
-    (smear_res = applysmearing::smeared_pt(jet.pt, jet.bRegCorr, rhoAll, gen_jet_ptr ? gen_jet_ptr->pt : 0))
-
-    gen_$ -> gen_jet_ptr ? gen_jet_ptr->$ : 0 | pt, eta, phi, mass, partonFlavour, hadronFlavour
-
-    pt_smeared_$ -> smear_res.$ | down, nominal, up
-
-  pt_regressed <- []_pt * []_bRegCorr
-
-  response <- []_pt_regressed / dilep_pt
-
-  dphi_ll <- std::abs(TVector2::Phi_mpi_pi(dilep_phi - []_phi))
-
 }
 
-alpha <- jet2_pt/dilep_pt
-untrained_response <- jet1_pt/dilep_pt
+<fatjet{1, 2}> {
+  fatjet(panda::FatJet& jet)
 
+    /O = false -> true
 
--- lep1_pt > 20 and lep2_pt > 20 \
-   and (lep1_q + lep2_q) == 0 and num_jet and num_jet < 3 --
+    $ -> jet.$ | pt, eta, phi, mass, msoftdrop, <tau{1, 2, 3, 4}>, \
+                 <btag{DDBvL, DDCvB, DDCvL, Hbb}>
+
+}

@@ -12,13 +12,17 @@ namespace cleaning {
     if (jet.cleanmask)
       return true;
 
-    auto check_index = [&event] (int index) {
-      if (index > -1 and event.Muon.at(index).miniPFRelIso_all < 0.4)
+    auto check_index = [&event] (int index, const auto& coll) {
+      if (index > -1 and lepid::presel(coll.at(index)))
         return false;
       return true;
     };
 
-    return check_index(jet.muonIdx1) and check_index(jet.muonIdx2);
+    return
+      check_index(jet.muonIdx1, event.Muon) and
+      check_index(jet.muonIdx2, event.Muon) and
+      check_index(jet.electronIdx1, event.Electron) and
+      check_index(jet.electronIdx2, event.Electron);
 
   }
 
