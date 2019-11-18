@@ -1,0 +1,44 @@
+[?1034h FCN=9.22698 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=1.05768e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.74576e-01   7.87477e-03   6.39843e-06   3.27354e-01
+   2  p1           7.54103e-01   5.90611e-02   4.80034e-05   2.77616e-02
+ FCN=3.73299 FROM MIGRAD    STATUS=CONVERGED      92 CALLS          93 TOTAL
+                     EDM=3.10296e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.43354e-01   6.33295e-03   3.64648e-06  -1.93773e-01
+   2  p1           7.03318e-01   4.78863e-02   2.76565e-05  -3.03121e-02
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.174575836585 +- 0.00787477066802
+MC at y-axis: 0.143353546926 +- 0.00633295118372
+Smear factor: 0.099632 +- 0.016535
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000802291
+NDf                       =            3
+Edm                       =  1.79391e-27
+NCalls                    =           31
+p0                        =    -0.516911   +/-   0.128762    
+p1                        =     0.976216   +/-   0.0246157   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000570048
+NDf                       =            3
+Edm                       =   5.5496e-25
+NCalls                    =           31
+p0                        =    -0.334561   +/-   0.106678    
+p1                        =     0.989831   +/-   0.020474    
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.976215731767
+MC at y-axis: 0.989831090176
+Scale factor: 0.986244765855

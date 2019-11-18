@@ -8,7 +8,7 @@ import shutil
 
 files_per_job = 1
 exe='smearnano'
-version='191117'
+version='191117_v2'
 door='root://cms-xrd-global.cern.ch/'
 
 ##

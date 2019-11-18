@@ -6,14 +6,14 @@
 
 namespace {
 
-  // From 191117.txt
+  // From 191117_ps.txt
 
   // First index is different rho bins
   // Next index cycles through less smearing, nominal, more smearing
   const std::vector<std::vector<double>> smearings = {
-    {0.113394 - 0.022230, 0.113394, 0.113394 + 0.022230},
-    {0.086259 - 0.028544, 0.086259, 0.086259 + 0.028544},
-    {0.077688 - 0.036912, 0.077688, 0.077688 + 0.036912}
+    {0.113073 - 0.023504, 0.113073, 0.113073 + 0.023504},
+    {0.085975 - 0.030275, 0.085975, 0.085975 + 0.030275},
+    {0.075929 - 0.039773, 0.075929, 0.075929 + 0.039773}
   };
 
   TRandom3 gen {};

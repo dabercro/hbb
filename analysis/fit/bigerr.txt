@@ -1,0 +1,924 @@
+[?1034h FCN=0.0424968 FROM MIGRAD    STATUS=CONVERGED      99 CALLS         100 TOTAL
+                     EDM=1.13204e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.85070e-01   8.39521e-02   1.96033e-05   3.06119e-04
+   2  p1           6.84284e-01   8.37865e-01   1.95591e-04  -2.78427e-05
+ FCN=0.0215514 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=4.90355e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.79441e-01   7.94925e-02   1.82340e-05   2.23909e-02
+   2  p1           6.62470e-01   8.57607e-01   1.98625e-04   2.46739e-03
+------------------------------
+PUPPI network
+190904_0
+------------------------------
+Data at y-axis: 0.185069948632
+MC at y-axis: 0.179441302353
+Smear factor: 0.0452957492076
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000685136
+NDf                       =            2
+Edm                       =  5.00399e-26
+NCalls                    =           31
+p0                        =    -0.368832   +/-   0.182357    
+p1                        =     0.966086   +/-   0.031456    
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00193019
+NDf                       =            2
+Edm                       =  6.72644e-26
+NCalls                    =           31
+p0                        =    -0.403357   +/-   0.305771    
+p1                        =     0.994261   +/-   0.0526617   
+------------------------------
+PUPPI network
+190904_0
+------------------------------
+Data at y-axis: 0.966085712599
+MC at y-axis: 0.994260828176
+Scale factor: 0.971662249203
+ FCN=0.0386562 FROM MIGRAD    STATUS=CONVERGED      95 CALLS          96 TOTAL
+                     EDM=1.7274e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.61206e-01   8.84795e-02   2.03778e-05   1.40430e-02
+   2  p1           8.62924e-01   6.62122e-01   1.56122e-04   1.79690e-03
+ FCN=0.00162932 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=3.50085e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.74398e-01   7.93188e-02   1.80296e-05  -2.08282e-02
+   2  p1           7.08419e-01   7.95475e-01   1.84376e-04  -2.23959e-03
+------------------------------
+PUPPI network
+190904_0
+------------------------------
+Data at y-axis: 0.16120630547
+MC at y-axis: 0.174398391385
+Smear factor: 0.0665381544246
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000372307
+NDf                       =            2
+Edm                       =  1.08722e-24
+NCalls                    =           31
+p0                        =    -0.526807   +/-   0.134427    
+p1                        =     0.988773   +/-   0.0231881   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000618458
+NDf                       =            2
+Edm                       =  4.76714e-26
+NCalls                    =           31
+p0                        =    -0.397477   +/-   0.173082    
+p1                        =      1.00186   +/-   0.0298092   
+------------------------------
+PUPPI network
+190904_0
+------------------------------
+Data at y-axis: 0.98877321434
+MC at y-axis: 1.00185988361
+Scale factor: 0.986937625227
+ FCN=0.0459753 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=4.23801e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.80290e-01   9.24997e-02   2.16039e-05   3.45609e-03
+   2  p1           8.22132e-01   7.82071e-01   1.82589e-04   4.18874e-05
+ FCN=0.000414067 FROM MIGRAD    STATUS=CONVERGED      95 CALLS          96 TOTAL
+                     EDM=3.35573e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.77790e-01   6.70566e-02   1.57334e-05  -1.54883e-03
+   2  p1           7.25449e-01   6.60758e-01   1.54982e-04  -2.36188e-04
+------------------------------
+PUPPI network
+190904_0
+------------------------------
+Data at y-axis: 0.180290441737
+MC at y-axis: 0.177790245503
+Smear factor: 0.0299210959956
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000857549
+NDf                       =            2
+Edm                       =  1.03271e-26
+NCalls                    =           31
+p0                        =    -0.325428   +/-   0.204016    
+p1                        =     0.951997   +/-   0.035192    
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000510942
+NDf                       =            2
+Edm                       =  4.95523e-25
+NCalls                    =           31
+p0                        =    -0.315791   +/-   0.157319    
+p1                        =     0.990294   +/-   0.0270945   
+------------------------------
+PUPPI network
+190904_0
+------------------------------
+Data at y-axis: 0.951997450382
+MC at y-axis: 0.990293811091
+Scale factor: 0.961328284314
+ FCN=0.034062 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=3.10214e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.80846e-01   7.99329e-02   1.86131e-05  -6.37235e-03
+   2  p1           6.37138e-01   8.29585e-01   1.94985e-04  -6.24794e-04
+ FCN=0.0931531 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
+                     EDM=1.11235e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.82274e-01   7.57405e-02   1.82070e-05   9.13635e-04
+   2  p1           5.89472e-01   9.11084e-01   2.19434e-04   1.04413e-04
+------------------------------
+PUPPI network
+190904_0_2
+------------------------------
+Data at y-axis: 0.180845601705
+MC at y-axis: 0.182273517244
+Smear factor: 0.0227706704442
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000838504
+NDf                       =            2
+Edm                       =  2.48844e-25
+NCalls                    =           31
+p0                        =    -0.362478   +/-   0.201738    
+p1                        =     0.944982   +/-   0.0347991   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00215868
+NDf                       =            2
+Edm                       =  2.43777e-25
+NCalls                    =           31
+p0                        =    -0.465712   +/-   0.323363    
+p1                        =     0.983901   +/-   0.0556915   
+------------------------------
+PUPPI network
+190904_0_2
+------------------------------
+Data at y-axis: 0.944981638474
+MC at y-axis: 0.983901085605
+Scale factor: 0.960443740025
+ FCN=0.0259454 FROM MIGRAD    STATUS=CONVERGED      95 CALLS          96 TOTAL
+                     EDM=1.64297e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.62646e-01   8.44105e-02   1.94281e-05   1.40995e-02
+   2  p1           8.06849e-01   6.70446e-01   1.56779e-04   1.76913e-03
+ FCN=0.0279368 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=3.4323e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.71760e-01   7.80656e-02   1.79897e-05  -2.08999e-02
+   2  p1           6.97357e-01   7.83277e-01   1.84008e-04  -2.25142e-03
+------------------------------
+PUPPI network
+190904_0_2
+------------------------------
+Data at y-axis: 0.162646114019
+MC at y-axis: 0.171759741044
+Smear factor: 0.0552055272407
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00035143
+NDf                       =            2
+Edm                       =  6.05338e-26
+NCalls                    =           31
+p0                        =    -0.534434   +/-   0.130603    
+p1                        =     0.971833   +/-   0.0225286   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000596202
+NDf                       =            2
+Edm                       =  1.84752e-25
+NCalls                    =           31
+p0                        =     -0.36454   +/-   0.169939    
+p1                        =     0.965659   +/-   0.0292679   
+------------------------------
+PUPPI network
+190904_0_2
+------------------------------
+Data at y-axis: 0.971833215107
+MC at y-axis: 0.965658506764
+Scale factor: 1.00639429809
+ FCN=0.0737848 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=7.74157e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.69079e-01   9.05958e-02   2.13971e-05  -4.96996e-04
+   2  p1           8.23323e-01   7.27269e-01   1.72060e-04  -2.23370e-04
+ FCN=0.0114616 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=3.6688e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.76943e-01   6.47214e-02   1.52701e-05   1.11678e-03
+   2  p1           6.78047e-01   6.70016e-01   1.58035e-04  -2.22596e-05
+------------------------------
+PUPPI network
+190904_0_2
+------------------------------
+Data at y-axis: 0.169078693571
+MC at y-axis: 0.176942753492
+Smear factor: 0.0521644840264
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000945127
+NDf                       =            2
+Edm                       =  5.80534e-25
+NCalls                    =           31
+p0                        =    -0.259883   +/-   0.214181    
+p1                        =     0.922205   +/-   0.0369454   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000798639
+NDf                       =            2
+Edm                       =  1.08887e-25
+NCalls                    =           31
+p0                        =    -0.189244   +/-   0.196685    
+p1                        =     0.946636   +/-   0.0338743   
+------------------------------
+PUPPI network
+190904_0_2
+------------------------------
+Data at y-axis: 0.922205244998
+MC at y-axis: 0.94663637106
+Scale factor: 0.974191646541
+ FCN=0.0280835 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
+                     EDM=3.62319e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.79235e-01   8.09749e-02   1.86290e-05   1.76044e-02
+   2  p1           6.59536e-01   8.11324e-01   1.93787e-04   2.20142e-03
+ FCN=0.0178752 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=5.39208e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.75376e-01   7.48013e-02   1.71716e-05  -9.33496e-03
+   2  p1           5.99019e-01   8.60115e-01   2.02198e-04  -6.82480e-04
+------------------------------
+PUPPI network
+190904_0_3
+------------------------------
+Data at y-axis: 0.179234564467
+MC at y-axis: 0.175376174565
+Smear factor: 0.0369895457435
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000827031
+NDf                       =            2
+Edm                       =  3.54239e-25
+NCalls                    =           31
+p0                        =    -0.346848   +/-   0.200353    
+p1                        =      0.94402   +/-   0.0345602   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00142206
+NDf                       =            2
+Edm                       =  9.64481e-25
+NCalls                    =           31
+p0                        =     -0.50162   +/-   0.262456    
+p1                        =     0.992443   +/-   0.0452016   
+------------------------------
+PUPPI network
+190904_0_3
+------------------------------
+Data at y-axis: 0.944019974558
+MC at y-axis: 0.992443443406
+Scale factor: 0.951207830362
+ FCN=0.0374213 FROM MIGRAD    STATUS=CONVERGED      99 CALLS         100 TOTAL
+                     EDM=4.70358e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.56800e-01   8.74137e-02   2.02373e-05  -2.08355e-03
+   2  p1           8.52581e-01   6.46398e-01   1.49633e-04  -3.22239e-04
+ FCN=0.000602218 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=3.5659e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.67694e-01   7.77984e-02   1.75385e-05  -2.17192e-02
+   2  p1           6.98537e-01   7.64978e-01   1.76201e-04  -2.36414e-03
+------------------------------
+PUPPI network
+190904_0_3
+------------------------------
+Data at y-axis: 0.156800245964
+MC at y-axis: 0.167694165591
+Smear factor: 0.0594560008676
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000392412
+NDf                       =            2
+Edm                       =  1.44466e-25
+NCalls                    =           31
+p0                        =    -0.517674   +/-   0.138009    
+p1                        =      0.97162   +/-   0.023806    
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000320787
+NDf                       =            2
+Edm                       =  5.69762e-25
+NCalls                    =           31
+p0                        =    -0.318205   +/-   0.124654    
+p1                        =     0.968255   +/-   0.0214686   
+------------------------------
+PUPPI network
+190904_0_3
+------------------------------
+Data at y-axis: 0.9716201779
+MC at y-axis: 0.968255481227
+Scale factor: 1.00347500917
+ FCN=0.0559725 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=5.05271e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.67799e-01   9.21447e-02   2.14637e-05  -3.25985e-04
+   2  p1           8.40311e-01   7.23892e-01   1.68810e-04  -1.74270e-04
+ FCN=0.0141621 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=1.52671e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.71898e-01   6.51721e-02   1.52936e-05   5.12082e-03
+   2  p1           6.99781e-01   6.43452e-01   1.51106e-04   3.44190e-04
+------------------------------
+PUPPI network
+190904_0_3
+------------------------------
+Data at y-axis: 0.167798611944
+MC at y-axis: 0.171897955194
+Smear factor: 0.0373166561957
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000769898
+NDf                       =            2
+Edm                       =  4.72088e-26
+NCalls                    =           31
+p0                        =    -0.284059   +/-   0.193309    
+p1                        =     0.929118   +/-   0.0333451   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000753335
+NDf                       =            2
+Edm                       =  4.81559e-25
+NCalls                    =           31
+p0                        =    -0.168501   +/-   0.191025    
+p1                        =     0.946757   +/-   0.0328995   
+------------------------------
+PUPPI network
+190904_0_3
+------------------------------
+Data at y-axis: 0.929118436593
+MC at y-axis: 0.946757442462
+Scale factor: 0.981369033844
+ FCN=0.0317149 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=8.55498e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.80165e-01   7.88238e-02   1.84011e-05  -8.04878e-04
+   2  p1           6.22475e-01   8.31103e-01   1.94194e-04  -1.01777e-04
+ FCN=0.0167832 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=3.43022e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.73328e-01   8.04275e-02   1.82233e-05  -2.06208e-02
+   2  p1           6.95823e-01   8.10755e-01   1.87508e-04  -2.19738e-03
+------------------------------
+Previous network
+190723_origin
+------------------------------
+Data at y-axis: 0.180165407795
+MC at y-axis: 0.173327729111
+Smear factor: 0.0491637314219
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000872158
+NDf                       =            2
+Edm                       =  9.99975e-26
+NCalls                    =           31
+p0                        =    -0.303193   +/-   0.205747    
+p1                        =     0.918432   +/-   0.0354905   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00244716
+NDf                       =            2
+Edm                       =  1.99995e-25
+NCalls                    =           31
+p0                        =    -0.382611   +/-   0.344293    
+p1                        =     0.954537   +/-   0.0592961   
+------------------------------
+Previous network
+190723_origin
+------------------------------
+Data at y-axis: 0.918432315271
+MC at y-axis: 0.954536866757
+Scale factor: 0.962175843864
+ FCN=0.0361628 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
+                     EDM=9.99461e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.54335e-01   8.54051e-02   1.97527e-05   3.46332e-02
+   2  p1           8.34324e-01   6.34285e-01   1.47849e-04   3.64551e-03
+ FCN=0.0176411 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=2.46157e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.66121e-01   7.78384e-02   1.79349e-05   4.17770e-03
+   2  p1           7.15003e-01   7.44988e-01   1.71629e-04   1.68981e-04
+------------------------------
+Previous network
+190723_origin
+------------------------------
+Data at y-axis: 0.1543354662
+MC at y-axis: 0.166121000826
+Smear factor: 0.0614552746988
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000460085
+NDf                       =            2
+Edm                       =   1.1203e-25
+NCalls                    =           31
+p0                        =    -0.464923   +/-   0.149436    
+p1                        =     0.942891   +/-   0.0257771   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000583803
+NDf                       =            2
+Edm                       =  5.67372e-26
+NCalls                    =           31
+p0                        =      -0.3315   +/-   0.168163    
+p1                        =      0.94663   +/-   0.028962    
+------------------------------
+Previous network
+190723_origin
+------------------------------
+Data at y-axis: 0.942891069332
+MC at y-axis: 0.94662966751
+Scale factor: 0.996050622217
+ FCN=0.07843 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=1.95783e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.68038e-01   9.05339e-02   2.14441e-05  -2.40843e-04
+   2  p1           8.25915e-01   7.21503e-01   1.71060e-04  -3.00613e-04
+ FCN=0.010914 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=1.78739e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.74971e-01   5.97207e-02   1.42857e-05  -1.85058e-02
+   2  p1           5.93185e-01   6.81250e-01   1.64778e-04  -1.79297e-03
+------------------------------
+Previous network
+190723_origin
+------------------------------
+Data at y-axis: 0.16803771372
+MC at y-axis: 0.174970826101
+Smear factor: 0.0487659384656
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000786732
+NDf                       =            2
+Edm                       =  5.92781e-26
+NCalls                    =           31
+p0                        =    -0.296769   +/-   0.195411    
+p1                        =     0.914186   +/-   0.0337077   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000895849
+NDf                       =            2
+Edm                       =  2.78951e-25
+NCalls                    =           31
+p0                        =    -0.283782   +/-   0.208312    
+p1                        =     0.941453   +/-   0.0358767   
+------------------------------
+Previous network
+190723_origin
+------------------------------
+Data at y-axis: 0.914185780858
+MC at y-axis: 0.941453262639
+Scale factor: 0.971036818435
+ FCN=0.0252046 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=1.01853e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.80027e-01   8.06702e-02   1.87188e-05   3.25263e-03
+   2  p1           6.52208e-01   8.18550e-01   1.89962e-04   1.94943e-04
+ FCN=0.0280455 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=5.80914e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.75891e-01   7.59672e-02   1.75510e-05   2.68508e-03
+   2  p1           6.14359e-01   8.57883e-01   1.98257e-04   1.51363e-04
+------------------------------
+Previous network
+190723_origin_2
+------------------------------
+Data at y-axis: 0.180026699165
+MC at y-axis: 0.175890533532
+Smear factor: 0.0383683805521
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000841471
+NDf                       =            2
+Edm                       =  1.63698e-25
+NCalls                    =           31
+p0                        =    -0.352945   +/-   0.202095    
+p1                        =     0.942153   +/-   0.0348606   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =    0.0013601
+NDf                       =            2
+Edm                       =   1.2673e-27
+NCalls                    =           31
+p0                        =     -0.45119   +/-   0.256674    
+p1                        =     0.982847   +/-   0.044206    
+------------------------------
+Previous network
+190723_origin_2
+------------------------------
+Data at y-axis: 0.942152531042
+MC at y-axis: 0.982846665035
+Scale factor: 0.958595643206
+ FCN=0.0538997 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=1.8368e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.55655e-01   8.66613e-02   2.02861e-05  -9.69522e-04
+   2  p1           8.48786e-01   6.39314e-01   1.49740e-04  -1.88443e-04
+ FCN=0.0026095 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=2.0647e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.62045e-01   8.03739e-02   1.80911e-05   4.11354e-04
+   2  p1           7.48679e-01   7.27825e-01   1.63713e-04  -2.38090e-04
+------------------------------
+Previous network
+190723_origin_2
+------------------------------
+Data at y-axis: 0.155654515565
+MC at y-axis: 0.162044557835
+Smear factor: 0.0450567476454
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000458784
+NDf                       =            2
+Edm                       =  4.57569e-27
+NCalls                    =           31
+p0                        =    -0.517078   +/-   0.149224    
+p1                        =     0.969179   +/-   0.0257406   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000367533
+NDf                       =            2
+Edm                       =  7.88641e-26
+NCalls                    =           31
+p0                        =    -0.319507   +/-   0.133427    
+p1                        =     0.967765   +/-   0.0229796   
+------------------------------
+Previous network
+190723_origin_2
+------------------------------
+Data at y-axis: 0.969178765001
+MC at y-axis: 0.967765227757
+Scale factor: 1.00146062
+ FCN=0.0699583 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=1.90494e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.67319e-01   9.23427e-02   2.16722e-05   1.38835e-02
+   2  p1           8.46728e-01   7.19382e-01   1.69679e-04   1.79575e-03
+ FCN=0.0162306 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=1.38231e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.70309e-01   6.43760e-02   1.51553e-05   4.81739e-03
+   2  p1           6.92030e-01   6.36435e-01   1.49914e-04   3.09958e-04
+------------------------------
+Previous network
+190723_origin_2
+------------------------------
+Data at y-axis: 0.167318962722
+MC at y-axis: 0.17030896509
+Smear factor: 0.0317727604035
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000804554
+NDf                       =            2
+Edm                       =  7.57246e-26
+NCalls                    =           33
+p0                        =    -0.275662   +/-   0.197612    
+p1                        =     0.926291   +/-   0.0340873   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000493971
+NDf                       =            2
+Edm                       =  3.92683e-27
+NCalls                    =           33
+p0                        =    -0.264358   +/-   0.154685    
+p1                        =     0.959648   +/-   0.0266407   
+------------------------------
+Previous network
+190723_origin_2
+------------------------------
+Data at y-axis: 0.926291067641
+MC at y-axis: 0.959648169759
+Scale factor: 0.965240279543
+ FCN=0.0366731 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=1.78298e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.80747e-01   8.22488e-02   1.89912e-05  -2.41840e-04
+   2  p1           6.71164e-01   8.18114e-01   1.94426e-04   2.09052e-04
+ FCN=0.025806 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=1.9556e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.76753e-01   7.74299e-02   1.78881e-05  -5.20055e-03
+   2  p1           6.42243e-01   8.46032e-01   1.96852e-04  -4.91617e-04
+------------------------------
+LSTM network
+190725_lstm_pf
+------------------------------
+Data at y-axis: 0.180746855138
+MC at y-axis: 0.176753155412
+Smear factor: 0.037785548751
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000772273
+NDf                       =            2
+Edm                       =  7.34992e-25
+NCalls                    =           31
+p0                        =    -0.341764   +/-   0.193607    
+p1                        =     0.946717   +/-   0.0333965   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00138911
+NDf                       =            2
+Edm                       =  3.97575e-26
+NCalls                    =           31
+p0                        =    -0.608264   +/-   0.259397    
+p1                        =      1.01164   +/-   0.0446748   
+------------------------------
+LSTM network
+190725_lstm_pf
+------------------------------
+Data at y-axis: 0.946716768259
+MC at y-axis: 1.01164016935
+Scale factor: 0.935823622805
+ FCN=0.047734 FROM MIGRAD    STATUS=CONVERGED      95 CALLS          96 TOTAL
+                     EDM=2.30677e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.62656e-01   8.62108e-02   2.01053e-05   1.63186e-02
+   2  p1           8.35791e-01   6.65810e-01   1.58053e-04   2.09951e-03
+ FCN=0.00817289 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=1.33606e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.70592e-01   8.00671e-02   1.83439e-05   1.58566e-03
+   2  p1           7.34709e-01   7.65913e-01   1.75397e-04  -5.23243e-05
+------------------------------
+LSTM network
+190725_lstm_pf
+------------------------------
+Data at y-axis: 0.162656325624
+MC at y-axis: 0.170591509594
+Smear factor: 0.0514235634713
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000422977
+NDf                       =            2
+Edm                       =  8.65797e-27
+NCalls                    =           31
+p0                        =     -0.46732   +/-   0.143283    
+p1                        =     0.965059   +/-   0.0247157   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000667252
+NDf                       =            2
+Edm                       =  2.56524e-26
+NCalls                    =           33
+p0                        =    -0.354921   +/-   0.17978     
+p1                        =     0.978987   +/-   0.0309628   
+------------------------------
+LSTM network
+190725_lstm_pf
+------------------------------
+Data at y-axis: 0.965058633838
+MC at y-axis: 0.978986503695
+Scale factor: 0.985773174804
+ FCN=0.0643549 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=9.48613e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.74363e-01   9.13738e-02   2.14283e-05   9.86312e-03
+   2  p1           8.23135e-01   7.51595e-01   1.78922e-04   1.20409e-03
+ FCN=0.0159067 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=1.83917e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.83421e-01   6.26210e-02   1.49138e-05  -1.80839e-02
+   2  p1           6.10916e-01   7.25801e-01   1.74842e-04  -1.71851e-03
+------------------------------
+LSTM network
+190725_lstm_pf
+------------------------------
+Data at y-axis: 0.174363386551
+MC at y-axis: 0.183421171536
+Smear factor: 0.0569274590892
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000811569
+NDf                       =            2
+Edm                       =  5.87413e-27
+NCalls                    =           31
+p0                        =    -0.325925   +/-   0.198471    
+p1                        =     0.938943   +/-   0.0342356   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000771102
+NDf                       =            2
+Edm                       =  3.48263e-26
+NCalls                    =           33
+p0                        =    -0.280861   +/-   0.193265    
+p1                        =     0.969174   +/-   0.0332852   
+------------------------------
+LSTM network
+190725_lstm_pf
+------------------------------
+Data at y-axis: 0.93894305438
+MC at y-axis: 0.969174171936
+Scale factor: 0.968807342961
+ FCN=0.026302 FROM MIGRAD    STATUS=CONVERGED      95 CALLS          96 TOTAL
+                     EDM=1.24958e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.81422e-01   8.08175e-02   1.86828e-05  -1.19400e-02
+   2  p1           6.46824e-01   8.30916e-01   1.94550e-04  -1.28182e-03
+ FCN=0.0315607 FROM MIGRAD    STATUS=CONVERGED      92 CALLS          93 TOTAL
+                     EDM=8.3062e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.80561e-01   7.46321e-02   1.74442e-05   3.53930e-02
+   2  p1           5.80021e-01   9.02445e-01   2.12739e-04   2.21847e-03
+------------------------------
+Large Batch
+190924_0
+------------------------------
+Data at y-axis: 0.181421929888
+MC at y-axis: 0.180561086779
+Smear factor: 0.0176524951616
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000836252
+NDf                       =            2
+Edm                       =  1.71525e-24
+NCalls                    =           31
+p0                        =     -0.35718   +/-   0.201467    
+p1                        =     0.942215   +/-   0.0347523   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00237299
+NDf                       =            2
+Edm                       =  4.76537e-25
+NCalls                    =           31
+p0                        =    -0.547396   +/-   0.339035    
+p1                        =     0.994074   +/-   0.0583906   
+------------------------------
+Large Batch
+190924_0
+------------------------------
+Data at y-axis: 0.942215195518
+MC at y-axis: 0.99407396176
+Scale factor: 0.947832084697
+ FCN=0.0297926 FROM MIGRAD    STATUS=CONVERGED      95 CALLS          96 TOTAL
+                     EDM=3.12009e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.58949e-01   8.65764e-02   1.98465e-05   1.91405e-02
+   2  p1           8.40226e-01   6.54318e-01   1.53157e-04   2.48739e-03
+ FCN=0.043657 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=1.33752e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.69011e-01   7.94347e-02   1.86421e-05  -9.76473e-04
+   2  p1           7.38582e-01   7.50851e-01   1.76120e-04  -1.39979e-04
+------------------------------
+Large Batch
+190924_0
+------------------------------
+Data at y-axis: 0.158948553082
+MC at y-axis: 0.169010634133
+Smear factor: 0.0574452080083
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =   0.00039306
+NDf                       =            2
+Edm                       =  4.04005e-26
+NCalls                    =           31
+p0                        =    -0.525022   +/-   0.138122    
+p1                        =     0.969387   +/-   0.0238256   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000788468
+NDf                       =            2
+Edm                       =  8.19086e-25
+NCalls                    =           31
+p0                        =    -0.344688   +/-   0.195429    
+p1                        =     0.968595   +/-   0.0336579   
+------------------------------
+Large Batch
+190924_0
+------------------------------
+Data at y-axis: 0.969386779063
+MC at y-axis: 0.968595217264
+Scale factor: 1.00081722662
+ FCN=0.0764296 FROM MIGRAD    STATUS=CONVERGED      95 CALLS          96 TOTAL
+                     EDM=1.76289e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.67727e-01   9.27686e-02   2.17443e-05   1.34490e-02
+   2  p1           8.52080e-01   7.20465e-01   1.71814e-04   1.70102e-03
+ FCN=0.000297156 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.08826e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.72474e-01   6.56479e-02   1.53822e-05   4.14739e-04
+   2  p1           7.14681e-01   6.38828e-01   1.49612e-04   4.29802e-06
+------------------------------
+Large Batch
+190924_0
+------------------------------
+Data at y-axis: 0.167726818619
+MC at y-axis: 0.172474063567
+Smear factor: 0.0401872730979
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000819214
+NDf                       =            2
+Edm                       =  6.77491e-25
+NCalls                    =           31
+p0                        =    -0.280526   +/-   0.199404    
+p1                        =     0.926874   +/-   0.0343965   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000673833
+NDf                       =            2
+Edm                       =    1.367e-24
+NCalls                    =           31
+p0                        =    -0.333675   +/-   0.180664    
+p1                        =     0.971996   +/-   0.0311151   
+------------------------------
+Large Batch
+190924_0
+------------------------------
+Data at y-axis: 0.926874291582
+MC at y-axis: 0.971995819976
+Scale factor: 0.953578474859
