@@ -2,14 +2,17 @@
 #include "cleaning.h"
 #include "lepid.h"
 #include "main.h"
+#include "JECCorrector.h"
 
 
-void process_event(smearfile& output, const panda::Event& event) {
+void process_event(smearfile& output, panda::Event& event) {
 
   // Do the stuff
 
   if (event.Muon.size() < 2)
     return;
+
+  panda::JECCorrector::adjust_event(event);
 
   output.reset(event);
 

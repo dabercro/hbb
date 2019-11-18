@@ -11,6 +11,7 @@ import ROOT
 
 
 bintype = 'rho'
+numsmearbins = 3
 
 end = '_envps'
 
@@ -98,7 +99,7 @@ trainings = [
 
 for training, trainname in trainings:
 
-    for bin in range(3):
+    for bin in range(numsmearbins):
 
         index = 0
 
@@ -124,8 +125,10 @@ for training, trainname in trainings:
                 os.path.join(
                     ratiodir,
                     '%s_%i_%s.root' % (
-                        mean[0], bin, training
-                        )
+                        mean[0], bin, training)
+                    if numsmearbins > 1 else
+                    '%s_%s.root' % (
+                        mean[0], training)
                     )
                 )
 

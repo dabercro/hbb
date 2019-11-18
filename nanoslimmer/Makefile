@@ -6,6 +6,7 @@ pandalib = ${CMSSW_BASE}/lib/${SCRAM_ARCH}
 pandalibs = -lPandaTreeFramework -lPandaTreeObjects
 smear = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/smearnano
 hbb = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/hbbnano
+tag = ${CMSSW_BASE}/tag
 tarball = ${CMSSW_BASE}/nano.tgz
 
 smeartestfile = /data/t3home000/dabercro/scratch/nano/*.root
@@ -13,6 +14,9 @@ smeartestfile = /data/t3home000/dabercro/scratch/nano/*.root
 nano_version = v5
 
 all: $(tarball)
+
+$(tag): ../.git/refs/heads/master
+	cp ../.git/refs/heads/master $(tag)
 
 include/feednano.h: include/[!f]*.h src/*.cpp include/smearfile.h $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def feednano.pl
 	./feednano.pl $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def include/*.h src/*.cpp include/feednano.h
@@ -30,7 +34,7 @@ include/hbbfile.h: treedefs/hbbfile.txt treedefs/eventinfo.txt ${CROMBIEPATH}/sc
 
 $(smear): include/feednano.h include/smearfile.h include/checkrun.h src/smear.cpp include/*.h
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
-	-I${CROMBIEPATH}/old -g \
+	-I${CROMBIEPATH}/old -g `./flags.sh` \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(smear) src/smear.cpp
 
 $(hbb): include/feednano.h include/hbbfile.h include/checkrun.h src/hbb.cpp include/*.h
@@ -38,8 +42,8 @@ $(hbb): include/feednano.h include/hbbfile.h include/checkrun.h src/hbb.cpp incl
 	-I${CROMBIEPATH}/old -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(hbb) src/hbb.cpp
 
-$(tarball): $(smear) $(hbb)
-	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib
+$(tarball): $(smear) $(hbb) ${CMSSW_BASE}/jec/* $(tag)
+	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib jec tag
 
 .PHONY: smeartest install test
 
@@ -48,6 +52,8 @@ smeartestdir = ${HOME}/public_html/plots/testnanosmear
 smeartest: $(smear)
 	test ! -f smear.root || rm smear.root
 	$(smear) $(smeartestfile) smear.root
+	test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
+	test ! -d $(smeartestdir) || mv $(smeartestdir) $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump smear.root $(smeartestdir)
 
 testdir = ${HOME}/public_html/plots/testnanohbb
