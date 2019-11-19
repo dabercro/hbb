@@ -174,7 +174,7 @@ void panda::JECCorrector::adjust_event (panda::Event& event) {
   static panda::JECCorrector corrector {std::string(getenv("CMSSW_BASE")) +
       "/jec/Winter19_Autumn18" +
       (event.run == 1 ? std::string("_V19_MC")
-       : (std::vector<std::string>{"A", "B", "C", "DE"}[(event.run > 316995) + (event.run > 319312) + (event.run > 320393)] + "_V19_DATA")),
+       : (std::vector<std::string>{"A", "B", "C", "D"}[(event.run > 316995) + (event.run > 319312) + (event.run > 320393)] + "_V19_DATA")),
       "AK4PFchs"};
 
   auto [jets, met] = corrector.get_jets_met(event, event.Jet, event.MET);
