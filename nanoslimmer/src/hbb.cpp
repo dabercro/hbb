@@ -16,17 +16,14 @@ void process_event(hbbfile& output, const panda::Event& event) {
     unsigned i_enum = output.lep1 ? enums.size() : 0;
 
     for (auto& lep : leps) {
-      if (lepid::presel(lep)) {
-        output.n_lep_presel++;
-        if (lepid::loose(lep)) {
-          output.n_lep_loose++;
+      if (lepid::loose(lep)) {
+        output.n_lep_loose++;
 
-          if (i_enum < enums.size())
-            output.set_lep(enums[i_enum++], lep);
+        if (i_enum < enums.size())
+          output.set_lep(enums[i_enum++], lep);
 
-          if (lepid::tight(lep))
-            output.n_lep_tight++;
-        }
+        if (lepid::tight(lep))
+          output.n_lep_tight++;
       }
     }
     
@@ -36,7 +33,7 @@ void process_event(hbbfile& output, const panda::Event& event) {
   lep_select(event.Electron);
 
   for (auto& jet : event.Jet) {
-    if (jet.pt > 15 and jet.puId and cleaning::cleanjet(jet, event)) {
+    if (jet.pt > 15 and jet.puId and cleaning::lepfilter(jet, event)) {
 
       if (not output.jet2)
         output.set_jet(output.jet1

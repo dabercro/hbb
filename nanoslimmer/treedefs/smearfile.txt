@@ -18,7 +18,7 @@ trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
     /O = false -> true
     $ -> lep.$ | pt, eta, phi, mass, dxy, dz, <{miniPFRelIso, pfRelIso03}_{all, chg}>
     q/B -> lep.charge
-    $/O = false -> lepid::$(lep) \\ ~~ []_$ ~~ | presel, loose, tight
+    $/O = false -> lepid::$(lep) | W, Z, loose, tight
 
 }
 

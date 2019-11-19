@@ -23,7 +23,7 @@ n_lep_$/b = 0 | presel, loose, tight
     is_muon/O = false -> std::is_same<decltype(lep), const panda::Muon&>::value;
     $ -> lep.$ | pt, eta, phi, mass, dxy, dz, <{miniPFRelIso, pfRelIso03}_{all, chg}>
     q/B -> lep.charge
-    $/O = false -> lepid::$(lep) \\ ~~ []_$ ~~ | presel, loose, tight
+    $/O = false -> lepid::$(lep) | W, Z, loose, tight
 
 }
 

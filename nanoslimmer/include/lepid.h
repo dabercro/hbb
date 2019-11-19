@@ -11,40 +11,52 @@
 namespace lepid {
 
 
+  // From https://gitlab.cern.ch/cms-vhbb/vhbb-nano/blob/master/VHbbProducer.py
+
+
   // Muons
 
-  bool presel (const panda::Muon& mu) {
-    return mu.pt > 5.0 and std::abs(mu.eta) < 2.4 and
-      mu.dxy < 0.5 and mu.dz < 1.0 and
-      mu.miniPFRelIso_all < 0.4;
-  }
-
-
+  // looseMuons = [x for x in muons if x.pt > 15 and x.tightId >= 1 and x.pfRelIso04_all < 0.15]
   bool loose (const panda::Muon& mu) {
-    return mu.isPFcand and (mu.isGlobal or mu.isTracker);
+    return mu.pt > 15 and mu.tightId >= 1 and mu.pfRelIso04_all < 0.15;
   }
 
-
+  // tightMuons = [x for x in muons if x.pt > 25 and x.tightId >= 1 and x.pfRelIso04_all < 0.15]
   bool tight (const panda::Muon& mu) {
-    return mu.tightId and mu.miniPFRelIso_all < 0.15 and
-      mu.isGlobal and mu.nStations > 0 and mu.nTrackerLayers > 5 and
-      mu.dxy < 0.2 and mu.dz < 0.5;
+    return mu.pt > 25 and mu.tightId >= 1 and mu.pfRelIso04_all < 0.15;
   }
+
+  // wMuons = [x for x in muons if x.pt > 25 and x.tightId >= 1 and x.pfRelIso04_all < 0.15 and abs(x.dxy) < 0.05 and abs(x.dz) < 0.2]
+  bool W (const panda::Muon& mu) {
+    return mu.pt > 25 and mu.tightId >= 1 and mu.pfRelIso04_all < 0.15 and std::abs(mu.dxy) < 0.05 and std::abs(mu.dz) < 0.2;
+  }
+
+  // zMuons = [x for x in muons if x.pt > 20 and x.pfRelIso04_all < 0.25 and abs(x.dxy) < 0.05 and abs(x.dz) < 0.2]
+  bool Z (const panda::Muon& mu) {
+    return mu.pt > 20 and mu.pfRelIso04_all < 0.25 and std::abs(mu.dxy) < 0.05 and std::abs(mu.dz) < 0.2;
+  }
+
 
   // Electrons
 
-  bool presel (const panda::Electron& ele) {
-    return ele.pt > 7.0 and std::abs(ele.eta) < 2.4 and
-      ele.dxy < 0.05 and ele.dz < 0.20 and ele.miniPFRelIso_all < 0.4;
-  }
-
+  // looseElectrons = [x for x in electrons if self.elid(x,"80") and x.pt > 15 and abs(x.eta)<2.4]
   bool loose (const panda::Electron& ele) {
-    return ele.mvaFall17V2Iso_WP90;
+    return ele.mvaFall17V2Iso_WP80 and ele.pt > 15 and std::abs(ele.eta) < 2.4;
   }
 
+  // tightElectrons = [x for x in electrons if self.elid(x,"80") and x.pt > 25 and abs(x.eta)<2.4]
   bool tight (const panda::Electron& ele) {
-    return ele.mvaFall17V2Iso_WP80 and
-      ele.pt > 15.0 and ele.hoe < 0.09 and ele.pfRelIso03_chg < 0.18;
+    return ele.mvaFall17V2Iso_WP80 and ele.pt > 25 and std::abs(ele.eta) < 2.4;
+  }
+
+  // wElectrons = [x for x in electrons if self.elid(x,"80") and x.pt > 25 and x.pfRelIso03_all < 0.12]
+  bool W (const panda::Electron& ele) {
+    return ele.mvaFall17V2Iso_WP80 and ele.pt > 25 and ele.pfRelIso03_all < 0.12;
+  }
+
+  // zElectrons = [x for x in electrons if x.pt > 20 and self.elid(x,"90") and x.pfRelIso03_all < 0.15]
+  bool Z (const panda::Electron& ele) {
+    return ele.pt > 20 and ele.mvaFall17V2Iso_WP90 and ele.pfRelIso03_all < 0.15;
   }
 
 }
