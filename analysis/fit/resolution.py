@@ -13,12 +13,12 @@ import ROOT
 bintype = 'rho'
 numsmearbins = 3
 
-end = '_envps'
+end = '_response'
 
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s_resolution%s' % (
+    '%s_resolution_xunc%s' % (
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
@@ -29,8 +29,8 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-alphadir = '/home/dabercro/public_html/plots/191114_rho'
-ratiodir = '/home/dabercro/public_html/plots/191117%s' % end
+alphadir = '/home/dabercro/public_html/plots/191121_alpha'
+ratiodir = '/home/dabercro/public_html/plots/191121%s' % end
 
 class MeanCalc(object):
 
@@ -73,9 +73,9 @@ def toy_unc(data_val, data_err, mc_val, mc_err):
 
 # Name of region and max alpha value
 ranges = [
-    ('%splot_1' % bintype, 0.125, MeanCalc(), MeanCalc()),
-    ('%splot_2' % bintype, 0.15, MeanCalc(), MeanCalc()),
-    ('%splot_3' % bintype, 0.2, MeanCalc(), MeanCalc()),
+    ('%splot_1' % bintype, 0.155, MeanCalc(), MeanCalc()),
+    ('%splot_2' % bintype, 0.185, MeanCalc(), MeanCalc()),
+    ('%splot_3' % bintype, 0.23, MeanCalc(), MeanCalc()),
     ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 index = 0
@@ -135,14 +135,14 @@ for training, trainname in trainings:
             data_hist = smearfile.Get("Data")
             data_mean = mean[2].mean()
             data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev())
-            data_graph_res.SetPointError(index, 0, #mean[2].std(),
+            data_graph_res.SetPointError(index, mean[2].std(),
                                          data_hist.GetStdDevError())
             data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
             mc_hist = smearfile.Get("DY")
             mc_mean = mean[3].mean()
             mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
-            mc_graph_res.SetPointError(index, 0, #mean[3].std(),
+            mc_graph_res.SetPointError(index, mean[3].std(),
                                        mc_hist.GetStdDevError())
             mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
 
@@ -194,6 +194,7 @@ for training, trainname in trainings:
                 data_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
                 data_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
                 data_sub1.SetParameter(0, 0)
+#                data_sub1.SetParameter(0, abs(data_func.GetParameter(2)))
                 data_sub1.SetParameter(1, abs(data_func.GetParameter(0)))
                 data_sub2.SetParameter(0, abs(data_func.GetParameter(1)))
 
@@ -207,6 +208,7 @@ for training, trainname in trainings:
                 mc_sub1 = ROOT.TF1('lin', '[0] * x + [1]', 0, 0.3)
                 mc_sub2 = ROOT.TF1('lin', '[0] * x', 0, 0.3)
                 mc_sub1.SetParameter(0, 0)
+#                mc_sub1.SetParameter(0, abs(mc_func.GetParameter(2)))
                 mc_sub1.SetParameter(1, abs(mc_func.GetParameter(0)))
                 mc_sub2.SetParameter(0, abs(mc_func.GetParameter(1)))
 

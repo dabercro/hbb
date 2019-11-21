@@ -1,0 +1,132 @@
+[?1034h FCN=1.93908 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=3.81214e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.87227e-01   1.11970e-02   4.27892e-06  -3.11384e-03
+   2  p1           6.50557e-01   8.08894e-02   3.09176e-05   3.02439e-03
+ FCN=0.062632 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
+                     EDM=4.64583e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.64922e-01   1.34113e-02   3.26600e-06  -3.95109e-03
+   2  p1           5.45817e-01   1.07112e-01   2.60820e-05  -2.79001e-04
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.187227420391 +- 0.0111970401141
+MC at y-axis: 0.164921554785 +- 0.0134112840757
+Smear factor: 0.088628 +- 0.034385 (0.086102 +- 0.031331)
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000114264
+NDf                       =            1
+Edm                       =  1.59817e-25
+NCalls                    =           31
+p0                        =    -0.392931   +/-   0.127605    
+p1                        =     0.941238   +/-   0.02566     
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000273854
+NDf                       =            1
+Edm                       =   3.6089e-25
+NCalls                    =           31
+p0                        =    -0.492121   +/-   0.194162    
+p1                        =     0.990097   +/-   0.0387906   
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.941238027536
+MC at y-axis: 0.990096888577
+Scale factor: 0.95065244462
+ FCN=6.5376 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=2.36475e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.74912e-01   1.14999e-02   7.06488e-06   1.38303e-03
+   2  p1           6.90101e-01   7.52914e-02   4.62607e-05   3.07456e-03
+ FCN=0.278139 FROM MIGRAD    STATUS=CONVERGED      98 CALLS          99 TOTAL
+                     EDM=3.94774e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.36047e-01   1.61185e-02   4.28742e-06   3.49250e-03
+   2  p1           7.40494e-01   9.04889e-02   2.40789e-05   4.64259e-04
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.174911535774 +- 0.0114999045418
+MC at y-axis: 0.136046598396 +- 0.0161184865613
+Smear factor: 0.109933 +- 0.027068 (0.106047 +- 0.029009)
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000200067
+NDf                       =            1
+Edm                       =  4.05835e-27
+NCalls                    =           31
+p0                        =    -0.465759   +/-   0.16885     
+p1                        =     0.968728   +/-   0.0339539   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000193724
+NDf                       =            1
+Edm                       =  1.60211e-26
+NCalls                    =           31
+p0                        =    -0.518821   +/-   0.163304    
+p1                        =      1.00203   +/-   0.0326256   
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.968727642138
+MC at y-axis: 1.00203423792
+Scale factor: 0.966761020213
+ FCN=0.0729703 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
+                     EDM=3.42357e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.84392e-01   1.20402e-02   2.82558e-06  -1.10574e-02
+   2  p1           7.71613e-01   7.73942e-02   1.81596e-05  -4.80930e-03
+ FCN=0.00012023 FROM MIGRAD    STATUS=CONVERGED      94 CALLS          95 TOTAL
+                     EDM=2.0425e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.61899e-01   1.19717e-02   2.88505e-06  -7.91341e-02
+   2  p1           6.12808e-01   8.95821e-02   2.16234e-05  -1.40576e-02
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.184392404558 +- 0.0120402473363
+MC at y-axis: 0.161899226849 +- 0.0119717051173
+Smear factor: 0.088256 +- 0.033393 (0.085847 +- 0.030992)
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  9.07727e-05
+NDf                       =            1
+Edm                       =  5.90773e-27
+NCalls                    =           33
+p0                        =    -0.485651   +/-   0.113735    
+p1                        =      0.96654   +/-   0.0228707   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000233471
+NDf                       =            1
+Edm                       =  7.21032e-25
+NCalls                    =           31
+p0                        =    -0.391913   +/-   0.179276    
+p1                        =      0.99265   +/-   0.0358165   
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.966540230698
+MC at y-axis: 0.992649966414
+Scale factor: 0.973696935879
