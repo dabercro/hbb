@@ -18,7 +18,7 @@ end = '_response'
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s_resolution_xunc%s' % (
+    '%s_resolution_fit%s' % (
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
@@ -37,27 +37,36 @@ class MeanCalc(object):
     def __init__(self):
         self.values = []
 
+        self._mean = None
+        self._std = None
+
+
     def add(self, value, weight):
         self.values.append((value, weight))
 
     def mean(self):
-        tot = 0
-        totw = 0
-        for val, weight in self.values:
-            tot += val * weight
-            totw += weight
-        return max(tot/totw, 0)
+        if self._mean is None:
+            tot = 0
+            totw = 0
+            for val, weight in self.values:
+                tot += val * weight
+                totw += weight
+            self._mean = max(float(tot)/totw, 0)
+
+        return self._mean
 
     def std(self):
-        # https://www.itl.nist.gov/div898/software/dataplot/refman2/ch2/weightsd.pdf
-        mean = self.mean()
-        numerator = 0
-        totw = 0
-        for val, weight in self.values:
-            numerator += weight * pow(val - mean, 2)
-            totw += weight
-        return math.sqrt((len(self.values) * numerator)/((len(self.values) - 1) * totw))
+        if self._std is None:
+            # https://www.itl.nist.gov/div898/software/dataplot/refman2/ch2/weightsd.pdf
+            mean = self.mean()
+            numerator = 0
+            totw = 0
+            for val, weight in self.values:
+                numerator += weight * pow(val - mean, 2)
+                totw += weight
+            self._std = math.sqrt((len(self.values) * numerator)/((len(self.values) - 1) * totw))
 
+        return self._std
 
 # Sample for the uncertainty
 def toy_unc(data_val, data_err, mc_val, mc_err):
@@ -78,24 +87,37 @@ ranges = [
     ('%splot_3' % bintype, 0.23, MeanCalc(), MeanCalc()),
     ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
-index = 0
 
-average_file = ROOT.TFile(os.path.join(alphadir, 'smearplot_alpha.root'))
-data_hist = average_file.Get("Data")
-mc_hist = average_file.Get("DY")
-bin = 1
+rhos = [
+    ('_0', 16.5, MeanCalc(), MeanCalc()),
+    ('_1', 22, MeanCalc(), MeanCalc()),
+    ('_2', 65, MeanCalc(), MeanCalc())
+]
 
-while index != len(ranges):
-    ranges[index][2].add(data_hist.GetBinCenter(bin), data_hist.GetBinContent(bin))
-    ranges[index][3].add(mc_hist.GetBinCenter(bin), mc_hist.GetBinContent(bin))
+for calcs, filename in [(ranges, 'smearplot_alpha.root'),
+                        (rhos, 'smearplot_rhoAll.root')]:
 
-    bin += 1
-    if data_hist.GetBinCenter(bin) > ranges[index][1]:
-        index += 1
+    index = 0
+
+    average_file = ROOT.TFile(os.path.join(alphadir, filename))
+    data_hist = average_file.Get("Data")
+    mc_hist = average_file.Get("DY")
+    bin = 1
+
+    while index != len(calcs):
+        calcs[index][2].add(data_hist.GetBinCenter(bin), data_hist.GetBinContent(bin))
+        calcs[index][3].add(mc_hist.GetBinCenter(bin), mc_hist.GetBinContent(bin))
+
+        bin += 1
+        if data_hist.GetBinCenter(bin) > calcs[index][1]:
+            index += 1
+
 
 trainings = [
     ('jet1_response', '')
     ]
+
+smear_fit = ROOT.TGraphErrors(len(rhos))
 
 for training, trainname in trainings:
 
@@ -135,14 +157,14 @@ for training, trainname in trainings:
             data_hist = smearfile.Get("Data")
             data_mean = mean[2].mean()
             data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev())
-            data_graph_res.SetPointError(index, mean[2].std(),
+            data_graph_res.SetPointError(index, 0, #mean[2].std(),
                                          data_hist.GetStdDevError())
             data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
             mc_hist = smearfile.Get("DY")
             mc_mean = mean[3].mean()
             mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
-            mc_graph_res.SetPointError(index, mean[3].std(),
+            mc_graph_res.SetPointError(index, 0, #mean[3].std(),
                                        mc_hist.GetStdDevError())
             mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
 
@@ -217,13 +239,16 @@ for training, trainname in trainings:
                 smear = math.sqrt(abs(math.pow(data_func.GetParameter(0), 2) - 
                                       math.pow(mc_func.GetParameter(0), 2)))
 
+                smear_err = math.sqrt(abs(math.pow(data_func.GetParameter(0) * datares.Error(0), 2) +
+                                          math.pow(mc_func.GetParameter(0) * mcres.Error(0), 2))) / smear
+
                 smear_unc, unc_unc = toy_unc(data_func.GetParameter(0), datares.Error(0),
                                              mc_func.GetParameter(0), mcres.Error(0))
 
-                print 'Smear factor: %f +- %f (%f +- %f)' % (smear,
-                                                             math.sqrt(abs(math.pow(data_func.GetParameter(0) * datares.Error(0), 2) +
-                                                                           math.pow(mc_func.GetParameter(0) * mcres.Error(0), 2))) / smear,
-                                                             smear_unc, unc_unc)
+                print 'Smear factor: %f +- %f (%f +- %f)' % (smear, smear_err, smear_unc, unc_unc)
+
+                smear_fit.SetPoint(bin, (rhos[bin][2].mean() + rhos[bin][3].mean())/2.0, smear)
+                smear_fit.SetPointError(bin, 0, smear_err)
 
                 for mc_sub in [mc_sub1, mc_sub2]:
                     mc_sub.SetLineWidth(1)
@@ -241,5 +266,22 @@ for training, trainname in trainings:
                                  os.path.basename('%s_%s_%s_%i.%s' % (data_func.GetName(), training, bintype, bin, ext))
                                  )
                     )
+
+c2 = ROOT.TCanvas()
+smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
+smear_fit_res = smear_fit.Fit(smear_func, 'S')
+
+smear_fit.SetMarkerStyle(8)
+
+smear_fit.Draw('ap')
+smear_func.Draw('same')
+
+for ext in ['pdf', 'png', 'C']:
+    c2.SaveAs(
+        os.path.join(newdir,
+                     os.path.basename('smear_fit.%s' % ext)
+                     )
+        )
+
 
 os.system('cp %s %s/models.cnf' % (__file__, newdir))

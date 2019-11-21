@@ -31,6 +31,11 @@ namespace {
     {0.092309 - 0.030169, 0.092309, 0.092309 + 0.030169}
   };
 
+  const std::vector<std::vector<double>> smear_parameters = {
+    {-1.10794e-03 - 2.75232e-03, -1.10794e-03, -1.10794e-03 + 2.75232e-03},
+    {1.27932e-01 - 5.53656e-02, 1.27932e-01, 1.27932e-01 + 5.53656e-02}
+  };
+
 }
 
 namespace applysmearing {
@@ -47,11 +52,18 @@ namespace applysmearing {
 
   };
 
-  smear_result smeared_pt(double jet_pt, double regression_factor, double rho, double gen_jet_pt = 0) {
+  smear_result smeared_pt(bool use_fit, double jet_pt, double regression_factor, double rho, double gen_jet_pt = 0) {
 
     double regressed = jet_pt * regression_factor;
 
-    unsigned index = (rho >= 16) + (rho >= 22);
+    auto eval = [&] (unsigned index) {
+      return smear_parameters[0][index] * rho + smear_parameters[1][index];
+    };
+    unsigned index = (rho >= 16.5) + (rho >= 22);
+      
+    auto [down, nominal, up] = use_fit
+      ? std::make_tuple(eval(0), eval(1), eval(2))
+      : std::make_tuple(smearings[index][0], smearings[index][1], smearings[index][2]);
 
     // Use generator pt, if available, otherwise best guess
     double pt = (gen_jet_pt ? gen_jet_pt : regressed);
@@ -59,9 +71,9 @@ namespace applysmearing {
     double gaus_sample = generator.Gaus();
 
     smear_result output {
-      regressed + gaus_sample * smearings[index][0] * pt, // less smearing
-      regressed + gaus_sample * smearings[index][1] * pt, // nominal smearing
-      regressed + gaus_sample * smearings[index][2] * pt  // more smearing
+      regressed + gaus_sample * down * pt,    // less smearing
+      regressed + gaus_sample * nominal * pt, // nominal smearing
+      regressed + gaus_sample * up * pt       // more smearing
     };
 
     return output;
