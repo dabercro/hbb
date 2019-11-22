@@ -14,7 +14,7 @@ scram project CMSSW $CMSSW_VER
 
 cd $CMSSW_VER
 
-tar -xvf ../nano.tgz
+tar -xf ../nano.tgz
 ls
 
 cd src

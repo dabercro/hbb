@@ -27,14 +27,19 @@ def makeconfig(resub=False):
         os.makedirs(log_dir)
 
     out_dir = '/data/t3home000/%s/nano/%s/%s' % (os.environ['USER'], exe, version)
+    tar_dir = '/data/t3home000/%s/nano/tars/%s/%s' % (os.environ['USER'], exe, version)
 
     tarfile = 'nano.tgz'
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
-        shutil.copy(os.path.join(os.environ['CMSSW_BASE'], tarfile), out_dir)
 
-    config.extend(['Executable = %s' % os.path.join(this_dir, 'run.sh'),
-                   'transfer_input_files = %s' % os.path.join(out_dir, tarfile)])
+    if not os.path.exists(tar_dir):
+        os.makedirs(tar_dir)
+        shutil.copy(os.path.join(os.environ['CMSSW_BASE'], tarfile), tar_dir)
+        shutil.copy('run.sh', tar_dir)
+
+    config.extend(['Executable = %s' % os.path.join(tar_dir, 'run.sh'),
+                   'transfer_input_files = %s' % os.path.join(tar_dir, tarfile)])
 
     n_job = 0
 
@@ -73,6 +78,8 @@ def makeconfig(resub=False):
     with open(name, 'w') as condor:
         for l in config:
             condor.write(l + '\n')
+
+    shutil.copy(name, tar_dir)
 
 if __name__ == '__main__':
     makeconfig()

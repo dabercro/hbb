@@ -38,18 +38,20 @@ void process_event(smearfile& output, panda::Event& event) {
     // The eta cut will come later at the analysis level for the smearing.
     // We really want only two jets.
 
-    if (cleaning::lepfilter(jet, event) and
-        jet.puId > 0 and jet.jetId > 0 and
-        jet.pt * jet.bRegCorr > 20) {
-
-      if (not output.jet2)
-        output.set_jet(output.jet1
-                       ? smearfile::jet::jet2
-                       : smearfile::jet::jet1,
-                       jet);
+    if (cleaning::lepfilter(jet, event)) {
 
       output.num_jet++;
 
+      if (jet.puId > 0 and jet.jetId > 0 and
+          jet.pt * jet.bRegCorr > 20) {
+
+        if (not output.jet2)
+          output.set_jet(output.jet1
+                         ? smearfile::jet::jet2
+                         : smearfile::jet::jet1,
+                         jet);
+
+      }
     }
   }
 

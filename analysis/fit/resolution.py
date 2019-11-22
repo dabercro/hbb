@@ -11,14 +11,13 @@ import ROOT
 
 
 bintype = 'rho'
-numsmearbins = 3
 
-end = '_response'
+end = '_4rho'
 
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s_resolution_fit%s' % (
+    '%s_resolution%s' % (
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
@@ -30,7 +29,7 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 alphadir = '/home/dabercro/public_html/plots/191121_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191121%s' % end
+ratiodir = '/home/dabercro/public_html/plots/191122%s' % end
 
 class MeanCalc(object):
 
@@ -85,13 +84,14 @@ ranges = [
     ('%splot_1' % bintype, 0.155, MeanCalc(), MeanCalc()),
     ('%splot_2' % bintype, 0.185, MeanCalc(), MeanCalc()),
     ('%splot_3' % bintype, 0.23, MeanCalc(), MeanCalc()),
-    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
+#    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 
 rhos = [
-    ('_0', 16.5, MeanCalc(), MeanCalc()),
-    ('_1', 22, MeanCalc(), MeanCalc()),
-    ('_2', 65, MeanCalc(), MeanCalc())
+    ('_0', 15, MeanCalc(), MeanCalc()),
+    ('_1', 19, MeanCalc(), MeanCalc()),
+    ('_2', 24, MeanCalc(), MeanCalc()),
+    ('_3', 65, MeanCalc(), MeanCalc()),
 ]
 
 for calcs, filename in [(ranges, 'smearplot_alpha.root'),
@@ -121,7 +121,7 @@ smear_fit = ROOT.TGraphErrors(len(rhos))
 
 for training, trainname in trainings:
 
-    for bin in range(numsmearbins):
+    for bin, rho in enumerate(rhos):
 
         index = 0
 
@@ -146,13 +146,8 @@ for training, trainname in trainings:
             smearfile = ROOT.TFile(
                 os.path.join(
                     ratiodir,
-                    '%s_%i_%s.root' % (
-                        mean[0], bin, training)
-                    if numsmearbins > 1 else
-                    '%s_%s.root' % (
-                        mean[0], training)
-                    )
-                )
+                    '%s%s_%s.root' % (mean[0], rho[0], training)
+                    ))
 
             data_hist = smearfile.Get("Data")
             data_mean = mean[2].mean()
@@ -247,7 +242,7 @@ for training, trainname in trainings:
 
                 print 'Smear factor: %f +- %f (%f +- %f)' % (smear, smear_err, smear_unc, unc_unc)
 
-                smear_fit.SetPoint(bin, (rhos[bin][2].mean() + rhos[bin][3].mean())/2.0, smear)
+                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear)
                 smear_fit.SetPointError(bin, 0, smear_err)
 
                 for mc_sub in [mc_sub1, mc_sub2]:
@@ -306,7 +301,7 @@ hide2 = ROOT.TGraph(2)
 
 hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
 hide2.SetPoint(0, 0, 0)
-hide2.SetPoint(1, 35, 0.3)
+hide2.SetPoint(1, 35, 0.2)
 
 smear_fit.SetMarkerStyle(8)
 
@@ -316,8 +311,8 @@ smear_fit.Draw('p,same')
 smear_func.Draw('same')
 smear_func_down.Draw('same')
 smear_func_up.Draw('same')
-big_smear_down.Draw('same')
-big_smear_up.Draw('same')
+#big_smear_down.Draw('same')
+#big_smear_up.Draw('same')
 
 for ext in ['pdf', 'png', 'C']:
     c2.SaveAs(

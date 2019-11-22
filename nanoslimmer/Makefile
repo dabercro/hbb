@@ -42,8 +42,8 @@ $(hbb): include/feednano.h include/hbbfile.h include/checkrun.h src/hbb.cpp incl
 	-I${CROMBIEPATH}/old -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(hbb) src/hbb.cpp
 
-$(tarball): $(smear) $(hbb) ${CMSSW_BASE}/jec/* $(tag)
-	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib jec tag
+$(tarball): $(smear) $(hbb) ${CMSSW_BASE}/jec/* $(tag) ${CMSSW_BASE}/data/*
+	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib jec tag data
 
 .PHONY: smeartest install test
 
