@@ -267,14 +267,57 @@ for training, trainname in trainings:
                                  )
                     )
 
-c2 = ROOT.TCanvas()
 smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
+
+derivative_expr = 'TMath::Sqrt(TMath::Power((x + [2] * [1]) * [3], 2) + TMath::Power(([2] * [0] * x + 1) * [4], 2))'
+
+smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40)
+smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40)
+
 smear_fit_res = smear_fit.Fit(smear_func, 'S')
+matrix = smear_fit_res.GetCovarianceMatrix()
+
+big_smear_up = ROOT.TF1('lin', '([0] + [3]) * x + [1] + [4]', 0, 40)
+big_smear_down = ROOT.TF1('lin', '([0] - [3]) * x + [1] - [4]', 0, 40)
+
+print matrix(0, 0), matrix(0, 1)
+print matrix(1, 0), matrix(1, 1)
+
+for func in [smear_func_down, smear_func_up, big_smear_up, big_smear_down]:
+    func.SetParameter(0, smear_func.GetParameter(0))
+    func.SetParameter(1, smear_func.GetParameter(1))
+    func.SetParameter(2, matrix(0, 1))
+    func.SetParameter(3, smear_fit_res.Error(0))
+    func.SetParameter(4, smear_fit_res.Error(1))
+
+    func.SetLineColor(2)
+    func.SetLineWidth(1)
+
+print smear_func_down.Eval(0)
+print smear_func_up.Eval(0)
+
+print smear_func_down.Eval(16)
+print smear_func_up.Eval(16)
+
+print smear_func_down.Eval(24)
+print smear_func_up.Eval(24)
+
+hide2 = ROOT.TGraph(2)
+
+hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
+hide2.SetPoint(0, 0, 0)
+hide2.SetPoint(1, 35, 0.3)
 
 smear_fit.SetMarkerStyle(8)
 
-smear_fit.Draw('ap')
+c2 = ROOT.TCanvas()
+hide2.Draw('ap')
+smear_fit.Draw('p,same')
 smear_func.Draw('same')
+smear_func_down.Draw('same')
+smear_func_up.Draw('same')
+big_smear_down.Draw('same')
+big_smear_up.Draw('same')
 
 for ext in ['pdf', 'png', 'C']:
     c2.SaveAs(
@@ -282,6 +325,5 @@ for ext in ['pdf', 'png', 'C']:
                      os.path.basename('smear_fit.%s' % ext)
                      )
         )
-
 
 os.system('cp %s %s/models.cnf' % (__file__, newdir))
