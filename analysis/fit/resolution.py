@@ -7,21 +7,21 @@ import math
 import numpy
 import random
 
-import ROOT
-
 
 bintype = 'rho'
+numsmearbins = 3
 
-end = '_4rho'
+end = '_response'
 
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s_resolution%s' % (
+    '%s_resolution%s%s' % (
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
-        sys.argv[1] if len(sys.argv) > 1 else end
+        end,
+        sys.argv[1] if len(sys.argv) > 1 else ''
         )
     )
 
@@ -29,7 +29,7 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 alphadir = '/home/dabercro/public_html/plots/191121_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191122%s' % end
+ratiodir = '/home/dabercro/public_html/plots/191121%s' % end
 
 class MeanCalc(object):
 
@@ -84,15 +84,17 @@ ranges = [
     ('%splot_1' % bintype, 0.155, MeanCalc(), MeanCalc()),
     ('%splot_2' % bintype, 0.185, MeanCalc(), MeanCalc()),
     ('%splot_3' % bintype, 0.23, MeanCalc(), MeanCalc()),
-#    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
+    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 
 rhos = [
-    ('_0', 15, MeanCalc(), MeanCalc()),
-    ('_1', 19, MeanCalc(), MeanCalc()),
-    ('_2', 24, MeanCalc(), MeanCalc()),
-    ('_3', 65, MeanCalc(), MeanCalc()),
+    ('_0', 16.5, MeanCalc(), MeanCalc()),
+    ('_1', 22, MeanCalc(), MeanCalc()),
+    ('_2', 65, MeanCalc(), MeanCalc())
 ]
+
+sys.argv.append('-b')
+import ROOT
 
 for calcs, filename in [(ranges, 'smearplot_alpha.root'),
                         (rhos, 'smearplot_rhoAll.root')]:
@@ -121,7 +123,7 @@ smear_fit = ROOT.TGraphErrors(len(rhos))
 
 for training, trainname in trainings:
 
-    for bin, rho in enumerate(rhos):
+    for bin in range(numsmearbins):
 
         index = 0
 
@@ -146,8 +148,13 @@ for training, trainname in trainings:
             smearfile = ROOT.TFile(
                 os.path.join(
                     ratiodir,
-                    '%s%s_%s.root' % (mean[0], rho[0], training)
-                    ))
+                    '%s_%i_%s.root' % (
+                        mean[0], bin, training)
+                    if numsmearbins > 1 else
+                    '%s_%s.root' % (
+                        mean[0], training)
+                    )
+                )
 
             data_hist = smearfile.Get("Data")
             data_mean = mean[2].mean()
@@ -242,8 +249,8 @@ for training, trainname in trainings:
 
                 print 'Smear factor: %f +- %f (%f +- %f)' % (smear, smear_err, smear_unc, unc_unc)
 
-                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear)
-                smear_fit.SetPointError(bin, 0, smear_err)
+                smear_fit.SetPoint(bin, (rhos[bin][2].mean() + rhos[bin][3].mean())/2.0, smear)
+                smear_fit.SetPointError(bin, (rhos[bin][2].std() + rhos[bin][3].std())/2, smear_err)
 
                 for mc_sub in [mc_sub1, mc_sub2]:
                     mc_sub.SetLineWidth(1)
