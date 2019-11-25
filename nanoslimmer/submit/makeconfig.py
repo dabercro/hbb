@@ -45,7 +45,7 @@ def makeconfig(resub=False):
 
     n_job = 0
 
-    for file_list in glob.glob(os.path.join(this_dir, 'files', exe, '*.txt')):
+    for file_list in glob.glob(os.path.join(this_dir, 'files', exe, year, '*.txt')):
 
         this_out = os.path.join(out_dir, os.path.basename(file_list).split('.')[0])
 
