@@ -18,26 +18,33 @@ all: $(tarball)
 $(tag): ../.git/refs/heads/master
 	cp ../.git/refs/heads/master $(tag)
 
-include/feednano.h: include/[!f]*.h src/*.cpp include/smearfile.h $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def feednano.pl
-	./feednano.pl $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def include/*.h src/*.cpp include/feednano.h
+include/feedsmear.h: $(shell crombie deps src/smear.cpp | grep -v 'feedsmear.h') $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def feednano.pl
+	./feednano.pl $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def `crombie deps src/smear.cpp` include/feedsmear.h
 
-include/smearfile.h: treedefs/smearfile.txt treedefs/eventinfo.txt ${CROMBIEPATH}/scripts/maketree.py
+include/feedhbb.h: $(shell crombie deps src/hbb.cpp | grep -v 'feedhbb.h') $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def feednano.pl
+	./feednano.pl $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def `crombie deps src/hbb.cpp` include/feedhbb.h
+
+include/smearfile.h: $(shell crombie deps treedefs/smearfile.txt) ${CROMBIEPATH}/scripts/maketree.py
 	crombie maketree treedefs/smearfile.txt
 	mv smearfile.h include/
 
 include/checkrun.h: ../slimmer/certs/* ${CROMBIEPATH}/scripts/goodruns.py
 	crombie goodruns ../slimmer/certs/* include/checkrun
 
-include/hbbfile.h: treedefs/hbbfile.txt treedefs/eventinfo.txt ${CROMBIEPATH}/scripts/maketree.py
+include/hbbfile.h: $(shell crombie deps treedefs/hbbfile.txt) ${CROMBIEPATH}/scripts/maketree.py
 	crombie maketree treedefs/hbbfile.txt
 	mv hbbfile.h include/
 
-$(smear): include/feednano.h include/smearfile.h include/checkrun.h src/smear.cpp include/*.h
+# Force generation of head files, just in case
+include/headers.d: include/feedhbb.h include/feedsmear.h include/smearfile.h include/checkrun.h include/hbbfile.h
+	touch include/headers.d
+
+$(smear): include/headers.d $(shell crombie deps src/smear.cpp)
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH}/old -g `./flags.sh` \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(smear) src/smear.cpp
 
-$(hbb): include/feednano.h include/hbbfile.h include/checkrun.h src/hbb.cpp include/*.h
+$(hbb): include/headers.d $(shell crombie deps src/hbb.cpp)
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH}/old -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(hbb) src/hbb.cpp
@@ -60,7 +67,7 @@ testdir = ${HOME}/public_html/plots/testnanohbb
 
 test: $(hbb)
 	test ! -f test.root || rm test.root
-	$(hbb) $(smeartestfile) test.root
+	$(hbb) /data/t3home000/dabercro/scratch/nano/hbb/*.root test.root
 	test ! -d $(testdir)_old || rm -r $(testdir)_old
 	test ! -d $(testdir) || mv $(testdir) $(testdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)

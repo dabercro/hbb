@@ -5,7 +5,6 @@
 #include "PandaTree/Objects/interface/Event.h"
 
 #include "checkrun.h"
-#include "feednano.h"
 #include "TH1F.h"
 #include "TFile.h"
 

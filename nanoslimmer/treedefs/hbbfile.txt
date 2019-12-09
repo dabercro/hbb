@@ -43,10 +43,17 @@ num_jet/s
 <jet{1, 2}> {
   jet(panda::Jet& jet)
 
-    /O = false -> true
-    $ -> jet.$ | pt, eta, phi, mass, area, bRegCorr, bRegRes, \
-                 btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
-                 chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
+    INCLUDE treedefs/setjet.txt
+
+}
+
+dijet {
+
+  #vec@/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt@, eta, phi, mass}>) |@ , _reg
+  $@ <- []_vec@.$$() | pt, eta, phi, m |@ , _reg
+
+  #Xvec_$/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt_smeared_X$, eta, phi, mass}>) | nominal, up, down |X , old_
+  $_X@ <- []_Xvec_@.$$() | pt, eta, phi, m |@ nominal, up, down |X , old_
 
 }
 

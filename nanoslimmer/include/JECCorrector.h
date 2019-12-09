@@ -185,33 +185,4 @@ void panda::JECCorrector::adjust_event (panda::Event& event) {
 }
 
 
-/* double panda::JECCorrector::smeared_pt (const panda::Jet& jet, const panda::Event& event) { */
-
-/*   // Get the smearing resolution */
-/*   JME::JetParameters jet_params {}; */
-
-/*   jet_params.setJetArea(jet.area); */
-/*   jet_params.setJetE(jet.e()); */
-/*   jet_params.setJetPt(jet.pt()); */
-/*   jet_params.setJetEta(jet.eta()); */
-
-/*   /\* */
-/*   Pretty sure I don't need these: */
-
-/*   JetParameters & setMu (float mu); */
-/*   *\/ */
-
-/*   jet_params.setNPV(event.npv); */
-/*   jet_params.setRho(event.rho); */
-
-/*   auto resolution = m_resolution.getResolution(jet_params); */
-
-/*   auto& gen = jet.matchedGenJet; */
-/*   double pt = (gen.isValid() ? gen->pt() : jet.pt()); */
-
-/*   return jet.pt() + generator.Gaus(0, resolution) * pt; */
-
-/* } */
-
-
 #endif

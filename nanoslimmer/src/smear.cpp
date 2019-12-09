@@ -1,6 +1,8 @@
+#include "feedsmear.h"
 #include "smearfile.h"
 #include "cleaning.h"
 #include "lepid.h"
+#include "jetid.h"
 #include "main.h"
 #include "JECCorrector.h"
 
@@ -33,8 +35,6 @@ void process_event(smearfile& output, panda::Event& event) {
 
   for (auto& jet : event.Jet) {
 
-    // jetsForHiggs = [x for x in jets if x.lepFilter and x.puId>0 and x.jetId>0 and self.pt(x,self.isMC)>20 and abs(x.eta)<2.5]
-
     // The eta cut will come later at the analysis level for the smearing.
     // We really want only two jets.
 
@@ -42,8 +42,7 @@ void process_event(smearfile& output, panda::Event& event) {
 
       output.num_jet++;
 
-      if (jet.puId > 0 and jet.jetId > 0 and
-          jet.pt * jet.bRegCorr > 20) {
+      if (jetid::higgs(jet, event)) {
 
         if (not output.jet2)
           output.set_jet(output.jet1

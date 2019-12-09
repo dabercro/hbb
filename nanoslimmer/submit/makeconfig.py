@@ -6,11 +6,12 @@ import shutil
 
 ##
 
-year='2017'
+year='2018'
 
 files_per_job = 1
 exe='smearnano'
-version='191125_%s' % year
+#exe='hbbnano'
+version='191206_%s' % year
 door='root://cms-xrd-global.cern.ch/'
 
 ##

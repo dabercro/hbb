@@ -8,19 +8,19 @@ import numpy
 import random
 
 
-bintype = 'rho'
+bintype = 'smear'
+numsmearbins = 1
 
-end = '_response'
+end = '_close'
 
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s_resolution%s%s' % (
+    '%s_resolution%s' % (
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
-        end,
-        sys.argv[1] if len(sys.argv) > 1 else ''
+        sys.argv[1] if len(sys.argv) > 1 else end
         )
     )
 
@@ -28,43 +28,34 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 alphadir = '/home/dabercro/public_html/plots/191121_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191121%s' % end
+ratiodir = '/home/dabercro/public_html/plots/191129%s' % end
 
 class MeanCalc(object):
 
     def __init__(self):
         self.values = []
 
-        self._mean = None
-        self._std = None
-
-
     def add(self, value, weight):
         self.values.append((value, weight))
 
     def mean(self):
-        if self._mean is None:
-            tot = 0
-            totw = 0
-            for val, weight in self.values:
-                tot += val * weight
-                totw += weight
-            self._mean = max(float(tot)/totw, 0)
-
-        return self._mean
+        tot = 0
+        totw = 0
+        for val, weight in self.values:
+            tot += val * weight
+            totw += weight
+        return max(tot/totw, 0)
 
     def std(self):
-        if self._std is None:
-            # https://www.itl.nist.gov/div898/software/dataplot/refman2/ch2/weightsd.pdf
-            mean = self.mean()
-            numerator = 0
-            totw = 0
-            for val, weight in self.values:
-                numerator += weight * pow(val - mean, 2)
-                totw += weight
-            self._std = math.sqrt((len(self.values) * numerator)/((len(self.values) - 1) * totw))
+        # https://www.itl.nist.gov/div898/software/dataplot/refman2/ch2/weightsd.pdf
+        mean = self.mean()
+        numerator = 0
+        totw = 0
+        for val, weight in self.values:
+            numerator += weight * pow(val - mean, 2)
+            totw += weight
+        return math.sqrt((len(self.values) * numerator)/((len(self.values) - 1) * totw))
 
-        return self._std
 
 # Sample for the uncertainty
 def toy_unc(data_val, data_err, mc_val, mc_err):
@@ -85,52 +76,35 @@ ranges = [
     ('%splot_3' % bintype, 0.23, MeanCalc(), MeanCalc()),
     ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
-
-rhos = [
-    ('_0', 16.5, MeanCalc(), MeanCalc()),
-    ('_1', 22, MeanCalc(), MeanCalc()),
-    ('_2', 65, MeanCalc(), MeanCalc())
-]
-
-def rhotitle (bin):
-    if bin == 0:
-        return '#rho < 16.5'
-    if bin == 1:
-        return '16.5 < #rho < 22'
-    return '22 < #rho'
-
+index = 0
 
 sys.argv.append('-b')
+
 import ROOT
 
-for calcs, filename in [(ranges, 'smearplot_alpha.root'),
-                        (rhos, 'smearplot_rhoAll.root')]:
+average_file = ROOT.TFile(os.path.join(alphadir, 'smearplot_alpha.root'))
+data_hist = average_file.Get("Data")
+mc_hist = average_file.Get("DY")
+bin = 1
 
-    index = 0
+while index != len(ranges):
+    ranges[index][2].add(data_hist.GetBinCenter(bin), data_hist.GetBinContent(bin))
+    ranges[index][3].add(mc_hist.GetBinCenter(bin), mc_hist.GetBinContent(bin))
 
-    average_file = ROOT.TFile(os.path.join(alphadir, filename))
-    data_hist = average_file.Get("Data")
-    mc_hist = average_file.Get("DY")
-    bin = 1
-
-    while index != len(calcs):
-        calcs[index][2].add(data_hist.GetBinCenter(bin), data_hist.GetBinContent(bin))
-        calcs[index][3].add(mc_hist.GetBinCenter(bin), mc_hist.GetBinContent(bin))
-
-        bin += 1
-        if data_hist.GetBinCenter(bin) > calcs[index][1]:
-            index += 1
-
+    bin += 1
+    if data_hist.GetBinCenter(bin) > ranges[index][1]:
+        index += 1
 
 trainings = [
-    ('jet1_response', '')
+    ('jet1_response', 'No Smearing'),
+    ('jet1_response_nominal', 'Nominal Smearing'),
+    ('jet1_response_up', 'More Smearing'),
+    ('jet1_response_down', 'Less Smearing')
     ]
-
-smear_fit = ROOT.TGraphErrors(len(rhos))
 
 for training, trainname in trainings:
 
-    for bin, rho in enumerate(rhos):
+    for bin in range(numsmearbins):
 
         index = 0
 
@@ -155,8 +129,11 @@ for training, trainname in trainings:
             smearfile = ROOT.TFile(
                 os.path.join(
                     ratiodir,
-                    '%s%s_%s.root' % (
-                        mean[0], rho[0], training)
+                    '%s_%i_%s.root' % (
+                        mean[0], bin, training)
+                    if numsmearbins > 1 else
+                    '%s_%s.root' % (
+                        mean[0], training)
                     )
                 )
 
@@ -184,7 +161,7 @@ for training, trainname in trainings:
             ]:
 
             hide = ROOT.TGraph(2)
-            hide.SetTitle('%s;#alpha;%s' % (rhotitle(bin), name))
+            hide.SetTitle('%s;#alpha;%s' % (trainname, name))
             hide.SetPoint(0, 0, mini)
             hide.SetPoint(1, 0.3, maxi)
 
@@ -245,17 +222,13 @@ for training, trainname in trainings:
                 smear = math.sqrt(abs(math.pow(data_func.GetParameter(0), 2) - 
                                       math.pow(mc_func.GetParameter(0), 2)))
 
-                smear_err = math.sqrt(abs(math.pow(data_func.GetParameter(0) * datares.Error(0), 2) +
-                                          math.pow(mc_func.GetParameter(0) * mcres.Error(0), 2))) / smear
-
                 smear_unc, unc_unc = toy_unc(data_func.GetParameter(0), datares.Error(0),
                                              mc_func.GetParameter(0), mcres.Error(0))
 
-                print 'Smear factor: %f +- %f (%f +- %f)' % (smear, smear_err, smear_unc, unc_unc)
-
-                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear)
-                smear_fit.SetPointError(bin, 0, #(rho[2].std() + rho[3].std())/2,
-                                        smear_err)
+                print 'Smear factor: %f +- %f (%f +- %f)' % (smear,
+                                                             math.sqrt(abs(math.pow(data_func.GetParameter(0) * datares.Error(0), 2) +
+                                                                           math.pow(mc_func.GetParameter(0) * mcres.Error(0), 2))) / smear,
+                                                             smear_unc, unc_unc)
 
                 for mc_sub in [mc_sub1, mc_sub2]:
                     mc_sub.SetLineWidth(1)
@@ -273,64 +246,5 @@ for training, trainname in trainings:
                                  os.path.basename('%s_%s_%s_%i.%s' % (data_func.GetName(), training, bintype, bin, ext))
                                  )
                     )
-
-smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
-
-derivative_expr = 'TMath::Sqrt(TMath::Power((x + [2] * [1]) * [3], 2) + TMath::Power(([2] * [0] * x + 1) * [4], 2))'
-
-smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40)
-smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40)
-
-smear_fit_res = smear_fit.Fit(smear_func, 'S')
-matrix = smear_fit_res.GetCovarianceMatrix()
-
-big_smear_up = ROOT.TF1('lin', '([0] + [3]) * x + [1] + [4]', 0, 40)
-big_smear_down = ROOT.TF1('lin', '([0] - [3]) * x + [1] - [4]', 0, 40)
-
-print matrix(0, 0), matrix(0, 1)
-print matrix(1, 0), matrix(1, 1)
-
-for func in [smear_func_down, smear_func_up, big_smear_up, big_smear_down]:
-    func.SetParameter(0, smear_func.GetParameter(0))
-    func.SetParameter(1, smear_func.GetParameter(1))
-    func.SetParameter(2, matrix(0, 1))
-    func.SetParameter(3, smear_fit_res.Error(0))
-    func.SetParameter(4, smear_fit_res.Error(1))
-
-    func.SetLineColor(2)
-    func.SetLineWidth(1)
-
-print smear_func_down.Eval(0)
-print smear_func_up.Eval(0)
-
-print smear_func_down.Eval(16)
-print smear_func_up.Eval(16)
-
-print smear_func_down.Eval(24)
-print smear_func_up.Eval(24)
-
-hide2 = ROOT.TGraph(2)
-
-hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
-hide2.SetPoint(0, 0, 0)
-hide2.SetPoint(1, 35, 0.2)
-
-smear_fit.SetMarkerStyle(8)
-
-c2 = ROOT.TCanvas()
-hide2.Draw('ap')
-smear_fit.Draw('p,same')
-smear_func.Draw('same')
-smear_func_down.Draw('same')
-smear_func_up.Draw('same')
-#big_smear_down.Draw('same')
-#big_smear_up.Draw('same')
-
-for ext in ['pdf', 'png', 'C']:
-    c2.SaveAs(
-        os.path.join(newdir,
-                     os.path.basename('smear_fit.%s' % ext)
-                     )
-        )
 
 os.system('cp %s %s/models.cnf' % (__file__, newdir))

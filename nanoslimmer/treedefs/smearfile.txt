@@ -35,23 +35,10 @@ dilep {
 
 num_jet/s
 
-"applysmearing.h"
-"genjet.h"
-
 <jet{1, 2}> {
   jet(panda::Jet& jet)
 
-    /O = false -> true
-    $ -> jet.$ | pt, eta, phi, mass, area, bRegCorr, bRegRes, \
-                 btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
-                 chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
-
-    (gen_jet_ptr = genjet::matched(jet, *e_ptr))
-    (smear_res = applysmearing::smeared_pt(jet.pt, jet.bRegCorr, rhoAll, gen_jet_ptr ? gen_jet_ptr->pt : 0))
-
-    gen_$ -> gen_jet_ptr ? gen_jet_ptr->$ : 0 | pt, eta, phi, mass, partonFlavour, hadronFlavour
-
-    pt_smeared_$ -> smear_res.$ | down, nominal, up
+    #INCLUDE treedefs/setjet.txt
 
   pt_regressed <- []_pt * []_bRegCorr
 
