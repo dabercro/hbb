@@ -33,6 +33,25 @@ void process_event(smearfile& output, panda::Event& event) {
     }
   }
 
+  if (not output.lep2) {
+
+    for (auto& electron : event.Electron) {
+      if (lepid::Z(electron)) {
+
+        if (not output.lep2)
+          output.set_lep(output.lep1
+                         ? smearfile::lep::lep2
+                         : smearfile::lep::lep1,
+                         electron);
+
+        else
+          return;
+
+      }
+    }
+
+  }
+
   for (auto& jet : event.Jet) {
 
     // The eta cut will come later at the analysis level for the smearing.
@@ -43,6 +62,8 @@ void process_event(smearfile& output, panda::Event& event) {
       output.num_jet++;
 
       if (jetid::higgs(jet, event)) {
+
+        output.num_bjet++;
 
         if (not output.jet2)
           output.set_jet(output.jet1

@@ -10,9 +10,11 @@
     pt_reg -> jet.pt * jet.bRegCorr
 
     (gen_jet_ptr = genjet::matched(jet, genjets_withnu))
-    (smear_res = applysmearing::smeared_pt(jet.pt, jet.bRegCorr, rhoAll, gen_jet_ptr ? gen_jet_ptr->pt : 0))
-    (old_smear_res = applysmearing::old_smear(jet.pt, jet.bRegCorr, gen_jet_ptr ? gen_jet_ptr->pt : 0))
+
+DEFINE SMEARINGS smear, scale, old_scale
+
+    ($_res = applysmearing::smeared_pt(jet.pt, jet.bRegCorr, rhoAll, gen_jet_ptr ? gen_jet_ptr->pt : 0, applysmearing::smear_method::$$$)) | SMEARINGS
 
     gen_$ -> gen_jet_ptr ? gen_jet_ptr->$ : 0 | pt, eta, phi, mass, partonFlavour, hadronFlavour
 
-    pt_smeared_@$ -> @smear_res.$ | down, nominal, up |@ , old_
+    pt_Xed_$ -> X_res.$ | down, nominal, up |X SMEARINGS

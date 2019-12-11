@@ -9,7 +9,7 @@ hbb = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/hbbnano
 tag = ${CMSSW_BASE}/tag
 tarball = ${CMSSW_BASE}/nano.tgz
 
-smeartestfile = /data/t3home000/dabercro/scratch/nano/*.root
+smeartestfile = /data/t3home000/dabercro/scratch/nano/hbb/*.root
 
 nano_version = v5
 
@@ -17,6 +17,9 @@ all: $(tarball)
 
 $(tag): ../.git/refs/heads/master
 	cp ../.git/refs/heads/master $(tag)
+
+../.git/refs/heads/master: $(shell git ls-files)
+	git commit -am "Auto commit for tarball"
 
 include/feedsmear.h: $(shell crombie deps src/smear.cpp | grep -v 'feedsmear.h') $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def feednano.pl
 	./feednano.pl $(pandainc)/PandaTree/defs/nanoaod_$(nano_version).def `crombie deps src/smear.cpp` include/feedsmear.h

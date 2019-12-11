@@ -8,13 +8,16 @@ import shutil
 
 year='2018'
 
-files_per_job = 1
 exe='smearnano'
 #exe='hbbnano'
-version='191206_%s' % year
-door='root://cms-xrd-global.cern.ch/'
+version='191210_ele_%s' % year
+
+use_custom = False
+files_per_job = 1
 
 ##
+
+door='root://xrootd.cmsaf.mit.edu/' if use_custom else 'root://cms-xrd-global.cern.ch/'
 
 def makeconfig(resub=False):
 
@@ -36,6 +39,10 @@ def makeconfig(resub=False):
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
 
+    else:
+        print out_dir, 'exists'
+        return
+
     if not os.path.exists(tar_dir):
         os.makedirs(tar_dir)
         shutil.copy(os.path.join(os.environ['CMSSW_BASE'], tarfile), tar_dir)
@@ -46,7 +53,8 @@ def makeconfig(resub=False):
 
     n_job = 0
 
-    for file_list in glob.glob(os.path.join(this_dir, 'files', exe, year, '*.txt')):
+    for file_list in glob.glob(os.path.join(this_dir, 'files/customnano' if use_custom else 'files',
+                                            exe, year, '*.txt')):
 
         this_out = os.path.join(out_dir, os.path.basename(file_list).split('.')[0])
 

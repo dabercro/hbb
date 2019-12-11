@@ -77,6 +77,10 @@ def toy_unc(data_val, data_err, mc_val, mc_err):
 
     return numpy.mean(toys), numpy.std(toys)
 
+def stretch_unc(data_val, data_err, mc_val, mc_err):
+    output = data_val/mc_val
+    return output, math.sqrt(math.pow(data_err/mc_val, 2) + math.pow(output * mc_err/mc_val, 2))
+
 
 # Name of region and max alpha value
 ranges = [
@@ -248,14 +252,18 @@ for training, trainname in trainings:
                 smear_err = math.sqrt(abs(math.pow(data_func.GetParameter(0) * datares.Error(0), 2) +
                                           math.pow(mc_func.GetParameter(0) * mcres.Error(0), 2))) / smear
 
-                smear_unc, unc_unc = toy_unc(data_func.GetParameter(0), datares.Error(0),
-                                             mc_func.GetParameter(0), mcres.Error(0))
+                smear_unc, unc_unc = stretch_unc(data_func.GetParameter(0), datares.Error(0),
+                                                 mc_func.GetParameter(0), mcres.Error(0))
 
                 print 'Smear factor: %f +- %f (%f +- %f)' % (smear, smear_err, smear_unc, unc_unc)
 
-                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear)
+#                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear)
+#                smear_fit.SetPointError(bin, 0, #(rho[2].std() + rho[3].std())/2,
+#                                        smear_err)
+
+                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear_unc - 1)
                 smear_fit.SetPointError(bin, 0, #(rho[2].std() + rho[3].std())/2,
-                                        smear_err)
+                                        unc_unc)
 
                 for mc_sub in [mc_sub1, mc_sub2]:
                     mc_sub.SetLineWidth(1)
@@ -313,7 +321,7 @@ hide2 = ROOT.TGraph(2)
 
 hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
 hide2.SetPoint(0, 0, 0)
-hide2.SetPoint(1, 35, 0.2)
+hide2.SetPoint(1, 35, 0.7)
 
 smear_fit.SetMarkerStyle(8)
 
