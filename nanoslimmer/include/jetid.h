@@ -19,7 +19,7 @@ namespace jetid {
     /*   jet.pt * jet.bRegCorr > 20 and */
     /*   std::abs(jet.eta) < 2.5 and */
     /*   cleaning::lepfilter(jet, event); */
-    return jet.pt > 15 and jet.jetId;
+    return jet.pt * jet.bRegCorr > 20 and jet.jetId > 0 and jet.puId > 0;
   }
 
 
