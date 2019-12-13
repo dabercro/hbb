@@ -10,7 +10,7 @@ year='2018'
 
 exe='smearnano'
 #exe='hbbnano'
-version='191210_ele_%s' % year
+version='191120'
 
 use_custom = False
 files_per_job = 1
@@ -38,10 +38,6 @@ def makeconfig(resub=False):
     tarfile = 'nano.tgz'
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
-
-    else:
-        print out_dir, 'exists'
-        return
 
     if not os.path.exists(tar_dir):
         os.makedirs(tar_dir)

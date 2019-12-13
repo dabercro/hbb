@@ -10,7 +10,7 @@ import random
 
 bintype = 'rho'
 
-end = '_response'
+end = '_tosmear'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -28,7 +28,7 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 alphadir = '/home/dabercro/public_html/plots/191121_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191121%s' % end
+ratiodir = '/home/dabercro/public_html/plots/191213%s' % end
 
 class MeanCalc(object):
 
@@ -171,7 +171,7 @@ for training, trainname in trainings:
                                          data_hist.GetStdDevError())
             data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
-            mc_hist = smearfile.Get("DY")
+            mc_hist = smearfile.Get("MC")
             mc_mean = mean[3].mean()
             mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
             mc_graph_res.SetPointError(index, 0, #mean[3].std(),
@@ -320,8 +320,8 @@ print smear_func_up.Eval(24)
 hide2 = ROOT.TGraph(2)
 
 hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
-hide2.SetPoint(0, 0, 0)
-hide2.SetPoint(1, 35, 0.7)
+hide2.SetPoint(0, 0, -0.5)
+hide2.SetPoint(1, 35, 0.5)
 
 smear_fit.SetMarkerStyle(8)
 

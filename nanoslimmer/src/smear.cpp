@@ -14,7 +14,7 @@ void process_event(smearfile& output, panda::Event& event) {
   if (event.Muon.size() < 2)
     return;
 
-  // panda::JECCorrector::adjust_event(event);
+  panda::JECCorrector::adjust_event(event);
 
   output.reset(event);
 
