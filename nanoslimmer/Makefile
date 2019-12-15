@@ -42,17 +42,17 @@ include/hbbfile.h: $(shell crombie deps treedefs/hbbfile.txt) ${CROMBIEPATH}/scr
 include/headers.d: include/feedhbb.h include/feedsmear.h include/smearfile.h include/checkrun.h include/hbbfile.h
 	touch include/headers.d
 
-$(smear): include/headers.d $(shell crombie deps src/smear.cpp)
+$(smear): $(shell crombie deps src/smear.cpp)
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH}/old -g `./flags.sh` \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(smear) src/smear.cpp
 
-$(hbb): include/headers.d $(shell crombie deps src/hbb.cpp)
+$(hbb): $(shell crombie deps src/hbb.cpp)
 	g++ -Iinclude -I$(pandainc) -I${CROMBIEPATH}/src/include \
 	-I${CROMBIEPATH}/old -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(hbb) src/hbb.cpp
 
-$(tarball): $(smear) $(hbb) ${CMSSW_BASE}/jec/* $(tag) ${CMSSW_BASE}/data/*
+$(tarball): include/headers.d $(smear) $(hbb) ${CMSSW_BASE}/jec/* $(tag) ${CMSSW_BASE}/data/*
 	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib jec tag data
 
 .PHONY: smeartest install test
