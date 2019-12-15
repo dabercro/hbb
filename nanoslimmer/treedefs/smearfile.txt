@@ -61,5 +61,7 @@ alpha <- jet2_pt/dilep_pt
 untrained_response <- jet1_pt/dilep_pt
 
 
--- lep1_pt > 20 and lep2_pt > 20 \
-   and (lep1_q + lep2_q) == 0 and num_jet and num_bjet < 3 --
+-- ((lep1_pt > 20 && lep2_pt > 20 && (lep1_q + lep2_q) == 0 && dilep_pt > 100) && \
+   (lep1_miniPFRelIso_all < 0.25 && lep2_miniPFRelIso_all < 0.25) && (fabs(jet1_eta) < 2.4 && \
+   alpha < 0.3 && jet1_dphi_ll > 2.8 && jet1_btagDeepB > 0.9) && jet2 && \
+   (dilep_m > 71 && dilep_m < 111)) and num_bjet == 2 --
