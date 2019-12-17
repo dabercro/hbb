@@ -10,7 +10,7 @@ import random
 
 bintype = 'rho'
 
-end = '_tosmear'
+end = '_3alpha'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -28,7 +28,7 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 alphadir = '/home/dabercro/public_html/plots/191121_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191213%s' % end
+ratiodir = '/home/dabercro/public_html/plots/191216%s' % end
 
 class MeanCalc(object):
 
@@ -84,10 +84,10 @@ def stretch_unc(data_val, data_err, mc_val, mc_err):
 
 # Name of region and max alpha value
 ranges = [
-    ('%splot_1' % bintype, 0.155, MeanCalc(), MeanCalc()),
-    ('%splot_2' % bintype, 0.185, MeanCalc(), MeanCalc()),
-    ('%splot_3' % bintype, 0.23, MeanCalc(), MeanCalc()),
-    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
+    ('%splot_1' % bintype, 0.185, MeanCalc(), MeanCalc()),
+    ('%splot_2' % bintype, 0.215, MeanCalc(), MeanCalc()),
+    ('%splot_3' % bintype, 0.3, MeanCalc(), MeanCalc()),
+#    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 
 rhos = [
@@ -257,13 +257,13 @@ for training, trainname in trainings:
 
                 print 'Smear factor: %f +- %f (%f +- %f)' % (smear, smear_err, smear_unc, unc_unc)
 
-#                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear)
-#                smear_fit.SetPointError(bin, 0, #(rho[2].std() + rho[3].std())/2,
-#                                        smear_err)
-
-                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear_unc - 1)
+                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear)
                 smear_fit.SetPointError(bin, 0, #(rho[2].std() + rho[3].std())/2,
-                                        unc_unc)
+                                        smear_err)
+
+#                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear_unc - 1)
+#                smear_fit.SetPointError(bin, 0, #(rho[2].std() + rho[3].std())/2,
+#                                        unc_unc)
 
                 for mc_sub in [mc_sub1, mc_sub2]:
                     mc_sub.SetLineWidth(1)
