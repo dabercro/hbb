@@ -53,7 +53,7 @@ for (@ARGV) {
     open(my $handle, '<', $_);
 
     for (<$handle>) {
-        while (/\be(vent)?(\.|->)(\w+)(?!\w*\()/g) {
+        while (/\be(vent)?(\.|->)(\w\w+)(?!\w*\()/g) {
             push @primary, $3;
         }
     }

@@ -6,12 +6,18 @@ import shutil
 
 ##
 
-files_per_job = 1
+year='2018'
+
 exe='smearnano'
-version='191122'
-door='root://cms-xrd-global.cern.ch/'
+#exe='hbbnano'
+version='191120'
+
+use_custom = False
+files_per_job = 1
 
 ##
+
+door='root://xrootd.cmsaf.mit.edu/' if use_custom else 'root://cms-xrd-global.cern.ch/'
 
 def makeconfig(resub=False):
 
@@ -43,7 +49,8 @@ def makeconfig(resub=False):
 
     n_job = 0
 
-    for file_list in glob.glob(os.path.join(this_dir, 'files', exe, '*.txt')):
+    for file_list in glob.glob(os.path.join(this_dir, 'files/customnano' if use_custom else 'files',
+                                            exe, year, '*.txt')):
 
         this_out = os.path.join(out_dir, os.path.basename(file_list).split('.')[0])
 

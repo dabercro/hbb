@@ -8,7 +8,15 @@ pfmet = e.MET.pt
 pfmet_phi = e.MET.phi
 
 trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
-            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8
+            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 or \
+            e.HLT.Ele115_CaloIdVT_GsfTrkIdT or \
+            e.HLT.Ele27_WPTight_Gsf or \
+            e.HLT.Ele28_WPTight_Gsf or \
+            e.HLT.Ele32_WPTight_Gsf or \
+            e.HLT.Ele35_WPTight_Gsf or \
+            e.HLT.Ele38_WPTight_Gsf or \
+            e.HLT.Ele40_WPTight_Gsf or \
+            e.HLT.Ele32_WPTight_Gsf_L1DoubleEG
 
 <lepid.h>
 
@@ -34,24 +42,12 @@ dilep {
 "TVector2.h"
 
 num_jet/s
-
-"applysmearing.h"
-"genjet.h"
+num_bjet/s
 
 <jet{1, 2}> {
   jet(panda::Jet& jet)
 
-    /O = false -> true
-    $ -> jet.$ | pt, eta, phi, mass, area, bRegCorr, bRegRes, \
-                 btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
-                 chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
-
-    (gen_jet_ptr = genjet::matched(jet, *e_ptr))
-    (smear_res = applysmearing::smeared_pt(jet.pt, jet.bRegCorr, rhoAll, gen_jet_ptr ? gen_jet_ptr->pt : 0))
-
-    gen_$ -> gen_jet_ptr ? gen_jet_ptr->$ : 0 | pt, eta, phi, mass, partonFlavour, hadronFlavour
-
-    pt_smeared_$ -> smear_res.$ | down, nominal, up
+    #INCLUDE treedefs/setjet.txt
 
   pt_regressed <- []_pt * []_bRegCorr
 
@@ -66,4 +62,4 @@ untrained_response <- jet1_pt/dilep_pt
 
 
 -- lep1_pt > 20 and lep2_pt > 20 \
-   and (lep1_q + lep2_q) == 0 and num_jet and num_jet < 3 --
+   and (lep1_q + lep2_q) == 0 and num_jet and num_bjet < 3 --

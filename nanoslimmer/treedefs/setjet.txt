@@ -1,0 +1,20 @@
+"applysmearing.h"
+"genjet.h"
+
+
+    /O = false -> true
+    $ -> jet.$ | pt, eta, phi, mass, area, bRegCorr, bRegRes, \
+                 btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
+                 chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
+
+    pt_reg -> jet.pt * jet.bRegCorr
+
+    (gen_jet_ptr = genjet::matched(jet, genjets_withnu))
+
+DEFINE SMEARINGS smear, scale, old_scale
+
+    ($_res = applysmearing::smeared_pt(jet.pt, jet.bRegCorr, rhoAll, gen_jet_ptr ? gen_jet_ptr->pt : 0, applysmearing::smear_method::$$$)) | SMEARINGS
+
+    gen_$ -> gen_jet_ptr ? gen_jet_ptr->$ : 0 | pt, eta, phi, mass, partonFlavour, hadronFlavour
+
+    pt_Xed_$ -> X_res.$ | down, nominal, up |X SMEARINGS

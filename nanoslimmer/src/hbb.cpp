@@ -1,6 +1,8 @@
+#include "feedhbb.h"
 #include "hbbfile.h"
 #include "cleaning.h"
 #include "lepid.h"
+#include "jetid.h"
 #include "main.h"
 
 
@@ -33,16 +35,18 @@ void process_event(hbbfile& output, const panda::Event& event) {
   lep_select(event.Electron);
 
   for (auto& jet : event.Jet) {
-    if (jet.pt > 15 and jet.puId and cleaning::lepfilter(jet, event)) {
+    if (cleaning::lepfilter(jet, event)) {
+      output.num_jet += 1;
 
-      if (not output.jet2)
-        output.set_jet(output.jet1
-                       ? hbbfile::jet::jet2
-                       : hbbfile::jet::jet1,
-                       jet);
+      if (jet.pt > 15 and jet.puId) {
 
-      output.num_jet++;
+        if (not output.jet2)
+          output.set_jet(output.jet1
+                         ? hbbfile::jet::jet2
+                         : hbbfile::jet::jet1,
+                         jet);
 
+      }
     }
   }
 

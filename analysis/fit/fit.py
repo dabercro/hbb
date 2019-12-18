@@ -19,11 +19,11 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 
-for filename in sorted(glob.glob('/home/dabercro/public_html/plots/191008_dijet_recoilbin2/*.root')):
+for filename in sorted(glob.glob('/home/dabercro/public_html/plots/191209_peaks/*.root')):
 
     infile = ROOT.TFile(filename)
 
-    histogram = infile.ZH
+    histogram = infile.Hbb
 
     test = ROOT.TCanvas()
 
@@ -56,3 +56,5 @@ for filename in sorted(glob.glob('/home/dabercro/public_html/plots/191008_dijet_
             )
 
     print filename, '#sigma = %f +- %f' % (function.GetParameter(2), result.Error(2)), 'mean = %f +- %f' % (function.GetParameter(1), result.Error(1))
+
+os.system('cp %s %s/models.cnf' % (__file__, newdir))
