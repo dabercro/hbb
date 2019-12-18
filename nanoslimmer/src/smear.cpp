@@ -11,7 +11,7 @@ void process_event(smearfile& output, panda::Event& event) {
 
   // Do the stuff
 
-  if (event.Muon.size() < 2)
+  if (event.Muon.size() < 2 and event.Electron.size() < 2)
     return;
 
   panda::JECCorrector::adjust_event(event);
@@ -33,7 +33,7 @@ void process_event(smearfile& output, panda::Event& event) {
     }
   }
 
-  if (not output.lep2) {
+  if (not output.lep1) {
 
     for (auto& electron : event.Electron) {
       if (lepid::Z(electron)) {

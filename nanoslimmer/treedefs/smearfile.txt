@@ -24,7 +24,9 @@ trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
   lep(<T>& lep)
 
     /O = false -> true
-    $ -> lep.$ | pt, eta, phi, mass, dxy, dz, <{miniPFRelIso, pfRelIso03}_{all, chg}>
+    is_muon/O = false -> std::is_same<decltype(lep), const panda::Muon&>::value;
+    $ -> lep.$ | pt, eta, phi, dxy, dz, <{miniPFRelIso, pfRelIso03}_{all, chg}>
+    mass -> []_is_muon ? 0.10566 : 0.000511
     q/B -> lep.charge
     $/O = false -> lepid::$(lep) | W, Z, loose, tight
 
@@ -61,7 +63,7 @@ alpha <- jet2_pt/dilep_pt
 untrained_response <- jet1_pt/dilep_pt
 
 
-++ ((lep1_pt > 20 && lep2_pt > 20 && (lep1_q + lep2_q) == 0 && dilep_pt > 100) && \
-   (lep1_miniPFRelIso_all < 0.25 && lep2_miniPFRelIso_all < 0.25) && (fabs(jet1_eta) < 2.4 && \
-   alpha < 0.3 && jet1_dphi_ll > 2.8 && jet1_btagDeepB > 0.9) && jet2 && \
-   (dilep_m > 71 && dilep_m < 111)) and num_bjet == 2 ++
+++ lep1_pt > 20 and lep2_pt > 20 and (lep1_q + lep2_q) == 0 and \
+   fabs(jet1_eta) < 2.4 and jet1_dphi_ll > 2.8 and jet2 and \
+   dilep_m > 71 and dilep_m < 111 and \
+   alpha < 0.3 and dilep_pt > 100 and num_bjet == 2 and jet1_btagDeepB > 0.7 ++

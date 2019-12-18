@@ -35,14 +35,26 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     roocutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
 
+    if kind == 'mc':
+        xsec_weight = ROOT.RooRealVar('xsec_weight', 'xsec_weight', -1, 1)
+        roocutvars.append(xsec_weight)
+
     print ' Importing ...'
 
-    points = ROOT.RooDataSet('data', 'data', ROOT.RooArgSet(alpha, jet1_response, rho, *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut))
+    args = ['data', 'data', ROOT.RooArgSet(alpha, jet1_response, rho, *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
+    if kind == 'mc':
+        args.append(ROOT.RooFit.WeightVar('xsec_weight'))
+
+    points = ROOT.RooDataSet(*args)
 
     print ' Done !'
 
     model = w.pdf('model')
-    model.fitTo(points)
+
+    if kind == 'mc':
+        model.fitTo(points, ROOT.RooFit.SumW2Error(True))
+    else:
+        model.fitTo(points)
 
     model.Print('')
 
