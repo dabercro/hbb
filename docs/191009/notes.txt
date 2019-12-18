@@ -1,0 +1,5 @@
+
+Want better agreement at higher alpha values
+See how flat sigma in quatrature is for all values of alpha
+Fit in bins of rho
+Get systematics smaller than before, smear parton uncertainties
