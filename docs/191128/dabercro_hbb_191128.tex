@@ -1,0 +1,273 @@
+\documentclass{beamer}
+
+\author{
+  Daniel Abercrombie, \\
+  Guillelmo G\'omez-Ceballos, \\
+  Dymtro Kovalskyi, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{\bf \sffamily Smearing After b-Jet Regression}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+
+\usepackage{changepage}
+
+\graphicspath{{figs/}}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smearing After b-Jet Regression}
+
+  \begin{itemize}
+  \item Used di-lepton events from 2018 with low hadronic activity and
+    a b-tagged jet to measure jet response
+  \item Extracted required MC smearing as a function of $\rho$
+  \end{itemize}
+
+  \centering
+
+  \vspace{-24pt}
+  \[
+  \sigma_{smear}(\rho) = 0.13 - 0.0011\rho
+  \]
+
+  \begin{columns}
+    \begin{column}{0.42\linewidth}
+      \centering
+      \textcolor{blue}{Response Before Smearing} \\
+      \includegraphics[width=0.8\linewidth]{191128_2018/smearplot_jet1_response.pdf}
+    \end{column}
+    \begin{column}{0.05\linewidth}
+      \centering
+      \Huge
+      $\Rightarrow$
+    \end{column}
+    \begin{column}{0.42\linewidth}
+      \centering
+      \textcolor{blue}{Response After Smearing} \\
+      \includegraphics[width=0.8\linewidth]{191128_2018/smearplot_jet1_response_nominal.pdf}
+    \end{column}
+  \end{columns}
+
+  \begin{itemize}
+  \item Uncertianties range from 5.5\% to 10\% as a function $\rho$
+  \item Previously, a flat 10\% uncertainty was applied
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Event Selection}
+
+  Using 2018 MC and Data in NanoAOD v5
+
+  \begin{itemize}
+  \item Exactly two oppositely charged muons with \\
+    $p_T > \SI{20}{GeV}$, reliso $< 0.25$, $\Delta xy < 0.05$, and $\Delta z < 0.2$
+  \item Di-lepton $p_{T} > \SI{100}{GeV}$ and $\SI{61}{GeV} < m < \SI{121}{GeV}$
+  \item At most two jets not overlapping with isolated muons
+  \item Both jets pass loose Jet and Pileup ID, with $p_T > \SI{20}{GeV}$
+  \item Leading jet must satisfy \\
+    $|\eta| < 2.4$, $\Delta \phi(\ell\ell) > 2.8$ and DeepB tagger $>0.9$
+  \end{itemize}
+
+  Triggers:
+  \begin{itemize}
+  \item \texttt{HLT\_Mu17\_TrkIsoVVL\_Mu8\_TrkIsoVVL\_DZ\_Mass3p8}
+  \item \texttt{HLT\_Mu17\_TrkIsoVVL\_Mu8\_TrkIsoVVL\_DZ\_Mass8}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Smearing Definition}
+
+  \begin{itemize}
+  \item Separated data and MC into:
+    \begin{itemize}
+    \item four $\alpha$ bins, bounds: (0, 0.155, 0.185, 0.23, 0.3]
+    \item three $\rho$ bins, bounds: [0, 16.5, 22, $\infty$)
+    \end{itemize}
+  \item Plot response ($p_{T, j1}/p_{T,\ell\ell}$) in each bin
+  \item Uncertainties from:
+    \begin{itemize}
+    \item Renormalization and refactorization scale weights
+    \item Parton shower weights
+    \end{itemize}
+  \item Extract standard deviation, $\sigma$
+  \item Fit $\sigma$ as a function of $\alpha$ for each $\rho$ bin \\
+  \item Difference between data and MC at $\alpha = 0$ fit \\
+    as a linear function across $\rho$
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Smearing Extraction}
+
+  \centering
+  
+  \begin{columns}
+    \begin{column}{0.33\linewidth}
+      \includegraphics[width=\linewidth]{191128_resolution_response/resolution_jet1_response_rho_0.pdf}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \includegraphics[width=\linewidth]{191128_resolution_response/resolution_jet1_response_rho_1.pdf}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \includegraphics[width=\linewidth]{191128_resolution_response/resolution_jet1_response_rho_2.pdf}
+    \end{column}
+  \end{columns}
+
+  \begin{columns}
+    \begin{column}{0.4\linewidth}
+      \centering
+      \[
+      f(\alpha) = \sqrt{a^2 + (b \alpha)^2} \\
+      \sigma_{smear} = \sqrt{a^2_{data} - a^2_{mc}}
+      \]
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{191128_resolution_response/smear_fit.pdf}
+    \end{column}
+  \end{columns}
+
+  \[
+  \fbox{\sigma_{smear}(\rho) = 0.13 - 0.0011\rho}
+  \mbox{\scriptsize{\pm \sqrt{8 \times 10^{-6} \rho^2 + 7 \times 10^{-10} \rho + 3 \times 10^{-3}}}}
+  \]
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Smearing Application}
+
+  Assuming a Gaussian distribution gives simple smearing scheme
+
+  \[
+  p_{T, smear} = p_T + G(0, 1) \times \sigma_{smear} \times p_{T, gen}
+  \]
+
+  \begin{itemize}
+  \item $G(\mu, \sigma)$ is a random number drawn from a Gaussian distribution
+    with mean $\mu$ and width of $\sigma$.
+  \item $p_T$ is the transverse momentum after applying the regression
+  \item $p_{T, gen}$ is of the matched gen jet, or $p_T$ if none matched
+  \item A single gaussian number is drawn, and three different $\sigma_{smear}$ values are applied (nominal, less smearing, more smearing)
+  \item $\sigma_{smear}$ and $p_{T, smear}$ cannot be less than 0.
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Smearing Application -- 2018}
+
+  \fourfigs{No Smearing}
+           {191128_2018/smearplot_jet1_response.pdf}
+           {Less Smearing}
+           {191128_2018/smearplot_jet1_response_down.pdf}
+           {Nominal Smearing}
+           {191128_2018/smearplot_jet1_response_nominal.pdf}
+           {More Smearing}
+           {191128_2018/smearplot_jet1_response_up.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Smearing Application -- 2017}
+
+  \fourfigs{No Smearing}
+           {191128_2017/smearplot_jet1_response.pdf}
+           {Less Smearing}
+           {191128_2017/smearplot_jet1_response_down.pdf}
+           {Nominal Smearing}
+           {191128_2017/smearplot_jet1_response_nominal.pdf}
+           {More Smearing}
+           {191128_2017/smearplot_jet1_response_up.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Smearing Application -- 2016}
+
+  \fourfigs{No Smearing}
+           {191128_2016/smearplot_jet1_response.pdf}
+           {Less Smearing}
+           {191128_2016/smearplot_jet1_response_down.pdf}
+           {Nominal Smearing}
+           {191128_2016/smearplot_jet1_response_nominal.pdf}
+           {More Smearing}
+           {191128_2016/smearplot_jet1_response_up.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Closure of Fit}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{191129_resolution_close/resolution_jet1_response_smear_0.pdf} \\
+      \includegraphics[width=\linewidth]{191129_resolution_close/resolution_jet1_response_down_smear_0.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{191129_resolution_close/resolution_jet1_response_nominal_smear_0.pdf} \\
+      \includegraphics[width=\linewidth]{191129_resolution_close/resolution_jet1_response_up_smear_0.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\end{document}
