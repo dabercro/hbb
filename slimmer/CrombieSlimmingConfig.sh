@@ -1,7 +1,7 @@
-day=191030
-exe=mkhbb
+day=200103
+#exe=mkhbb
 #exe=regresstree
-#exe=smeartree
+exe=smeartree
 #puppi='ispuppi=1 '
 #puppimet='ispuppimet=1 '
 

@@ -87,7 +87,7 @@ def violin(option,args):
 #      for index in xrange(int(os.environ.get('num', len(infiles)))):
 #          ifile = os.path.join(indir, infiles[index])
 
-      for ifile in ['../bigreg3.root']:
+      for ifile in ['../bigreg4.root']:
 #      for ifile in ['../reg.root']:
 
           print "Opening ..." + ifile

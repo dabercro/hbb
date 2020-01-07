@@ -6,11 +6,11 @@ import shutil
 
 ##
 
-year='2018'
+year='2017'
 
 exe='smearnano'
 #exe='hbbnano'
-version='191218_cut'
+version='200106'
 
 use_custom = False
 files_per_job = 1
@@ -76,7 +76,7 @@ def makeconfig(resub=False):
                                'Error = %s/%s_%i.err' %  (log_dir, os.path.basename(this_out), n_job),
                                'transfer_output_files = output.root',
                                'transfer_output_remaps = "output.root = %s"' % output_file,
-                               'Arguments = %s %s' % (exe, ' '.join(job)),
+                               'Arguments = %s %s %s' % (exe, year, ' '.join(job)),
                                'Queue'])
 
             n_job += 1

@@ -8,20 +8,26 @@
 #include "TH1F.h"
 #include "TFile.h"
 
+#include <string>
+
 
 template <typename T> 
 int main_wrapper(int argc, char** argv) {
 
   int output_code = 0;
 
+  int year = std::stoi(argv[1]);
+
+  std::cout << "Setting year to: " << year << std::endl;
+
   T output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
 
   // Loop over all input files
-  for (int i_file = 1; i_file < argc - 1; i_file++) {
+  for (int i_file = 2; i_file < argc - 1; i_file++) {
 
     std::cout << "Running over file " << argv[i_file]
-              << " (" << i_file << "/" << (argc - 2) << ")" << std::endl;
+              << " (" << i_file - 1 << "/" << (argc - 3) << ")" << std::endl;
 
     // Get the PandaTree
     auto* input = TFile::Open(argv[i_file]);
@@ -48,7 +54,7 @@ int main_wrapper(int argc, char** argv) {
 
       if (checkrun(event.run,
                    event.luminosityBlock))
-        process_event(output, event);
+        process_event(year, output, event);
 
     }
 

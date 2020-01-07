@@ -61,7 +61,7 @@ smeartestdir = ${HOME}/public_html/plots/testnanosmear
 
 smeartest: $(smear)
 	test ! -f smear.root || rm smear.root
-	$(smear) $(smeartestfile) smear.root
+	$(smear) 2018 $(smeartestfile) smear.root
 	test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
 	test ! -d $(smeartestdir) || mv $(smeartestdir) $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump smear.root $(smeartestdir)
@@ -70,7 +70,7 @@ testdir = ${HOME}/public_html/plots/testnanohbb
 
 test: $(hbb)
 	test ! -f test.root || rm test.root
-	$(hbb) /data/t3home000/dabercro/scratch/nano/hbb/*.root test.root
+	$(hbb) 2018 /data/t3home000/dabercro/scratch/nano/hbb/*.root test.root
 	test ! -d $(testdir)_old || rm -r $(testdir)_old
 	test ! -d $(testdir) || mv $(testdir) $(testdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
