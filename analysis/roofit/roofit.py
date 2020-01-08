@@ -16,9 +16,9 @@ cutvars = ['lep1_mass', 'lep2_mass']
 # scale_weight_2 = 'xsec_weight_high'
 
 
-w = ROOT.RooWorkspace('w')
-
 for filename, kind in [(mc, 'mc'), (data, 'data')]:
+    w = ROOT.RooWorkspace('w')
+
     fullname = os.path.join(indir, filename)
 
     print 'Opening', fullname
