@@ -11,6 +11,7 @@ data = 'DoubleMuon.root'
 cut = 'lep1_mass > 0.1 && lep2_mass > 0.1'
 cutvars = ['lep1_mass', 'lep2_mass']
 
+
 # scale_weight_6 = 'xsec_weight_low'
 # scale_weight_2 = 'xsec_weight_high'
 
@@ -25,14 +26,22 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     infile = ROOT.TFile(fullname)
 
     # Linear fit
-    w.factory('Gaussian::rhofit(rhoAll[0, 60], rho_mean[40, 0, 80], rho_width[20, 0, 50])')
-    w.factory('PolyVar::mean(rhoAll, {m0[1, 0, 2], m1[0, -0.03, 0.03], m2[0, -0.01, 0.01]})')
-    w.factory('PolyVar::width(rhoAll, {w0[0.25, 0, 1], w1[0, -0.03, 0.03]})')
-    w.factory('Gaussian::gauss(jet1_response[0, 2], mean, width)')
 
-    w.factory('PROD::model(gauss|rhoAll, rhofit)')
+    w.factory('Landau::rhofit(rhoAll[0, 60], r_mean[20, 0, 40], r_width[40, 0, 70])')
+    w.factory('Landau::alphafit(alpha[0, 0.3], a_mean[0.15, 0, 0.25], a_width[0.1, 0, 0.3])')
 
-    alpha = ROOT.RooRealVar('alpha', 'alpha', 0, 0.4)
+    w.factory('PolyVar::alpha_mean(alpha, {am0[1, 0, 2], am1[0, -0.03, 0.03], am2[0, -0.01, 0.01]})')
+    w.factory('PolyVar::alpha_width(alpha, {aw0[0.25, 0, 1], aw1[0, -0.03, 0.03], aw2[0, -0.03, 0.03]})')
+
+    w.factory('PolyVar::rho_mean(rhoAll, {rm0[1, 0, 2], rm1[0, -0.03, 0.03], rm2[0, -0.01, 0.01]})')
+    w.factory('PolyVar::rho_width(rhoAll, {rw0[0.25, 0, 1], rw1[0, -0.03, 0.03], rw2[0, -0.03, 0.03]})')
+
+    w.factory('Gaussian::gauss(jet1_response[0, 2], alpha_mean, alpha_width)')
+
+    w.factory('PROD::model(gauss|alpha, alphafit)')
+
+
+    alpha = ROOT.RooRealVar('alpha', 'alpha', 0, 0.3)
     jet1_response = w.var('jet1_response')
     rho = w.var('rhoAll')
 
@@ -60,14 +69,3 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
         model.fitTo(points)
 
     model.Print('')
-
-
-    frame = jet1_response.frame()
-    points.plotOn(frame)
-    model.plotOn(frame)
-    
-    frame.Draw()
-
-    raw_input('...')
-
-    break
