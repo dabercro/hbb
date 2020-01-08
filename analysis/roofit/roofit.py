@@ -5,11 +5,14 @@ import re
 
 import ROOT
 
-indir = '/data/t3home000/dabercro/nano/smearnano/191215_cut'
+indir = '/data/t3home000/dabercro/nano/smearnano/191218_cut/root'
 mc = 'mc.root'
 data = 'DoubleMuon.root'
 cut = 'lep1_mass > 0.1 && lep2_mass > 0.1'
 cutvars = ['lep1_mass', 'lep2_mass']
+
+# scale_weight_6 = 'xsec_weight_low'
+# scale_weight_2 = 'xsec_weight_high'
 
 
 w = ROOT.RooWorkspace('w')
