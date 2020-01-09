@@ -1,0 +1,58 @@
+[?1034h FCN=11.6386 FROM MIGRAD    STATUS=CONVERGED      96 CALLS          97 TOTAL
+                     EDM=6.60162e-11    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.61808e-01   6.94057e-03   5.88215e-06   3.15383e-03
+   2  p1           7.35358e-01   4.31563e-02   3.65798e-05   5.40429e-04
+ FCN=5.51433 FROM MIGRAD    STATUS=CONVERGED      99 CALLS         100 TOTAL
+                     EDM=1.15755e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.50033e-01   4.03493e-03   2.57131e-06  -2.59134e-03
+   2  p1           7.13183e-01   2.60362e-02   1.65933e-05   2.02013e-04
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.161807768847 +- 0.00694057145189
+MC at y-axis: 0.150032656759 +- 0.00403492810086
+Smear factor: 0.060597 +- 0.021054 (1.078484 +- 0.054601)
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000414934
+NDf                       =            2
+Edm                       =  1.42672e-26
+NCalls                    =           31
+p0                        =    -0.492323   +/-   0.145324    
+p1                        =     0.978484   +/-   0.0286354   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000173807
+NDf                       =            2
+Edm                       =   1.8931e-24
+NCalls                    =           31
+p0                        =    -0.549673   +/-   0.0925236   
+p1                        =     0.999559   +/-   0.018221    
+------------------------------
+
+jet1_response
+------------------------------
+Data at y-axis: 0.978483967106
+MC at y-axis: 0.99955917154
+Scale factor: 0.978915500919
+ FCN=1.08619e-31 FROM HESSE     STATUS=NOT POSDEF     12 CALLS          45 TOTAL
+                     EDM=5.42549e-32    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.48716e-03   1.63479e-02   3.56805e-07  -3.18916e-13
+   2  p1           3.02983e-02   3.33061e-01   2.05607e-06  -1.56536e-14
+0.000267255466888 -0.00543399728093
+-0.00543399728093 0.110929659227
+-0.302762711163
+0.363359377448
+-0.36936542005
+0.477551261151
+-0.448619998191
+0.580600426699

@@ -16,9 +16,6 @@ cut = 'lep1_mass > 0.1 && lep2_mass > 0.1'
 cutvars = ['lep1_mass', 'lep2_mass']
 
 
-# scale_weight_6 = 'xsec_weight_low'
-# scale_weight_2 = 'xsec_weight_high'
-
 toprint = defaultdict(dict)
 
 for filename, kind in [(mc, 'mc'), (data, 'data')]:
@@ -56,13 +53,20 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     roocutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
 
+# scale_weight_6 = 'xsec_weight_low'
+# scale_weight_2 = 'xsec_weight_high'
+    xsec_var = 'xsec_weight'
+
+
     if kind == 'mc':
-        xsec_weight = ROOT.RooRealVar('xsec_weight', 'xsec_weight', -1, 1)
+        xsec_weight = ROOT.RooRealVar(xsec_var, xsec_var, -1, 1)
         roocutvars.append(xsec_weight)
 
     args = ['data', 'data', ROOT.RooArgSet(alpha, jet1_response, *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
+
+
     if kind == 'mc':
-        args.append(ROOT.RooFit.WeightVar('xsec_weight'))
+        args.append(ROOT.RooFit.WeightVar(xsec_var))
 
     points = ROOT.RooDataSet(*args)
 

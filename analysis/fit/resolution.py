@@ -10,7 +10,7 @@ import random
 
 bintype = 'smear'
 
-end = '_singlebin'
+end = '_singlebin_stats'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -28,7 +28,7 @@ if not os.path.exists(newdir):
     os.mkdir(newdir)
 
 ratiodir = '/home/dabercro/public_html/plots/200109%s' % end
-alphadir = '%s_alpha' % ratiodir
+alphadir = '/home/dabercro/public_html/plots/200109_singlebin_alpha'
 
 class MeanCalc(object):
 
