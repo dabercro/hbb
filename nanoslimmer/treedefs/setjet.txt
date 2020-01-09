@@ -17,4 +17,4 @@ DEFINE SMEARINGS smear, scale, old_scale, single_scale, single_smear
 
     gen_$ -> gen_jet_ptr ? gen_jet_ptr->$ : 0 | pt, eta, phi, mass, partonFlavour, hadronFlavour
 
-    pt_Xed_$ -> X_res.$ | down, nominal, up |X SMEARINGS
+    pt_X_$ -> X_res.$ | down, nominal, up |X SMEARINGS

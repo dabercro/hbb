@@ -52,7 +52,7 @@ dijet {
   #vec@/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt@, eta, phi, mass}>) |@ , _reg
   $@ <- []_vec@.$$() | pt, eta, phi, m |@ , _reg
 
-  #X_vec_$/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt_Xed_$, eta, phi, mass}>) | nominal, up, down |X SMEARINGS
+  #X_vec_$/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt_X_$, eta, phi, mass}>) | nominal, up, down |X SMEARINGS
   $_X_@ <- []_X_vec_@.$$() | pt, eta, phi, m |@ nominal, up, down |X SMEARINGS
 
 }
