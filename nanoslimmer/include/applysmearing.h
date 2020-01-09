@@ -37,6 +37,15 @@ namespace {
     0, 0, 0.1, 0.1, 0
   };
 
+
+  // 200109.txt
+  const fit_result single_bin_scale {
+    0, 0, 0.072553, 0.079442, 0
+  };
+  const fit_result single_bin_smear {
+    0, 0, 0.058501, 0.030338, 0
+  };
+
 }
 
 
@@ -66,7 +75,9 @@ namespace applysmearing {
   enum class smear_method {
     SMEAR,
     SCALE,
-    OLD_SCALE
+    OLD_SCALE,
+    SINGLE_SCALE,
+    SINGLE_SMEAR
   };
 
   smear_result smeared_pt (double jet_pt, double regression_factor, double rho, double gen_jet_pt = 0, smear_method method = smear_method::SMEAR) {
@@ -74,13 +85,18 @@ namespace applysmearing {
     double regressed = jet_pt * regression_factor;
 
     // Use the result that matches the desired smearing
-    const fit_result& fit = method == smear_method::SMEAR ? convoluted_fit : 
-      (method == smear_method::SCALE ? scaling_fit : old_scale);
+    const fit_result& fit = std::map<smear_method, fit_result> {
+      {smear_method::SMEAR, convoluted_fit},
+      {smear_method::SCALE, scaling_fit},
+      {smear_method::OLD_SCALE, old_scale},
+      {smear_method::SINGLE_SCALE, single_bin_scale},
+      {smear_method::SINGLE_SMEAR, single_bin_smear}
+    }.at(method);
 
     auto nominal = nominal_smear(rho, fit);
     auto band = smear_band(rho, fit);
 
-    if (method == smear_method::SMEAR) {
+    if (method == smear_method::SMEAR or method == smear_method::SINGLE_SMEAR) {
 
       // Use generator pt, if available, otherwise best guess
       double pt = (gen_jet_pt ? gen_jet_pt : regressed);
@@ -97,8 +113,7 @@ namespace applysmearing {
 
     }
 
-    else if ((method == smear_method::SCALE or method == smear_method::OLD_SCALE)
-             and gen_jet_pt) {
+    else if (gen_jet_pt) {
 
       double dpt = regressed - gen_jet_pt;
 

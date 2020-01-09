@@ -8,7 +8,7 @@ import math
 import ROOT
 
 
-end = '_smeared_ht_onebin'
+end = '_singlebin'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -24,8 +24,8 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-ratiodir = '/home/dabercro/public_html/plots/191030%s' % end
-alphadir = ratiodir
+ratiodir = '/home/dabercro/public_html/plots/200109%s' % end
+alphadir = '%s_alpha' % ratiodir
 
 class MeanCalc(object):
 
@@ -46,17 +46,16 @@ class MeanCalc(object):
 
 # Name of region and max alpha value
 ranges = [
-    ('smearplot_0', 0.125, MeanCalc(), MeanCalc()),
     ('smearplot_1', 0.155, MeanCalc(), MeanCalc()),
-    ('smearplot_1b', 0.185, MeanCalc(), MeanCalc()),
-    ('smearplot_2', 0.245, MeanCalc(), MeanCalc()),
-    ('smearplot_3', 0.3, MeanCalc(), MeanCalc()),
+    ('smearplot_2', 0.185, MeanCalc(), MeanCalc()),
+    ('smearplot_3', 0.23, MeanCalc(), MeanCalc()),
+    ('smearplot_4', 0.3, MeanCalc(), MeanCalc()),
 ]
 index = 0
 
-average_file = ROOT.TFile(os.path.join(alphadir, 'smearplot_0_jet2_pt_dilep_corr_pt.root'))
+average_file = ROOT.TFile(os.path.join(alphadir, 'smearplot_alpha.root'))
 data_hist = average_file.Get("Data")
-mc_hist = average_file.Get("DY")
+mc_hist = average_file.Get("MC")
 bin = 1
 
 while index != len(ranges):
@@ -68,16 +67,7 @@ while index != len(ranges):
         index += 1
 
 trainings = [
-#    ('', 'No regression'),
-    ('190904_0', 'PUPPI network'),
-    ('190904_0_2', 'PUPPI network'),
-    ('190904_0_3', 'PUPPI network'),
-    ('190723_origin', 'Previous network'),
-    ('190723_origin_2', 'Previous network'),
-#    ('190723_puppi', 'PUPPI network'),
-#    ('190723_puppi_2', 'PUPPI network'),
-    ('190725_lstm_pf', 'LSTM network'),
-    ('190924_0', 'Large Batch')
+    ('', 'NanoAOD v5')
     ]
 
 for training, trainname in trainings:
@@ -105,10 +95,7 @@ for training, trainname in trainings:
         smearfile = ROOT.TFile(
             os.path.join(
                 ratiodir,
-                '%s_jet1_%s_pt_dilep_corr_pt.root' % (
-                    mean[0], training
-                    ) if training else
-                '%s_jet1_pt_dilep_corr_pt.root' % mean[0]
+                '%s_jet1_response.root' % mean[0]
                 )
             )
 
@@ -117,7 +104,7 @@ for training, trainname in trainings:
         data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev())
         data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
-        mc_hist = smearfile.Get("DY")
+        mc_hist = smearfile.Get("MC")
         mc_mean = mean[3].mean()
         mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
         mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())

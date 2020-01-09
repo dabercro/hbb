@@ -40,3 +40,4 @@ slimmer/data/roccor
 analysis/fit/*.C
 analysis/fit/*/*.C
 *.cnf
+nanoslimmer/CMSSW_*

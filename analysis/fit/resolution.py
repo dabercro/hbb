@@ -8,9 +8,9 @@ import numpy
 import random
 
 
-bintype = 'rho'
+bintype = 'smear'
 
-end = '_3alpha'
+end = '_singlebin'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -27,8 +27,8 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-alphadir = '/home/dabercro/public_html/plots/191121_alpha'
-ratiodir = '/home/dabercro/public_html/plots/191216%s' % end
+ratiodir = '/home/dabercro/public_html/plots/200109%s' % end
+alphadir = '%s_alpha' % ratiodir
 
 class MeanCalc(object):
 
@@ -84,19 +84,20 @@ def stretch_unc(data_val, data_err, mc_val, mc_err):
 
 # Name of region and max alpha value
 ranges = [
-    ('%splot_1' % bintype, 0.185, MeanCalc(), MeanCalc()),
-    ('%splot_2' % bintype, 0.215, MeanCalc(), MeanCalc()),
-    ('%splot_3' % bintype, 0.3, MeanCalc(), MeanCalc()),
-#    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
+    ('%splot_1' % bintype, 0.155, MeanCalc(), MeanCalc()),
+    ('%splot_2' % bintype, 0.185, MeanCalc(), MeanCalc()),
+    ('%splot_3' % bintype, 0.23, MeanCalc(), MeanCalc()),
+    ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 
 rhos = [
-    ('_0', 16.5, MeanCalc(), MeanCalc()),
-    ('_1', 22, MeanCalc(), MeanCalc()),
-    ('_2', 65, MeanCalc(), MeanCalc())
+#    ('_0', 16.5, MeanCalc(), MeanCalc()),
+#    ('_1', 22, MeanCalc(), MeanCalc()),
+    ('', 65, MeanCalc(), MeanCalc())
 ]
 
 def rhotitle (bin):
+    return ''
     if bin == 0:
         return '#rho < 16.5'
     if bin == 1:
@@ -114,7 +115,7 @@ for calcs, filename in [(ranges, 'smearplot_alpha.root'),
 
     average_file = ROOT.TFile(os.path.join(alphadir, filename))
     data_hist = average_file.Get("Data")
-    mc_hist = average_file.Get("DY")
+    mc_hist = average_file.Get("MC")
     bin = 1
 
     while index != len(calcs):
