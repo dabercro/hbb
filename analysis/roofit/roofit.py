@@ -66,6 +66,8 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     points = ROOT.RooDataSet(*args)
 
+    model = w.pdf('model')
+
     if kind == 'mc':
         model.fitTo(points, ROOT.RooFit.SumW2Error(True))
     else:
