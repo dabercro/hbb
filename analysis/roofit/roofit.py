@@ -6,6 +6,9 @@ import pprint
 
 import ROOT
 
+from collections import defaultdict
+
+
 indir = '/data/t3home000/dabercro/nano/smearnano/191218_cut/root'
 mc = 'mc.root'
 data = 'DoubleMuon.root'
@@ -16,7 +19,7 @@ cutvars = ['lep1_mass', 'lep2_mass']
 # scale_weight_6 = 'xsec_weight_low'
 # scale_weight_2 = 'xsec_weight_high'
 
-toprint = {}
+toprint = defaultdict(dict)
 
 for filename, kind in [(mc, 'mc'), (data, 'data')]:
     w = ROOT.RooWorkspace('w')
@@ -27,26 +30,29 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     infile = ROOT.TFile(fullname)
 
-    # Linear fit
+    # Fit
 
-#    w.factory('Landau::rhofit(rhoAll[0, 60], r_mean[20, 0, 40], r_width[40, 0, 70])')
+    # Alpha distribution
+    w.factory('Landau::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])')
 
-#    w.factory('PolyVar::rho_mean(rhoAll, {rm0[1, 0, 2], rm1[0, -0.03, 0.03], rm2[0, -0.01, 0.01]})')
-#    w.factory('PolyVar::rho_width(rhoAll, {rw0[0.25, 0, 1], rw1[0, -0.03, 0.03], rw2[0, -0.03, 0.03]})')
+    alpha = w.var('alpha')
 
-    w.factory('Landau::alphafit(alpha[0, 0.3], a_mean[0.15, 0, 0.25], a_width[0.1, 0, 0.3])')
+    # Mean is linear as a function of alpha
+    w.factory('PolyVar::mean(alpha, {mean_0[1, 0, 2], mean_1[0, -5, 5]})')
 
-    w.factory('PolyVar::alpha_mean(alpha, {am0[1, 0, 2], am1[0, -1, 1]})')
-    w.factory('PolyVar::alpha_width(alpha, {aw0[0.25, 0, 1], aw1[0], aw2[0, -1, 1], aw3[0], aw4[0, -1, 1], aw5[0], aw6[0, -1, 1]})')
+    # Width is this weird things as a function of alpha
+    width_intercept = ROOT.RooRealVar('width_intercept', 'width_intercept', 0.2, 0.0, 0.7)
+    width_slope = ROOT.RooRealVar('width_slope', 'width_slope', 1, 0.0, 5)
+    width = ROOT.RooGenericPdf('width', 'TMath::Sqrt(pow(width_intercept, 2) + pow(width_slope * alpha, 2))',
+                               ROOT.RooArgList(alpha, width_intercept, width_slope))
 
-    w.factory('Gaussian::gauss(jet1_response[0, 2], alpha_mean, alpha_width)')
+    getattr(w, 'import')(width)
+
+    w.factory('Gaussian::gauss(jet1_response[0, 2], mean, width)')
 
     w.factory('PROD::model(gauss|alpha, alphafit)')
 
-
-    alpha = w.var('alpha')
     jet1_response = w.var('jet1_response')
-#    rho = w.var('rhoAll')
 
     roocutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
 
@@ -54,18 +60,11 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
         xsec_weight = ROOT.RooRealVar('xsec_weight', 'xsec_weight', -1, 1)
         roocutvars.append(xsec_weight)
 
-    print ' Importing ...'
-
-#    args = ['data', 'data', ROOT.RooArgSet(alpha, jet1_response, rho, *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
     args = ['data', 'data', ROOT.RooArgSet(alpha, jet1_response, *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
     if kind == 'mc':
         args.append(ROOT.RooFit.WeightVar('xsec_weight'))
 
     points = ROOT.RooDataSet(*args)
-
-    print ' Done !'
-
-    model = w.pdf('model')
 
     if kind == 'mc':
         model.fitTo(points, ROOT.RooFit.SumW2Error(True))
@@ -75,12 +74,9 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     model.Print('')
 
     
-    for var in ['aw0']:
+    for var in ['alpha_width', 'alpha_mean', 'mean_0', 'mean_1', 'width_intercept', 'width_slope']:
         handle = w.var(var)
-        toprint['%s_%s' % (var, kind)] = handle.getVal()
-        toprint['%s_%s_high' % (var, kind)] = handle.getAsymErrorHi()
-        toprint['%s_%s_low' % (var, kind)] = handle.getAsymErrorLo()
-        toprint['%s_%s_asym' % (var, kind)] = handle.hasAsymError()
+        toprint[var][kind] = '%s +- %s' % (handle.getVal(), handle.getError())
 
 
-pprint.pprint(toprint)
+pprint.pprint(dict(toprint))
