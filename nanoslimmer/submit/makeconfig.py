@@ -6,7 +6,7 @@ import shutil
 
 ##
 
-year='2018'
+year='2017'
 
 exe='smearnano'
 #exe='hbbnano'
