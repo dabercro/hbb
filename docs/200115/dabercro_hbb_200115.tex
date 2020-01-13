@@ -8,7 +8,7 @@
   Christoph Paus
 }
 
-\title{\bf \sffamily Title Here}
+\title{\bf \sffamily Moving to Factorized PDFs \\ for Smearing Extraction}
 \date{\today}
 
 \usecolortheme{dove}
@@ -26,6 +26,8 @@
 \usepackage{tabularx}
 \usepackage{makecell}
 \usepackage{comment}
+
+\usepackage{feynmp-auto}
 
 \setbeamertemplate{navigation symbols}{}
 \usepackage{graphicx}
@@ -98,7 +100,108 @@
 
 \begin{frame}
   \frametitle{Introduction}
+
+  \begin{itemize}
+  \item Smearing needs to be re-derived after applying \\
+    energy regression designed to recover energy \\
+    lost in the weak decays of b-jets.
+  \item Extracting smearing parameters as a function of $\rho$ \\
+    results in large uncertainties
+  \item Correlations between $\rho$ bins are not easy to propagate correctly through fit
+  \item Alternative to binning would be to do \\
+    higher-dimensional fit with a factorized PDF
+  \item First step is to perform this fit in 2D space \\
+    (jet response vs $\alpha$), and compare to binned fit results
+  \end{itemize}
+
 \end{frame}
+
+\begin{frame}
+  \frametitle{Jet Resolution Approach}
+
+  \begin{itemize}
+  \item Good detector resolution of leptons allows us to \\
+    take advantage of the following process:
+  \end{itemize}
+
+  \hfill
+
+  \begin{center}
+    \begin{fmffile}{DY_bjet}
+      \begin{fmfgraph*}(120, 80)
+        \fmfleft{i1,i0}
+        \fmfright{o2,o1,o0}
+        \fmf{fermion, label=$b$}{i0,v0,v1,o2}
+        \fmf{photon, label=$Z$}{v0,v0_1}
+        \fmf{fermion, label=$\ell$}{o0,v0_1,o1}
+        \fmf{gluon}{i1,v1}
+      \end{fmfgraph*}
+    \end{fmffile}
+  \end{center}
+
+  \hfill
+
+  \begin{itemize}
+  \item The jet resolution can be measured by assuming it is \\
+    balanced against the $Z$ in the transverse plane
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Jet Resolution Selection}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Binned Fit Strategy}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Binned Fit Uncertainties}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Binned Fit Results}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Unbinned Fit Strategy}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Unbinned Fit Uncertainties}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Unbinned Fit Results}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Comparison of Results}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Next Steps}
+
+\end{frame}
+
 
 \begin{comment}
 \beginbackup
