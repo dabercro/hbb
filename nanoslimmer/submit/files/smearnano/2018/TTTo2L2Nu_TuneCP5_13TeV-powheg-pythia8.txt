@@ -1,0 +1,3 @@
+/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18NanoAODv5-Nano1June2019_102X_upgrade2018_realistic_v19-v1/NANOAODSIM
+/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/RunIIAutumn18NanoAODv5-Nano1June2019_102X_upgrade2018_realistic_v19-v1/NANOAODSIM
+[{"nblocks":8,"nevents":6.431e+07,"nfiles":57,"nlumis":12862,"num_file":57,"num_lumi":12862,"size":1.1918583597e+11}]

@@ -6,16 +6,19 @@ import shutil
 
 ##
 
-year='2017'
+year='2018'
 
 exe='smearnano'
 #exe='hbbnano'
-version='200109_%s_%s' % (exe, year)
+version='200114_%s_%s' % (exe, year)
 
 use_custom = False
 files_per_job = 1
 
 ##
+
+if use_custom:
+    version += '_custom'
 
 door='root://xrootd.cmsaf.mit.edu/' if use_custom else 'root://cms-xrd-global.cern.ch/'
 

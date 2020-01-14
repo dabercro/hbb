@@ -150,7 +150,75 @@
 
 
 \begin{frame}
+  \frametitle{NanoAOD Samples}
+
+  Using NanoAODv5 data samples:
+
+  \begin{itemize}
+  \item \texttt{\small /DoubleMuon/Run2018A-Nano1June2019-v1/NANOAOD}
+  \item \texttt{\small /DoubleMuon/Run2018B-Nano25Oct2019-v1/NANOAOD}
+  \item \texttt{\small /DoubleMuon/Run2018C-Nano25Oct2019-v1/NANOAOD}
+  \item \texttt{\small /DoubleMuon/Run2018D-Nano1June2019\_ver2-v1/NANOAOD}
+  \item \texttt{\small /EGamma/Run2018A-Nano25Oct2019-v1/NANOAOD}
+  \item \texttt{\small /EGamma/Run2018B-Nano25Oct2019-v1/NANOAOD}
+  \item \texttt{\small /EGamma/Run2018C-Nano25Oct2019-v1/NANOAOD}
+  \item \texttt{\small /EGamma/Run2018D-Nano25Oct2019\_ver2-v1/NANOAOD}
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{NanoAOD Samples}
+
+  Using NanoAODv5 MC samples:
+
+  \begin{itemize}
+  \item \texttt{\small /DYJetsToLL\_M-50\_*\_TuneCP5\_PSweights\_\\13TeV-madgraphMLM-pythia8/\\RunIIAutumn18NanoAODv5-Nano1June2019\_102X\_\\upgrade2018\_realistic\_v19-v1/NANOAODSIM}
+  \item \texttt{\small /TTTo2L2Nu\_TuneCP5\_PSweights\_13TeV-powheg-pythia8/\\RunIIFall17NanoAODv5-PU2017\_12Apr2018\_Nano1June2019\_\\new\_pmx\_102X\_mc2017\_realistic\_v7-v1/NANOAODSIM}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
   \frametitle{Jet Resolution Selection}
+
+  \begin{itemize}
+  \item Triggers:
+    \begin{itemize}
+    \item \texttt{HLT\_Mu17\_TrkIsoVVL\_Mu8\_TrkIsoVVL\_DZ\_Mass3p8}
+    \item \texttt{HLT\_Mu17\_TrkIsoVVL\_Mu8\_TrkIsoVVL\_DZ\_Mass8}
+    \item \texttt{HLT\_Ele115\_CaloIdVT\_GsfTrkIdT}
+    \item \texttt{HLT\_Ele27\_WPTight\_Gsf}
+    \item \texttt{HLT\_Ele28\_WPTight\_Gsf}
+    \item \texttt{HLT\_Ele32\_WPTight\_Gsf}
+    \item \texttt{HLT\_Ele35\_WPTight\_Gsf}
+    \item \texttt{HLT\_Ele38\_WPTight\_Gsf}
+    \item \texttt{HLT\_Ele40\_WPTight\_Gsf}
+    \item \texttt{HLT\_Ele32\_WPTight\_Gsf\_L1DoubleEG}
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Jet Resolution Selection}
+
+  \begin{itemize}
+  \item Two leptons satisfying:
+    \begin{itemize}
+    \item $p_T > \SI{20}{GeV}$
+    \item $q_1 + q_2 = 0$
+    \item Z Selection:
+      \begin{itemize}
+      \item Muons: \\
+        \texttt{pfRelIso04\_all} $< 0.25$ and \\
+        $\Delta xy < 0.05$ and $\Delta z < 0.2$
+      \item Electrons: \\
+        \texttt{mvaFall17V2Iso\_WP90} and \texttt{pfRelIso03\_all} $< 0.15$
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
 
 \end{frame}
 
