@@ -174,8 +174,8 @@
   Using NanoAODv5 MC samples:
 
   \begin{itemize}
-  \item \texttt{\small /DYJetsToLL\_M-50\_*\_TuneCP5\_PSweights\_\\13TeV-madgraphMLM-pythia8/\\RunIIAutumn18NanoAODv5-Nano1June2019\_102X\_\\upgrade2018\_realistic\_v19-v1/NANOAODSIM}
-  \item \texttt{\small /TTTo2L2Nu\_TuneCP5\_PSweights\_13TeV-powheg-pythia8/\\RunIIFall17NanoAODv5-PU2017\_12Apr2018\_Nano1June2019\_\\new\_pmx\_102X\_mc2017\_realistic\_v7-v1/NANOAODSIM}
+  \item \texttt{\small /DYJetsToLL\_M-50\_HT-*\_TuneCP5\_PSweights\_\\13TeV-madgraphMLM-pythia8/\\RunIIAutumn18NanoAODv5-Nano1June2019\_102X\_\\upgrade2018\_realistic\_v19*/NANOAODSIM}
+  \item \texttt{\small /TTTo2L2Nu\_TuneCP5\_13TeV-powheg-pythia8/\\RunIIAutumn18NanoAODv5-Nano1June2019\_102X\_\\upgrade2018\_realistic\_v19-v1/NANOAODSIM}
   \end{itemize}
 
 \end{frame}
@@ -209,6 +209,7 @@
     \begin{itemize}
     \item $p_T > \SI{20}{GeV}$
     \item $q_1 + q_2 = 0$
+    \item Same flavor
     \item Z Selection:
       \begin{itemize}
       \item Muons: \\
@@ -218,6 +219,75 @@
         \texttt{mvaFall17V2Iso\_WP90} and \texttt{pfRelIso03\_all} $< 0.15$
       \end{itemize}
     \end{itemize}
+  \item Any third lepton with same flavor causes event to be thrown out
+  \item $\SI{71}{GeV} < m_{\ell\ell} < \SI{111}{GeV}$
+  \item $p_{T,\ell\ell} > \SI{100}{GeV}$
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Jet Resolution Selection}
+
+  \begin{itemize}
+  \item Exactly two jets satisfying:
+    \begin{itemize}
+    \item Does not overlap with any leptons satisfying Z Selection criteria
+    \item $p_T > \SI{20}{GeV}$ after regression
+    \item \texttt{jetId} $> 0$ and \texttt{puId} $> 0$
+    \end{itemize}
+  \item Leading jet satisfies:
+    \begin{itemize}
+    \item $|\eta| < 2.4$
+    \item $\Delta\phi(j, \ell\ell) > 2.8$
+    \item \texttt{btagDeepB} $> 0.9$
+    \end{itemize}
+  \item Trailing jet statisfies: $\alpha = \frac{p_{T, j}}{p_{T, \ell\ell}} < 0.3$
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Corrections}
+
+  NanoAODv5 does not include the latest JECs, so we reapply those:
+
+  \begin{itemize}
+  \item Data: \texttt{Winter19\_Autumn18{A, B, C, D}\_V19\_DATA}
+  \item MC: \textt{Winter19\_Autumn18\_V19\_MC}
+  \end{itemize}
+
+  Both the \texttt{Jet} collection and \texttt{MET} are adjusted
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{MC Weights}
+
+  \begin{itemize}
+  \item Reweight by \texttt{genWeight * btagWeight\_DeepCSVB}
+  \item Cross sections:
+    \vfill
+    \begin{tabular}{|l|S|}
+      \hline
+      Sample & Cross Section [pb] \\
+      \hline
+      \texttt{DYJetsToLL\_M-50\_HT-70to100\_*} & 143.0 \\
+      \texttt{DYJetsToLL\_M-50\_HT-100to200\_*} & 147.4 \\
+      \texttt{DYJetsToLL\_M-50\_HT-200to400\_*} & 40.99 \\
+      \texttt{DYJetsToLL\_M-50\_HT-400to600\_*} & 5.678 \\
+      \texttt{DYJetsToLL\_M-50\_HT-600to800\_*} & 1.367 \\
+      \texttt{DYJetsToLL\_M-50\_HT-800to1200\_*} & 0.6304 \\
+      \texttt{DYJetsToLL\_M-50\_HT-1200to2500\_*} & 0.1514 \\
+      \texttt{DYJetsToLL\_M-50\_HT-2500toInf\_*} & 0.003565 \\
+      \texttt{TTTo2L2Nu\_* (powheg)} & 88.288 \\
+      \hline
+    \end{tabular}
+    \vfill
+    DY are MadGraph samples
   \end{itemize}
 
 \end{frame}
@@ -226,11 +296,51 @@
 \begin{frame}
   \frametitle{Binned Fit Strategy}
 
+  \begin{itemize}
+  \item We use events with a second jet, and extrapolate down to where $\alpha = 0$
+  \item This should give us the behavior of the one jet diagram,
+    without needing to deal with few events or jet acceptance.
+  \item Create four bins of $\alpha
+    \begin{cases}
+      0 < \alpha < 0.155 \\
+      0.155 \le \alpha < 0.185 \\
+      0.185 \le \alpha < 0.23 \\
+      0.23 \le \alpha < 0.3
+    \end{cases}
+    $
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Binned Fit Strategy}
+
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_1_jet1_response.pdf} \\
+      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_3_jet1_response.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_2_jet1_response.pdf} \\
+      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_4_jet1_response.pdf}
+    \end{column}
+  \end{columns}
+
+  \vfill
+  We can see the MC resolution is better than data in all bins
+
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Binned Fit Uncertainties}
+
+  \begin{itemize}
+  \item % Don't use 6 and 8
+  \end{itemize}
 
 \end{frame}
 
