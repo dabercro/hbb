@@ -19,9 +19,11 @@ if __name__ == '__main__':
 
     xSecAdder.AddMergeBranch('genWeight')
     xSecAdder.AddMergeBranch('bsf_DeepCSVB')
-    xSecAdder.AddMergeBranch('scale_weight_6')
+
+    for branch in sys.argv[1:]:
+        xSecAdder.AddMergeBranch(branch)
 
     SetupConfigFromEnv(xSecAdder)
     SetFunctionFromEnv([(xSecAdder.SetNumThreads, 'CrombieNLocalProcs')])
 
-    RunXSecAdder('xsec_weight_low')
+    RunXSecAdder('_'.join(['xsec_weight'] + sys.argv[1:]))
