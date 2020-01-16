@@ -300,15 +300,25 @@
   \item We use events with a second jet, and extrapolate down to where $\alpha = 0$
   \item This should give us the behavior of the one jet diagram,
     without needing to deal with few events or jet acceptance.
-  \item Create four bins of $\alpha
-    \begin{cases}
-      0 < \alpha < 0.155 \\
-      0.155 \le \alpha < 0.185 \\
-      0.185 \le \alpha < 0.23 \\
-      0.23 \le \alpha < 0.3
-    \end{cases}
-    $
+  \item Create four bins of $\alpha$:
   \end{itemize}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{200116_singlebin_alpha/smearplot_alpha.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \[
+      \alpha
+      \begin{cases}
+        0 < \alpha < 0.155 \\
+        0.155 \le \alpha < 0.185 \\
+        0.185 \le \alpha < 0.23 \\
+        0.23 \le \alpha < 0.3
+      \end{cases}
+      \]
+    \end{column}
+  \end{columns}
+
 
 \end{frame}
 
@@ -339,14 +349,91 @@
   \frametitle{Binned Fit Uncertainties}
 
   \begin{itemize}
-  \item % Don't use 6 and 8
+  \item Standard deviation of each histogram has some uncertainty \\
+    that can be propagated through the fit
+  \item Previous plots just have statistical uncertainties
+  \item We add the the envelopes from parton shower and \\
+    scale (renormalization/refactorization) weights
+  \end{itemize}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{Statistical Uncertainties} \\
+      \includegraphics[width=0.8\linewidth]{200115_1D_bins/smearplot_2_jet1_response.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{Additional Uncertainties} \\
+      \includegraphics[width=0.8\linewidth]{200116_1D_bins_allenv/smearplot_2_jet1_response.pdf}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Comparison of Uncertainty Sources}
+
+  \vspace{8pt}
+
+  \twofigs{Scale Uncertainties}
+          {200116_1D_bins_scaleenv/smearplot_2_jet1_response.pdf}
+          {Parton Shower Uncertainties}
+          {200116_1D_bins_psenv/smearplot_2_jet1_response.pdf}
+
+  \begin{itemize}
+  \item These plots have no statistical uncertainties
+  \item Scale Uncertainties are larger in the center
+  \item Parton Shower Uncertainties contribute more at edges
   \end{itemize}
 
 \end{frame}
 
 
 \begin{frame}
+  \frametitle{Binned Fit Formula}
+
+  \[
+  f(\alpha) = (m \times \alpha) \oplus c \times (1 + c_k \times \alpha)
+  \]
+
+  \begin{itemize}
+  \item $c_k$ is fixed by a linear fit to the MC's intrinsic jet resolution ($p_{T, reco}/p_{T, gen}$) over $\alpha$ as $c_k = m_0/q_0$
+  \item Scaling is done by $c_{data}/c_{MC}$
+  \item Smearing is done by $\sqrt{c_{data}^2 - c_{MC}^2}$
+  \end{itemize}
+
+  \centering
+  \includegraphics[width=0.6\linewidth]{200116_1D_bins_allenv_resolution/resolution_jet1_response_smear_0.pdf}
+
+\end{frame}
+
+
+\begin{frame}
   \frametitle{Binned Fit Results}
+
+  Uncertainties calculated with:
+
+  \[
+  \delta_{scale} = \sqrt{\left(\frac{\delta_{data}}{c_{MC}}\right)^2 +
+    \left(\frac{c_{data}\delta_{MC}}{c_{MC}^2}\right)^2}
+  \]
+  \[
+  \delta_{smear} = \sqrt{\frac{(c_{data}\delta_{data})^2 +
+      (c_{MC}\delta_{MC})^2}{c_{data}^2 - c_{MC}^2}}
+  \]
+
+  \vfill
+  \centering
+  \begin{tabular}{|l|c|}
+    \hline
+    Smearing Method & Result \\
+    \hline
+    Scaling & $6.4 \pm 7.2 \%$ \\
+    Smearing & $5.1 \pm 2.7 \%$ \\
+    \hline
+  \end{tabular}
 
 \end{frame}
 

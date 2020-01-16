@@ -10,12 +10,12 @@ import random
 
 bintype = 'smear'
 
-end = '_with_intrinsic_egamma'
+end = '_1D_bins_allenv'
 
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s_resolution_v1%s%s' % (
+    '%s%s%s_resolution' % (
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
@@ -27,8 +27,8 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-ratiodir = '/home/dabercro/public_html/plots/200110%s' % end
-alphadir = '/home/dabercro/public_html/plots/200109_singlebin_alpha'
+ratiodir = '/home/dabercro/public_html/plots/200116%s' % end
+alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
 
 class MeanCalc(object):
 
@@ -97,7 +97,8 @@ rhos = [
 ]
 
 def rhotitle (bin):
-    return ''
+    if len(rhos) == 1:
+        return ''
     if bin == 0:
         return '#rho < 16.5'
     if bin == 1:
@@ -114,8 +115,8 @@ for calcs, filename in [(ranges, 'smearplot_alpha.root'),
     index = 0
 
     average_file = ROOT.TFile(os.path.join(alphadir, filename))
-    data_hist = average_file.Get("Data")
-    mc_hist = average_file.Get("MC")
+    data_hist = average_file.Get('Data')
+    mc_hist = average_file.Get('DY') + average_file.Get('TT')
     bin = 1
 
     while index != len(calcs):
@@ -129,21 +130,21 @@ for calcs, filename in [(ranges, 'smearplot_alpha.root'),
 
 trainings = [
     ('jet1_response', 'No Smearing'),
-    ('jet1_response_smear_nominal', 'Smear Nominal'),
-    ('jet1_response_smear_up', 'Smear Up'),
-    ('jet1_response_smear_down', 'Smear Down'),
-    ('jet1_response_scale_nominal', 'Scale Nominal'),
-    ('jet1_response_scale_up', 'Scale Up'),
-    ('jet1_response_scale_down', 'Scale Down'),
-    ('jet1_response_old_scale_nominal', 'Old Scale Nominal'),
-    ('jet1_response_old_scale_up', 'Old Scale Up'),
-    ('jet1_response_old_scale_down', 'Old Scale Down'),
-    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
-    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
-    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
-    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
-    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
-    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
+#    ('jet1_response_smear_nominal', 'Smear Nominal'),
+#    ('jet1_response_smear_up', 'Smear Up'),
+#    ('jet1_response_smear_down', 'Smear Down'),
+#    ('jet1_response_scale_nominal', 'Scale Nominal'),
+#    ('jet1_response_scale_up', 'Scale Up'),
+#    ('jet1_response_scale_down', 'Scale Down'),
+#    ('jet1_response_old_scale_nominal', 'Old Scale Nominal'),
+#    ('jet1_response_old_scale_up', 'Old Scale Up'),
+#    ('jet1_response_old_scale_down', 'Old Scale Down'),
+#    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
+#    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
+#    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
+#    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
+#    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
+#    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
     ]
 
 smear_fit = ROOT.TGraphErrors(len(rhos))
@@ -191,7 +192,7 @@ for training, trainname in trainings:
                                          data_hist.GetStdDevError())
             data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
-            mc_hist = smearfile.Get('MC')
+            mc_hist = smearfile.Get('DY') + smearfile.Get('TT')
             mc_mean = mean[3].mean()
             mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev())
             mc_graph_res.SetPointError(index, 0, #mean[3].std(),
@@ -205,7 +206,7 @@ for training, trainname in trainings:
                     )
                 )
 
-            gen_hist = genfile.Get('MC')
+            gen_hist = genfile.Get('DY') + genfile.Get('TT')
             gen_mean = mean[3].mean()
             gen_graph_res.SetPoint(index, gen_mean, gen_hist.GetStdDev())
             gen_graph_res.SetPointError(index, 0, gen_hist.GetStdDevError())
@@ -214,7 +215,7 @@ for training, trainname in trainings:
 
         for data, mc, gen, name, mini, maxi, fit, makesub in [
             (data_graph_res, mc_graph_res, gen_graph_res, '#sigma', 0.0, 0.4,
-             lambda: ROOT.TF1('resolution', 'TMath::Sqrt(pow([0] + [1] * x, 2) + pow([2] * (1 + [3] * x), 2))', 0, 0.3), True),
+             lambda: ROOT.TF1('resolution', 'TMath::Sqrt(pow([0] * x, 2) + pow([1] * (1 + [2] * x), 2))', 0, 0.3), True),
             (data_graph_mean, mc_graph_mean, None, '#mu', 0.7, 1.0,
              lambda: ROOT.TF1('mean', '[0] * x + [1]', 0, 0.3), False)
             ]:
@@ -241,8 +242,7 @@ for training, trainname in trainings:
                 genres = gen.Fit(gen_func, 'S')
 
                 for func in [data_func, mc_func]:
-                    func.FixParameter(0, 0)
-                    func.FixParameter(3, gen_func.GetParameter(1)/gen_func.GetParameter(0))
+                    func.FixParameter(2, gen_func.GetParameter(1)/gen_func.GetParameter(0))
 
             datares = data.Fit(data_func, 'S')
             mcres = mc.Fit(mc_func, 'S')
@@ -260,7 +260,7 @@ for training, trainname in trainings:
             if gen:
                 gen.Draw('p,same')
                 gen_func.Draw('same')
-                leg.AddEntry(gen, 'Gen', 'p')
+                leg.AddEntry(gen, 'Intrinsic', 'p')
 
             leg.Draw()
 
@@ -270,34 +270,23 @@ for training, trainname in trainings:
             print '-'*30
 
             if makesub:
-                data_sub1 = ROOT.TF1('lin', '[0]', 0, 0.3)
-                data_sub1.SetParameter(0, 0)
-                data_sub1.SetParameter(0, abs(data_func.GetParameter(0)))
 
-                print 'Data at y-axis: %s +- %s' % (abs(data_func.GetParameter(0)), datares.Error(0))
+                data_int, data_int_err = (abs(data_func.GetParameter(1)), datares.Error(1))
+                mc_int, mc_int_err = (abs(mc_func.GetParameter(1)), mcres.Error(1))
 
-                for data_sub in [data_sub1]:
-                    data_sub.SetLineWidth(1)
-                    data_sub.SetLineColor(data_func.GetLineColor())
-                    data_sub.Draw('same')
+                print 'Data at y-axis: %f +- %f' % (data_int, data_int_err)
+                print 'MC at y-axis: %f +- %f' %  (mc_int, mc_int_err)
 
-                mc_sub1 = ROOT.TF1('lin', '[0]', 0, 0.3)
-                mc_sub1.SetParameter(0, 0)
-                mc_sub1.SetParameter(0, abs(mc_func.GetParameter(0)))
 
-                print 'MC at y-axis: %s +- %s' % (abs(mc_func.GetParameter(0)), mcres.Error(0))
+                smear = math.sqrt(pow(data_int, 2) - pow(mc_int, 2))
+                smear_err = math.sqrt(abs(math.pow(data_int * data_int_err, 2) +
+                                          math.pow(mc_int * mc_int_err, 2))) / smear
 
-#                print 'Smear factor: %f +- %f (%f +- %f)' % (smear, smear_err, smear_unc, unc_unc)
-                print 'Smear factor: %f' % (data_func.GetParameter(2)/mc_func.GetParameter(2) - 1.0)
-
-#                smear_fit.SetPoint(bin, (rho[2].mean() + rho[3].mean())/2.0, smear_unc - 1)
-#                smear_fit.SetPointError(bin, 0, #(rho[2].std() + rho[3].std())/2,
-#                                        unc_unc)
-
-                for mc_sub in [mc_sub1]:
-                    mc_sub.SetLineWidth(1)
-                    mc_sub.SetLineColor(mc_func.GetLineColor())
-                    mc_sub.Draw('same')
+                print 'Smear factor: %f +- %f' % (smear, smear_err)
+                print 'Scale factor: %f +- %f' % (data_int/mc_int - 1.0,
+                                                  math.sqrt(pow(data_int_err/mc_int, 2) +
+                                                            pow(data_int * mc_int_err/pow(mc_int, 2), 2)
+                                                            ))
 
             else:
                 print 'Data at y-axis:', data_func.GetParameter(1)
@@ -311,63 +300,65 @@ for training, trainname in trainings:
                                  )
                     )
 
-smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
+if len(rhos) > 1:
 
-derivative_expr = 'TMath::Sqrt(TMath::Power((x + [2] * [1]) * [3], 2) + TMath::Power(([2] * [0] * x + 1) * [4], 2))'
+    smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
 
-smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40)
-smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40)
+    derivative_expr = 'TMath::Sqrt(TMath::Power((x + [2] * [1]) * [3], 2) + TMath::Power(([2] * [0] * x + 1) * [4], 2))'
 
-smear_fit_res = smear_fit.Fit(smear_func, 'S')
-matrix = smear_fit_res.GetCovarianceMatrix()
+    smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40)
+    smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40)
 
-big_smear_up = ROOT.TF1('lin', '([0] + [3]) * x + [1] + [4]', 0, 40)
-big_smear_down = ROOT.TF1('lin', '([0] - [3]) * x + [1] - [4]', 0, 40)
+    smear_fit_res = smear_fit.Fit(smear_func, 'S')
+    matrix = smear_fit_res.GetCovarianceMatrix()
 
-print matrix(0, 0), matrix(0, 1)
-print matrix(1, 0), matrix(1, 1)
+    big_smear_up = ROOT.TF1('lin', '([0] + [3]) * x + [1] + [4]', 0, 40)
+    big_smear_down = ROOT.TF1('lin', '([0] - [3]) * x + [1] - [4]', 0, 40)
 
-for func in [smear_func_down, smear_func_up, big_smear_up, big_smear_down]:
-    func.SetParameter(0, smear_func.GetParameter(0))
-    func.SetParameter(1, smear_func.GetParameter(1))
-    func.SetParameter(2, matrix(0, 1))
-    func.SetParameter(3, smear_fit_res.Error(0))
-    func.SetParameter(4, smear_fit_res.Error(1))
+    print matrix(0, 0), matrix(0, 1)
+    print matrix(1, 0), matrix(1, 1)
 
-    func.SetLineColor(2)
-    func.SetLineWidth(1)
+    for func in [smear_func_down, smear_func_up, big_smear_up, big_smear_down]:
+        func.SetParameter(0, smear_func.GetParameter(0))
+        func.SetParameter(1, smear_func.GetParameter(1))
+        func.SetParameter(2, matrix(0, 1))
+        func.SetParameter(3, smear_fit_res.Error(0))
+        func.SetParameter(4, smear_fit_res.Error(1))
 
-print smear_func_down.Eval(0)
-print smear_func_up.Eval(0)
+        func.SetLineColor(2)
+        func.SetLineWidth(1)
 
-print smear_func_down.Eval(16)
-print smear_func_up.Eval(16)
+    print smear_func_down.Eval(0)
+    print smear_func_up.Eval(0)
 
-print smear_func_down.Eval(24)
-print smear_func_up.Eval(24)
+    print smear_func_down.Eval(16)
+    print smear_func_up.Eval(16)
 
-hide2 = ROOT.TGraph(2)
+    print smear_func_down.Eval(24)
+    print smear_func_up.Eval(24)
 
-hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
-hide2.SetPoint(0, 0, -0.5)
-hide2.SetPoint(1, 35, 0.5)
+    hide2 = ROOT.TGraph(2)
 
-smear_fit.SetMarkerStyle(8)
+    hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
+    hide2.SetPoint(0, 0, -0.5)
+    hide2.SetPoint(1, 35, 0.5)
 
-c2 = ROOT.TCanvas()
-hide2.Draw('ap')
-smear_fit.Draw('p,same')
-smear_func.Draw('same')
-smear_func_down.Draw('same')
-smear_func_up.Draw('same')
-#big_smear_down.Draw('same')
-#big_smear_up.Draw('same')
+    smear_fit.SetMarkerStyle(8)
 
-for ext in ['pdf', 'png', 'C']:
-    c2.SaveAs(
-        os.path.join(newdir,
-                     os.path.basename('smear_fit.%s' % ext)
-                     )
-        )
+    c2 = ROOT.TCanvas()
+    hide2.Draw('ap')
+    smear_fit.Draw('p,same')
+    smear_func.Draw('same')
+    smear_func_down.Draw('same')
+    smear_func_up.Draw('same')
+    #big_smear_down.Draw('same')
+    #big_smear_up.Draw('same')
+
+    for ext in ['pdf', 'png', 'C']:
+        c2.SaveAs(
+            os.path.join(newdir,
+                         os.path.basename('smear_fit.%s' % ext)
+                         )
+            )
 
 os.system('cp %s %s/models.cnf' % (__file__, newdir))

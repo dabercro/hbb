@@ -38,12 +38,12 @@ namespace {
   };
 
 
-  // 200109.txt
+  // 200116_1D_bins_allenv.txt
   const fit_result single_bin_scale {
-    0, 0, 0.072553, 0.079442, 0
+    0, 0, 0.063854, 0.071989, 0
   };
   const fit_result single_bin_smear {
-    0, 0, 0.058501, 0.030338, 0
+    0, 0, 0.051249, 0.027145, 0
   };
 
 }
