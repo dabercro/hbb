@@ -288,6 +288,17 @@ for training, trainname in trainings:
                                                             pow(data_int * mc_int_err/pow(mc_int, 2), 2)
                                                             ))
 
+                gen_int, gen_int_err = (gen_func.GetParameter(0), genres.Error(0))
+
+                print 'Scale factor (from gen): %f +- %f' % (
+                    (data_int - gen_int)/(mc_int - gen_int) - 1.0,
+                    math.sqrt(
+                        pow(data_int_err/(mc_int - gen_int), 2) +
+                        pow((data_int - gen_int) * mc_int_err/pow(mc_int - gen_int, 2), 2) +
+                        pow(gen_int_err * (2 * gen_int - mc_int - data_int)/pow(mc_int - gen_int, 2), 2)
+                        )
+                    )
+
             else:
                 print 'Data at y-axis:', data_func.GetParameter(1)
                 print 'MC at y-axis:', mc_func.GetParameter(1)
