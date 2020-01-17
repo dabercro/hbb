@@ -83,6 +83,8 @@ namespace {
         throw std::runtime_error {"No file"};
       }
 
+      std::cout << "Loading " << correction_file << std::endl;
+
       output.emplace_back(correction_file);
     }
 
@@ -91,10 +93,10 @@ namespace {
   }
 
 
-  std::string uncertainty_file (const std::string& jet_type) {
-    std::string base {"data/jec/Autumn18_V7_MC_PtResolution_"};
-    return  base + jet_type + ".txt";
-  }
+  /* std::string uncertainty_file (const std::string& jet_type) { */
+  /*   std::string base {"data/jec/Autumn18_V7_MC_PtResolution_"}; */
+  /*   return  base + jet_type + ".txt"; */
+  /* } */
 
 }
 

@@ -57,6 +57,8 @@ num_bjet/s
 
   dphi_ll <- std::abs(TVector2::Phi_mpi_pi(dilep_phi - []_phi))
 
+  response_intrinsic <- []_gen_pt ? []_pt_regressed / []_gen_pt : 0
+
 }
 
 alpha <- jet2_pt/dilep_pt
