@@ -2,7 +2,9 @@
 
 import os
 import re
+import sys
 import pprint
+import math
 
 import ROOT
 
@@ -21,6 +23,7 @@ alpha_shape = sys.argv[1]
 xsec_var = sys.argv[2]
 
 toprint = defaultdict(dict)
+results = defaultdict(lambda: defaultdict(dict))
 
 
 for filename, kind in [(mc, 'mc'), (data, 'data')]:
@@ -59,13 +62,10 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     roocutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
 
     if kind == 'mc':
-        xsec_weight = ROOT.RooRealVar(xsec_var, xsec_var, -1, 1)
-        roocutvars.append(xsec_weight)
-
+        roocutvars.append(ROOT.RooRealVar(xsec_var, xsec_var, -1, 1))
     else:
         cut += ' && trigger == 1'
-        roocutvars.append('trigger')
-
+        roocutvars.append(ROOT.RooRealVar('trigger', 'trigger', -1, 2))
 
     args = ['data', 'data', ROOT.RooArgSet(alpha, jet1_response, *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
 
@@ -87,8 +87,28 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     for var in ['alpha_width', 'alpha_mean', 'mean_0', 'mean_1', 'width_intercept', 'width_slope']:
         handle = w.var(var)
         toprint[var][kind] = '%s +- %s' % (handle.getVal(), handle.getError())
+        results[var][kind]['val'] = handle.getVal()
+        results[var][kind]['err'] = handle.getError()
 
+# Print results at the bottom
 
 print 'Alpha shape:', alpha_shape
 print 'Cross Section Branch:', xsec_var
 pprint.pprint(dict(toprint))
+
+data_int = results['width_intercept']['data']['val']
+data_int_err = results['width_intercept']['data']['err']
+
+mc_int = results['width_intercept']['mc']['val']
+mc_int_err = results['width_intercept']['mc']['err']
+
+smear = math.sqrt(pow(data_int, 2) - pow(mc_int, 2))
+smear_err = math.sqrt(abs(math.pow(data_int * data_int_err, 2) +
+                          math.pow(mc_int * mc_int_err, 2))) / smear
+
+print ''
+print 'Smear factor: %f +- %f' % (smear, smear_err)
+print 'Scale factor: %f +- %f' % (data_int/mc_int - 1.0,
+                                  math.sqrt(pow(data_int_err/mc_int, 2) +
+                                            pow(data_int * mc_int_err/pow(mc_int, 2), 2)
+                                            ))
