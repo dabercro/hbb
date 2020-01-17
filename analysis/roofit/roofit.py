@@ -19,8 +19,8 @@ data = 'data.root'
 cut = 'jet1_btagDeepB > 0.9'
 cutvars = ['jet1_btagDeepB']
 
-alpha_shape = sys.argv[1]
-xsec_var = sys.argv[2]
+alpha_shape = sys.argv[1] if len(sys.argv) > 1 else 'Landau'
+xsec_var = sys.argv[2] if len(sys.argv) > 2 else 'xsec_weight'
 
 toprint = defaultdict(dict)
 results = defaultdict(lambda: defaultdict(dict))
