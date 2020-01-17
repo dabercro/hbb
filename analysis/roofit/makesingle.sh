@@ -6,7 +6,10 @@ filesdir=${CrombieInFilesDir:?} || exit 1
 
 cd $filesdir || exit 2
 
-ls --color=none | xargs -n1 -P${CrombieNLocalProcs:-1} -I {} bash -c 'hadd {}.root {}/*.root'
+rm *.root
+test ! -d single || rm -r single
+
+ls --color=none | xargs -n1 -P${CrombieNLocalProcs:-1} -I {} bash -c 'hadd -f {}.root {}/*.root'
 
 cd -
 
@@ -31,8 +34,8 @@ cd -
 
 mkdir single || exit 3
 
-hadd mc.root DYJets*.root TTTo2L*.root
-hadd data.root DoubleMuon.root EGamma.root
+hadd -f mc.root DYJets*.root TTTo2L*.root
+hadd -f data.root DoubleMuon.root EGamma.root
 
 mv *.root single
 

@@ -8,15 +8,20 @@ import ROOT
 
 from collections import defaultdict
 
+from CrombieTools import LoadConfig
 
-indir = '/data/t3home000/dabercro/nano/smearnano/191218_cut/root'
+
+indir = '%s/single' % os.environ['CrombieInFilesDir']
 mc = 'mc.root'
-data = 'DoubleMuon.root'
-cut = 'lep1_mass > 0.1 && lep2_mass > 0.1'
-cutvars = ['lep1_mass', 'lep2_mass']
+data = 'data.root'
+cut = 'jet1_btagDeepB > 0.9'
+cutvars = ['jet1_btagDeepB']
 
+alpha_shape = sys.argv[1]
+xsec_var = sys.argv[2]
 
 toprint = defaultdict(dict)
+
 
 for filename, kind in [(mc, 'mc'), (data, 'data')]:
     w = ROOT.RooWorkspace('w')
@@ -30,7 +35,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     # Fit
 
     # Alpha distribution
-    w.factory('Landau::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])')
+    w.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])' % alpha_shape)
 
     alpha = w.var('alpha')
 
@@ -53,14 +58,14 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     roocutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
 
-# scale_weight_6 = 'xsec_weight_low'
-# scale_weight_2 = 'xsec_weight_high'
-    xsec_var = 'xsec_weight'
-
-
     if kind == 'mc':
         xsec_weight = ROOT.RooRealVar(xsec_var, xsec_var, -1, 1)
         roocutvars.append(xsec_weight)
+
+    else:
+        cut += ' && trigger == 1'
+        roocutvars.append('trigger')
+
 
     args = ['data', 'data', ROOT.RooArgSet(alpha, jet1_response, *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
 
@@ -78,11 +83,12 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
         model.fitTo(points)
 
     model.Print('')
-
     
     for var in ['alpha_width', 'alpha_mean', 'mean_0', 'mean_1', 'width_intercept', 'width_slope']:
         handle = w.var(var)
         toprint[var][kind] = '%s +- %s' % (handle.getVal(), handle.getError())
 
 
+print 'Alpha shape:', alpha_shape
+print 'Cross Section Branch:', xsec_var
 pprint.pprint(dict(toprint))
