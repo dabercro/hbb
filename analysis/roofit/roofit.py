@@ -26,6 +26,49 @@ toprint = defaultdict(dict)
 results = defaultdict(lambda: defaultdict(dict))
 
 
+g = ROOT.RooWorkspace('g')
+
+genfile = ROOT.TFile(os.path.join(indir, mc))
+
+# Linear intrinsic fit
+
+# Alpha distribution
+g.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])' % alpha_shape)
+
+# Mean is linear as a function of alpha
+g.factory('PolyVar::mean(alpha, {mean_0[1, 0, 2], mean_1[0, -5, 5]})')
+
+# Width is linear as a function of alpha
+g.factory('PolyVar::width(alpha, {width_0[0.2, 0, 0.7], width_1[0.1, -1, 5]})')
+
+jet1_pt_regressed = ROOT.RooRealVar('jet1_pt_regressed', 'jet1_pt_regressed', 0, 1000)
+jet1_gen_pt = ROOT.RooRealVar('jet1_gen_pt', 'jet1_gen_pt', 0, 1000)
+jet1_intrinsic_resolution = ROOT.RooFormulaVar('jet1_intrinsic_resolution', 'jet1_pt_regressed/jet1_gen_pt',
+                                               ROOT.RooArgList(jet1_pt_regressed, jet1_gen_pt))
+
+getattr(g, 'import')(jet1_intrinsic_resolution)
+
+g.factory('Gaussian::gauss(jet1_intrinsic_resolution, mean, width)')
+
+g.factory('PROD::model(gauss|alpha, alphafit)')
+
+
+gencutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
+gencutvars.append(ROOT.RooRealVar(xsec_var, xsec_var, -1, 1))
+
+genpoints = ROOT.RooDataSet('gen', 'gen',
+                            ROOT.RooArgSet(g.var('alpha'), jet1_pt_regressed, jet1_gen_pt, *gencutvars),
+                            ROOT.RooFit.Import(genfile.events), ROOT.RooFit.Cut(cut),
+                            ROOT.RooFit.WeightVar(xsec_var))
+
+genmodel = g.pdf('model')
+genmodel.fitTo(genpoints, ROOT.RooFit.SumW2Error(True))
+
+
+genmodel.Print('')
+
+exit(0)
+
 for filename, kind in [(mc, 'mc'), (data, 'data')]:
     w = ROOT.RooWorkspace('w')
 
