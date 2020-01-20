@@ -39,16 +39,9 @@ g.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.
 g.factory('PolyVar::mean(alpha, {mean_0[1, 0, 2], mean_1[0, -5, 5]})')
 
 # Width is linear as a function of alpha
-g.factory('PolyVar::width(alpha, {width_0[0.2, 0, 0.7], width_1[0.1, -1, 5]})')
+g.factory('PolyVar::width(alpha, {width_0[0.2, 0, 0.7], width_slope[0.1, -1, 5]})')
 
-jet1_pt_regressed = ROOT.RooRealVar('jet1_pt_regressed', 'jet1_pt_regressed', 0, 1000)
-jet1_gen_pt = ROOT.RooRealVar('jet1_gen_pt', 'jet1_gen_pt', 0, 1000)
-jet1_intrinsic_resolution = ROOT.RooFormulaVar('jet1_intrinsic_resolution', 'jet1_pt_regressed/jet1_gen_pt',
-                                               ROOT.RooArgList(jet1_pt_regressed, jet1_gen_pt))
-
-getattr(g, 'import')(jet1_intrinsic_resolution)
-
-g.factory('Gaussian::gauss(jet1_intrinsic_resolution, mean, width)')
+g.factory('Gaussian::gauss(jet1_response_intrinsic[0, 2], mean, width)')
 
 g.factory('PROD::model(gauss|alpha, alphafit)')
 
@@ -57,7 +50,7 @@ gencutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
 gencutvars.append(ROOT.RooRealVar(xsec_var, xsec_var, -1, 1))
 
 genpoints = ROOT.RooDataSet('gen', 'gen',
-                            ROOT.RooArgSet(g.var('alpha'), jet1_pt_regressed, jet1_gen_pt, *gencutvars),
+                            ROOT.RooArgSet(g.var('alpha'), g.var('jet1_response_intrinsic'), *gencutvars),
                             ROOT.RooFit.Import(genfile.events), ROOT.RooFit.Cut(cut),
                             ROOT.RooFit.WeightVar(xsec_var))
 
@@ -67,7 +60,10 @@ genmodel.fitTo(genpoints, ROOT.RooFit.SumW2Error(True))
 
 genmodel.Print('')
 
-exit(0)
+# Width slope from intrinsic is fixed
+
+width_slope = g.var('width_slope')
+width_slope.setConstant(True)
 
 for filename, kind in [(mc, 'mc'), (data, 'data')]:
     w = ROOT.RooWorkspace('w')
@@ -90,9 +86,9 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     # Width is this weird things as a function of alpha
     width_intercept = ROOT.RooRealVar('width_intercept', 'width_intercept', 0.2, 0.0, 0.7)
-    width_slope = ROOT.RooRealVar('width_slope', 'width_slope', 1, 0.0, 5)
-    width = ROOT.RooGenericPdf('width', 'TMath::Sqrt(pow(width_intercept, 2) + pow(width_slope * alpha, 2))',
-                               ROOT.RooArgList(alpha, width_intercept, width_slope))
+    width_slope_2 = ROOT.RooRealVar('width_slope_2', 'width_slope_2', 1, 0.0, 5)
+    width = ROOT.RooGenericPdf('width', 'TMath::Sqrt(pow(width_intercept + width_slope * alpha, 2) + pow(width_slope_2 * alpha, 2))',
+                               ROOT.RooArgList(alpha, width_intercept, width_slope, width_slope_2))
 
     getattr(w, 'import')(width)
 
@@ -127,7 +123,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     model.Print('')
     
-    for var in ['alpha_width', 'alpha_mean', 'mean_0', 'mean_1', 'width_intercept', 'width_slope']:
+    for var in ['alpha_width', 'alpha_mean', 'mean_0', 'mean_1', 'width_intercept', 'width_slope', 'width_slope_2']:
         handle = w.var(var)
         toprint[var][kind] = '%s +- %s' % (handle.getVal(), handle.getError())
         results[var][kind]['val'] = handle.getVal()

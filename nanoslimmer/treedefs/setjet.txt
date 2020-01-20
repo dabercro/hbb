@@ -11,7 +11,7 @@
 
     (gen_jet_ptr = genjet::matched(jet, genjets_withnu))
 
-DEFINE SMEARINGS smear, scale, old_scale, single_scale, single_smear
+DEFINE SMEARINGS smear, scale, old_scale, single_scale, single_smear, unbinned_smear
 
     ($_res = applysmearing::smeared_pt(jet.pt, jet.bRegCorr, rhoAll, gen_jet_ptr ? gen_jet_ptr->pt : 0, applysmearing::smear_method::$$$)) | SMEARINGS
 

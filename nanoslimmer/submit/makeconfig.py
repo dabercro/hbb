@@ -10,7 +10,7 @@ year='2018'
 
 exe='smearnano'
 #exe='hbbnano'
-version='200114_%s_%s' % (exe, year)
+version='200119_%s_%s' % (exe, year)
 
 use_custom = False
 files_per_job = 1
@@ -22,7 +22,7 @@ if use_custom:
 
 door='root://xrootd.cmsaf.mit.edu/' if use_custom else 'root://cms-xrd-global.cern.ch/'
 
-def makeconfig(resub=False):
+def makeconfig():
 
     config = []
 
@@ -65,6 +65,9 @@ def makeconfig(resub=False):
 
         low = 0
         high = files_per_job
+
+        name = 'condor.cfg'
+
         while low < len(files):
             # Files for this job
             job = ['%s%s' % (door, f) for f in files[low:min(high, len(files))]]
@@ -74,7 +77,7 @@ def makeconfig(resub=False):
 
             output_file = '%s/%i.root' % (this_out, n_job)
 
-            if not resub or not os.path.exists(output_file):
+            if not os.path.exists(output_file) or not os.stat(output_file).st_size:
                 config.extend(['Output = %s/%s_%i.out' % (log_dir, os.path.basename(this_out), n_job),
                                'Error = %s/%s_%i.err' %  (log_dir, os.path.basename(this_out), n_job),
                                'transfer_output_files = output.root',
@@ -82,9 +85,11 @@ def makeconfig(resub=False):
                                'Arguments = %s %s %s' % (exe, year, ' '.join(job)),
                                'Queue'])
 
+            else:
+                name = 'resub.cfg'
+
             n_job += 1
 
-    name = 'resub.cfg' if resub else 'condor.cfg'
     with open(name, 'w') as condor:
         for l in config:
             condor.write(l + '\n')

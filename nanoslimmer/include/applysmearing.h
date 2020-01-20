@@ -46,6 +46,14 @@ namespace {
     0, 0, 0.051249, 0.027145, 0
   };
 
+  // 200119/Gaussian_xsec_weight.txt
+  const fit_result unbinned_scale {
+    0, 0, 0.054713, 0.064761, 0
+  };
+  const fit_result unbinned_smear {
+    0, 0, 0.046527, 0.026636, 0
+  };
+  
 }
 
 
@@ -77,7 +85,9 @@ namespace applysmearing {
     SCALE,
     OLD_SCALE,
     SINGLE_SCALE,
-    SINGLE_SMEAR
+    SINGLE_SMEAR,
+    UNBINNED_SCALE,
+    UNBINNED_SMEAR
   };
 
   smear_result smeared_pt (double jet_pt, double regression_factor, double rho, double gen_jet_pt = 0, smear_method method = smear_method::SMEAR) {
@@ -90,13 +100,15 @@ namespace applysmearing {
       {smear_method::SCALE, scaling_fit},
       {smear_method::OLD_SCALE, old_scale},
       {smear_method::SINGLE_SCALE, single_bin_scale},
-      {smear_method::SINGLE_SMEAR, single_bin_smear}
+      {smear_method::SINGLE_SMEAR, single_bin_smear},
+      {smear_method::UNBINNED_SCALE, unbinned_scale},
+      {smear_method::UNBINNED_SMEAR, unbinned_smear}
     }.at(method);
 
     auto nominal = nominal_smear(rho, fit);
     auto band = smear_band(rho, fit);
 
-    if (method == smear_method::SMEAR or method == smear_method::SINGLE_SMEAR) {
+    if (method == smear_method::SMEAR or method == smear_method::SINGLE_SMEAR or method == smear_method::UNBINNED_SMEAR) {
 
       // Use generator pt, if available, otherwise best guess
       double pt = (gen_jet_pt ? gen_jet_pt : regressed);
