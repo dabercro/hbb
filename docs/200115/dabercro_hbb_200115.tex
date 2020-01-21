@@ -426,12 +426,10 @@
 
   \vfill
   \centering
-  \begin{tabular}{|l|c|}
+  \begin{tabular}{l|c|c|}
+    & Smearing & Scaling \\
     \hline
-    Smearing Method & Result \\
-    \hline
-    Scaling & $6.4 \pm 7.2 \%$ \\
-    Smearing & $5.1 \pm 2.7 \%$ \\
+    Result & $5.1 \pm 2.7 \%$ & $6.4 \pm 7.2 \%$ \\
     \hline
   \end{tabular}
 
@@ -474,13 +472,39 @@
   \item Varied shape of fit over $\alpha$ ($F$ in previous slide) to also be Landau fit
   \end{itemize}
 
-
+  \twofigs{Gaussian $\alpha$ fit (MC)}
+          {200121_roofit/Gaussian_xsec_weight_mc.pdf}
+          {Landau $\alpha$ fit (MC)}
+          {200121_roofit/Landau_xsec_weight_mc.pdf}
 
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Unbinned Fit Results}
+
+  \centering
+
+  \begin{tabular}{|l|c|c|}
+    \hline
+    Uncertainty & Smearing & Scaling \\
+    \hline
+    Nominal Result & $4.7 \pm 2.7 \%$ & $5.5 \pm 6.5 \%$ \\
+    Landau $\alpha$ & $2.9 \pm 4.0 \%$ & $2.4 \pm 6.5 \%$ \\
+    \hline
+    Max Scale Weight & $4.8 \pm 2.4 \%$ & $6.5 \pm 7.2 \%$ \\
+    Min Scale Weight & $2.9 \pm 4.0 \%$ & $2.4 \pm 6.5 \%$ \\
+    \hline
+    Max Parton Shower & $4.2 \pm 3.2 \%$ & $4.9 \pm 7.6 \%$ \\
+    Min Parton Shower & $-3.6 \pm 3.4 \%$ & $-3.2 \pm 5.9 \%$ \\
+    \hline
+  \end{tabular}
+
+  \begin{itemize}
+  \item Negative smearings means that the data would need to be smeared to match MC
+  \item Varying the \texttt{PSWeight} gives a large asymmetric uncertainty
+  \item Uncertainties applied are just the variables from the fit
+  \end{itemize}
 
 \end{frame}
 

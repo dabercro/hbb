@@ -10,7 +10,7 @@ year='2018'
 
 exe='smearnano'
 #exe='hbbnano'
-version='200119_%s_%s' % (exe, year)
+version='200121_%s_%s' % (exe, year)
 
 use_custom = False
 files_per_job = 1

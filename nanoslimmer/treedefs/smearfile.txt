@@ -55,6 +55,8 @@ num_bjet/s
 
   response <- []_pt_regressed / dilep_pt
 
+  response_X_$ <- []_pt_X_$ / dilep_pt | down, nominal, up |X SMEARINGS
+
   dphi_ll <- std::abs(TVector2::Phi_mpi_pi(dilep_phi - []_phi))
 
   response_intrinsic <- []_gen_pt ? []_pt_regressed / []_gen_pt : 0
