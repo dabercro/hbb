@@ -60,6 +60,15 @@ genmodel.fitTo(genpoints, ROOT.RooFit.SumW2Error(True))
 
 genmodel.Print('')
 
+frame = g.var('alpha').frame()
+genpoints.plotOn(frame)
+g.pdf('alphafit').plotOn(frame)
+
+c = ROOT.TCanvas()
+frame.Draw()
+for end in ['pdf', 'png']:
+    c.SaveAs('plots/%s_%s_%s.%s' % (alpha_shape, xsec_var, 'gen', end))
+
 # Width slope from intrinsic is fixed
 
 width_slope = g.var('width_slope')
@@ -122,7 +131,16 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
         model.fitTo(points)
 
     model.Print('')
-    
+
+    frame = w.var('alpha').frame()
+    points.plotOn(frame)
+    w.pdf('alphafit').plotOn(frame)
+
+    c = ROOT.TCanvas()
+    frame.Draw()
+    for end in ['pdf', 'png']:
+        c.SaveAs('plots/%s_%s_%s.%s' % (alpha_shape, xsec_var, kind, end))
+
     for var in ['alpha_width', 'alpha_mean', 'mean_0', 'mean_1', 'width_intercept', 'width_slope', 'width_slope_2']:
         handle = w.var(var)
         toprint[var][kind] = '%s +- %s' % (handle.getVal(), handle.getError())
@@ -141,7 +159,7 @@ data_int_err = results['width_intercept']['data']['err']
 mc_int = results['width_intercept']['mc']['val']
 mc_int_err = results['width_intercept']['mc']['err']
 
-smear = math.sqrt(pow(data_int, 2) - pow(mc_int, 2))
+smear = math.sqrt(abs(pow(data_int, 2) - pow(mc_int, 2))) * (data_int - mc_int)/abs(data_int - mc_int)
 smear_err = math.sqrt(abs(math.pow(data_int * data_int_err, 2) +
                           math.pow(mc_int * mc_int_err, 2))) / smear
 

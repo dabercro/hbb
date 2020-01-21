@@ -1,8 +1,9 @@
 #! /bin/bash
 
-outdir=$1
+outdir=${1:?}
 
 test -d $outdir || mkdir $outdir
+test -d plots || mkdir plots
 
 for shape in Landau Gaussian
 do
@@ -32,3 +33,4 @@ do
 done
 
 cp roofit.py $outdir
+mv plots/* $outdir

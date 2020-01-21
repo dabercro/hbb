@@ -441,11 +441,40 @@
 \begin{frame}
   \frametitle{Unbinned Fit Strategy}
 
+  \begin{itemize}
+  \item Same events, variables, cuts, and weights as before
+  \item Fit 2D p.d.f. over jet response (labelled $x$) and $\alpha$
+  \[
+  f(x, \alpha) =
+  G(x, \mu(\alpha), \sigma(\alpha)|\alpha)
+  \times
+  F(\alpha, \mu_0, \sigma_0)
+  \]
+  \item $G$ is a Gaussian distribution
+  \item $\mu$ as a linear function
+  \item $F$ is a Gaussian with fixed mean $\mu_0$ and width $\sigma_0$
+  \item $\sigma$ is of the same form as the binned fit,
+    with $c_k$ being derived from a fit to
+    intrinsic resolution with a linear $\sigma(\alpha)$:
+  \[
+  \sigma(\alpha) = (m \times \alpha) \oplus c \times (1 + c_k \times \alpha)
+  \]
+  \end{itemize}
+
+
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Unbinned Fit Uncertainties}
+
+  \begin{itemize}
+  \item Cannot make histogram envelope for uncertainties, \\
+    so made separate fits for each weight
+  \item Varied shape of fit over $\alpha$ ($F$ in previous slide) to also be Landau fit
+  \end{itemize}
+
+
 
 \end{frame}
 
