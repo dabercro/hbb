@@ -101,18 +101,28 @@
 \begin{frame}
   \frametitle{Introduction}
 
-  \begin{itemize}
-  \item Smearing needs to be re-derived after applying \\
-    energy regression designed to recover energy \\
-    lost in the weak decays of b-jets.
-  \item Extracting smearing parameters as a function of $\rho$ \\
-    results in large uncertainties
-  \item Correlations between $\rho$ bins are not easy to propagate correctly through fit
-  \item Alternative to binning would be to do \\
-    higher-dimensional fit with a factorized PDF
-  \item First step is to perform this fit in 2D space \\
-    (jet response vs $\alpha$), and compare to binned fit results
-  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.6\linewidth}
+      \begin{itemize}
+      \item Smearing needs to be re-derived after applying
+        energy regression designed to recover energy
+        lost in the weak decays of b-jets.
+      \item Extracting smearing parameters as a function of $\rho$
+        results in large fit uncertainties
+      \item Alternative to binning would be to do
+        an unbinned fit with a factorized PDF
+      \item First step is to perform this fit in 2D space
+        (jet response vs $\alpha$), and compare to binned fit results
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.4\linewidth}
+      \includegraphics[width=\linewidth]{191216_resolution_tosmear/smear_fit.pdf}
+    \end{column}
+  \end{columns}
+
+  \vfill
+  In other words, the binned fit presented here is a step back
+  in order to verify the following unbinned fit
 
 \end{frame}
 
@@ -230,6 +240,11 @@
 \begin{frame}
   \frametitle{Jet Resolution Selection}
 
+  Selecting events with one jet is hard due to jet acceptance,
+  and would result in few events
+
+  \vfill
+
   \begin{itemize}
   \item Exactly two jets satisfying:
     \begin{itemize}
@@ -255,11 +270,11 @@
   NanoAODv5 does not include the latest JECs, so we reapply those:
 
   \begin{itemize}
-  \item Data: \texttt{Winter19\_Autumn18{A, B, C, D}\_V19\_DATA}
-  \item MC: \textt{Winter19\_Autumn18\_V19\_MC}
+  \item Data: \texttt{Winter19\_Autumn18\{A, B, C, D\}\_V19\_DATA}
+  \item MC: \texttt{Winter19\_Autumn18\_V19\_MC}
   \end{itemize}
 
-  Both the \texttt{Jet} collection and \texttt{MET} are adjusted
+  Both the \texttt{Jet} collection and \texttt{MET} are adjusted by these
 
 \end{frame}
 
@@ -512,16 +527,57 @@
 \begin{frame}
   \frametitle{Comparison of Results}
 
+  \fourfigs{Binned Smear}
+           {200122_comparison_resolution/resolution_jet1_response_single_smear_nominal_smear_0.pdf}
+           {Binned Scale}
+           {200122_comparison_resolution/resolution_jet1_response_single_scale_nominal_smear_0.pdf}
+           {Unbinned Smear}
+           {200122_comparison_resolution/resolution_jet1_response_unbinned_smear_nominal_smear_0.pdf}
+           {Unbinned Scale}
+           {200122_comparison_resolution/resolution_jet1_response_unbinned_scale_nominal_smear_0.pdf}
+
+  \begin{itemize}
+  \item As before, does not agree for all $\alpha$
+  \item Smearing has better agreement at $\alpha = 0$ than the scaling
+  \end{itemize}
+
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Next Steps}
+  \frametitle{Di-jet Mass Peaks in Signal Samples}
+
+  \twofigs{MET Peak}
+          {200122_peak_met/comparison.pdf}
+          {Di-lepton Peak}
+          {200122_peak_lep/comparison.pdf}
+
+  \begin{itemize}
+  \item As expected, regression brings resolution improvement,
+    even after smearing
+  \end{itemize}
 
 \end{frame}
 
 
-\begin{comment}
+\begin{frame}
+  \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item Smearing much less than previously expected now that $t\bar{t}$ is in the picture
+  \item Smearing tends to close better than scaling, but requires random numbers
+  \item Unbinned and binned fits give same results with no $\rho$ bins
+  \item Systematics in unbinned fits are more complicated:
+    \begin{itemize}
+    \item Shape of $\alpha$ (and likely $\rho$) not easy to fit, and affects result
+    \item Relies on fit of response mean as well
+    \item Parton shower uncertainties are particularly large asymmetric
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+
 \beginbackup
 
 \begin{frame}
@@ -532,6 +588,5 @@
 \input{backup_slides.tex}
 
 \backupend
-\end{comment}
 
 \end{document}

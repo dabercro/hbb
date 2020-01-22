@@ -10,7 +10,7 @@ import random
 
 bintype = 'smear'
 
-end = '_1D_bins_allenv'
+end = '_comparison'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -27,7 +27,7 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-ratiodir = '/home/dabercro/public_html/plots/200116%s' % end
+ratiodir = '/home/dabercro/public_html/plots/200122%s' % end
 alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
 
 class MeanCalc(object):
@@ -139,12 +139,18 @@ trainings = [
 #    ('jet1_response_old_scale_nominal', 'Old Scale Nominal'),
 #    ('jet1_response_old_scale_up', 'Old Scale Up'),
 #    ('jet1_response_old_scale_down', 'Old Scale Down'),
-#    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
-#    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
-#    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
-#    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
-#    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
-#    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
+    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
+    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
+    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
+    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
+    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
+    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
+    ('jet1_response_unbinned_smear_nominal', 'Unbinned Smear Nominal'),
+    ('jet1_response_unbinned_smear_up', 'Unbinned Smear Up'),
+    ('jet1_response_unbinned_smear_down', 'Unbinned Smear Down'),
+    ('jet1_response_unbinned_scale_nominal', 'Unbinned Scale Nominal'),
+    ('jet1_response_unbinned_scale_up', 'Unbinned Scale Up'),
+    ('jet1_response_unbinned_scale_down', 'Unbinned Scale Down'),
     ]
 
 smear_fit = ROOT.TGraphErrors(len(rhos))
@@ -278,7 +284,7 @@ for training, trainname in trainings:
                 print 'MC at y-axis: %f +- %f' %  (mc_int, mc_int_err)
 
 
-                smear = math.sqrt(pow(data_int, 2) - pow(mc_int, 2))
+                smear = math.sqrt(abs(pow(data_int, 2) - pow(mc_int, 2))) * (data_int - mc_int) / abs(data_int - mc_int)
                 smear_err = math.sqrt(abs(math.pow(data_int * data_int_err, 2) +
                                           math.pow(mc_int * mc_int_err, 2))) / smear
 
