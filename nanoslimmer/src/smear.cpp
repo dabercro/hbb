@@ -33,7 +33,7 @@ void process_event(int year, smearfile& output, panda::Event& event) {
     }
   }
 
-  if (not output.lep1) {
+  if (not output.lep1 or output.lep2) {
 
     for (auto& electron : event.Electron) {
       if (lepid::Z(electron)) {
