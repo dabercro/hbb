@@ -17,24 +17,26 @@ namespace {
     const double covar;
   };
 
-  const fit_result convoluted_fit {
-    -1.10794e-03,
-    2.75232e-03,
-    1.27932e-01,
-    5.53656e-02,
-    -0.000146337193845
+  const fit_result old_scale {
+    0, 0, 0.1, 0.1, 0
+  };
+
+
+  // 200122_rhobinned.txt
+  const fit_result smearing_fit {
+    -1.11566e-02,
+    4.01779e-03,
+    3.13162e-01,
+    8.48688e-02,
+    -0.000335253719408
   };
 
   const fit_result scaling_fit {
-    -3.20061e-03,
-    1.12476e-02,
-    2.76458e-01,
-    2.37066e-01,
-    -0.00252854286916
-  };
-
-  const fit_result old_scale {
-    0, 0, 0.1, 0.1, 0
+    -3.72781e-03,
+    7.27886e-03,
+    1.01420e-01,
+    1.63902e-01,
+    -0.00111986835956
   };
 
 
@@ -96,7 +98,7 @@ namespace applysmearing {
 
     // Use the result that matches the desired smearing
     const fit_result& fit = std::map<smear_method, fit_result> {
-      {smear_method::SMEAR, convoluted_fit},
+      {smear_method::SMEAR, smearing_fit},
       {smear_method::SCALE, scaling_fit},
       {smear_method::OLD_SCALE, old_scale},
       {smear_method::SINGLE_SCALE, single_bin_scale},
@@ -131,7 +133,7 @@ namespace applysmearing {
 
       smear_result output {
         std::max(0.0, gen_jet_pt + (1.0 + nominal - band) * dpt), // less smearing
-        std::max(0.0, gen_jet_pt + (1.0 + nominal) * dpt),          // nominal smearing
+        std::max(0.0, gen_jet_pt + (1.0 + nominal) * dpt),        // nominal smearing
         std::max(0.0, gen_jet_pt + (1.0 + nominal + band) * dpt)  // more smearing
       };
 

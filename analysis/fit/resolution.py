@@ -8,9 +8,9 @@ import numpy
 import random
 
 
-bintype = 'smear'
+bintype = 'rho'
 
-end = '_comparison'
+end = '_rhobinned'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -91,9 +91,9 @@ ranges = [
 ]
 
 rhos = [
-#    ('_0', 16.5, MeanCalc(), MeanCalc()),
-#    ('_1', 22, MeanCalc(), MeanCalc()),
-    ('', 65, MeanCalc(), MeanCalc())
+    ('_1', 16.5, MeanCalc(), MeanCalc()),
+    ('_2', 22, MeanCalc(), MeanCalc()),
+    ('_3', 65, MeanCalc(), MeanCalc())
 ]
 
 def rhotitle (bin):
@@ -102,8 +102,8 @@ def rhotitle (bin):
     if bin == 0:
         return '#rho < 16.5'
     if bin == 1:
-        return '16.5 < #rho < 22'
-    return '22 < #rho'
+        return '16.5 #leq #rho < 22'
+    return '22 #leq #rho'
 
 
 sys.argv.append('-b')
@@ -139,21 +139,22 @@ trainings = [
 #    ('jet1_response_old_scale_nominal', 'Old Scale Nominal'),
 #    ('jet1_response_old_scale_up', 'Old Scale Up'),
 #    ('jet1_response_old_scale_down', 'Old Scale Down'),
-    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
-    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
-    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
-    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
-    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
-    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
-    ('jet1_response_unbinned_smear_nominal', 'Unbinned Smear Nominal'),
-    ('jet1_response_unbinned_smear_up', 'Unbinned Smear Up'),
-    ('jet1_response_unbinned_smear_down', 'Unbinned Smear Down'),
-    ('jet1_response_unbinned_scale_nominal', 'Unbinned Scale Nominal'),
-    ('jet1_response_unbinned_scale_up', 'Unbinned Scale Up'),
-    ('jet1_response_unbinned_scale_down', 'Unbinned Scale Down'),
+#    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
+#    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
+#    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
+#    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
+#    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
+#    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
+#    ('jet1_response_unbinned_smear_nominal', 'Unbinned Smear Nominal'),
+#    ('jet1_response_unbinned_smear_up', 'Unbinned Smear Up'),
+#    ('jet1_response_unbinned_smear_down', 'Unbinned Smear Down'),
+#    ('jet1_response_unbinned_scale_nominal', 'Unbinned Scale Nominal'),
+#    ('jet1_response_unbinned_scale_up', 'Unbinned Scale Up'),
+#    ('jet1_response_unbinned_scale_down', 'Unbinned Scale Down'),
     ]
 
 smear_fit = ROOT.TGraphErrors(len(rhos))
+scale_fit = ROOT.TGraphErrors(len(rhos))
 
 for training, trainname in trainings:
 
@@ -227,7 +228,7 @@ for training, trainname in trainings:
             ]:
 
             hide = ROOT.TGraph(2)
-            hide.SetTitle('%s;#alpha;%s' % (trainname, name))
+            hide.SetTitle('%s;#alpha;%s' % (rhotitle(bin), name))
             hide.SetPoint(0, 0, mini)
             hide.SetPoint(1, 0.3, maxi)
 
@@ -273,6 +274,7 @@ for training, trainname in trainings:
             print '-'*30
             print trainname
             print training
+            print rhotitle(bin)
             print '-'*30
 
             if makesub:
@@ -286,13 +288,15 @@ for training, trainname in trainings:
 
                 smear = math.sqrt(abs(pow(data_int, 2) - pow(mc_int, 2))) * (data_int - mc_int) / abs(data_int - mc_int)
                 smear_err = math.sqrt(abs(math.pow(data_int * data_int_err, 2) +
-                                          math.pow(mc_int * mc_int_err, 2))) / smear
+                                          math.pow(mc_int * mc_int_err, 2))) / abs(smear)
+
+
+                scale = data_int/mc_int - 1.0
+                scale_err = math.sqrt(pow(data_int_err/mc_int, 2) +
+                                      pow(data_int * mc_int_err/pow(mc_int, 2), 2))
 
                 print 'Smear factor: %f +- %f' % (smear, smear_err)
-                print 'Scale factor: %f +- %f' % (data_int/mc_int - 1.0,
-                                                  math.sqrt(pow(data_int_err/mc_int, 2) +
-                                                            pow(data_int * mc_int_err/pow(mc_int, 2), 2)
-                                                            ))
+                print 'Scale factor: %f +- %f' % (scale, scale_err)
 
                 gen_int, gen_int_err = (gen_func.GetParameter(0), genres.Error(0))
 
@@ -304,6 +308,11 @@ for training, trainname in trainings:
                         pow(gen_int_err * (2 * gen_int - mc_int - data_int)/pow(mc_int - gen_int, 2), 2)
                         )
                     )
+
+                smear_fit.SetPoint(bin, rho[3].mean(), smear)
+                smear_fit.SetPointError(bin, 0, smear_err)
+                scale_fit.SetPoint(bin, rho[3].mean(), scale)
+                scale_fit.SetPointError(bin, 0, scale_err)
 
             else:
                 print 'Data at y-axis:', data_func.GetParameter(1)
@@ -319,63 +328,55 @@ for training, trainname in trainings:
 
 if len(rhos) > 1:
 
-    smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
+    for name, tofit in [('smear_fit', smear_fit), ('scale_fit', scale_fit)]:
 
-    derivative_expr = 'TMath::Sqrt(TMath::Power((x + [2] * [1]) * [3], 2) + TMath::Power(([2] * [0] * x + 1) * [4], 2))'
+        print '-' * 20
+        print name
+        print '-' * 20
 
-    smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40)
-    smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40)
+        smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
 
-    smear_fit_res = smear_fit.Fit(smear_func, 'S')
-    matrix = smear_fit_res.GetCovarianceMatrix()
+        derivative_expr = 'TMath::Sqrt(TMath::Power((x + [2] * [1]) * [3], 2) + TMath::Power(([2] * [0] * x + 1) * [4], 2))'
 
-    big_smear_up = ROOT.TF1('lin', '([0] + [3]) * x + [1] + [4]', 0, 40)
-    big_smear_down = ROOT.TF1('lin', '([0] - [3]) * x + [1] - [4]', 0, 40)
+        smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40)
+        smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40)
 
-    print matrix(0, 0), matrix(0, 1)
-    print matrix(1, 0), matrix(1, 1)
+        smear_fit_res = tofit.Fit(smear_func, 'S')
+        matrix = smear_fit_res.GetCovarianceMatrix()
 
-    for func in [smear_func_down, smear_func_up, big_smear_up, big_smear_down]:
-        func.SetParameter(0, smear_func.GetParameter(0))
-        func.SetParameter(1, smear_func.GetParameter(1))
-        func.SetParameter(2, matrix(0, 1))
-        func.SetParameter(3, smear_fit_res.Error(0))
-        func.SetParameter(4, smear_fit_res.Error(1))
+        print matrix(0, 0), matrix(0, 1)
+        print matrix(1, 0), matrix(1, 1)
 
-        func.SetLineColor(2)
-        func.SetLineWidth(1)
+        for func in [smear_func_down, smear_func_up]:
+            func.SetParameter(0, smear_func.GetParameter(0))
+            func.SetParameter(1, smear_func.GetParameter(1))
+            func.SetParameter(2, matrix(0, 1))
+            func.SetParameter(3, smear_fit_res.Error(0))
+            func.SetParameter(4, smear_fit_res.Error(1))
 
-    print smear_func_down.Eval(0)
-    print smear_func_up.Eval(0)
+            func.SetLineColor(2)
+            func.SetLineWidth(1)
 
-    print smear_func_down.Eval(16)
-    print smear_func_up.Eval(16)
+        hide2 = ROOT.TGraph(2)
 
-    print smear_func_down.Eval(24)
-    print smear_func_up.Eval(24)
+        hide2.SetTitle('%s;#rho;#sigma_{smear}' % ('Smearing' if name == 'smear_fit' else 'Scaling',))
+        hide2.SetPoint(0, 0, -0.5)
+        hide2.SetPoint(1, 35, 0.5)
 
-    hide2 = ROOT.TGraph(2)
+        tofit.SetMarkerStyle(8)
 
-    hide2.SetTitle('Smearing;#rho;#sigma_{smear}')
-    hide2.SetPoint(0, 0, -0.5)
-    hide2.SetPoint(1, 35, 0.5)
+        c2 = ROOT.TCanvas()
+        hide2.Draw('ap')
+        tofit.Draw('p,same')
+        smear_func.Draw('same')
+        smear_func_down.Draw('same')
+        smear_func_up.Draw('same')
 
-    smear_fit.SetMarkerStyle(8)
-
-    c2 = ROOT.TCanvas()
-    hide2.Draw('ap')
-    smear_fit.Draw('p,same')
-    smear_func.Draw('same')
-    smear_func_down.Draw('same')
-    smear_func_up.Draw('same')
-    #big_smear_down.Draw('same')
-    #big_smear_up.Draw('same')
-
-    for ext in ['pdf', 'png', 'C']:
-        c2.SaveAs(
-            os.path.join(newdir,
-                         os.path.basename('smear_fit.%s' % ext)
-                         )
-            )
+        for ext in ['pdf', 'png', 'C']:
+            c2.SaveAs(
+                os.path.join(newdir,
+                             os.path.basename('%s.%s' % (name, ext))
+                             )
+                )
 
 os.system('cp %s %s/models.cnf' % (__file__, newdir))
