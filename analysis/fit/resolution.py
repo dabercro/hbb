@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import os
+import glob
 import sys
 import datetime
 import math
@@ -8,9 +9,10 @@ import numpy
 import random
 
 
-bintype = 'smear'
+bintype = 'rho'
 
-end = '_comparison'
+date = '200124'
+end = '_fixes'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -27,7 +29,7 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-ratiodir = '/home/dabercro/public_html/plots/200123%s' % end
+ratiodir = '/home/dabercro/public_html/plots/%s%s' % (date, end)
 alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
 
 class MeanCalc(object):
@@ -91,11 +93,12 @@ ranges = [
 ]
 
 rhos = [
-#    ('_1', 16.5, MeanCalc(), MeanCalc()),
-#    ('_2', 22, MeanCalc(), MeanCalc()),
-#    ('_3', 65, MeanCalc(), MeanCalc())
+    ('_1', 16.5, MeanCalc(), MeanCalc()),
+    ('_2', 22, MeanCalc(), MeanCalc()),
+    ('_3', 65, MeanCalc(), MeanCalc())
+    ] if bintype == 'rho' else [
     ('', 65, MeanCalc(), MeanCalc())
-]
+    ]
 
 def rhotitle (bin):
     if len(rhos) == 1:
@@ -158,6 +161,10 @@ smear_fit = ROOT.TGraphErrors(len(rhos))
 scale_fit = ROOT.TGraphErrors(len(rhos))
 
 for training, trainname in trainings:
+
+    if not glob.glob(os.path.join(ratiodir,
+                                  '*%s*.root' % training)):
+        continue
 
     for bin, rho in enumerate(rhos):
 
