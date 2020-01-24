@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 import os
+import glob
 import sys
 import datetime
 import math
@@ -10,7 +11,8 @@ import random
 
 bintype = 'rho'
 
-end = '_rhobinned'
+date = '200124'
+end = '_fixes'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -27,7 +29,7 @@ newdir = os.path.join(
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-ratiodir = '/home/dabercro/public_html/plots/200122%s' % end
+ratiodir = '/home/dabercro/public_html/plots/%s%s' % (date, end)
 alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
 
 class MeanCalc(object):
@@ -94,7 +96,9 @@ rhos = [
     ('_1', 16.5, MeanCalc(), MeanCalc()),
     ('_2', 22, MeanCalc(), MeanCalc()),
     ('_3', 65, MeanCalc(), MeanCalc())
-]
+    ] if bintype == 'rho' else [
+    ('', 65, MeanCalc(), MeanCalc())
+    ]
 
 def rhotitle (bin):
     if len(rhos) == 1:
@@ -130,33 +134,37 @@ for calcs, filename in [(ranges, 'smearplot_alpha.root'),
 
 trainings = [
     ('jet1_response', 'No Smearing'),
-#    ('jet1_response_smear_nominal', 'Smear Nominal'),
-#    ('jet1_response_smear_up', 'Smear Up'),
-#    ('jet1_response_smear_down', 'Smear Down'),
-#    ('jet1_response_scale_nominal', 'Scale Nominal'),
-#    ('jet1_response_scale_up', 'Scale Up'),
-#    ('jet1_response_scale_down', 'Scale Down'),
+    ('jet1_response_smear_nominal', 'Smear Nominal'),
+    ('jet1_response_smear_up', 'Smear Up'),
+    ('jet1_response_smear_down', 'Smear Down'),
+    ('jet1_response_scale_nominal', 'Scale Nominal'),
+    ('jet1_response_scale_up', 'Scale Up'),
+    ('jet1_response_scale_down', 'Scale Down'),
 #    ('jet1_response_old_scale_nominal', 'Old Scale Nominal'),
 #    ('jet1_response_old_scale_up', 'Old Scale Up'),
 #    ('jet1_response_old_scale_down', 'Old Scale Down'),
-#    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
-#    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
-#    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
-#    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
-#    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
-#    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
-#    ('jet1_response_unbinned_smear_nominal', 'Unbinned Smear Nominal'),
-#    ('jet1_response_unbinned_smear_up', 'Unbinned Smear Up'),
-#    ('jet1_response_unbinned_smear_down', 'Unbinned Smear Down'),
-#    ('jet1_response_unbinned_scale_nominal', 'Unbinned Scale Nominal'),
-#    ('jet1_response_unbinned_scale_up', 'Unbinned Scale Up'),
-#    ('jet1_response_unbinned_scale_down', 'Unbinned Scale Down'),
+    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
+    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
+    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
+    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
+    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
+    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
+    ('jet1_response_unbinned_smear_nominal', 'Unbinned Smear Nominal'),
+    ('jet1_response_unbinned_smear_up', 'Unbinned Smear Up'),
+    ('jet1_response_unbinned_smear_down', 'Unbinned Smear Down'),
+    ('jet1_response_unbinned_scale_nominal', 'Unbinned Scale Nominal'),
+    ('jet1_response_unbinned_scale_up', 'Unbinned Scale Up'),
+    ('jet1_response_unbinned_scale_down', 'Unbinned Scale Down'),
     ]
 
 smear_fit = ROOT.TGraphErrors(len(rhos))
 scale_fit = ROOT.TGraphErrors(len(rhos))
 
 for training, trainname in trainings:
+
+    if not glob.glob(os.path.join(ratiodir,
+                                  '*%s*.root' % training)):
+        continue
 
     for bin, rho in enumerate(rhos):
 

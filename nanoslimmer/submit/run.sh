@@ -15,7 +15,9 @@ scram project CMSSW $CMSSW_VER
 cd $CMSSW_VER
 
 tar -xf ../nano.tgz
-ls
+
+echo "Git commit:"
+cat tag
 
 cd src
 eval `scram runtime -sh`

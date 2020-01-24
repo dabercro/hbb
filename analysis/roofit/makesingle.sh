@@ -39,4 +39,9 @@ hadd -f data.root DoubleMuon.root EGamma.root
 
 mv *.root single
 
+mv single/data.root .
+
+crombie skim -n 1 -i . -o single --copy htotal -r run -l luminosityBlock -e event \
+    -d --disable /home/dabercro/hbb/analysis/roofit/ps_corrected.txt
+
 cd -
