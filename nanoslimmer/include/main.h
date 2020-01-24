@@ -8,11 +8,14 @@
 #include "TH1F.h"
 #include "TFile.h"
 
+#include <ctime>
 #include <string>
 
 
 template <typename T> 
 int main_wrapper(int argc, char** argv) {
+
+  auto start_time = std::time(nullptr);
 
   int output_code = 0;
 
@@ -63,6 +66,13 @@ int main_wrapper(int argc, char** argv) {
   }
 
   output.write(&all_hist);
+
+  auto end_time = std::time(nullptr);
+
+  std::cout << "Ran over " << (argc - 3) << " file"
+            << (argc == 4 ? "" : "s") << " in "
+            << (end_time - start_time) << " seconds." << std::endl;
+
   return output_code;
 
 }
