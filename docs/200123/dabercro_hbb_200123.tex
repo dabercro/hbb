@@ -192,7 +192,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Jet Resolution Selection}
+  \frametitle{Selection -- Triggers}
+
+  In data only, there are no trigger efficiencies applied to MC
 
   \begin{itemize}
   \item Triggers:
@@ -213,7 +215,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Jet Resolution Selection}
+  \frametitle{Selection -- Leptons}
 
   \begin{itemize}
   \item Two leptons satisfying:
@@ -230,7 +232,7 @@
         \texttt{mvaFall17V2Iso\_WP90} and \texttt{pfRelIso03\_all} $< 0.15$
       \end{itemize}
     \end{itemize}
-  \item Any third lepton with same flavor causes event to be thrown out
+  \item Any third lepton (either muon or electron) causes event to be thrown out
   \item $\SI{71}{GeV} < m_{\ell\ell} < \SI{111}{GeV}$
   \item $p_{T,\ell\ell} > \SI{100}{GeV}$
   \end{itemize}
@@ -239,7 +241,7 @@
 
 
 \begin{frame}
-  \frametitle{Jet Resolution Selection}
+  \frametitle{Selection -- Jets}
 
   Selecting events with one jet is hard due to jet acceptance,
   and would result in few events
@@ -549,9 +551,9 @@
   \frametitle{Di-jet Mass Peaks in Signal Samples}
 
   \twofigs{MET Peak}
-          {200122_peak_met/comparison.pdf}
+          {200123_metpeak/comparison.pdf}
           {Di-lepton Peak}
-          {200122_peak_lep/comparison.pdf}
+          {200123_leppeak/comparison.pdf}
 
   \begin{itemize}
   \item As expected, regression brings resolution improvement,
@@ -566,13 +568,14 @@
 
   \begin{itemize}
   \item Smearing much less than previously expected now that $t\bar{t}$ is in the picture
-  \item Smearing tends to close better than scaling, but requires random numbers
+  \item Smearing closes slightly better than scaling (still within uncertainties),
+    but requires random numbers
   \item Unbinned and binned fits give same results with no $\rho$ bins
   \item Systematics in unbinned fits are more complicated:
     \begin{itemize}
     \item Shape of $\alpha$ (and likely $\rho$) not easy to fit, and affects result
     \item Relies on fit of response mean as well
-    \item Parton shower uncertainties are particularly large asymmetric
+    \item Parton shower uncertainties are large and asymmetric
     \end{itemize}
   \end{itemize}
 

@@ -1,0 +1,14 @@
+
+- Show additional plots for MET and leptons peaks
+- Don't mix v5 and v6 data samples
+
+- Working point for b-tagging is looser
+- di-lepton pT could also be changed, perhaps
+
+- jetId and puId may be tighter
+- Trigger efficiencies exist
+- btagWeight_DeepCSVB not used. Check what it is vs jet b-tag values
+
+- Remove duplicate events
+- Try sum of Gaussian and Landau
+- Run with the custom NanoAOD at MIT
