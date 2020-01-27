@@ -1,3 +1,4 @@
+-- Compare v6 and new PR merge regression resolution in Vpt bins
 
 - Show additional plots for MET and leptons peaks
 - Don't mix v5 and v6 data samples
