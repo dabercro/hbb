@@ -6,7 +6,7 @@
 #include "main.h"
 
 
-void process_event(int year, hbbfile& output, const panda::Event& event) {
+void process_event(const std::string& year, hbbfile& output, const panda::Event& event) {
 
   output.reset(event);
 

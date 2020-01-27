@@ -7,7 +7,7 @@
 #include "JECCorrector.h"
 
 
-void process_event(int year, smearfile& output, panda::Event& event) {
+void process_event(const std::string& year, smearfile& output, panda::Event& event) {
 
   // Do the stuff
 

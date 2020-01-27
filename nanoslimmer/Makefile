@@ -9,7 +9,7 @@ hbb = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/hbbnano
 tag = ${CMSSW_BASE}/tag
 tarball = ${CMSSW_BASE}/nano.tgz
 
-smeartestfile = /data/t3home000/dabercro/scratch/nano/hbb/*.root
+smeartestfile = /data/t3home000/dabercro/scratch/nano/v6/*.root
 
 nano_version = v5
 
@@ -61,7 +61,7 @@ smeartestdir = ${HOME}/public_html/plots/testnanosmear
 
 smeartest: $(smear)
 	test ! -f smear.root || rm smear.root
-	$(smear) 2018 $(smeartestfile) smear.root
+	$(smear) 2018_v6 $(smeartestfile) smear.root
 	test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
 	test ! -d $(smeartestdir) || mv $(smeartestdir) $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump smear.root $(smeartestdir)

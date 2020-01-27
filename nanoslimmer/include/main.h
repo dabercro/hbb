@@ -19,7 +19,7 @@ int main_wrapper(int argc, char** argv) {
 
   int output_code = 0;
 
-  int year = std::stoi(argv[1]);
+  std::string year {argv[1]};
 
   std::cout << "Setting year to: " << year << std::endl;
 

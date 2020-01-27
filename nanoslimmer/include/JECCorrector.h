@@ -37,7 +37,7 @@ namespace panda {
     const JetCollection& get_jets () const;
     const RecoMet& get_met () const;
 
-    static void adjust_event (panda::Event& event, int year);
+    static void adjust_event (panda::Event& event, const std::string& year);
 
   private:
 
@@ -171,7 +171,13 @@ const panda::RecoMet& panda::JECCorrector::get_met () const {
 }
 
 
-void panda::JECCorrector::adjust_event (panda::Event& event, int year) {
+void panda::JECCorrector::adjust_event (panda::Event& event, const std::string& year) {
+
+  // No update needed for these
+  if (year == "2018_v6")
+    return;
+
+  int year_int = std::stoi(year);
 
   const std::map<int, std::string> begin = {
     {2017, "Fall17_17Nov2017"},
@@ -185,7 +191,7 @@ void panda::JECCorrector::adjust_event (panda::Event& event, int year) {
             : (std::vector<std::string>{"A", "B", "C", "D"}[(event.run > 316995) + (event.run > 319312) + (event.run > 320393)] + "_V19_DATA"))}
   };
 
-  static panda::JECCorrector corrector {std::string(getenv("CMSSW_BASE")) + "/jec/" + begin.at(year) + vers.at(year), "AK4PFchs"};
+  static panda::JECCorrector corrector {std::string(getenv("CMSSW_BASE")) + "/jec/" + begin.at(year_int) + vers.at(year_int), "AK4PFchs"};
 
   auto [jets, met] = corrector.get_jets_met(event, event.Jet, event.MET);
 
