@@ -1,0 +1,56 @@
+[?1034h FCN=0.813385 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.1405e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.07043e-01   9.63649e-03   1.76747e-06   2.19849e-08
+   2  p1           8.57234e-02   5.05786e-02   9.27687e-06   4.57762e-09
+ FCN=8.33208 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=7.53543e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87095e-01   4.66783e-02   3.04018e-05   1.83182e-02
+   2  p1           1.51208e-01   5.68684e-03   3.70455e-06   1.16593e-01
+   3  p2           8.00828e-01     fixed    
+ FCN=2.3808 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=2.00424e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.48308e-01   6.93201e-02   2.84827e-05   1.98661e-03
+   2  p1           1.42765e-01   8.42722e-03   3.46345e-06   1.38261e-02
+   3  p2           8.00828e-01     fixed    
+------------------------------
+No Smearing
+jet1_response
+
+------------------------------
+Data at y-axis: 0.151208 +- 0.005687
+MC at y-axis: 0.142765 +- 0.008427
+Smear factor: 0.049820 +- 0.029683
+Scale factor: 0.059139 +- 0.074131
+Scale factor (from gen): 0.236355 +- 0.688751
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000356202
+NDf                       =            2
+Edm                       =    3.919e-27
+NCalls                    =           33
+p0                        =    -0.533114   +/-   0.13472     
+p1                        =     0.986781   +/-   0.0265425   
+
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =  0.000142031
+NDf                       =            2
+Edm                       =  1.67475e-25
+NCalls                    =           31
+p0                        =    -0.538411   +/-   0.0829973   
+p1                        =      1.00179   +/-   0.0163436   
+------------------------------
+No Smearing
+jet1_response
+
+------------------------------
+Data at y-axis: 0.986781235414
+MC at y-axis: 1.00178647144
+Scale factor: 0.985021522599

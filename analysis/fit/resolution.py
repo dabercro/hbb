@@ -9,28 +9,30 @@ import numpy
 import random
 
 
-bintype = 'rho'
+bintype = 'jet'
 
-date = '200124'
-end = '_fixes'
+date = '200128'
+end = '2018v6_ptbins'
 
 newdir = os.path.join(
     os.environ['HOME'],
     'public_html/plots',
-    '%s%s%s_resolution' % (
+    '%s_%s%s_%s_%s' % (
         datetime.date.strftime(
             datetime.datetime.now(), '%y%m%d'
             ),
-        end,
-        sys.argv[1] if len(sys.argv) > 1 else ''
+        bintype,
+        sys.argv[1] if len(sys.argv) > 1 else '',
+        date, end
         )
     )
 
 if not os.path.exists(newdir):
     os.mkdir(newdir)
 
-ratiodir = '/home/dabercro/public_html/plots/%s%s' % (date, end)
-alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
+ratiodir = '/home/dabercro/public_html/plots/%s_%s' % (date, end)
+alphadir = ratiodir
+#alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
 
 class MeanCalc(object):
 
@@ -100,6 +102,12 @@ rhos = [
     ('', 65, MeanCalc(), MeanCalc())
     ]
 
+jets = [
+    ('_1', 100, MeanCalc(), MeanCalc()),
+    ('_2', 130, MeanCalc(), MeanCalc()),
+    ('_3', 500, MeanCalc(), MeanCalc())
+    ]
+
 def rhotitle (bin):
     if len(rhos) == 1:
         return ''
@@ -113,8 +121,10 @@ def rhotitle (bin):
 sys.argv.append('-b')
 import ROOT
 
+other = (rhos, 'smearplot_rhoAll.root') if bintype != 'jet' else (jets, 'smearplot_jet1_pt_regressed.root')
+
 for calcs, filename in [(ranges, 'smearplot_alpha.root'),
-                        (rhos, 'smearplot_rhoAll.root')]:
+                        other]:
 
     index = 0
 
@@ -166,7 +176,7 @@ for training, trainname in trainings:
                                   '*%s*.root' % training)):
         continue
 
-    for bin, rho in enumerate(rhos):
+    for bin, rho in enumerate(other[0]):
 
         index = 0
 
@@ -334,7 +344,7 @@ for training, trainname in trainings:
                                  )
                     )
 
-if len(rhos) > 1:
+if len(rhos) > 1 or bintype == 'jet':
 
     for name, tofit in [('smear_fit', smear_fit), ('scale_fit', scale_fit)]:
 
@@ -342,12 +352,12 @@ if len(rhos) > 1:
         print name
         print '-' * 20
 
-        smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40)
+        smear_func = ROOT.TF1('lin', '[0] * x + [1]', 0, 40 if bintype == 'rho' else 400)
 
         derivative_expr = 'TMath::Sqrt(TMath::Power((x + [2] * [1]) * [3], 2) + TMath::Power(([2] * [0] * x + 1) * [4], 2))'
 
-        smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40)
-        smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40)
+        smear_func_down = ROOT.TF1('down', '[0] * x + [1] - ' + derivative_expr, 0, 40 if bintype == 'rho' else 400)
+        smear_func_up = ROOT.TF1('down', '[0] * x + [1] + ' + derivative_expr, 0, 40 if bintype == 'rho' else 400)
 
         smear_fit_res = tofit.Fit(smear_func, 'S')
         matrix = smear_fit_res.GetCovarianceMatrix()
@@ -369,7 +379,7 @@ if len(rhos) > 1:
 
         hide2.SetTitle('%s;#rho;#sigma_{smear}' % ('Smearing' if name == 'smear_fit' else 'Scaling',))
         hide2.SetPoint(0, 0, -0.5)
-        hide2.SetPoint(1, 35, 0.5)
+        hide2.SetPoint(1, 35 if bintype == 'rho' else 250, 0.5)
 
         tofit.SetMarkerStyle(8)
 
