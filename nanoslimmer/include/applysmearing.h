@@ -98,7 +98,7 @@ namespace {
     }
   };
 
-  all_smears loaded = smear_versions.at("2018_v5");
+  const all_smears* loaded = &smear_versions.at("2018_v5");
 
 }
 
@@ -106,7 +106,7 @@ namespace {
 namespace applysmearing {
 
   void load (const std::string& year) {
-    loaded = smear_versions.at(year);
+    loaded = &smear_versions.at(year);
   }
 
   struct smear_result {
@@ -147,12 +147,12 @@ namespace applysmearing {
     // Use the result that matches the desired smearing
     const fit_result& fit = std::map<smear_method, fit_result> {
       {smear_method::OLD_SCALE, old_scale},
-      {smear_method::SCALE, loaded.binned_scale},
-      {smear_method::SMEAR, loaded.binned_smear},
-      {smear_method::SINGLE_SCALE, loaded.single_bin_scale},
-      {smear_method::SINGLE_SMEAR, loaded.single_bin_smear},
-      {smear_method::UNBINNED_SCALE, loaded.unbinned_scale},
-      {smear_method::UNBINNED_SMEAR, loaded.unbinned_smear}
+      {smear_method::SCALE, loaded->binned_scale},
+      {smear_method::SMEAR, loaded->binned_smear},
+      {smear_method::SINGLE_SCALE, loaded->single_bin_scale},
+      {smear_method::SINGLE_SMEAR, loaded->single_bin_smear},
+      {smear_method::UNBINNED_SCALE, loaded->unbinned_scale},
+      {smear_method::UNBINNED_SMEAR, loaded->unbinned_smear}
     }.at(method);
 
     auto nominal = nominal_smear(rho, fit);
