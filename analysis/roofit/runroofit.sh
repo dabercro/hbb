@@ -32,5 +32,6 @@ do
 
 done
 
+cp CrombieAnalysisConfig.sh $outdir
 cp roofit.py $outdir
 mv plots/* $outdir
