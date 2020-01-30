@@ -16,8 +16,8 @@ from CrombieTools import LoadConfig
 indir = '%s/single' % os.environ['CrombieInFilesDir']
 mc = 'mc.root'
 data = 'data.root'
-cut = 'jet1_btagDeepB > 0.9'
-cutvars = ['jet1_btagDeepB']
+cut = 'jet1_btagDeepB > 0.8 && dilep_pt > 100'
+cutvars = ['jet1_btagDeepB', 'dilep_pt']
 
 alpha_shape = sys.argv[1] if len(sys.argv) > 1 else 'Landau'
 xsec_var = sys.argv[2] if len(sys.argv) > 2 else 'xsec_weight'
@@ -46,7 +46,7 @@ g.factory('Gaussian::gauss(jet1_response_intrinsic[0, 2], mean, width)')
 g.factory('PROD::model(gauss|alpha, alphafit)')
 
 
-gencutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
+gencutvars = [ROOT.RooRealVar(var, var, 0, 10000) for var in cutvars]
 gencutvars.append(ROOT.RooRealVar(xsec_var, xsec_var, -1, 1))
 
 genpoints = ROOT.RooDataSet('gen', 'gen',
@@ -107,7 +107,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     jet1_response = w.var('jet1_response')
 
-    roocutvars = [ROOT.RooRealVar(var, var, 0, 1) for var in cutvars]
+    roocutvars = [ROOT.RooRealVar(var, var, 0, 10000) for var in cutvars]
 
     if kind == 'mc':
         roocutvars.append(ROOT.RooRealVar(xsec_var, xsec_var, -1, 1))
@@ -159,7 +159,7 @@ data_int_err = results['width_intercept']['data']['err']
 mc_int = results['width_intercept']['mc']['val']
 mc_int_err = results['width_intercept']['mc']['err']
 
-smear = math.sqrt(abs(pow(data_int, 2) - pow(mc_int, 2))) * (data_int - mc_int)/abs(data_int - mc_int)
+smear = math.sqrt(abs(pow(data_int, 2) - pow(mc_int, 2))) * (data_int - mc_int)/(abs(data_int - mc_int) if data_int != mc_int else 1)
 smear_err = math.sqrt(abs(math.pow(data_int * data_int_err, 2) +
                           math.pow(mc_int * mc_int_err, 2))) / smear
 
