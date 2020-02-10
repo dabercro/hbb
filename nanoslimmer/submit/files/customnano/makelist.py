@@ -17,7 +17,7 @@ def get_subs(paths):
         if path.startswith(directory):
             if path.endswith('.root'):
                 files.append(path)
-            else:
+            elif '/tmp_' not in path:
                 print 'Checking', path
                 output.extend(subprocess.check_output('xrdfs %s ls %s' % (door, path), shell=True).split('\n')[:-1])
     if output:
