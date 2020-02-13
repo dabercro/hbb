@@ -1,0 +1,156 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie, \\
+  Guillelmo G\'omez-Ceballos, \\
+  Dymtro Kovalskyi, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{\bf \sffamily Title Here}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \frametitle{Plots}
+
+  \fourfigs{First pass}
+           {200208_zvv_2017/lightz_FatJet_eta[FatJet_HiggsProducts].pdf}
+           {}
+           {200208_zvv_2017/heavyz_FatJet_eta[FatJet_HiggsProducts].pdf}
+           {Attempt to Sync}
+           {200210_test/lightz_FatJet_eta.pdf}
+           {}
+           {200210_test/heavyz_FatJet_eta.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cuts}
+
+  \begin{itemize}
+  \item First pass:
+    \begin{itemize}
+    \item \texttt{\scriptsize lightz -- (((MET\_pt > 200 \&\& abs(HVdPhi\_fit\_fallback) > 1.8 \&\& V\_pt > 250) \&\& (FatJet\_HiggsProducts >= 0 \&\& nFatJet > 0 \&\& FatJet\_pt[FatJet\_HiggsProducts] > 250 \&\& FatJet\_Msoftdrop[FatJet\_HiggsProducts] > 50) \&\& (Sum\$(abs(TVector2::Phi\_mpi\_pi(Jet\_phi - MET\_phi)) < 0.2 \&\& Jet\_pt > 30) == 0)) \&\& !(0.8 < FatJet\_deepTagMD\_bbvsLight[FatJet\_HiggsProducts]) \&\& (nAddLeptons == 0 \&\& (Sum\$(pow(TVector2::Phi\_mpi\_pi(Muon\_phi - FatJet\_phi[FatJet\_HiggsProducts]), 2) + pow(Muon\_eta - FatJet\_eta[FatJet\_HiggsProducts], 2) > pow(0.8, 2)) + Sum\$(pow(TVector2::Phi\_mpi\_pi(Electron\_phi - FatJet\_phi[FatJet\_HiggsProducts]), 2) + pow(Electron\_eta - FatJet\_eta[FatJet\_HiggsProducts], 2) > pow(0.8, 2))) == 0) \&\& (Sum\$(pow(TVector2::Phi\_mpi\_pi(Jet\_phi - FatJet\_phi[FatJet\_HiggsProducts]), 2) + pow(Jet\_eta - FatJet\_eta[FatJet\_HiggsProducts], 2) > pow(0.8, 2)) == 0))}
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+    
+\begin{frame}
+  \frametitle{Cuts}
+
+  \begin{itemize}
+  \item First pass:
+    \begin{itemize}
+    \item \texttt{\scriptsize heavyz -- ((((MET\_pt > 200 \&\& abs(HVdPhi\_fit\_fallback) > 1.8 \&\& V\_pt > 250) \&\& (FatJet\_HiggsProducts >= 0 \&\& nFatJet > 0 \&\& FatJet\_pt[FatJet\_HiggsProducts] > 250 \&\& FatJet\_Msoftdrop[FatJet\_HiggsProducts] > 50) \&\& (Sum\$(abs(TVector2::Phi\_mpi\_pi(Jet\_phi - MET\_phi)) < 0.2 \&\& Jet\_pt > 30) == 0)) \&\& (0.8 < FatJet\_deepTagMD\_bbvsLight[FatJet\_HiggsProducts]) \&\& (nAddLeptons == 0 \&\& (Sum\$(pow(TVector2::Phi\_mpi\_pi(Muon\_phi - FatJet\_phi[FatJet\_HiggsProducts]), 2) + pow(Muon\_eta - FatJet\_eta[FatJet\_HiggsProducts], 2) > pow(0.8, 2)) + Sum\$(pow(TVector2::Phi\_mpi\_pi(Electron\_phi - FatJet\_phi[FatJet\_HiggsProducts]), 2) + pow(Electron\_eta - FatJet\_eta[FatJet\_HiggsProducts], 2) > pow(0.8, 2))) == 0) \&\& (Sum\$(pow(TVector2::Phi\_mpi\_pi(Jet\_phi - FatJet\_phi[FatJet\_HiggsProducts]), 2) + pow(Jet\_eta - FatJet\_eta[FatJet\_HiggsProducts], 2) > pow(0.8, 2)) == 0)) \&\& !(90 < FatJet\_Msoftdrop[FatJet\_HiggsProducts] \&\& 150 > FatJet\_Msoftdrop[FatJet\_HiggsProducts]))}
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cuts}
+
+  \begin{itemize}
+  \item Attempt to Sync
+    \begin{itemize}
+    \item \texttt{\scriptsize lightz -- ((Hbb\_fjidx > -1 \&\& V\_pt > 250 \&\& isZnn == 1 \&\& FatJet\_Msoftdrop[Hbb\_fjidx] > 50) \&\& !(FatJet\_deepTagMD\_bbvsLight[Hbb\_fjidx] > 0.8) \&\& (nAddLeptons == 0) \&\& (Sum\$(pow(TVector2::Phi\_mpi\_pi(Jet\_phi - FatJet\_phi[Hbb\_fjidx]), 2) + pow(Jet\_eta - FatJet\_eta[Hbb\_fjidx], 2) > pow(0.8, 2)) == 0))}
+    \item \texttt{\scriptsize heavyz -- ((Hbb\_fjidx > -1 \&\& V\_pt > 250 \&\& isZnn == 1 \&\& FatJet\_Msoftdrop[Hbb\_fjidx] > 50) \&\& (FatJet\_deepTagMD\_bbvsLight[Hbb\_fjidx] > 0.8) \&\& !(90 > FatJet\_Msoftdrop[Hbb\_fjidx] \&\& 150 < FatJet\_Msoftdrop[Hbb\_fjidx]) \&\& (nAddLeptons == 0) \&\& (Sum\$(pow(TVector2::Phi\_mpi\_pi(Jet\_phi - FatJet\_phi[Hbb\_fjidx]), 2) + pow(Jet\_eta - FatJet\_eta[Hbb\_fjidx], 2) > pow(0.8, 2)) == 0))}
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Weights}
+
+  \begin{itemize}
+  \item \texttt{\scriptsize dataweight -- (HLT\_PFMET120\_PFMHT120\_IDTight \&\& HLT\_PFMET120\_PFMHT120\_IDTight\_PFHT60 \&\& Flag\_METFilters)}
+  \item \texttt{\scriptsize mcweight -- (genWeight * weight\_mettrigSF * weightJetPUID * Jet\_btagSF * weightLOtoNLO)}
+  \end{itemize}
+
+\end{frame}
+
+\end{document}
