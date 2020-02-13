@@ -19,7 +19,7 @@ data = 'data.root'
 cut = 'jet1_btagDeepB > 0.8 && dilep_pt > 100'
 cutvars = ['jet1_btagDeepB', 'dilep_pt']
 
-alpha_shape = sys.argv[1] if len(sys.argv) > 1 else 'Landau'
+alpha_shape = sys.argv[1] if len(sys.argv) > 1 else 'sum'
 xsec_var = sys.argv[2] if len(sys.argv) > 2 else 'xsec_weight'
 
 toprint = defaultdict(dict)
@@ -33,7 +33,13 @@ genfile = ROOT.TFile(os.path.join(indir, mc))
 # Linear intrinsic fit
 
 # Alpha distribution
-g.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])' % alpha_shape)
+if alpha_shape == 'sum':
+    g.factory('Landau::alpha_landau(alpha[0, 0.3], alpha_mean_landau[0.15, 0, 0.25], alpha_width_landau[0.1, 0, 0.3])')
+    g.factory('Gaussian::alpha_gaussian(alpha, alpha_mean_gaussian[0.15, 0, 0.25], alpha_width_gaussian[0.05, 0, 0.3])')
+    g.factory('SUM::alphafit(landau_norm[0.5, 0, 1.0] * alpha_landau, gaussian_norm[0.5, 0, 1.0] * alpha_gaussian)')
+else:
+    g.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])' % alpha_shape)
+
 
 # Mean is linear as a function of alpha
 g.factory('PolyVar::mean(alpha, {mean_0[1, 0, 2], mean_1[0, -5, 5]})')
@@ -69,6 +75,11 @@ frame.Draw()
 for end in ['pdf', 'png']:
     c.SaveAs('plots/%s_%s_%s.%s' % (alpha_shape, xsec_var, 'gen', end))
 
+print '=' * 20
+print 'End of GEN'
+print '=' * 20
+
+
 # Width slope from intrinsic is fixed
 
 width_slope = g.var('width_slope')
@@ -86,7 +97,13 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     # Fit
 
     # Alpha distribution
-    w.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])' % alpha_shape)
+    if alpha_shape == 'sum':
+        w.factory('Landau::alpha_landau(alpha[0, 0.3], alpha_mean_landau[0.15, 0, 0.25], alpha_width_landau[0.1, 0, 0.3])')
+        w.factory('Gaussian::alpha_gaussian(alpha, alpha_mean_gaussian[0.15, 0, 0.25], alpha_width_gaussian[0.05, 0, 0.3])')
+        w.factory('SUM::alphafit(landau_norm[0.5, 0, 1.0] * alpha_landau, gaussian_norm[0.5, 0, 1.0] * alpha_gaussian)')
+    else:
+        w.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])' % alpha_shape)
+
 
     alpha = w.var('alpha')
 
@@ -141,7 +158,10 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     for end in ['pdf', 'png']:
         c.SaveAs('plots/%s_%s_%s.%s' % (alpha_shape, xsec_var, kind, end))
 
-    for var in ['alpha_width', 'alpha_mean', 'mean_0', 'mean_1', 'width_intercept', 'width_slope', 'width_slope_2']:
+    for var in ['mean_0', 'mean_1', 'width_intercept', 'width_slope', 'width_slope_2'] + (
+        ['alpha_width', 'alpha_mean'] if alpha_shape != 'sum' else
+        ['alpha_width_landau', 'alpha_mean_landau', 'alpha_width_gaussian', 'alpha_mean_gaussian']
+        ):
         handle = w.var(var)
         toprint[var][kind] = '%s +- %s' % (handle.getVal(), handle.getError())
         results[var][kind]['val'] = handle.getVal()

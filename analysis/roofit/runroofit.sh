@@ -5,7 +5,7 @@ outdir=${1:?}
 test -d $outdir || mkdir $outdir
 test -d plots || mkdir plots
 
-for shape in Landau Gaussian
+for shape in sum Landau Gaussian
 do
 
     ./roofit.py $shape xsec_weight > $outdir/${shape}_xsec_weight.txt
