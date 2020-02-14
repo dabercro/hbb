@@ -70,4 +70,4 @@ untrained_response <- jet1_pt/dilep_pt
 ++ lep1_pt > 20 and lep2_pt > 20 and (lep1_q + lep2_q) == 0 and \
    fabs(jet1_eta) < 2.4 and jet1_dphi_ll > 2.8 and \
    dilep_m > 71 and dilep_m < 111 and \
-   alpha < 0.3 and dilep_pt > 50 and num_bjet == 2 and jet1_btagDeepB > 0.3 ++
+   alpha < 0.3 and dilep_pt > 50 and jet1_btagDeepB > 0.3 ++
