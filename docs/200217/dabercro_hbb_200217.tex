@@ -97,58 +97,127 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Z + Heavy Flavor CR}
+  \frametitle{Known Differences}
 
-  \fourfigs{Softdrop Mass}
-           {200214_ttw/heavyz_FatJet_Msoftdrop.pdf}
-           {Fat Jet B-tag (bb vs. Light)}
-           {200214_ttw/heavyz_FatJet_deepTagMD_bbvsLight.pdf}
-           {Fat Jet $p_T$}
-           {200214_ttw/heavyz_FatJet_pt.pdf}
-           {Vector Boson $p_T$}
-           {200214_ttw/heavyz_V_pt.pdf}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Z + Light Flavor CR}
-
-  \fourfigs{Softdrop Mass}
-           {200214_ttw/lightz_FatJet_Msoftdrop.pdf}
-           {Fat Jet B-tag (bb vs. Light)}
-           {200214_ttw/lightz_FatJet_deepTagMD_bbvsLight.pdf}
-           {Fat Jet $p_T$}
-           {200214_ttw/lightz_FatJet_pt.pdf}
-           {Vector Boson $p_T$}
-           {200214_ttw/lightz_V_pt.pdf}
+  \begin{itemize}
+  \item Plots are made with Alessandro's and Bhakti's help understanding the branches and selection
+  \item I'm only using a subset of MC weights: \\
+    \texttt{genWeight * weight\_mettrigSF * weightJetPUID * Jet\_btagSF * weightLOtoNLO * TTW}
+  \item Plots look pretty good to me, with some shape problems in Z + Light
+  \item Next thing is to figure out which of the weights I'm missing affects the normalization
+  \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{TT CR}
+  \frametitle{Z + Heavy Flavor CR -- Kinematics}
 
   \fourfigs{Softdrop Mass}
-           {200214_ttw/tt_FatJet_Msoftdrop.pdf}
-           {Fat Jet B-tag (bb vs. Light)}
-           {200214_ttw/tt_FatJet_deepTagMD_bbvsLight.pdf}
+           {200217_tau2/heavyz_FatJet_Msoftdrop.pdf}
+           {Fat Jet $\eta$}
+           {200217_tau2/heavyz_FatJet_eta.pdf}
            {Fat Jet $p_T$}
-           {200214_ttw/tt_FatJet_pt.pdf}
+           {200217_tau2/heavyz_FatJet_pt.pdf}
            {Vector Boson $p_T$}
-           {200214_ttw/tt_V_pt.pdf}
+           {200217_tau2/heavyz_V_pt.pdf}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Signal Region}
+  \frametitle{Z + Heavy Flavor CR -- Sub-structure}
+
+  \fourfigs{Fat Jet $\tau_2/\tau_1$}
+           {200217_tau2/heavyz_FatJet_tau21.pdf}
+           {bb vs. Light}
+           {200217_tau2/heavyz_FatJet_deepTagMD_bbvsLight.pdf}
+           {Fat Jet $\tau_3/\tau_2$}
+           {200217_tau2/heavyz_FatJet_tau32.pdf}
+           {Top vs. QCD}
+           {200217_tau2/heavyz_FatJet_deepTagMD_TvsQCD.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Z + Light Flavor CR -- Kinematics}
 
   \fourfigs{Softdrop Mass}
-           {200214_ttw/signal_FatJet_Msoftdrop.pdf}
-           {Fat Jet B-tag (bb vs. Light)}
-           {200214_ttw/signal_FatJet_deepTagMD_bbvsLight.pdf}
+           {200217_tau2/lightz_FatJet_Msoftdrop.pdf}
+           {Fat Jet $\eta$}
+           {200217_tau2/lightz_FatJet_eta.pdf}
            {Fat Jet $p_T$}
-           {200214_ttw/signal_FatJet_pt.pdf}
+           {200217_tau2/lightz_FatJet_pt.pdf}
            {Vector Boson $p_T$}
-           {200214_ttw/signal_V_pt.pdf}
+           {200217_tau2/lightz_V_pt.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Z + Light Flavor CR -- Sub-structure}
+
+  \fourfigs{Fat Jet $\tau_2/\tau_1$}
+           {200217_tau2/lightz_FatJet_tau21.pdf}
+           {bb vs. Light}
+           {200217_tau2/lightz_FatJet_deepTagMD_bbvsLight.pdf}
+           {Fat Jet $\tau_3/\tau_2$}
+           {200217_tau2/lightz_FatJet_tau32.pdf}
+           {Top vs. QCD}
+           {200217_tau2/lightz_FatJet_deepTagMD_TvsQCD.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{TT CR -- Kinematics}
+
+  \fourfigs{Softdrop Mass}
+           {200217_tau2/tt_FatJet_Msoftdrop.pdf}
+           {Fat Jet $\eta$}
+           {200217_tau2/tt_FatJet_eta.pdf}
+           {Fat Jet $p_T$}
+           {200217_tau2/tt_FatJet_pt.pdf}
+           {Vector Boson $p_T$}
+           {200217_tau2/tt_V_pt.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{TT CR -- Sub-structure}
+
+  \fourfigs{Fat Jet $\tau_2/\tau_1$}
+           {200217_tau2/tt_FatJet_tau21.pdf}
+           {bb vs. Light}
+           {200217_tau2/tt_FatJet_deepTagMD_bbvsLight.pdf}
+           {Fat Jet $\tau_3/\tau_2$}
+           {200217_tau2/tt_FatJet_tau32.pdf}
+           {Top vs. QCD}
+           {200217_tau2/tt_FatJet_deepTagMD_TvsQCD.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Signal Region -- Kinematics}
+
+  \fourfigs{Softdrop Mass}
+           {200217_tau2/signal_FatJet_Msoftdrop.pdf}
+           {Fat Jet $\eta$}
+           {200217_tau2/signal_FatJet_eta.pdf}
+           {Fat Jet $p_T$}
+           {200217_tau2/signal_FatJet_pt.pdf}
+           {Vector Boson $p_T$}
+           {200217_tau2/signal_V_pt.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Signal Region -- Sub-structure}
+
+  \fourfigs{Fat Jet $\tau_2/\tau_1$}
+           {200217_tau2/signal_FatJet_tau21.pdf}
+           {bb vs. Light}
+           {200217_tau2/signal_FatJet_deepTagMD_bbvsLight.pdf}
+           {Fat Jet $\tau_3/\tau_2$}
+           {200217_tau2/signal_FatJet_tau32.pdf}
+           {Top vs. QCD}
+           {200217_tau2/signal_FatJet_deepTagMD_TvsQCD.pdf}
 
 \end{frame}
 
