@@ -9,10 +9,10 @@ import numpy
 import random
 
 
-bintype = 'jet'
+bintype = 'smear'
 
-date = '200128'
-end = '2018v6_ptbins'
+date = '200218'
+end = 'smear_custom'
 
 newdir = os.path.join(
     os.environ['HOME'],
