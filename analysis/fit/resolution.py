@@ -9,10 +9,10 @@ import numpy
 import random
 
 
-bintype = 'smear'
+bintype = 'rho'
 
-date = '200218'
-end = 'smear_custom'
+date = '200220'
+end = '2rho_v5'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -94,11 +94,14 @@ ranges = [
     ('%splot_4' % bintype, 0.3, MeanCalc(), MeanCalc()),
 ]
 
-rhos = [
+rhos = ([
     ('_1', 16.5, MeanCalc(), MeanCalc()),
     ('_2', 22, MeanCalc(), MeanCalc()),
     ('_3', 65, MeanCalc(), MeanCalc())
-    ] if bintype == 'rho' else [
+    ] if glob.glob(os.path.join(ratiodir, 'rhoplot_?_3*')) else [
+        ('_1', 19, MeanCalc(), MeanCalc()),
+        ('_2', 65, MeanCalc(), MeanCalc())
+        ]) if bintype == 'rho' else [
     ('', 65, MeanCalc(), MeanCalc())
     ]
 
@@ -112,9 +115,9 @@ def rhotitle (bin):
     if len(rhos) == 1:
         return ''
     if bin == 0:
-        return '#rho < 16.5'
+        return '#rho < 16.5' if len(rhos) == 3 else '#rho < 19'
     if bin == 1:
-        return '16.5 #leq #rho < 22'
+        return '16.5 #leq #rho < 22' if len(rhos) == 3 else '19 #leq #rho'
     return '22 #leq #rho'
 
 
