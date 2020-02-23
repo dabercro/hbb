@@ -82,7 +82,7 @@ def makeconfig():
                                'Error = %s/%s_%i.err' %  (log_dir, os.path.basename(this_out), n_job),
                                'transfer_output_files = output.root',
                                'transfer_output_remaps = "output.root = %s"' % output_file,
-                               'Arguments = %s %s %s' % (exe, '%s_v6' % year if use_custom else year, ' '.join(job)),
+                               'Arguments = %s %s %s' % (exe, '%s_custom' % year if use_custom else year, ' '.join(job)),
                                'Queue'])
 
             else:
