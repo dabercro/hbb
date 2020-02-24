@@ -9,10 +9,10 @@ import numpy
 import random
 
 
-bintype = 'smear'
+bintype = 'rho'
 
-date = '200221'
-end = '2rho_custom_2018'
+date = '200223'
+end = '3rho_custom_2018'
 
 newdir = os.path.join(
     os.environ['HOME'],
