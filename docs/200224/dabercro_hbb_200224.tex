@@ -110,7 +110,97 @@
 \begin{frame}
   \frametitle{Shape of $\alpha$}
 
+  \twofigs{Data}
+          {200224_roofit_custom/sum_xsec_weight_data.pdf}
+          {MC}
+          {200224_roofit_custom/sum_xsec_weight_gen.pdf}
 
+  \begin{itemize}
+  \item Scale factor of $2.7 \% \pm 180 \%$ (!)
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Potential Solution}
+
+  Allow more than two jets, still with low $\alpha$ cut
+
+  \twofigs{Data}
+          {200223_roofit_custom/sum_xsec_weight_data.pdf}
+          {MC}
+          {200223_roofit_custom/sum_xsec_weight_gen.pdf}
+
+  \begin{itemize}
+  \item Comes out with a scale factor of $8.5\% \pm 2.8\%$
+  \item Scale and Renormalization variations go from $11.5\%$ to $2.6\%$
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$\rho$ Woes}
+
+  \twofigs{Fit across $rho$}
+          {200224_rho_200224_3rho_nb/scale_fit.pdf}
+          {Closure}
+          {200223_smear_200223_3rho_applied_custom_2018/resolution_jet1_response_scale_nominal_smear_0.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Closure}
+
+  \twofigs{Nominal Smearing}
+          {200223_3rho_applied_custom_2018/smearplot_jet1_response_scale_nominal.pdf}
+          {Additional Smearing}
+          {200223_3rho_applied_custom_2018/smearplot_jet1_response_scale_up.pdf}
+
+  \begin{itemize}
+  \item Not thrilled with how flat the ``up'' variation is
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Two Bins}
+
+  \twofigs{Fit across $rho$}
+          {200224_rho_200224_fin_nbjet/scale_fit.pdf}
+          {Closure}
+          {200223_smear_200223_2rho_custom_2018/resolution_jet1_response_scale_nominal_smear_0.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Closure}
+
+  \twofigs{Nominal Smearing}
+          {200223_2rho_custom_2018/smearplot_jet1_response_scale_nominal.pdf}
+          {Additional Smearing}
+          {200223_2rho_custom_2018/smearplot_jet1_response_scale_up.pdf}
+
+  \begin{itemize}
+  \item The ``up'' variation is more convincingly increasing MC resolution
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smearing Need as Function of jet $p_T$}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{200224_jet_200224_custom_pt/resolution_jet1_response_jet_0.pdf} \\
+      \includegraphics[width=\linewidth]{200224_jet_200224_custom_pt/resolution_jet1_response_jet_1.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{200224_jet_200224_custom_pt/resolution_jet1_response_jet_2.pdf} \\
+      \begin{itemize}
+      \item Only the higher $p_T$ jets seem to actually need smearing
+      \end{itemize}
+    \end{column}
+  \end{columns}
 
 \end{frame}
 
