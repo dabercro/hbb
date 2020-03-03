@@ -14,9 +14,14 @@ from collections import defaultdict
 indir = 'skimmed'
 mc = 'mc.root'
 data = 'data.root'
-cut = '1'
 cutvars = []
-numprocs = 1
+numprocs = 8
+
+dofit = False
+
+#conf = ROOT.RooAbsReal.defaultIntegratorConfig()
+#conf.setEpsRel(1e-5)
+#conf.getConfigSection("RooAdaptiveIntegratorND").setRealValue('maxEval2D', 10000)
 
 alpha_shape = sys.argv[1] if len(sys.argv) > 1 else 'sum'
 xsec_var = sys.argv[2] if len(sys.argv) > 2 else 'xsec_weight'
@@ -79,11 +84,11 @@ def do_simple(workspace, points, xvar, yvar, zvar, kind):
 
 def add_alpha_rho(workspace):
     if alpha_shape == 'sum':
-        workspace.factory('Landau::alpha_landau(alpha[0, 0.3], alpha_mean_landau[0.15, 0, 0.25], alpha_width_landau[0.1, 0, 0.3])')
-        workspace.factory('Gaussian::alpha_gaussian(alpha, alpha_mean_gaussian[0.15, 0, 0.25], alpha_width_gaussian[0.05, 0, 0.3])')
+        workspace.factory('Landau::alpha_landau(alpha[0, 0.3], alpha_mean_landau[0.18, 0, 0.25], alpha_width_landau[0.05, 0, 0.3])')
+        workspace.factory('Gaussian::alpha_gaussian(alpha, alpha_mean_gaussian[0.2, 0, 0.25], alpha_width_gaussian[0.05, 0, 0.3])')
         workspace.factory('SUM::alphafit(alpha_landau, alpha_gaussian_norm[0.1, 0, 1.0] * alpha_gaussian)')
 
-        workspace.factory('Gaussian::rhofit(rhoAll[0, 60], rho_mean_gaussian[30, 0, 60], rho_width_gaussian[5, 0, 30])')
+        workspace.factory('Gaussian::rhofit(rhoAll[0, 60], rho_mean_gaussian[17, 0, 60], rho_width_gaussian[10, 0, 30])')
 #        workspace.factory('Gaussian::rho_landau(rhoAll, rho_mean_landau[30, 0, 60], rho_width_landau[10, 0, 40])')
 #        workspace.factory('SUM::rhofit(rho_landau, rho_gaussian_norm[0.1, 0, 1.0] * rho_gaussian)')
 
@@ -112,7 +117,7 @@ g.factory('PolyVar::width(alpha, {width_intercept, width_slope[0.1, -1, 5]})')
 
 g.factory('Gaussian::gauss(jet1_response_intrinsic[0, 2], mean, width)')
 
-g.factory('PROD::model(gauss|{alpha, rhoAll}, alphafit, rhofit)')
+g.factory('PROD::model(alphafit, rhofit, gauss|{alpha, rhoAll})')
 
 
 gencut = 'jet1_response_intrinsic > 0'
@@ -128,7 +133,8 @@ genpoints = ROOT.RooDataSet('gen', 'gen',
                             ROOT.RooFit.WeightVar(xsec_var))
 
 genmodel = g.pdf('model')
-genmodel.fitTo(genpoints, ROOT.RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(numprocs))
+if dofit:
+    genmodel.fitTo(genpoints, ROOT.RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(numprocs))
 
 
 genmodel.Print('')
@@ -171,8 +177,6 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     fullname = os.path.join(indir, filename)
 
-    print 'Opening', fullname
-
     infile = ROOT.TFile(fullname)
 
     # Fit
@@ -182,7 +186,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     alpha = w.var('alpha')
 
     # Mean is linear as a function of alpha
-    w.factory('PolyVar::mean(alpha, {mean_0[1, 0, 2], mean_1[0, -5, 5]})')
+    w.factory('PolyVar::mean(alpha, {mean_0[0.9, 0, 2], mean_1[0, -5, 5]})')
 
     # Width changes with rho
     w.factory('PolyVar::width_intercept(rhoAll, {width_intercept_0[0.1, -0.1, 0.4], width_intercept_slope[0, -0.1, 0.1]})')
@@ -198,19 +202,20 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     w.factory('Gaussian::gauss(jet1_response[0, 2], mean, width)')
 
-    w.factory('PROD::model(gauss|{alpha, rhoAll}, alphafit, rhofit)')
-
-    jet1_response = w.var('jet1_response')
+    w.factory('PROD::model(alphafit, rhofit, gauss|{alpha, rhoAll})')
 
     roocutvars = [ROOT.RooRealVar(var, var, 0, 10000) for var in cutvars]
 
+    cut = 'jet1_response > 0'
+
     if kind == 'mc':
-        roocutvars.append(ROOT.RooRealVar(xsec_var, xsec_var, -1, 1))
+        roocutvars.append(ROOT.RooRealVar(xsec_var, xsec_var, -10, 10))
     else:
         cut += ' && trigger == 1'
         roocutvars.append(ROOT.RooRealVar('trigger', 'trigger', -1, 2))
 
-    args = ['data', 'data', ROOT.RooArgSet(alpha, jet1_response, w.var('rhoAll'), *roocutvars), ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
+    args = ['data', 'data', ROOT.RooArgSet(alpha, w.var('jet1_response'), w.var('rhoAll'), *roocutvars),
+            ROOT.RooFit.Import(infile.events), ROOT.RooFit.Cut(cut)]
 
 
     if kind == 'mc':
@@ -220,14 +225,12 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     model = w.pdf('model')
 
-    if kind == 'mc':
-        model.fitTo(points, ROOT.RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(numprocs))
-    else:
-        model.fitTo(points, ROOT.RooFit.NumCPU(numprocs))
+    if dofit:
+        if kind == 'mc':
+            model.fitTo(points, ROOT.RooFit.SumW2Error(True), ROOT.RooFit.NumCPU(numprocs))
+        else:
+            model.fitTo(points, ROOT.RooFit.NumCPU(numprocs))
 
-    jet_slices = jet_intrinsic_slices
-
-#    do_plots(w, points, 'alpha', 'jet1_response', kind, alpha_slices, jet_slices)
     do_simple(w, points, 'alpha', 'jet1_response', 'rhoAll', kind)
 
 print '=' * 20
