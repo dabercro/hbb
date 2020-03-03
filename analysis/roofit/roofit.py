@@ -84,8 +84,8 @@ def add_alpha_rho(workspace):
         workspace.factory('SUM::alphafit(alpha_landau, alpha_gaussian_norm[0.1, 0, 1.0] * alpha_gaussian)')
 
         workspace.factory('Gaussian::rhofit(rhoAll[0, 60], rho_mean_gaussian[30, 0, 60], rho_width_gaussian[5, 0, 30])')
-        workspace.factory('Gaussian::rho_landau(rhoAll, rho_mean_landau[30, 0, 60], rho_width_landau[10, 0, 40])')
-        workspace.factory('SUM::rhofit(rho_landau, rho_gaussian_norm[0.1, 0, 1.0] * rho_gaussian)')
+#        workspace.factory('Gaussian::rho_landau(rhoAll, rho_mean_landau[30, 0, 60], rho_width_landau[10, 0, 40])')
+#        workspace.factory('SUM::rhofit(rho_landau, rho_gaussian_norm[0.1, 0, 1.0] * rho_gaussian)')
 
     else:
         workspace.factory('%s::alphafit(alpha[0, 0.3], alpha_mean[0.15, 0, 0.25], alpha_width[0.1, 0, 0.3])' % alpha_shape)
@@ -112,7 +112,7 @@ g.factory('PolyVar::width(alpha, {width_intercept, width_slope[0.1, -1, 5]})')
 
 g.factory('Gaussian::gauss(jet1_response_intrinsic[0, 2], mean, width)')
 
-g.factory('PROD::model(gauss|alpha, alphafit|rhoAll, rhofit)')
+g.factory('PROD::model(gauss|{alpha, rhoAll}, alphafit, rhofit)')
 
 
 gencut = 'jet1_response_intrinsic > 0'
@@ -185,7 +185,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     w.factory('PolyVar::mean(alpha, {mean_0[1, 0, 2], mean_1[0, -5, 5]})')
 
     # Width changes with rho
-    w.factory('PolyVar::width_intercept(rhoAll, {rho_0[0.1, -0.1, 0.4], rho_slope[0, -0.1, 0.1]})')
+    w.factory('PolyVar::width_intercept(rhoAll, {width_intercept_0[0.1, -0.1, 0.4], width_intercept_slope[0, -0.1, 0.1]})')
 
     # Width is this weird things as a function of alpha
     width_intercept = w.arg('width_intercept')
@@ -198,7 +198,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     w.factory('Gaussian::gauss(jet1_response[0, 2], mean, width)')
 
-    w.factory('PROD::model(gauss|alpha, alphafit|rhoAll, rhofit)')
+    w.factory('PROD::model(gauss|{alpha, rhoAll}, alphafit, rhofit)')
 
     jet1_response = w.var('jet1_response')
 

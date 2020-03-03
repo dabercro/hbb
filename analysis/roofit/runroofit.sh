@@ -11,13 +11,13 @@ cd $CMSSW_VER/src
 eval `scram runtime -sh`
 cd -
 
-outdir=$(date '+%y%m%d')
+outdir=$(date '+%y%m%d')_v2
 
 test -d plots || mkdir plots
 
 tar -xf roofit.tgz
 
-./roofit.py sum $1
+/home/dabercro/hbb/analysis/roofit/roofit.py sum $1
 
 test -d $HOME/public_html/plots/$outdir || mkdir $HOME/public_html/plots/$outdir
 mv plots/* $HOME/public_html/plots/$outdir
