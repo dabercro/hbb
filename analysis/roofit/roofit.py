@@ -120,7 +120,8 @@ if do3d:
 else:
     g.factory('PolyVar::width(alpha, {width_intercept[0.1, 0, 0.4], width_slope[0.1, -1, 5]})')
 
-g.factory('Gaussian::gauss(jet1_response_intrinsic[0, 2], mean, width)')
+#g.factory('Gaussian::gauss(jet1_response_intrinsic[0, 2], mean, width)')
+g.factory('CBShape::gauss(jet1_response_intrinsic[0, 2], mean, width, cb_alpha[1, 0, 2], cb_n[3, 0, 20])')
 
 
 if do3d:
@@ -206,6 +207,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
         # Width changes with rho
         w.factory('PolyVar::width_intercept(rhoAll, {width_intercept_0[0.1, -0.1, 0.4], width_intercept_slope[0, -0.1, 0.1]})')
         # Width is this weird things as a function of alpha
+#        w.factory('PolyVar::width(alpha, {width_intercept, width_slope[0.1, -1, 5]})')
         width_intercept = w.arg('width_intercept')
     else:
         width_intercept = ROOT.RooRealVar('width_intercept', 'width_intercept', 0.1, 0.0, 0.5)
@@ -213,7 +215,7 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
     width_slope_2 = ROOT.RooRealVar('width_slope_2', 'width_slope_2', 1, 0.0, 5)
 
     width = ROOT.RooGenericPdf('width', 'TMath::Sqrt(pow(width_intercept + width_slope * alpha, 2) + pow(width_slope_2 * alpha, 2))',
-                               ROOT.RooArgList(alpha, width_intercept, width_slope, width_slope_2))
+                               ROOT.RooArgList(width_intercept, width_slope, alpha, width_slope_2))
 
     getattr(w, 'import')(width)
 
@@ -256,6 +258,8 @@ for filename, kind in [(mc, 'mc'), (data, 'data')]:
 
     if do3d:
         do_simple(w, points, 'alpha', 'jet1_response', 'rhoAll', kind)
+    else:
+        do_plots(w, points, 'alpha', 'jet1_response', kind)
 
     print '=' * 20
     print 'End of', kind

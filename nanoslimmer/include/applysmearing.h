@@ -134,9 +134,9 @@ namespace {
         { // Smearing
           0, 0, 0.047811, 0.021748, 0
         },
-        // 200303_2d/sum*.txt
+        // 200303_cb/sum*.txt
         { // Scaling
-          0, 0, 0.028378, std::sqrt(std::pow(0.055066, 2) + std::pow((0.060786)/2, 2)), 0
+          0, 0, 0.014086, std::sqrt(std::pow(0.052549, 2) + std::pow((0.033231 - 0.000146)/2, 2) + std::pow((0.021255 + 0.005589)/2, 2)), 0
         },// 200223_custom/sum_xsec_weight.txt
         { // Smearing
           0, 0, 0.053905, std::sqrt(std::pow(0.009251, 2) + std::pow((0.061810 - 0.030553)/2, 2)), 0
