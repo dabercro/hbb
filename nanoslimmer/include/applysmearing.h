@@ -97,14 +97,14 @@ namespace {
       }
     },
     {"2018_custom", {
-        // 200221_2rho_custom_2018.txt
+        // 200303_rho_200303_nbjets.txt
         { // Scaling
-         -2.00099e-03,
-          8.00026e-03,
-          1.14461e-01,
-          1.80780e-01,
-         -0.00139099116147
-        },
+         -3.74814e-03,
+          8.91546e-03,
+          1.17201e-01,
+          1.98126e-01,
+         -0.00169676561635
+        },// 200221_2rho_custom_2018.txt
         { // Smearing
          -3.74186e-04,
           2.60363e-03,
@@ -127,17 +127,17 @@ namespace {
         /*   7.54276e-02, */
         /*  -0.0002523609463 */
         /* }, */
-        // 200222_smear_2rho_custom_2018.txt
+        // 200303_smear_200303_nbjets.txt
         { // Scaling
-          0, 0, 0.062248, 0.060753, 0
-        },
+          0, 0, 0.031547, 0.065706, 0
+        },// 200222_smear_2rho_custom_2018.txt
         { // Smearing
           0, 0, 0.047811, 0.021748, 0
         },
-        // 200223_custom/sum_xsec_weight.txt
+        // 200303_2d/sum*.txt
         { // Scaling
-          0, 0, 0.085249, std::sqrt(std::pow(0.028166, 2) + std::pow((0.114668 - 0.026038)/2, 2)), 0
-        },
+          0, 0, 0.028378, std::sqrt(std::pow(0.055066, 2) + std::pow((0.060786)/2, 2)), 0
+        },// 200223_custom/sum_xsec_weight.txt
         { // Smearing
           0, 0, 0.053905, std::sqrt(std::pow(0.009251, 2) + std::pow((0.061810 - 0.030553)/2, 2)), 0
         }
@@ -227,9 +227,9 @@ namespace applysmearing {
       double dpt = regressed - gen_jet_pt;
 
       smear_result output {
-        std::max(0.0, gen_jet_pt + (1.0 + nominal - band) * dpt), // less smearing
-        std::max(0.0, gen_jet_pt + (1.0 + nominal) * dpt),        // nominal smearing
-        std::max(0.0, gen_jet_pt + (1.0 + nominal + band) * dpt)  // more smearing
+        std::max(0.0, gen_jet_pt + (1.0 + std::max(nominal - band, 0.0)) * dpt), // less smearing
+        std::max(0.0, gen_jet_pt + (1.0 + std::max(nominal, 0.0)) * dpt),        // nominal smearing
+        std::max(0.0, gen_jet_pt + (1.0 + std::max(nominal + band, 0.0)) * dpt)  // more smearing
       };
 
       return output;

@@ -1,14 +1,11 @@
 \documentclass{beamer}
 
 \author[D. Abercrombie]{
-  Daniel Abercrombie, \\
-  Guillelmo G\'omez-Ceballos, \\
-  Dymtro Kovalskyi, \\
-  Benedikt Maier, \\
-  Christoph Paus
+  Daniel Abercrombie \\
+  for the VHbb Group
 }
 
-\title{\bf \sffamily Moving to Factorized PDFs \\ for Smearing Extraction}
+\title{\bf \sffamily B-jet Energy Smearing for the VHbb Analysis}
 \date{\today}
 
 \usecolortheme{dove}
@@ -94,37 +91,30 @@
 
 \begin{document}
 
+
 \begin{frame}
   \titlepage
 \end{frame}
 
+
 \begin{frame}
   \frametitle{Introduction}
 
-  \begin{columns}
-    \begin{column}{0.6\linewidth}
-      \begin{itemize}
-      \item Smearing needs to be re-derived after applying
-        energy regression designed to recover energy
-        lost in the weak decays of b-jets.
-      \item Extracting smearing parameters as a function of $\rho$
-        results in large fit uncertainties
-      \item Alternative to binning would be to do
-        an unbinned fit with a factorized PDF
-      \item First step is to perform this fit in 2D space
-        (jet response vs $\alpha$), and compare to binned fit results
-      \end{itemize}
-    \end{column}
-    \begin{column}{0.4\linewidth}
-      \includegraphics[width=\linewidth]{191216_resolution_tosmear/smear_fit.pdf}
-    \end{column}
-  \end{columns}
-
-  \vfill
-  In other words, the binned fit presented here is a step back
-  in order to verify the following unbinned fit
+  \begin{itemize}
+  \item Smearing needs to be re-derived after applying
+    energy regression designed to recover energy
+    lost in the weak decays of b-jets.
+  \item Smearing method for discovery analysis does not close for all phase space
+  \item Extracting smearing parameters as a function of $\rho$
+    improves closure, but results in large fit uncertainties
+  \item Alternative to binning would be to do
+    an unbinned fit with a factorized PDF
+  \item First step is to perform this fit in 2D space
+    (jet response vs $\alpha$), and compare to binned fit results
+  \end{itemize}
 
 \end{frame}
+
 
 \begin{frame}
   \frametitle{Jet Resolution Approach}
@@ -161,19 +151,19 @@
 
 
 \begin{frame}
-  \frametitle{NanoAOD Samples}
+  \frametitle{Samples}
 
-  Using NanoAODv5 data samples:
+  Using NanoAODv6 setup with updated B-jet regression weights:
 
   \begin{itemize}
-  \item \texttt{\small /DoubleMuon/Run2018A-Nano1June2019-v1/NANOAOD}
-  \item \texttt{\small /DoubleMuon/Run2018B-Nano25Oct2019-v1/NANOAOD}
-  \item \texttt{\small /DoubleMuon/Run2018C-Nano25Oct2019-v1/NANOAOD}
-  \item \texttt{\small /DoubleMuon/Run2018D-Nano1June2019\_ver2-v1/NANOAOD}
-  \item \texttt{\small /EGamma/Run2018A-Nano25Oct2019-v1/NANOAOD}
-  \item \texttt{\small /EGamma/Run2018B-Nano25Oct2019-v1/NANOAOD}
-  \item \texttt{\small /EGamma/Run2018C-Nano25Oct2019-v1/NANOAOD}
-  \item \texttt{\small /EGamma/Run2018D-Nano25Oct2019\_ver2-v1/NANOAOD}
+  \item \texttt{\small /DoubleMuon/Run2018A-17Sep2018-v2/MINIAOD}
+  \item \texttt{\small /DoubleMuon/Run2018B-17Sep2018-v1/MINIAOD}
+  \item \texttt{\small /DoubleMuon/Run2018C-17Sep2018-v1/MINIAOD}
+  \item \texttt{\small /DoubleMuon/Run2018D-PromptReco-v2/MINIAOD}
+  \item \texttt{\small /EGamma/Run2018A-17Sep2018-v2/MINIAOD}
+  \item \texttt{\small /EGamma/Run2018B-17Sep2018-v1/MINIAOD}
+  \item \texttt{\small /EGamma/Run2018C-17Sep2018-v1/MINIAOD}
+  \item \texttt{\small /EGamma/Run2018D-22Jan2019-v2/MINIAOD}
   \end{itemize}
 
 \end{frame}
@@ -182,14 +172,15 @@
 \begin{frame}
   \frametitle{NanoAOD Samples}
 
-  Using NanoAODv5 MC samples:
+  Using NanoAODv6 setup with updated B-jet regression weights:
 
   \begin{itemize}
-  \item \texttt{\small /DYJetsToLL\_M-50\_HT-*\_TuneCP5\_PSweights\_\\13TeV-madgraphMLM-pythia8/\\RunIIAutumn18NanoAODv5-Nano1June2019\_102X\_\\upgrade2018\_realistic\_v19*/NANOAODSIM}
-  \item \texttt{\small /TTTo2L2Nu\_TuneCP5\_13TeV-powheg-pythia8/\\RunIIAutumn18NanoAODv5-Nano1June2019\_102X\_\\upgrade2018\_realistic\_v19-v1/NANOAODSIM}
+  \item \texttt{\small /DYJetsToLL\_M-50\_HT-*\_TuneCP5\_PSweights\_\\13TeV-madgraphMLM-pythia8/\\RunIIAutumn18MiniAOD-102X\_upgrade2018\_realistic\_v15-v?\footnote{400to600 is v3, all others are v2}/\\MINIAODSIM}
+  \item \texttt{\small /TTTo2L2Nu\_TuneCP5\_13TeV-powheg-pythia8/\\RunIIAutumn18MiniAOD-102X\_upgrade2018\_realistic\_v15-v1/\\MINIAODSIM}
   \end{itemize}
 
 \end{frame}
+
 
 \begin{frame}
   \frametitle{Selection -- Triggers}
@@ -213,6 +204,7 @@
   \end{itemize}
 
 \end{frame}
+
 
 \begin{frame}
   \frametitle{Selection -- Leptons}
@@ -268,21 +260,6 @@
 
 
 \begin{frame}
-  \frametitle{Corrections}
-
-  NanoAODv5 does not include the latest JECs, so we reapply those:
-
-  \begin{itemize}
-  \item Data: \texttt{Winter19\_Autumn18\{A, B, C, D\}\_V19\_DATA}
-  \item MC: \texttt{Winter19\_Autumn18\_V19\_MC}
-  \end{itemize}
-
-  Both the \texttt{Jet} collection and \texttt{MET} are adjusted by these
-
-\end{frame}
-
-
-\begin{frame}
   \frametitle{MC Weights}
 
   \begin{itemize}
@@ -322,7 +299,7 @@
   \end{itemize}
   \begin{columns}
     \begin{column}{0.5\linewidth}
-      \includegraphics[width=\linewidth]{200116_singlebin_alpha/smearplot_alpha.pdf}
+      \includegraphics[width=\linewidth]{200303_alpha_lines_v2/smearplot_alpha.pdf}
     \end{column}
     \begin{column}{0.5\linewidth}
       \[
@@ -337,7 +314,6 @@
     \end{column}
   \end{columns}
 
-
 \end{frame}
 
 
@@ -347,13 +323,13 @@
   \begin{columns}
     \begin{column}{0.3\linewidth}
       \centering
-      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_1_jet1_response.pdf} \\
-      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_3_jet1_response.pdf}
+      \includegraphics[width=\linewidth]{200303_nbjets_noenv/smearplot_1_jet1_response.pdf} \\
+      \includegraphics[width=\linewidth]{200303_nbjets_noenv/smearplot_3_jet1_response.pdf}
     \end{column}
     \begin{column}{0.3\linewidth}
       \centering
-      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_2_jet1_response.pdf} \\
-      \includegraphics[width=\linewidth]{200115_1D_bins/smearplot_4_jet1_response.pdf}
+      \includegraphics[width=\linewidth]{200303_nbjets_noenv/smearplot_2_jet1_response.pdf} \\
+      \includegraphics[width=\linewidth]{200303_nbjets_noenv/smearplot_4_jet1_response.pdf}
     \end{column}
   \end{columns}
 
@@ -378,33 +354,14 @@
     \begin{column}{0.5\linewidth}
       \centering
       \textcolor{blue}{Statistical Uncertainties} \\
-      \includegraphics[width=0.8\linewidth]{200115_1D_bins/smearplot_2_jet1_response.pdf}
+      \includegraphics[width=0.8\linewidth]{200303_nbjets_noenv/smearplot_2_jet1_response.pdf}
     \end{column}
     \begin{column}{0.5\linewidth}
       \centering
       \textcolor{blue}{Additional Uncertainties} \\
-      \includegraphics[width=0.8\linewidth]{200116_1D_bins_allenv/smearplot_2_jet1_response.pdf}
+      \includegraphics[width=0.8\linewidth]{200303_nbjets/smearplot_2_jet1_response.pdf}
     \end{column}
   \end{columns}
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Comparison of Uncertainty Sources}
-
-  \vspace{8pt}
-
-  \twofigs{Scale Uncertainties}
-          {200116_1D_bins_scaleenv/smearplot_2_jet1_response.pdf}
-          {Parton Shower Uncertainties}
-          {200116_1D_bins_psenv/smearplot_2_jet1_response.pdf}
-
-  \begin{itemize}
-  \item These plots have no statistical uncertainties
-  \item Scale Uncertainties are larger in the center
-  \item Parton Shower Uncertainties contribute more at edges
-  \end{itemize}
 
 \end{frame}
 
@@ -413,17 +370,16 @@
   \frametitle{Binned Fit Formula}
 
   \[
-  f(\alpha) = (m \times \alpha) \oplus c \times (1 + c_k \times \alpha)
+  f(\alpha) = (m \times \alpha) \oplus b \times (1 + c_k \times \alpha)
   \]
 
   \begin{itemize}
   \item $c_k$ is fixed by a linear fit to the MC's intrinsic jet resolution ($p_{T, reco}/p_{T, gen}$) over $\alpha$ as $c_k = m_0/q_0$
-  \item Scaling is done by $c_{data}/c_{MC}$
-  \item Smearing is done by $\sqrt{c_{data}^2 - c_{MC}^2}$
+  \item Smearing is done by scaling difference between $p_{T,reco}$ and $p_{T,gen}$ by $b_{data}/b_{MC}$
   \end{itemize}
 
   \centering
-  \includegraphics[width=0.6\linewidth]{200116_1D_bins_allenv_resolution/resolution_jet1_response_smear_0.pdf}
+  \includegraphics[width=0.6\linewidth]{200303_smear_200303_nbjets/resolution_jet1_response_smear_0.pdf}
 
 \end{frame}
 
@@ -434,22 +390,13 @@
   Uncertainties calculated with:
 
   \[
-  \delta_{scale} = \sqrt{\left(\frac{\delta_{data}}{c_{MC}}\right)^2 +
+  \delta = \sqrt{\left(\frac{\delta_{data}}{c_{MC}}\right)^2 +
     \left(\frac{c_{data}\delta_{MC}}{c_{MC}^2}\right)^2}
-  \]
-  \[
-  \delta_{smear} = \sqrt{\frac{(c_{data}\delta_{data})^2 +
-      (c_{MC}\delta_{MC})^2}{c_{data}^2 - c_{MC}^2}}
   \]
 
   \vfill
-  \centering
-  \begin{tabular}{l|c|c|}
-    & Smearing & Scaling \\
-    \hline
-    Result & $5.1 \pm 2.7 \%$ & $6.4 \pm 7.2 \%$ \\
-    \hline
-  \end{tabular}
+
+  Generator and reco difference to be scaled by: $3.2 \pm 6.6 \%$
 
 \end{frame}
 
@@ -486,41 +433,6 @@
   \begin{itemize}
   \item Cannot make histogram envelope for uncertainties, \\
     so made separate fits for each weight
-  \item Varied shape of fit over $\alpha$ ($F$ in previous slide) to also be Landau fit
-  \end{itemize}
-
-  \twofigs{Gaussian $\alpha$ fit (MC)}
-          {200121_roofit/Gaussian_xsec_weight_mc.pdf}
-          {Landau $\alpha$ fit (MC)}
-          {200121_roofit/Landau_xsec_weight_mc.pdf}
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Unbinned Fit Results}
-
-  \centering
-
-  \begin{tabular}{|l|c|c|}
-    \hline
-    Uncertainty & Smearing & Scaling \\
-    \hline
-    Nominal Result & $4.7 \pm 2.7 \%$ & $5.5 \pm 6.5 \%$ \\
-    Landau $\alpha$ & $2.9 \pm 4.0 \%$ & $2.4 \pm 6.5 \%$ \\
-    \hline
-    Max Scale Weight & $4.8 \pm 2.4 \%$ & $6.5 \pm 7.2 \%$ \\
-    Min Scale Weight & $2.9 \pm 4.0 \%$ & $2.4 \pm 6.5 \%$ \\
-    \hline
-    Max Parton Shower & $4.2 \pm 3.2 \%$ & $4.9 \pm 7.6 \%$ \\
-    Min Parton Shower & $-3.6 \pm 3.4 \%$ & $-3.2 \pm 5.9 \%$ \\
-    \hline
-  \end{tabular}
-
-  \begin{itemize}
-  \item Negative smearings means that the data would need to be smeared to match MC
-  \item Varying the \texttt{PSWeight} gives a large asymmetric uncertainty
-  \item Uncertainties applied are just the variables from the fit
   \end{itemize}
 
 \end{frame}
@@ -529,56 +441,12 @@
 \begin{frame}
   \frametitle{Comparison of Results}
 
-  \fourfigs{Binned Smear}
-           {200122_comparison_resolution/resolution_jet1_response_single_smear_nominal_smear_0.pdf}
-           {Binned Scale}
-           {200122_comparison_resolution/resolution_jet1_response_single_scale_nominal_smear_0.pdf}
-           {Unbinned Smear}
-           {200122_comparison_resolution/resolution_jet1_response_unbinned_smear_nominal_smear_0.pdf}
-           {Unbinned Scale}
-           {200122_comparison_resolution/resolution_jet1_response_unbinned_scale_nominal_smear_0.pdf}
-
   \begin{itemize}
   \item As before, does not agree for all $\alpha$
-  \item Smearing has better agreement at $\alpha = 0$ than the scaling
   \end{itemize}
 
 \end{frame}
 
-
-\begin{frame}
-  \frametitle{Di-jet Mass Peaks in Signal Samples}
-
-  \twofigs{MET Peak}
-          {200123_metpeak/comparison.pdf}
-          {Di-lepton Peak}
-          {200123_leppeak/comparison.pdf}
-
-  \begin{itemize}
-  \item As expected, regression brings resolution improvement,
-    even after smearing
-  \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Conclusions}
-
-  \begin{itemize}
-  \item Smearing much less than previously expected now that $t\bar{t}$ is in the picture
-  \item Smearing closes slightly better than scaling (still within uncertainties),
-    but requires random numbers
-  \item Unbinned and binned fits give same results with no $\rho$ bins
-  \item Systematics in unbinned fits are more complicated:
-    \begin{itemize}
-    \item Shape of $\alpha$ (and likely $\rho$) not easy to fit, and affects result
-    \item Relies on fit of response mean as well
-    \item Parton shower uncertainties are large and asymmetric
-    \end{itemize}
-  \end{itemize}
-
-\end{frame}
 
 
 \begin{comment}
@@ -593,6 +461,5 @@
 
 \backupend
 \end{comment}
-
 
 \end{document}

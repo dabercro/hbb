@@ -9,10 +9,10 @@ import numpy
 import random
 
 
-bintype = 'jet'
+bintype = 'rho'
 
-date = '200224'
-end = 'custom_pt'
+date = '200303'
+end = 'nbjets'
 
 newdir = os.path.join(
     os.environ['HOME'],
