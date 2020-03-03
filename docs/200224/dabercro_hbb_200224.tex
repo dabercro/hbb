@@ -8,7 +8,7 @@
   Christoph Paus
 }
 
-\title{\bf \sffamily Title Here}
+\title{\bf \sffamily Smearing Update}
 \date{\today}
 
 \usecolortheme{dove}
@@ -100,9 +100,9 @@
   \frametitle{Outline}
 
   \begin{itemize}
-  \item Un-binned fits
-  \item Binned across $\rho$
-  \item Binned across $\pt$
+  \item Unbinned fits with better $\alpha$ shape
+  \item Binned fits across $\rho$
+  \item Performance as function of jet $p_T$
   \end{itemize}
 
 \end{frame}
@@ -139,12 +139,31 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Closure}
+
+  \twofigs{Nominal Smearing}
+          {200224_fin/smearplot_jet1_response_unbinned_scale_nominal.pdf}
+          {Additional Smearing}
+          {200224_fin/smearplot_jet1_response_unbinned_scale_up.pdf}
+
+  \begin{itemize}
+  \item Increased smearing still pretty flat
+  \item Would expect ``up'' variation to increase if we fit across $\rho$
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
   \frametitle{$\rho$ Woes}
 
   \twofigs{Fit across $rho$}
           {200224_rho_200224_3rho_nb/scale_fit.pdf}
           {Closure}
           {200223_smear_200223_3rho_applied_custom_2018/resolution_jet1_response_scale_nominal_smear_0.pdf}
+
+  \begin{itemize}
+  \item Fit across $\rho$ is less stable than before, with non-convincing closure
+  \end{itemize}
 
 \end{frame}
 
@@ -163,9 +182,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Two Bins}
+  \frametitle{Solution: Two Bins}
 
-  \twofigs{Fit across $rho$}
+  \twofigs{Fit across $\rho$}
           {200224_rho_200224_fin_nbjet/scale_fit.pdf}
           {Closure}
           {200223_smear_200223_2rho_custom_2018/resolution_jet1_response_scale_nominal_smear_0.pdf}
@@ -204,7 +223,35 @@
 
 \end{frame}
 
-\begin{comment}
+\begin{frame}
+  \frametitle{Closure of Previous Smearings as Function of jet $p_T$: Medium $p_T$}
+
+  \twofigs{Binned Smearing}
+          {200224_jet_200224_custom_pt/resolution_jet1_response_scale_nominal_jet_1.pdf}
+          {Unbinned Smearing}
+          {200224_jet_200224_custom_pt/resolution_jet1_response_unbinned_scale_nominal_jet_1.pdf}
+
+  \begin{itemize}
+  \item Might slightly overshoot for medium $p_T$ jets
+  \item Intrinsic and MC are right on top of each other for low $p_T$, so scaling difference does nothing
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Closure of Previous Smearings as Function of jet $p_T$: High $p_T$}
+
+  \twofigs{Binned Smearing}
+          {200224_jet_200224_custom_pt/resolution_jet1_response_scale_nominal_jet_2.pdf}
+          {Unbinned Smearing}
+          {200224_jet_200224_custom_pt/resolution_jet1_response_unbinned_scale_nominal_jet_2.pdf}
+
+  \begin{itemize}
+  \item Closes reasonably at low $\alpha$ for high $p_T$
+  \end{itemize}
+
+\end{frame}
+
 \beginbackup
 
 \begin{frame}
@@ -215,6 +262,5 @@
 \input{backup_slides.tex}
 
 \backupend
-\end{comment}
 
 \end{document}
