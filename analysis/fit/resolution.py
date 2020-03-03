@@ -9,10 +9,10 @@ import numpy
 import random
 
 
-bintype = 'rho'
+bintype = 'jet'
 
-date = '200223'
-end = '3rho_custom_2018'
+date = '200224'
+end = 'custom_pt'
 
 newdir = os.path.join(
     os.environ['HOME'],
@@ -113,7 +113,14 @@ jets = [
 
 def rhotitle (bin):
     if len(rhos) == 1:
-        return ''
+        if bintype != 'jet':
+            return ''
+        if bin == 0:
+            return 'p_{T} < 100'
+        if bin == 1:
+            return '100 #leq p_{T} < 130'
+        if bin == 2:
+            return '130 #leq p_{T} < 500'
     if bin == 0:
         return '#rho < 16.5' if len(rhos) == 3 else '#rho < 19'
     if bin == 1:

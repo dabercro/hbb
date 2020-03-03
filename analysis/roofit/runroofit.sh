@@ -1,37 +1,23 @@
 #! /bin/bash
 
-outdir=${1:?}
+export SCRAM_ARCH=slc6_amd64_gcc700
+export CMSSW_VER=CMSSW_10_2_5_patch1
 
-test -d $outdir || mkdir $outdir
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+
+scram project CMSSW $CMSSW_VER
+
+cd $CMSSW_VER/src
+eval `scram runtime -sh`
+cd -
+
+outdir=$(date '+%y%m%d')
+
 test -d plots || mkdir plots
 
-for shape in sum Landau Gaussian
-do
+tar -xf roofit.tgz
 
-    ./roofit.py $shape xsec_weight > $outdir/${shape}_xsec_weight.txt
+./roofit.py sum $1
 
-    for weight in {0..8}
-    do
-
-        if [ $weight -eq 5 ] || [ $weight -eq 7 ]
-        then
-            continue
-        fi
-
-        ./roofit.py $shape xsec_weight_scale_weight_$weight > $outdir/${shape}_xsec_weight_scale_weight_$weight.txt
-
-    done
-
-
-    for weight in {0..3}
-    do
-
-        ./roofit.py $shape xsec_weight_ps_weight_$weight > $outdir/${shape}_xsec_weight_ps_weight_$weight.txt
-
-    done
-
-done
-
-cp CrombieAnalysisConfig.sh $outdir
-cp roofit.py $outdir
-mv plots/* $outdir
+test -d $HOME/public_html/plots/$outdir || mkdir $HOME/public_html/plots/$outdir
+mv plots/* $HOME/public_html/plots/$outdir
