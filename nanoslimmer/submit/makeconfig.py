@@ -8,9 +8,9 @@ import shutil
 
 year='2018'
 
-#exe='smearnano'
-exe='hbbnano'
-version='200223_%s_%s_fin' % (exe, year)
+exe='smearnano'
+#exe='hbbnano'
+version='200303_%s_%s' % (exe, year)
 
 use_custom = True
 files_per_job = 5
