@@ -145,6 +145,33 @@ namespace {
     }
   };
 
+  struct unbinned_3d {
+    double mc_intercept;
+    double mc_intercept_err;
+    double mc_slope;
+    double mc_slope_err;
+    double mc_corr;
+    double data_intercept;
+    double data_intercept_err;
+    double data_slope;
+    double data_slope_err;
+    double data_corr;
+  };
+
+  // nominal_simple.txt with data errors for MC
+  unbinned_3d fit_3d {
+    1.33144e-01,
+    1.98080e-02,
+   -2.44536e-03,
+    1.86825e-04,
+   -0.577,
+    1.70931e-01,
+    1.98080e-02,
+   -3.83729e-03,
+    1.86825e-04,
+   -0.973
+  };
+
   const all_smears* loaded = &smear_versions.at("2018_v5");
 
 }
@@ -172,10 +199,37 @@ namespace applysmearing {
     return fit.slope * rho + fit.intercept;
   }
 
+  double numerator (double rho, const unbinned_3d& fit) {
+    return fit.data_intercept + fit.data_slope * rho;
+  }
+
+  double denominator (double rho, const unbinned_3d& fit) {
+    return fit.mc_intercept + fit.mc_slope * rho;
+  }
+
+  double nominal_smear (double rho, const unbinned_3d& fit) {
+    return numerator(rho, fit)/denominator(rho, fit) - 1.0;
+  }
+
   double smear_band (double rho, const fit_result& fit) {
     return std::sqrt(std::pow((rho + fit.covar * fit.intercept) * fit.slope_err, 2) +
                      std::pow((fit.covar * fit.slope * rho + 1) * fit.intercept_err, 2));
   }
+
+  double smear_band (double rho_in, const unbinned_3d& fit) {
+
+    auto rho = std::min(rho_in, 45.0d);
+
+    auto num = numerator(rho, fit);
+    auto den = denominator(rho, fit);
+
+    return std::sqrt(std::pow(fit.data_intercept_err * (1 + fit.data_corr * fit.data_slope * rho)/den, 2) +
+                     std::pow(fit.data_slope_err * (rho + fit.data_corr * fit.data_intercept)/den, 2) +
+                     std::pow(fit.mc_intercept_err * (1 + fit.mc_corr * fit.mc_slope * rho) * num/std::pow(den, 2), 2) +
+                     std::pow(fit.mc_slope_err * (rho + fit.mc_corr * fit.mc_intercept) * num/std::pow(den, 2), 2)
+                     );
+  }
+
 
   enum class smear_method {
     OLD_SCALE,
@@ -184,7 +238,8 @@ namespace applysmearing {
     SINGLE_SCALE,
     SINGLE_SMEAR,
     UNBINNED_SCALE,
-    UNBINNED_SMEAR
+    UNBINNED_SMEAR,
+    UNBINNED_3D
   };
 
   smear_result smeared_pt (double jet_pt, double regression_factor, double rho, double gen_jet_pt = 0, smear_method method = smear_method::SMEAR) {
@@ -192,7 +247,7 @@ namespace applysmearing {
     double regressed = jet_pt * regression_factor;
 
     // Use the result that matches the desired smearing
-    const fit_result& fit = std::map<smear_method, fit_result> {
+    const std::map<smear_method, fit_result> fits {
       {smear_method::OLD_SCALE, old_scale},
       {smear_method::SCALE, loaded->binned_scale},
       {smear_method::SMEAR, loaded->binned_smear},
@@ -200,10 +255,15 @@ namespace applysmearing {
       {smear_method::SINGLE_SMEAR, loaded->single_bin_smear},
       {smear_method::UNBINNED_SCALE, loaded->unbinned_scale},
       {smear_method::UNBINNED_SMEAR, loaded->unbinned_smear}
-    }.at(method);
+    };
 
-    auto nominal = nominal_smear(rho, fit);
-    auto band = smear_band(rho, fit);
+    auto nominal = method != smear_method::UNBINNED_3D
+      ? nominal_smear(rho, fits.at(method))
+      : nominal_smear(rho, fit_3d);
+
+    auto band = method != smear_method::UNBINNED_3D
+      ? smear_band(rho, fits.at(method))
+      : smear_band(rho, fit_3d);
 
     if (method == smear_method::SMEAR or method == smear_method::SINGLE_SMEAR or method == smear_method::UNBINNED_SMEAR) {
 
