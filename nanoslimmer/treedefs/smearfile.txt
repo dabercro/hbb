@@ -63,6 +63,12 @@ num_bjet/s
 
 }
 
+<cmath>
+
+#dilep_plus_jet2/TVector2 = TVector2() <- TVector2(<dilep_pt * std::{cos, sin}(dilep_phi)>) + TVector2(<jet2_pt * std::{cos, sin}(jet2_phi)>)
+
+jet1_adjusted_response <- jet1_pt/dilep_plus_jet2.Mod()
+
 alpha <- jet2_pt/dilep_pt
 untrained_response <- jet1_pt/dilep_pt
 
