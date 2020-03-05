@@ -180,7 +180,8 @@ namespace {
 namespace applysmearing {
 
   void load (const std::string& year) {
-    loaded = &smear_versions.at(year);
+    if (smear_versions.find(year) != smear_versions.end())
+      loaded = &smear_versions.at(year);
   }
 
   struct smear_result {
