@@ -17,6 +17,34 @@ namespace {
     const double covar;
   };
 
+
+  struct unbinned_3d {
+    double mc_intercept;
+    double mc_intercept_err;
+    double mc_slope;
+    double mc_slope_err;
+    double mc_corr;
+    double data_intercept;
+    double data_intercept_err;
+    double data_slope;
+    double data_slope_err;
+    double data_corr;
+  };
+
+  // nominal_simple.txt with data errors for MC
+  unbinned_3d fit_3d {
+    1.33144e-01,
+    1.98080e-02,
+   -2.44536e-03,
+    1.86825e-04,
+   -0.577,
+    1.70931e-01,
+    1.98080e-02,
+   -3.83729e-03,
+    1.86825e-04,
+   -0.973
+  };
+
   struct all_smears {
     const fit_result binned_scale;
     const fit_result binned_smear;
@@ -24,6 +52,7 @@ namespace {
     const fit_result single_bin_smear;
     const fit_result unbinned_scale;
     const fit_result unbinned_smear;
+    const unbinned_3d unbinned_3d_scale {fit_3d};
   };
 
   // This is the same for everything
@@ -32,35 +61,34 @@ namespace {
   };
 
   const std::map<std::string, all_smears> smear_versions {
-    {"2018_v5", {
-        // 200128_2018v5.txt
+    {"2017", {
+        // 200306_2017.txt
         { // Scaling
-          -1.09307e-03,
-          7.03310e-03,
-          3.81715e-02,
-          1.55460e-01,
-          -0.00103353662013
+         -5.54744e-03,
+          7.07015e-03,
+          1.84155e-01,
+          1.63975e-01,
+         -0.00109871933135
         },
         { // Smearing
-          -2.11521e-03,
-          4.08882e-03,
-          1.05890e-01,
-          8.23771e-02,
-          -0.000330959563271
+         -2.21733e-03,
+          3.29103e-03,
+          9.78508e-02,
+          5.82195e-02,
+         -0.000179476207821
         },
-        // 200128_2018v5_single.txt
         { // Scaling
-          0, 0, 0.035261, 0.065657, 0
+          0, 0, 0.063675, 0.062818, 0
         },
         { // Smearing
-          0, 0, 0.037395, 0.033565, 0
+          0, 0, 0.053088, 0.024712, 0
         },
-        // 200119/Gaussian_xsec_weight.txt
+        // 200306_2017/sum_*.txt
         { // Scaling
-          0, 0, 0.054713, 0.064761, 0
+          0, 0, 0.054387, std::sqrt(std::pow(0.047450, 2) + std::pow((0.227135 - 0.054387)/2, 2) + std::pow((0.094294 - 0.054315)/2, 2)), 0
         },
         { // Smearing
-          0, 0, 0.046527, 0.026636, 0
+          0, 0, 0.049638, std::sqrt(std::pow(0.021318, 2) + std::pow((0.091470 - 0.049638)/2, 2) + std::pow((0.063328 - 0.049605)/2, 2)), 0
         }
       }
     },
@@ -143,33 +171,6 @@ namespace {
         }
       }
     }
-  };
-
-  struct unbinned_3d {
-    double mc_intercept;
-    double mc_intercept_err;
-    double mc_slope;
-    double mc_slope_err;
-    double mc_corr;
-    double data_intercept;
-    double data_intercept_err;
-    double data_slope;
-    double data_slope_err;
-    double data_corr;
-  };
-
-  // nominal_simple.txt with data errors for MC
-  unbinned_3d fit_3d {
-    1.33144e-01,
-    1.98080e-02,
-   -2.44536e-03,
-    1.86825e-04,
-   -0.577,
-    1.70931e-01,
-    1.98080e-02,
-   -3.83729e-03,
-    1.86825e-04,
-   -0.973
   };
 
   const all_smears* loaded = &smear_versions.at("2018_v5");

@@ -8,8 +8,13 @@ import math
 
 from collections import defaultdict
 
+try:
+    from CrombieTools import LoadConfig
+except:
+    pass
 
-indir = 'skimmed'
+
+indir = os.path.join(os.environ.get('CrombieInFilesDir', '.'), 'skimmed')
 mc = 'mc.root'
 data = 'data.root'
 cutvars = []

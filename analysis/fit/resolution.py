@@ -9,8 +9,10 @@ import numpy
 import random
 
 
-date = '200304'
-end = '3d'
+date = '200306'
+end = '2017'
+
+divbymean = False
 
 class MeanCalc(object):
 
@@ -93,7 +95,7 @@ trainings = [
     ('jet1_response_unbinned_3d_nominal', 'Unbinned 3D Nominal'),
     ('jet1_response_unbinned_3d_up', 'Unbinned 3D Up'),
     ('jet1_response_unbinned_3d_down', 'Unbinned 3D Down'),
-    ]
+    ][0:1]
 
 
 for bintype in ['smear', 'rho']:
@@ -227,14 +229,14 @@ for bintype in ['smear', 'rho']:
 
                 data_hist = smearfile.Get('Data')
                 data_mean = mean[2].mean()
-                data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev()/data_hist.GetMean())
+                data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev()/(data_hist.GetMean() if divbymean else 1.0))
                 data_graph_res.SetPointError(index, 0, #mean[2].std(),
                                              data_hist.GetStdDevError())
                 data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
 
                 mc_hist = smearfile.Get('DY') + smearfile.Get('TT')
                 mc_mean = mean[3].mean()
-                mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev()/mc_hist.GetMean())
+                mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev()/(mc_hist.GetMean() if divbymean else 1.0))
                 mc_graph_res.SetPointError(index, 0, #mean[3].std(),
                                            mc_hist.GetStdDevError())
                 mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
@@ -248,7 +250,7 @@ for bintype in ['smear', 'rho']:
 
                 gen_hist = genfile.Get('DY') + genfile.Get('TT')
                 gen_mean = mean[3].mean()
-                gen_graph_res.SetPoint(index, gen_mean, gen_hist.GetStdDev()/gen_hist.GetMean())
+                gen_graph_res.SetPoint(index, gen_mean, gen_hist.GetStdDev()/(gen_hist.GetMean() if divbymean else 1.0))
                 gen_graph_res.SetPointError(index, 0, gen_hist.GetStdDevError())
 
                 index += 1
