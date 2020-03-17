@@ -6,7 +6,7 @@
 }
 
 \title{\bf \sffamily B-jet Energy Smearing for the VHbb Analysis}
-\date{\today}
+\date{4 March 2020}
 
 \usecolortheme{dove}
 
@@ -251,7 +251,7 @@
     \begin{itemize}
     \item $|\eta| < 2.4$
     \item $\Delta\phi(j, \ell\ell) > 2.8$
-    \item \texttt{btagDeepB} $> 0.9$
+    \item \texttt{btagDeepB} $> 0.8$
     \end{itemize}
   \item Trailing jet statisfies: $\alpha = \frac{p_{T, j}}{p_{T, \ell\ell}} < 0.3$
   \end{itemize}
@@ -295,7 +295,7 @@
   \item We use events with a second jet, and extrapolate down to where $\alpha = 0$
   \item This should give us the behavior of the one jet diagram,
     without needing to deal with few events or jet acceptance.
-  \item Create four bins of $\alpha$:
+  \item We use four bins of $\alpha$, each with roughly equal data yields:
   \end{itemize}
   \begin{columns}
     \begin{column}{0.5\linewidth}
@@ -345,9 +345,8 @@
   \begin{itemize}
   \item Standard deviation of each histogram has some uncertainty \\
     that can be propagated through the fit
-  \item Previous plots just have statistical uncertainties
-  \item We add the the envelopes from parton shower and \\
-    scale (renormalization/refactorization) weights
+  \item We add the the envelopes from all parton shower and \\
+    most\footnote{Not using scale weights where renormalization and refactorization are varied in opposite directions} scale (renormalization/refactorization) weights stored in NanoAOD
   \end{itemize}
 
   \begin{columns}
@@ -396,7 +395,14 @@
 
   \vfill
 
-  Generator and reco difference to be scaled by: $3.2 \pm 6.6 \%$
+  \begin{center}
+    Generator and reco difference to be scaled by: $3.2 \pm 6.6 \%$
+  \end{center}
+
+  \vfill
+
+  We set the floor for the smearing to 0\%,
+  so the down variation of smearing is just no smearing
 
 \end{frame}
 
@@ -411,11 +417,11 @@
   f(x, \alpha) =
   G(x, \mu(\alpha), \sigma(\alpha)|\alpha)
   \times
-  F(\alpha, \mu_0, \sigma_0)
+  F(\alpha, \theta)
   \]
   \item $G$ is a Gaussian distribution
   \item $\mu$ as a linear function
-  \item $F$ is a Gaussian with fixed mean $\mu_0$ and width $\sigma_0$
+  \item $F$ is the sum of a Landau and Gaussian distribution with fixed parameters
   \item $\sigma$ is of the same form as the binned fit,
     with $c_k$ being derived from a fit to
     intrinsic resolution with a linear $\sigma(\alpha)$:
@@ -428,12 +434,64 @@
 
 
 \begin{frame}
+  \frametitle{Unbinned Fit -- Response}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      MC \\
+      \includegraphics[width=\linewidth]{200303_cb_roofit/sum_xsec_weight_jet1_response_mc_slice0.pdf} \\
+      Intrinsic \\
+      \includegraphics[width=\linewidth]{200303_cb_roofit/sum_xsec_weight_jet1_response_intrinsic_gen_slice0.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      Data \\
+      \includegraphics[width=\linewidth]{200303_cb_roofit/sum_xsec_weight_jet1_response_data_slice0.pdf} \\
+      Fits look good
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Unbinned Fit -- $\alpha$}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      MC \\
+      \includegraphics[width=\linewidth]{200303_cb_roofit/sum_xsec_weight_alpha_mc_slice0.pdf} \\
+      Intrinsic \\
+      \includegraphics[width=\linewidth]{200303_cb_roofit/sum_xsec_weight_alpha_gen_slice0.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      Data \\
+      \includegraphics[width=\linewidth]{200303_cb_roofit/sum_xsec_weight_alpha_data_slice0.pdf} \\
+      Fits look good in other direction too
+    \end{column}
+  \end{columns}
+
+
+\end{frame}
+
+
+\begin{frame}
   \frametitle{Unbinned Fit Uncertainties}
 
   \begin{itemize}
   \item Cannot make histogram envelope for uncertainties, \\
     so made separate fits for each weight
+  \item Half of the difference between maximum and minimum smearing values for each
+    Parton Shower and Scale variations are added in quadrature to the uncertainty
   \end{itemize}
+
+  \vfill
+
+  \centering
+  Generator and reco difference to be scaled by: $1.4 \pm 5.3 (\mathrm{stat}) \pm 1.7 (\mathrm{scale}) \pm 1.3 (\mathrm{PS}) \%$
 
 \end{frame}
 
@@ -442,11 +500,146 @@
   \frametitle{Comparison of Results}
 
   \begin{itemize}
-  \item As before, does not agree for all $\alpha$
+  \item Additional smearing does cover closure for $\alpha = 0$
+  \end{itemize}
+
+  \vfill
+
+  \fourfigs{Nominal Binned}
+           {200303_smear_200303_cb/resolution_jet1_response_single_scale_nominal_smear_0.pdf}
+           {Up Var. Binned}
+           {200303_smear_200303_cb/resolution_jet1_response_single_scale_up_smear_0.pdf}
+           {Nominal Unbinned}
+           {200303_smear_200303_cb/resolution_jet1_response_unbinned_scale_nominal_smear_0.pdf}
+           {Up Var. Unbinned}
+           {200303_smear_200303_cb/resolution_jet1_response_unbinned_scale_up_smear_0.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Dependence on $\rho$}
+
+  \begin{itemize}
+  \item Smearing is needed more at low $\rho$ values    
+  \end{itemize}
+
+  \vfill
+
+  \twofigs{}
+          {200303_rho_200303_cb/resolution_jet1_response_rho_0.pdf}
+          {}
+          {200303_rho_200303_cb/resolution_jet1_response_rho_1.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{$\rho$ Bin Selection}
+
+  \begin{itemize}
+  \item Too many $\rho$ bins causes large statisticaly uncertainties
+  \item Too few still gives large fit uncertainties
+  \end{itemize}
+
+  \vfill
+
+  \twofigs{}
+          {200224_rho_200224_3rho_nb/scale_fit.pdf}
+          {}
+          {200303_rho_200303_cb/scale_fit.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Results Using Two Bins}
+
+  \begin{itemize}
+  \item Nominal agreement is good
+  \item Up variation can likely be reduced
+  \end{itemize}
+
+  \twofigs{Nominal Smearing}
+          {200303_smear_200303_cb/resolution_jet1_response_scale_nominal_smear_0.pdf}
+          {Additional Smearing}
+          {200303_smear_200303_cb/resolution_jet1_response_scale_up_smear_0.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Current Work: Unbinned Fit with $\rho$}
+
+  \begin{itemize}
+  \item Same events, variables, cuts, and weights as before
+  \item Fit 2D p.d.f. over jet response (labelled $x$) and $\alpha$
+  \[
+  f(x, \alpha, \rho) =
+  G(x, \mu(\alpha), \sigma(\alpha, \rho)|\alpha, \rho)
+  \times
+  F(\alpha, \theta)
+  \times
+  H(\rho, \phi)
+  \]
+  \item $G$ is a Gaussian distribution
+  \item $\mu$ as a linear function
+  \item $F$ is the sum of a Landau and Gaussian distribution with fixed parameters
+  \item $\sigma$ now has $c(\rho)$ which is a first order polynominal in $\rho$
+  \[
+  \sigma(\alpha, \rho) = (m \times \alpha) \oplus c(\rho) \times (1 + c_k \times \alpha)
+  \]
   \end{itemize}
 
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Need Shape for $\rho$}
+
+  \begin{itemize}
+  \item Working on shape for $\rho$
+  \item Suspect the fit uncertainties will be dramatically reduced
+    once we have a good p.d.f.
+  \end{itemize}
+
+  \twofigs{Data}
+          {200303_roofit/sum_xsec_weight_rhoAll_data.pdf}
+          {MC}
+          {200303_roofit/sum_xsec_weight_rhoAll_mc.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Preliminary Results}
+
+  \twofigs{Nominal Smearing}
+          {200304_smear_200304_3d/resolution_jet1_response_unbinned_3d_nominal_smear_0.pdf}
+          {Additional Smearing}
+          {200304_smear_200304_3d/resolution_jet1_response_unbinned_3d_up_smear_0.pdf}
+
+  \begin{itemize}
+  \item Even without an optimal fit, already have uncertainties similar to binned fit
+  \item Closure with nominal smearing is very good
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item We have measured the smearing needed for the updated b-jet regression
+  \item The method has also been implemented in an unbinned fit
+  \item These two measurements agree well
+  \item The fit has been extended into the $\rho$ dimension to account for other causes of smearing
+  \item Results are promising, but have large fit uncertainties
+  \item Currently implementing fit with $\rho$ using an unbinned fit
+  \end{itemize}
+
+\end{frame}
 
 
 \begin{comment}
