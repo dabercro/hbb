@@ -9,10 +9,10 @@ import numpy
 import random
 
 
-date = '200306'
-end = '2017'
+date = '200312'
+end = 'adjust_for_alpha'
 
-divbymean = False
+divbymean = True
 
 class MeanCalc(object):
 
@@ -71,6 +71,7 @@ import ROOT
 
 trainings = [
     ('jet1_response', 'No Smearing'),
+    ('jet1_adjusted_response', 'Adjust For Alpha'),
     ('jet1_response_smear_nominal', 'Smear Nominal'),
     ('jet1_response_smear_up', 'Smear Up'),
     ('jet1_response_smear_down', 'Smear Down'),
@@ -95,7 +96,7 @@ trainings = [
     ('jet1_response_unbinned_3d_nominal', 'Unbinned 3D Nominal'),
     ('jet1_response_unbinned_3d_up', 'Unbinned 3D Up'),
     ('jet1_response_unbinned_3d_down', 'Unbinned 3D Down'),
-    ][0:1]
+    ][0:2]
 
 
 for bintype in ['smear', 'rho']:
@@ -103,13 +104,14 @@ for bintype in ['smear', 'rho']:
     newdir = os.path.join(
         os.environ['HOME'],
         'public_html/plots',
-        '%s_%s%s_%s_%s' % (
+        '%s_%s%s_%s_%s%s' % (
             datetime.date.strftime(
                 datetime.datetime.now(), '%y%m%d'
                 ),
             bintype,
             sys.argv[1] if len(sys.argv) > 2 else '',
-            date, end
+            date, end,
+            '_divmean' if divbymean else ''
             )
         )
 
