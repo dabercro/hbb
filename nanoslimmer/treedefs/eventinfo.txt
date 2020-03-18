@@ -8,6 +8,8 @@ rho$ = e.fixedGridRhoFastjet$ | All, CentralCalo, CentralNeutral
 
 bsf_$ = e.btagWeight.$ | CSVV2, DeepCSVB
 
+#is_data/O = (run > 1)
+
 scale_weight_$ = e.LHEScaleWeight.size() > $ ? e.LHEScaleWeight.at($).VAL : 1 | 0..9
 ps_weight_$ = e.PSWeight.size() > $ ? e.PSWeight.at($).VAL : 1 | 0..4
 LHE_weight_orig = e.LHEWeight_originalXWGTUP

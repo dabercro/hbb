@@ -31,6 +31,11 @@ namespace {
     double data_corr;
   };
 
+  struct data_scaling {
+    double scale;
+    double error;
+  };
+
   // nominal_simple.txt with data errors for MC
   unbinned_3d fit_3d {
     1.33144e-01,
@@ -45,6 +50,12 @@ namespace {
    -0.973
   };
 
+  // outputs/200318.txt
+  data_scaling scale_data {
+    1.01529325213,
+    0.0107620841338
+  };
+
   struct all_smears {
     const fit_result binned_scale;
     const fit_result binned_smear;
@@ -53,6 +64,7 @@ namespace {
     const fit_result unbinned_scale;
     const fit_result unbinned_smear;
     const unbinned_3d unbinned_3d_scale {fit_3d};
+    const data_scaling data_scale {scale_data};
   };
 
   // This is the same for everything
@@ -276,9 +288,19 @@ namespace applysmearing {
     UNBINNED_3D
   };
 
-  smear_result smeared_pt (double jet_pt, double regression_factor, double rho, double gen_jet_pt = 0, smear_method method = smear_method::SMEAR) {
+  smear_result smeared_pt (double jet_pt, double regression_factor, double rho, double gen_jet_pt = 0, smear_method method = smear_method::SMEAR, bool is_data = false) {
 
     double regressed = jet_pt * regression_factor;
+
+    if (is_data) {
+      auto& scaler = loaded->data_scale;
+      smear_result output {
+        std::max(0.0, regressed * (scaler.scale - scaler.error)),
+        std::max(0.0, regressed * (scaler.scale)),
+        std::max(0.0, regressed * (scaler.scale + scaler.error))
+      };
+      return output;
+    }
 
     // Use the result that matches the desired smearing
     const std::map<smear_method, fit_result> fits {

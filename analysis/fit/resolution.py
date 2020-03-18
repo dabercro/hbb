@@ -314,10 +314,10 @@ for bintype in ['smear', 'rho']:
                 print rhotitle(bin)
                 print '-'*30
 
-                if makesub:
+                data_int, data_int_err = (abs(data_func.GetParameter(1)), datares.Error(1))
+                mc_int, mc_int_err = (abs(mc_func.GetParameter(1)), mcres.Error(1))
 
-                    data_int, data_int_err = (abs(data_func.GetParameter(1)), datares.Error(1))
-                    mc_int, mc_int_err = (abs(mc_func.GetParameter(1)), mcres.Error(1))
+                if makesub:
 
                     print 'Data at y-axis: %f +- %f' % (data_int, data_int_err)
                     print 'MC at y-axis: %f +- %f' %  (mc_int, mc_int_err)
@@ -351,9 +351,13 @@ for bintype in ['smear', 'rho']:
                     scale_fit.SetPointError(bin, 0, scale_err)
 
                 else:
+                    scale_err = math.sqrt(pow(mc_int_err/data_int, 2) +
+                                          pow(mc_int * data_int_err/pow(data_int, 2), 2))
+
                     print 'Data at y-axis:', data_func.GetParameter(1)
                     print 'MC at y-axis:', mc_func.GetParameter(1)
                     print 'Scale factor:', data_func.GetParameter(1)/mc_func.GetParameter(1)
+                    print 'Scale (data) factor:', mc_func.GetParameter(1)/data_func.GetParameter(1), '+-', scale_err
 
                 for ext in ['pdf', 'png', 'C']:
                     c1.SaveAs(
