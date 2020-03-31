@@ -174,7 +174,7 @@ const panda::RecoMet& panda::JECCorrector::get_met () const {
 void panda::JECCorrector::adjust_event (panda::Event& event, const std::string& year) {
 
   // No update needed for these
-  if (year == "2018_v6" or year == "2018_custom")
+  if (year == "2018_v6" or year == "2018_custom" or year == "2016")
     return;
 
   int year_int = std::stoi(year);

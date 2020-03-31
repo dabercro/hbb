@@ -70,7 +70,7 @@ testdir = ${HOME}/public_html/plots/testnanohbb
 
 test: $(hbb)
 	test ! -f test.root || rm test.root
-	$(hbb) 2018_v5 /data/t3home000/dabercro/scratch/nano/hbb/*.root test.root
+	$(hbb) 2016 /data/t3home000/dabercro/scratch/nano/hbb/*.root test.root
 	test ! -d $(testdir)_old || rm -r $(testdir)_old
 	test ! -d $(testdir) || mv $(testdir) $(testdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
