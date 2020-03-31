@@ -9,8 +9,8 @@ import numpy
 import random
 
 
-date = '200312'
-end = 'adjust_for_alpha'
+date = '200331'
+end = '2018_custom'
 
 divbymean = True
 
@@ -233,15 +233,20 @@ for bintype in ['smear', 'rho']:
                 data_mean = mean[2].mean()
                 data_graph_res.SetPoint(index, data_mean, data_hist.GetStdDev()/(data_hist.GetMean() if divbymean else 1.0))
                 data_graph_res.SetPointError(index, 0, #mean[2].std(),
-                                             data_hist.GetStdDevError())
+                                             math.sqrt(pow(data_hist.GetStdDevError()/data_hist.GetMean(), 2) +
+                                                       pow(data_hist.GetStdDev() * data_hist.GetMeanError()/pow(data_hist.GetMean(), 2), 2)))
                 data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
+                data_graph_mean.SetPoint(index, 0, data_hist.GetMeanError())
 
                 mc_hist = smearfile.Get('DY') + smearfile.Get('TT')
                 mc_mean = mean[3].mean()
                 mc_graph_res.SetPoint(index, mc_mean, mc_hist.GetStdDev()/(mc_hist.GetMean() if divbymean else 1.0))
                 mc_graph_res.SetPointError(index, 0, #mean[3].std(),
-                                           mc_hist.GetStdDevError())
+                                           math.sqrt(pow(mc_hist.GetStdDevError()/mc_hist.GetMean(), 2) +
+                                                     pow(mc_hist.GetStdDev() * mc_hist.GetMeanError()/pow(mc_hist.GetMean(), 2), 2)))
+
                 mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
+                mc_graph_mean.SetPoint(index, 0, mc_hist.GetMeanError())
 
                 genfile = ROOT.TFile(
                     os.path.join(
@@ -253,7 +258,9 @@ for bintype in ['smear', 'rho']:
                 gen_hist = genfile.Get('DY') + genfile.Get('TT')
                 gen_mean = mean[3].mean()
                 gen_graph_res.SetPoint(index, gen_mean, gen_hist.GetStdDev()/(gen_hist.GetMean() if divbymean else 1.0))
-                gen_graph_res.SetPointError(index, 0, gen_hist.GetStdDevError())
+                gen_graph_res.SetPointError(index, 0,
+                                            math.sqrt(pow(gen_hist.GetStdDevError()/gen_hist.GetMean(), 2) +
+                                                      pow(gen_hist.GetStdDev() * gen_hist.GetMeanError()/pow(gen_hist.GetMean(), 2), 2)))
 
                 index += 1
 
@@ -358,6 +365,11 @@ for bintype in ['smear', 'rho']:
                     print 'MC at y-axis:', mc_func.GetParameter(1)
                     print 'Scale factor:', data_func.GetParameter(1)/mc_func.GetParameter(1)
                     print 'Scale (data) factor:', mc_func.GetParameter(1)/data_func.GetParameter(1), '+-', scale_err
+
+                    scale_err = math.sqrt(pow(data_int_err/mc_int, 2) +
+                                          pow(data_int * mc_int_err/pow(mc_int, 2), 2))
+
+                    print 'Scale (mc) factor:', data_func.GetParameter(1)/mc_func.GetParameter(1), '+-', scale_err
 
                 for ext in ['pdf', 'png', 'C']:
                     c1.SaveAs(
