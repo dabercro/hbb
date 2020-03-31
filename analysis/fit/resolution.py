@@ -10,7 +10,7 @@ import random
 
 
 date = '200331'
-end = '2018_custom'
+end = '2017'
 
 divbymean = True
 
@@ -207,11 +207,11 @@ for bintype in ['smear', 'rho']:
             mc_graph_res.SetMarkerStyle(8)
             mc_graph_res.SetMarkerColor(2)
 
-            data_graph_mean = ROOT.TGraph(len(ranges))
+            data_graph_mean = ROOT.TGraphErrors(len(ranges))
             data_graph_mean.SetMarkerStyle(8)
             data_graph_mean.SetMarkerColor(1)
 
-            mc_graph_mean = ROOT.TGraph(len(ranges))
+            mc_graph_mean = ROOT.TGraphErrors(len(ranges))
             mc_graph_mean.SetMarkerStyle(8)
             mc_graph_mean.SetMarkerColor(2)
 
@@ -236,7 +236,7 @@ for bintype in ['smear', 'rho']:
                                              math.sqrt(pow(data_hist.GetStdDevError()/data_hist.GetMean(), 2) +
                                                        pow(data_hist.GetStdDev() * data_hist.GetMeanError()/pow(data_hist.GetMean(), 2), 2)))
                 data_graph_mean.SetPoint(index, data_mean, data_hist.GetMean())
-                data_graph_mean.SetPoint(index, 0, data_hist.GetMeanError())
+                data_graph_mean.SetPointError(index, 0, data_hist.GetMeanError())
 
                 mc_hist = smearfile.Get('DY') + smearfile.Get('TT')
                 mc_mean = mean[3].mean()
@@ -246,7 +246,7 @@ for bintype in ['smear', 'rho']:
                                                      pow(mc_hist.GetStdDev() * mc_hist.GetMeanError()/pow(mc_hist.GetMean(), 2), 2)))
 
                 mc_graph_mean.SetPoint(index, mc_mean, mc_hist.GetMean())
-                mc_graph_mean.SetPoint(index, 0, mc_hist.GetMeanError())
+                mc_graph_mean.SetPointError(index, 0, mc_hist.GetMeanError())
 
                 genfile = ROOT.TFile(
                     os.path.join(

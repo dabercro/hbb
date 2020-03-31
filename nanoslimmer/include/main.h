@@ -7,7 +7,7 @@
 #include "checkrun.h"
 #include "TH1F.h"
 #include "TFile.h"
-#include "applysmearing.h"
+#include "applysmearing2.h"
 
 #include <ctime>
 #include <string>
@@ -24,7 +24,7 @@ int main_wrapper(int argc, char** argv) {
 
   std::cout << "Setting year to: " << year << std::endl;
 
-  applysmearing::load(year);
+  applysmearing2::load(year);
 
   T output {argv[argc - 1]};
   TH1F all_hist {"htotal", "htotal", 1, -1, 1};
