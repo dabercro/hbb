@@ -61,7 +61,7 @@ smeartestdir = ${HOME}/public_html/plots/testnanosmear
 
 smeartest: $(smear)
 	test ! -f smear.root || rm smear.root
-	$(smear) 2017 $(smeartestfile) smear.root
+	$(smear) 2016 $(smeartestfile) smear.root
 	test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
 	test ! -d $(smeartestdir) || mv $(smeartestdir) $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump smear.root $(smeartestdir)
