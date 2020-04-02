@@ -10,7 +10,7 @@ import ROOT
 
 class TestSmearing(unittest.TestCase):
 
-    epsilon = 0.01
+    epsilon = 0.0000001
 
     def run_test(self, year, isdata, infile):
         applicator = applysmearing.SmearApplicator(year=year, isdata=isdata)
