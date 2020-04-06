@@ -6,13 +6,13 @@ import shutil
 
 ##
 
-year='2018'
+year='2017'
 
 exe='smearnano'
 #exe='hbbnano'
-version='200401_%s_%s' % (exe, year)
+version='200406_%s_%s' % (exe, year)
 
-use_custom = True
+use_custom = False
 files_per_job = 20 if use_custom else 1
 
 ##
