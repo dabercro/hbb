@@ -1,0 +1,1020 @@
+[?1034h[#1] INFO:Eval -- RooAbsReal::attachToTree(alpha) TTree Float_t branch alpha will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(jet1_response_intrinsic) TTree Float_t branch jet1_response_intrinsic will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(rhoAll) TTree Float_t branch rhoAll will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(xsec_weight) TTree Float_t branch xsec_weight will be converted to double precision
+[#1] INFO:Minization -- createNLL: caching constraint set under name CONSTR_OF_PDF_model_FOR_OBS_alpha:jet1_response_intrinsic:rhoAll with 0 entries
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 8 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alpha_gaussian_norm   1.00000e-01  5.00000e-02    0.00000e+00  1.00000e+00
+     2 alpha_mean_gaussian   2.00000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     3 alpha_mean_landau   1.80000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     4 alpha_width_gaussian   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     5 alpha_width_landau   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     6 mean_0       1.00000e+00  2.00000e-01    0.00000e+00  2.00000e+00
+     7 mean_1       0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     8 rho_mean_gaussian   1.70000e+01  6.00000e+00    0.00000e+00  6.00000e+01
+     9 rho_width_gaussian   1.00000e+01  3.00000e+00    0.00000e+00  3.00000e+01
+    10 width_intercept_0   1.00000e-01  5.00000e-02   -1.00000e-01  4.00000e-01
+    11 width_intercept_slope   0.00000e+00  2.00000e-02   -1.00000e-01  1.00000e-01
+    12 width_slope   1.00000e-01  5.50000e-01   -1.00000e+00  5.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        6000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=0.771409 FROM MIGRAD    STATUS=INITIATE       46 CALLS          47 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.00000e-01   5.00000e-02   1.72186e-01  -2.90167e-04
+   2  alpha_mean_gaussian   2.00000e-01   2.50000e-02   2.57889e-01   1.49523e-03
+   3  alpha_mean_landau   1.80000e-01   2.50000e-02   2.26066e-01  -1.41751e-03
+   4  alpha_width_gaussian   5.00000e-02   2.50000e-02   2.30756e-01   1.30291e-03
+   5  alpha_width_landau   5.00000e-02   2.50000e-02   2.30756e-01   1.49629e-02
+   6  mean_0       1.00000e+00   2.00000e-01   2.01358e-01   1.16915e-01
+   7  mean_1       0.00000e+00   1.00000e+00   2.01358e-01   8.84408e-02
+   8  rho_mean_gaussian   1.70000e+01   6.00000e+00   2.25174e-01   6.03905e-02
+   9  rho_width_gaussian   1.00000e+01   3.00000e+00   2.14402e-01   1.57405e-01
+  10  width_intercept_0   1.00000e-01   5.00000e-02   2.05758e-01   2.11408e-01
+  11  width_intercept_slope   0.00000e+00   2.00000e-02   2.01358e-01   2.68923e+00
+  12  width_slope   1.00000e-01   5.50000e-01   2.44423e-01   3.72100e-01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (0.776853) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.198332, alpha_mean_gaussian=0.161295, alpha_mean_landau=0.180705, alpha_width_gaussian=0.0302632, alpha_width_landau=0.0474846, mean_0=0.984507, mean_1=-0.0661016, rho_mean_gaussian=13.619, rho_width_gaussian=0.27111, width_intercept_0=0.0105005, width_intercept_slope=-0.0143366, width_slope=-0.34417
+PID190422/RooRealMPFE::nll_model_gen_adb5f90_MPFE7[ arg=nll_model_gen_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,mean_0 = 0.984507,mean_1 = -0.0661016,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+    ... (remaining 6 messages suppressed)
+RooNLLVar::nll_model_gen[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.198332,alpha_mean_gaussian = 0.161295,alpha_mean_landau = 0.180705,alpha_width_gaussian = 0.0302632,alpha_width_landau = 0.0474846,mean_0 = 0.984507,mean_1 = -0.0661016,rho_mean_gaussian = 13.619,rho_width_gaussian = 0.27111,width_intercept_0 = 0.0105005,width_intercept_slope = -0.0143366,width_slope = -0.34417)
+
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (0.776853) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.11823, alpha_mean_gaussian=0.192505, alpha_mean_landau=0.180148, alpha_width_gaussian=0.0455298, alpha_width_landau=0.0494693, mean_0=0.996758, mean_1=-0.013834, rho_mean_gaussian=16.2725, rho_width_gaussian=7.06273, width_intercept_0=0.0801655, width_intercept_slope=-0.00301025, width_slope=-0.000649847
+PID190422/RooRealMPFE::nll_model_gen_adb5f90_MPFE7[ arg=nll_model_gen_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,mean_0 = 0.996758,mean_1 = -0.013834,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+    ... (remaining 6 messages suppressed)
+RooNLLVar::nll_model_gen[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.11823,alpha_mean_gaussian = 0.192505,alpha_mean_landau = 0.180148,alpha_width_gaussian = 0.0455298,alpha_width_landau = 0.0494693,mean_0 = 0.996758,mean_1 = -0.013834,rho_mean_gaussian = 16.2725,rho_width_gaussian = 7.06273,width_intercept_0 = 0.0801655,width_intercept_slope = -0.00301025,width_slope = -0.000649847)
+
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (0.776853) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.369986, alpha_mean_gaussian=0.135179, alpha_mean_landau=0.179527, alpha_width_gaussian=0.0215938, alpha_width_landau=0.0479084, mean_0=0.952475, mean_1=-0.194287, rho_mean_gaussian=23.7576, rho_width_gaussian=2.3662, width_intercept_0=0.0902079, width_intercept_slope=-0.00700396, width_slope=0.0308841
+PID190422/RooRealMPFE::nll_model_gen_adb5f90_MPFE7[ arg=nll_model_gen_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,mean_0 = 0.952475,mean_1 = -0.194287,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+    ... (remaining 6 messages suppressed)
+RooNLLVar::nll_model_gen[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.369986,alpha_mean_gaussian = 0.135179,alpha_mean_landau = 0.179527,alpha_width_gaussian = 0.0215938,alpha_width_landau = 0.0479084,mean_0 = 0.952475,mean_1 = -0.194287,rho_mean_gaussian = 23.7576,rho_width_gaussian = 2.3662,width_intercept_0 = 0.0902079,width_intercept_slope = -0.00700396,width_slope = 0.0308841)
+
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (0.776853) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.600663, alpha_mean_gaussian=0.107174, alpha_mean_landau=0.179177, alpha_width_gaussian=0.0120229, alpha_width_landau=0.0481204, mean_0=0.976418, mean_1=-0.0592488, rho_mean_gaussian=22.6413, rho_width_gaussian=0.367444, width_intercept_0=0.112884, width_intercept_slope=-0.00316766, width_slope=0.13252
+PID190422/RooRealMPFE::nll_model_gen_adb5f90_MPFE7[ arg=nll_model_gen_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,mean_0 = 0.976418,mean_1 = -0.0592488,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+    ... (remaining 6 messages suppressed)
+RooNLLVar::nll_model_gen[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.600663,alpha_mean_gaussian = 0.107174,alpha_mean_landau = 0.179177,alpha_width_gaussian = 0.0120229,alpha_width_landau = 0.0481204,mean_0 = 0.976418,mean_1 = -0.0592488,rho_mean_gaussian = 22.6413,rho_width_gaussian = 0.367444,width_intercept_0 = 0.112884,width_intercept_slope = -0.00316766,width_slope = 0.13252)
+
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (0.776853) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.866521, alpha_mean_gaussian=0.0617524, alpha_mean_landau=0.178498, alpha_width_gaussian=0.00364445, alpha_width_landau=0.049411, mean_0=0.98437, mean_1=-0.00839209, rho_mean_gaussian=28.7613, rho_width_gaussian=0.36414, width_intercept_0=0.098099, width_intercept_slope=-0.00231275, width_slope=0.0398143
+PID190422/RooRealMPFE::nll_model_gen_adb5f90_MPFE7[ arg=nll_model_gen_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,mean_0 = 0.98437,mean_1 = -0.00839209,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+    ... (remaining 6 messages suppressed)
+RooNLLVar::nll_model_gen[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.866521,alpha_mean_gaussian = 0.0617524,alpha_mean_landau = 0.178498,alpha_width_gaussian = 0.00364445,alpha_width_landau = 0.049411,mean_0 = 0.98437,mean_1 = -0.00839209,rho_mean_gaussian = 28.7613,rho_width_gaussian = 0.36414,width_intercept_0 = 0.098099,width_intercept_slope = -0.00231275,width_slope = 0.0398143)
+
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (3.59221) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.268612, alpha_mean_gaussian=0.177489, alpha_mean_landau=0.182484, alpha_width_gaussian=0.0213985, alpha_width_landau=0.0505322, mean_0=0.989826, mean_1=0.0221858, rho_mean_gaussian=25.5924, rho_width_gaussian=3.54599, width_intercept_0=0.104724, width_intercept_slope=-0.00225656, width_slope=0.0775708
+PID190422/RooRealMPFE::nll_model_gen_adb5f90_MPFE7[ arg=nll_model_gen_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,mean_0 = 0.989826,mean_1 = 0.0221858,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+    ... (remaining 2 messages suppressed)
+RooNLLVar::nll_model_gen[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.268612,alpha_mean_gaussian = 0.177489,alpha_mean_landau = 0.182484,alpha_width_gaussian = 0.0213985,alpha_width_landau = 0.0505322,mean_0 = 0.989826,mean_1 = 0.0221858,rho_mean_gaussian = 25.5924,rho_width_gaussian = 3.54599,width_intercept_0 = 0.104724,width_intercept_slope = -0.00225656,width_slope = 0.0775708)
+
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=0.70528 FROM MIGRAD    STATUS=CONVERGED     423 CALLS         424 TOTAL
+                     EDM=4.23288e-05    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   5.6 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.66301e-01   5.77947e-01   6.58687e-02   6.58001e-05
+   2  alpha_mean_gaussian   1.73646e-01   1.86414e-01   4.51182e-02   5.62422e-04
+   3  alpha_mean_landau   1.79642e-01   2.14811e-01  -1.51997e-02  -6.81771e-04
+   4  alpha_width_gaussian   3.04727e-02   2.80623e-01   3.55451e-02  -1.54972e-04
+   5  alpha_width_landau   4.94808e-02   1.70678e-01   1.36021e-03   2.11584e-03
+   6  mean_0       9.63107e-01   7.01628e-01  -8.47270e-03   5.31202e-03
+   7  mean_1       1.21736e-01   3.67758e+00   8.33524e-03  -3.37992e-03
+   8  rho_mean_gaussian   2.03158e+01   1.81995e+01   5.18939e-03   5.57047e-04
+   9  rho_width_gaussian   5.79462e+00   8.72021e+00  -3.38623e-04   2.59444e-03
+  10  width_intercept_0   1.15668e-01   3.57103e-01   5.85206e-03   3.47221e-03
+  11  width_intercept_slope  -1.54798e-03   1.00430e-02   4.30890e-05   1.35764e-02
+  12  width_slope   2.92111e-02   1.60174e+00  -2.27740e-03  -2.16814e-03
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  5.264e+01 
+  2.739e+00  7.101e-01 
+  1.089e-01 -4.604e-02  5.265e-02 
+  4.862e+00  1.803e-01  1.979e-02  7.791e-01 
+  5.677e-02  2.049e-02  5.317e-03 -2.445e-02  1.688e-02 
+  2.616e-01  2.441e-02  3.554e-02 -2.335e-02  1.712e-02  6.050e-01 
+ -1.691e+00 -1.954e-01 -1.858e-01  1.196e-01 -1.012e-01 -3.024e+00  1.708e+01 
+ -4.290e-01 -1.885e+00 -1.731e-01  1.997e+00 -3.855e-01 -2.388e+00  1.349e+01  3.903e+02 
+  2.950e+00  1.269e+00 -1.155e-01 -1.492e-01 -4.323e-02  1.429e-01 -4.169e-01 -5.135e+01  9.607e+01 
+ -1.214e-01 -1.060e-02 -4.011e-03 -1.805e-02 -5.241e-03 -1.523e-01  7.870e-01 -2.721e-01 -2.766e-01  1.457e-01 
+ -6.330e-03 -9.998e-04  8.996e-05 -1.140e-04 -2.869e-05  1.472e-03 -6.091e-03 -4.631e-03  2.333e-03 -2.245e-03  1.012e-04 
+  1.306e+00  1.404e-01 -2.567e-03  1.484e-01  2.253e-02  5.256e-01 -3.009e+00  7.125e-01  6.522e-01 -4.130e-01 -3.733e-03 
+  1.306e+00  1.404e-01 -2.567e-03  1.484e-01  2.253e-02  5.256e-01 -3.009e+00  7.125e-01  6.522e-01 -4.130e-01 -3.733e-03  3.168e+00 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.82862   1.000  0.448  0.065  0.759  0.060  0.046 -0.056 -0.003  0.041 -0.044 -0.087  0.101
+        2  0.59384   0.448  1.000 -0.238  0.242  0.187  0.037 -0.056 -0.113  0.154 -0.033 -0.118  0.094
+        3  0.45615   0.065 -0.238  1.000  0.098  0.178  0.199 -0.196 -0.038 -0.051 -0.046  0.039 -0.006
+        4  0.82115   0.759  0.242  0.098  1.000 -0.213 -0.034  0.033  0.115 -0.017 -0.054 -0.013  0.094
+        5  0.51525   0.060  0.187  0.178 -0.213  1.000  0.169 -0.188 -0.150 -0.034 -0.106 -0.022  0.097
+        6  0.94335   0.046  0.037  0.199 -0.034  0.169  1.000 -0.941 -0.155  0.019 -0.513  0.188  0.380
+        7  0.94357  -0.056 -0.056 -0.196  0.033 -0.188 -0.941  1.000  0.165 -0.010  0.499 -0.147 -0.409
+        8  0.43978  -0.003 -0.113 -0.038  0.115 -0.150 -0.155  0.165  1.000 -0.265 -0.036 -0.023  0.020
+        9  0.35199   0.041  0.154 -0.051 -0.017 -0.034  0.019 -0.010 -0.265  1.000 -0.074  0.024  0.037
+       10  0.95780  -0.044 -0.033 -0.046 -0.054 -0.106 -0.513  0.499 -0.036 -0.074  1.000 -0.585 -0.608
+       11  0.93072  -0.087 -0.118  0.039 -0.013 -0.022  0.188 -0.147 -0.023  0.024 -0.585  1.000 -0.209
+       12  0.93039   0.101  0.094 -0.006  0.094  0.097  0.380 -0.409  0.020  0.037 -0.608 -0.209  1.000
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        6000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=0.70528 FROM HESSE     STATUS=OK            115 CALLS         539 TOTAL
+                     EDM=0.00016363    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.66301e-01   5.74007e-01   7.53241e-03  -7.30710e-01
+   2  alpha_mean_gaussian   1.73646e-01   2.11583e-01   4.08652e-03   3.99727e-01
+   3  alpha_mean_landau   1.79642e-01   1.60261e-01   1.59155e-03   4.52409e-01
+   4  alpha_width_gaussian   3.04727e-02   1.65024e-01   4.72780e-03  -9.22061e-01
+   5  alpha_width_landau   4.94808e-02   2.11965e-01   8.53236e-04  -7.34381e-01
+   6  mean_0       9.63107e-01   7.94427e-01   1.96550e-04  -3.69009e-02
+   7  mean_1       1.21736e-01   4.09482e+00   2.05855e-04   2.43495e-02
+   8  rho_mean_gaussian   2.03158e+01   1.80203e+01   5.04102e-04  -3.28694e-01
+   9  rho_width_gaussian   5.79462e+00   8.52417e+00   5.93404e-04  -6.60728e-01
+  10  width_intercept_0   1.15668e-01   3.41756e-01   3.58860e-04  -1.37763e-01
+  11  width_intercept_slope  -1.54798e-03   9.26828e-03   2.72706e-05  -1.54804e-02
+  12  width_slope   2.92111e-02   1.78476e+00   2.05446e-04  -7.16739e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  1.418e+02 
+ -5.283e+00  9.225e-01 
+  1.035e+01 -7.638e-01  1.201e+00 
+  1.269e+01 -3.316e-01  8.396e-01  1.451e+00 
+  5.893e+00 -3.874e-01  6.373e-01  4.665e-01  3.604e-01 
+  3.385e-08 -1.837e-10  1.875e-09  3.434e-09  1.219e-09  8.433e-01 
+ -1.718e-07  9.066e-10 -9.233e-09 -1.744e-08 -6.044e-09 -4.225e+00  2.303e+01 
+ -4.013e-07  2.375e-08 -4.134e-08 -3.218e-08 -2.309e-08 -8.776e-02  4.679e-01  3.811e+02 
+  1.004e-08  5.511e-10  2.357e-09 -6.697e-10  1.659e-09 -4.133e-03  2.204e-02 -3.932e+01  9.054e+01 
+ -4.428e-08  2.349e-09 -3.905e-09 -4.106e-09 -2.092e-09  2.077e-02 -9.612e-02  7.544e-01  3.553e-02  2.322e-01 
+  9.445e-10 -4.673e-11  8.426e-11  8.636e-11  4.610e-11  1.885e-04 -1.019e-03 -2.876e-02 -1.355e-03 -2.554e-03  8.615e-05 
+  7.925e-08 -4.540e-09  6.668e-09  7.663e-09  3.421e-09 -1.238e-01  5.861e-01 -4.102e-02 -1.933e-03 -7.784e-01  1.155e-04 
+  7.925e-08 -4.540e-09  6.668e-09  7.663e-09  3.421e-09 -1.238e-01  5.861e-01 -4.102e-02 -1.933e-03 -7.784e-01  1.155e-04  4.230e+00 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.94616   1.000 -0.462  0.793  0.885  0.824  0.000 -0.000 -0.000  0.000 -0.000  0.000  0.000
+        2  0.76624  -0.462  1.000 -0.725 -0.287 -0.672 -0.000  0.000  0.000  0.000  0.000 -0.000 -0.000
+        3  0.97532   0.793 -0.725  1.000  0.636  0.969  0.000 -0.000 -0.000  0.000 -0.000  0.000  0.000
+        4  0.90494   0.885 -0.287  0.636  1.000  0.645  0.000 -0.000 -0.000 -0.000 -0.000  0.000  0.000
+        5  0.97546   0.824 -0.672  0.969  0.645  1.000  0.000 -0.000 -0.000  0.000 -0.000  0.000  0.000
+        6  0.95871   0.000 -0.000  0.000  0.000  0.000  1.000 -0.959 -0.005 -0.000  0.047  0.022 -0.066
+        7  0.95867  -0.000  0.000 -0.000 -0.000 -0.000 -0.959  1.000  0.005  0.000 -0.042 -0.023  0.059
+        8  0.26998  -0.000  0.000 -0.000 -0.000 -0.000 -0.005  0.005  1.000 -0.212  0.080 -0.159 -0.001
+        9  0.21778   0.000  0.000  0.000 -0.000  0.000 -0.000  0.000 -0.212  1.000  0.008 -0.015 -0.000
+       10  0.96845  -0.000  0.000 -0.000 -0.000 -0.000  0.047 -0.042  0.080  0.008  1.000 -0.571 -0.785
+       11  0.91627   0.000 -0.000  0.000  0.000  0.000  0.022 -0.023 -0.159 -0.015 -0.571  1.000  0.006
+       12  0.95275   0.000 -0.000  0.000  0.000  0.000 -0.066  0.059 -0.001 -0.000 -0.785  0.006  1.000
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+[#1] INFO:Fitting -- RooAbsPdf::fitTo(model) Calculating sum-of-weights-squared correction matrix for covariance matrix
+ **********
+ **   10 **SET ERR         0.5
+ **********
+ **********
+ **   11 **SET PRINT           1
+ **********
+ **********
+ **   12 **HESSE        6000
+ **********
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -2.0800e-03  3.5668e-02  1.4483e-01  2.4026e-01  5.4613e-01  8.4352e-01  8.6936e-01  1.1515e+00  1.2108e+00  1.9632e+00  2.3758e+00  2.6210e+00
+ MINUIT WARNING IN HESSE   
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.004701 TO DIAGONAL.
+ FCN=7.73648e-06 FROM HESSE     STATUS=NOT POSDEF    153 CALLS         692 TOTAL
+                     EDM=2.18465e-07    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.66301e-01   7.18051e-01   1.53661e-01  -7.30710e-01
+   2  alpha_mean_gaussian   1.73646e-01   1.66494e-01   8.33651e-02   3.99727e-01
+   3  alpha_mean_landau   1.79642e-01   1.85237e-01   3.24676e-02   4.52409e-01
+   4  alpha_width_gaussian   3.04727e-02   2.79403e-01   9.64472e-02  -9.22061e-01
+   5  alpha_width_landau   4.94808e-02   1.67705e-01   1.74060e-02  -7.34381e-01
+   6  mean_0       9.63107e-01   1.50439e+00   4.00961e-03  -3.69009e-02
+   7  mean_1       1.21736e-01   6.68892e+00   4.19943e-03   2.43495e-02
+   8  rho_mean_gaussian   2.03158e+01   3.78787e+01   1.02837e-02  -3.28694e-01
+   9  rho_width_gaussian   5.79462e+00   2.70800e+01   1.21054e-02  -6.60728e-01
+  10  width_intercept_0   1.15668e-01   3.32788e-01   7.32075e-03  -1.37763e-01
+  11  width_intercept_slope  -1.54798e-03   1.27837e-01   5.56320e-04  -1.54804e-02
+  12  width_slope   2.92111e-02   5.25797e+00   4.19110e-03  -7.16739e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  1.062e+08 
+ -6.081e+06  3.872e+05 
+  8.322e+06 -4.923e+05  6.743e+05 
+ -2.449e+06  1.539e+05 -1.988e+05  7.834e+04 
+  7.448e+06 -4.352e+05  5.955e+05 -1.774e+05  5.315e+05 
+ -4.699e-05  3.046e-06 -3.827e-06  1.333e-06 -3.387e-06  7.880e+04 
+  3.198e-04 -2.021e-05  2.589e-05 -8.700e-06  2.296e-05 -3.902e+05  2.098e+06 
+  1.049e-03 -6.139e-05  8.360e-05 -2.460e-05  7.451e-05 -5.679e+03  3.159e+04  3.318e+07 
+ -3.116e-04  1.835e-05 -2.509e-05  7.388e-06 -2.223e-05 -4.434e+02  2.467e+03 -2.445e+06  7.852e+06 
+ -5.951e-06  3.449e-07 -4.657e-07  1.372e-07 -4.194e-07  2.817e+02 -1.374e+03  1.602e+04  1.251e+03  5.710e+03 
+  4.247e-07 -2.460e-08  3.343e-08 -9.768e-09  3.000e-08  1.520e+01 -8.185e+01 -1.317e+03 -1.028e+02 -6.275e+01  3.780e+00 
+ -1.500e-05  8.499e-07 -1.161e-06  3.311e-07 -1.051e-06 -3.360e+03  1.652e+04  5.226e+04  4.081e+03 -1.697e+04 -2.009e+02 
+ -1.500e-05  8.499e-07 -1.161e-06  3.311e-07 -1.051e-06 -3.360e+03  1.652e+04  5.226e+04  4.081e+03 -1.697e+04 -2.009e+02  1.337e+05 
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.99192   1.000 -0.948  0.983 -0.849  0.991 -0.000  0.000  0.000 -0.000 -0.000  0.000 -0.000
+        2  0.96886  -0.948  1.000 -0.963  0.884 -0.959  0.000 -0.000 -0.000  0.000  0.000 -0.000  0.000
+        3  0.99540   0.983 -0.963  1.000 -0.865  0.995 -0.000  0.000  0.000 -0.000 -0.000  0.000 -0.000
+        4  0.89425  -0.849  0.884 -0.865  1.000 -0.870  0.000 -0.000 -0.000  0.000  0.000 -0.000  0.000
+        5  0.99743   0.991 -0.959  0.995 -0.870  1.000 -0.000  0.000  0.000 -0.000 -0.000  0.000 -0.000
+        6  0.95980  -0.000  0.000 -0.000  0.000 -0.000  1.000 -0.960 -0.004 -0.001  0.013  0.028 -0.033
+        7  0.95981   0.000 -0.000  0.000 -0.000  0.000 -0.960  1.000  0.004  0.001 -0.013 -0.029  0.031
+        8  0.19848   0.000 -0.000  0.000 -0.000  0.000 -0.004  0.004  1.000 -0.151  0.037 -0.118  0.025
+        9  0.15651  -0.000  0.000 -0.000  0.000 -0.000 -0.001  0.001 -0.151  1.000  0.006 -0.019  0.004
+       10  0.87770  -0.000  0.000 -0.000  0.000 -0.000  0.013 -0.013  0.037  0.006  1.000 -0.427 -0.614
+       11  0.81491   0.000 -0.000  0.000 -0.000  0.000  0.028 -0.029 -0.118 -0.019 -0.427  1.000 -0.283
+       12  0.86110  -0.000  0.000 -0.000  0.000 -0.000 -0.033  0.031  0.025  0.004 -0.614 -0.283  1.000
+ ERR MATRIX NOT POS-DEF
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+RooProdPdf::model[ alphafit * rhofit * rhoAll * gauss|alpha ] = 1.92991
+[#1] INFO:InputArguments -- RooAbsData::plotOn(gen) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on alpha integrates over variables (jet1_response_intrinsic,rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(gen) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on jet1_response_intrinsic integrates over variables (alpha,rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response_intrinsic,rhoAll]_numerator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[jet1_response_intrinsic,rhoAll]) using numeric integrator RooAdaptiveIntegratorND to calculate Int(rhoAll,jet1_response_intrinsic)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_[rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response_intrinsic,rhoAll]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(gen) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on rhoAll integrates over variables (alpha,jet1_response_intrinsic)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[jet1_response_intrinsic]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response_intrinsic,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_[rhofit_X_rhoAll_X_gauss]_Int[jet1_response_intrinsic]_Norm[jet1_response_intrinsic,rhoAll]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+====================
+End of gen
+====================
+[#1] INFO:Eval -- RooAbsReal::attachToTree(alpha) TTree Float_t branch alpha will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(jet1_response) TTree Float_t branch jet1_response will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(xsec_weight) TTree Float_t branch xsec_weight will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(rhoAll) TTree Float_t branch rhoAll will be converted to double precision
+[#1] INFO:Eval -- RooTreeDataStore::loadValues(data) Ignored 20 out of range events
+[#1] INFO:Minization -- createNLL: caching constraint set under name CONSTR_OF_PDF_model_FOR_OBS_alpha:jet1_response:rhoAll with 0 entries
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 8 remote server process.
+ **********
+ **   13 **SET PRINT           1
+ **********
+ **********
+ **   14 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alpha_gaussian_norm   1.00000e-01  5.00000e-02    0.00000e+00  1.00000e+00
+     2 alpha_mean_gaussian   2.00000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     3 alpha_mean_landau   1.80000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     4 alpha_width_gaussian   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     5 alpha_width_landau   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     6 mean_0       9.00000e-01  2.00000e-01    0.00000e+00  2.00000e+00
+     7 mean_1       0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     8 rho_mean_gaussian   1.70000e+01  6.00000e+00    0.00000e+00  6.00000e+01
+     9 rho_width_gaussian   1.00000e+01  3.00000e+00    0.00000e+00  3.00000e+01
+    10 width_intercept_0   1.00000e-01  5.00000e-02   -1.00000e-01  4.00000e-01
+    11 width_intercept_slope   0.00000e+00  2.00000e-02   -1.00000e-01  1.00000e-01
+    12 width_slope   1.00000e-01  5.50000e-01   -1.00000e+00  5.00000e+00
+ **********
+ **   15 **SET ERR         0.5
+ **********
+ **********
+ **   16 **SET PRINT           1
+ **********
+ **********
+ **   17 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **   18 **MIGRAD        6000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=0.87674 FROM MIGRAD    STATUS=INITIATE       46 CALLS          47 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.00000e-01   5.00000e-02   1.72186e-01  -3.05790e-04
+   2  alpha_mean_gaussian   2.00000e-01   2.50000e-02   2.57889e-01   1.49078e-03
+   3  alpha_mean_landau   1.80000e-01   2.50000e-02   2.26066e-01  -1.65999e-03
+   4  alpha_width_gaussian   5.00000e-02   2.50000e-02   2.30756e-01   1.33308e-03
+   5  alpha_width_landau   5.00000e-02   2.50000e-02   2.30756e-01   1.54509e-02
+   6  mean_0       9.00000e-01   2.00000e-01   2.02430e-01   1.75354e-02
+   7  mean_1       0.00000e+00   1.00000e+00   2.01358e-01   6.34351e-02
+   8  rho_mean_gaussian   1.70000e+01   6.00000e+00   2.25174e-01   6.06161e-02
+   9  rho_width_gaussian   1.00000e+01   3.00000e+00   2.14402e-01   1.58810e-01
+  10  width_intercept_0   1.00000e-01   5.00000e-02   2.05758e-01  -1.84883e-01
+  11  width_intercept_slope   0.00000e+00   2.00000e-02   2.01358e-01  -7.58408e-01
+  12  width_slope   1.00000e-01   5.50000e-01   2.44423e-01  -3.81289e-01
+                               ERR DEF= 0.5
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (0.878771) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.205314, alpha_mean_gaussian=0.162223, alpha_mean_landau=0.180818, alpha_width_gaussian=0.030257, alpha_width_landau=0.0474167, mean_0=0.897688, mean_1=-0.0469135, rho_mean_gaussian=13.6381, rho_width_gaussian=0.287832, width_intercept_0=0.115661, width_intercept_slope=0.000329334, width_slope=0.186518
+RooNLLVar::nll_model_data[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,mean_0 = 0.897688,mean_1 = -0.0469135,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+PID191055/RooRealMPFE::nll_model_data_a33d860_MPFE7[ arg=nll_model_data_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.205314,alpha_mean_gaussian = 0.162223,alpha_mean_landau = 0.180818,alpha_width_gaussian = 0.030257,alpha_width_landau = 0.0474167,rho_mean_gaussian = 13.6381,rho_width_gaussian = 0.287832,mean_0 = 0.897688,mean_1 = -0.0469135,width_intercept_0 = 0.115661,width_intercept_slope = 0.000329334,width_slope = 0.186518)
+    ... (remaining 6 messages suppressed)
+
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (2.87135) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.999932, alpha_mean_gaussian=0.02758, alpha_mean_landau=0.177654, alpha_width_gaussian=3.20523e-05, alpha_width_landau=0.0480102, mean_0=0.901729, mean_1=-0.0688684, rho_mean_gaussian=30.677, rho_width_gaussian=0.17836, width_intercept_0=0.117731, width_intercept_slope=0.000152819, width_slope=0.209629
+RooNLLVar::nll_model_data[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,mean_0 = 0.901729,mean_1 = -0.0688684,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+PID191055/RooRealMPFE::nll_model_data_a33d860_MPFE7[ arg=nll_model_data_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.999932,alpha_mean_gaussian = 0.02758,alpha_mean_landau = 0.177654,alpha_width_gaussian = 3.20523e-05,alpha_width_landau = 0.0480102,rho_mean_gaussian = 30.677,rho_width_gaussian = 0.17836,mean_0 = 0.901729,mean_1 = -0.0688684,width_intercept_0 = 0.117731,width_intercept_slope = 0.000152819,width_slope = 0.209629)
+    ... (remaining 6 messages suppressed)
+
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=0.82016 FROM MIGRAD    STATUS=CONVERGED     591 CALLS         592 TOTAL
+                     EDM=0.000640091    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.30511e-01   5.13601e-01   7.55158e-03  -8.67934e-05
+   2  alpha_mean_gaussian   1.75943e-01   2.11265e-01   4.63535e-03   4.76958e-05
+   3  alpha_mean_landau   1.74401e-01   1.61763e-01   1.53167e-03  -2.52789e-03
+   4  alpha_width_gaussian   2.87883e-02   2.57828e-01   4.59211e-03   2.33306e-04
+   5  alpha_width_landau   4.66440e-02   2.43242e-01   8.71212e-04   2.69550e-03
+   6  mean_0       9.36039e-01   1.46498e+00   3.33662e-04  -8.62614e-03
+   7  mean_1      -2.09843e-01   7.39323e+00   3.73586e-04   4.97994e-03
+   8  rho_mean_gaussian   2.02812e+01   1.78835e+01   5.17409e-04  -2.42983e-03
+   9  rho_width_gaussian   5.77612e+00   8.44027e+00   6.00517e-04  -2.53389e-04
+  10  width_intercept_0   1.33144e-01   2.69793e-01   6.01692e-04  -1.96041e-03
+  11  width_intercept_slope  -2.44536e-03   1.37744e-02   4.59493e-05  -1.64703e-02
+  12  width_slope   3.53995e-01   3.57325e+00   3.51169e-04   6.26573e-03
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  4.650e+01 
+  1.594e-01  8.422e-01 
+  1.365e+00 -2.887e-01  3.213e-01 
+  4.904e+00  2.198e-01  7.011e-02  9.352e-01 
+  1.127e+00 -1.329e-01  1.640e-01  6.737e-02  1.042e-01 
+ -1.599e-08 -7.157e-10 -2.737e-10 -2.996e-09 -2.526e-10  1.942e+00 
+  9.224e-08  4.103e-09  1.656e-09  1.719e-08  1.510e-09 -1.040e+01  6.130e+01 
+ -5.508e-08  4.135e-09 -9.866e-09 -6.338e-09 -5.836e-09 -1.286e-01  5.798e-01  3.743e+02 
+  4.891e-08 -3.653e-09  5.747e-09  4.810e-09  3.648e-09 -5.329e-03  2.401e-02 -4.014e+01  8.833e+01 
+ -1.785e-08 -6.036e-10 -8.281e-10 -2.749e-09 -6.292e-10  7.287e-03 -1.195e-01  1.507e+00  6.256e-02  6.233e-01 
+  1.529e-10  6.668e-12  4.672e-12  2.694e-11  3.814e-12  8.850e-04 -4.299e-03 -3.854e-02 -1.601e-03 -7.744e-03  1.909e-04 
+  7.341e-08  2.587e-09  3.712e-09  1.092e-08  2.833e-09 -2.690e-01  1.864e+00 -2.991e+00 -1.242e-01 -2.222e+00  1.210e-02 
+  7.341e-08  2.587e-09  3.712e-09  1.092e-08  2.833e-09 -2.690e-01  1.864e+00 -2.991e+00 -1.242e-01 -2.222e+00  1.210e-02  1.171e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.83881   1.000  0.025  0.353  0.744  0.512 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        2  0.64299   0.025  1.000 -0.555  0.248 -0.449 -0.000  0.000  0.000 -0.000 -0.000  0.000  0.000
+        3  0.91836   0.353 -0.555  1.000  0.128  0.897 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        4  0.79067   0.744  0.248  0.128  1.000  0.216 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        5  0.92472   0.512 -0.449  0.897  0.216  1.000 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        6  0.95328  -0.000 -0.000 -0.000 -0.000 -0.000  1.000 -0.953 -0.005 -0.000  0.007  0.046 -0.056
+        7  0.95334   0.000  0.000  0.000  0.000  0.000 -0.953  1.000  0.004  0.000 -0.019 -0.040  0.070
+        8  0.26834  -0.000  0.000 -0.000 -0.000 -0.000 -0.005  0.004  1.000 -0.221  0.099 -0.144 -0.045
+        9  0.22557   0.000 -0.000  0.000  0.000  0.000 -0.000  0.000 -0.221  1.000  0.008 -0.012 -0.004
+       10  0.97149  -0.000 -0.000 -0.000 -0.000 -0.000  0.007 -0.019  0.099  0.008  1.000 -0.710 -0.823
+       11  0.91575   0.000  0.000  0.000  0.000  0.000  0.046 -0.040 -0.144 -0.012 -0.710  1.000  0.256
+       12  0.94571   0.000  0.000  0.000  0.000  0.000 -0.056  0.070 -0.045 -0.004 -0.823  0.256  1.000
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+ **********
+ **   19 **SET ERR         0.5
+ **********
+ **********
+ **   20 **SET PRINT           1
+ **********
+ **********
+ **   21 **HESSE        6000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=0.82016 FROM HESSE     STATUS=OK            115 CALLS         707 TOTAL
+                     EDM=0.000668835    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.30511e-01   5.18659e-01   1.51032e-03  -8.31551e-01
+   2  alpha_mean_gaussian   1.75943e-01   2.11207e-01   9.27070e-04   4.19764e-01
+   3  alpha_mean_landau   1.74401e-01   1.61474e-01   3.06334e-04   4.06291e-01
+   4  alpha_width_gaussian   2.87883e-02   2.56288e-01   9.18421e-04  -9.40882e-01
+   5  alpha_width_landau   4.66440e-02   2.41973e-01   1.74242e-04  -7.60164e-01
+   6  mean_0       9.36039e-01   1.46498e+00   6.67323e-05  -6.40046e-02
+   7  mean_1      -2.09843e-01   7.39324e+00   7.47172e-05  -4.19808e-02
+   8  rho_mean_gaussian   2.02812e+01   1.79093e+01   1.03482e-04  -3.29914e-01
+   9  rho_width_gaussian   5.77612e+00   8.44245e+00   1.20103e-04  -6.62291e-01
+  10  width_intercept_0   1.33144e-01   3.07366e-01   1.20338e-04  -6.74753e-02
+  11  width_intercept_slope  -2.44536e-03   1.46930e-02   9.18985e-06  -2.44561e-02
+  12  width_slope   3.53995e-01   3.51630e+00   7.02338e-05  -5.80770e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  4.635e+01 
+  3.173e-01  8.413e-01 
+  1.292e+00 -2.843e-01  3.182e-01 
+  4.925e+00  2.341e-01  6.371e-02  9.397e-01 
+  1.094e+00 -1.287e-01  1.618e-01  6.519e-02  1.027e-01 
+  1.008e-06  7.319e-08  4.913e-09  1.525e-07  1.169e-08  1.942e+00 
+ -5.896e-06 -3.987e-07 -5.764e-08 -8.768e-07 -8.372e-08 -1.040e+01  6.129e+01 
+  8.741e-07  8.111e-08  5.544e-08  1.172e-07  3.688e-08 -1.380e-01  5.893e-01  3.756e+02 
+ -5.086e-07  4.438e-08 -1.005e-07 -4.092e-08 -5.209e-08 -5.616e-03  2.395e-02 -4.037e+01  8.839e+01 
+  4.291e-07 -4.413e-09  3.068e-08  4.985e-08  1.991e-08  5.862e-03 -1.283e-01  1.858e+00  7.573e-02  7.519e-01 
+ -2.350e-09  4.023e-11 -1.916e-10 -2.615e-10 -1.219e-10  9.349e-04 -4.354e-03 -4.381e-02 -1.786e-03 -9.494e-03  2.175e-04 
+ -2.270e-06  1.117e-08 -1.534e-07 -2.685e-07 -1.007e-07 -2.702e-01  1.927e+00 -4.104e+00 -1.672e-01 -2.667e+00  1.760e-02 
+ -2.270e-06  1.117e-08 -1.534e-07 -2.685e-07 -1.007e-07 -2.702e-01  1.927e+00 -4.104e+00 -1.672e-01 -2.667e+00  1.760e-02  1.336e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.83822   1.000  0.051  0.336  0.746  0.501  0.000 -0.000  0.000 -0.000  0.000 -0.000 -0.000
+        2  0.64256   0.051  1.000 -0.550  0.263 -0.438  0.000 -0.000  0.000  0.000 -0.000  0.000  0.000
+        3  0.91752   0.336 -0.550  1.000  0.117  0.895  0.000 -0.000  0.000 -0.000  0.000 -0.000 -0.000
+        4  0.79177   0.746  0.263  0.117  1.000  0.210  0.000 -0.000  0.000 -0.000  0.000 -0.000 -0.000
+        5  0.92364   0.501 -0.438  0.895  0.210  1.000  0.000 -0.000  0.000 -0.000  0.000 -0.000 -0.000
+        6  0.95328   0.000  0.000  0.000  0.000  0.000  1.000 -0.953 -0.005 -0.000  0.005  0.045 -0.053
+        7  0.95333  -0.000 -0.000 -0.000 -0.000 -0.000 -0.953  1.000  0.004  0.000 -0.019 -0.038  0.067
+        8  0.27419   0.000  0.000  0.000  0.000  0.000 -0.005  0.004  1.000 -0.222  0.111 -0.153 -0.058
+        9  0.22695  -0.000  0.000 -0.000 -0.000 -0.000 -0.000  0.000 -0.222  1.000  0.009 -0.013 -0.005
+       10  0.97642   0.000 -0.000  0.000  0.000  0.000  0.005 -0.019  0.111  0.009  1.000 -0.743 -0.842
+       11  0.92638  -0.000  0.000 -0.000 -0.000 -0.000  0.045 -0.038 -0.153 -0.013 -0.743  1.000  0.327
+       12  0.95259  -0.000  0.000 -0.000 -0.000 -0.000 -0.053  0.067 -0.058 -0.005 -0.842  0.327  1.000
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+[#1] INFO:Fitting -- RooAbsPdf::fitTo(model) Calculating sum-of-weights-squared correction matrix for covariance matrix
+ **********
+ **   22 **SET ERR         0.5
+ **********
+ **********
+ **   23 **SET PRINT           1
+ **********
+ **********
+ **   24 **HESSE        6000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=8.90514e-06 FROM HESSE     STATUS=OK            139 CALLS         846 TOTAL
+                     EDM=6.94677e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.30511e-01   8.44310e-01   3.08105e-02  -8.31551e-01
+   2  alpha_mean_gaussian   1.75943e-01   1.98910e-01   1.89122e-02   4.19764e-01
+   3  alpha_mean_landau   1.74401e-01   2.10929e-01   6.24921e-03   4.06291e-01
+   4  alpha_width_gaussian   2.87883e-02   2.68036e-01   1.87358e-02  -9.40882e-01
+   5  alpha_width_landau   4.66440e-02   1.70572e-01   3.55454e-03  -7.60164e-01
+   6  mean_0       9.36039e-01   1.51851e+00   1.36134e-03  -6.40046e-02
+   7  mean_1      -2.09843e-01   5.71487e+00   1.52423e-03  -4.19808e-02
+   8  rho_mean_gaussian   2.02812e+01   3.08497e+01   2.11103e-03  -3.29914e-01
+   9  rho_width_gaussian   5.77612e+00   2.41064e+01   2.45011e-03  -6.62291e-01
+  10  width_intercept_0   1.33144e-01   3.63165e-01   2.45490e-03  -6.74753e-02
+  11  width_intercept_slope  -2.44536e-03   1.28269e-01   1.87473e-04  -2.44561e-02
+  12  width_slope   3.53995e-01   3.53742e+00   1.43277e-03  -5.80770e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  7.886e+06 
+  5.484e+04  4.792e+04 
+  2.218e+05 -1.170e+04  2.236e+04 
+  1.424e+05  1.713e+04 -1.377e+03  3.034e+04 
+  3.340e+05 -4.975e+03  1.773e+04  1.458e+03  2.100e+04 
+  6.133e-04  6.890e-06  2.550e-05  2.063e-05  3.118e-05  2.194e+05 
+ -3.539e-03 -3.757e-05 -1.481e-04 -1.160e-04 -1.807e-04 -1.158e+06  6.617e+06 
+ -9.795e-04 -5.439e-06 -4.511e-05 -1.034e-05 -5.399e-05 -9.259e+03  5.160e+04  3.335e+07 
+ -6.704e-04  2.084e-05 -3.790e-05 -8.796e-07 -4.071e-05 -5.419e+02  3.018e+03 -2.966e+06  7.767e+06 
+  3.705e-04 -2.936e-06  1.828e-05  4.259e-06  2.093e-05  1.808e+03 -1.465e+04  8.875e+04  5.203e+03  4.228e+04 
+ -2.330e-06 -9.163e-09 -1.052e-07 -4.756e-08 -1.253e-07  8.222e+01 -4.666e+02 -3.267e+03 -1.915e+02 -4.765e+02  1.614e+01 
+ -1.754e-03  1.930e-05 -8.835e-05 -1.697e-05 -1.002e-04 -3.441e+04  2.216e+05 -6.225e+04 -3.646e+03 -1.512e+05  6.115e+01 
+ -1.754e-03  1.930e-05 -8.835e-05 -1.697e-05 -1.002e-04 -3.441e+04  2.216e+05 -6.225e+04 -3.646e+03 -1.512e+05  6.115e+01  9.222e+05 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.88290   1.000  0.089  0.528  0.291  0.821  0.000 -0.000 -0.000 -0.000  0.000 -0.000 -0.000
+        2  0.58857   0.089  1.000 -0.357  0.449 -0.157  0.000 -0.000 -0.000  0.000 -0.000 -0.000  0.000
+        3  0.87081   0.528 -0.357  1.000 -0.053  0.818  0.000 -0.000 -0.000 -0.000  0.000 -0.000 -0.000
+        4  0.55012   0.291  0.449 -0.053  1.000  0.058  0.000 -0.000 -0.000 -0.000  0.000 -0.000 -0.000
+        5  0.94077   0.821 -0.157  0.818  0.058  1.000  0.000 -0.000 -0.000 -0.000  0.000 -0.000 -0.000
+        6  0.96143   0.000  0.000  0.000  0.000  0.000  1.000 -0.961 -0.003 -0.000  0.019  0.044 -0.076
+        7  0.96152  -0.000 -0.000 -0.000 -0.000 -0.000 -0.961  1.000  0.003  0.000 -0.028 -0.045  0.090
+        8  0.23818  -0.000 -0.000 -0.000 -0.000 -0.000 -0.003  0.003  1.000 -0.184  0.075 -0.141 -0.011
+        9  0.18983  -0.000  0.000 -0.000 -0.000 -0.000 -0.000  0.000 -0.184  1.000  0.009 -0.017 -0.001
+       10  0.95188   0.000 -0.000  0.000  0.000  0.000  0.019 -0.028  0.075  0.009  1.000 -0.577 -0.766
+       11  0.88018  -0.000 -0.000 -0.000 -0.000 -0.000  0.044 -0.045 -0.141 -0.017 -0.577  1.000  0.016
+       12  0.92728  -0.000  0.000 -0.000 -0.000 -0.000 -0.076  0.090 -0.011 -0.001 -0.766  0.016  1.000
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:InputArguments -- RooAbsData::plotOn(data) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on alpha integrates over variables (jet1_response,rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(data) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on jet1_response integrates over variables (alpha,rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response,rhoAll]_numerator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[jet1_response,rhoAll]) using numeric integrator RooAdaptiveIntegratorND to calculate Int(rhoAll,jet1_response)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_[rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response,rhoAll]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(data) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on rhoAll integrates over variables (alpha,jet1_response)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[jet1_response]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_[rhofit_X_rhoAll_X_gauss]_Int[jet1_response]_Norm[jet1_response,rhoAll]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+====================
+End of mc
+====================
+[#1] INFO:Eval -- RooAbsReal::attachToTree(alpha) TTree Float_t branch alpha will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(jet1_response) TTree Float_t branch jet1_response will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(trigger) TTree Bool_t branch trigger will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(rhoAll) TTree Float_t branch rhoAll will be converted to double precision
+[#1] INFO:Eval -- RooTreeDataStore::loadValues(data) Ignored 2 out of range events
+[#1] INFO:Minization -- createNLL: caching constraint set under name CONSTR_OF_PDF_model_FOR_OBS_alpha:jet1_response:rhoAll:trigger with 0 entries
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 8 remote server process.
+ **********
+ **   25 **SET PRINT           1
+ **********
+ **********
+ **   26 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alpha_gaussian_norm   1.00000e-01  5.00000e-02    0.00000e+00  1.00000e+00
+     2 alpha_mean_gaussian   2.00000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     3 alpha_mean_landau   1.80000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     4 alpha_width_gaussian   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     5 alpha_width_landau   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     6 mean_0       9.00000e-01  2.00000e-01    0.00000e+00  2.00000e+00
+     7 mean_1       0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     8 rho_mean_gaussian   1.70000e+01  6.00000e+00    0.00000e+00  6.00000e+01
+     9 rho_width_gaussian   1.00000e+01  3.00000e+00    0.00000e+00  3.00000e+01
+    10 width_intercept_0   1.00000e-01  5.00000e-02   -1.00000e-01  4.00000e-01
+    11 width_intercept_slope   0.00000e+00  2.00000e-02   -1.00000e-01  1.00000e-01
+    12 width_slope   1.00000e-01  5.50000e-01   -1.00000e+00  5.00000e+00
+ **********
+ **   27 **SET ERR         0.5
+ **********
+ **********
+ **   28 **SET PRINT           1
+ **********
+ **********
+ **   29 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **   30 **MIGRAD        6000           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,rhofit,gauss)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(gauss_Int[jet1_response,rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+[#0] WARNING:Minization -- RooMinimizerFcn: Minimized function has error status.
+Returning maximum FCN so far (62975) to force MIGRAD to back out of this region. Error log follows
+Parameter values: alpha_gaussian_norm=0.1, alpha_mean_gaussian=0.2, alpha_mean_landau=0.18, alpha_width_gaussian=0.05, alpha_width_landau=0.05, mean_0=0.9, mean_1=0, rho_mean_gaussian=17, rho_width_gaussian=10, width_intercept_0=0.1, width_intercept_slope=-0.00344059, width_slope=0.1
+PID191860/RooRealMPFE::nll_model_data_a521e70_MPFE7[ arg=nll_model_data_GOF7 vars=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,rho_mean_gaussian = 17,rho_width_gaussian = 10,mean_0 = 0.9,mean_1 = 0,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+    ... (remaining 6 messages suppressed)
+RooNLLVar::nll_model_data[ paramSet=(alpha_gaussian_norm,alpha_mean_gaussian,alpha_mean_landau,alpha_width_gaussian,alpha_width_landau,mean_0,mean_1,rho_mean_gaussian,rho_width_gaussian,width_intercept_0,width_intercept_slope,width_slope) ]
+     function value is NAN @ paramSet=(alpha_gaussian_norm = 0.1,alpha_mean_gaussian = 0.2,alpha_mean_landau = 0.18,alpha_width_gaussian = 0.05,alpha_width_landau = 0.05,mean_0 = 0.9,mean_1 = 0,rho_mean_gaussian = 17,rho_width_gaussian = 10,width_intercept_0 = 0.1,width_intercept_slope = -0.00344059,width_slope = 0.1)
+
+ FCN=56658 FROM MIGRAD    STATUS=INITIATE       89 CALLS          90 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.00000e-01   5.00000e-02   0.00000e+00  -5.96378e+01
+   2  alpha_mean_gaussian   2.00000e-01   2.50000e-02   0.00000e+00   9.13486e+01
+   3  alpha_mean_landau   1.80000e-01   2.50000e-02   0.00000e+00  -6.00413e+02
+   4  alpha_width_gaussian   5.00000e-02   2.50000e-02   0.00000e+00   1.66019e+02
+   5  alpha_width_landau   5.00000e-02   2.50000e-02   0.00000e+00   1.89031e+03
+   6  mean_0       9.00000e-01   2.00000e-01   0.00000e+00   8.57528e+03
+   7  mean_1       0.00000e+00   1.00000e+00   0.00000e+00   1.17129e+04
+   8  rho_mean_gaussian   1.70000e+01   6.00000e+00   0.00000e+00  -8.19790e+03
+   9  rho_width_gaussian   4.86304e+00   3.00000e+00  -4.02209e-01  -1.05515e+03
+  10  width_intercept_0   1.00000e-01   5.00000e-02   0.00000e+00  -1.68555e+04
+  11  width_intercept_slope   0.00000e+00   2.00000e-02   0.00000e+00  -7.84266e+04
+  12  width_slope   1.00000e-01   5.50000e-01   0.00000e+00  -3.42440e+04
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ FCN=53821.7 FROM MIGRAD    STATUS=CONVERGED    1389 CALLS        1390 TOTAL
+                     EDM=7.26323e-06    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   2.9 per cent
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.82541e-01   2.88595e-02   4.77075e-04  -7.10195e-03
+   2  alpha_mean_gaussian   1.72563e-01   2.16959e-03  -1.60425e-04   7.84205e-03
+   3  alpha_mean_landau   1.83637e-01   3.33058e-03   2.19353e-04  -4.82107e-02
+   4  alpha_width_gaussian   2.62682e-02   2.59022e-03   2.28805e-04   6.94185e-02
+   5  alpha_width_landau   4.95667e-02   1.80754e-03   1.38989e-04   1.09888e-01
+   6  mean_0       9.65424e-01   5.87444e-03   2.65166e-05  -4.49341e-01
+   7  mean_1      -4.57112e-01   3.22630e-02  -3.18811e-05  -2.58171e-01
+   8  rho_mean_gaussian   1.87940e+01   5.80116e-02  -2.47700e-05  -2.13932e-01
+   9  rho_width_gaussian   4.73741e+00   2.82384e-02   4.12885e-06   3.46161e-01
+  10  width_intercept_0   1.70931e-01   3.30579e-03   7.52453e-05   3.78783e-01
+  11  width_intercept_slope  -3.83729e-03   4.71917e-05  -3.30883e-06   8.14582e+00
+  12  width_slope   3.14630e-01   1.46290e-02  -4.24800e-06   2.67631e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  8.344e-04 
+ -1.930e-05  4.708e-06 
+  6.971e-05 -4.138e-06  1.110e-05 
+  6.142e-05 -1.215e-06  4.977e-06  6.711e-06 
+  3.998e-05 -1.966e-06  5.742e-06  2.728e-06  3.268e-06 
+  3.853e-07  1.541e-08  9.449e-08  5.294e-08  4.197e-08  3.451e-05 
+  9.114e-07  4.150e-08 -4.189e-07 -3.384e-08 -1.283e-07 -1.814e-04  1.041e-03 
+  1.170e-05 -2.801e-07  1.089e-06  1.415e-06  4.417e-07 -1.338e-06  4.917e-06  3.365e-03 
+ -4.076e-06 -6.575e-07 -1.562e-07 -4.933e-07 -1.584e-07  8.431e-07 -4.527e-06 -2.624e-04  7.974e-04 
+  7.310e-07 -6.045e-08  8.295e-08  3.928e-08  4.729e-08  1.485e-06 -8.305e-06  8.182e-06  9.734e-07  1.093e-05 
+ -2.759e-08  1.898e-09 -3.328e-09 -2.826e-09 -1.946e-09 -3.256e-09  2.619e-08 -1.836e-07 -2.097e-08 -1.025e-07  2.227e-09 
+  2.710e-06  1.537e-07  3.104e-08  4.438e-07  7.234e-08 -7.848e-06  4.272e-05 -2.459e-05 -1.144e-06 -4.217e-05  1.799e-07 
+  2.710e-06  1.537e-07  3.104e-08  4.438e-07  7.234e-08 -7.848e-06  4.272e-05 -2.459e-05 -1.144e-06 -4.217e-05  1.799e-07  2.140e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.89594   1.000 -0.308  0.724  0.821  0.766  0.002  0.001  0.007 -0.005  0.008 -0.020  0.006
+        2  0.60476  -0.308  1.000 -0.573 -0.216 -0.501  0.001  0.001 -0.002 -0.011 -0.008  0.019  0.005
+        3  0.96108   0.724 -0.573  1.000  0.577  0.954  0.005 -0.004  0.006 -0.002  0.008 -0.021  0.001
+        4  0.82976   0.821 -0.216  0.577  1.000  0.583  0.003 -0.000  0.009 -0.007  0.005 -0.023  0.012
+        5  0.96203   0.766 -0.501  0.954  0.583  1.000  0.004 -0.002  0.004 -0.003  0.008 -0.023  0.003
+        6  0.95698   0.002  0.001  0.005  0.003  0.004  1.000 -0.957 -0.004  0.005  0.076 -0.012 -0.091
+        7  0.95697   0.001  0.001 -0.004 -0.000 -0.002 -0.957  1.000  0.003 -0.005 -0.078  0.017  0.091
+        8  0.18188   0.007 -0.002  0.006  0.009  0.004 -0.004  0.003  1.000 -0.160  0.043 -0.067 -0.029
+        9  0.16311  -0.005 -0.011 -0.002 -0.007 -0.003  0.005 -0.005 -0.160  1.000  0.010 -0.016 -0.003
+       10  0.97901   0.008 -0.008  0.008  0.005  0.008  0.076 -0.078  0.043  0.010  1.000 -0.657 -0.872
+       11  0.91596  -0.020  0.019 -0.021 -0.023 -0.023 -0.012  0.017 -0.067 -0.016 -0.657  1.000  0.261
+       12  0.96535   0.006  0.005  0.001  0.012  0.003 -0.091  0.091 -0.029 -0.003 -0.872  0.261  1.000
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+ **********
+ **   31 **SET ERR         0.5
+ **********
+ **********
+ **   32 **SET PRINT           1
+ **********
+ **********
+ **   33 **HESSE        6000
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=53821.7 FROM HESSE     STATUS=OK            133 CALLS        1523 TOTAL
+                     EDM=0.000130997    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.82541e-01   2.91567e-02   5.27998e-03  -6.87901e-01
+   2  alpha_mean_gaussian   1.72563e-01   2.17419e-03   2.39734e-03   3.90339e-01
+   3  alpha_mean_landau   1.83637e-01   3.32397e-03   1.32715e-03   4.88265e-01
+   4  alpha_width_gaussian   2.62682e-02   2.62406e-03   2.73334e-03  -9.69988e-01
+   5  alpha_width_landau   4.95667e-02   1.81670e-03   7.07372e-04  -7.33610e-01
+   6  mean_0       9.65424e-01   6.61965e-03   2.69863e-04  -3.45830e-02
+   7  mean_1      -4.57112e-01   3.64748e-02   2.97390e-04  -9.15502e-02
+   8  rho_mean_gaussian   1.87940e+01   6.12481e-02   3.30124e-04  -3.82814e-01
+   9  rho_width_gaussian   4.73741e+00   2.85575e-02   4.11549e-04  -7.53468e-01
+  10  width_intercept_0   1.70931e-01   1.98080e-02   4.42821e-04   8.38202e-02
+  11  width_intercept_slope  -3.83729e-03   1.86825e-04   3.16908e-05  -3.83823e-02
+  12  width_slope   3.14630e-01   7.95940e-02   2.51630e-04  -5.96548e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 12    ERR DEF=0.5
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+  8.517e-04 
+ -2.011e-05  4.728e-06 
+  7.095e-05 -4.153e-06  1.105e-05 
+  6.324e-05 -1.235e-06  5.083e-06  6.888e-06 
+  4.098e-05 -1.993e-06  5.763e-06  2.819e-06  3.301e-06 
+ -3.157e-12  9.321e-14 -3.408e-13 -2.508e-13 -1.819e-13  4.382e-05 
+  1.734e-11 -5.031e-13  1.868e-12  1.379e-12  9.979e-13 -2.335e-04  1.330e-03 
+ -1.208e-11  6.319e-14 -1.091e-12 -1.035e-12 -5.859e-13  5.536e-05 -3.101e-04  3.751e-03 
+  6.321e-13 -6.186e-14  1.101e-13  3.214e-14  5.995e-14  3.217e-06 -1.802e-05 -2.672e-04  8.155e-04 
+ -1.200e-11 -4.438e-14 -9.613e-13 -1.085e-12 -5.108e-13  6.189e-05 -3.456e-04  3.614e-04  2.100e-05  3.932e-04 
+  1.069e-13  5.761e-16  8.483e-15  9.682e-15  4.518e-15 -5.523e-07  3.092e-06 -3.513e-06 -2.042e-07 -3.606e-06  3.490e-08 
+  4.863e-11  1.400e-13  3.917e-12  4.393e-12  2.080e-12 -2.500e-04  1.395e-03 -1.418e-03 -8.241e-05 -1.570e-03  1.408e-05 
+  4.863e-11  1.400e-13  3.917e-12  4.393e-12  2.080e-12 -2.500e-04  1.395e-03 -1.418e-03 -8.241e-05 -1.570e-03  1.408e-05  6.337e-03 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11     12
+        1  0.89980   1.000 -0.317  0.731  0.826  0.773 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        2  0.60623  -0.317  1.000 -0.575 -0.216 -0.505  0.000 -0.000  0.000 -0.000 -0.000  0.000  0.000
+        3  0.96137   0.731 -0.575  1.000  0.583  0.954 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        4  0.83436   0.826 -0.216  0.583  1.000  0.591 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        5  0.96261   0.773 -0.505  0.954  0.591  1.000 -0.000  0.000 -0.000  0.000 -0.000  0.000  0.000
+        6  0.96712  -0.000  0.000 -0.000 -0.000 -0.000  1.000 -0.967  0.137  0.017  0.472 -0.447 -0.474
+        7  0.96736   0.000 -0.000  0.000  0.000  0.000 -0.967  1.000 -0.139 -0.017 -0.478  0.454  0.480
+        8  0.35116  -0.000  0.000 -0.000 -0.000 -0.000  0.137 -0.139  1.000 -0.153  0.298 -0.307 -0.291
+        9  0.17753   0.000 -0.000  0.000  0.000  0.000  0.017 -0.017 -0.153  1.000  0.037 -0.038 -0.036
+       10  0.99940  -0.000 -0.000 -0.000 -0.000 -0.000  0.472 -0.478  0.298  0.037  1.000 -0.973 -0.994
+       11  0.99440   0.000  0.000  0.000  0.000  0.000 -0.447  0.454 -0.307 -0.038 -0.973  1.000  0.946
+       12  0.99880   0.000  0.000  0.000  0.000  0.000 -0.474  0.480 -0.291 -0.036 -0.994  0.946  1.000
+ ELEMENTS ABOVE DIAGONAL ARE NOT PRINTED.
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on alpha integrates over variables (jet1_response,rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on jet1_response integrates over variables (alpha,rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response,rhoAll]_numerator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[jet1_response,rhoAll]) using numeric integrator RooAdaptiveIntegratorND to calculate Int(rhoAll,jet1_response)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_[rhofit_X_rhoAll_X_gauss]_Int[rhoAll]_Norm[jet1_response,rhoAll]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on rhoAll integrates over variables (alpha,jet1_response)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Int[jet1_response]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([rhofit_X_rhoAll_X_gauss]_Norm[jet1_response,rhoAll]_denominator_Int[rhoAll]) using numeric integrator RooIntegrator1D to calculate Int(rhoAll)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_[rhofit_X_rhoAll_X_gauss]_Int[jet1_response]_Norm[jet1_response,rhoAll]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+====================
+End of data
+====================

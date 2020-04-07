@@ -1,0 +1,670 @@
+[?1034h[#1] INFO:Eval -- RooAbsReal::attachToTree(alpha) TTree Float_t branch alpha will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(jet1_response_intrinsic) TTree Float_t branch jet1_response_intrinsic will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(xsec_weight) TTree Float_t branch xsec_weight will be converted to double precision
+[#1] INFO:Minization -- createNLL: caching constraint set under name CONSTR_OF_PDF_model_FOR_OBS_alpha:jet1_response_intrinsic with 0 entries
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 8 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alpha_gaussian_norm   1.00000e-01  5.00000e-02    0.00000e+00  1.00000e+00
+     2 alpha_mean_gaussian   2.00000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     3 alpha_mean_landau   1.80000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     4 alpha_width_gaussian   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     5 alpha_width_landau   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     6 cb_alpha     1.00000e+00  2.00000e-01    0.00000e+00  2.00000e+00
+     7 cb_n         3.00000e+00  1.50000e+00    0.00000e+00  2.00000e+01
+     8 mean_0       1.00000e+00  2.00000e-01    0.00000e+00  2.00000e+00
+     9 mean_1       0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+    10 width_intercept   1.00000e-01  4.00000e-02    0.00000e+00  4.00000e-01
+    11 width_slope   1.00000e-01  5.50000e-01   -1.00000e+00  5.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        5500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-0.227578 FROM MIGRAD    STATUS=INITIATE       40 CALLS          41 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.00000e-01   5.00000e-02   1.72186e-01  -2.96220e-04
+   2  alpha_mean_gaussian   2.00000e-01   2.50000e-02   2.57889e-01   1.49581e-03
+   3  alpha_mean_landau   1.80000e-01   2.50000e-02   2.26066e-01  -1.35964e-03
+   4  alpha_width_gaussian   5.00000e-02   2.50000e-02   2.30756e-01   1.30304e-03
+   5  alpha_width_landau   5.00000e-02   2.50000e-02   2.30756e-01   1.46234e-02
+   6  cb_alpha     1.00000e+00   2.00000e-01   2.01358e-01  -2.23552e-02
+   7  cb_n         3.00000e+00   1.50000e+00   2.16811e-01  -1.70857e-02
+   8  mean_0       1.00000e+00   2.00000e-01   2.01358e-01  -1.42483e-02
+   9  mean_1       0.00000e+00   1.00000e+00   2.01358e-01  -2.50670e-02
+  10  width_intercept   1.00000e-01   4.00000e-02   2.35352e-01   4.16316e-02
+  11  width_slope   1.00000e-01   5.50000e-01   2.44423e-01   9.93172e-02
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-0.237475 FROM MIGRAD    STATUS=CONVERGED     355 CALLS         356 TOTAL
+                     EDM=0.00042651    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   2.18767e-01   8.83720e-01   7.00037e-03   2.57816e-04
+   2  alpha_mean_gaussian   1.68092e-01   1.46109e-01   3.45744e-03  -4.52604e-04
+   3  alpha_mean_landau   1.83956e-01   1.57573e-01   1.31200e-03  -4.50236e-04
+   4  alpha_width_gaussian   3.54793e-02   2.02723e-01   2.83873e-03  -1.65452e-04
+   5  alpha_width_landau   5.08571e-02   1.98822e-01   6.86336e-04  -2.56107e-04
+   6  cb_alpha     1.54201e+00   1.09055e+00   5.28995e-03   6.81813e-05
+   7  cb_n         7.08250e+00   1.57636e+01   1.22301e-02  -4.61608e-04
+   8  mean_0       9.84162e-01   1.46434e+00   2.09729e-04  -4.51188e-03
+   9  mean_1       5.32065e-02   7.41170e+00   2.21882e-04  -1.42792e-02
+  10  width_intercept   8.62724e-02   2.54895e-01   9.61620e-04  -2.70939e-03
+  11  width_slope   1.04874e-01   3.35448e+00   3.62769e-04  -6.72704e-03
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 11    ERR DEF=0.5
+  7.606e+02 
+ -3.181e+01  2.038e+00 
+  6.951e+01 -3.358e+00  6.959e+00 
+  6.294e+01 -2.619e+00  5.665e+00  5.553e+00 
+  2.492e+01 -1.181e+00  2.529e+00  1.961e+00  9.574e-01 
+ -9.638e-07  4.968e-08 -9.912e-08 -7.926e-08 -3.640e-08  3.714e+02 
+ -4.372e-06  1.426e-07 -3.522e-07 -3.652e-07 -1.230e-07 -3.789e+03  8.279e+04 
+  2.487e-07 -1.112e-08  2.400e-08  2.046e-08  8.747e-09 -4.094e+00  2.385e+01  1.489e+00 
+ -1.241e-06  5.483e-08 -1.192e-07 -1.021e-07 -4.341e-08 -2.672e+00  4.226e+01 -7.289e+00  4.077e+01 
+ -9.694e-08  4.316e-09 -9.117e-09 -8.076e-09 -3.309e-09  4.582e+00 -1.944e+01 -1.519e-01  4.716e-01  8.788e-01 
+  3.911e-07 -1.683e-08  3.605e-08  3.271e-08  1.306e-08 -8.534e-01 -4.403e+01  5.254e-01 -3.187e+00 -4.136e+00  2.276e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11
+        1  0.98719   1.000 -0.808  0.955  0.969  0.923 -0.000 -0.000  0.000 -0.000 -0.000  0.000
+        2  0.92220  -0.808  1.000 -0.892 -0.778 -0.845  0.000  0.000 -0.000  0.000  0.000 -0.000
+        3  0.99488   0.955 -0.892  1.000  0.911  0.980 -0.000 -0.000  0.000 -0.000 -0.000  0.000
+        4  0.98044   0.969 -0.778  0.911  1.000  0.850 -0.000 -0.000  0.000 -0.000 -0.000  0.000
+        5  0.98934   0.923 -0.845  0.980  0.850  1.000 -0.000 -0.000  0.000 -0.000 -0.000  0.000
+        6  0.85703  -0.000  0.000 -0.000 -0.000 -0.000  1.000 -0.683 -0.174 -0.022  0.254 -0.009
+        7  0.72805  -0.000  0.000 -0.000 -0.000 -0.000 -0.683  1.000  0.068  0.023 -0.072 -0.032
+        8  0.95871   0.000 -0.000  0.000  0.000  0.000 -0.174  0.068  1.000 -0.936 -0.133  0.090
+        9  0.95744  -0.000  0.000 -0.000 -0.000 -0.000 -0.022  0.023 -0.936  1.000  0.079 -0.105
+       10  0.96207  -0.000  0.000 -0.000 -0.000 -0.000  0.254 -0.072 -0.133  0.079  1.000 -0.925
+       11  0.95889   0.000 -0.000  0.000  0.000  0.000 -0.009 -0.032  0.090 -0.105 -0.925  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        5500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-0.237475 FROM HESSE     STATUS=OK            100 CALLS         456 TOTAL
+                     EDM=0.000427026    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   2.18767e-01   5.98069e-01   1.40007e-03  -5.97365e-01
+   2  alpha_mean_gaussian   1.68092e-01   1.32950e-01   6.91487e-04   3.51955e-01
+   3  alpha_mean_landau   1.83956e-01   1.45496e-01   2.62400e-04   4.91160e-01
+   4  alpha_width_gaussian   3.54793e-02   1.63141e-01   5.67745e-04  -8.68671e-01
+   5  alpha_width_landau   5.08571e-02   1.71998e-01   1.37267e-04  -7.22087e-01
+   6  cb_alpha     1.54201e+00   1.18164e+00   1.05799e-03   5.72821e-01
+   7  cb_n         7.08250e+00   1.26357e+01   2.44601e-03  -2.96056e-01
+   8  mean_0       9.84162e-01   1.46578e+00   4.19458e-05  -1.58383e-02
+   9  mean_1       5.32065e-02   7.41741e+00   4.43765e-05   1.06415e-02
+  10  width_intercept   8.62724e-02   2.19607e-01   1.92324e-04  -6.04849e-01
+  11  width_slope   1.04874e-01   3.52837e+00   7.25538e-05  -6.83756e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 11    ERR DEF=0.5
+  4.540e+02 
+ -1.749e+01  1.376e+00 
+  3.997e+01 -1.983e+00  4.120e+00 
+  3.760e+01 -1.440e+00  3.222e+00  3.460e+00 
+  1.429e+01 -6.850e-01  1.508e+00  1.082e+00  5.908e-01 
+ -6.932e-06  3.725e-07 -6.611e-07 -6.872e-07 -2.002e-07  3.965e+02 
+ -4.132e-06 -1.256e-07 -5.338e-07  2.622e-07 -4.128e-07 -4.126e+03  8.725e+04 
+  1.783e-06 -8.431e-08  1.657e-07  1.571e-07  5.552e-08 -4.432e+00  2.754e+01  1.510e+00 
+ -9.688e-06  4.507e-07 -9.020e-07 -8.428e-07 -3.060e-07 -2.466e+00  4.319e+01 -7.383e+00  4.126e+01 
+  1.992e-06 -7.351e-08  1.715e-07  1.715e-07  6.041e-08  5.289e+00 -2.501e+01 -1.777e-01  5.656e-01  9.940e-01 
+ -1.079e-05  4.051e-07 -9.284e-07 -9.413e-07 -3.225e-07 -3.064e+00 -3.403e+01  6.411e-01 -3.675e+00 -4.698e+00  2.558e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11
+        1  0.97844   1.000 -0.700  0.924  0.949  0.873 -0.000 -0.000  0.000 -0.000  0.000 -0.000
+        2  0.88229  -0.700  1.000 -0.833 -0.660 -0.760  0.000 -0.000 -0.000  0.000 -0.000  0.000
+        3  0.99134   0.924 -0.833  1.000  0.854  0.966 -0.000 -0.000  0.000 -0.000  0.000 -0.000
+        4  0.96842   0.949 -0.660  0.854  1.000  0.757 -0.000  0.000  0.000 -0.000  0.000 -0.000
+        5  0.98267   0.873 -0.760  0.966  0.757  1.000 -0.000 -0.000  0.000 -0.000  0.000 -0.000
+        6  0.86682  -0.000  0.000 -0.000 -0.000 -0.000  1.000 -0.701 -0.181 -0.019  0.266 -0.030
+        7  0.74427  -0.000 -0.000 -0.000  0.000 -0.000 -0.701  1.000  0.076  0.023 -0.085 -0.023
+        8  0.95932   0.000 -0.000  0.000  0.000  0.000 -0.181  0.076  1.000 -0.935 -0.145  0.103
+        9  0.95796  -0.000  0.000 -0.000 -0.000 -0.000 -0.019  0.023 -0.935  1.000  0.088 -0.113
+       10  0.96655   0.000 -0.000  0.000  0.000  0.000  0.266 -0.085 -0.145  0.088  1.000 -0.932
+       11  0.96350  -0.000  0.000 -0.000 -0.000 -0.000 -0.030 -0.023  0.103 -0.113 -0.932  1.000
+[#1] INFO:Fitting -- RooAbsPdf::fitTo(model) Calculating sum-of-weights-squared correction matrix for covariance matrix
+ **********
+ **   10 **SET ERR         0.5
+ **********
+ **********
+ **   11 **SET PRINT           1
+ **********
+ **********
+ **   12 **HESSE        5500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-2.67092e-06 FROM HESSE     STATUS=OK            122 CALLS         578 TOTAL
+                     EDM=4.95486e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   2.18767e-01   6.02479e-01   2.85615e-02  -5.97365e-01
+   2  alpha_mean_gaussian   1.68092e-01   1.65900e-01   1.41063e-02   3.51955e-01
+   3  alpha_mean_landau   1.83956e-01   2.16417e-01   5.35296e-03   4.91160e-01
+   4  alpha_width_gaussian   3.54793e-02   2.65066e-01   1.15820e-02  -8.68671e-01
+   5  alpha_width_landau   5.08571e-02   1.75428e-01   2.80025e-03  -7.22087e-01
+   6  cb_alpha     1.54201e+00   1.27684e+00   2.15830e-02   5.72821e-01
+   7  cb_n         7.08250e+00   1.59137e+01   4.98987e-02  -2.96056e-01
+   8  mean_0       9.84162e-01   1.36541e+00   8.55694e-04  -1.58383e-02
+   9  mean_1       5.32065e-02   7.34056e+00   9.05280e-04   1.06415e-02
+  10  width_intercept   8.62724e-02   2.70510e-01   3.92341e-03  -6.04849e-01
+  11  width_slope   1.04874e-01   3.52642e+00   1.48010e-03  -6.83756e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR= 11    ERR DEF=0.5
+  2.702e+07 
+  1.226e+06  8.175e+04 
+  1.292e+06  4.665e+04  8.717e+04 
+ -1.710e+05 -1.390e+03 -1.505e+04  1.938e+04 
+  1.425e+06  6.052e+04  8.094e+04 -1.499e+04  8.538e+04 
+ -5.767e-03 -2.411e-04 -3.346e-04  6.185e-05 -3.449e-04  2.261e+07 
+  5.184e-02  2.216e-03  2.934e-03 -5.544e-04  3.047e-03 -1.993e+08  5.426e+09 
+ -2.016e-04 -6.535e-06 -1.485e-05  2.471e-06 -1.301e-05 -2.900e+05  1.002e+06  1.524e+05 
+  1.467e-03  5.031e-05  1.033e-04 -1.746e-05  9.359e-05 -1.331e+04  1.685e+06 -7.456e+05  4.066e+06 
+ -2.662e-04 -1.259e-05 -1.307e-05  2.669e-06 -1.495e-05  2.496e+05 -5.611e+05 -1.449e+04  5.305e+04  6.097e+04 
+  8.264e-04  4.230e-05  3.536e-05 -7.890e-06  4.421e-05  1.391e+05 -2.642e+06  5.171e+04 -3.100e+05 -2.844e+05  1.585e+06 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9     10     11
+        1  0.96274   1.000  0.825  0.842 -0.236  0.938 -0.000  0.000 -0.000  0.000 -0.000  0.000
+        2  0.88166   0.825  1.000  0.553 -0.035  0.724 -0.000  0.000 -0.000  0.000 -0.000  0.000
+        3  0.95739   0.842  0.553  1.000 -0.366  0.938 -0.000  0.000 -0.000  0.000 -0.000  0.000
+        4  0.53692  -0.236 -0.035 -0.366  1.000 -0.368  0.000 -0.000  0.000 -0.000  0.000 -0.000
+        5  0.98169   0.938  0.724  0.938 -0.368  1.000 -0.000  0.000 -0.000  0.000 -0.000  0.000
+        6  0.78919  -0.000 -0.000 -0.000  0.000 -0.000  1.000 -0.569 -0.156 -0.001  0.213  0.023
+        7  0.62336   0.000  0.000  0.000 -0.000  0.000 -0.569  1.000  0.035  0.011 -0.031 -0.028
+        8  0.96334  -0.000 -0.000 -0.000  0.000 -0.000 -0.156  0.035  1.000 -0.947 -0.150  0.105
+        9  0.96232   0.000  0.000  0.000 -0.000  0.000 -0.001  0.011 -0.947  1.000  0.107 -0.122
+       10  0.95067  -0.000 -0.000 -0.000  0.000 -0.000  0.213 -0.031 -0.150  0.107  1.000 -0.915
+       11  0.94777   0.000  0.000  0.000 -0.000  0.000  0.023 -0.028  0.105 -0.122 -0.915  1.000
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+RooProdPdf::model[ alphafit * gauss|alpha ] = 0.32526
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(gen) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on alpha integrates over variables (jet1_response_intrinsic)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(gen) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on jet1_response_intrinsic integrates over variables (alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_gauss_NORM[jet1_response_intrinsic]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+====================
+End of gen
+====================
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooGenericPdf::width
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooRealVar::width_intercept
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooRealVar::width_slope
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooRealVar::width_slope_2
+[#1] INFO:Eval -- RooAbsReal::attachToTree(alpha) TTree Float_t branch alpha will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(jet1_response) TTree Float_t branch jet1_response will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(xsec_weight) TTree Float_t branch xsec_weight will be converted to double precision
+[#1] INFO:Eval -- RooTreeDataStore::loadValues(data) Ignored 20 out of range events
+[#1] INFO:Minization -- createNLL: caching constraint set under name CONSTR_OF_PDF_model_FOR_OBS_alpha:jet1_response with 0 entries
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 8 remote server process.
+ **********
+ **    1 **SET PRINT           1
+ **********
+ **********
+ **    2 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alpha_gaussian_norm   1.00000e-01  5.00000e-02    0.00000e+00  1.00000e+00
+     2 alpha_mean_gaussian   2.00000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     3 alpha_mean_landau   1.80000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     4 alpha_width_gaussian   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     5 alpha_width_landau   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     6 mean_0       9.00000e-01  2.00000e-01    0.00000e+00  2.00000e+00
+     7 mean_1       0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     8 width_intercept   1.00000e-01  5.00000e-02    0.00000e+00  5.00000e-01
+     9 width_slope_2   1.00000e+00  5.00000e-01    0.00000e+00  5.00000e+00
+ **********
+ **    3 **SET ERR         0.5
+ **********
+ **********
+ **    4 **SET PRINT           1
+ **********
+ **********
+ **    5 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **    6 **MIGRAD        4500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-0.182051 FROM MIGRAD    STATUS=INITIATE       34 CALLS          35 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.00000e-01   5.00000e-02   1.72186e-01  -3.11906e-04
+   2  alpha_mean_gaussian   2.00000e-01   2.50000e-02   2.57889e-01   1.49143e-03
+   3  alpha_mean_landau   1.80000e-01   2.50000e-02   2.26066e-01  -1.60154e-03
+   4  alpha_width_gaussian   5.00000e-02   2.50000e-02   2.30756e-01   1.33322e-03
+   5  alpha_width_landau   5.00000e-02   2.50000e-02   2.30756e-01   1.51082e-02
+   6  mean_0       9.00000e-01   2.00000e-01   2.02430e-01  -1.15203e-02
+   7  mean_1       0.00000e+00   1.00000e+00   2.01358e-01   3.08225e-03
+   8  width_intercept   1.00000e-01   5.00000e-02   2.57889e-01   5.77933e-03
+   9  width_slope_2   1.00000e+00   5.00000e-01   2.57889e-01   2.42598e-02
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-0.184484 FROM MIGRAD    STATUS=CONVERGED     237 CALLS         238 TOTAL
+                     EDM=0.000415924    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.76553e-01   6.34444e-01   5.32504e-03  -1.37205e-04
+   2  alpha_mean_gaussian   1.73373e-01   1.28377e-01   3.07286e-03   1.71097e-04
+   3  alpha_mean_landau   1.78913e-01   1.72088e-01   1.16879e-03  -2.76817e-05
+   4  alpha_width_gaussian   3.62130e-02   2.62226e-01   3.31060e-03   7.01414e-04
+   5  alpha_width_landau   4.82736e-02   2.66678e-01   6.64374e-04  -5.19017e-04
+   6  mean_0       9.30833e-01   1.40018e+00   3.47791e-04  -8.34300e-03
+   7  mean_1      -1.88826e-01   6.77840e+00   3.94725e-04   6.46744e-04
+   8  width_intercept   1.33956e-01   4.12073e-01   1.54492e-03   1.08300e-03
+   9  width_slope_2   6.84297e-01   4.59248e+00   1.09740e-03   6.40431e-04
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  9    ERR DEF=0.5
+  1.655e+02 -7.166e+00  1.026e+01  1.620e+01  4.148e+00 -7.594e-08  4.091e-07  1.315e-08 -1.280e-07 
+ -7.166e+00  1.372e+00 -9.863e-01 -4.911e-01 -3.997e-01  4.306e-09 -2.275e-08 -1.530e-09  1.369e-08 
+  1.026e+01 -9.863e-01  1.158e+00  8.064e-01  4.955e-01 -6.242e-09  3.320e-08  1.654e-09 -1.534e-08 
+  1.620e+01 -4.911e-01  8.064e-01  2.348e+00  2.284e-01 -7.119e-09  3.882e-08  1.044e-09 -1.007e-08 
+  4.148e+00 -3.997e-01  4.955e-01  2.284e-01  2.425e-01 -2.673e-09  1.415e-08  7.225e-10 -6.744e-09 
+ -7.594e-08  4.306e-09 -6.242e-09 -7.119e-09 -2.673e-09  4.053e+00 -2.167e+01  1.594e-04 -5.994e-01 
+  4.091e-07 -2.275e-08  3.320e-08  3.882e-08  1.415e-08 -2.167e+01  1.272e+02 -2.883e-01  5.216e+00 
+  1.315e-08 -1.530e-09  1.654e-09  1.044e-09  7.225e-10  1.594e-04 -2.883e-01  1.138e+00 -6.694e+00 
+ -1.280e-07  1.369e-08 -1.534e-08 -1.007e-08 -6.744e-09 -5.994e-01  5.216e+00 -6.694e+00  5.270e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9
+        1  0.92663   1.000 -0.476  0.741  0.822  0.655 -0.000  0.000  0.000 -0.000
+        2  0.81669  -0.476  1.000 -0.782 -0.274 -0.693  0.000 -0.000 -0.000  0.000
+        3  0.97427   0.741 -0.782  1.000  0.489  0.935 -0.000  0.000  0.000 -0.000
+        4  0.90710   0.822 -0.274  0.489  1.000  0.303 -0.000  0.000  0.000 -0.000
+        5  0.96410   0.655 -0.693  0.935  0.303  1.000 -0.000  0.000  0.000 -0.000
+        6  0.95486  -0.000  0.000 -0.000 -0.000 -0.000  1.000 -0.955  0.000 -0.041
+        7  0.95492   0.000 -0.000  0.000  0.000  0.000 -0.955  1.000 -0.024  0.064
+        8  0.86522   0.000 -0.000  0.000  0.000  0.000  0.000 -0.024  1.000 -0.864
+        9  0.86552  -0.000  0.000 -0.000 -0.000 -0.000 -0.041  0.064 -0.864  1.000
+ **********
+ **    7 **SET ERR         0.5
+ **********
+ **********
+ **    8 **SET PRINT           1
+ **********
+ **********
+ **    9 **HESSE        4500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-0.184484 FROM HESSE     STATUS=OK             73 CALLS         311 TOTAL
+                     EDM=0.000416398    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.76553e-01   5.84696e-01   1.06501e-03  -7.03506e-01
+   2  alpha_mean_gaussian   1.73373e-01   1.47584e-01   6.14572e-04   3.97355e-01
+   3  alpha_mean_landau   1.78913e-01   1.95504e-01   2.33759e-04   4.45935e-01
+   4  alpha_width_gaussian   3.62130e-02   2.44791e-01   6.62119e-04  -8.61131e-01
+   5  alpha_width_landau   4.82736e-02   2.71789e-01   1.32875e-04  -7.45278e-01
+   6  mean_0       9.30833e-01   1.40029e+00   6.95583e-05  -6.92219e-02
+   7  mean_1      -1.88826e-01   6.77939e+00   7.89450e-05  -3.77742e-02
+   8  width_intercept   1.33956e-01   4.06553e-01   3.08984e-04  -4.82702e-01
+   9  width_slope_2   6.84297e-01   4.56375e+00   2.19481e-04  -8.12897e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  9    ERR DEF=0.5
+  1.531e+02 -6.029e+00  9.036e+00  1.515e+01  3.637e+00  1.383e-06 -7.767e-06 -1.152e-07 -3.554e-07 
+ -6.029e+00  1.288e+00 -8.910e-01 -3.932e-01 -3.590e-01 -1.864e-08  9.268e-08  1.643e-08 -6.820e-08 
+  9.036e+00 -8.910e-01  1.053e+00  6.965e-01  4.520e-01  3.350e-08 -1.741e-07 -1.436e-08  3.744e-08 
+  1.515e+01 -3.932e-01  6.965e-01  2.259e+00  1.826e-01  1.813e-07 -1.030e-06 -5.248e-09 -1.015e-07 
+  3.637e+00 -3.590e-01  4.520e-01  1.826e-01  2.245e-01  5.002e-09 -2.033e-08 -5.838e-09  1.972e-08 
+  1.383e-06 -1.864e-08  3.350e-08  1.813e-07  5.002e-09  4.052e+00 -2.166e+01 -2.693e-03 -5.791e-01 
+ -7.767e-06  9.268e-08 -1.741e-07 -1.030e-06 -2.033e-08 -2.166e+01  1.271e+02 -2.837e-01  5.166e+00 
+ -1.152e-07  1.643e-08 -1.436e-08 -5.248e-09 -5.838e-09 -2.693e-03 -2.837e-01  1.174e+00 -6.940e+00 
+ -3.554e-07 -6.820e-08  3.744e-08 -1.015e-07  1.972e-08 -5.791e-01  5.166e+00 -6.940e+00  5.435e+01 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9
+        1  0.92041   1.000 -0.429  0.712  0.815  0.620  0.000 -0.000 -0.000 -0.000
+        2  0.80338  -0.429  1.000 -0.765 -0.230 -0.668 -0.000  0.000  0.000 -0.000
+        3  0.97166   0.712 -0.765  1.000  0.452  0.929  0.000 -0.000 -0.000  0.000
+        4  0.90323   0.815 -0.230  0.452  1.000  0.256  0.000 -0.000 -0.000 -0.000
+        5  0.96116   0.620 -0.668  0.929  0.256  1.000  0.000 -0.000 -0.000  0.000
+        6  0.95484   0.000 -0.000  0.000  0.000  0.000  1.000 -0.955 -0.001 -0.039
+        7  0.95490  -0.000  0.000 -0.000 -0.000 -0.000 -0.955  1.000 -0.023  0.062
+        8  0.86966  -0.000  0.000 -0.000 -0.000 -0.000 -0.001 -0.023  1.000 -0.869
+        9  0.86991  -0.000 -0.000  0.000 -0.000  0.000 -0.039  0.062 -0.869  1.000
+[#1] INFO:Fitting -- RooAbsPdf::fitTo(model) Calculating sum-of-weights-squared correction matrix for covariance matrix
+ **********
+ **   10 **SET ERR         0.5
+ **********
+ **********
+ **   11 **SET PRINT           1
+ **********
+ **********
+ **   12 **HESSE        4500
+ **********
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+        -4.5739e-02  3.7661e-02  2.5868e-01  3.0025e-01  7.8326e-01  1.6081e+00  1.7393e+00  1.9643e+00  2.3541e+00
+ MINUIT WARNING IN HESSE   
+ ============== MATRIX FORCED POS-DEF BY ADDING 0.048093 TO DIAGONAL.
+ FCN=-2.13655e-06 FROM HESSE     STATUS=NOT POSDEF     91 CALLS         402 TOTAL
+                     EDM=1.22558e-07    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE     INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.76553e-01   5.85078e-01   2.17262e-02  -7.03506e-01
+   2  alpha_mean_gaussian   1.73373e-01   2.11667e-01   1.25373e-02   3.97355e-01
+   3  alpha_mean_landau   1.78913e-01   1.33401e-01   4.76868e-03   4.45935e-01
+   4  alpha_width_gaussian   3.62130e-02   2.07227e-01   1.35072e-02  -8.61131e-01
+   5  alpha_width_landau   4.82736e-02   2.20408e-01   2.71065e-03  -7.45278e-01
+   6  mean_0       9.30833e-01   1.22542e+00   1.41899e-03  -6.92219e-02
+   7  mean_1      -1.88826e-01   5.98386e+00   1.61048e-03  -3.77742e-02
+   8  width_intercept   1.33956e-01   3.60132e-01   6.30327e-03  -4.82702e-01
+   9  width_slope_2   6.84297e-01   2.66072e+00   4.47741e-03  -8.12897e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  9    ERR DEF=0.5
+  3.163e+08  6.861e+06  1.017e+07 -1.056e+07  1.394e+07  3.928e-03 -2.113e-02  8.700e-05  7.319e-04 
+  6.861e+06  1.852e+05  2.087e+05 -2.162e+05  2.970e+05  8.331e-05 -4.491e-04  1.906e-06  1.632e-05 
+  1.017e+07  2.087e+05  3.439e+05 -3.461e+05  4.567e+05  1.269e-04 -6.823e-04  2.783e-06  2.329e-05 
+ -1.056e+07 -2.162e+05 -3.461e+05  3.812e+05 -4.716e+05 -1.334e-04  7.173e-04 -2.928e-06 -2.451e-05 
+  1.394e+07  2.970e+05  4.567e+05 -4.716e+05  6.217e+05  1.741e-04 -9.366e-04  3.861e-06  3.251e-05 
+  3.928e-03  8.331e-05  1.269e-04 -1.334e-04  1.741e-04  2.011e+05 -1.014e+06 -5.170e+02 -2.727e+04 
+ -2.113e-02 -4.491e-04 -6.823e-04  7.173e-04 -9.366e-04 -1.014e+06  6.061e+06 -8.157e+03  2.313e+05 
+  8.700e-05  1.906e-06  2.783e-06 -2.928e-06  3.861e-06 -5.170e+02 -8.157e+03  5.585e+04 -2.545e+05 
+  7.319e-04  1.632e-05  2.329e-05 -2.451e-05  3.251e-05 -2.727e+04  2.313e+05 -2.545e+05  2.325e+06 
+ERR MATRIX NOT POS-DEF
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9
+        1  0.99588   1.000  0.896  0.975 -0.961  0.994  0.000 -0.000  0.000  0.000
+        2  0.93058   0.896  1.000  0.827 -0.814  0.875  0.000 -0.000  0.000  0.000
+        3  0.99143   0.975  0.827  1.000 -0.956  0.988  0.000 -0.000  0.000  0.000
+        4  0.97270  -0.961 -0.814 -0.956  1.000 -0.969 -0.000  0.000 -0.000 -0.000
+        5  0.99795   0.994  0.875  0.988 -0.969  1.000  0.000 -0.000  0.000  0.000
+        6  0.91807   0.000  0.000  0.000 -0.000  0.000  1.000 -0.918 -0.005 -0.040
+        7  0.91822  -0.000 -0.000 -0.000  0.000 -0.000 -0.918  1.000 -0.014  0.062
+        8  0.70716   0.000  0.000  0.000 -0.000  0.000 -0.005 -0.014  1.000 -0.706
+        9  0.70836   0.000  0.000  0.000 -0.000  0.000 -0.040  0.062 -0.706  1.000
+ ERR MATRIX NOT POS-DEF
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(data) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on alpha integrates over variables (jet1_response)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:InputArguments -- RooAbsData::plotOn(data) INFO: dataset has non-integer weights, auto-selecting SumW2 errors instead of Poisson errors
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on jet1_response integrates over variables (alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_gauss_NORM[jet1_response]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+====================
+End of mc
+====================
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooGenericPdf::width
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooRealVar::width_intercept
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooRealVar::width_slope
+[#1] INFO:ObjectHandling -- RooWorkspace::import(w) importing RooRealVar::width_slope_2
+[#1] INFO:Eval -- RooAbsReal::attachToTree(alpha) TTree Float_t branch alpha will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(jet1_response) TTree Float_t branch jet1_response will be converted to double precision
+[#1] INFO:Eval -- RooAbsReal::attachToTree(trigger) TTree Bool_t branch trigger will be converted to double precision
+[#1] INFO:Eval -- RooTreeDataStore::loadValues(data) Ignored 2 out of range events
+[#1] INFO:Minization -- createNLL: caching constraint set under name CONSTR_OF_PDF_model_FOR_OBS_alpha:jet1_response:trigger with 0 entries
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: activating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Eval -- RooAbsTestStatistic::initMPMode: started 8 remote server process.
+ **********
+ **   13 **SET PRINT           1
+ **********
+ **********
+ **   14 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 alpha_gaussian_norm   1.00000e-01  5.00000e-02    0.00000e+00  1.00000e+00
+     2 alpha_mean_gaussian   2.00000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     3 alpha_mean_landau   1.80000e-01  2.50000e-02    0.00000e+00  2.50000e-01
+     4 alpha_width_gaussian   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     5 alpha_width_landau   5.00000e-02  2.50000e-02    0.00000e+00  3.00000e-01
+     6 mean_0       9.00000e-01  2.00000e-01    0.00000e+00  2.00000e+00
+     7 mean_1       0.00000e+00  1.00000e+00   -5.00000e+00  5.00000e+00
+     8 width_intercept   1.00000e-01  5.00000e-02    0.00000e+00  5.00000e-01
+     9 width_slope_2   1.00000e+00  5.00000e-01    0.00000e+00  5.00000e+00
+ **********
+ **   15 **SET ERR         0.5
+ **********
+ **********
+ **   16 **SET PRINT           1
+ **********
+ **********
+ **   17 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **   18 **MIGRAD        4500           1
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+[#1] INFO:Minization --  The following expressions will be evaluated in cache-and-track mode: (alpha_gaussian,alpha_landau,gauss)
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-03
+ FCN=-12516.2 FROM MIGRAD    STATUS=INITIATE       36 CALLS          37 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.00000e-01   5.00000e-02   1.72186e-01  -6.01638e+01
+   2  alpha_mean_gaussian   2.00000e-01   2.50000e-02   2.57889e-01   9.13866e+01
+   3  alpha_mean_landau   1.80000e-01   2.50000e-02   2.26066e-01  -5.96343e+02
+   4  alpha_width_gaussian   5.00000e-02   2.50000e-02   2.30756e-01   1.66049e+02
+   5  alpha_width_landau   5.00000e-02   2.50000e-02   2.30756e-01   1.86628e+03
+   6  mean_0       9.00000e-01   2.00000e-01   2.02430e-01   1.37670e+03
+   7  mean_1       0.00000e+00   1.00000e+00   2.01358e-01   2.14767e+03
+   8  width_intercept   1.00000e-01   5.00000e-02   2.57889e-01   1.76916e+02
+   9  width_slope_2   1.00000e+00   5.00000e-01   2.57889e-01   1.03859e+03
+                               ERR DEF= 0.5
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-12727.9 FROM MIGRAD    STATUS=CONVERGED     510 CALLS         511 TOTAL
+                     EDM=3.40309e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  alpha_gaussian_norm   1.89175e-01   3.09621e-02   2.55631e-03   2.61882e-03
+   2  alpha_mean_gaussian   1.72286e-01   2.17607e-03   1.14849e-03   5.58438e-02
+   3  alpha_mean_landau   1.84493e-01   3.55788e-03   6.58528e-04  -1.84961e-01
+   4  alpha_width_gaussian   2.67309e-02   2.71730e-03   1.30925e-03   2.84956e-02
+   5  alpha_width_landau   5.00567e-02   1.92635e-03   3.48484e-04   1.49436e-01
+   6  mean_0       9.70541e-01   8.16770e-03   1.83031e-04   5.91905e-01
+   7  mean_1      -4.75903e-01   4.54041e-02   2.04345e-04   6.67532e-01
+   8  width_intercept   1.35843e-01   4.63888e-03   7.46462e-04   3.29396e-01
+   9  width_slope_2   7.25723e-01   3.02541e-02   6.14706e-04   2.07768e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  9    ERR DEF=0.5
+  9.607e-04 -2.310e-05  8.349e-05  7.075e-05  4.723e-05  9.053e-14 -4.512e-13  5.232e-13 -3.286e-12 
+ -2.310e-05  4.736e-06 -4.548e-06 -1.483e-06 -2.169e-06 -8.364e-15  5.850e-15 -2.997e-14  1.697e-13 
+  8.349e-05 -4.548e-06  1.266e-05  5.961e-06  6.567e-06  1.845e-14 -4.264e-14  8.121e-14 -4.866e-13 
+  7.075e-05 -1.483e-06  5.961e-06  7.386e-06  3.239e-06  5.590e-15 -3.704e-14  3.726e-14 -2.351e-13 
+  4.723e-05 -2.169e-06  6.567e-06  3.239e-06  3.711e-06  9.450e-15 -2.275e-14  4.198e-14 -2.533e-13 
+  9.053e-14 -8.364e-15  1.845e-14  5.590e-15  9.450e-15  6.671e-05 -3.552e-04  3.416e-06 -2.204e-05 
+ -4.512e-13  5.850e-15 -4.264e-14 -3.704e-14 -2.275e-14 -3.552e-04  2.062e-03 -1.894e-05  1.217e-04 
+  5.232e-13 -2.997e-14  8.121e-14  3.726e-14  4.198e-14  3.416e-06 -1.894e-05  2.152e-05 -1.247e-04 
+ -3.286e-12  1.697e-13 -4.866e-13 -2.351e-13 -2.533e-13 -2.204e-05  1.217e-04 -1.247e-04  9.154e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9
+        1  0.90966   1.000 -0.342  0.757  0.840  0.791  0.000 -0.000  0.000 -0.000
+        2  0.62086  -0.342  1.000 -0.587 -0.251 -0.517 -0.000  0.000 -0.000  0.000
+        3  0.96518   0.757 -0.587  1.000  0.616  0.958  0.000 -0.000  0.000 -0.000
+        4  0.84863   0.840 -0.251  0.616  1.000  0.619  0.000 -0.000  0.000 -0.000
+        5  0.96561   0.791 -0.517  0.958  0.619  1.000  0.000 -0.000  0.000 -0.000
+        6  0.95779   0.000 -0.000  0.000  0.000  0.000  1.000 -0.958  0.090 -0.089
+        7  0.95779  -0.000  0.000 -0.000 -0.000 -0.000 -0.958  1.000 -0.090  0.089
+        8  0.88832   0.000 -0.000  0.000  0.000  0.000  0.090 -0.090  1.000 -0.888
+        9  0.88829  -0.000  0.000 -0.000 -0.000 -0.000 -0.089  0.089 -0.888  1.000
+ **********
+ **   19 **SET ERR         0.5
+ **********
+ **********
+ **   20 **SET PRINT           1
+ **********
+ **********
+ **   21 **HESSE        4500
+ **********
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=-12727.9 FROM HESSE     STATUS=OK             73 CALLS         584 TOTAL
+                     EDM=3.42328e-05    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                INTERNAL      INTERNAL  
+  NO.   NAME      VALUE            ERROR       STEP SIZE       VALUE   
+   1  alpha_gaussian_norm   1.89175e-01   3.08988e-02   1.02252e-04  -6.70848e-01
+   2  alpha_mean_gaussian   1.72286e-01   2.17232e-03   2.29698e-04   3.87944e-01
+   3  alpha_mean_landau   1.84493e-01   3.55586e-03   1.31706e-04   4.96042e-01
+   4  alpha_width_gaussian   2.67309e-02   2.71343e-03   5.23699e-05  -9.64552e-01
+   5  alpha_width_landau   5.00567e-02   1.92607e-03   1.39394e-05  -7.29220e-01
+   6  mean_0       9.70541e-01   8.16654e-03   3.66061e-05  -2.94628e-02
+   7  mean_1      -4.75903e-01   4.53977e-02   4.08689e-05  -9.53249e-02
+   8  width_intercept   1.35843e-01   4.68445e-03   1.49292e-04  -4.74200e-01
+   9  width_slope_2   7.25723e-01   3.05513e-02   1.22941e-04  -7.89088e-01
+                               ERR DEF= 0.5
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  9    ERR DEF=0.5
+  9.567e-04 -2.272e-05  8.310e-05  7.047e-05  4.706e-05 -3.164e-10  1.651e-09 -8.843e-11  5.881e-10 
+ -2.272e-05  4.720e-06 -4.519e-06 -1.460e-06 -2.153e-06  8.521e-12 -4.410e-11  2.869e-12 -1.838e-11 
+  8.310e-05 -4.519e-06  1.265e-05  5.932e-06  6.562e-06 -3.008e-11  1.556e-10 -9.323e-12  6.063e-11 
+  7.047e-05 -1.460e-06  5.932e-06  7.365e-06  3.227e-06 -2.648e-11  1.388e-10 -7.018e-12  4.714e-11 
+  4.706e-05 -2.153e-06  6.562e-06  3.227e-06  3.710e-06 -1.657e-11  8.557e-11 -5.251e-12  3.410e-11 
+ -3.164e-10  8.521e-12 -3.008e-11 -2.648e-11 -1.657e-11  6.669e-05 -3.551e-04  3.450e-06 -2.226e-05 
+  1.651e-09 -4.410e-11  1.556e-10  1.388e-10  8.557e-11 -3.551e-04  2.061e-03 -1.914e-05  1.229e-04 
+ -8.843e-11  2.869e-12 -9.323e-12 -7.018e-12 -5.251e-12  3.450e-06 -1.914e-05  2.195e-05 -1.275e-04 
+  5.881e-10 -1.838e-11  6.063e-11  4.714e-11  3.410e-11 -2.226e-05  1.229e-04 -1.275e-04  9.335e-04 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2      3      4      5      6      7      8      9
+        1  0.90927   1.000 -0.338  0.755  0.840  0.790 -0.000  0.000 -0.000  0.000
+        2  0.61915  -0.338  1.000 -0.585 -0.248 -0.514  0.000 -0.000  0.000 -0.000
+        3  0.96514   0.755 -0.585  1.000  0.615  0.958 -0.000  0.000 -0.000  0.000
+        4  0.84816   0.840 -0.248  0.615  1.000  0.617 -0.000  0.000 -0.000  0.000
+        5  0.96560   0.790 -0.514  0.958  0.617  1.000 -0.000  0.000 -0.000  0.000
+        6  0.95778  -0.000  0.000 -0.000 -0.000 -0.000  1.000 -0.958  0.090 -0.089
+        7  0.95777   0.000 -0.000  0.000  0.000  0.000 -0.958  1.000 -0.090  0.089
+        8  0.89062  -0.000  0.000 -0.000 -0.000 -0.000  0.090 -0.090  1.000 -0.891
+        9  0.89059   0.000 -0.000  0.000  0.000  0.000 -0.089  0.089 -0.891  1.000
+[#1] INFO:Minization -- RooMinimizer::optimizeConst: deactivating const optimization
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on alpha integrates over variables (jet1_response)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:Plotting -- RooAbsReal::plotOn(model) plot on jet1_response integrates over variables (alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alpha_landau_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init(alphafit_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+[#1] INFO:NumericIntegration -- RooRealIntegral::init([alphafit_NORM[alpha]_X_gauss_NORM[jet1_response]]_Int[alpha]) using numeric integrator RooIntegrator1D to calculate Int(alpha)
+====================
+End of data
+====================
+Alpha shape: sum
+Cross Section Branch: xsec_weight
+{'alpha_mean_gaussian': {'data': '0.172285786876 +- 0.00217232013917',
+                         'mc': '0.173372647672 +- 0.0108166988768'},
+ 'alpha_mean_landau': {'data': '0.184493485577 +- 0.00355585666613',
+                       'mc': '0.178912694775 +- 0.0118667109061'},
+ 'alpha_width_gaussian': {'data': '0.0267309470434 +- 0.00271343199673',
+                          'mc': '0.0362130056834 +- 0.020244971302'},
+ 'alpha_width_landau': {'data': '0.0500567181384 +- 0.00192607303911',
+                        'mc': '0.0482736170255 +- 0.00434084157354'},
+ 'mean_0': {'data': '0.970541494605 +- 0.00816654051855',
+            'mc': '0.930833406457 +- 0.00912386837666'},
+ 'mean_1': {'data': '-0.475903110769 +- 0.0453976876961',
+            'mc': '-0.188826124429 +- 0.0516840654142'},
+ 'width_intercept': {'data': '0.135843312381 +- 0.00468445487076',
+                     'mc': '0.133956439125 +- 0.00518119489711'},
+ 'width_slope': {'data': '0.104873519135 +- 0.0203710671231',
+                 'mc': '0.104873519135 +- 0.0203710671231'},
+ 'width_slope_2': {'data': '0.725722955647 +- 0.0305513284618',
+                   'mc': '0.684296682983 +- 0.0361344974391'}}
+
+Smear factor: 0.022563 +- 0.041734
+Scale factor: 0.014086 +- 0.052549

@@ -14,6 +14,20 @@ end = '2016'
 
 divbymean = True
 
+def report(title, value, error=None):
+
+    numsig_figs = 2
+
+    if not error:
+        print '%s: %f' % (title, value)
+        return
+    
+    order = int(math.floor(math.log10(error))) - (numsig_figs - 1)
+    format = '%{0}f'.format('.%i' % (-1 * order) if order < 1 else '')
+
+    print '%s: {f} +- {f}'.format(f=format) % (title, value, error)
+
+
 class MeanCalc(object):
 
     def __init__(self):
@@ -326,8 +340,8 @@ for bintype in ['smear', 'rho']:
 
                 if makesub:
 
-                    print 'Data at y-axis: %f +- %f' % (data_int, data_int_err)
-                    print 'MC at y-axis: %f +- %f' %  (mc_int, mc_int_err)
+                    report('Data at y-axis', data_int, data_int_err)
+                    report('MC at y-axis', mc_int, mc_int_err)
 
                     smear = math.sqrt(abs(pow(data_int, 2) - pow(mc_int, 2))) * (data_int - mc_int) / abs(data_int - mc_int)
                     smear_err = math.sqrt(abs(math.pow(data_int * data_int_err, 2) +
@@ -338,19 +352,19 @@ for bintype in ['smear', 'rho']:
                     scale_err = math.sqrt(pow(data_int_err/mc_int, 2) +
                                           pow(data_int * mc_int_err/pow(mc_int, 2), 2))
 
-                    print 'Smear factor: %f +- %f' % (smear, smear_err)
-                    print 'Scale factor: %f +- %f' % (scale, scale_err)
+                    report('Smear factor', smear, smear_err)
+                    report('Scale factor', scale, scale_err)
 
                     gen_int, gen_int_err = (gen_func.GetParameter(0), genres.Error(0))
 
-                    print 'Scale factor (from gen): %f +- %f' % (
-                        (data_int - gen_int)/(mc_int - gen_int) - 1.0,
-                        math.sqrt(
+                    report('Scale factor (from gen)',
+                           (data_int - gen_int)/(mc_int - gen_int) - 1.0,
+                           math.sqrt(
                             pow(data_int_err/(mc_int - gen_int), 2) +
                             pow((data_int - gen_int) * mc_int_err/pow(mc_int - gen_int, 2), 2) +
                             pow(gen_int_err * (2 * gen_int - mc_int - data_int)/pow(mc_int - gen_int, 2), 2)
                             )
-                        )
+                           )
 
                     smear_fit.SetPoint(bin, rho[3].mean(), smear)
                     smear_fit.SetPointError(bin, 0, smear_err)
@@ -361,15 +375,15 @@ for bintype in ['smear', 'rho']:
                     scale_err = math.sqrt(pow(mc_int_err/data_int, 2) +
                                           pow(mc_int * data_int_err/pow(data_int, 2), 2))
 
-                    print 'Data at y-axis:', data_func.GetParameter(1)
-                    print 'MC at y-axis:', mc_func.GetParameter(1)
-                    print 'Scale factor:', data_func.GetParameter(1)/mc_func.GetParameter(1)
-                    print 'Scale (data) factor:', mc_func.GetParameter(1)/data_func.GetParameter(1), '+-', scale_err
+                    report('Data at y-axis', data_func.GetParameter(1))
+                    report('MC at y-axis', mc_func.GetParameter(1))
+                    report('Scale factor', data_func.GetParameter(1)/mc_func.GetParameter(1))
+                    report('Scale (data) factor', mc_func.GetParameter(1)/data_func.GetParameter(1),  scale_err)
 
                     scale_err = math.sqrt(pow(data_int_err/mc_int, 2) +
                                           pow(data_int * mc_int_err/pow(mc_int, 2), 2))
 
-                    print 'Scale (mc) factor:', data_func.GetParameter(1)/mc_func.GetParameter(1), '+-', scale_err
+                    report('Scale (mc) factor', data_func.GetParameter(1)/mc_func.GetParameter(1), scale_err)
 
                 for ext in ['pdf', 'png', 'C']:
                     c1.SaveAs(
