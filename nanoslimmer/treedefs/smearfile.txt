@@ -66,14 +66,19 @@ num_bjet/s
 <cmath>
 
 #dilep_plus_jet2/TVector2 = TVector2() <- TVector2(<dilep_pt * std::{cos, sin}(dilep_phi)>) + TVector2(<jet2_pt * std::{cos, sin}(jet2_phi)>)
+#dilep_plus_jet2_X_$/TVector2 = TVector2() <- TVector2(<dilep_pt * std::{cos, sin}(dilep_phi)>) + \
+                                              TVector2(<jet2_pt_X_$ * std::{cos, sin}(jet2_phi)>) | down, nominal, up |X SMEARINGS
 
 jet1_adjusted_response <- jet1_pt/dilep_plus_jet2.Mod()
+jet1_adjusted_response_X_$ <- jet1_pt/dilep_plus_jet2_X_$.Mod() | down, nominal, up |X SMEARINGS
 
 alpha <- jet2_pt/dilep_pt
-untrained_response <- jet1_pt/dilep_pt
+alpha_X_$ <- jet2_pt_X_$/dilep_pt | down, nominal, up |X SMEARINGS
 
+untrained_response <- jet1_pt/dilep_pt
 
 ++ lep1_pt > 20 and lep2_pt > 20 and (lep1_q + lep2_q) == 0 and \
    fabs(jet1_eta) < 2.4 and jet1_dphi_ll > 2.8 and \
    dilep_m > 71 and dilep_m < 111 and \
-   alpha < 0.3 and dilep_pt > 50 and jet1_btagDeepB > 0.3 ++
+   std::min({alpha, alpha_smeared_nominal, alpha_smeared_up, alpha_smeared_down}) < 0.3 and \
+   dilep_pt > 50 and jet1_btagDeepB > 0.3 ++
