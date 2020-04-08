@@ -9,8 +9,8 @@ import numpy
 import random
 
 
-date = '200331'
-end = '2018_custom'
+date = '200408'
+end = '2018_closure'
 
 divbymean = True
 
@@ -86,6 +86,9 @@ import ROOT
 trainings = [
     ('jet1_response', 'No Smearing'),
     ('jet1_adjusted_response', 'Adjust For Alpha'),
+    ('jet1_adjusted_response_smeared_nominal', 'Adjust For Alpha'),
+    ('jet1_adjusted_response_smeared_up', 'Adjust For Alpha'),
+    ('jet1_adjusted_response_smeared_down', 'Adjust For Alpha'),
     ('jet1_response_smear_nominal', 'Smear Nominal'),
     ('jet1_response_smear_up', 'Smear Up'),
     ('jet1_response_smear_down', 'Smear Down'),
@@ -110,7 +113,7 @@ trainings = [
     ('jet1_response_unbinned_3d_nominal', 'Unbinned 3D Nominal'),
     ('jet1_response_unbinned_3d_up', 'Unbinned 3D Up'),
     ('jet1_response_unbinned_3d_down', 'Unbinned 3D Down'),
-    ][0:2]
+    ][0:5]
 
 
 for bintype in ['smear', 'rho']:
