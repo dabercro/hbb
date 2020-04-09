@@ -70,7 +70,7 @@ num_bjet/s
                                               TVector2(<jet2_pt_X_$ * std::{cos, sin}(jet2_phi)>) | down, nominal, up |X SMEARINGS
 
 jet1_adjusted_response <- jet1_pt/dilep_plus_jet2.Mod()
-jet1_adjusted_response_X_$ <- jet1_pt/dilep_plus_jet2_X_$.Mod() | down, nominal, up |X SMEARINGS
+jet1_adjusted_response_X_$ <- jet1_pt_X_$/dilep_plus_jet2_X_$.Mod() | down, nominal, up |X SMEARINGS
 
 alpha <- jet2_pt/dilep_pt
 alpha_X_$ <- jet2_pt_X_$/dilep_pt | down, nominal, up |X SMEARINGS
