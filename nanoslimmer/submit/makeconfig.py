@@ -1,18 +1,26 @@
 #! /usr/bin/env python
 
 import os
+import sys
 import glob
 import shutil
+import time
+import datetime
 
 ##
 
-year='2018'
+if len(sys.argv) < 2:
+    print '%s year [submitdate]' % sys.argv[0]
+    sys.exit()
+
+year=sys.argv[1]
 
 exe='smearnano'
 #exe='hbbnano'
-version='200407_%s_%s' % (exe, year)
+version='%s_%s_%s' % (datetime.datetime.fromtimestamp(time.time()).strftime('%y%m%d') \
+                          if len(sys.argv) == 2 else sys.argv[2], exe, year)
 
-use_custom = True
+use_custom = (year == '2018')
 files_per_job = 20 if use_custom else 1
 
 ##
