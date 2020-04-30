@@ -24,6 +24,8 @@ ls
 
 count=0
 
+sample=$(perl -ne '/(Zvv|Zll|Wlv)/ && print $1' <(echo $1))
+
 while [ $# -ne 0 ]
 do
 
@@ -37,6 +39,22 @@ done
 
 mkdir outputs
 
-crombie skim -c "V_pt > 200 && H_mass < 500 && H_pt > 50" -i inputs -o outputs -t Events -r run -l luminosityBlock -e event --keep keep.txt --copy Runs
+cut="1"
+
+if [ $sample = "Zvv" ]
+then
+
+    cut="((V_pt > 250 && Hbb_fjidx > -1) || (hJidx[1] > -1 && H_pt > 80 && V_pt > 120 && Jet_pt[hJidx[0]] * Jet_bRegCorr[hJidx[0]] > 25 && Jet_pt[hJidx[1]] * Jet_bRegCorr[hJidx[1]] > 25))"
+
+fi
+
+if [ $sample = "Wlv" ]
+then
+
+    cut="lepMetDPhi < 2.0 && nAddLep15_2p5 == 0 && ((V_pt > 250 && Hbb_fjidx > -1) || (hJidx[1] > -1 && H_pt > 80 && V_pt > 120 && (Jet_pt[hJidx[0]] * Jet_bRegCorr[hJidx[0]]) > 25 && (Jet_pt[hJidx[1]] * Jet_bRegCorr[hJidx[1]]) > 25))"
+
+fi
+
+crombie skim -c "$cut" -i inputs -o outputs -t Events -r run -l luminosityBlock -e event --copy Runs --disable drop.txt
 
 hadd -n 2 output.root outputs/*.root

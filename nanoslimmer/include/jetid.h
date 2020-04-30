@@ -45,6 +45,10 @@ namespace jetid {
 
   }
 
+  bool medium_b (const panda::Jet& jet) {
+    return jet.btagDeepB > 0.4184;
+  }
+
 }
 
 

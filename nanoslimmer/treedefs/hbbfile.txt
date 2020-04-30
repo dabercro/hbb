@@ -1,11 +1,14 @@
 "PandaTree/Objects/interface/Event.h"
 
-{reset(panda::Event& e)}
+{reset(panda::Event& e, std::pair<double, double>& metcorr)}
 
 INCLUDE treedefs/eventinfo.txt
 
 pfmet = e.MET.pt
 pfmet_phi = e.MET.phi
+
+pfmet_corr = metcorr.first
+pfmet_corr_phi = metcorr.second
 
 trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
             e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8
@@ -57,7 +60,7 @@ dijet {
 
 }
 
-<fatjet{1, 2}> {
+fatjet1 {
   fatjet(panda::FatJet& jet)
 
     /O = false -> true
@@ -65,4 +68,8 @@ dijet {
     $ -> jet.$ | pt, eta, phi, mass, msoftdrop, <tau{1, 2, 3, 4}>, \
                  <btag{DDBvL, DDCvB, DDCvL, Hbb}>
 
+    num_outside_b = 0
+
 }
+
+-- jet2 or fatjet1 --

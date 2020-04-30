@@ -1,0 +1,2 @@
+/store/mc/RunIIAutumn18NanoAODv6/ZJetsToNuNu_BGenFilter_Zpt-200toInf_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/Nano25Oct2019_102X_upgrade2018_realistic_v20-v1/240000/E6A41237-34F0-A546-AD1F-0B5343327403.root
+/store/mc/RunIIAutumn18NanoAODv6/ZJetsToNuNu_BGenFilter_Zpt-200toInf_TuneCP5_13TeV-madgraphMLM-pythia8/NANOAODSIM/Nano25Oct2019_102X_upgrade2018_realistic_v20-v1/240000/CE30F262-5086-6144-B7E3-1EE1F41BD0F8.root

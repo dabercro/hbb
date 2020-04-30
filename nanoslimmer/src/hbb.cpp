@@ -4,11 +4,12 @@
 #include "lepid.h"
 #include "jetid.h"
 #include "main.h"
+#include "metphicorr.h"
 
 
 void process_event(const std::string& year, hbbfile& output, const panda::Event& event) {
 
-  output.reset(event);
+  output.reset(event, metphicorr::correctMETXY(event, event.MET, year));
 
   auto lep_select = [&output] (const auto& leps) {
 
@@ -34,11 +35,24 @@ void process_event(const std::string& year, hbbfile& output, const panda::Event&
   lep_select(event.Muon);
   lep_select(event.Electron);
 
+  const panda::FatJet* fatjet_ptr = nullptr;
+
+  for (auto& fatjet : event.FatJet) {
+    if (fatjet.pt > 200 && fatjet.msoftdrop > 50) {
+      fatjet_ptr = &fatjet;
+      output.set_fatjet(hbbfile::fatjet::fatjet1, fatjet);
+      break;
+    }
+  }
+
   for (auto& jet : event.Jet) {
     if (cleaning::lepfilter(jet, event)) {
       output.num_jet += 1;
 
       if (jet.pt > 15 and jet.puId) {
+
+        if (fatjet_ptr and jetid::medium_b(jet) and cleaning::outside(jet, *fatjet_ptr, 0.8))
+          output.fatjet1_num_outside_b++;
 
         if (not output.jet2)
           output.set_jet(output.jet1

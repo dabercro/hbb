@@ -21,7 +21,7 @@ def makeconfig():
     this_dir = os.path.abspath(os.path.dirname(__file__))
 
     config.extend(['Executable = %s' % os.path.join(this_dir, 'run.sh'),
-                   'transfer_input_files = %s' % os.path.join(this_dir, 'keep.txt')])
+                   'transfer_input_files = %s' % os.path.join(this_dir, 'drop.txt')])
 
     log_dir = '%s/public_html/logs/xbbslimmer' % os.environ['HOME']
     if not os.path.exists(log_dir):
