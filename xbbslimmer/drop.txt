@@ -1,0 +1,5 @@
+L1_IsoTau40er2p1_ETMHF120
+L1_Mu22er2p1_IsoTau30er2p1
+L1_SingleLooseIsoEG30er2p5
+L1_TripleMu_5_0_0
+L1_TripleMu_5_3p5_2p5_OQ_DoubleMu_5_2p5_OQ_OS_Mass_5to17

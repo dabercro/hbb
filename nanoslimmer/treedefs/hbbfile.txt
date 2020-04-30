@@ -1,6 +1,7 @@
 "PandaTree/Objects/interface/Event.h"
+<triggers.h>
 
-{reset(panda::Event& e, std::pair<double, double>& metcorr)}
+{reset(panda::Event& e, std::pair<double, double>& metcorr, triggers::triggers& trig)}
 
 INCLUDE treedefs/eventinfo.txt
 
@@ -10,8 +11,7 @@ pfmet_phi = e.MET.phi
 pfmet_corr = metcorr.first
 pfmet_corr_phi = metcorr.second
 
-trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
-            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8
+trigger_$/O = trig.$ | met, single_mu, single_ele, double_mu, double_ele
 
 <lepid.h>
 

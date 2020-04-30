@@ -1,0 +1,1 @@
+/store/mc/RunIIFall17NanoAODv6/ZBJetsToNuNu_Zpt-200toInf_TuneCP5_13TeV-madgraphMLM-pythia8_newgridpack/NANOAODSIM/PU2017_12Apr2018_Nano25Oct2019_102X_mc2017_realistic_v7-v1/270000/8064F740-0D58-314E-A3C3-E349181CE6CC.root

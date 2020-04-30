@@ -9,18 +9,22 @@ import datetime
 
 ##
 
-if len(sys.argv) < 2:
-    print '%s year [submitdate]' % sys.argv[0]
+if len(sys.argv) < 3:
+    print '%s year exe [submitdate]' % sys.argv[0]
     sys.exit()
 
 year=sys.argv[1]
+exe=sys.argv[2]
 
-exe='smearnano'
-#exe='hbbnano'
+exes = ['smearnano', 'hbbnano']
+if exe not in exes:
+    print 'Only support', exes
+    sys.exit()
+
 version='%s_%s_%s' % (datetime.datetime.fromtimestamp(time.time()).strftime('%y%m%d') \
-                          if len(sys.argv) == 2 else sys.argv[2], exe, year)
+                          if len(sys.argv) == 3 else sys.argv[3], exe, year)
 
-use_custom = (year == '2018')
+use_custom = (year == '2018' and exe == 'smearnano')
 files_per_job = 20 if use_custom else 1
 
 ##

@@ -9,7 +9,8 @@
 
 void process_event(const std::string& year, hbbfile& output, const panda::Event& event) {
 
-  output.reset(event, metphicorr::correctMETXY(event, event.MET, year));
+  output.reset(event, metphicorr::correctMETXY(event, event.MET, year),
+               triggers::fired(event, year));
 
   auto lep_select = [&output] (const auto& leps) {
 

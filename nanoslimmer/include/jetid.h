@@ -7,6 +7,8 @@
 
 #include "cleaning.h"
 
+#include "PandaTree/Objects/interface/Event.h"
+
 
 namespace jetid {
 
