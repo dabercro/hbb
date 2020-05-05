@@ -7,7 +7,7 @@
                  btagCMVA, btagCSVV2, btagDeepB, btagDeepC, btagDeepFlavB, \
                  chEmEF, chHEF, muEF, neEmEF, neHEF, qgl, rawFactor
 
-    pt_reg -> jet.pt * jet.bRegCorr
+    $_reg -> jet.$ * jet.bRegCorr | pt, mass
 
     (gen_jet_ptr = genjet::matched(jet, genjets_withnu))
 

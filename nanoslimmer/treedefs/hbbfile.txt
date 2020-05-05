@@ -52,7 +52,7 @@ num_jet/s
 
 dijet {
 
-  #vec@/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt@, eta, phi, mass}>) |@ , _reg
+  #vec@/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt@, eta, phi, mass@}>) |@ , _reg
   $@ <- []_vec@.$$() | pt, eta, phi, m |@ , _reg
 
   #X_vec_$/TLorentzVector = TLorentzVector() <- vectorSum(<jet{1, 2}_{pt_X_$, eta, phi, mass}>) | nominal, up, down |X SMEARINGS
@@ -72,4 +72,4 @@ fatjet1 {
 
 }
 
--- jet2 or fatjet1 --
+-- (jet2 or fatjet1) and pfmet > 100 --

@@ -70,9 +70,11 @@ testdir = ${HOME}/public_html/plots/testnanohbb
 
 test: $(hbb)
 	test ! -f test.root || rm test.root
-	$(hbb) 2016 /data/t3home000/dabercro/scratch/nano/hbb/*.root test.root
+	$(hbb) 2017 /data/t3home000/dabercro/scratch/nano/2017/MET/*.root test.root
 	test ! -d $(testdir)_old || rm -r $(testdir)_old
 	test ! -d $(testdir) || mv $(testdir) $(testdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump test.root $(testdir)
+	crombie eventdump test.root test.txt 'event == 859137737 || event == 859161659 || event == 859181124 || event == 859201843 || event == 859207901 || event == 859220544 || event == 859300371 || event == 859317776 || event == 859405963 || event == 859499655 || event == 859506426' event fatjet1_pt jet1_pt_reg jet2_pt_reg dijet_m_reg
+	cut -d '*' -f 3- test.txt | grep '^            8' | sort > test_8.txt
 
 install: $(tarball)

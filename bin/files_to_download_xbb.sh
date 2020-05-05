@@ -16,9 +16,9 @@ fi
 server=root://t3se01.psi.ch:1095
 
 Zvv_2017=/store/user/krgedia/VHbb/VHbbPostNano2018/V5/Zvv/eval/17jan20v3
-Zvv_2018=/store/user/krgedia/VHbb/VHbbPostNano2018/V12/Zvv/hadd/3mar20
-Wlv_2018=/store/user/krgedia/VHbb/VHbbPostNano2018/V12/Wlv/sys/3mar20
-Zll_2018=/store/user/krgedia/VHbb/VHbbPostNano2018/V12/Zll/sys/23mar20
+Zvv_2018=/store/user/krgedia/VHbb/VHbbPostNano2018/V5/Zvv/eval/3mar20v5
+Wlv_2018=/store/user/krgedia/VHbb/VHbbPostNano2018/V12/Wlv/mva/3mar20v2
+Zll_2018=/store/user/krgedia/VHbb/Zll/VHbbPostNano2018/mva/2may20v1
 
 store_dir=/mnt/hadoop/scratch/dabercro/Xbb
 
@@ -77,5 +77,5 @@ store () {
     
 }
 
-store 2017 Zvv $Zvv_2017
+#store 2017 Zvv $Zvv_2017
 store 2018 Zvv $Zvv_2018 Wlv $Wlv_2018 Zll $Zll_2018

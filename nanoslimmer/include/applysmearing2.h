@@ -71,9 +71,9 @@ namespace applysmearing2 {
     if (gen_jet_pt) {
 
       double gen_diff = regressed - gen_jet_pt;
-      double nominal = std::max(0.0, (gen_jet_pt + gen_diff * (1.0 + loaded->smear)) * loaded->scale);
-      double band = std::sqrt(std::pow(nominal/loaded->scale * loaded->scale_err, 2) +     // Band on the smear/scaled value
-                              std::pow(gen_diff * loaded->scale * loaded->smear_err, 2));  // Actual scaling done is always same
+      double nominal = std::max(0.0, gen_jet_pt + gen_diff * (1.0 + loaded->smear));
+      double band = std::sqrt(std::pow(regressed * (1.0 + loaded->smear) * loaded->scale_err, 2) +  // Band on the smear/scaled value
+                              std::pow(gen_diff * loaded->smear_err, 2));                           // Actual scaling done is always same
 
       double down, up;
 

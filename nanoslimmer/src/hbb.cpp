@@ -36,6 +36,14 @@ void process_event(const std::string& year, hbbfile& output, const panda::Event&
   lep_select(event.Muon);
   lep_select(event.Electron);
 
+
+  auto higgs_jets = jetid::higgsjets(event);
+  if (higgs_jets.first)
+    output.set_jet(hbbfile::jet::jet1, *higgs_jets.first);
+  if (higgs_jets.second)
+    output.set_jet(hbbfile::jet::jet2, *higgs_jets.second);
+
+
   const panda::FatJet* fatjet_ptr = nullptr;
 
   for (auto& fatjet : event.FatJet) {
@@ -50,20 +58,12 @@ void process_event(const std::string& year, hbbfile& output, const panda::Event&
     if (cleaning::lepfilter(jet, event)) {
       output.num_jet += 1;
 
-      if (jet.pt > 15 and jet.puId) {
+      if (fatjet_ptr and jetid::medium_b(jet) and cleaning::outside(jet, *fatjet_ptr, 0.8))
+        output.fatjet1_num_outside_b++;
 
-        if (fatjet_ptr and jetid::medium_b(jet) and cleaning::outside(jet, *fatjet_ptr, 0.8))
-          output.fatjet1_num_outside_b++;
-
-        if (not output.jet2)
-          output.set_jet(output.jet1
-                         ? hbbfile::jet::jet2
-                         : hbbfile::jet::jet1,
-                         jet);
-
-      }
     }
   }
+
 
   output.fill();
 
