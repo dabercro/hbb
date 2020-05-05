@@ -61,7 +61,7 @@ void process_event(const std::string& year, smearfile& output, panda::Event& eve
 
       output.num_jet++;
 
-      if (jetid::higgs(jet)) {
+      if (jetid::to_smear(jet)) {
 
         output.num_bjet++;
 

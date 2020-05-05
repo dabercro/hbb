@@ -12,6 +12,10 @@
 
 namespace jetid {
 
+  bool to_smear (const panda::Jet& jet) {
+    return jet.pt * jet.bRegCorr > 20 and jet.jetId > 0 and jet.puId > 0;
+  }
+
   bool higgs (const panda::Jet& jet) {
     return jet.pt * jet.bRegCorr > 35 and jet.jetId > 0 and jet.puId > 0;
   }

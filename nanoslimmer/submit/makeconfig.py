@@ -24,7 +24,8 @@ if exe not in exes:
 version='%s_%s_%s' % (datetime.datetime.fromtimestamp(time.time()).strftime('%y%m%d') \
                           if len(sys.argv) == 3 else sys.argv[3], exe, year)
 
-use_custom = (year == '2018' and exe == 'smearnano')
+#use_custom = (year == '2018' and exe == 'smearnano')
+use_custom = False
 files_per_job = 20 if use_custom else 1
 
 ##
