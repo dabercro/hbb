@@ -10,7 +10,7 @@ import random
 
 
 date = '200505'
-end = '2018_custom'
+end = '2018'
 
 divbymean = True
 
