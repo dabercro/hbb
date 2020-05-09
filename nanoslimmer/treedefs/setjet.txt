@@ -11,9 +11,9 @@
 
     (gen_jet_ptr = genjet::matched(jet, genjets_withnu))
 
-DEFINE SMEARINGS smeared
+DEFINE SMEARINGS smeared, smeared_scaled
 
-    ($_res = applysmearing2::smeared_pt(jet.pt, jet.bRegCorr, gen_jet_ptr ? gen_jet_ptr->pt : 0, is_data)) | SMEARINGS
+    ($_res = applysmearing2::smeared_pt(jet.pt, jet.bRegCorr, gen_jet_ptr ? gen_jet_ptr->pt : 0, is_data, =$=)) | SMEARINGS
 
     gen_$ -> gen_jet_ptr ? gen_jet_ptr->$ : 0 | pt, eta, phi, mass, partonFlavour, hadronFlavour
 

@@ -9,8 +9,8 @@ import numpy
 import random
 
 
-date = '200507'
-end = '2018_custom_fix'
+date = '200509'
+end = '2018_custom'
 
 divbymean = True
 

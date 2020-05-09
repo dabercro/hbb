@@ -32,8 +32,8 @@ namespace {
     },
     // outputs/200331_2018_custom_fmt.txt
     {"2018_custom",
-        {0.987, 0.020,
-         0.038, 0.054}
+        {0.984, 0.019,
+         0.043, 0.072}
     }
   };
 
@@ -59,7 +59,7 @@ namespace applysmearing2 {
 
   };
 
-  smear_result smeared_pt (double jet_pt, double regression_factor, double gen_jet_pt = 0, bool is_data = false) {
+  smear_result smeared_pt (double jet_pt, double regression_factor, double gen_jet_pt = 0, bool is_data = false, bool do_scale = false) {
 
     double regressed = std::max(0.0, jet_pt * regression_factor);
 
@@ -71,23 +71,33 @@ namespace applysmearing2 {
       return output;
     }
 
-    double no_smear = regressed * loaded->scale;    // Value if we scale MC
+    double no_smear = regressed * loaded->scale;    // Just scale MC
 
     if (gen_jet_pt) {
 
       double gen_diff = regressed - gen_jet_pt;
-      double down = std::max(0.0, gen_jet_pt + gen_diff * (1.0 + loaded->smear));
-      double band = std::sqrt(std::pow(regressed * (1.0 + loaded->smear) * loaded->scale_err, 2) +  // Band on the smear/scaled value
-                              std::pow(gen_diff * loaded->smear_err, 2));                           // Actual scaling done is always same
 
-      double nominal, up;
+      double nominal = gen_jet_pt + gen_diff * (1.0 + loaded->smear);
+      double band = gen_diff * loaded->smear_err;
+
+      if (do_scale) {
+
+        band = std::sqrt(std::pow(band * loaded->scale, 2) +
+                         std::pow(nominal * loaded->scale_err, 2));
+        nominal *= loaded->scale;
+
+      }
+
+      nominal = std::max(0.0, nominal);
+
+      double down, up;
 
       if (regressed > gen_jet_pt) {
-        nominal = down + band;
+        down = std::max(no_smear, nominal - band);
         up = nominal + band;
       }
       else {
-        nominal = down - band;
+        down = std::min(no_smear, nominal + band);
         up = nominal - band;
       }
 
@@ -99,6 +109,7 @@ namespace applysmearing2 {
     }
 
     else {
+
       smear_result output {
         no_smear, no_smear, no_smear
       };
