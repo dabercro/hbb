@@ -9,7 +9,8 @@ hbb = ${CMSSW_BASE}/bin/${SCRAM_ARCH}/hbbnano
 tag = ${CMSSW_BASE}/tag
 tarball = ${CMSSW_BASE}/nano.tgz
 
-smeartestfile = /data/t3home000/dabercro/scratch/nano/v6/*.root
+#smeartestfile = /data/t3home000/dabercro/scratch/nano/v6/*.root
+smeartestfile = /data/t3home000/dabercro/scratch/nano/EGamma/*.root
 
 nano_version = v5
 
