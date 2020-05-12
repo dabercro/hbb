@@ -9,8 +9,7 @@ import numpy
 import random
 
 
-date = '200510'
-end = '2018_custom'
+plotdir = '200511_2018'
 
 divbymean = True
 
@@ -106,13 +105,13 @@ for bintype in ['smear', 'rho']:
     newdir = os.path.join(
         os.environ['HOME'],
         'public_html/plots',
-        '%s_%s%s_%s_%s%s' % (
+        '%s_%s%s_%s%s' % (
             datetime.date.strftime(
                 datetime.datetime.now(), '%y%m%d'
                 ),
             bintype,
             sys.argv[1] if len(sys.argv) > 2 else '',
-            date, end,
+            plotdir,
             '_divmean' if divbymean else ''
             )
         )
@@ -120,7 +119,7 @@ for bintype in ['smear', 'rho']:
     if not os.path.exists(newdir):
         os.mkdir(newdir)
 
-    ratiodir = '/home/dabercro/public_html/plots/%s_%s' % (date, end)
+    ratiodir = '/home/dabercro/public_html/plots/%s' % (plotdir)
     alphadir = ratiodir
     #alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
 
