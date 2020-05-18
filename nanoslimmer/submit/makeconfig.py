@@ -24,14 +24,10 @@ if exe not in exes:
 version='%s_%s_%s' % (datetime.datetime.fromtimestamp(time.time()).strftime('%y%m%d') \
                           if len(sys.argv) == 3 else sys.argv[3], exe, year)
 
-#use_custom = (year == '2018' and exe == 'smearnano')
-use_custom = False
-files_per_job = 20 if use_custom else 1
-
 ##
 
-if use_custom:
-    version += '_custom'
+use_custom = 'custom' in year
+files_per_job = 20 if use_custom else 1
 
 door='root://xrootd.cmsaf.mit.edu/' if use_custom else 'root://cms-xrd-global.cern.ch/'
 
@@ -65,7 +61,7 @@ def makeconfig():
 
     n_job = 0
 
-    for file_list in glob.glob(os.path.join(this_dir, 'files/customnano' if use_custom else 'files',
+    for file_list in glob.glob(os.path.join(this_dir, 'files',
                                             exe, year, '*.txt')):
 
         this_out = os.path.join(out_dir, os.path.basename(file_list).split('.')[0])
@@ -95,7 +91,7 @@ def makeconfig():
                                'Error = %s/%s_%i.err' %  (log_dir, os.path.basename(this_out), n_job),
                                'transfer_output_files = output.root',
                                'transfer_output_remaps = "output.root = %s"' % output_file,
-                               'Arguments = %s %s %s' % (exe, '%s_custom' % year if use_custom else year, ' '.join(job)),
+                               'Arguments = %s %s %s' % (exe, year, ' '.join(job)),
                                'Queue'])
 
             else:
