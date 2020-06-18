@@ -1,0 +1,194 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie, \\
+  Guillelmo G\'omez-Ceballos, \\
+  Dymtro Kovalskyi, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{\bf \sffamily Comparison Between Custom NanoAODv6 and NanoAODv7}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Before Smearing}
+  \twofigs
+      {NanoAODv6}
+      {200506_2018_custom/smearplot_jet1_adjusted_response.pdf}
+      {NanoAODv7}
+      {200506_2018/smearplot_jet1_adjusted_response.pdf}
+
+   The versions look similar, except for uncertainty bands
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Before Smearing}
+  \twofigs
+      {NanoAODv6}
+      {200506_smear_200506_2018_custom_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
+      {NanoAODv7}
+      {200506_smear_200506_2018_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
+
+  From here NanoAODv7 looks like it needs more smearing.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nominal Smearing}
+  \twofigs
+      {NanoAODv6}
+      {200506_smear_200506_2018_custom_divmean/resolution_jet1_adjusted_response_smeared_nominal_smear_0.pdf}
+      {NanoAODv7}
+      {200506_smear_200506_2018_divmean/resolution_jet1_adjusted_response_smeared_nominal_smear_0.pdf}
+
+  Applying nominal smearing makes the two look very similar. \\
+  Since adding the scaling, this doesn't completely close.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additional Smearing}
+  \twofigs
+      {NanoAODv6}
+      {200506_smear_200506_2018_custom_divmean/resolution_jet1_adjusted_response_smeared_up_smear_0.pdf}
+      {NanoAODv7}
+      {200506_smear_200506_2018_divmean/resolution_jet1_adjusted_response_smeared_up_smear_0.pdf}
+
+  Additional smearing looks very good with both versions.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additional Smearing}
+  \twofigs
+      {NanoAODv6}
+      {200506_2018_custom/smearplot_jet1_adjusted_response_smeared_nominal.pdf}
+      {NanoAODv7}
+      {200506_2018/smearplot_jet1_adjusted_response_smeared_nominal.pdf}
+
+  Something is still off about the shapes, but we saw that before smearing too.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smearing Measurements}
+
+  \begin{center}
+  Extracted Smearing Parameters
+  \begin{tabular} {l|c|c|c}
+    \hline
+    & No Smearing & Nominal Smearing & Additional \\
+    \hline
+    NanoAODv6 & $5.1 \pm 3.4\%$ & $5.7 \pm 2.7\%$ & $-2.0 \pm 10\%$ \\
+    NanAODv7 & $6.8 \pm 2.6\%$ & $5.7 \pm 2.7\%$ & $-1.0 +- 11\%$ \\
+    \hline
+  \end{tabular}
+  \end{center}
+
+  \vfill
+
+  All except the no smearing case are the same in NanoAODv6 and NanoAODv7.
+
+\end{frame}
+
+\begin{comment}
+\beginbackup
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+\end{comment}
+
+\end{document}

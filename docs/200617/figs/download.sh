@@ -1,0 +1,8 @@
+#!/bin/bash
+
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wen__top_mass2_05_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wln__top_mass2_05_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wmn__top_mass2_05_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wen__top_mass2_05_jerReg_Down_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wln__top_mass2_05_jerReg_Down_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wmn__top_mass2_05_jerReg_Down_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wen__top_mass2_05_jerReg_Up_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wln__top_mass2_05_jerReg_Up_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wmn__top_mass2_05_jerReg_Up_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wen__count_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wln__count_%2C200617_Wlv2018_runplot-v8%2Fttbar_medhigh_Wmn__count_"
+
+for f in */*.pdf
+do
+    pdfcrop $f $f
+done
