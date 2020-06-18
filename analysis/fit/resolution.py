@@ -9,8 +9,7 @@ import numpy
 import random
 
 
-date = '200507'
-end = '2018_custom_fix'
+plotdir = '200518_2018D_custom'
 
 divbymean = True
 
@@ -89,31 +88,16 @@ trainings = [
     ('jet1_adjusted_response_smeared_nominal', 'Adjust For Alpha'),
     ('jet1_adjusted_response_smeared_up', 'Adjust For Alpha'),
     ('jet1_adjusted_response_smeared_down', 'Adjust For Alpha'),
-    ('jet1_response_smear_nominal', 'Smear Nominal'),
-    ('jet1_response_smear_up', 'Smear Up'),
-    ('jet1_response_smear_down', 'Smear Down'),
-    ('jet1_response_scale_nominal', 'Scale Nominal'),
-    ('jet1_response_scale_up', 'Scale Up'),
-    ('jet1_response_scale_down', 'Scale Down'),
-#    ('jet1_response_old_scale_nominal', 'Old Scale Nominal'),
-#    ('jet1_response_old_scale_up', 'Old Scale Up'),
-#    ('jet1_response_old_scale_down', 'Old Scale Down'),
-    ('jet1_response_single_smear_nominal', 'Single Bin Smear Nominal'),
-    ('jet1_response_single_smear_up', 'Single Bin Smear Up'),
-    ('jet1_response_single_smear_down', 'Single Bin Smear Down'),
-    ('jet1_response_single_scale_nominal', 'Single Bin Scale Nominal'),
-    ('jet1_response_single_scale_up', 'Single Bin Scale Up'),
-    ('jet1_response_single_scale_down', 'Single Bin Scale Down'),
-    ('jet1_response_unbinned_smear_nominal', 'Unbinned Smear Nominal'),
-    ('jet1_response_unbinned_smear_up', 'Unbinned Smear Up'),
-    ('jet1_response_unbinned_smear_down', 'Unbinned Smear Down'),
-    ('jet1_response_unbinned_scale_nominal', 'Unbinned Scale Nominal'),
-    ('jet1_response_unbinned_scale_up', 'Unbinned Scale Up'),
-    ('jet1_response_unbinned_scale_down', 'Unbinned Scale Down'),
-    ('jet1_response_unbinned_3d_nominal', 'Unbinned 3D Nominal'),
-    ('jet1_response_unbinned_3d_up', 'Unbinned 3D Up'),
-    ('jet1_response_unbinned_3d_down', 'Unbinned 3D Down'),
-    ][0:5]
+    ('jet1_half_adjusted_response_smeared_nominal', 'Adjust For Alpha'),
+    ('jet1_half_adjusted_response_smeared_up', 'Adjust For Alpha'),
+    ('jet1_half_adjusted_response_smeared_down', 'Adjust For Alpha'),
+    ('jet1_adjusted_response_smeared_scaled_nominal', 'Adjust For Alpha'),
+    ('jet1_adjusted_response_smeared_scaled_up', 'Adjust For Alpha'),
+    ('jet1_adjusted_response_smeared_scaled_down', 'Adjust For Alpha'),
+    ('jet1_half_adjusted_response_smeared_scaled_nominal', 'Adjust For Alpha'),
+    ('jet1_half_adjusted_response_smeared_scaled_up', 'Adjust For Alpha'),
+    ('jet1_half_adjusted_response_smeared_scaled_down', 'Adjust For Alpha'),
+    ]
 
 
 for bintype in ['smear', 'rho']:
@@ -121,13 +105,13 @@ for bintype in ['smear', 'rho']:
     newdir = os.path.join(
         os.environ['HOME'],
         'public_html/plots',
-        '%s_%s%s_%s_%s%s' % (
+        '%s_%s%s_%s%s' % (
             datetime.date.strftime(
                 datetime.datetime.now(), '%y%m%d'
                 ),
             bintype,
             sys.argv[1] if len(sys.argv) > 2 else '',
-            date, end,
+            plotdir,
             '_divmean' if divbymean else ''
             )
         )
@@ -135,7 +119,7 @@ for bintype in ['smear', 'rho']:
     if not os.path.exists(newdir):
         os.mkdir(newdir)
 
-    ratiodir = '/home/dabercro/public_html/plots/%s_%s' % (date, end)
+    ratiodir = '/home/dabercro/public_html/plots/%s' % (plotdir)
     alphadir = ratiodir
     #alphadir = '/home/dabercro/public_html/plots/200116_singlebin_alpha'
 
