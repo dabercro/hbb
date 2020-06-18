@@ -17,18 +17,18 @@ namespace {
   const std::map<std::string, smear_params> smear_versions {
     // outputs/200401_2016.txt  apparently doesn't need anything
     {"2016",
-        {1.0, 0.0,
-         0.0, 0.0}
+        {1.013, 0.014,
+         0.029, 0.047}
     },
     // outputs/200406_2017_fmt.txt
     {"2017",
-        {1.003, 0.021,
-         0.031, 0.053}
+        {1.017, 0.021,
+         0.058, 0.066}
     },
     // outputs/200506_2018.txt
     {"2018",
-        {0.979, 0.020,
-         0.066, 0.055}
+        {0.985, 0.019,
+         0.080, 0.073}
     },
     // outputs/200331_2018_custom_fmt.txt
     {"2018_custom",
