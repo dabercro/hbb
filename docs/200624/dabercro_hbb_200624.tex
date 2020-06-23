@@ -65,6 +65,26 @@
   \end{columns}
 }
 
+\newcommand{\threefigs}[6]{
+  \begin{columns}
+    \begin{column}{0.33\linewidth}
+      \centering
+      \textcolor{blue}{#1}
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.34\linewidth}
+      \centering
+      \textcolor{blue}{#3}
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.33\linewidth}
+      \centering
+      \textcolor{blue}{#5}
+      \includegraphics[width=\linewidth]{#6}
+    \end{column}
+  \end{columns}
+}
+
 \newcommand{\fourfigs}[8]{
   \begin{columns}
     \begin{column}{0.3\linewidth}
@@ -101,28 +121,135 @@
     so I ran one more pass of the smearing fits
   \item 2016 now does suggest some smearing, though it's much smaller than the other samples
   \end{itemize}
-
-  More comfortable using Xbb framework
-
   \begin{itemize}
-  \item Plots for $Z\rightarrow \ell\ell$ response are finished
-  \item I wasn't saving quite enough information to get the top mass using unregressed b-jets
-    \begin{itemize}
-    \item Might not be ready for Wednesday, but doesn't seem like a show stopper
-    \end{itemize}
-  \item Signal mass histograms are made,
-    fit should be ready today
+  \item Plots for $Z\rightarrow \ell\ell$ 2018 response are shown
+  \item The di-jet mass performance in signal samples is shown to improve due to regression
+    and kinematic fit
   \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{The Usual Smearing Plots}
+  \frametitle{Selection -- Leptons}
+
+  \begin{itemize}
+  \item Two leptons satisfying:
+    \begin{itemize}
+    \item $p_T > \SI{20}{GeV}$
+    \item $q_1 + q_2 = 0$
+    \item Same flavor
+    \item Z Selection:
+      \begin{itemize}
+      \item Muons: \\
+        \texttt{pfRelIso04\_all} $< 0.25$ and \\
+        $\Delta xy < 0.05$ and $\Delta z < 0.2$
+      \item Electrons: \\
+        \texttt{mvaFall17V2Iso\_WP90} and \texttt{pfRelIso03\_all} $< 0.15$
+      \end{itemize}
+    \end{itemize}
+  \item Any third lepton (either muon or electron) causes event to be thrown out
+  \item $\SI{71}{GeV} < m_{\ell\ell} < \SI{111}{GeV}$
+  \item $p_{T,\ell\ell} > \SI{100}{GeV}$
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Selection -- Jets}
+
+  Selecting events with one jet is hard due to jet acceptance,
+  and would result in few events
 
   \vfill
-  \centering
-  Before Smearing
+
+  \begin{itemize}
+  \item Exactly two jets satisfying:
+    \begin{itemize}
+    \item Does not overlap with any leptons satisfying Z Selection criteria
+    \item $p_T > \SI{20}{GeV}$ after regression
+    \item \texttt{jetId} $> 0$ and \texttt{puId} $> 0$
+    \end{itemize}
+  \item Leading jet satisfies:
+    \begin{itemize}
+    \item $|\eta| < 2.4$
+    \item $\Delta\phi(j, \ell\ell) > 2.8$
+    \item \texttt{btagDeepB} $> 0.8$
+    \end{itemize}
+  \item Trailing jet statisfies: $\alpha = \frac{p_{T, j}}{p_{T, \ell\ell}} < 0.3$
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Binned Fit Strategy}
+
+  \begin{itemize}
+  \item We use events with a second jet, and extrapolate down to where $\alpha = 0$
+  \item This should give us the behavior of the one jet diagram,
+    without needing to deal with few events or jet acceptance.
+  \item We use four bins of $\alpha$, each with roughly equal data yields:
+  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \includegraphics[width=\linewidth]{200622_alpha_lines/smearplot_alpha.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \[
+      \alpha
+      \begin{cases}
+        0 < \alpha < 0.155 \\
+        0.155 \le \alpha < 0.185 \\
+        0.185 \le \alpha < 0.23 \\
+        0.23 \le \alpha < 0.3
+      \end{cases}
+      \]
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Binned Fit Strategy}
+
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{200619_2018/smearplot_1_jet1_adjusted_response.pdf} \\
+      \includegraphics[width=\linewidth]{200619_2018/smearplot_3_jet1_adjusted_response.pdf}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \includegraphics[width=\linewidth]{200619_2018/smearplot_2_jet1_adjusted_response.pdf} \\
+      \includegraphics[width=\linewidth]{200619_2018/smearplot_4_jet1_adjusted_response.pdf}
+    \end{column}
+  \end{columns}
+
   \vfill
+  We can see the MC resolution is better than data in all bins
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Binned Fit Formula}
+
+  \[
+  f(\alpha) = (m \times \alpha) \oplus b \times (1 + c_k \times \alpha)
+  \]
+
+  \begin{itemize}
+  \item $c_k$ is fixed by a linear fit to the MC's intrinsic jet resolution ($p_{T, reco}/p_{T, gen}$) over $\alpha$ as $c_k = m_0/q_0$
+  \item Smearing is done by scaling difference between $p_{T,reco}$ and $p_{T,gen}$ by $b_{data}/b_{MC}$
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Fits for All Years}
 
   \begin{columns}
     \begin{column}{0.33\linewidth}
@@ -142,15 +269,39 @@
     \end{column}
   \end{columns}
 
+  \vfill
+  2016 has the best pre-smearing agreement
+
 \end{frame}
 
+
 \begin{frame}
-  \frametitle{The Usual Smearing Plots}
+  \frametitle{Numbers}
 
   \vfill
-  \centering
-  Nominal Smearing
-  \vfill
+  \begin{center}
+    \begin{tabular}{|l|c|c|}
+      \hline
+      Year & MC Scaling & Smearing \\
+      \hline
+      2016 & $1.013 \pm 0.014$ & $2.9 \pm 4.7 \%$ \\
+      2017 & $1.017 \pm 0.021$ & $5.8 \pm 6.6 \%$ \\
+      2018 & $0.985 \pm 0.019$ & $8.0 \pm 7.3 \%$ \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Discussion of Applying Uncertainties}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Nominal Smearing}
 
   \begin{columns}
     \begin{column}{0.33\linewidth}
@@ -173,12 +324,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{The Usual Smearing Plots}
-
-  \vfill
-  \centering
-  Additional Smearing
-  \vfill
+  \frametitle{Additional Smearing}
 
   \begin{columns}
     \begin{column}{0.33\linewidth}
@@ -198,35 +344,10 @@
     \end{column}
   \end{columns}
 
-\end{frame}
-
-\begin{frame}
-  \frametitle{Numbers}
-
-  The smearing applicator has been updated: \url{https://github.com/dabercro/hbb/blob/master/nanoslimmer/applysmearing/applysmearing.py}
-
   \vfill
-  \begin{center}
-    \begin{tabular}{|l|c|c|}
-      \hline
-      Year & MC Scaling & Smearing \\
-      \hline
-      2016 & $1.013 \pm 0.014$ & $2.9 \pm 4.7 \%$ \\
-      2017 & $1.017 \pm 0.021$ & $5.8 \pm 6.6 \%$ \\
-      2018 & $0.985 \pm 0.019$ & $8.0 \pm 7.3 \%$ \\
-      \hline
-    \end{tabular}
-  \end{center}
-
-  \vfill
-  List of things I would check for 2016:
-  \begin{itemize}
-  \item Tune is different for 2016, do the normal jets require less smearing?
-  \item Are the variables that go into the DNN correlated more correctly in 2016?
-  \end{itemize}
+  Evidence of oversmearing gives this good closure
 
 \end{frame}
-
 \begin{frame}
   \frametitle{$p_T$ Balance}
 
@@ -251,25 +372,68 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Di-jet Mass Histograms}
+  \frametitle{Di-jet Mass Performance}
 
   \begin{columns}
-    \begin{column}{0.33\linewidth}
+    \begin{column}{0.5\linewidth}
       \centering
-      \textcolor{blue}{No Regression}
-      \includegraphics[width=\linewidth]{figs/noreg.pdf}
+      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass__.pdf}
     \end{column}
-    \begin{column}{0.34\linewidth}
+    \begin{column}{0.5\linewidth}
       \centering
-      \textcolor{blue}{With Regression}
-      \includegraphics[width=\linewidth]{figs/reg.pdf}
-    \end{column}
-    \begin{column}{0.33\linewidth}
-      \centering
-      \textcolor{blue}{With Kinematic Fit}
-      \includegraphics[width=\linewidth]{figs/kinfit.pdf}
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass__.pdf}
     \end{column}
   \end{columns}
+
+  \centering
+  \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+  \includegraphics[width=0.5\linewidth]{200622_fit/fits_SR_medhigh_Hmass__.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Di-jet Mass Performance -- No Additional Jet}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass_0j__.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass_0j__.pdf}
+    \end{column}
+  \end{columns}
+
+  \centering
+  \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+  \includegraphics[width=0.5\linewidth]{200622_fit/fits_SR_medhigh_Hmass_0j__.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Di-jet Mass Performance -- Additional Jets}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass_ge1j__.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass_ge1j__.pdf}
+    \end{column}
+  \end{columns}
+
+  \centering
+  \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+  \includegraphics[width=0.5\linewidth]{200622_fit/fits_SR_medhigh_Hmass_ge1j__.pdf}
 
 \end{frame}
 
