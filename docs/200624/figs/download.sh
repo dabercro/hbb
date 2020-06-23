@@ -7,6 +7,8 @@ crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=200622_alpha_lines%2Fsmearplot_alpha"
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=200619_2018%2Fsmearplot_1_jet1_adjusted_response%2C200619_2018%2Fsmearplot_2_jet1_adjusted_response%2C200619_2018%2Fsmearplot_3_jet1_adjusted_response%2C200619_2018%2Fsmearplot_4_jet1_adjusted_response"
 
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=200623_smear_200619_2016_divmean%2Fmean_jet1_adjusted_response_smear_0%2C200623_smear_200619_2017_divmean%2Fmean_jet1_adjusted_response_smear_0%2C200623_smear_200619_2018_divmean%2Fmean_jet1_adjusted_response_smear_0%2C200623_smear_200619_2016_divmean%2Fmean_jet1_adjusted_response_smeared_scaled_nominal_smear_0%2C200623_smear_200619_2017_divmean%2Fmean_jet1_adjusted_response_smeared_scaled_nominal_smear_0%2C200623_smear_200619_2018_divmean%2Fmean_jet1_adjusted_response_smeared_scaled_nominal_smear_0"
+
 for f in */*.pdf
 do
     pdfcrop $f $f
