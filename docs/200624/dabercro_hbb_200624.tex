@@ -1,8 +1,19 @@
 \documentclass{beamer}
 
 \author[D. Abercrombie]{
-  Daniel Abercrombie \\
-  for the VHbb Group
+  {\bf DESY}: A. de Wit, R. Mankel, S. Kaveh, A. Nigamova \\
+  \vfill
+  {\bf ETH}: C. Grab, A. Calandri, P. Berger, G. Perrin, K. Gedia, \\ C. Reissel, B. Kaech, L. Perrozzi \\
+  \vfill
+  {\bf RBI}: V. Brigljevic, B. Chitroda, D. Ferencek, \\ S. Mishra, T. Susa \\
+  \vfill
+  {\bf MIT}: \emph{D. Abercrombie}, G. G\'omez-Ceballos, D. Kovalskyi, \\ B. Maier, C. Paus \\
+  \vfill
+  {\bf U. Florida}: J. Konigsberg \\
+  \vfill
+  {\bf RWTH}: A. Schmidt \\
+  \vfill
+  {\bf INFN Pisa}: A. Rizz
 }
 
 \title{\bf \sffamily B-Jet Regression and Di-jet Kinematics}
@@ -112,7 +123,15 @@
 \begin{document}
 
 \begin{frame}
-  \titlepage
+  \begin{center}
+  \usebeamerfont{title}\inserttitle \\
+  \end{center}
+  \vfill
+  \usebeamerfont{author}\insertauthor \\
+  \vfill
+  \begin{center}
+  \usebeamerfont{date}\insertdate
+  \end{center}
 \end{frame}
 
 \begin{frame}
@@ -127,8 +146,9 @@
   \item Smearing needs to be re-derived after applying
     energy regression designed to recover energy
     lost in the weak decays of b-jets.
-  \item Extensions for DY samples in NanoAODv7 are now available
-  \item An explanation and demonstration of smearing application is given
+  \item Extensions for DY in NanoAODv7 are available
+  \item An explanation and demonstration of smearing is given
+  \item Implemented suggestions from previous talk\footnote{\url{https://indico.cern.ch/event/893633/contributions/3774118/attachments/1997977/3333898/dabercro_hbb_200304.pdf}} in JetMET
   \end{itemize}
 
   Di-jet Kinematics in 2018:
@@ -215,7 +235,7 @@
   \item Leading jet satisfies:
     \begin{itemize}
     \item $\Delta\phi(j, \ell\ell) > 2.8$
-    \item \texttt{btagDeepB} $> 0.7528$
+    \item DeepCSV passing the tight working point
     \end{itemize}
   \item Trailing jet statisfies: $\alpha = \frac{p_{T, j}}{p_{T, \ell\ell}} < 0.3$
   \end{itemize}
@@ -480,38 +500,7 @@
     \end{column}
   \end{columns}
 
-\end{frame}
-
-\begin{frame}
-  \frametitle{Di-jet Mass Performance}
-
-  \begin{columns}
-    \begin{column}{0.5\linewidth}
-      \centering
-      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass__.pdf} \\
-      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass__.pdf}
-    \end{column}
-    \begin{column}{0.5\linewidth}
-      \centering
-      \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_medhigh_Hmass__.pdf} \\
-
-      Values of $\sigma/\mu$
-      {\scriptsize
-      \begin{tabular}{|r|c|c|c|}
-        \hline
-        & Low $p_T$ & High $p_T$ & incl. \\
-        \hline
-        No R. & 0.157 & 0.133 & 0.150 \\
-        Reg.  & 0.134 & 0.121 & 0.130 \\
-        Fit   & 0.129 & 0.112 & 0.124 \\
-        \hline
-      \end{tabular}
-      }
-    \end{column}
-  \end{columns}
+  Note: these are pre-fit plots
 
 \end{frame}
 
@@ -586,8 +575,9 @@
   \frametitle{Conclusions}
 
   \begin{itemize}
-  \item Kinematic fit brings large improvement to the $p_T$ balance,
-    assuming no ISR or FSR
+  \item Smearing and uncertainties are ready for all years
+  \item Systematic uncertainties are reduced from previous iterations of the analysis
+  \item Kinematic fit brings large improvement to the $p_T$ balance
   \item When there are no additional jets in the event,
     this improvment translates well to improve the di-jet resolution
   \item With additional jets, the regression gives better resolution
@@ -595,7 +585,6 @@
 
 \end{frame}
 
-\begin{comment}
 \beginbackup
 
 \begin{frame}
@@ -603,9 +592,40 @@
     {\Huge \bf\sffamily Backup Slides}
 \end{frame}
 
-\input{backup_slides.tex}
+
+\begin{frame}
+  \frametitle{Di-jet Mass Performance}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass__.pdf} \\
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass__.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_medhigh_Hmass__.pdf} \\
+
+      Values of $\sigma/\mu$
+      {\scriptsize
+      \begin{tabular}{|r|c|c|c|}
+        \hline
+        & Low $p_T$ & High $p_T$ & incl. \\
+        \hline
+        No R. & 0.157 & 0.133 & 0.150 \\
+        Reg.  & 0.134 & 0.121 & 0.130 \\
+        Fit   & 0.129 & 0.112 & 0.124 \\
+        \hline
+      \end{tabular}
+      }
+    \end{column}
+  \end{columns}
+
+\end{frame}
 
 \backupend
-\end{comment}
 
 \end{document}
