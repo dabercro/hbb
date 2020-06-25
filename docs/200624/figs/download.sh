@@ -9,6 +9,10 @@ crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php
 
 crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=200623_smear_200619_2016_divmean%2Fmean_jet1_adjusted_response_smear_0%2C200623_smear_200619_2017_divmean%2Fmean_jet1_adjusted_response_smear_0%2C200623_smear_200619_2018_divmean%2Fmean_jet1_adjusted_response_smear_0%2C200623_smear_200619_2016_divmean%2Fmean_jet1_adjusted_response_smeared_scaled_nominal_smear_0%2C200623_smear_200619_2017_divmean%2Fmean_jet1_adjusted_response_smeared_scaled_nominal_smear_0%2C200623_smear_200619_2018_divmean%2Fmean_jet1_adjusted_response_smeared_scaled_nominal_smear_0"
 
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=200624_fit%2Ffits_SR_med_Hmass_1j__%2C200624_fit%2Ffits_SR_high_Hmass_1j__%2C200624_fit%2Ffits_SR_medhigh_Hmass_1j__%2C200624_fit%2Ffits_SR_med_Hmass_ge2j__%2C200624_fit%2Ffits_SR_high_Hmass_ge2j__%2C200624_fit%2Ffits_SR_medhigh_Hmass_ge2j__"
+
+crombie downloadtar "http://t3serv001.mit.edu/~dabercro/plotviewer/returntar.php?only=pdf&files=200624_fit_v2%2Ffits_SR_high_Hmass_0j__"
+
 for f in */*.pdf
 do
     pdfcrop $f $f
