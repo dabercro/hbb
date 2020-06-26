@@ -9,7 +9,7 @@ import numpy
 import random
 
 
-plotdir = '200619_2018'
+plotdir = '200619_2016'
 
 divbymean = True
 
@@ -268,7 +268,7 @@ for bintype in ['smear', 'rho']:
             for data, mc, gen, name, mini, maxi, fit, makesub in [
                 (data_graph_res, mc_graph_res, gen_graph_res, '#sigma/#mu', 0.0, 0.4,
                  lambda: ROOT.TF1('resolution', 'TMath::Sqrt(pow([0] * x, 2) + pow([1] * (1 + [2] * x), 2))', 0, 0.3), True),
-                (data_graph_mean, mc_graph_mean, None, '#mu', 0.7, 1.0,
+                (data_graph_mean, mc_graph_mean, None, '#mu', 0.8, 1.2,
                  lambda: ROOT.TF1('mean', '[0] * x + [1]', 0, 0.3), False)
                 ]:
 

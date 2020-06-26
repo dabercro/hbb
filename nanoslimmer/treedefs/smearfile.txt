@@ -83,3 +83,5 @@ untrained_response <- jet1_pt_regressed/dilep_pt
    dilep_m > 71 and dilep_m < 111 and \
    std::min({alpha, alpha_smeared_nominal, alpha_smeared_up, alpha_smeared_down}) < 0.3 and \
    dilep_pt > 50 and jet1_btagDeepB > 0.3 ++
+
+~ sf_jetpuid; <jet$_{pt, eta}>; `echo $CMSSW_VERSION`/data/h2_eff_sf_2018_T.root; h2_eff_sf2018_T; 1; TH2F ~ | 1, 2

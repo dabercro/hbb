@@ -268,7 +268,7 @@ class Bukin:
         print "xi",xi
         print "math.exp(-6.)",math.exp(-6.)
 
-      if abs(xi)>math.exp(-6.):
+      if abs(xi)>math.exp(-6.) and r4+xi > 0:
         r5=xi/math.log(r4+xi)
       else:
         r5=1.0
@@ -283,21 +283,24 @@ class Bukin:
         print "x0",x0
         print "xx",xx
 
-      if xx<x1:
-        # Left Side
-        r2=rhoL*math.pow((xx-x1)/(x0-x1),2)-r3+4*r3*(xx-x1)/hp*r5*r4/math.pow((r4-xi),2)
-      elif xx < x2:
-        # Centre
-        if abs(xi)>math.exp(-6.):
-          r2=math.log(1+4*xi*r4*(xx-x0)/hp)/math.log(1+2*xi*(xi-r4))
-          r2=-r3*math.pow(r2,2)
+      try:
+        if xx<x1:
+          # Left Side
+          r2=rhoL*math.pow((xx-x1)/(x0-x1),2)-r3+4*r3*(xx-x1)/hp*r5*r4/math.pow((r4-xi),2)
+        elif xx < x2:
+          # Centre
+          if abs(xi)>math.exp(-6.):
+            r2=math.log(1+4*xi*r4*(xx-x0)/hp)/math.log(1+2*xi*(xi-r4))
+            r2=-r3*math.pow(r2,2)
+          else:
+            r2=-4*r3*math.pow(((xx-x0)/hp),2)
+          # ended if
         else:
-          r2=-4*r3*math.pow(((xx-x0)/hp),2)
-        # ended if
-      else:
-        # Right Side
-        r2=rhoR*math.pow((xx-x2)/(x0-x2),2)-r3-4*r3*(xx-x2)/hp*r5*r4/math.pow((r4+xi),2)
-      # ended if on what side
+          # Right Side
+          r2=rhoR*math.pow((xx-x2)/(x0-x2),2)-r3-4*r3*(xx-x2)/hp*r5*r4/math.pow((r4+xi),2)
+        # ended if on what side
+      except:
+        r2=200
         
       if abs(r2)>100:
         fit_result=0
