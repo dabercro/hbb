@@ -9,7 +9,7 @@ import numpy
 import random
 
 
-plotdir = '200619_2016'
+plotdir = '200626_2018_puid'
 
 divbymean = True
 

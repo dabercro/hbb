@@ -1,0 +1,2050 @@
+[?1034h FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=2.11688 FROM MIGRAD    STATUS=CONVERGED      79 CALLS          80 TOTAL
+                     EDM=1.50724e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.72511e-01   6.29765e-02   2.51433e-05   3.39334e-03
+   2  p1           1.42084e-01   8.42662e-03   3.38985e-06  -4.16314e-02
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1421 +- 0.0084
+Smear factor: 0.057 +- 0.025
+Scale factor: 0.078 +- 0.073
+Scale factor (from gen): 0.36 +- 0.81
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.15123 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=6.61133e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.69057e-03   8.74547e-02   1.73134e-05  -1.47808e-08
+   2  p1           9.42675e-01   1.60022e-02   3.16795e-06  -7.34202e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.942675
+Scale factor: 0.984639
+Scale (data) factor: 1.016 +- 0.020
+Scale (mc) factor: 0.985 +- 0.019
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.54245 FROM MIGRAD    STATUS=CONVERGED      80 CALLS          81 TOTAL
+                     EDM=5.74485e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.63719e-01   6.66643e-02   2.39046e-05  -9.62053e-04
+   2  p1           1.49692e-01   8.45141e-03   3.05684e-06  -1.33507e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_nominal
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1497 +- 0.0085
+Smear factor: 0.033 +- 0.045
+Scale factor: 0.023 +- 0.067
+Scale factor (from gen): 0.09 +- 0.57
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.36298 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=4.98765e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.15611e-02   8.88952e-02   1.83719e-05   5.55962e-09
+   2  p1           9.38997e-01   1.63045e-02   3.36963e-06   4.66213e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_nominal
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.938997
+Scale factor: 0.988496
+Scale (data) factor: 1.012 +- 0.020
+Scale (mc) factor: 0.988 +- 0.020
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=2.00595 FROM MIGRAD    STATUS=CONVERGED      79 CALLS          80 TOTAL
+                     EDM=6.40921e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.82017e-01   6.34831e-02   2.48767e-05  -7.37688e-03
+   2  p1           1.44196e-01   8.47972e-03   3.35255e-06  -1.79895e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_up
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1442 +- 0.0085
+Smear factor: 0.052 +- 0.028
+Scale factor: 0.062 +- 0.071
+Scale factor (from gen): 0.27 +- 0.73
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.17551 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=2.27346e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.16752e-02   8.84586e-02   1.76170e-05   8.69674e-09
+   2  p1           9.43617e-01   1.61679e-02   3.21993e-06   4.48236e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_up
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.943617
+Scale factor: 0.983656
+Scale (data) factor: 1.017 +- 0.020
+Scale (mc) factor: 0.984 +- 0.019
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.56974 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=4.11677e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.57678e-01   6.83274e-02   2.47639e-05   7.83381e-03
+   2  p1           1.52493e-01   8.47456e-03   3.07287e-06   3.89310e-02
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_down
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1525 +- 0.0085
+Smear factor: 0.01 +- 0.10
+Scale factor: 0.005 +- 0.065
+Scale factor (from gen): 0.02 +- 0.51
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.38367 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=3.99423e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09651e-02   8.87732e-02   1.84375e-05   1.26453e-09
+   2  p1           9.30439e-01   1.63089e-02   3.38722e-06   1.47496e-09
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_down
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.930439
+Scale factor: 0.997588
+Scale (data) factor: 1.002 +- 0.020
+Scale (mc) factor: 0.998 +- 0.020
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.43533 FROM MIGRAD    STATUS=CONVERGED      80 CALLS          81 TOTAL
+                     EDM=5.52068e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.62972e-01   6.66949e-02   2.34125e-05  -6.90555e-04
+   2  p1           1.49593e-01   8.44034e-03   2.98842e-06  -1.29305e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_nominal
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1496 +- 0.0084
+Smear factor: 0.033 +- 0.045
+Scale factor: 0.024 +- 0.067
+Scale factor (from gen): 0.09 +- 0.57
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.33196 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=2.38922e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.18189e-02   8.89135e-02   1.82519e-05  -5.26161e-09
+   2  p1           9.38886e-01   1.62946e-02   3.34491e-06  -1.67617e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_nominal
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.938886
+Scale factor: 0.988613
+Scale (data) factor: 1.012 +- 0.020
+Scale (mc) factor: 0.989 +- 0.020
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=2.0626 FROM MIGRAD    STATUS=CONVERGED      79 CALLS          80 TOTAL
+                     EDM=9.44953e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78892e-01   6.39176e-02   2.52468e-05  -7.83289e-03
+   2  p1           1.45015e-01   8.46502e-03   3.37671e-06  -2.12410e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_up
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1450 +- 0.0085
+Smear factor: 0.049 +- 0.029
+Scale factor: 0.056 +- 0.071
+Scale factor (from gen): 0.24 +- 0.70
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.37286 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=7.10544e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.73727e-02   8.84420e-02   1.83929e-05   1.26759e-08
+   2  p1           9.43815e-01   1.61727e-02   3.36336e-06   7.98827e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_up
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.943815
+Scale factor: 0.983451
+Scale (data) factor: 1.017 +- 0.020
+Scale (mc) factor: 0.983 +- 0.019
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.70287 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=4.47756e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.58035e-01   6.84093e-02   2.54349e-05   8.17809e-03
+   2  p1           1.52824e-01   8.47148e-03   3.15126e-06   4.08715e-02
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_down
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1528 +- 0.0085
+Smear factor: 0.01 +- 0.14
+Scale factor: 0.002 +- 0.064
+Scale factor (from gen): 0.01 +- 0.50
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.40585 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=8.46802e-22    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.68382e-02   8.88064e-02   1.85407e-05  -1.01796e-09
+   2  p1           9.29761e-01   1.63108e-02   3.40532e-06  -7.33558e-09
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_down
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.929761
+Scale factor: 0.998316
+Scale (data) factor: 1.002 +- 0.020
+Scale (mc) factor: 0.998 +- 0.020
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.65831 FROM MIGRAD    STATUS=CONVERGED      82 CALLS          83 TOTAL
+                     EDM=7.04987e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.66582e-01   6.64482e-02   2.43944e-05  -5.09361e-03
+   2  p1           1.48716e-01   8.49444e-03   3.14608e-06  -1.73860e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_nominal
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1487 +- 0.0085
+Smear factor: 0.037 +- 0.040
+Scale factor: 0.030 +- 0.068
+Scale factor (from gen): 0.12 +- 0.59
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.34792 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=1.15519e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.56889e-03   8.78458e-02   1.81146e-05   2.48220e-09
+   2  p1           9.25264e-01   1.60995e-02   3.31986e-06   4.34744e-09
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_nominal
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.925264
+Scale factor: 1.003167
+Scale (data) factor: 0.997 +- 0.020
+Scale (mc) factor: 1.003 +- 0.020
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.32887 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=8.03612e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.54774e-01   7.23001e-02   2.48891e-05  -5.19877e-03
+   2  p1           1.61508e-01   8.51203e-03   2.93466e-06  -8.15910e-02
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_up
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1615 +- 0.0085
+Smear factor: -0.051 +- 0.031
+Scale factor: -0.051 +- 0.059
+Scale factor (from gen): -0.16 +- 0.38
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.67372 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=5.17946e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           4.34643e-02   8.96475e-02   1.97164e-05   1.08959e-08
+   2  p1           9.18346e-01   1.64883e-02   3.62631e-06   6.76608e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_up
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.918346
+Scale factor: 1.010724
+Scale (data) factor: 0.989 +- 0.020
+Scale (mc) factor: 1.011 +- 0.021
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=2.04894 FROM MIGRAD    STATUS=CONVERGED      79 CALLS          80 TOTAL
+                     EDM=4.1204e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.71303e-01   6.34288e-02   2.49716e-05  -4.18885e-03
+   2  p1           1.41531e-01   8.48099e-03   3.36689e-06  -1.33793e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_down
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1415 +- 0.0085
+Smear factor: 0.059 +- 0.024
+Scale factor: 0.082 +- 0.074
+Scale factor (from gen): 0.38 +- 0.83
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.22171 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=7.62125e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -2.51606e-03   8.67562e-02   1.74002e-05  -1.41647e-08
+   2  p1           9.28285e-01   1.58536e-02   3.17968e-06  -8.67667e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_down
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.928285
+Scale factor: 0.999903
+Scale (data) factor: 1.000 +- 0.020
+Scale (mc) factor: 1.000 +- 0.020
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.7259 FROM MIGRAD    STATUS=CONVERGED      82 CALLS          83 TOTAL
+                     EDM=9.43687e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.64372e-01   6.67030e-02   2.47821e-05  -4.95136e-03
+   2  p1           1.49187e-01   8.48432e-03   3.18263e-06  -1.95401e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_nominal
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1492 +- 0.0085
+Smear factor: 0.035 +- 0.042
+Scale factor: 0.027 +- 0.067
+Scale factor (from gen): 0.10 +- 0.58
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.37739 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=2.33176e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46307e-02   8.78538e-02   1.82375e-05  -2.69375e-08
+   2  p1           9.24526e-01   1.61054e-02   3.34331e-06  -1.53750e-07
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_nominal
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.924526
+Scale factor: 1.003968
+Scale (data) factor: 0.996 +- 0.020
+Scale (mc) factor: 1.004 +- 0.020
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.28945 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=3.31743e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.53096e-01   7.27673e-02   2.48096e-05  -9.02503e-03
+   2  p1           1.62066e-01   8.52691e-03   2.91201e-06  -1.56955e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_up
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1621 +- 0.0085
+Smear factor: -0.053 +- 0.030
+Scale factor: -0.055 +- 0.058
+Scale factor (from gen): -0.17 +- 0.37
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.88432 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=1.30492e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           4.42863e-02   8.98403e-02   2.05161e-05  -1.78578e-09
+   2  p1           9.18281e-01   1.65313e-02   3.77512e-06  -1.08813e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_up
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.918281
+Scale factor: 1.010797
+Scale (data) factor: 0.989 +- 0.020
+Scale (mc) factor: 1.011 +- 0.021
+ FCN=0.780056 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.42547e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.10849e-01   9.30762e-03   1.62743e-06  -2.13186e-08
+   2  p1           6.14873e-02   4.90237e-02   8.57175e-06  -3.82087e-09
+ FCN=27.0487 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.12629e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.87525e-01   3.40565e-02   3.72729e-05   2.81098e-02
+   2  p1           1.53200e-01   4.95514e-03   5.42316e-06   1.25161e-01
+   3  p2           5.54696e-01     fixed    
+ FCN=1.95861 FROM MIGRAD    STATUS=CONVERGED      79 CALLS          80 TOTAL
+                     EDM=3.31751e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.77753e-01   6.30366e-02   2.44784e-05  -5.53086e-03
+   2  p1           1.41162e-01   8.51429e-03   3.33172e-06  -1.30019e-01
+   3  p2           5.54696e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_down
+
+------------------------------
+Data at y-axis: 0.1532 +- 0.0050
+MC at y-axis: 0.1412 +- 0.0085
+Smear factor: 0.060 +- 0.024
+Scale factor: 0.085 +- 0.074
+Scale factor (from gen): 0.40 +- 0.85
+ FCN=3.07576 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.07728e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.88593e-02   4.60745e-02   1.15878e-05   2.36650e-08
+   2  p1           9.28195e-01   9.11563e-03   2.29259e-06   1.56418e-07
+ FCN=1.19073 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=2.17528e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           5.83790e-03   8.68927e-02   1.73111e-05   2.61345e-08
+   2  p1           9.27462e-01   1.58687e-02   3.16142e-06   1.50656e-07
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_down
+
+------------------------------
+Data at y-axis: 0.928195
+MC at y-axis: 0.927462
+Scale factor: 1.000790
+Scale (data) factor: 0.999 +- 0.020
+Scale (mc) factor: 1.001 +- 0.020
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.32771 FROM MIGRAD    STATUS=CONVERGED      84 CALLS          85 TOTAL
+                     EDM=2.08985e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.52860e-01   6.75355e-02   1.81859e-05   1.61889e-02
+   2  p1           1.41466e-01   9.54211e-03   2.57020e-06   6.08260e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1415 +- 0.0095
+Smear factor: 0.053 +- 0.032
+Scale factor: 0.069 +- 0.087
+Scale factor (from gen): 0.33 +- 0.98
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.133639 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=1.47072e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           7.85170e-02   9.87287e-02   1.41056e-05  -6.31139e-09
+   2  p1           9.30501e-01   1.81888e-02   2.59867e-06  -3.24158e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.930501
+Scale factor: 0.982789
+Scale (data) factor: 1.018 +- 0.024
+Scale (mc) factor: 0.983 +- 0.023
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=4.34092 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=2.96599e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.81214e-01   6.94738e-02   3.55192e-05   6.26571e-03
+   2  p1           1.42813e-01   9.04386e-03   4.62540e-06   2.71114e-02
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1428 +- 0.0090
+Smear factor: 0.062 +- 0.028
+Scale factor: 0.090 +- 0.085
+Scale factor (from gen): 0.39 +- 0.82
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.06235 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=7.0923e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -5.10221e-02   9.29417e-02   2.19165e-05   2.58350e-09
+   2  p1           9.51131e-01   1.71119e-02   4.03515e-06   7.70386e-09
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.951131
+Scale factor: 0.991186
+Scale (data) factor: 1.009 +- 0.023
+Scale (mc) factor: 0.991 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.102575 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.33588e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.43868e-01   7.19836e-02   1.75281e-05  -2.87137e-03
+   2  p1           1.49551e-01   9.60518e-03   2.34462e-06  -7.17581e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1496 +- 0.0096
+Smear factor: 0.022 +- 0.080
+Scale factor: 0.011 +- 0.080
+Scale factor (from gen): 0.04 +- 0.66
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.217866 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=3.49834e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.64150e-02   1.00898e-01   1.48653e-05  -9.52240e-09
+   2  p1           9.25869e-01   1.86273e-02   2.74436e-06  -5.12764e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.925869
+Scale factor: 0.987706
+Scale (data) factor: 1.012 +- 0.025
+Scale (mc) factor: 0.988 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.6089 FROM MIGRAD    STATUS=CONVERGED      90 CALLS          91 TOTAL
+                     EDM=2.3632e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.71480e-01   7.34753e-02   3.47524e-05   2.12331e-04
+   2  p1           1.50150e-01   9.07267e-03   4.29211e-06  -7.32591e-04
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1502 +- 0.0091
+Smear factor: 0.041 +- 0.043
+Scale factor: 0.037 +- 0.079
+Scale factor (from gen): 0.14 +- 0.59
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.28465 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=5.51402e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -4.69948e-02   9.43424e-02   2.29630e-05  -1.06366e-08
+   2  p1           9.48172e-01   1.74234e-02   4.24088e-06  -6.59713e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.948172
+Scale factor: 0.994280
+Scale (data) factor: 1.006 +- 0.023
+Scale (mc) factor: 0.994 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.177682 FROM MIGRAD    STATUS=CONVERGED      85 CALLS          86 TOTAL
+                     EDM=1.71952e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.64669e-01   6.80992e-02   1.72541e-05   9.25691e-04
+   2  p1           1.43531e-01   9.63467e-03   2.44260e-06  -5.50408e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1435 +- 0.0096
+Smear factor: 0.047 +- 0.036
+Scale factor: 0.053 +- 0.085
+Scale factor (from gen): 0.24 +- 0.88
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.1844 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=1.52366e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.79097e-02   1.00061e-01   1.46055e-05   5.43499e-09
+   2  p1           9.31527e-01   1.84097e-02   2.68720e-06   3.33104e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.931527
+Scale factor: 0.981707
+Scale (data) factor: 1.019 +- 0.025
+Scale (mc) factor: 0.982 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=4.22977 FROM MIGRAD    STATUS=CONVERGED      85 CALLS          86 TOTAL
+                     EDM=5.69221e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.88780e-01   7.02363e-02   3.55431e-05   1.54318e-02
+   2  p1           1.44993e-01   9.10911e-03   4.61133e-06   2.08506e-03
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1450 +- 0.0091
+Smear factor: 0.057 +- 0.030
+Scale factor: 0.074 +- 0.084
+Scale factor (from gen): 0.30 +- 0.74
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=1.97783 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=3.27127e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -3.08938e-02   9.41481e-02   2.18991e-05   9.68315e-09
+   2  p1           9.52063e-01   1.73246e-02   4.02976e-06   4.79380e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.952063
+Scale factor: 0.990216
+Scale (data) factor: 1.010 +- 0.023
+Scale (mc) factor: 0.990 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.192866 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=1.5349e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.46513e-01   7.28354e-02   1.84546e-05  -8.14225e-04
+   2  p1           1.50788e-01   9.71528e-03   2.46636e-06  -2.31681e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1508 +- 0.0097
+Smear factor: 0.01 +- 0.16
+Scale factor: 0.003 +- 0.079
+Scale factor (from gen): 0.01 +- 0.63
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.179551 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=2.61827e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           8.98163e-02   1.00904e-01   1.46363e-05   8.17799e-09
+   2  p1           9.18385e-01   1.86666e-02   2.70765e-06   4.45397e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.918385
+Scale factor: 0.995754
+Scale (data) factor: 1.004 +- 0.025
+Scale (mc) factor: 0.996 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.4002 FROM MIGRAD    STATUS=CONVERGED      84 CALLS          85 TOTAL
+                     EDM=6.79454e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.59473e-01   7.59919e-02   3.50733e-05   1.94253e-02
+   2  p1           1.53945e-01   9.04664e-03   4.17848e-06   3.98560e-02
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1539 +- 0.0090
+Smear factor: 0.023 +- 0.077
+Scale factor: 0.011 +- 0.075
+Scale factor (from gen): 0.04 +- 0.52
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.43773 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=1.48666e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -4.32655e-02   9.41281e-02   2.34411e-05   6.63072e-09
+   2  p1           9.38856e-01   1.74041e-02   4.33422e-06   3.35560e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.938856
+Scale factor: 1.004145
+Scale (data) factor: 0.996 +- 0.023
+Scale (mc) factor: 1.004 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.10723 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=1.93347e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.41269e-01   7.21907e-02   1.76185e-05  -3.44538e-03
+   2  p1           1.49726e-01   9.58098e-03   2.34452e-06  -8.65493e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1497 +- 0.0096
+Smear factor: 0.021 +- 0.085
+Scale factor: 0.010 +- 0.079
+Scale factor (from gen): 0.04 +- 0.66
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.176023 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=7.08551e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.58439e-02   1.00917e-01   1.46058e-05   4.18545e-09
+   2  p1           9.25771e-01   1.86221e-02   2.69519e-06   2.33769e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.925771
+Scale factor: 0.987810
+Scale (data) factor: 1.012 +- 0.025
+Scale (mc) factor: 0.988 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.57063 FROM MIGRAD    STATUS=CONVERGED      90 CALLS          91 TOTAL
+                     EDM=2.10863e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.72075e-01   7.34206e-02   3.45679e-05   2.00169e-04
+   2  p1           1.49861e-01   9.07955e-03   4.27571e-06  -6.96081e-04
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1499 +- 0.0091
+Smear factor: 0.042 +- 0.042
+Scale factor: 0.039 +- 0.079
+Scale factor (from gen): 0.14 +- 0.60
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.32237 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=1.50566e-23    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -4.62657e-02   9.44256e-02   2.31013e-05   1.44177e-10
+   2  p1           9.48072e-01   1.74281e-02   4.26381e-06   5.20766e-10
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.948072
+Scale factor: 0.994385
+Scale (data) factor: 1.006 +- 0.023
+Scale (mc) factor: 0.994 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.1494 FROM MIGRAD    STATUS=CONVERGED      84 CALLS          85 TOTAL
+                     EDM=6.7196e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.65366e-01   6.81636e-02   1.70452e-05   5.72030e-03
+   2  p1           1.43743e-01   9.64332e-03   2.41534e-06   6.82415e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1437 +- 0.0096
+Smear factor: 0.047 +- 0.037
+Scale factor: 0.052 +- 0.085
+Scale factor (from gen): 0.24 +- 0.87
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.203081 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=4.66735e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.90017e-02   1.00120e-01   1.47233e-05  -1.10469e-08
+   2  p1           9.31217e-01   1.84240e-02   2.70937e-06  -5.59083e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.931217
+Scale factor: 0.982034
+Scale (data) factor: 1.018 +- 0.025
+Scale (mc) factor: 0.982 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=4.42938 FROM MIGRAD    STATUS=CONVERGED      85 CALLS          86 TOTAL
+                     EDM=1.04576e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.81950e-01   7.11069e-02   3.66277e-05   2.14628e-02
+   2  p1           1.46294e-01   9.07706e-03   4.67782e-06   9.95042e-03
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1463 +- 0.0091
+Smear factor: 0.053 +- 0.033
+Scale factor: 0.064 +- 0.082
+Scale factor (from gen): 0.26 +- 0.70
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.33473 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=2.22527e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -3.90986e-02   9.41002e-02   2.31675e-05   2.30024e-09
+   2  p1           9.52647e-01   1.73314e-02   4.26700e-06   2.36771e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.952647
+Scale factor: 0.989609
+Scale (data) factor: 1.011 +- 0.023
+Scale (mc) factor: 0.990 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.227564 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=1.21447e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.50670e-01   7.24761e-02   1.86413e-05  -8.28457e-04
+   2  p1           1.50533e-01   9.72998e-03   2.50701e-06  -2.11728e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1505 +- 0.0097
+Smear factor: 0.01 +- 0.13
+Scale factor: 0.004 +- 0.079
+Scale factor (from gen): 0.02 +- 0.64
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.218551 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=2.30841e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.42328e-02   1.00887e-01   1.48797e-05  -1.10521e-09
+   2  p1           9.17781e-01   1.86541e-02   2.75126e-06  -9.00381e-09
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.917781
+Scale factor: 0.996410
+Scale (data) factor: 1.004 +- 0.025
+Scale (mc) factor: 0.996 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.70077 FROM MIGRAD    STATUS=CONVERGED      84 CALLS          85 TOTAL
+                     EDM=1.90331e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.56915e-01   7.64595e-02   3.64818e-05   1.10797e-02
+   2  p1           1.54667e-01   9.03528e-03   4.31349e-06   3.00634e-02
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1547 +- 0.0090
+Smear factor: 0.02 +- 0.10
+Scale factor: 0.006 +- 0.075
+Scale factor (from gen): 0.02 +- 0.50
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.38675 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=5.94177e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -3.64546e-02   9.42253e-02   2.33063e-05   1.00036e-08
+   2  p1           9.38140e-01   1.74214e-02   4.30911e-06  -8.75995e-09
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.938140
+Scale factor: 1.004911
+Scale (data) factor: 0.995 +- 0.023
+Scale (mc) factor: 1.005 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.186998 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=4.38915e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.45002e-01   7.14474e-02   1.80884e-05  -1.58725e-03
+   2  p1           1.48063e-01   9.63758e-03   2.44460e-06  -4.05715e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1481 +- 0.0096
+Smear factor: 0.031 +- 0.058
+Scale factor: 0.021 +- 0.081
+Scale factor (from gen): 0.09 +- 0.71
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.174709 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=1.76118e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           7.76407e-02   9.93560e-02   1.43979e-05  -6.58808e-09
+   2  p1           9.15223e-01   1.83548e-02   2.65984e-06  -3.73314e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.915223
+Scale factor: 0.999195
+Scale (data) factor: 1.001 +- 0.024
+Scale (mc) factor: 0.999 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.51657 FROM MIGRAD    STATUS=CONVERGED      88 CALLS          89 TOTAL
+                     EDM=4.04447e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.76485e-01   7.32439e-02   3.43197e-05   2.47712e-04
+   2  p1           1.49439e-01   9.11787e-03   4.27333e-06   4.76241e-03
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1494 +- 0.0091
+Smear factor: 0.044 +- 0.040
+Scale factor: 0.042 +- 0.080
+Scale factor (from gen): 0.16 +- 0.61
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.39211 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=1.82257e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -3.70057e-02   9.33114e-02   2.30825e-05  -7.93618e-09
+   2  p1           9.32266e-01   1.71997e-02   4.25470e-06  -8.35010e-09
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.932266
+Scale factor: 1.011244
+Scale (data) factor: 0.989 +- 0.023
+Scale (mc) factor: 1.011 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.230418 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=6.96994e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.42274e-01   7.76322e-02   1.98630e-05   3.19083e-03
+   2  p1           1.60391e-01   9.79819e-03   2.51424e-06   2.36855e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1604 +- 0.0098
+Smear factor: -0.054 +- 0.035
+Scale factor: -0.057 +- 0.072
+Scale factor (from gen): -0.19 +- 0.45
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.443474 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=1.16361e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.37528e-01   1.02395e-01   1.63883e-05  -5.30103e-09
+   2  p1           9.04175e-01   1.89803e-02   3.03781e-06  -2.55828e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.904175
+Scale factor: 1.011404
+Scale (data) factor: 0.989 +- 0.025
+Scale (mc) factor: 1.011 +- 0.025
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.04269 FROM MIGRAD    STATUS=CONVERGED      85 CALLS          86 TOTAL
+                     EDM=8.23814e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.57375e-01   8.06156e-02   3.56313e-05   2.01297e-02
+   2  p1           1.62553e-01   9.13462e-03   4.04064e-06   4.30988e-02
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1626 +- 0.0091
+Smear factor: -0.047 +- 0.040
+Scale factor: -0.042 +- 0.070
+Scale factor (from gen): -0.13 +- 0.39
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.48602 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=4.48112e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -2.09706e-02   9.54273e-02   2.39314e-05   1.13660e-08
+   2  p1           9.28188e-01   1.76628e-02   4.42951e-06   5.76477e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.928188
+Scale factor: 1.015686
+Scale (data) factor: 0.985 +- 0.023
+Scale (mc) factor: 1.016 +- 0.024
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.200571 FROM MIGRAD    STATUS=CONVERGED      84 CALLS          85 TOTAL
+                     EDM=9.57755e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.56540e-01   6.71988e-02   1.71804e-05   1.10594e-02
+   2  p1           1.39539e-01   9.60918e-03   2.45725e-06   4.13250e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1395 +- 0.0096
+Smear factor: 0.058 +- 0.029
+Scale factor: 0.083 +- 0.089
+Scale factor (from gen): 0.4 +- 1.1
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.153192 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=5.46284e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.46700e-02   9.76338e-02   1.40382e-05   1.16899e-08
+   2  p1           9.18339e-01   1.79439e-02   2.58006e-06   5.52409e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.918339
+Scale factor: 0.995805
+Scale (data) factor: 1.004 +- 0.024
+Scale (mc) factor: 0.996 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=4.02652 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=7.90065e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.75980e-01   7.04174e-02   3.48164e-05   8.36608e-03
+   2  p1           1.43212e-01   9.06449e-03   4.48356e-06   2.54082e-02
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1432 +- 0.0091
+Smear factor: 0.061 +- 0.028
+Scale factor: 0.087 +- 0.085
+Scale factor (from gen): 0.37 +- 0.80
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.1688 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=1.08915e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -4.86518e-02   9.21316e-02   2.20158e-05  -4.89156e-09
+   2  p1           9.35238e-01   1.69450e-02   4.04919e-06  -2.08380e-08
+------------------------------
+Adjust For Alpha
+jet1_adjusted_response_smeared_scaled_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.935238
+Scale factor: 1.008030
+Scale (data) factor: 0.992 +- 0.023
+Scale (mc) factor: 1.008 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.164795 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=3.6639e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.46143e-01   7.13855e-02   1.79066e-05  -1.43777e-03
+   2  p1           1.48023e-01   9.64332e-03   2.42336e-06  -3.69655e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1480 +- 0.0096
+Smear factor: 0.031 +- 0.057
+Scale factor: 0.021 +- 0.081
+Scale factor (from gen): 0.09 +- 0.71
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.160547 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=1.88455e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           8.27986e-02   9.93871e-02   1.43190e-05   6.20282e-09
+   2  p1           9.14412e-01   1.83541e-02   2.64433e-06   3.75242e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_nominal
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.914412
+Scale factor: 1.000081
+Scale (data) factor: 1.000 +- 0.024
+Scale (mc) factor: 1.000 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.64459 FROM MIGRAD    STATUS=CONVERGED      89 CALLS          90 TOTAL
+                     EDM=2.13781e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.71490e-01   7.38372e-02   3.50646e-05   9.20505e-04
+   2  p1           1.50280e-01   9.09785e-03   4.32278e-06   3.19360e-04
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1503 +- 0.0091
+Smear factor: 0.041 +- 0.043
+Scale factor: 0.036 +- 0.079
+Scale factor (from gen): 0.13 +- 0.59
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.48388 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=4.09144e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -3.21927e-02   9.33445e-02   2.34108e-05  -2.03921e-09
+   2  p1           9.31608e-01   1.72175e-02   4.31816e-06  -1.49121e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_nominal
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.931608
+Scale factor: 1.011958
+Scale (data) factor: 0.988 +- 0.023
+Scale (mc) factor: 1.012 +- 0.023
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.245364 FROM MIGRAD    STATUS=CONVERGED      86 CALLS          87 TOTAL
+                     EDM=2.84117e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.42621e-01   7.80643e-02   2.00637e-05   2.03942e-03
+   2  p1           1.60858e-01   9.83128e-03   2.53436e-06   1.38142e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1609 +- 0.0098
+Smear factor: -0.055 +- 0.034
+Scale factor: -0.060 +- 0.072
+Scale factor (from gen): -0.20 +- 0.45
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.473847 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=1.28119e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.37851e-01   1.02785e-01   1.65940e-05   1.83988e-09
+   2  p1           9.03865e-01   1.90538e-02   3.07612e-06   1.75045e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_up
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.903865
+Scale factor: 1.011750
+Scale (data) factor: 0.988 +- 0.025
+Scale (mc) factor: 1.012 +- 0.025
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.14361 FROM MIGRAD    STATUS=CONVERGED      85 CALLS          86 TOTAL
+                     EDM=1.31137e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.53795e-01   8.11608e-02   3.63000e-05   2.51098e-02
+   2  p1           1.63179e-01   9.13111e-03   4.08772e-06   5.31409e-02
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1632 +- 0.0091
+Smear factor: -0.049 +- 0.038
+Scale factor: -0.046 +- 0.069
+Scale factor (from gen): -0.14 +- 0.39
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.83326 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=2.09167e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -2.04070e-02   9.54435e-02   2.51224e-05   5.83341e-09
+   2  p1           9.28371e-01   1.76796e-02   4.65359e-06   3.79332e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_up
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.928371
+Scale factor: 1.015487
+Scale (data) factor: 0.985 +- 0.023
+Scale (mc) factor: 1.015 +- 0.024
+ FCN=1.01454 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=3.85024e-21    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.12277e-01   1.05592e-02   1.92291e-06  -2.74248e-08
+   2  p1           4.10580e-02   5.50353e-02   1.00224e-05  -5.87103e-09
+ FCN=15.9177 FROM MIGRAD    STATUS=CONVERGED      91 CALLS          92 TOTAL
+                     EDM=2.07661e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.78378e-01   4.40132e-02   3.86043e-05   1.42600e-03
+   2  p1           1.51181e-01   6.86354e-03   6.02272e-06  -2.71690e-04
+   3  p2           3.65687e-01     fixed    
+ FCN=0.231749 FROM MIGRAD    STATUS=CONVERGED      84 CALLS          85 TOTAL
+                     EDM=8.98923e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.60213e-01   6.69843e-02   1.73679e-05   1.10431e-02
+   2  p1           1.39471e-01   9.62540e-03   2.49622e-06   4.32300e-02
+   3  p2           3.65687e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.1512 +- 0.0069
+MC at y-axis: 0.1395 +- 0.0096
+Smear factor: 0.058 +- 0.029
+Scale factor: 0.084 +- 0.090
+Scale factor (from gen): 0.4 +- 1.1
+ FCN=2.9541 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=3.88588e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.46469e-01   6.36155e-02   1.57716e-05   1.68945e-08
+   2  p1           9.14486e-01   1.25755e-02   3.11774e-06   8.65320e-08
+ FCN=0.123707 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=2.97503e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.72656e-02   9.77517e-02   1.38845e-05   8.85323e-09
+   2  p1           9.18633e-01   1.79596e-02   2.55095e-06   4.94383e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_down
+#rho < 19
+------------------------------
+Data at y-axis: 0.914486
+MC at y-axis: 0.918633
+Scale factor: 0.995486
+Scale (data) factor: 1.005 +- 0.024
+Scale (mc) factor: 0.995 +- 0.024
+ FCN=0.742046 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=1.14197e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.09741e-01   9.56166e-03   1.66436e-06  -5.33646e-08
+   2  p1           7.54993e-02   5.02832e-02   8.75260e-06  -1.10038e-08
+ FCN=12.7529 FROM MIGRAD    STATUS=CONVERGED      97 CALLS          98 TOTAL
+                     EDM=3.44098e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.96782e-01   5.17136e-02   3.87756e-05   3.12277e-03
+   2  p1           1.55669e-01   7.15104e-03   5.36087e-06   1.36892e-02
+   3  p2           6.87976e-01     fixed    
+ FCN=3.86059 FROM MIGRAD    STATUS=CONVERGED      85 CALLS          86 TOTAL
+                     EDM=4.32059e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           6.84760e-01   6.98502e-02   3.39775e-05   1.32265e-02
+   2  p1           1.42624e-01   9.12323e-03   4.43928e-06  -7.00956e-04
+   3  p2           6.87976e-01     fixed    
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.1557 +- 0.0072
+MC at y-axis: 0.1426 +- 0.0091
+Smear factor: 0.062 +- 0.027
+Scale factor: 0.091 +- 0.086
+Scale factor (from gen): 0.40 +- 0.83
+ FCN=7.96643 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=2.20326e-19    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.31951e-02   6.64091e-02   2.99293e-05   3.90980e-08
+   2  p1           9.42748e-01   1.31566e-02   5.92941e-06   1.94355e-07
+ FCN=2.18293 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=5.15379e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -3.63750e-02   9.23728e-02   2.21204e-05   1.00882e-08
+   2  p1           9.33657e-01   1.69772e-02   4.06551e-06   6.41746e-08
+------------------------------
+Adjust For Alpha
+jet1_half_adjusted_response_smeared_scaled_down
+19 #leq #rho
+------------------------------
+Data at y-axis: 0.942748
+MC at y-axis: 0.933657
+Scale factor: 1.009737
+Scale (data) factor: 0.990 +- 0.023
+Scale (mc) factor: 1.010 +- 0.023
+--------------------
+smear_fit
+--------------------
+ FCN=3.14327e-27 FROM MIGRAD    STATUS=CONVERGED      36 CALLS          37 TOTAL
+                     EDM=6.28245e-27    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.19968e-04   3.16747e-03   4.50987e-07   1.19020e-10
+   2  p1           5.38621e-02   6.84604e-02   9.74746e-06   5.58757e-12
+1.00328831475e-05 -0.000207422744989
+-0.000207422744989 0.00468683107977
+--------------------
+scale_fit
+--------------------
+ FCN=4.35573e-29 FROM MIGRAD    STATUS=CONVERGED      34 CALLS          35 TOTAL
+                     EDM=8.64508e-29    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           5.94357e-04   9.83081e-03   1.40740e-06   4.54216e-12
+   2  p1           7.56434e-02   2.11495e-01   3.02781e-05   2.07637e-13
+9.6644909474e-05 -0.00198779097841
+-0.00198779097841 0.0447300474622
