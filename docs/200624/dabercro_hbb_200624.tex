@@ -1,12 +1,23 @@
 \documentclass{beamer}
 
 \author[D. Abercrombie]{
-  Daniel Abercrombie \\
-  for the VHbb Group
+  {\bf DESY}: A. de Wit, R. Mankel, S. Kaveh, A. Nigamova \\
+  \vfill
+  {\bf ETH}: C. Grab, A. Calandri, P. Berger, G. Perrin, K. Gedia, \\ C. Reissel, B. Kaech, L. Perrozzi \\
+  \vfill
+  {\bf RBI}: V. Brigljevic, B. Chitroda, D. Ferencek, \\ S. Mishra, T. Susa \\
+  \vfill
+  {\bf MIT}: \emph{D. Abercrombie}, G. G\'omez-Ceballos, D. Kovalskyi, \\ B. Maier, C. Paus \\
+  \vfill
+  {\bf U. Florida}: J. Konigsberg \\
+  \vfill
+  {\bf RWTH}: A. Schmidt \\
+  \vfill
+  {\bf INFN Pisa}: A. Rizz
 }
 
 \title{\bf \sffamily B-Jet Regression and Di-jet Kinematics}
-\date{\today}
+\date{24 June, 2020}
 
 \usecolortheme{dove}
 
@@ -23,6 +34,8 @@
 \usepackage{tabularx}
 \usepackage{makecell}
 \usepackage{comment}
+
+\usepackage{feynmp-auto}
 
 \setbeamertemplate{navigation symbols}{}
 \usepackage{graphicx}
@@ -110,21 +123,72 @@
 \begin{document}
 
 \begin{frame}
-  \titlepage
+  \begin{center}
+  \usebeamerfont{title}\inserttitle \\
+  \end{center}
+  \vfill
+  \usebeamerfont{author}\insertauthor \\
+  \vfill
+  \begin{center}
+  \usebeamerfont{date}\insertdate
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Introduction}
 
+  Two studies are presented for use in the VHbb analysis
+
+  \vfill
+
+  Smearing of b-jets:
   \begin{itemize}
-  \item Extensions for DY samples in NanoAODv7 are available now,
-    so I ran one more pass of the smearing fits
-  \item 2016 now does suggest some smearing, though it's much smaller than the other samples
+  \item Smearing needs to be re-derived after applying
+    energy regression designed to recover energy
+    lost in the weak decays of b-jets.
+  \item Extensions for DY in NanoAODv7 are available
+  \item An explanation and demonstration of smearing is given
+  \item Implemented suggestions from previous talk\footnote{\url{https://indico.cern.ch/event/893633/contributions/3774118/attachments/1997977/3333898/dabercro_hbb_200304.pdf}} in JetMET
   \end{itemize}
+
+  Di-jet Kinematics in 2018:
   \begin{itemize}
   \item Plots for $Z\rightarrow \ell\ell$ 2018 response are shown
-  \item The di-jet mass performance in signal samples is shown to improve due to regression
-    and kinematic fit
+  \item The di-jet mass performance in signal samples is shown
+    for various $V_{p_T}$ and number of additional jets
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Jet Resolution Approach}
+
+  \begin{itemize}
+  \item Good detector resolution of leptons allows us to \\
+    take advantage of the following process:
+  \end{itemize}
+
+  \hfill
+
+  \begin{center}
+    \begin{fmffile}{DY_bjet}
+      \begin{fmfgraph*}(200, 120)
+        \fmfleft{i1,i0}
+        \fmfright{o3,o2,o1,o0}
+        \fmf{fermion, label=$q$}{i0,v0,v1,i1}
+        \fmf{photon, label=$Z$}{v0,v0_1}
+        \fmf{fermion, label=$\ell$}{o0,v0_1,o1}
+        \fmf{gluon}{v1,v1_1}
+        \fmf{fermion, label=$b$}{o2,v1_1,o3}
+      \end{fmfgraph*}
+    \end{fmffile}
+  \end{center}
+
+  \hfill
+
+  \begin{itemize}
+  \item The jet resolution can be measured by assuming it is \\
+    balanced against the $Z$ in the transverse plane
   \end{itemize}
 
 \end{frame}
@@ -158,23 +222,20 @@
 \begin{frame}
   \frametitle{Selection -- Jets}
 
-  Selecting events with one jet is hard due to jet acceptance,
-  and would result in few events
-
-  \vfill
+  We want one soft jet and one hard jet for the balancing
 
   \begin{itemize}
   \item Exactly two jets satisfying:
     \begin{itemize}
     \item Does not overlap with any leptons satisfying Z Selection criteria
     \item $p_T > \SI{20}{GeV}$ after regression
+    \item $|\eta| < 2.4$
     \item \texttt{jetId} $> 0$ and \texttt{puId} $> 0$
     \end{itemize}
   \item Leading jet satisfies:
     \begin{itemize}
-    \item $|\eta| < 2.4$
     \item $\Delta\phi(j, \ell\ell) > 2.8$
-    \item \texttt{btagDeepB} $> 0.8$
+    \item DeepCSV passing the tight working point
     \end{itemize}
   \item Trailing jet statisfies: $\alpha = \frac{p_{T, j}}{p_{T, \ell\ell}} < 0.3$
   \end{itemize}
@@ -186,10 +247,8 @@
   \frametitle{Binned Fit Strategy}
 
   \begin{itemize}
-  \item We use events with a second jet, and extrapolate down to where $\alpha = 0$
-  \item This should give us the behavior of the one jet diagram,
-    without needing to deal with few events or jet acceptance.
-  \item We use four bins of $\alpha$, each with roughly equal data yields:
+  \item We extrapolate down to $\alpha = 0$
+  \item Use four bins of $\alpha$, each with roughly equal data yields:
   \end{itemize}
   \begin{columns}
     \begin{column}{0.5\linewidth}
@@ -228,13 +287,15 @@
   \end{columns}
 
   \vfill
-  We can see the MC resolution is better than data in all bins
+  MC error includes PSWeights and Scale/Renormalization
 
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Binned Fit Formula}
+
+  For smearing, we fit $\sigma/\mu$
 
   \[
   f(\alpha) = (m \times \alpha) \oplus b \times (1 + c_k \times \alpha)
@@ -245,26 +306,36 @@
   \item Smearing is done by scaling difference between $p_{T,reco}$ and $p_{T,gen}$ by $b_{data}/b_{MC}$
   \end{itemize}
 
+  \vfill
+
+  Scaling is done by a simple linear fit to $\mu$
+
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Fits for All Years}
 
+  Fits to $\mu$ for scaling and $\sigma/\mu$ for smearing
+  \vfill
+
   \begin{columns}
     \begin{column}{0.33\linewidth}
       \centering
-      \textcolor{blue}{2016}
+      \textcolor{blue}{2016} \\
+      \includegraphics[width=\linewidth]{figs/200623_smear_200619_2016_divmean/mean_jet1_adjusted_response_smear_0.pdf} \\
       \includegraphics[width=\linewidth]{figs/200619_smear_200619_2016_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
     \end{column}
     \begin{column}{0.34\linewidth}
       \centering
-      \textcolor{blue}{2017}
+      \textcolor{blue}{2017} \\
+      \includegraphics[width=\linewidth]{figs/200623_smear_200619_2017_divmean/mean_jet1_adjusted_response_smear_0.pdf} \\
       \includegraphics[width=\linewidth]{figs/200619_smear_200619_2017_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
     \end{column}
     \begin{column}{0.33\linewidth}
       \centering
-      \textcolor{blue}{2018}
+      \textcolor{blue}{2018} \\
+      \includegraphics[width=\linewidth]{figs/200623_smear_200619_2018_divmean/mean_jet1_adjusted_response_smear_0.pdf} \\
       \includegraphics[width=\linewidth]{figs/200619_smear_200619_2018_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
     \end{column}
   \end{columns}
@@ -276,9 +347,10 @@
 
 
 \begin{frame}
-  \frametitle{Numbers}
+  \frametitle{Fit Results}
 
   \vfill
+  \def\arraystretch{1.5}
   \begin{center}
     \begin{tabular}{|l|c|c|}
       \hline
@@ -291,35 +363,61 @@
     \end{tabular}
   \end{center}
 
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Discussion of Applying Uncertainties}
 
 \end{frame}
 
 
 \begin{frame}
-  \frametitle{Nominal Smearing}
+  \frametitle{Jet smearing strategy}
+
+  Smearing and scaling MC is done with the following algorithm:
+  \begin{itemize}
+  \item If a matched genjet is found:
+    \begin{itemize}
+    \item Find the difference between the jet $p_T$ (before scaling) and the genjet $p_T$
+    \item Shift the jet $p_T$ so that the difference increases by the percentage listed
+    \item Scale the resulting smeared $p_T$ and return
+    \end{itemize}
+  \item Else return with just the scaling
+  \end{itemize}
+
+  Uncertainty bands are determined from both scaling and smearing uncertainties
+  \begin{itemize}
+  \item Additional smearing shifts the jet $p_T$ away from the genjet
+  \item Scaling without smearing is used as a bound for the reduced smearing variation
+  \item Not scaled again
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Nominal Smearing and Scaling}
 
   \begin{columns}
     \begin{column}{0.33\linewidth}
       \centering
-      \textcolor{blue}{2016}
+      \textcolor{blue}{2016} \\
+      \includegraphics[width=\linewidth]{figs/200623_smear_200619_2016_divmean/mean_jet1_adjusted_response_smeared_scaled_nominal_smear_0.pdf} \\
       \includegraphics[width=\linewidth]{figs/200619_smear_200619_2016_divmean/resolution_jet1_adjusted_response_smeared_scaled_nominal_smear_0.pdf}
     \end{column}
     \begin{column}{0.34\linewidth}
       \centering
-      \textcolor{blue}{2017}
+      \textcolor{blue}{2017} \\
+      \includegraphics[width=\linewidth]{figs/200623_smear_200619_2017_divmean/mean_jet1_adjusted_response_smeared_scaled_nominal_smear_0.pdf} \\
       \includegraphics[width=\linewidth]{figs/200619_smear_200619_2017_divmean/resolution_jet1_adjusted_response_smeared_scaled_nominal_smear_0.pdf}
     \end{column}
     \begin{column}{0.33\linewidth}
       \centering
-      \textcolor{blue}{2018}
+      \textcolor{blue}{2018} \\
+      \includegraphics[width=\linewidth]{figs/200623_smear_200619_2018_divmean/mean_jet1_adjusted_response_smeared_scaled_nominal_smear_0.pdf} \\
       \includegraphics[width=\linewidth]{figs/200619_smear_200619_2018_divmean/resolution_jet1_adjusted_response_smeared_scaled_nominal_smear_0.pdf}
     \end{column}
   \end{columns}
+
+  \vfill
+  Both response mean and resolution agree better between MC and Data
+  after scaling and smearing application
 
 \end{frame}
 
@@ -348,8 +446,44 @@
   Evidence of oversmearing gives this good closure
 
 \end{frame}
+
+
+\begin{frame}
+  \frametitle{Smearing Conclusions}
+
+  \begin{itemize}
+  \item Updated smearing numbers are ready for NanoAODv7
+  \item Implemented suggestions from JetMET
+  \item Scaling added to help MC and Data agreement
+  \item Uncertainties are smaller than the discovery analysis
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Di-lepton di-jet plots for VH Analysis}
+
+  \begin{itemize}
+  \item Selection of leptons is the same as before
+  \item This time, there is no kinematic limits on the trailing jet
+  \item $V_{p_T} > \SI{150}{GeV}$
+  \item Kinematic fit is applied to improve \\
+    the di-jet $p_T$ response and mass resolution
+  \item Kinematic fit results are useful as classifier inputs, \\
+    even for the boosted selection
+  \end{itemize}
+
+\end{frame}
+
+
 \begin{frame}
   \frametitle{$p_T$ Balance}
+
+  In the Z+HF control region, kinematic fit brings improvement to the $p_T$ balance
+  between the di-jet and di-lepton systems,
+  in addition to the regression
+  \vfill
 
   \begin{columns}
     \begin{column}{0.33\linewidth}
@@ -369,27 +503,7 @@
     \end{column}
   \end{columns}
 
-\end{frame}
-
-\begin{frame}
-  \frametitle{Di-jet Mass Performance}
-
-  \begin{columns}
-    \begin{column}{0.5\linewidth}
-      \centering
-      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass__.pdf}
-    \end{column}
-    \begin{column}{0.5\linewidth}
-      \centering
-      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass__.pdf}
-    \end{column}
-  \end{columns}
-
-  \centering
-  \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
-  \includegraphics[width=0.5\linewidth]{200622_fit/fits_SR_medhigh_Hmass__.pdf}
+  Note: these are pre-fit plots
 
 \end{frame}
 
@@ -400,44 +514,82 @@
     \begin{column}{0.5\linewidth}
       \centering
       \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass_0j__.pdf}
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass_0j__.pdf} \\
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{figs/200624_fit_v2/fits_SR_high_Hmass_0j__.pdf}
     \end{column}
     \begin{column}{0.5\linewidth}
-      \centering
-      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass_0j__.pdf}
+      \begin{center}
+      \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_medhigh_Hmass_0j__.pdf} \\
+
+      Values of $\sigma/\mu$
+      {\scriptsize
+      \begin{tabular}{|r|c|c|c|}
+        \hline
+        & Low $p_T$ & High $p_T$ & incl. \\
+        \hline
+        No R. & 0.137 & 0.116 & 0.132 \\
+        Reg.  & 0.120 & 0.107 & 0.116 \\
+        Fit   & 0.106 & 0.087 & 0.101 \\
+        \hline
+      \end{tabular}
+      }
+      \end{center}
+      $\Leftarrow$ Fat Jet $\sigma/\mu = 0.116$
     \end{column}
   \end{columns}
-
-  \centering
-  \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
-  \includegraphics[width=0.5\linewidth]{200622_fit/fits_SR_medhigh_Hmass_0j__.pdf}
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Di-jet Mass Performance -- Additional Jets}
 
+
   \begin{columns}
     \begin{column}{0.5\linewidth}
       \centering
       \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
-      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass_ge1j__.pdf}
-    \end{column}
-    \begin{column}{0.5\linewidth}
-      \centering
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass_ge1j__.pdf} \\
       \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
       \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass_ge1j__.pdf}
     \end{column}
-  \end{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_medhigh_Hmass_ge1j__.pdf} \\
 
-  \centering
-  \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
-  \includegraphics[width=0.5\linewidth]{200622_fit/fits_SR_medhigh_Hmass_ge1j__.pdf}
+      Values of $\sigma/\mu$
+      {\scriptsize
+      \begin{tabular}{|r|c|c|c|}
+        \hline
+        & Low $p_T$ & High $p_T$ & incl. \\
+        \hline
+        No R. & 0.190 & 0.159 & 0.181 \\
+        Reg.  & 0.153 & 0.138 & 0.149 \\
+        Fit   & 0.162 & 0.145 & 0.157 \\
+        \hline
+      \end{tabular}
+      }
+    \end{column}
+  \end{columns}
 
 \end{frame}
 
-\begin{comment}
+\begin{frame}
+  \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item Smearing and uncertainties are ready for all years
+  \item Systematic uncertainties are reduced from previous iterations of the analysis
+  \item Kinematic fit brings large improvement to the $p_T$ balance
+  \item When there are no additional jets in the event,
+    this improvment translates well to improve the di-jet resolution
+  \item With additional jets, the regression gives better resolution
+  \end{itemize}
+
+\end{frame}
+
 \beginbackup
 
 \begin{frame}
@@ -445,9 +597,109 @@
     {\Huge \bf\sffamily Backup Slides}
 \end{frame}
 
-\input{backup_slides.tex}
+
+\begin{frame}
+  \frametitle{Di-jet Mass Performance}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_med_Hmass__.pdf} \\
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_high_Hmass__.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200622_fit/fits_SR_medhigh_Hmass__.pdf} \\
+
+      Values of $\sigma/\mu$
+      {\scriptsize
+      \begin{tabular}{|r|c|c|c|}
+        \hline
+        & Low $p_T$ & High $p_T$ & incl. \\
+        \hline
+        No R. & 0.157 & 0.133 & 0.150 \\
+        Reg.  & 0.134 & 0.121 & 0.130 \\
+        Fit   & 0.129 & 0.112 & 0.124 \\
+        \hline
+      \end{tabular}
+      }
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Di-jet Mass Performance -- One Additional Jet}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
+      \includegraphics[width=0.8\linewidth]{200624_fit/fits_SR_med_Hmass_1j__.pdf} \\
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200624_fit/fits_SR_high_Hmass_1j__.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200624_fit/fits_SR_medhigh_Hmass_1j__.pdf} \\
+
+      Values of $\sigma/\mu$
+      {\scriptsize
+      \begin{tabular}{|r|c|c|c|}
+        \hline
+        & Low $p_T$ & High $p_T$ & incl. \\
+        \hline
+        No R. & 0.179 & 0.143 & 0.169 \\
+        Reg.  & 0.146 & 0.128 & 0.141 \\
+        Fit   & 0.152 & 0.131 & 0.146 \\
+        \hline
+      \end{tabular}
+      }
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Di-jet Mass Performance -- Two or More Additional Jets}
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$150 < V_{p_T} < \SI{250}{GeV}$} \\
+      \includegraphics[width=0.8\linewidth]{200624_fit/fits_SR_med_Hmass_ge2j__.pdf} \\
+      \textcolor{blue}{$\SI{250}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200624_fit/fits_SR_high_Hmass_ge2j__.pdf}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{$\SI{150}{GeV} < V_{p_T}$} \\
+      \includegraphics[width=0.8\linewidth]{200624_fit/fits_SR_medhigh_Hmass_ge2j__.pdf} \\
+
+      Values of $\sigma/\mu$
+      {\scriptsize
+      \begin{tabular}{|r|c|c|c|}
+        \hline
+        & Low $p_T$ & High $p_T$ & incl. \\
+        \hline
+        No R. & 0.216 & 0.185 & 0.204 \\
+        Reg.  & 0.170 & 0.156 & 0.165 \\
+        Fit   & 0.187 & 0.169 & 0.181 \\
+        \hline
+      \end{tabular}
+      }
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+
 
 \backupend
-\end{comment}
 
 \end{document}
