@@ -1,0 +1,9 @@
+'background': ['.*pdf_TT.*', '.*ttbar.*',
+              '.*QCD.*', '.*qqbar.*',
+              'pdf_gg', '.*VV.*', '.*ST.*',
+              '.*pdf_Zj.*', '.*pdf_Wj.*']
+'jetscale': ['.*_j_.*']
+'leptonID': ['.*_eff_.*']
+'luminosity': ['.*lumi_.*']
+'signal': ['.*BR_hbb.*', '.*Higgs.*',
+           '.*ZH.*', '.*WH.*']
