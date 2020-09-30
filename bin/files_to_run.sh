@@ -11,7 +11,7 @@ then
 
 fi
 
-server=eoscms.cern.ch
+server=xrootd.cmsaf.mit.edu
 
 
 recursive_list () {
@@ -23,7 +23,7 @@ recursive_list () {
 
     echo $dirtolist
 
-    contents=$(xrdfs $server ls $dirtolist)
+    contents=$(xrdfs $server ls $dirtolist | sort -u)
 
     for rootfile in $(echo $contents | grep '.root')
     do
@@ -50,7 +50,7 @@ recursive_list () {
 for sampledir in $(xrdfs $server ls $directory | grep -v '.root')
 do
 
-    sample=$(basename $sampledir)
+    sample=$(echo $sampledir | perl -ne 'm|/V13/([^/]+)| && print $1')
     recursive_list $sample.txt $sampledir
 
 done

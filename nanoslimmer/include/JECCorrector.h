@@ -181,17 +181,17 @@ void panda::JECCorrector::adjust_event (panda::Event& event, const std::string& 
 
   const std::map<int, std::string> begin = {
     {2017, "Fall17_17Nov2017"},
-    {2018, "Winter19_Autumn18"}
+    {2018, "Autumn18"}
   };
 
   const std::map<int, std::string> vers = {
     {2017, (event.run == 1 ? std::string("_V32_MC")
             : (std::vector<std::string>{"A", "B", "C", "DE", "F"}[(event.run > 297019) + (event.run > 299329) + (event.run > 302029) + (event.run > 304826)] + "_V32_DATA"))},
     {2018, (event.run == 1 ? std::string("_V19_MC")
-            : (std::vector<std::string>{"A", "B", "C", "D"}[(event.run > 316995) + (event.run > 319312) + (event.run > 320393)] + "_V19_DATA"))}
+            : std::string("_Run") + (std::vector<std::string>{"A", "B", "C", "D"}[(event.run > 316995) + (event.run > 319312) + (event.run > 320393)] + "_V19_DATA"))}
   };
 
-  static panda::JECCorrector corrector {std::string(getenv("CMSSW_BASE")) + "/jec/" + begin.at(year_int) + vers.at(year_int), "AK4PFchs"};
+  static panda::JECCorrector corrector {std::string(getenv("CMSSW_BASE")) + "/data/jec/" + begin.at(year_int) + vers.at(year_int), "AK4PFchs"};
 
   auto [jets, met] = corrector.get_jets_met(event, event.Jet, event.MET);
 

@@ -53,8 +53,8 @@ $(hbb): $(shell crombie deps src/hbb.cpp)
 	-I${CROMBIEPATH}/old -g \
 	$(LDFLAGS) $(CFLAGS) -L$(pandalib) $(pandalibs) -o $(hbb) src/hbb.cpp
 
-$(tarball): include/headers.d $(smear) $(hbb) ${CMSSW_BASE}/jec/* $(tag) ${CMSSW_BASE}/data/*
-	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib jec tag data
+$(tarball): include/headers.d $(smear) $(tag) ${CMSSW_BASE}/data/* # $(hbb)
+	tar -czf $(tarball) --directory ${CMSSW_BASE} bin lib tag data
 
 .PHONY: smeartest install test
 
@@ -62,7 +62,7 @@ smeartestdir = ${HOME}/public_html/plots/testnanosmear
 
 smeartest: $(smear)
 	test ! -f smear.root || rm smear.root
-	$(smear) 2017 $(smeartestfile) smear.root
+	$(smear) 2018 $(smeartestfile) smear.root
 	test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
 	test ! -d $(smeartestdir) || mv $(smeartestdir) $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump smear.root $(smeartestdir)
