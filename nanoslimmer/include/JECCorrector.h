@@ -173,18 +173,21 @@ const panda::RecoMet& panda::JECCorrector::get_met () const {
 
 void panda::JECCorrector::adjust_event (panda::Event& event, const std::string& year) {
 
-  // No update needed for these
-  if (year == "2018_v6" or year == "2018_custom" or year == "2016")
-    return;
+  /* // No update needed for these */
+  /* if (year == "2018_v6" or year == "2018_custom" or year == "2016") */
+  /*   return; */
 
   int year_int = std::stoi(year);
 
   const std::map<int, std::string> begin = {
+    {2016, "Summer16_07Aug2017"},
     {2017, "Fall17_17Nov2017"},
     {2018, "Autumn18"}
   };
 
   const std::map<int, std::string> vers = {
+    {2016, (event.run == 1 ? std::string("_V11_MC")
+            : (std::vector<std::string>{"BCD", "EF", "GH"}[(event.run > 276811) + (event.run > 278808)] + "_V11_DATA"))},
     {2017, (event.run == 1 ? std::string("_V32_MC")
             : (std::vector<std::string>{"A", "B", "C", "DE", "F"}[(event.run > 297019) + (event.run > 299329) + (event.run > 302029) + (event.run > 304826)] + "_V32_DATA"))},
     {2018, (event.run == 1 ? std::string("_V19_MC")
