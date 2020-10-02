@@ -51,7 +51,7 @@ crombie skim -n 1 -i . -o single --copy htotal -r run -l luminosityBlock -e even
 mv -v single/data.root single/mc.root .
 
 crombie skim -n ${CrombieNLocalProcs:-1} -i . -o skimmed --copy htotal -r run -l luminosityBlock -e event \
-    -c 'jet1_btagDeepB > 0.8 && dilep_pt > 100 && jet2 && num_bjet == 2'
+    -c 'dilep_pt > 50 && jet2 && num_bjet == 2'
 
 mv -v *.root single
 

@@ -1,6 +1,6 @@
-export CrombieMCConfig=MCConfig.txt
-#export CrombieMCConfig=MCConfig17.txt
+#export CrombieMCConfig=MCConfig.txt
+export CrombieMCConfig=MCConfig17.txt
 #export CrombieMCConfig=MCConfig16.txt
 #export CrombieMCConfig=CustomConfig.txt
-export CrombieInFilesDir=/data/t3home000/dabercro/nano/smearnano/200625_smearnano_2018
-export CrombieNLocalProcs=12
+export CrombieInFilesDir=/data/t3home000/dabercro/nano/smearnano/200930_smearnano_2017_v4
+export CrombieNLocalProcs=6
