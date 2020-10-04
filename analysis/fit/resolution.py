@@ -9,7 +9,7 @@ import numpy
 import random
 
 
-plotdir = '200626_2018_puid'
+plotdir = sys.argv[1]
 
 divbymean = True
 
@@ -110,7 +110,7 @@ for bintype in ['smear', 'rho']:
                 datetime.datetime.now(), '%y%m%d'
                 ),
             bintype,
-            sys.argv[1] if len(sys.argv) > 2 else '',
+            sys.argv[2] if len(sys.argv) > 3 else '',
             plotdir,
             '_divmean' if divbymean else ''
             )

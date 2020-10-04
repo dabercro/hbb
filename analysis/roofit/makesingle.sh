@@ -38,8 +38,8 @@ cd -
 
 mkdir single || exit 3
 
-hadd -f mc.root DYJets*.root TTTo2L*.root
-hadd -f data.root DoubleMuon.root EGamma.root
+hadd -f mc.root DYJets*.root TT*.root
+hadd -f data.root DoubleMuon.root *EG*.root
 
 mv -v *.root single
 
