@@ -10,7 +10,8 @@ tag = ${CMSSW_BASE}/tag
 tarball = ${CMSSW_BASE}/nano.tgz
 
 #smeartestfile = /data/t3home000/dabercro/scratch/nano/v6/*.root
-smeartestfile = /data/t3home000/dabercro/scratch/nano/EGamma/*.root
+#smeartestfile = /data/t3home000/dabercro/scratch/nano/EGamma/*.root
+smeartestfile = /data/t3home000/dabercro/scratch/nano/2017_v4/TTTo2L2Nu_TuneCP5_PSweights_13TeV-powheg-pythia8/*.root
 
 nano_version = v5
 
@@ -62,7 +63,7 @@ smeartestdir = ${HOME}/public_html/plots/testnanosmear
 
 smeartest: $(smear)
 	test ! -f smear.root || rm smear.root
-	$(smear) 2017 $(smeartestfile) smear.root
+	$(smear) 2017_v4 $(smeartestfile) smear.root
 	test ! -d $(smeartestdir)_old || rm -r $(smeartestdir)_old
 	test ! -d $(smeartestdir) || mv $(smeartestdir) $(smeartestdir)_old
 	test -z ${CMSSW_BASE} || crombie plotdump smear.root $(smeartestdir)
