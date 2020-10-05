@@ -24,7 +24,7 @@ def report(title, value, error=None):
     order = int(math.floor(math.log10(error))) - (numsig_figs - 1)
     format = '%{0}f'.format('.%i' % (-1 * order) if order < 1 else '')
 
-    print '%s: {f} +- {f}'.format(f=format) % (title, value, error)
+    print '%s: {f} \pm {f}'.format(f=format) % (title, value, error)
 
 
 class MeanCalc(object):
