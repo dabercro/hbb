@@ -15,10 +15,15 @@ namespace {
   };
 
   const std::map<std::string, smear_params> smear_versions {
-    // outputs/200401_2016.txt
+    // outputs/201007_2016.txt
     {"2016",
-        {1.013, 0.014,
-         0.029, 0.047}
+        {0.953, 0.028,
+         0.14, 0.10}
+    },
+    // outputs/201007_2016_v4.txt
+    {"2016_v4",
+        {0.951, 0.029,
+         0.020, 0.099}
     },
     // 201003_2017.txt
     {"2017",
