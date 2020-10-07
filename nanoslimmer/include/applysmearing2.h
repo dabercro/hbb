@@ -33,7 +33,7 @@ namespace {
     // 201004_2017_v4.txt
     {"2017_v4",
         {0.999, 0.028,
-         0.0, 0.086}
+        -0.074, 0.086}
     },
     // 201002_2018.txt
     {"2018",
@@ -108,11 +108,11 @@ namespace applysmearing2 {
       double down, up;
 
       if (regressed > gen_jet_pt) {
-        down = std::max(no_smear, nominal - band);
+        down = nominal - band;
         up = nominal + band;
       }
       else {
-        down = std::min(no_smear, nominal + band);
+        down = nominal + band;
         up = nominal - band;
       }
 
