@@ -1,0 +1,187 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie, \\
+  Guillelmo G\'omez-Ceballos, \\
+  Dymtro Kovalskyi, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{\bf \sffamily Smearing with Old NanoAOD \\ and New Phase Spaces}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Phase Space Changes}
+
+  \begin{itemize}
+  \item Requiring leading jet to pass the medium $b$-tagging working point
+  \item Requiring trailing jet to pass the loose working point
+  \item JECs updated to use the ones listed in the previous presentation
+  \item I ran 2018 NanoAODv6 with and without JEC update
+  \item Condor errors last night and sleeping in prevented me from making plots
+    with these numbers applied, but they will be ready soon
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Numeric Results}
+
+  \vfill
+  \def\arraystretch{1.5}
+  \begin{center}
+    \begin{tabular}{|l|l|c|c|}
+      \hline
+      Year & NanoAOD Version & MC Scaling & Smearing \\
+      \hline
+      2017 & v4 & $0.992 \pm 0.028$ & $-0.074 \pm 0.086$ \\
+      2017 & v7 & $0.987 \pm 0.028$ & $0.006 \pm 0.086$ \\
+      2018 & v6 no JEC & $1.008 \pm 0.021$ & $0.219 \pm 0.075$ \\
+      2018 & v6 & $1.008 \pm 0.021$ & $0.212 \pm 0.074$ \\
+      2018 & v7 & $0.992 \pm 0.021$ & $0.186 \pm 0.069$ \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  \begin{itemize}
+  \item With uncertainties, all scaling is consistent with unity
+  \item Smearing for 2018 shot up in this phase space,
+    but uncertainty remains the same
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Scaling Fits}
+
+  \fourfigs{2017, v4}
+           {201004_smear_201004_2017_v4_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {2018, v6}
+           {201004_smear_201002_2018_v6_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {2017, v7}
+           {201004_smear_201003_2017_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {2018, v7}
+           {201004_smear_201002_2018_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+
+  \vfill
+  It might be worth trying just a constant instead of a linear fit,
+  but it shouldn't matter with uncertainties
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smearing Fits}
+
+  \fourfigs{2017, v4}
+           {201004_smear_201004_2017_v4_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
+           {2018, v6}
+           {201004_smear_201002_2018_v6_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
+           {2017, v7}
+           {201004_smear_201003_2017_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
+           {2018, v7}
+           {201004_smear_201002_2018_divmean/resolution_jet1_adjusted_response_smear_0.pdf}
+
+  \vfill
+  We can see the lack of smearing needed in 2017,
+  as well as the significant smearing needed in 2018
+
+\end{frame}
+
+\beginbackup
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+
+\end{document}
