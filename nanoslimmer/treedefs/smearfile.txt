@@ -7,16 +7,24 @@ INCLUDE treedefs/eventinfo.txt
 pfmet = e.MET.pt
 pfmet_phi = e.MET.phi
 
-trigger/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
-            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 or \
-            e.HLT.Ele115_CaloIdVT_GsfTrkIdT or \
-            e.HLT.Ele27_WPTight_Gsf or \
-            e.HLT.Ele28_WPTight_Gsf or \
-            e.HLT.Ele32_WPTight_Gsf or \
-            e.HLT.Ele35_WPTight_Gsf or \
-            e.HLT.Ele38_WPTight_Gsf or \
-            e.HLT.Ele40_WPTight_Gsf or \
-            e.HLT.Ele32_WPTight_Gsf_L1DoubleEG
+trigger/O = e.HLT.Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ or \
+            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL or \
+            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ or \
+            e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
+            e.HLT.Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL or \
+            e.HLT.Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ or \
+            e.HLT.Mu17_TrkIsoVVL_TkMu8_TrkIsoVVL_DZ_Mass8
+
+trigger_old/O = e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass3p8 or \
+                e.HLT.Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8 or \
+                e.HLT.Ele115_CaloIdVT_GsfTrkIdT or \
+                e.HLT.Ele27_WPTight_Gsf or \
+                e.HLT.Ele28_WPTight_Gsf or \
+                e.HLT.Ele32_WPTight_Gsf or \
+                e.HLT.Ele35_WPTight_Gsf or \
+                e.HLT.Ele38_WPTight_Gsf or \
+                e.HLT.Ele40_WPTight_Gsf or \
+                e.HLT.Ele32_WPTight_Gsf_L1DoubleEG
 
 <lepid.h>
 

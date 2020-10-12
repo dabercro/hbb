@@ -6,7 +6,7 @@ $ = e.$ | genWeight
 
 rho$ = e.fixedGridRhoFastjet$ | All, CentralCalo, CentralNeutral
 
-bsf_$ = e.btagWeight.$ + (!e.btagWeight.$) | CSVV2, DeepCSVB
+bsf_$ = e.btagWeight.$ + (!e.btagWeight.$) | CSVV2, DeepCSVB, CMVA
 
 #is_data/O = (run > 1)
 
