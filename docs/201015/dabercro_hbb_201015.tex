@@ -1,0 +1,178 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie, \\
+  Guillelmo G\'omez-Ceballos, \\
+  Dymtro Kovalskyi, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{\bf \sffamily Smearing for 2016}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Smearing Results for 2016}
+
+  \begin{tabular}{|l|l|l|l|}
+    \hline
+    NanoAOD & Selection & Scaling & Smearing \\
+    \hline
+    v4 & Medium, Loose & $0.951 \pm 0.029$ & $0.020 \pm 0.099$ \\
+    v4 & Tight & $1.004 \pm 0.018$ & $-0.044 \pm 0.061$ \\
+    v4 & Tight, Loose & $0.918 \pm 0.041$ & $-0.040 \pm 0.13$ \\
+    v4 & Tight, Medium & $0.876 \pm 0.065$ & $0.350 \pm 0.38$ \\
+    v7 & Medium, Loose & $0.935 \pm 0.029$ & $0.140 \pm 0.11$ \\
+    v7 & Tight & $0.998 \pm 0.019$ & $0.017 \pm 0.060$ \\
+    v7 & Tight, Loose & $0.927 \pm 0.040$ & $0.030 \pm 0.14$ \\
+    v7 & Tight, Medium & $0.910 \pm 0.062$ & $0.200 \pm 0.29$ \\
+    \hline
+  \end{tabular}
+
+  \vfill
+  \centering
+  A lot of scaling is needed for anything with a cut on the trailing jet
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mean Fits}
+
+  \fourfigs{Tight, no cut}
+           {201013_smear_201013_2016_tight_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {Medium, Loose}
+           {201013_smear_201013_2016_medium_loose_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {Tight, Medium}
+           {201013_smear_201013_2016_tight_medium_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {Tight, Loose}
+           {201013_smear_201013_2016_tight_loose_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+
+  \vfill
+  \centering
+  The second lowest bin looks very low in the data
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Troublesome Bin}
+
+  \fourfigs{Tight, no cut}
+           {201013_2016_tight/smearplot_2_jet1_adjusted_response.pdf}
+           {Medium, Loose}
+           {201013_2016_medium_loose/smearplot_2_jet1_adjusted_response.pdf}
+           {Tight, Medium}
+           {201013_2016_tight_medium/smearplot_2_jet1_adjusted_response.pdf}
+           {Tight, Loose}
+           {201013_2016_tight_loose/smearplot_2_jet1_adjusted_response.pdf}
+
+\end{frame}
+
+\beginbackup
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Backup Slides}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mean Fits -- v4}
+
+  \fourfigs{Tight, no cut}
+           {201013_smear_201013_2016_v4_tight_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {Medium, Loose}
+           {201013_smear_201013_2016_v4_medium_loose_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {Tight, Medium}
+           {201013_smear_201013_2016_v4_tight_medium_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+           {Tight, Loose}
+           {201013_smear_201013_2016_v4_tight_loose_divmean/mean_jet1_adjusted_response_smear_0.pdf}
+
+\end{frame}
+
+\backupend
+
+\end{document}
