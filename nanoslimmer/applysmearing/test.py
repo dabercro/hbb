@@ -12,8 +12,8 @@ class TestSmearing(unittest.TestCase):
 
     epsilon = 0.0000001
 
-    def run_test(self, year, isdata, infile):
-        applicator = applysmearing.SmearApplicator(year=year, isdata=isdata)
+    def run_test(self, year, isdata, infile, useV13=True, doscaling=False):
+        applicator = applysmearing.SmearApplicator(year=year, isdata=isdata, useV13=useV13, doscaling=doscaling)
 
         inputfile = ROOT.TFile(infile)
         inputtree = inputfile.events
@@ -49,7 +49,7 @@ class TestSmearing(unittest.TestCase):
                 self.assertTrue((jet2_tree_up - jet2_applicator.up)/jet2_tree_up < self.epsilon)
 
 
-    def test_2018(self):
+    def _test_2018(self):
 
         year = '2018'
         indir = '/data/t3home000/dabercro/nano/smearnano/200618_smearnano_2018'
@@ -61,7 +61,7 @@ class TestSmearing(unittest.TestCase):
             self.run_test(year=year, isdata=isdata, infile=infile)
 
 
-    def test_2017(self):
+    def _test_2017(self):
 
         year = '2017'
         indir = '/data/t3home000/dabercro/nano/smearnano/200618_smearnano_2017'
@@ -75,13 +75,24 @@ class TestSmearing(unittest.TestCase):
     def test_2016(self):
 
         year = '2016'
-        indir = '/data/t3home000/dabercro/nano/smearnano/200618_smearnano_2016'
+        indir = '/data/t3home000/dabercro/nano/smearnano/201015_smearnano_2016'
 
         mcfile = os.path.join(indir, 'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/822.root')
         datafile = os.path.join(indir, 'DoubleMuon/100.root')
 
         for isdata, infile in [(False, mcfile), (True, datafile)]:
-            self.run_test(year=year, isdata=isdata, infile=infile)
+            self.run_test(year=year, isdata=isdata, infile=infile, useV13=True, doscaling=False)
+
+    def test_2016_v4(self):
+
+        year = '2016'
+        indir = '/data/t3home000/dabercro/nano/smearnano/201015_smearnano_2016_v4'
+
+        mcfile = os.path.join(indir, 'DYJetsToLL_M-50_HT-400to600_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/527.root')
+        datafile = os.path.join(indir, 'DoubleMuon/100.root')
+
+        for isdata, infile in [(False, mcfile), (True, datafile)]:
+            self.run_test(year=year, isdata=isdata, infile=infile, useV13=False, doscaling=False)
 
 
 if __name__ == '__main__':
