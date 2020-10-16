@@ -17,18 +17,28 @@ class SmearResult:
 
 class SmearApplicator:
 
-    def __init__(self, year, isdata):
+    def __init__(self, year, isdata, useV13, doscaling):
 
         self.isdata = isdata
         self.smear_params = SmearParams(*(
-                {'2016': [1.013, 0.014,
-                          0.029, 0.047],
-                 '2017': [1.017, 0.021,
-                          0.058, 0.066],
-                 '2018': [0.985, 0.019,
-                          0.080, 0.073],
-                 }[year]
+                ({'2016': [0.998, 0.019,
+                           0.017, 0.060],
+                  '2017': [1.020, 0.023,
+                           0.088, 0.071],
+                  '2018': [0.985, 0.019,
+                           0.080, 0.073],
+                  } if useV13 else
+                 {'2016': [1.004, 0.018,
+                          -0.044, 0.061],
+                  '2017': [1.011, 0.022,
+                           0.051, 0.068],
+                  '2018': [0.982, 0.019,
+                           0.150, 0.079],
+                  })[year]
                 ))
+
+        if not doscaling:
+            self.smear_params.scale = 1.0
 
     def get_smear(self, jet_pt, regression_factor, gen_pt, rho=0): # Not using rho yet
 
@@ -47,9 +57,9 @@ class SmearApplicator:
                              pow(gen_diff * self.smear_params.scale * self.smear_params.smear_err, 2))
 
             down, up = \
-                (max(nominal - band, no_smear), nominal + band) \
+                (nominal - band, nominal + band) \
                 if regressed > gen_pt else \
-                (min(nominal + band, no_smear), nominal - band)
+                (nominal + band, nominal - band)
 
             return SmearResult(down, nominal, up)
 
