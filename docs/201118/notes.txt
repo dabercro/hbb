@@ -1,0 +1,19 @@
+STXS plots:
+Take out if statement
+move sys stat text
+Ordering of bins -- Match Christina's talk
+
+0 and 1 jet uses the same normalization
+
+Show side-by-side for unblinded and blinded
+
+Get year-by-year
+and impacts to debug
+Compare with and without splitting
+
+Show scale factors, given control region, then unblinded
+Ratio of post-fit to pre-fit integral
+
+Closure on the post-fit
+
+Goodness of fit on unblinded VZ
