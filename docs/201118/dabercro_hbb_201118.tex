@@ -1,7 +1,24 @@
 \documentclass{beamer}
 
 \author[D. Abercrombie]{
-  List of names
+  {\bf DESY}: A. de Wit, R. Mankel, S. Kaveh, A. Nigamova \\
+  \vfill
+  {\bf ETH}: C. Grab, A. Calandri, P. Berger, G. Perrin, K. Gedia, \\
+  \qquad \qquad C. Reissel, B. Kaech, L. Perrozzi \\
+  \vfill
+  {\bf INFN Pisa}: A. Rizz \\
+  \vfill
+  {\bf MIT}: \emph{D. Abercrombie}, G. G\'omez-Ceballos, D. Kovalskyi, \\
+  \qquad \qquad B. Maier, C. Paus \\
+  \vfill
+  {\bf Princeton}: J. Olsen, N. Haubrich, C. Palmer \\
+  \vfill
+  {\bf U. Florida}: J. Konigsberg \\
+  \vfill
+  {\bf RBI}: V. Brigljevic, B. Chitroda, D. Ferencek, \\
+  \qquad \qquad S. Mishra, T. Susa \\
+  \vfill
+  {\bf RWTH}: A. Schmidt \\
 }
 
 \title{\bf \sffamily Unblinding of VZ Cross-check Analysis}
@@ -89,7 +106,15 @@
 \begin{document}
 
 \begin{frame}
-  \titlepage
+  \begin{center}
+  \usebeamerfont{title}\inserttitle \\
+  \end{center}
+  \vfill
+  \usebeamerfont{author}\insertauthor \\
+  \vfill
+  \begin{center}
+  \usebeamerfont{date}\insertdate
+  \end{center}
 \end{frame}
 
 \begin{frame}
@@ -102,11 +127,15 @@
   \begin{columns}
     \begin{column}{0.5\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth,page=1]{/Users/dabercro/GradSchool/sources/AN-19-229_temp.pdf}
+      \IfFileExists{/Users/dabercro/GradSchool/sources/AN-19-229_temp.pdf}
+                   {\includegraphics[width=0.9\linewidth,page=1]{/Users/dabercro/GradSchool/sources/AN-19-229_temp.pdf}}
+                   {\includegraphics[width=0.9\linewidth,page=1]{/home/dabercro/GradSchool/sources/AN-19-229_temp.pdf}}
     \end{column}
     \begin{column}{0.5\linewidth}
       \centering
-      \includegraphics[width=0.9\linewidth,page=1]{/Users/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}
+      \IfFileExists{/Users/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}
+                   {\includegraphics[width=0.9\linewidth,page=1]{/Users/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}}
+                   {\includegraphics[width=0.9\linewidth,page=1]{/home/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}}
     \end{column}
   \end{columns}
 
@@ -115,17 +144,93 @@
 \begin{frame}
   \frametitle{Selection}
 
-  Brief description of channels, selections, and STXS binning
+  There are five channels we look at in each year
+  \begin{itemize}
+  \item 0 leptons -- $Z\nu\nu$
+  \item 1 lepton -- $We\nu, W\mu\nu$
+  \item 2 leptons -- $Zee, Z\mu\mu$
+  \end{itemize}
+  The channels are split into the following Simplified Template Cross Section bins
+  \begin{itemize}
+  \item $p_{T,V} > \SI{400}{GeV}$ and $\SI{250}{GeV} < p_{T,V} < \SI{400}{GeV}$,
+    which includes boosted selections for each channel
+  \item $\SI{150}{GeV} < p_{T,V} < \SI{250}{GeV}$,
+    which is also split into having additional jets and not for $Z$ channels
+  \item $\SI{75}{GeV} < p_{T,V} < \SI{150}{GeV}$,
+    which is only measured in the \\ 2 leptons channels
+  \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Systematics and Correlations}
+  \frametitle{Systematics}
+
+  Theory Uncertainties:
+  \begin{itemize}
+  \item $Hbb$ branching ratio
+  \item Renormalization and scale factors
+  \item Signal migration between $p_T$ bins
+  \item Background and signal yields
+  \item NLO reweighting
+  \end{itemize}
+
+  Experimental Uncertainties:
+  \begin{itemize}
+  \item $b$-tag weights
+  \item Jet energy scale and smearing
+  \item PU weight
+  \item Luminosity
+  \item Lepton ID uncertainties
+  \item Trigger efficiencies
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Background Scale Factors}
+
+SF_B_high_2018_btag_BOOST    7.1264e-01 +/-  6.14e-02
+SF_C_failB_high_2018_btag_BOOST    8.9485e-01 +/-  1.03e-01
+SF_C_passB_high_2018_btag_BOOST    1.6733e+00 +/-  2.67e-01
+SF_LF_high_2018_btag_BOOST    9.1874e-01 +/-  3.73e-02
+SF_TT_Wln_2018    8.4404e-01 +/-  5.79e-02
+SF_TT_Zll_2018    8.1843e-01 +/-  7.69e-02
+SF_TT_Znn_2018    8.1993e-01 +/-  5.51e-02
+SF_TT_high_2018_btag_BOOST    9.3299e-01 +/-  1.59e-02
+SF_Wj0b_c_Wln_2018    1.4600e+00 +/-  1.64e-01
+SF_Wj0b_udsg_Wln_2018    8.6231e-01 +/-  7.23e-02
+SF_Wjb_Wln_2018    1.0760e+00 +/-  1.16e-01
+SF_Zj0b_c_Zll_2018    1.5513e+00 +/-  5.36e-01
+SF_Zj0b_c_Znn_2018    1.1356e+00 +/-  1.77e-01
+SF_Zj0b_udsg_Zll_2018    9.6891e-01 +/-  7.08e-02
+SF_Zj0b_udsg_Znn_2018    1.0831e+00 +/-  8.58e-02
+SF_Zjb_Zll_2018    1.2190e+00 +/-  8.57e-02
+SF_Zjb_Znn_2018    1.3759e+00 +/-  8.01e-02
+
+SF_B_high_2017_btag_BOOST    6.2285e-01 +/-  8.14e-02
+SF_C_failB_high_2017_btag_BOOST    2.1255e+00 +/-  2.40e-01
+SF_C_passB_high_2017_btag_BOOST    2.3102e+00 +/-  3.29e-01
+SF_LF_high_2017_btag_BOOST    7.9746e-01 +/-  2.17e-02
+SF_TT_Wln_2017    8.8200e-01 +/-  5.98e-02
+SF_TT_Zll_2017    7.9685e-01 +/-  6.94e-02
+SF_TT_Znn_2017    1.0114e+00 +/-  6.69e-02
+SF_TT_high_2017_btag_BOOST    8.9836e-01 +/-  1.63e-02
+SF_Wj0b_c_Wln_2017    8.9129e-01 +/-  1.13e-01
+SF_Wj0b_udsg_Wln_2017    1.0637e+00 +/-  8.15e-02
+SF_Wjb_Wln_2017    1.2221e+00 +/-  1.24e-01
+SF_Zj0b_c_Zll_2017    1.1967e+00 +/-  1.84e-01
+SF_Zj0b_c_Znn_2017    1.3768e+00 +/-  1.97e-01
+SF_Zj0b_udsg_Zll_2017    1.0323e+00 +/-  6.74e-02
+SF_Zj0b_udsg_Znn_2017    1.3702e+00 +/-  1.22e-01
+SF_Zjb_Zll_2017    1.2013e+00 +/-  8.35e-02
+SF_Zjb_Znn_2017    1.5872e+00 +/-  9.40e-02
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Post-fit Plots}
+
+
 
 \end{frame}
 
@@ -150,7 +255,8 @@
 \begin{frame}
   \frametitle{Separation by Channel and Year}
 
-  Previous slide, but with years separated too
+  \centering
+  \includegraphics[width=0.8\linewidth]{201116_VZyear_unblinded_XbbVZ_nobtag_d308a317_0d357869/summary_stxs.pdf}
 
 \end{frame}
 
@@ -177,6 +283,9 @@
 
 \begin{frame}
   \frametitle{Kappa Scan Results}
+
+  \centering
+  \includegraphics[width=0.8\linewidth]{201115_STXSfine_400split_Xbb_nobtag_f8140c84_0d357869/limit.pdf}
 
 \end{frame}
 
