@@ -21,7 +21,7 @@
   {\bf RWTH}: A. Schmidt \\
 }
 
-\title{\bf \sffamily Unblinding of VZ Cross-check Analysis}
+\title{\bf \sffamily VH Sensitivity and Unblinding of VZ Cross-check Analysis}
 \date{\today}
 
 \usecolortheme{dove}
@@ -103,6 +103,10 @@
 \newcommand{\ttbar}{\ensuremath{t\bar{t}}}
 \newcommand{\bbbar}{\ensuremath{b\bar{b}}}
 
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
 \begin{document}
 
 \begin{frame}
@@ -119,25 +123,46 @@
 
 \begin{frame}
   \frametitle{Introduction}
+
+  \begin{itemize}
+  \item Reminder of selection and primary systematics
+  \item Expected sensitivity for $V\!H$ of each year,
+    \link{covered recently}{https://indico.cern.ch/event/961164/#6-vhbb-hig-20-001-status}
+  \item Unblinding of each year for $V\!Z$ cross-check analysis
+  \item Unblinded combination of Run 2 for $V\!Z$
+  \item Combination for expected sensitivity in $V\!H$ is running
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Documentation}
 
+  \begin{itemize}
+  \item \link{Pre-approval}{https://indico.cern.ch/event/943906/#14-pre-approval-of-hig-20-001}, August 18
+  \item \link{Pre-approval Follow-up}{https://indico.cern.ch/event/943919/#6-vh-hbb-update}, September 8
+  \item \link{VHbb Update}{https://indico.cern.ch/event/961164/#6-vhbb-hig-20-001-status}, November 3
+  \end{itemize}
+  
   \begin{columns}
     \begin{column}{0.5\linewidth}
       \centering
       \IfFileExists{/Users/dabercro/GradSchool/sources/AN-19-229_temp.pdf}
-                   {\includegraphics[width=0.9\linewidth,page=1]{/Users/dabercro/GradSchool/sources/AN-19-229_temp.pdf}}
-                   {\includegraphics[width=0.9\linewidth,page=1]{/home/dabercro/GradSchool/sources/AN-19-229_temp.pdf}}
+                   {\includegraphics[width=0.6\linewidth,page=1]{/Users/dabercro/GradSchool/sources/AN-19-229_temp.pdf}}
+                   {\includegraphics[width=0.6\linewidth,page=1]{/home/dabercro/GradSchool/sources/AN-19-229_temp.pdf}} \\
+                   \link{link}{http://cms.cern.ch/iCMS/jsp/db_notes/noteInfo.jsp?cmsnoteid=CMS\%20AN-2019/229}
     \end{column}
     \begin{column}{0.5\linewidth}
       \centering
       \IfFileExists{/Users/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}
-                   {\includegraphics[width=0.9\linewidth,page=1]{/Users/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}}
-                   {\includegraphics[width=0.9\linewidth,page=1]{/home/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}}
+                   {\includegraphics[width=0.6\linewidth,page=1]{/Users/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}}
+                   {\includegraphics[width=0.6\linewidth,page=1]{/home/dabercro/GradSchool/sources/HIG-20-001_temp.pdf}} \\
+                   \link{link}{http://cms.cern.ch/iCMS/jsp/db_notes/noteInfo.jsp?cmsnoteid=CMS\%20AN-2020/145}
     \end{column}
   \end{columns}
+
+  \vfill
+  An updated AN was circulated on Friday, and another version with unblinded $V\!Z$ results is coming soon
 
 \end{frame}
 
@@ -150,7 +175,7 @@
   \item 1 lepton -- $We\nu, W\mu\nu$
   \item 2 leptons -- $Zee, Z\mu\mu$
   \end{itemize}
-  The channels are split into the following Simplified Template Cross Section bins
+  The channels are split into the following Simplified Template Cross Section (STXS) bins
   \begin{itemize}
   \item $p_{T,V} > \SI{400}{GeV}$ and $\SI{250}{GeV} < p_{T,V} < \SI{400}{GeV}$,
     which includes boosted selections for each channel
@@ -167,7 +192,7 @@
 
   Theory Uncertainties:
   \begin{itemize}
-  \item $Hbb$ branching ratio
+  \item $Hb\bar{b}$ branching ratio
   \item Renormalization and scale factors
   \item Signal migration between $p_T$ bins
   \item Background and signal yields
@@ -184,121 +209,212 @@
   \item Trigger efficiencies
   \end{itemize}
 
+  Details were given in \link{previous talk}{https://indico.cern.ch/event/961164/#6-vhbb-hig-20-001-status}
+
 \end{frame}
 
 \begin{frame}
-  \frametitle{Background Scale Factors}
+  \frametitle{Cross-Check: $M\!j\!j$ Analysis -- 2016}
+
+  Combination of all signal categories
+
+  \includegraphics[width=\linewidth]{Screenshot_2020-11-18_09-21-49.png}
+
+  Both $V\!H$ and $V\!Z$ are shown here,
+  and background normalization looks good
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Cross-Check: $M\!j\!j$ Analysis -- 2017 and 2016}
+
+  \fourfigs{2017}
+           {wtsignorm_shapes12Nov2017_postfit.png}
+           {2018}
+           {wtsignorm_shapes10Nov2018_postfit.png}
+           {2017 -- No bkgrd.}
+           {wtsignorm_shapes12Nov2017_postfit_unsub.png}
+           {2018 -- No bkgrd.}
+           {wtsignorm_shapes10Nov2018_postfit_unsub.png}
+
+  Like 2016, we can see by eye that sensitivity is there
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$V\!H$ Asimov Sensitivity -- 2016}
+
+  \twofigs{STXS bin sensitivity}
+          {Screenshot_2020-11-18_08-28-13.png}
+          {CR-only Fit Scale Factors}
+          {Screenshot_2020-11-18_08-28-44.png}
+
+  \begin{itemize}
+  \item Split higher $p_T$ bins look to remain sensitive
+  \item Some significant scale factors are highlighted
+  \item \link{Postfit plots}{https://chreisse.web.cern.ch/chreisse/plots/fits_2020_11_17/}
+    show good agreement
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$V\!H$ Asimov Sensitivity -- 2017}
+
+  Sensitivity trends look very similar to 2016 \\
+  \vfill
+
+  \twofigs{STXS bin sensitivity}
+          {Figures_Results_summary_stxs_2017_xbb_updatedNov4.png}
+          {SR+CR Fit SFs from AN}
+          {Screenshot_2020-11-18_09-30-31.png}
+
+  \vfill
+  Channel-separated SFs are available for other years in the AN
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{$V\!H$ Asimov Sensitivity -- 2018}
+
+  \twofigs{STXS bin sensitivity}
+          {Screenshot_2020-11-18_08-42-32.png}
+          {CR-only Fit Scale Factors}
+          {Screenshot_2020-11-18_08-43-03.png}
+
+  \begin{itemize}
+  \item The highest $p_T$ bin looks less sensitive in isolation
+  \item Boosted and Charm SFs cover both process and efficiency
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{2016 $V\!Z$ Unblinding}
+
+  \twofigs{Inclusive Results}
+          {Screenshot_2020-11-18_07-01-47.png}
+          {STXS Results}
+          {summary_stxs_2016.pdf}
+
+  \vfill
+  Most bins are within one $\sigma$ of the Standard Model
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{2017 $V\!Z$ Unblinding}
+
+  \twofigs{Inclusive Asimov}
+          {Figures_VZ_VZbb_2017_updatedNov4.png}
+          {STXS Results}
+          {2017_unblindedVZbb.pdf}
+
+  \vfill
+  Most bins again agree with the Standard Model,
+  with most disagreements trending the opposite direction of 2016
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{2018 $V\!Z$ Unblinding}
+
+  \twofigs{Inclusive Results}
+          {Screenshot_2020-11-18_07-19-11.png}
+          {STXS Results}
+          {Screenshot_2020-11-18_07-20-00.png}
+
+  \vfill
+  2018 consistently shows $Z\!Z$ measuring lower than expected
+  and $W\!Z$ measuring higher
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{2018 Scale Factor Comparisons}
+
+  Most of the scale factors for $V\!H$ and $V\!Z$ agree well, \\
+  except for the highlighted \texttt{SF\_Wjb\_Wln\_2018} \\
 
   \centering
+  \includegraphics[width=0.7\linewidth]{Screenshot_2020-11-18_08-52-19.png}
 
-  {\small
-  \begin{tabular}{|c|c|c|}
-    \hline
- & 2017 & 2018 \\
-\hline
-B\_high\_btag\_BOOST & 0.62 \pm 0.08 & 0.71 \pm 0.06 \\
-\hline
-C\_failB\_high\_btag\_BOOST & 2.13 \pm 0.24 & 0.89 \pm 0.10 \\
-\hline
-C\_passB\_high\_btag\_BOOST & 2.31 \pm 0.33 & 1.67 \pm 0.27 \\
-\hline
-LF\_high\_btag\_BOOST & 0.80 \pm 0.02 & 0.92 \pm 0.04 \\
-\hline
-TT\_Wln & 0.88 \pm 0.06 & 0.84 \pm 0.06 \\
-\hline
-TT\_Zll & 0.80 \pm 0.07 & 0.82 \pm 0.08 \\
-\hline
-TT\_Znn & 1.01 \pm 0.07 & 0.82 \pm 0.06 \\
-\hline
-TT\_high\_btag\_BOOST & 0.90 \pm 0.02 & 0.93 \pm 0.02 \\
-\hline
-Wj0b\_c\_Wln & 0.89 \pm 0.11 & 1.46 \pm 0.16 \\
-\hline
-Wj0b\_udsg\_Wln & 1.06 \pm 0.08 & 0.86 \pm 0.07 \\
-\hline
-Wjb\_Wln & 1.22 \pm 0.12 & 1.08 \pm 0.12 \\
-\hline
-Zj0b\_c\_Zll & 1.20 \pm 0.18 & 1.55 \pm 0.54 \\
-\hline
-Zj0b\_c\_Znn & 1.38 \pm 0.20 & 1.14 \pm 0.18 \\
-\hline
-Zj0b\_udsg\_Zll & 1.03 \pm 0.07 & 0.97 \pm 0.07 \\
-\hline
-Zj0b\_udsg\_Znn & 1.37 \pm 0.12 & 1.08 \pm 0.09 \\
-\hline
-Zjb\_Zll & 1.20 \pm 0.08 & 1.22 \pm 0.09 \\
-\hline
-Zjb\_Znn & 1.59 \pm 0.09 & 1.38 \pm 0.08 \\
-\hline
-  \end{tabular}
-  }
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{$V\!Z$ Combination}
+
+  \twofigs{Inclusive Result}
+          {201118_inclVZ/scan_nominal_r.pdf}
+          {STXS bins}
+          {201118_STXS_VZ/summary_stxs.pdf}
+
+  \begin{itemize}
+  \item Inclusive result is a little low, but close to Standard Model
+  \item STXS also consistent with Standard Model
+  \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Post-fit Plots}
-
-
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Inclusive Scan results}
-
-  \twofigs{}
-          {201115_inclVZ_unblinded_XbbVZ_d308a317_0d357869/scan_nominal_r.pdf}
-          {}
-          {201115_inclVZ_unblinded_XbbVZ_d308a317_0d357869/summary_stxs.pdf}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Separation by Channel}
+  \frametitle{Systematics Contributions}
 
   \centering
-  \includegraphics[width=0.8\linewidth]{201115_VZ_unblinded_XbbVZ_nobtag_d308a317_0d357869/summary_stxs.pdf}
+  {\footnotesize
+  \begin{tabular}{|c|c|c|c|c|}
+\hline
+& WZ [250,400] & WZ [400, $\infty$] & WZ [150, 250] & ZZ [150,250] +J \\
+\hline
+back. & +0.089  -0.063 & +0.087  -0.036 & +0.087  -0.069  & +0.067  -0.042 \\
+jetscale & +0.035  -0.031 & +0.069  -0.058 & +0.055  -0.055 & +0.033  -0.029 \\
+leptonID & +0.018  -0.007 & +0.036  0.000 & +0.021  -0.001 & +0.014  -0.013 \\
+lumi. & +0.012  -0.015 & +0.025  -0.023 & +0.019  -0.013 & +0.013  -0.016 \\
+XS & +0.065  -0.056 & +0.036  -0.021 & +0.060  -0.053 & +0.028  -0.023 \\
+signal & +0.007  -0.003 & +0.017  -0.001 & +0.006  -0.003 & +0.006  -0.003 \\
+branching & +0.007  -0.003 & +0.017  -0.001 & +0.006  -0.003 & +0.006  -0.003 \\
+\hline
+\end{tabular}
+
+  \begin{tabular}{|c|c|c|c|c|}
+\hline
+& ZZ [250,400] & ZZ [400, $\infty$] & ZZ [75, 150] & ZZ [150,250] -J \\
+\hline
+back. & +0.065  -0.046 & +0.066  -0.032 & +0.071  -0.039 & +0.063  -0.047\\
+jetscale & +0.032  -0.028 & +0.035  -0.027 & +0.018  -0.015 & +0.019  -0.017 \\
+leptonID & +0.008  -0.009 & +0.013  -0.005 & +0.040  -0.013 & +0.008  -0.005 \\
+lumi. & +0.022  -0.021 & +0.018  -0.020 & +0.014  -0.020 & +0.018  -0.018 \\
+XS & +0.027  -0.023 & +0.013  -0.006 & +0.012  -0.009 & +0.026  -0.021 \\
+signal & +0.006  -0.004 & +0.007  -0.003 & +0.007  -0.003 & +0.006  -0.004 \\
+branching & +0.006  -0.004 & +0.007  -0.003 & +0.007  -0.003 & +0.006  -0.004 \\
+\hline
+\end{tabular}
+}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{Separation by Channel and Year}
+  \frametitle{$V\!Z$ Combination -- By Channel and Year}
 
-  \centering
-  \includegraphics[width=0.8\linewidth]{201116_VZyear_unblinded_XbbVZ_nobtag_d308a317_0d357869/summary_stxs.pdf}
+  \begin{center}
+  \includegraphics[width=0.7\linewidth]{201118_VZyear/summary_stxs.pdf}
+  \end{center}
 
-\end{frame}
-
-\begin{frame}
-  \frametitle{STXS Bins}
-
-  \centering
-  \includegraphics[width=0.8\linewidth]{201114_STXS_VZ_unblinded_XbbVZ_nobtag_d308a317_0d357869/summary_stxs.pdf}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Impacts}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{VH Blinded STXS Bins}
-
-  \centering
-  \includegraphics[width=0.8\linewidth]{201115_STXSfine_400split_Xbb_nobtag_f8140c84_0d357869/summary_stxs.pdf}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Kappa Scan Results}
-
-  \centering
-  \includegraphics[width=0.8\linewidth]{201115_STXSfine_400split_Xbb_nobtag_f8140c84_0d357869/limit.pdf}
+  Separation of channels agrees with the separate yearly results
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Conclusions}
+
+  \begin{itemize}
+  \item JME review in progress: \link{HyperNews}{https://hypernews.cern.ch/HyperNews/CMS/get/HIG-20-001/7/1.html}. \\
+    Plan to complete review by today
+  \item Combination datacards have been pushed to HComb git \link{repository}{https://gitlab.cern.ch/cms-hcg/cadi/hig-20-001} for combination group review. \\
+    Currently running tests proposed by combination group, with results expected by tomorrow
+  \item $V\!Z$ results look as expected. We are ready to unblind $V\!H$
+  \end{itemize}
 
 \end{frame}
 
@@ -310,7 +426,19 @@ Zjb\_Znn & 1.59 \pm 0.09 & 1.38 \pm 0.08 \\
     {\Huge \bf\sffamily Backup Slides}
 \end{frame}
 
-\input{backup_slides.tex}
+\begin{frame}
+  \frametitle{Impacts}
+
+  \includegraphics[page=1,width=\linewidth]{impacts_out.pdf}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Impacts}
+
+  \includegraphics[page=2,width=\linewidth]{impacts_out.pdf}
+
+\end{frame}
 
 \backupend
 \end{comment}
