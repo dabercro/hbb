@@ -1,0 +1,142 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie, \\
+  Guillelmo G\'omez-Ceballos, \\
+  Dymtro Kovalskyi, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{\bf \sffamily Impact Plot Status for VH}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Excluded Parameters}
+
+  These are still running, with interactive jobs for each:
+
+  \begin{itemize}
+  \item CMS\_LHE\_weights\_pdf\_Wj0b\_c
+  \item CMS\_vhbb\_Vpt150\_DYj0b\_c\_13TeV2016
+  \item CMS\_vhbb\_Vpt150\_DYj0b\_c\_13TeV2017
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Links to Impact Plots}
+
+  \begin{itemize}
+  \item \link{Full Directory}{http://t3serv001.mit.edu/~dabercro/misc/impacts/}
+  \item \link{r\_whhi1}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_whhi1.pdf}
+  \item \link{r\_whmed}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_whmed.pdf}
+  \item \link{r\_zhhi2}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_zhhi2.pdf}
+  \item \link{r\_zhmednoj}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_zhmednoj.pdf}
+  \item \link{r\_whhi2}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_whhi2.pdf}
+  \item \link{r\_zhhi1}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_zhhi1.pdf}
+  \item \link{r\_zhlow}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_zhlow.pdf}
+  \item \link{r\_zhmedwithj}{http://t3serv001.mit.edu/~dabercro/misc/impacts/impacts_r_zhmedwithj.pdf}
+  \end{itemize}
+
+\end{frame}
+
+\begin{comment}
+\beginbackup
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+\end{comment}
+
+\end{document}
