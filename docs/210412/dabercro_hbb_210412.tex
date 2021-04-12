@@ -1,0 +1,176 @@
+\documentclass{beamer}
+
+\author[D. Abercrombie]{
+  Daniel Abercrombie, \\
+  Guillelmo G\'omez-Ceballos, \\
+  Dymtro Kovalskyi, \\
+  Benedikt Maier, \\
+  Christoph Paus
+}
+
+\title{Systematics Contributions}
+\date{\today}
+
+\usecolortheme{dove}
+
+\usepackage[absolute,overlay]{textpos}
+\usefonttheme{serif}
+\usepackage{appendixnumberbeamer}
+\usepackage{isotope}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\setbeamerfont{frametitle}{size=\Large,series=\bf\sffamily}
+\setbeamertemplate{frametitle}[default][center]
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{comment}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{graphicx}
+\usepackage{color}
+\setbeamertemplate{footline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hfill \insertshortauthor \hfill \insertpagenumber /\inserttotalframenumber}}
+\setbeamertemplate{headline}[text line]{\parbox{1.083\linewidth}{\footnotesize \hspace{-0.083\linewidth} \textcolor{blue}{\sffamily \insertsection \hfill \insertsubsection}}}
+
+\IfFileExists{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}
+             {\logo{\includegraphics[height=0.5cm]{/Users/dabercro/GradSchool/Presentations/MIT-logo.pdf}}}
+             {\logo{\includegraphics[height=0.5cm]{/home/dabercro/MIT-logo.pdf}}}
+
+\usepackage{changepage}
+
+\newcommand{\beginbackup}{
+  \newcounter{framenumbervorappendix}
+  \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+  \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+  \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\graphicspath{{figs/}}
+
+\newcommand{\link}[2]{\href{#2}{\textcolor{blue}{\underline{#1}}}}
+\newcommand{\clink}[2]{\link{#1}{http://t3serv001.mit.edu/~dabercro/redir/?k=#2}}}
+
+\newcommand{\twofigs}[4]{
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\fourfigs}[8]{
+  \begin{columns}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#1} \\
+      \includegraphics[width=\linewidth]{#2} \\
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.3\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=\linewidth]{#6} \\
+      \textcolor{blue}{#7} \\
+      \includegraphics[width=\linewidth]{#8}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\threefigs}[6]{
+  \centering
+  \textcolor{blue}{#1} \\
+  \includegraphics[width=0.35\linewidth]{#2}
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#3} \\
+      \includegraphics[width=0.7\linewidth]{#4}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      \centering
+      \textcolor{blue}{#5} \\
+      \includegraphics[width=0.7\linewidth]{#6}
+    \end{column}
+  \end{columns}
+}
+
+\newcommand{\ttbar}{\ensuremath{t\bar{t}}}
+\newcommand{\bbbar}{\ensuremath{b\bar{b}}}
+
+\begin{document}
+
+\begin{frame}
+
+  \frametitle{Contribution from Systematic Groups}
+
+  {\tiny
+  \begin{tabular}{|l|c|c|c|c|c|}
+    \hline
+& ZH low & ZH no J & ZH with J & ZH high & ZH highest \\
+\hline
+Signal & {+0.049} {-0.164} & {+0.040} {-0.103} & {+0.113} {-0.280} & {+0.142} {-0.031} & {+0.130} {-0.025}\\
+Background & {+0.038} {-0.050} & {+0.000} {-0.015} & {+0.069} {-0.065} & {+0.027} {-0.027} & {+0.038} {-0.025}\\
+\hline
+$b$-tagging & {+0.131} {-0.135} & {+0.038} {-0.036} & {+0.098} {-0.093} & {+0.052} {-0.046} & {+0.058} {-0.043}\\
+Jet energy & {+0.050} {-0.048} & {+0.019} {-0.030} & {+0.101} {-0.093} & {+0.045} {-0.040} & {+0.070} {-0.069}\\
+Lepton ID & {+0.032} {-0.032} & {+0.007} {-0.021} & {+0.000} {-0.067} & {+0.018} {-0.012} & {+0.028} {-0.022}\\
+LOtoNLO & {+0.154} {-0.162} & {+0.035} {-0.039} & {+0.113} {-0.083} & {+0.044} {-0.040} & {+0.045} {-0.025}\\
+Luminosity & {+0.016} {-0.020} & {+0.000} {-0.012} & {+0.017} {-0.014} & {+0.023} {-0.023} & {+0.039} {-0.012}\\
+Meas. XS & {+0.000} {-0.016} & {+0.000} {-0.000} & {+0.000} {-0.000} & {+0.026} {-0.016} & {+0.004} {-0.000}\\
+Triggers & {+0.024} {-0.010} & {+0.000} {-0.000} & {+0.029} {-0.000} & {+0.000} {-0.010} & {+0.023} {-0.013}\\
+$p_T(V)$ Mig. & {+0.362} {-0.387} & {+0.091} {-0.079} & {+0.232} {-0.210} & {+0.133} {-0.121} & {+0.252} {-0.235}\\
+\hline
+Total Sys. & {+0.529} {-0.553} & {+0.205} {-0.216} & {+0.464} {-0.506} & {+0.274} {-0.220} & {+0.355} {-0.306}\\
+Stat & {+0.479} {-0.469} & {+0.360} {-0.346} & {+0.781} {-0.738} & {+0.369} {-0.352} & {+0.620} {-0.563}\\
+\hline
+  \end{tabular}
+
+  \begin{tabular}{|l|c|c|c|}
+    \hline
+& WH med. & WH high & WH highest \\
+\hline
+Signal & {+0.060} {-0.000} & {+0.117} {-0.034} & {+0.223} {-0.117}\\
+Background & {+0.052} {-0.047} & {+0.053} {-0.025} & {+0.084} {-0.060}\\
+\hline
+$b$-tagging & {+0.128} {-0.118} & {+0.084} {-0.069} & {+0.092} {-0.077}\\
+Jet energy & {+0.225} {-0.203} & {+0.090} {-0.081} & {+0.116} {-0.076}\\
+Lepton ID & {+0.022} {-0.000} & {+0.054} {-0.042} & {+0.023} {-0.047}\\
+LOtoNLO & {+0.047} {-0.038} & {+0.035} {-0.005} & {+0.050} {-0.050}\\
+Luminosity & {+0.024} {-0.000} & {+0.045} {-0.000} & {+0.066} {-0.043}\\
+Meas. XS & {+0.034} {-0.000} & {+0.039} {-0.000} & {+0.047} {-0.057}\\
+Triggers & {+0.011} {-0.000} & {+0.022} {-0.035} & {+0.034} {-0.048}\\
+$p_T(V)$ Mig. & {+0.165} {-0.156} & {+0.133} {-0.123} & {+0.305} {-0.293}\\
+\hline
+Total Sys. & {+0.460} {-0.450} & {+0.362} {-0.333} & {+0.518} {-0.458}\\
+Stat & {+0.413} {-0.406} & {+0.447} {-0.430} & {+0.672} {-0.633}\\
+\hline
+  \end{tabular}
+  }
+
+\end{frame}
+
+\begin{comment}
+\beginbackup
+
+\begin{frame}
+  \centering
+    {\Huge \bf\sffamily Backup Slides}
+\end{frame}
+
+\input{backup_slides.tex}
+
+\backupend
+\end{comment}
+
+\end{document}
